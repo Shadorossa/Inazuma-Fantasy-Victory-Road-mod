@@ -1,0 +1,122 @@
+schema = "VRFW.passive_block/1"
+# Shared blocks of the passives; other mods use them as CharacterReforged.<name>.
+
+[[VRFW.MoveElement]]
+name = "wind_move"
+elements = ["wind"]
+
+[[VRFW.MoveElement]]
+name = "forest_move"
+elements = ["forest"]
+
+[[VRFW.MoveElement]]
+name = "fire_move"
+elements = ["fire"]
+
+[[VRFW.MoveElement]]
+name = "mountain_move"
+elements = ["mountain"]
+
+[[VRFW.MoveElement]]
+name = "void_move"
+elements = ["void"]
+
+# the factor the elemental passives' texts show (×1.15: content\techniques\element_plus.toml)
+[[VRFW.TechniquePower]]
+name = "own_power_15"
+mode = "percent"
+value = 15
+
+# the focus duel opponent's gender (the gender passives: content\special_passives\gender_focus.toml)
+[[VRFW.Trait]]
+name = "female_trait"
+gender = "female"
+
+[[VRFW.Trait]]
+name = "male_trait"
+gender = "male"
+
+[[VRFW.Rival]]
+name = "female_rival"
+trait = "female_trait"
+
+[[VRFW.Rival]]
+name = "male_rival"
+trait = "male_trait"
+
+# the factor the gender passives' texts show (+10 %: content\techniques\gender_focus.toml)
+[[VRFW.DuelPower]]
+name = "own_duel_power_10"
+percent = 10
+
+# ---- when a technique ends: the event, its kind and its outcome are separate blocks
+
+# he uses a special move and it is decided (a focus duel, a keeper battle)
+[[VRFW.Trigger]]
+name = "self_uses_technique"
+on = "match:hissatsu_result"
+by = "self"
+wording = "when"
+
+[[VRFW.MoveKind]]
+name = "dribble_technique"
+kinds = ["dribble"]
+
+[[VRFW.Outcome]]
+name = "outcome_succeeds"
+result = "succeeds"
+
+[[VRFW.Outcome]]
+name = "outcome_fails"
+result = "fails"
+
+# ---- stacks and resets
+
+# one stack each time, no limit
+[[VRFW.Stack]]
+name = "stack_no_limit"
+max = 0
+
+# nullified whenever a team member scores
+[[VRFW.Reset]]
+name = "team_scores"
+on = "match:goal"
+by = "team"
+
+# ---- effects
+
+# the Technique parameter of the midfielders of his team (him too when he is one), per passive level
+[[VRFW.Stat]]
+name = "mf_team_technique_up"
+stats = ["technique"]
+mode = "flat"
+value = 189
+value_by_level = [189, 252, 316, 379, 442, 505, 568, 600, 632, 695, 758, 790, 821, 853]
+target = "team"
+positions = ["mf"]
+
+# the tension his team earns from a focus duel it lost (the archetype passive of content\techniques\archetype_tension.toml)
+[[VRFW.TensionGain]]
+name = "team_tension_gain_focus_lost_12"
+percent = 12
+target = "team"
+plays = ["focus_lost"]
+
+# a focus duel he wins with a hard attack (the power action of the offense) or a hard block (of the defense)
+[[VRFW.Trigger]]
+name = "won_hard_attack"
+on = "match:duel_won"
+arg = "power_charge"
+by = "self"
+
+[[VRFW.Trigger]]
+name = "won_hard_block"
+on = "match:duel_won"
+arg = "power_block"
+by = "self"
+
+# 6 tension points for the team of the event's player
+[[VRFW.Tension]]
+name = "tension_6_actor"
+units = 6
+team = "actor"

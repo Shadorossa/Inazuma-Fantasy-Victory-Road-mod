@@ -13,7 +13,7 @@ if VRFW.menu_scene_team == nil then
     LAST_PLAYER = 15, LAST_MANAGER = 18,
   }
 
-  --- The team parts for the menu scene: text, uniform, or "", 0, why.
+  --- Internal: The team parts for the menu scene: text, uniform, or "", 0, why.
   function VRFW.menu_scene_team()
     local set = VRFW.host.command(T.VS_SET)
     if type(set) ~= "number" or set < 0 then

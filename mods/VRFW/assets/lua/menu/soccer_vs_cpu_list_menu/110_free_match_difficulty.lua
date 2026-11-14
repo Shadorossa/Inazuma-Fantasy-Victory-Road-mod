@@ -1,6 +1,8 @@
 
+--- Advanced: Namespace of the free match difficulty extension.
 VRFW.free_match = VRFW.free_match or {}
 local FM = VRFW.free_match
+--- Internal: set of bypassed difficulty locks.
 FM.bypassed = FM.bypassed or {}
 
 local K = {
@@ -29,7 +31,7 @@ local function Log(...)
   capped_logger(...)
 end
 
--- the rules (nil = the DLL did not answer: retail)
+-- Internal: the rules (nil = the DLL did not answer: retail)
 function FM.rules()
   if FM.rules_cache == nil then
     local r = {VRFW.host.command(K.RULES)}
@@ -43,10 +45,11 @@ function FM.rules()
   return FM.rules_cache or nil
 end
 
--- true while a mod uses the list for something else
+-- Internal: true while a mod uses the list for something else
 function FM.bypass(id, on)
   FM.bypassed[id] = on and true or nil
 end
+--- Advanced: Restores the retail difficulty locks; no args; answers nothing.
 function FM.off()
   for _, v in pairs(FM.bypassed) do
     if v then
@@ -56,8 +59,9 @@ function FM.off()
   return false
 end
 
--- the classes `game` offers, ascending (cached per open); nil = the DLL did not answer
+-- Advanced: the classes `game` offers, ascending (cached per open); nil = the DLL did not answer
 function FM.diffs(game)
+  --- Internal: cached difficulty lists by game.
   FM.cache = FM.cache or {}
   local t = FM.cache[game]
   if t == nil then
@@ -78,7 +82,7 @@ function FM.diffs(game)
   return t
 end
 
--- the preview class of `game`: its lowest offered class, or the highest with Preview = "top"
+-- Internal: the preview class of `game`: its lowest offered class, or the highest with Preview = "top"
 function FM.preview(game)
   local R, t = FM.rules(), FM.diffs(game)
   if R == nil or t == nil then
@@ -87,16 +91,45 @@ function FM.preview(game)
   return R.top and t[#t] or t[1]
 end
 
-function FM.best(game)
+-- True when class `d` of `game` was won in a free match (the retail clear flag).
+local function retail_cleared(game, d)
+  return funcLuaCommand(K.CLEAR, game, d) == true
+end
+
+--- Advanced: The highest offered class of `game` that cleared(game, d) answers true for (default: the retail clear flag); 0 = none.
+function FM.best(game, cleared)
+  cleared = cleared or retail_cleared
   local best = 0
   for _, d in ipairs(FM.diffs(game) or {}) do
-    if d > best and funcLuaCommand(K.CLEAR, game, d) == true then
+    if d > best and cleared(game, d) then
       best = d
     end
   end
   return best
 end
 
+--- Advanced: Paints the orb of list row `instance` for `game` as the Orb rule says, with cleared(game, d) (default: the retail clear flag).
+function FM.draw_orb(instance, game, cleared)
+  cleared = cleared or retail_cleared
+  local R = FM.rules()
+  if R == nil or not R.best then
+    for d = 6, 9 do
+      funcLuaMenuCommand(2158717427, K.ORB_LAYER, K.POS[d], cleared(game, d), instance)
+    end
+    return
+  end
+  funcLuaMenuCommand(VRFW.commands.SET_LAYER_VISIBLE, K.ORB_LAYER, instance, true)
+  funcLuaMenuCommand(2158717427, K.ORB_LAYER, K.POS_BASE01, true, instance)
+  funcLuaMenuCommand(2158717427, K.ORB_LAYER, K.POS_BASE02, true, instance)
+  funcLuaMenuCommand(VRFW.commands.SET_MESH_VISIBLE, K.ORB_LAYER, K.CLEAR_BASE01, false, instance)
+  funcLuaMenuCommand(2158717427, K.ORB_LAYER, K.POS_CLEAR05, false, instance)
+  local best = FM.best(game, cleared)
+  for d = 6, 9 do
+    funcLuaMenuCommand(2158717427, K.ORB_LAYER, K.POS[d], d == best, instance)
+  end
+end
+
+--- Internal: text for a text id; answers the string.
 function FM.text(id)
   local s = VRFW.host.command(K.TEXT_GET, id)
   if type(s) == "string" and s ~= "" then
@@ -105,12 +138,13 @@ function FM.text(id)
   return nil
 end
 
+--- Advanced: Answers true when the difficulty is locked for game and story.
 function FM.locked(game, story)
   local t = FM.diffs(game) or {9}
   return VRFW.free_match_lock.retail_locked(game, story, t[#t] - 6) and VRFW.free_match_lock.retail_locked(game, story, t[1] - 6)
 end
 
--- the opponent `game` decided on the list; true = handled here (locked, or the one-class match)
+-- Internal: the opponent `game` decided on the list; true = handled here (locked, or the one-class match)
 function FM.decide(game, story)
   local R = FM.rules()
   if R.together and FM.locked(game, story) then
@@ -173,7 +207,7 @@ local function Focused()
   return 0
 end
 
--- the team of `game`'s row of class `d` (nil = no answer)
+-- Advanced: the team of `game`'s row of class `d` (nil = no answer)
 function FM.team(game, d)
   local has, team = VRFW.host.command(2204933160, game, d)
   if has and type(team) == "number" and team ~= 0 then
@@ -231,8 +265,11 @@ local function RePreview()
   end
 end
 
+--- Advanced: Listeners called when the shown team changes.
 FM.shown_team_listeners = FM.shown_team_listeners or {}
+--- Internal: key of the shown team, or nil.
 FM.shown = nil
+--- Internal: handles a shown-team change for game, d, team.
 function FM.shown_team_changed(game, d, team)
   local key = tostring(game) .. ":" .. tostring(d) .. ":" .. tostring(team)
   if FM.shown == key then
@@ -331,15 +368,7 @@ if VRFW.host ~= nil then
       if R == nil or not R.best or a3 == nil or a3 == 0 or FM.off() then
         return
       end
-      funcLuaMenuCommand(VRFW.commands.SET_LAYER_VISIBLE, K.ORB_LAYER, a2, true)
-      funcLuaMenuCommand(2158717427, K.ORB_LAYER, K.POS_BASE01, true, a2)
-      funcLuaMenuCommand(2158717427, K.ORB_LAYER, K.POS_BASE02, true, a2)
-      funcLuaMenuCommand(VRFW.commands.SET_MESH_VISIBLE, K.ORB_LAYER, K.CLEAR_BASE01, false, a2)
-      funcLuaMenuCommand(2158717427, K.ORB_LAYER, K.POS_CLEAR05, false, a2)
-      local best = FM.best(a3)
-      for d = 6, 9 do
-        funcLuaMenuCommand(2158717427, K.ORB_LAYER, K.POS[d], d == best, a2)
-      end
+      FM.draw_orb(a2, a3)
     end,
   })
 

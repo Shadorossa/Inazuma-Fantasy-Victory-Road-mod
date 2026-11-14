@@ -7,5 +7,7 @@ input_delay = 3
 hash_every = 30
 timeout_ms = 10000
 mismatch = "block"
+# each player sends his team payload after the pick; the host starts once both are exchanged
+team_payload = true
 join_menu = "bb_stadium_top_menu"
 join_title_mode = 2

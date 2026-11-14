@@ -3,7 +3,7 @@ local MWG_READY = 1583438030   -- menu model component complete? (layer, idx)
 local MWG_LOG = VRFW.commands.VRFW_LOG
 local MWG_SLOW = 30            -- frames from which a wait is logged
 
---- Wraps model-wait global `name` so it waits for layer o.layer's model at most o.max frames, then goes on; answers true, or false, why.
+--- Advanced: Wraps model-wait global `name` so it waits for layer o.layer's model at most o.max frames, then goes on; answers true, or false, why.
 function VRFW.model_wait_guard(name, o)
   local orig = rawget(_ENV, name)
   if type(orig) ~= "function" or type(o) ~= "table" or type(o.layer) ~= "number" then

@@ -2,7 +2,7 @@ schema = "VRFW.menu/2"
 
 # Team kit picker as a honeycomb of kit icons beside the four models (research/grafts/better_ui_kit_grid): the retail list stays, its layers get new objects.
 # Same pieces as the emblem picker (equip_emblem_menu.toml): its tile (betterui_emblem_tile), its tab bar (betterui_emblem_tabs) and its atlas.
-# The grid layout is built by research/mods/BetterUI/_tools/emblem_grid_build.py from [kit_grid] of _menu_build.toml.
+# The grid layout is built by research/mods/BetterUI/_tools/betterui_emblem_grid_build.py from [kit_grid] of _menu_build.toml.
 # Screen parts under BetterUI's short header: series tab bar centred (84-160), grid on the left (x 36-976, 167 to the screen's bottom, 7 rows), the four retail models on the right, the kit's name plate under them (796-924); the footer prompts draw over the grid's bottom fade (the retail help line is hidden by the graft).
 
 # The name plate: the retail kit detail card at 0.85 under the models, its window 880 x 150, its text right of the accent line (its two icon quads are hidden by the graft).

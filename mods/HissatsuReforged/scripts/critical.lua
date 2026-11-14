@@ -134,20 +134,20 @@ function Critical.Answer(ev)
   return chance, rate, mult
 end
 
-VRFW.on("match_start", function()
+VRFW.on("match:start", function()
   CHARGE = {}
   -- the settings here, not by the match's first move
   settings()
   return nil
 end)
 
-VRFW.on("crit_check", function(ev)
+VRFW.on("match:crit_check", function(ev)
   if not ev.actor or not ev.skill or move_category(ev.skill) == nil then return nil end
   local chance, rate, mult = Critical.Answer(ev)
   return { crit_chance = chance, crit_chance_mult = rate, crit_mult = mult, crit_cap = settings().cap }
 end)
 
-VRFW.on("crit", function(ev)
+VRFW.on("match:crit", function(ev)
   local a = ev.actor
   if not a or not ev.skill or move_category(ev.skill) == nil then return nil end
   info(string.format("CRITICAL: move 0x%08X by 0x%08X (team %s)", u32(ev.skill), u32(a.handle), tostring(a.team)))

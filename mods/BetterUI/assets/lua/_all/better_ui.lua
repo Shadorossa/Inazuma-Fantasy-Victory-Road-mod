@@ -1,6 +1,16 @@
 
 BetterUI = type(BetterUI) == "table" and BetterUI or {}
 
+-- The menu chunk runs before the Lua patch files, so its BetterUI snippets queue their command hooks for VRFW.host here.
+if type(BetterUI.command_hooks) == "table" and type(VRFW) == "table" and type(VRFW.host) == "table"
+    and type(VRFW.host.hook_command) == "function" then
+  local queued = BetterUI.command_hooks
+  BetterUI.command_hooks = nil
+  for _, register in ipairs(queued) do
+    register(VRFW.host)
+  end
+end
+
 local function global(name)
   if type(_G) == "table" then
     return rawget(_G, name)

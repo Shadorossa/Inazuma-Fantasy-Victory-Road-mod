@@ -20,7 +20,7 @@ end
 
 local M = {}
 
---- `v` as an unsigned 32-bit id; `none` when it is not a number.
+--- VRFW.ids.unsigned_or(v, none): v as an unsigned 32-bit id, or `none` when v is not a number. Call: at load or in a handler.
 function M.unsigned_or(v, none)
   local n = number_of(v)
   if n == nil then
@@ -29,12 +29,12 @@ function M.unsigned_or(v, none)
   return math.floor(n) % TWO_32
 end
 
---- `v` as an unsigned 32-bit id (0 when it is not a number).
+--- VRFW.ids.unsigned(v): v as an unsigned 32-bit id (0 when v is not a number). Call: at load or in a handler.
 function M.unsigned(v)
   return M.unsigned_or(v, 0)
 end
 
---- `v` as a signed 32-bit number.
+--- VRFW.ids.signed(v): v as a signed 32-bit number. Call: at load or in a handler.
 function M.signed(v)
   local n = M.unsigned(v)
   if n >= TWO_31 then
@@ -43,7 +43,7 @@ function M.signed(v)
   return n
 end
 
---- True when `v` means no id (nil, -1 or the unsigned -1).
+--- VRFW.ids.is_none(v): whether v means "no id" (nil, -1 or 0xFFFFFFFF). Returns a boolean. Call: at load or in a handler.
 function M.is_none(v)
   if v == nil then
     return true
@@ -52,7 +52,7 @@ function M.is_none(v)
   return n == -1 or n == TWO_32 - 1
 end
 
---- The hex text of id `v`.
+--- VRFW.ids.hex_text(v): id v as 0xXXXXXXXX text. Call: at load or in a handler.
 function M.hex_text(v)
   local n = M.unsigned(v)
   return string.format("0x%04X%04X", math.floor(n / 65536), n % 65536)
@@ -74,7 +74,7 @@ local function digits_of(s, class)
   return (s:gsub("_", ""))
 end
 
---- A number, "0x..." or decimal text as an id; other text is its crc32 when `options.hash_names` is set.
+--- VRFW.ids.parse(v[, options]): a number, "0x..." or decimal text as an id; with options.hash_names, other text gives its crc32. Call: at load or in a handler.
 function M.parse(v, options)
   local t = type(v)
   if t == "number" then
@@ -112,6 +112,11 @@ end
 
 -- the id a framework resolver gives a key (0 or no answer = unknown), else Id.parse(ref, options)
 local function resolved(resolver_name, ref, options)
+  -- Hex or decimal text is already an id, so it is never sent to a name resolver that would hash it as a name.
+  local written = M.parse(ref)
+  if written ~= nil then
+    return written
+  end
   local resolver = type(VRFW) == "table" and VRFW[resolver_name] or nil
   if type(ref) == "string" and ref ~= "" and resolver ~= nil then
     local ok, id = pcall(resolver, ref)
@@ -123,12 +128,12 @@ local function resolved(resolver_name, ref, options)
   return M.parse(ref, options)
 end
 
---- The chara_base id of `ref`.
+--- VRFW.ids.character(ref[, options]): the chara_base id of a character reference (number, key or name). Call: at load or in a handler.
 function M.character(ref, options)
   return resolved("character", ref, options)
 end
 
---- The move id of `ref`.
+--- VRFW.ids.technique(ref[, options]): the move id of a technique reference (number, key or name). Call: at load or in a handler.
 function M.technique(ref, options)
   return resolved("technique", ref, options)
 end

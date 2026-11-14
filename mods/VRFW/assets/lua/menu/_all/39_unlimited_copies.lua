@@ -14,12 +14,13 @@ if VRFW.copies == nil then
     state = {},
     slot = nil,                -- slot answer (until Reset)
   }
+  --- Advanced: State of the unlimited copies extension for equipment and cards.
   VRFW.copies = M
 
   local function u32(v) return VRFW.ids.unsigned(v) end
 
   local logger
-  --- Logs through the unlimited-copies logger.
+  --- Internal: Logs through the unlimited-copies logger.
   function M.log(...)
     logger = logger or VRFW.logger.new("unlimited_copies")
     logger(...)
@@ -104,7 +105,7 @@ if VRFW.copies == nil then
     return true
   end
 
-  --- Forgets the cached state, the slot and the hidden counters.
+  --- Advanced: Forgets the cached state, the slot and the hidden counters.
   function M.reset()
     M.state, M.slot, M.hidden = {}, nil, nil
     if VRFW.chronicle ~= nil then
@@ -112,7 +113,7 @@ if VRFW.copies == nil then
     end
   end
 
-  --- True when the active save slot is the one the rule covers.
+  --- Advanced: True when the active save slot is the one the rule covers.
   function M.slot_ok()
     if M.slot == nil then
       local st = VRFW.host.command(M.SLOT)
@@ -124,7 +125,7 @@ if VRFW.copies == nil then
     return M.slot == 1
   end
 
-  --- True when item `item` has unlimited copies in this save.
+  --- Internal: True when item `item` has unlimited copies in this save.
   function M.unlimited(item)
     item = u32(item)
     if item == 0 then
@@ -148,7 +149,7 @@ if VRFW.copies == nil then
     return s
   end
 
-  --- Some active mod declares a rule (no answer = no, asked again next time).
+  --- Advanced: Some active mod declares a rule (no answer = no, asked again next time).
   function M.any_rule()
     if M.all == nil then
       local got = VRFW.host.command(M.RULES)
@@ -160,7 +161,7 @@ if VRFW.copies == nil then
     return #M.all > 0
   end
 
-  --- True when an unlimited rule covers `key` and it is owned.
+  --- Advanced: True when an unlimited rule covers `key` and it is owned.
   function M.owned(key)
     key = u32(key)
     if not M.any_rule() then
@@ -176,10 +177,11 @@ if VRFW.copies == nil then
     return false
   end
 
+  --- Internal: stock mesh ids of the equipment layers.
   M.STOCK_MESHES = {1202991162 --[[_base_equip01]], 1139638886 --[[_gtxt_equip01]], 1087832946,
     1228576956 --[[_base_have01]], 2037408502 --[[_icon_have01]], 132349475}
 
-  --- Hides the stock counters of a list row.
+  --- Advanced: Hides the stock counters of a list row.
   function M.hide_counters(layer, inst)
     funcLuaMenuCommand(2158717427, layer, 442049775 --[[_pos_equip01]], false, inst)
     funcLuaMenuCommand(2158717427, layer, 3426045766 --[[_pos_have01]], false, inst)
@@ -190,7 +192,7 @@ if VRFW.copies == nil then
     funcLuaMenuCommand(1233047821 --[[number visible]], layer, inst, 3334923667 --[[num_have01]], false)
   end
 
-  --- Shows the stock counters of a list row again.
+  --- Internal: Shows the stock counters of a list row again.
   function M.show_counters(layer, inst)
     funcLuaMenuCommand(2158717427, layer, 442049775 --[[_pos_equip01]], true, inst)
     funcLuaMenuCommand(2158717427, layer, 3426045766 --[[_pos_have01]], true, inst)
@@ -198,7 +200,7 @@ if VRFW.copies == nil then
     funcLuaMenuCommand(1233047821 --[[number visible]], layer, inst, 3334923667 --[[num_have01]], true)
   end
 
-  --- Sets up the counters of a list row for `item`; answers true when the item is unlimited.
+  --- Advanced: Sets up the counters of a list row for `item`; answers true when the item is unlimited.
   function M.list_row(layer, inst, item)
     if not M.unlimited(item) then
       if M.hidden ~= nil and M.hidden[layer .. ":" .. inst] then
@@ -207,6 +209,7 @@ if VRFW.copies == nil then
       end
       return false
     end
+    --- Internal: set of hidden layer and instance keys.
     M.hidden = M.hidden or {}
     M.hidden[layer .. ":" .. inst] = true
     M.hide_counters(layer, inst)
@@ -218,7 +221,7 @@ if VRFW.copies == nil then
     return tonumber(n) or 0
   end
 
-  --- The current stock of each item id, as a table.
+  --- Advanced: The current stock of each item id, as a table.
   function M.snapshot(items)
     local t = {}
     for _, id in ipairs(items) do
@@ -233,7 +236,7 @@ if VRFW.copies == nil then
     return t
   end
 
-  --- Gives back the stock added since `before` (table from snapshot).
+  --- Advanced: Gives back the stock added since `before` (table from snapshot).
   function M.restore(before, handleOf)
     for id, s0 in pairs(before) do
       local now = num(id)

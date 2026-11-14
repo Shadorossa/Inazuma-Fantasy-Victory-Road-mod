@@ -1,3 +1,4 @@
+schema = "VRFW.option/2"
 # The mod's rows in Opciones › «Opciones de mods» and on the Mods screen's «Ajustes».
 
 [[option]]
@@ -68,3 +69,33 @@ default = 1
 restart = true
 order = 146
 category = "category_points"
+
+# Read by scripts\own_passives.lua once per start: on, own passives fill the custom passive slot; off, the game's custom passives do.
+[[option]]
+id = "own_passives"                            # row key CharacterReforged.own_passives
+type = "toggle"
+label = "option_own_passives"                  # text\keys.toml, 9 languages
+help = "option_own_passives_help"
+default = 1
+order = 160
+restart = true
+
+# Read by scripts\training.lua on every training position query: on, every position with training pairs can be trained; off, the player's main and sub.
+[[option]]
+id = "unlock_all_positions"                 # row key CharacterReforged.unlock_all_positions
+type = "toggle"
+label = "unlock_all_positions"                # text\keys.toml, 9 languages
+help = "unlock_all_positions_help"
+default = 0
+order = 190
+category = { key = "mod_options.category_cheats" }   # VRFW text\option.toml, shared by every mod
+
+# Read by scripts\element_cheat.lua and the skill table cell: on, a cell right of «Entrenar» changes the card element of the shown player.
+[[option]]
+id = "element_cheat"                        # row key CharacterReforged.element_cheat
+type = "toggle"
+label = "element_cheat"                       # text\keys.toml, 9 languages
+help = "element_cheat_help"
+default = 0
+order = 191
+category = { key = "mod_options.category_cheats" }   # VRFW text\option.toml, shared by every mod

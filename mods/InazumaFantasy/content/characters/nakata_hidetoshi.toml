@@ -9,6 +9,7 @@ order = 12
   [character.base]
   id = 0x17E59FB8  # crc32("c02024760")
   name = "c02024760"
+  team_3 = 0x5595D5FA  # crc32("evt_belong_team_fantasy"): the bank's Fantasy tab
   name_text = 0x64B207D9
   short_name_text = 0x523427CD
   upper_name_text = 0x523427CD
@@ -54,8 +55,8 @@ order = 12
   growth = "normal"
   stats = { kick = 282, control = 227, technique = 274, pressure = 186, physical = 189, intelligence = 244, agility = 190, luck = 212, freedom = 0 }
   moves = [
-    { move = 0xA5F2EFEA, level = 1 },                     # Brave Shot
-    { move = 0x31ABD82E, level = 20 },                    # Circus Block
-    { move = 0x427719AC, level = 38 },                    # Gale Dash
-    { move = 0x5E233E68, level = 60 },                    # Super Elastico
+    { move = "whs01240", level = 1 },                     # Brave Shot
+    { move = "whd00260", level = 20 },                    # Circus Block
+    { move = "who00270", level = 38 },                    # Gale Dash
+    { move = "who00560", level = 60 },                    # Super Elastico
   ]

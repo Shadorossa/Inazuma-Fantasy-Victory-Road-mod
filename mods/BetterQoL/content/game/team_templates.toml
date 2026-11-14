@@ -32,6 +32,23 @@ name = "CMND_BETTERQOL_TEMPLATE_OF_DOCK"
 handler = "BetterQoL.TeamTemplates.OfDock"
 needs = ["Party.LogicalToPhysical", "team_template_party"]
 
+# (team set) -> the stable key of the template that set holds (VRFW.team_loadout); nil when it is no dock
+[[VRFW.Command]]
+name = "CMND_BETTERQOL_TEMPLATE_LOADOUT_KEY"
+handler = "BetterQoL.TeamTemplates.LoadoutKey"
+needs = ["Party.LogicalToPhysical", "team_template_party"]
+
+# -> every template that has players as "key:h,h,...;key:..." (VRFW.team_loadout)
+[[VRFW.Command]]
+name = "CMND_BETTERQOL_TEMPLATE_LOADOUT_TEAMS"
+handler = "BetterQoL.TeamTemplates.LoadoutTeams"
+needs = ["Party.LogicalToPhysical", "team_template_party"]
+
+# (template number) -> that template's stable key
+[[VRFW.Command]]
+name = "CMND_BETTERQOL_TEMPLATE_LOADOUT_KEY_OF"
+handler = "BetterQoL.TeamTemplates.LoadoutKeyOf"
+
 # (template) -> "docked" / "stored" / "empty", the team set holding it when docked
 [[VRFW.Command]]
 name = "CMND_BETTERQOL_TEMPLATE_STATE"

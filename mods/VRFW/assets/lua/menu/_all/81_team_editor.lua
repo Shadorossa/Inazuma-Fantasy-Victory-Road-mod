@@ -1,3 +1,4 @@
+-- lua_patch.scope: used
 -- menu_engine: the TEAM EDITOR service.
 if VRFW.team_editor == nil then
   local E = {
@@ -204,7 +205,9 @@ if VRFW.team_editor == nil then
     return true
   end
 
+  --- Internal: name prefix of the temporary objects the team editor creates.
   E.TEMPORARY_PREFIX = "VRFW_team_editor_temporary_"
+  --- Internal: handles of the temporary objects the team editor created, freed on close.
   E.temporary = {}
   local function MarkTemporary(handle, param)
     E.temporary[#E.temporary + 1] = handle
@@ -326,7 +329,7 @@ if VRFW.team_editor == nil then
     return opened
   end
 
-  --- True when the team editor can open, or false, why.
+  --- Advanced: True when the team editor can open, or false, why.
   function E.can_open()
     local open = VRFW.host.command(E.C.SESSION_STATE)
     if open == nil then
@@ -615,7 +618,7 @@ if VRFW.team_editor == nil then
   }
   local GUIDE_COLUMNS, GUIDE_INPUTS = 2209673388, 452337289   -- the guide's columns, then its input commands
   local CMD_ENTER = 1981080283                                -- the guide's Accept input
-  --- Sets the team editor view-only; answers whether it applied.
+  --- Internal: Sets the team editor view-only; answers whether it applied.
   function E.view_only(spec)
     spec = type(spec) == "table" and spec or {}
     if type(VRFW.host) ~= "table" or type(VRFW.host.wrap) ~= "function" then
@@ -732,7 +735,7 @@ if VRFW.team_editor == nil then
     return true
   end
 
-  --- Refuses a swap into a foreign team; answers as the swap.
+  --- Internal: Refuses a swap into a foreign team; answers as the swap.
   function E.guard_swap(nxt, ...)
     local refused = false
     local function check(send, ...)
@@ -758,7 +761,7 @@ if VRFW.team_editor == nil then
     return table.unpack(r, 2, r.n)
   end
 
-  --- The card (chara_param id) of a temporary player of the open session (any menu VM); nil = not one.
+  --- Internal: The card (chara_param id) of a temporary player of the open session (any menu VM); nil = not one.
   function E.temporary_card(handle)
     if type(handle) ~= "number" or handle == 0 then
       return nil
@@ -767,7 +770,7 @@ if VRFW.team_editor == nil then
     return (type(card) == "number" and card ~= 0) and card or nil
   end
 
-  --- The foreign team of the open dock as a table; nil when there is none.
+  --- Advanced: The foreign team of the open dock as a table; nil when there is none.
   function E.foreign()
     if not VRFW.param.has(E.FOREIGN_KEY) then
       return nil
@@ -812,7 +815,7 @@ if VRFW.team_editor == nil then
       hide_pager = VRFW.param.has(E.HIDE_PAGER_KEY), hidden_card_rows = hidden_card_rows, inline_card_actions = VRFW.param.has(E.INLINE_CARDS_KEY) }
   end
 
-  --- Stores the card action mode, or clears it with nil.
+  --- Internal: Stores the card action mode, or clears it with nil.
   function E.set_card_action(mode)
     if mode == nil then
       if VRFW.param.has(E.CARD_ACTION_KEY) then VRFW.param.clear(E.CARD_ACTION_KEY) end
@@ -821,7 +824,7 @@ if VRFW.team_editor == nil then
     end
   end
 
-  --- The stored card action mode; nil when there is none.
+  --- Internal: The stored card action mode; nil when there is none.
   function E.card_action()
     if not VRFW.param.has(E.CARD_ACTION_KEY) then
       return nil
@@ -830,12 +833,12 @@ if VRFW.team_editor == nil then
     return (mode == E.CARD_ACTION.POPUP or mode == E.CARD_ACTION.PAGE) and mode or nil
   end
 
-  --- "Move" picked in the hidden lineup screen: the dock starts the move on its own pitch once the screen closed.
+  --- Internal: "Move" picked in the hidden lineup screen: the dock starts the move on its own pitch once the screen closed.
   function E.request_card_move()
     VRFW.param.set(E.CARD_MOVE_KEY, 1)
   end
 
-  --- Takes the pending card move; answers true when there was one.
+  --- Internal: Takes the pending card move; answers true when there was one.
   function E.take_card_move()
     if not VRFW.param.has(E.CARD_MOVE_KEY) then
       return false
@@ -873,6 +876,7 @@ if VRFW.team_editor == nil then
       Log("kept dock hidden: read", #result.members, "team players, formation", result.formation)
       return result
     end
+    --- Internal: set to nil once the team dock kept by the editor is gone.
     E.kept_dock = nil
     while Exists(E.FORMATION) do
       coroutine.yield()
@@ -895,12 +899,12 @@ if VRFW.team_editor == nil then
     return result
   end
 
-  --- True when a dock is kept, for `owner` when given.
+  --- Internal: True when a dock is kept, for `owner` when given.
   function E.kept(owner)
     return E.kept_dock ~= nil and (owner == nil or E.kept_dock.owner == tostring(owner)) and Exists(E.DOCK)
   end
 
-  --- Asks for a page turn; answers true when the request was stored.
+  --- Internal: Asks for a page turn; answers true when the request was stored.
   function E.page_turn(direction)
     if not Exists(E.DOCK) or VRFW.param.has(E.DIRECTION_KEY) then
       return false
@@ -909,7 +913,7 @@ if VRFW.team_editor == nil then
     return VRFW.param.has(E.DIRECTION_KEY)
   end
 
-  --- Releases the kept dock; answers true when nothing is left.
+  --- Internal: Releases the kept dock; answers true when nothing is left.
   function E.release(why)
     local k = E.kept_dock
     if k == nil then
@@ -938,14 +942,20 @@ if VRFW.team_editor == nil then
     return EndSession()
   end
 
+  --- Internal: hash of the personal_plate_menu that hosts the player page.
   E.PAGE = 1427722143                -- personal_plate_menu
+  --- Internal: handle of the player page inside its host menu.
   E.PAGE_HANDLE = 1038144478
+  --- Internal: param key that holds the host menu while the card page is up.
   E.PAGE_HOST_KEY = "VRFW_team_editor_card_page_host"   -- the host menu (VRFW.param.set_u32) while its page is up
+  --- Internal: name of the host VM global the plate calls when the card page opens.
   E.PAGE_OPENED_CALL = "vrfw_team_editor_card_page_opened"  -- the host VM's globals the plate calls (CALL_IN_MENU)
+  --- Internal: name of the host VM global the plate calls when the card page closes.
   E.PAGE_CLOSED_CALL = "vrfw_team_editor_card_page_closed"
+  --- Internal: { opened, closed } callbacks while this VM's card page is up, otherwise nil.
   E.page = nil                       -- { opened, closed } while this VM's page is up
 
-  --- The menu hash hosting the player page; nil when there is none.
+  --- Internal: The menu hash hosting the player page; nil when there is none.
   function E.page_host()
     return VRFW.param.get_u32(E.PAGE_HOST_KEY)
   end
@@ -993,7 +1003,7 @@ if VRFW.team_editor == nil then
     return handle
   end
 
-  -- E.ShowCard(spec): the player page of a card that is no player of the save, until the player closes it (B).
+  -- Internal: E.ShowCard(spec): the player page of a card that is no player of the save, until the player closes it (B).
   --- Shows the player page of a card that is no player of the save; answers info, or nil, why.
   function E.show_card(spec)
     spec = type(spec) == "table" and spec or {}
@@ -1065,7 +1075,7 @@ if VRFW.team_editor == nil then
     return { opened = true, handle = handle }
   end
 
-  --- Opens the team dock for spec; answers an info table, or nil, why.
+  --- Advanced: Opens the team dock for spec; answers an info table, or nil, why.
   function E.run(spec)
     spec = type(spec) == "table" and spec or {}
     local kept = E.kept_dock
@@ -1159,6 +1169,7 @@ if VRFW.team_editor == nil then
     return result
   end
 
+  --- Advanced: Table of the editor scene keys: owner key, back key and related param names.
   E.SCENE = {
     OWNER_KEY = "VRFW_team_editor_scene_owner",
     BACK_KEY = "VRFW_team_editor_scene_back",       -- SetU32: crc32 of the menu the scene goes back to.
@@ -1172,6 +1183,7 @@ if VRFW.team_editor == nil then
     ASK = 8,
     DONE_WAIT = 600,                -- frames the provider may take to keep the result
   }
+  --- Internal: registered scene providers, by name.
   E.providers = E.providers or {}
 
   local function ClearU32(name)
@@ -1202,14 +1214,14 @@ if VRFW.team_editor == nil then
     end
   end
 
-  --- Sets `provider` as the scene provider of `owner`.
+  --- Advanced: Sets `provider` as the scene provider of `owner`.
   function E.scene_provider(owner, provider)
     if type(owner) == "string" and type(provider) == "table" and type(provider.spec) == "function" then
       E.providers[owner] = provider
     end
   end
 
-  --- Opens a scene on the dock; answers how it opened, or nil, why.
+  --- Advanced: Opens a scene on the dock; answers how it opened, or nil, why.
   function E.scene(scene)
     scene = type(scene) == "table" and scene or {}
     if type(scene.owner) ~= "string" or type(scene.back) ~= "string" then
@@ -1239,13 +1251,14 @@ if VRFW.team_editor == nil then
     return how
   end
 
-  --- Opens the pending scene when this menu is its root.
+  --- Internal: Opens the pending scene when this menu is its root.
   function E.scene_open()
     local owner = VRFW.param.get_u32(E.SCENE.OWNER_KEY)
     if owner == nil or E.scene_state ~= nil or MenuCall(E.SCENE.IS_SCENE_ROOT) ~= true then
       return
     end
     local sc = { owner = owner, back = VRFW.param.get_u32(E.SCENE.BACK_KEY) }
+    --- Advanced: State table of the open editor scene, nil when no scene is open.
     E.scene_state = sc
     if VRFW.top_bar.hide ~= nil then pcall(VRFW.top_bar.hide, true) end
     for name, p in pairs(E.providers) do
@@ -1373,7 +1386,7 @@ if VRFW.team_editor == nil then
     end
   end
 
-  --- The dock's Back while it is a scene's root: true when the scene takes it (its FuncOnBack is not run).
+  --- Internal: The dock's Back while it is a scene's root: true when the scene takes it (its FuncOnBack is not run).
   function E.scene_leave()
     local sc = E.scene_state
     if sc == nil then
@@ -1386,7 +1399,7 @@ if VRFW.team_editor == nil then
     return true
   end
 
-  --- The dock's Step: the way back runs (at once when the scene could not open).
+  --- Internal: The dock's Step: the way back runs (at once when the scene could not open).
   function E.scene_step()
     local sc = E.scene_state
     if sc == nil then
@@ -1405,7 +1418,7 @@ if VRFW.team_editor == nil then
     end
   end
 
-  --- The host's menu after the way back: what it gave E.scene, once.
+  --- Advanced: The host's menu after the way back: what it gave E.scene, once.
   function E.scene_return(menu)
     local back = VRFW.param.get_u32(E.SCENE.RETURN_KEY)
     if back == nil or type(menu) ~= "string" or back % 4294967296 ~= VRFW.crc32(menu) % 4294967296 then
@@ -1419,5 +1432,6 @@ if VRFW.team_editor == nil then
     return out
   end
 
+  --- Advanced: Namespace of the team editor: the squad editing scene, its pages and providers.
   VRFW.team_editor = E
 end

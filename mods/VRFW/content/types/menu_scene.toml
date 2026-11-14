@@ -1,6 +1,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.menu_scene/1"
 folder = "content/menu_scenes"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Menu.Scene"
+v2_kind_folder = "Menus/Scenes"
+v2_version = 1
 label = "Menu scenes"
 label_es = "Escenas de menú"
 doc = "A 3D field map kept loaded under a game menu: the map, where its walker stands and the menu layers hidden while it is up."

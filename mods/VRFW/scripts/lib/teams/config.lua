@@ -1,15 +1,16 @@
+--- Advanced: Library: team_config roster slots; tells staff from players.
 
 local M = {}
 
 --- roster slots of team_config (retail): 16-18 managers, 19 coach; 0-15 and 20+ are players
 M.FIRST_MANAGER_SLOT, M.LAST_MANAGER_SLOT, M.COACH_SLOT = 16, 18, 19
 
---- true when roster slot `slot` holds staff (a manager or the coach)
+--- Advanced: true when roster slot `slot` holds staff (a manager or the coach)
 function M.is_staff(slot)
   return slot == M.COACH_SLOT or (slot >= M.FIRST_MANAGER_SLOT and slot <= M.LAST_MANAGER_SLOT)
 end
 
---- the team_config record and container of team `team` (its id): rec, cont; nil, why
+--- Advanced: the team_config record and container of team `team` (its id): rec, cont; nil, why
 function M.find(team)
   if not VRFW.is_on("Team.FindConfig") then return nil, "FindTeamConfig not resolved" end
   local recb = VRFW.memory.buffer("vrfw_team_config_record", 8)

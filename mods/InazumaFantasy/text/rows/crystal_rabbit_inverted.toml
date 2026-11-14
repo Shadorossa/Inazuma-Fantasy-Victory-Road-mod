@@ -1,0 +1,43 @@
+schema = "VRFW.text/2"
+table = "skill_text"
+# Name and description of the colour-inverted Crystal Rabbit of content/techniques/crystal_rabbit_inverted.toml, short (variant 0) and long (variant 11), the very names of the original keshin Clearbunny (retail row 0xB7617564), without "inverted".
+
+[[row]]
+id = 0x6DFE703E  # InazumaFantasy.keshin_k902020_name
+kind = "noun"
+de = "Klarhase"
+en = "Clearbunny"
+es = "Conejo de cristal"
+fr = "Clearbunny"
+it = "Coniglio Magico"
+ja = "クララバニー"
+pt = "Clearbunny"
+zh_hans = "克拉拉邦尼"
+zh_hant = "克拉拉邦尼"
+
+[[row]]
+id = 0x6DFE703E  # InazumaFantasy.keshin_k902020_name, long form
+kind = "noun"
+variant = 11
+de = "Klarhase, Heiliglanze"
+en = "Sacred Lance Clearbunny"
+es = "Conejo de cristal, lanza sagrada"
+fr = "Clearbunny, la lance sacrée"
+it = "Coniglio Magico, Lancia Sacra"
+ja = "[魔槍剣聖/まそうけんせい]クララバニー"
+pt = "Clearbunny, A Lanceira Sombria"
+zh_hans = "魔枪剑圣·克拉拉邦尼"
+zh_hant = "魔槍劍聖·克拉拉邦尼"
+
+[[row]]
+id = 0x3868A26C  # InazumaFantasy.keshin_k902020_desc
+kind = "text"
+de = "Klarhase mit umgekehrten Farben.\\nFührt die heilige Lanze mit der anderen Hand."
+en = "Clearbunny with its colours inverted.\\nWields its sacred lance in the other hand."
+es = "Conejo de cristal con los colores invertidos.\\nEmpuña su lanza sagrada con la otra mano."
+fr = "Clearbunny aux couleurs inversées.\\nManie sa lance sacrée de l'autre main."
+it = "Coniglio Magico dai colori invertiti.\\nImpugna la Lancia Sacra con l'altra mano."
+ja = "[色/いろ]が[反転/はんてん]した　クララバニー。\\n[聖/せい]なる[槍/やり]を　[逆/ぎゃく]の[手/て]で[振/ふ]るう。"
+pt = "Clearbunny com as cores invertidas.\\nEmpunha a lança sagrada com a outra mão."
+zh_hans = "颜色反转的克拉拉邦尼。\\n以另一只手挥舞圣枪。"
+zh_hant = "顏色反轉的克拉拉邦尼。\\n以另一隻手揮舞聖槍。"

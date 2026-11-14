@@ -18,15 +18,16 @@ charas = []
 # charas = []
 # ```
 
-# These two warrior spirits are off for this version, and removing the comment marks brings them back.
+# Devoramentes: its keshin shot is Golpe del olvido (content/techniques/oblivion_strike.toml).
+[[aura_command]]
+key = "wks_fantasy_me000010"
+from = "wks02010"
+manual = true
+cells = { name_text = 0xABA6C2A6, desc_text = 0xFE3010F4, aura_chara = 0x66DD9C45, order = 109 }
+charas = []
+
+# This warrior spirit is off for this version, and removing the comment marks brings it back.
 # ```
-# [[aura_command]]
-# key = "wks_fantasy_me000010"
-# from = "wks02010"
-# manual = true
-# cells = { name_text = 0xABA6C2A6, desc_text = 0xFE3010F4, linked_skill = 0xD5A60BF2, aura_chara = 0x66DD9C45, order = 109 }
-# charas = []
-#
 # [[aura_command]]
 # key = "wks_fantasy_mx000010"
 # from = "wks02010"
@@ -35,10 +36,10 @@ charas = []
 # charas = []
 # ```
 
-# The game's default group sends k002011 to k002010's packs; this event ships k002011's own.
+# The game's default group sends k002011 to k002010's packs; this event ships the own packs of k002011 and me000010.
 [[event_env]]
 event = "ev80_00020"
-tag_words = { set = { k002011 = "k002011" } }
+tag_words = { set = { k002011 = "k002011", me000010 = "me000010" } }
 
 # The armour of wks_fantasy_k002011 (no player owns it: CharacterReforged lets every bearer arm it).
 [[aura_command]]
@@ -47,9 +48,30 @@ from = "was00220"
 cells = { name_text = 0xEC078783, desc_text = 0xB99155D1, aura_chara = 0x584CAA78, chara_param = 0x448719CB, order = 111 }
 charas = []
 
+# The armour of the keshin Niké (wks02060, no retail armour: CharacterReforged lets every bearer arm it).
+# Surtur's armour (was00100): cut-in ev81_00040, where Niké plays Surtur's motion (_tools/nike_armour_cutin_build.py).
+[[aura_command]]
+key = "was_fantasy_k002060"
+from = "was00100"
+cells = { name_text = 0xD30DB060, desc_text = 0x530BDB68, aura_chara = 0x600A0C29, chara_param = 0x404B71CE, order = 112 }
+charas = []
+
+# ev81_00040 ships no pack of Niké: the mod's own (k002060), with Surtur's armour sound.
+[[event_env]]
+event = "ev81_00040"
+tag_words = { set = { k002060 = "k002060" } }
+snd_tag_words = { set = { k002060 = "k000100" } }
+
 # The armour of the keshin Victoria (wks02010, no retail armour: CharacterReforged lets every bearer arm it).
 [[aura_command]]
 key = "was_fantasy_k002010"
 from = "was00220"
 cells = { name_text = 0x9C4C26A7, desc_text = 0x1C4A4DAF, aura_chara = 0x2F4B9AEE, chara_param = 0xC2136B65, order = 113 }
+charas = []
+
+# The armour of the keshin Robin (wks02050, no retail armour: CharacterReforged lets every bearer arm it).
+[[aura_command]]
+key = "was_fantasy_k002050"
+from = "was00220"
+cells = { name_text = 0xF820E3A3, desc_text = 0x782688AB, aura_chara = 0x4B275FEA, chara_param = 0xE7F6615E, order = 116 }
 charas = []

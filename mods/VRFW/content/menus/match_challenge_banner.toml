@@ -13,3 +13,22 @@ remove = [
 [[patch]]
 menu = "vs_route_town_command_select_menu"
 add_layer = { name = "vrfw_mc_text", object = "vrfw_mc_label", count = 1, after = "vsroute01_18_legend_telop", groups = [{ group = "vs_route_town_command_select_menu", flags = [0, 0, 0, 0, 1, 0], after = "vsroute01_18_legend_telop" }] }
+
+# the required starters' faces after the label (VRFW.face_icon.card): a copy of the retail VS route character card, shown as its portrait only
+[[object]]
+name = "vrfw_mc_face"
+from = "team00_01_chara_card_for_vsroute"
+remove_block = ["MenuCollisionSetting", "CMenuAttachLocator"]
+
+[[patch]]
+menu = "vs_route_town_command_select_menu"
+add_layer = { name = "vrfw_mc_face", object = "vrfw_mc_face", count = 2, after = "vrfw_mc_text", groups = [{ group = "vs_route_town_command_select_menu", flags = [0, 0, 0, 0, 1, 0], after = "vrfw_mc_text" }] }
+
+# the series icons inline in the label (CMND_VRFW_SERIES_ICON): a cmn01_10 quad whose sprite is the series' list-tab icon
+[[patch]]
+menu = "vs_route_town_command_select_menu"
+add_layer = { name = "vrfw_mc_series", object = "cmn01_10_new_icon", count = 2, after = "vrfw_mc_face", groups = [{ group = "vs_route_town_command_select_menu", flags = [0, 0, 0, 0, 1, 0], after = "vrfw_mc_face" }] }
+
+[[patch]]
+menu = "vs_route_town_command_select_menu"
+resources = ["#/menu/200_icon/16_icon_list_tab/<LG>/icon_list_tab.g4tx"]

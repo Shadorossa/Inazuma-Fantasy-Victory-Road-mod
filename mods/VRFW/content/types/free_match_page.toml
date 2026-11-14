@@ -1,6 +1,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.free_match_page/1"
 folder = "content/free_match_pages"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Menu.FreeMatchPage"
+v2_kind_folder = "Menus/FreeMatchPages"
+v2_version = 1
 label = "Free match pages"
 label_es = "Páginas de partido libre"
 doc = "A free-match tab split into pages, each page listing the rows of another tab."

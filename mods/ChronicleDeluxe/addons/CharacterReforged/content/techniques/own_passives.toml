@@ -1,0 +1,9 @@
+schema = "VRFW.technique/3"
+default_lang = "none"
+
+[[passive]]
+key = "own_c02024760"
+from = "ps10020"
+cells = { desc_text = 1984656637 }
+effects = []
+buff_icons = []

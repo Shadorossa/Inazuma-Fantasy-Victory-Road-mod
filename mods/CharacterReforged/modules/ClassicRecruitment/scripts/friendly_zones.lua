@@ -142,7 +142,7 @@ function P.Arm(key)
   return true
 end
 
-VRFW.on("match_start", function(ev)
+VRFW.on("match:start", function(ev)
   if LIVE and LIVE.armed then
     LIVE.armed = false
   elseif LIVE then
@@ -151,7 +151,7 @@ VRFW.on("match_start", function(ev)
   return nil
 end)
 
-VRFW.on("signal:vrfw.match_result", function()
+VRFW.on("script:signal:vrfw.match_result", function()
   local last = VRFW.match.results.last()
   if type(last) ~= "table" then return nil end
   if LIVE and not LIVE.armed then
@@ -163,7 +163,7 @@ VRFW.on("signal:vrfw.match_result", function()
   return nil
 end)
 
-VRFW.on("match_end", function(ev)
+VRFW.on("match:end", function(ev)
   if not LIVE or LIVE.armed then return nil end
   PLAYED = { key = LIVE.key, won = LIVE.result ~= nil and LIVE.result.outcome == "win" }
   LIVE = nil

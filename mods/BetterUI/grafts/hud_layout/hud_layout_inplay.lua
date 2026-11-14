@@ -52,7 +52,7 @@ local function HLC_Place()
   VRFW.host.menu_command(HLC_CMND_POS, HLC_ERROR, BetterUI.hud_layout.CMDR_X - (HLC_ERR_X + ax), ey - (HLC_ERR_Y + ay), 0, 0)
 end
 
---@lib vrfw_block_helpers.lua#WrapAfter
+--@lib vrfw_block_helpers.lua#Wrap,WrapAfter
 
 local function HLC_OnLayer(a1)
   if a1 == HLC_GUIDE then

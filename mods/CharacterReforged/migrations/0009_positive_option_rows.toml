@@ -1,0 +1,18 @@
+# Classic Recruitment's negative rows become positive: on = the feature is present; the stored value is inverted so the game behaves as before.
+schema = "VRFW.migration/1"
+id = "CharacterReforged.positive_option_rows"
+description = "The rows remove_gacha and hide_spirit_section become players_universe and spirit_section with their stored values inverted"
+phase = "data"
+after = ["VRFW.no_compat_names", "CharacterReforged.passives_and_equipment_in_base"]
+
+[[step]]
+kind = "invert_option_row"
+from = "ClassicRecruitment.remove_gacha"
+to = "ClassicRecruitment.players_universe"
+if_target = "keep_target"
+
+[[step]]
+kind = "invert_option_row"
+from = "ClassicRecruitment.hide_spirit_section"
+to = "ClassicRecruitment.spirit_section"
+if_target = "keep_target"

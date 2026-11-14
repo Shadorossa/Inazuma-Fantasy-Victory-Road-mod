@@ -1,0 +1,15 @@
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.team_club/1"
+folder = "content/team_clubs"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Team.Club"
+v2_kind_folder = "Teams/Clubs"
+v2_version = 1
+label = "Team clubs"
+label_es = "Clubes de equipos"
+doc = "Teams that are one club (VRFW.teams.clubs), for the clubs the game data cannot tell apart."
+doc_es = "Equipos que son un mismo club (VRFW.teams.clubs), para los clubes que los datos del juego no distinguen."
+
+[entry.TeamClub]
+doc = "one club: its teams are versions of one club and leave the club their crest gives them (one team = a club of its own)"
+teams = { type = "strings", ref = "team", required = true, doc = "the club's teams: game keys, 0x… ids or <mod>.<name>" }

@@ -1,0 +1,10 @@
+schema = "VRFW.sprite_redirect/1"
+# The icon of Enma Awoken's outfit lives in its own atlas, so the game's costume sheet gets no entry.
+
+[[VRFW.SpriteRedirect]]
+name = "inazuma_fantasy_enma_awoken_outfit_icon"
+atlas = "#/menu/200_icon/02_icon_item/icon_item09.g4tx"
+own_atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_enma_awoken_outfit_icon.g4tx"
+sprites = [
+    "cos_if_enma_awoken_outfit",
+]

@@ -222,7 +222,7 @@ local function step(m, match, dt)
   end
 end
 
-VRFW.on("tick", function(ev)
+VRFW.on("frame:tick", function(ev)
   if #LIST == 0 then return nil end
   local match = ev.match or {}
   if match.user_team ~= nil and match.user_team ~= USER then
@@ -250,7 +250,7 @@ VRFW.on("tick", function(ev)
   return nil
 end)
 
-VRFW.on("option_changed", function(ev)
+VRFW.on("option:changed", function(ev)
   for _, m in ipairs(LIST) do
     if m.option ~= "" and m.option == ev.key then
       m.option_at = 0
@@ -260,21 +260,21 @@ VRFW.on("option_changed", function(ev)
   return nil
 end)
 
-VRFW.on("match_start", function(ev) reset_match("match start: gauges, flags and phases reset") return nil end)
+VRFW.on("match:start", function(ev) reset_match("match start: gauges, flags and phases reset") return nil end)
 -- every running phase ends with its <key>.phase_end signal (its rules take the effects off), then the match resets
-VRFW.on("match_end", function(ev)
+VRFW.on("match:end", function(ev)
   for _, m in ipairs(LIST) do
     for team = 0, 1 do end_phase(m, team, "match end") end
   end
   reset_match(nil)
   return nil
 end)
-VRFW.on("possession", function(ev) remember(ev) return nil end)
-VRFW.on("select", function(ev) remember(ev) return nil end)
+VRFW.on("match:possession", function(ev) remember(ev) return nil end)
+VRFW.on("input:select", function(ev) remember(ev) return nil end)
 
 local function event_team(ev)
   local team = ev.actor and ev.actor.team
-  if ev.trigger == "goal" and ev.match and ev.match.score then
+  if ev.trigger == "match:goal" and ev.match and ev.match.score then
     if SCORE then
       for t = 0, 1 do
         if (ev.match.score[t + 1] or 0) > (SCORE[t + 1] or 0) then team = t end
@@ -371,7 +371,7 @@ for on in pairs(GAINS) do
   if not ok then warn(string.format("gain trigger %q: %s: left out", on, tostring(e))) end
 end
 for _, m in ipairs(LIST) do
-  local ok, e = pcall(VRFW.on, "signal:" .. m.key .. ".start", function(ev)
+  local ok, e = pcall(VRFW.on, "script:signal:" .. m.key .. ".start", function(ev)
     remember(ev)
     local team = ev.actor and ev.actor.team
     if team ~= nil and team <= 1 and enabled(m) then start_phase(m, team, "signal") end

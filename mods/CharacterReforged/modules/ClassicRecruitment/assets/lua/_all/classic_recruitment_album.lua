@@ -48,6 +48,14 @@ if ClassicRecruitment.album == nil then
     return string.format("%.0f:%.0f", tonumber(row.rarity) or 0, row.param)
   end
 
+  -- The rarity the row's card joins and is saved at (the duplicate rules' copy rarity): with the card it names the player the album signs.
+  local function sign_rarity(row)
+    local R = VRFW.recruit
+    local rarity = tonumber(row.rarity) or -1
+    if rarity < 0 then rarity = R.card_rarity(row.param) end
+    return CharacterReforged.copy_rarity(rarity, R.special_rarity(row.param))
+  end
+
   -- the album's currency and its balance; nil when signing is free
   local function currency()
     local item = VRFW.host.command(A.PRICE, 0, VRFW.recruit.team_level(), 0)
@@ -90,14 +98,16 @@ if ClassicRecruitment.album == nil then
       local R = VRFW.recruit
       local name = tostring(row.name or "")
       if R == nil or type(row.param) ~= "number" or row.param == 0 then return false end
-      local can, why = R.can_sign(row.param)
-      if row.owned == true or why == "owned" then
+      -- A copy of the card at another rarity is another player: only the same card at the same rarity is owned.
+      local rarity = sign_rarity(row)
+      local can, why = R.can_sign(row.param, rarity)
+      if why == "owned" then
         R.refresh()
         local holders = {}
         for _, h in ipairs(R.holders({row.param})) do
-          holders[#holders + 1] = string.format("%.0f:%.0f", h.handle, h.param)
+          holders[#holders + 1] = string.format("%.0f:%.0f@%.0f", h.handle, h.param, tonumber(h.rarity) or -1)
         end
-        VRFW.host.command(A.LOG, "ClassicRecruitment album refused owned", row.param, tostring(row.owned), tostring(why),
+        VRFW.host.command(A.LOG, "ClassicRecruitment album refused owned", row.param, rarity, tostring(why),
           R.owned(row.param), table.concat(holders, ","))
         VRFW.question.notice(ClassicRecruitment.say(A.OWNED, name))
         return false
@@ -118,7 +128,7 @@ if ClassicRecruitment.album == nil then
       if not VRFW.question.ask(ClassicRecruitment.say_price(A.ASK, name, price and price.count or 0, balance)) then
         return false
       end
-      local ok, err = R.recruit{param = row.param, level = level, rarity = row.rarity, price = price}
+      local ok, err = R.recruit{param = row.param, level = level, rarity = rarity, price = price}
       VRFW.host.command(A.LOG, "ClassicRecruitment album recruit", row.param, level, price and price.count or 0,
         ok == true and "joined" or tostring(err))
       if err == "price" then
@@ -126,9 +136,9 @@ if ClassicRecruitment.album == nil then
         return false
       end
       if ok == true then
-        local rarity = tonumber(row.rarity) or -1
+        local shown = tonumber(row.rarity) or -1
         VRFW.summon_presentation.play({
-          players = {{card = row.param, rarity = rarity >= 0 and rarity or R.card_rarity(row.param)}},
+          players = {{card = row.param, rarity = shown >= 0 and shown or R.card_rarity(row.param)}},
           before = page.before_presentation,
           after = page.after_presentation,
           restore_camera = true,
@@ -154,7 +164,7 @@ if ClassicRecruitment.album == nil then
       if R == nil or #rows == 0 then return false end
       local level, keys, params, rarity_of, count_of, total = R.team_level(), {}, {}, {}, {}, 0
       for k, row in ipairs(rows) do
-        keys[k], params[k], rarity_of[row.param] = card_key(row), row.param, row.rarity
+        keys[k], params[k], rarity_of[row.param] = card_key(row), row.param, sign_rarity(row)
       end
       local counts = VRFW.host.command(A.PRICES, level, table.concat(keys, ","))
       for k, row in ipairs(rows) do

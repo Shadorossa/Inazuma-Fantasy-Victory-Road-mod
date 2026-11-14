@@ -140,9 +140,6 @@ end
 
 -- engine test of `item` (a failed call lets it pass)
 local function passes(f, item)
-  if f.keep and f.scope[item] and not f.keep[item] then
-    return false
-  end
   local bp, idp = VRFW.memory.buffer("block", 0x38), VRFW.memory.buffer("item", 4)
   for i = 0, f.n - 1 do
     VRFW.memory.write("u8", bp + i, f.block[i])
@@ -179,27 +176,10 @@ local function tab_items()
   return set
 end
 
-local OWN_ROW_TYPE, ALL_ROWS_TYPE = 1, 8
-local LAST_EQUIPMENT_INVENTORY = 3
-local own_rows = nil
-
--- ticked own rows keep only their items, in the tab built last only
-local function with_own_rows(f, inv, params)
-  if not f or not own_rows or inv > LAST_EQUIPMENT_INVENTORY then
-    return f
-  end
-  local keep = {}
-  for _, p in ipairs(params) do
-    if p[1] == ALL_ROWS_TYPE and p[2] == OWN_ROW_TYPE then
-      return f
-    end
-    for item in pairs(p[1] == OWN_ROW_TYPE and own_rows[p[2]] or {}) do
-      keep[item] = true
-    end
-  end
-  f.keep, f.scope = keep, tab_items()
-  return f
-end
+-- every item a shop tab listed since the game started (the universe of the Mods filter section)
+local seen_items, seen_list = {}, {}
+-- the shop slot each seen item was listed in, and the filter window's inventory type of each slot
+local slot_of_item, inv_of_slot = {}, {}
 
 local name_search = nil
 
@@ -234,6 +214,11 @@ VRFW.on("hook:ShopTabOf:post", function(ev)
   local item = Memory.read("u32", row + ROW_ITEM)
   item = item or 0
   rec_add(view, slot, row, item)
+  if item ~= 0 and not seen_items[item] then
+    seen_items[item] = true
+    seen_list[#seen_list + 1] = item
+    slot_of_item[item] = slot
+  end
   if name_search_drops(item) then
     return { ret = NO_TAB }
   end
@@ -256,12 +241,13 @@ end
 -- slot, inv, t1, v1, o1, … -> ok
 function BetterQoL.ShopFilterSet(slot, inv, ...)
   slot, inv = arg_u32(slot), arg_u32(inv)
+  inv_of_slot[slot] = inv
   local params = triples(...)
   local ok = true
   if #params == 0 then
     filters[slot] = nil
   else
-    local f = with_own_rows(filter_of(inv, params), inv, params)
+    local f = filter_of(inv, params)
     if f then
       filters[slot] = f
     else
@@ -276,8 +262,9 @@ end
 -- inv, t1, v1, o1, … -> shown, total over the rows of the tab built last
 function BetterQoL.ShopFilterCount(inv, ...)
   inv = arg_u32(inv)
+  inv_of_slot[rec.slot] = inv
   local params = triples(...)
-  local f = with_own_rows(filter_of(inv, params), inv, params)
+  local f = filter_of(inv, params)
   local total, shown = #rec.items, #rec.items
   if f then
     shown = 0
@@ -290,26 +277,8 @@ function BetterQoL.ShopFilterCount(inv, ...)
   return shown, total
 end
 
-function BetterQoL.ShopFilterRows(...)
-  local args = { ... }
-  local rows, at = nil, 1
-  while at < #args do
-    local value, count = arg_u32(args[at]), arg_u32(args[at + 1])
-    local items = {}
-    for i = at + 2, at + 1 + count do
-      items[arg_u32(args[i])] = true
-    end
-    rows = rows or {}
-    rows[value] = items
-    at = at + 2 + count
-  end
-  own_rows = rows
-  return true
-end
-
 -- -> live, cleared
 function BetterQoL.ShopFilterReset()
-  own_rows = nil
   local n = 0
   for _ in pairs(filters) do
     n = n + 1
@@ -379,4 +348,55 @@ function BetterQoL.ShopNewState(id)
     end
   end
   return true, false
+end
+
+-- The shop's Mods filter section (content\item_filter_sections\mods.toml): one row for the game's items and one per mod
+-- that holds an item id, named as in its mod.toml; a row holds the items of its mod.
+do
+  local ITEM_KIND = "item"
+  local owners = nil
+  local function owner_of(item)
+    if not owners then
+      local ok, t = pcall(VRFW.ids.owners, ITEM_KIND)
+      owners = ok and type(t) == "table" and t or {}
+    end
+    return owners[u32(item)]
+  end
+
+  -- "mods": the base game row, then one row per mod holding an item id, in load order
+  local function row_list(name)
+    if name ~= "mods" then return {} end
+    owner_of(0)
+    local held = {}
+    for _, mod in pairs(owners) do held[mod] = true end
+    local okb, base = pcall(VRFW.text, "BetterQoL.filter_row_base_game")
+    local rows = { { name = "base_game", label = okb and type(base) == "string" and base or "", test = "mod:" } }
+    local ok, manifests = pcall(VRFW.files.declarations, "mod.toml")
+    for _, f in ipairs(ok and type(manifests) == "table" and manifests or {}) do
+      local id = tostring(f.mod)
+      if held[id] then
+        held[id] = nil
+        local label = type(f.data) == "table" and type(f.data.name) == "string" and f.data.name ~= "" and f.data.name or id
+        rows[#rows + 1] = { name = id, label = label, test = "mod:" .. id }
+      end
+    end
+    return rows
+  end
+
+  -- "mod:<id>" holds the items of mod <id>; "mod:" the game's own
+  local function row_test(test)
+    local mod = string.match(test, "^mod:(.*)$")
+    if mod == nil then return nil end
+    return function(item)
+      return (owner_of(item) or "") == mod
+    end
+  end
+
+  if type(VRFW.item_filter) == "table" then
+    BetterQoL.ItemFilter = VRFW.item_filter.server({ command = "CMND_BETTERQOL_ITEM_FILTER",
+      items = function() return seen_list end, test = row_test, list = row_list,
+      inventory_of = function(item) return inv_of_slot[slot_of_item[item] or -1] end })
+  else
+    VRFW.warn("VRFW.item_filter is missing: the shop's Mods filter tab answers nothing")
+  end
 end

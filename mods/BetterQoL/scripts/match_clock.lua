@@ -47,13 +47,13 @@ local function apply(why)
     why, cur, last.written, s, GAME_RATE))
 end
 
-VRFW.on("match_start", function()
+VRFW.on("match:start", function()
   last = nil
   pcall(apply, "match start")
 end)
 
 -- the game may reset the rate at a kick-off
-VRFW.on("state_enter:9", function()
+VRFW.on("match:state_enter:9", function()
   pcall(apply, "kick-off")
 end)
 

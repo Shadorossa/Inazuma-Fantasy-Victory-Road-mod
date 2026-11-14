@@ -1,0 +1,51 @@
+# The game's own save keeps the team ids of a saved Battle Bay campaign (m_bbStadiumCampaignInfo); a team id is crc32(key).
+schema = "VRFW.migration/1"
+id = "BattleBayDeluxe.team_keys_mod_id_game_save"
+description = "A Battle Bay campaign saved in the game keeps its rival teams after the team keys took the mod id"
+phase = "game_save"
+after = ["BattleBayDeluxe.team_keys_mod_id"]
+
+[[step]]
+kind = "game_save_crc"
+file = "{steam_save}/002AB8F4-USERDATALIVE*"
+container = "002AB8F4-USERDATALIVE"
+entry = "AUTOSAVE_data.bin"
+records = ["playerTeamId", "enemyTeamIdList"]
+from = "bbcr_*_bb"
+to = "battlebaydeluxe_*_bb"
+entry_crc_files = ["{saves}/slot*/VRFW/save_ids.json", "{saves}/slot*/VRFW/board_pieces.json"]
+entry_crc_key = "autosave_crc"
+names = [
+  "ares_0205", "ares_0305", "ares_0400", "ares_0500", "ares_0600", "ares_0705", "ares_0805", "ares_0905",
+  "ares_1100", "go1_0100", "go1_0200", "go1_0300", "go1_0400", "go1_0500", "go1_0600", "go1_0700", "go1_0800",
+  "go1_0900", "go1_1000", "go1_1100", "go1_1200", "go1_1300", "go1_1500", "go1_1600", "go1_1700", "go1_1800",
+  "go1_1900", "go2_0100", "go2_0600", "go2_0800", "go2_1100", "go2_1400", "go2_1500", "go2_1600", "go2_1700",
+  "go2_1800", "go2_1900", "go2_2000", "go2_2100", "go2_2200", "go2_2300", "go2_2500", "go2_2600", "go2_2700",
+  "go3_0200", "go3_0300", "go3_0400", "go3_0500", "go3_0600", "go3_0700", "go3_0800", "go3_0900", "go3_1000",
+  "go3_1100", "go3_1300", "go3_1400", "go3_1500", "go3_1600", "ie1_0200", "ie1_0300", "ie1_0400", "ie1_0500",
+  "ie1_0600", "ie1_0800", "ie1_0900", "ie1_1000", "ie1_1100", "ie1_1300", "ie2_0200", "ie2_0400", "ie2_0600",
+  "ie2_0800", "ie2_0900", "ie2_1100", "ie2_1300", "ie2_1500", "ie2_1600", "ie2_1800", "ie2_2000", "ie3_0200",
+  "ie3_0300", "ie3_0400", "ie3_0500", "ie3_0600", "ie3_0700", "ie3_0800", "ie3_0900", "ie3_1000", "ie3_1100",
+  "ie3_1200", "ie3_1300", "ie3_1400", "ie3_1500", "ie3_1600", "ie3_1800", "legend_ares_01", "legend_ares_02",
+  "legend_ares_03", "legend_ares_04", "legend_ares_05", "legend_ares_06", "legend_ares_07", "legend_ares_08",
+  "legend_ares_09", "legend_ares_12", "legend_go1_01", "legend_go1_03", "legend_go1_04", "legend_go1_05",
+  "legend_go1_06", "legend_go1_07", "legend_go1_08", "legend_go1_09", "legend_go1_10", "legend_go1_11",
+  "legend_go1_12", "legend_go1_13", "legend_go2_01", "legend_go2_02", "legend_go2_03", "legend_go2_04",
+  "legend_go2_05", "legend_go2_06", "legend_go2_07", "legend_go2_08", "legend_go2_09", "legend_go2_10",
+  "legend_go2_11", "legend_go2_12", "legend_go3_01", "legend_go3_02", "legend_go3_03", "legend_go3_04",
+  "legend_go3_05", "legend_go3_06", "legend_go3_07", "legend_go3_08", "legend_go3_09", "legend_go3_10",
+  "legend_go3_11", "legend_go3_12", "legend_ie1_01", "legend_ie1_02", "legend_ie1_03", "legend_ie1_04",
+  "legend_ie1_05", "legend_ie1_06", "legend_ie1_07", "legend_ie1_08", "legend_ie1_09", "legend_ie1_10",
+  "legend_ie1_11", "legend_ie1_12", "legend_ie2_01", "legend_ie2_02", "legend_ie2_03", "legend_ie2_04",
+  "legend_ie2_05", "legend_ie2_06", "legend_ie2_07", "legend_ie2_08", "legend_ie2_09", "legend_ie2_10",
+  "legend_ie2_11", "legend_ie2_12", "legend_ie3_01", "legend_ie3_02", "legend_ie3_03", "legend_ie3_04",
+  "legend_ie3_05", "legend_ie3_06", "legend_ie3_07", "legend_ie3_08", "legend_ie3_09", "legend_ie3_10",
+  "legend_ie3_11", "legend_ie3_12", "legend_original_01", "legend_original_02", "legend_original_03",
+  "legend_original_04", "legend_original_05", "legend_original_06", "legend_original_07", "legend_original_08",
+  "legend_original_09", "legend_original_11", "legend_original_12", "legend_orion_01", "legend_orion_02",
+  "legend_orion_03", "legend_orion_04", "legend_orion_05", "legend_orion_06", "legend_orion_07", "legend_orion_08",
+  "legend_orion_09", "legend_orion_10", "legend_orion_11", "legend_orion_12", "original_0100", "original_0200",
+  "original_0500", "original_0600", "original_0700", "original_0800", "orion_0100", "orion_0200", "orion_0300",
+  "orion_0400", "orion_0500", "orion_0600", "orion_0700", "orion_0900", "orion_1000", "orion_1100", "orion_1200",
+  "victory_0105", "victory_0300", "victory_0405", "victory_0505"
+]

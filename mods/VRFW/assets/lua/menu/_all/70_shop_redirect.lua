@@ -22,6 +22,7 @@ if VRFW.shop_redirect == nil then
     alias = nil,
     hooked = {},
   }
+  --- Internal: State of the shop redirect that opens the shop as the contact map.
   VRFW.shop_redirect = R
 
   local function unsigned(v) return VRFW.ids.unsigned_or(v, nil) end
@@ -54,6 +55,7 @@ if VRFW.shop_redirect == nil then
 
   local function open_screen(real, shop_menu)
     local set = R.pending
+    --- Internal: parameter set waiting to be opened.
     R.pending = nil
     local okh, hub = pcall(real, R.HUB, set)
     local menu = okh and type(hub) == "table" and unsigned(hub.menu) or 0
@@ -68,6 +70,7 @@ if VRFW.shop_redirect == nil then
     end
     pcall(real, R.CLEAR_PARAM, R.KEY_SET)
     pcall(real, R.SET_PARAM, R.KEY_SET, 0, set, 1)
+    --- Internal: Alias from the shop menu to the screen that replaces it.
     R.alias = {from = shop_menu, to = R.SCREEN}
     pcall(real, R.LOG, string.format("vrfw.ShopRedirect shop screen 0x%08X opened as the contact map (set 0x%08X)",
       shop_menu, set))

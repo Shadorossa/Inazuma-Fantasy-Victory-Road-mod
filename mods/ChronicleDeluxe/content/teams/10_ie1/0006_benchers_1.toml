@@ -1,6 +1,6 @@
 schema = "VRFW.team/2"
 default_lang = "en"
-# Source: research/mods/_aside/InazumaFantasy/_tools/wiki_teams_build.py Benchers 1 (IE, «Sonny Raimon's route» #3; report status: missing).
+# Source: wiki_teams_build.py (old Inazuma Fantasy tool, removed 2026-11-12) Benchers 1 (IE, «Sonny Raimon's route» #3; report status: missing).
 [[team]]
 name = "ct_wk_benchers_1"
 key = "evt_ct_wk_benchers_1"

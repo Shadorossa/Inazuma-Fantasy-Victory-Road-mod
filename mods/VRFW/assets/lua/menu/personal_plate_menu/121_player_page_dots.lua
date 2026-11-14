@@ -39,7 +39,9 @@ if VRFW.player_pages ~= nil and VRFW.player_pages.row == nil then
     copies = {},                 -- [layer * 16 + k] = {asked = opened by us, ready = set up}
     drawn = nil,                 -- the row state last drawn ("" = hidden)
     active = false,              -- the framework draws the row (the retail dots hidden)
+    retail_dirty = true,         -- retail code may have lit its dots since they were last hidden
   }
+  --- Advanced: Row helper table of the player page dots: layers, meshes and constants of the dot row.
   P.row = R
   R.MESH_IDS = {}
   for _, n in ipairs(R.MESHES) do
@@ -74,6 +76,7 @@ if VRFW.player_pages ~= nil and VRFW.player_pages.row == nil then
     return VRFW.host.menu_command(R.C.IS_VIS, R.L_STATUS, 0) ~= false
   end
 
+  --- Advanced: Prepares copy k of the status layer (layer, k, trace, keep); answers false while it loads, else true and whether it was just set up.
   function P.status_copy(layer, k, trace, keep)
     if VRFW.host.menu_command(R.C.EXIST, layer) ~= true then
       return false
@@ -119,6 +122,7 @@ if VRFW.player_pages ~= nil and VRFW.player_pages.row == nil then
     return true, false
   end
 
+  --- Advanced: Reads the page dot row layout; answers a table {count, x0, y, pitch, size, lit, framework, keys}, or nil when not shown.
   function P.dot_row()
     if Owned() or not StatusShown() then
       return nil
@@ -175,8 +179,12 @@ if VRFW.player_pages ~= nil and VRFW.player_pages.row == nil then
       end
       return
     end
+    -- the retail dots are hidden once when the row takes over and again only after retail code drew them
+    if not R.active or R.retail_dirty then
+      R.retail_dirty = false
+      RetailDots(false)
+    end
     R.active = true
-    RetailDots(false)
     local state = row.count .. ":" .. tostring(row.lit) .. ":" .. row.x0
     local all = true
     for k = 0, R.COPIES - 1 do
@@ -226,6 +234,16 @@ if VRFW.player_pages ~= nil and VRFW.player_pages.row == nil then
     _ENV[name] = w
   end
 
+  -- the retail calls that light the page dots (the next PostStep hides them again)
+  for _, name in ipairs({"UpdatePageInfo", "ChangePageInfo"}) do
+    Wrap(name, function(orig)
+      return function(...)
+        R.retail_dirty = true
+        return orig(...)
+      end
+    end)
+  end
+
   Wrap("PostStep", function(orig)
     return function(...)
       local r = table.pack(orig(...))
@@ -238,6 +256,7 @@ if VRFW.player_pages ~= nil and VRFW.player_pages.row == nil then
   Wrap("SetStatusBaseArrowAndTextVisible", function(orig)
     return function(a1, ...)
       R.arrows = a1 ~= false
+      R.retail_dirty = true
       return orig(a1, ...)
     end
   end)
@@ -247,6 +266,9 @@ if VRFW.player_pages ~= nil and VRFW.player_pages.row == nil then
     return function(a1, a2, ...)
       local r = table.pack(orig(a1, a2, ...))
       local s = type(a1) == "number" and type(a2) == "number" and R.copies[a1 * 16 + a2] or nil
+      if a1 == R.L_STATUS then
+        R.retail_dirty = true
+      end
       if s ~= nil then
         s.ready = false
         VRFW.host.menu_command(R.C.VIS, a1, a2, false)

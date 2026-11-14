@@ -1,5 +1,5 @@
-if VRFW.host ~= nil and VRFW.daily ~= nil and InazumaFantasyDailyRival ~= nil then
-  InazumaFantasyDailyRival.play_on_reserve()
+if VRFW.host ~= nil and VRFW.daily ~= nil and InazumaFantasy ~= nil and InazumaFantasy.DailyRivalMenu ~= nil then
+  InazumaFantasy.DailyRivalMenu.play_on_reserve()
   local DLR = {
     STEM = "soccer_vs_cpu_list_menu",
     ID = "InazumaFantasy.daily_legendary_rival",
@@ -22,8 +22,6 @@ if VRFW.host ~= nil and VRFW.daily ~= nil and InazumaFantasyDailyRival ~= nil th
     GUIDE_MESH = 378156699,   -- _text_guide01
     GUIDE_RETAIL = 3822200449, -- the retail guide text
     TEXT_GUIDE = VRFW.crc32("InazumaFantasy.daily_rival_guide"),
-    TEXT_CLASS = VRFW.crc32("InazumaFantasy.daily_rival_class"),
-    TEXT_TIME = VRFW.crc32("InazumaFantasy.daily_rival_time"),
     TEXT_DONE = VRFW.crc32("InazumaFantasy.daily_rival_done"),
     TEXT_OPEN = VRFW.crc32("InazumaFantasy.daily_rival_open"),
     shown = false,
@@ -46,7 +44,7 @@ if VRFW.host ~= nil and VRFW.daily ~= nil and InazumaFantasyDailyRival ~= nil th
 
   -- the day's rival beaten / its reward, for the guide line and the bag
   local function refresh()
-    local r = InazumaFantasyDailyRival.ask()
+    local r = InazumaFantasy.DailyRivalMenu.ask()
     if r ~= nil then
       DLR.done = r.done == true
       DLR.reward = tonumber(r.reward) or 0
@@ -134,10 +132,9 @@ if VRFW.host ~= nil and VRFW.daily ~= nil and InazumaFantasyDailyRival ~= nil th
       if focused_game() == DLR.GAME then
         local _, secs = VRFW.daily.period("day")
         secs = math.max(0, math.floor(tonumber(secs) or 0))
-        local left = string.format(text(DLR.TEXT_TIME), math.floor(secs / 3600), math.floor((secs % 3600) / 60))
         local state = string.format(text(DLR.done and DLR.TEXT_DONE or DLR.TEXT_OPEN), DLR.reward)
         funcLuaMenuCommand(VRFW.commands.SET_MENU_TEXT_STRING, DLR.GUIDE, DLR.GUIDE_MESH,
-          string.format(text(DLR.TEXT_GUIDE), text(DLR.TEXT_CLASS), DLR.level, left, state), 0)
+          string.format(text(DLR.TEXT_GUIDE), math.floor(secs / 3600), math.floor((secs % 3600) / 60), state), 0)
         DLR.shown = true
       elseif DLR.shown then
         funcLuaMenuCommand(VRFW.commands.SET_MENU_TEXT_STRING, DLR.GUIDE, DLR.GUIDE_MESH, text(DLR.GUIDE_RETAIL), 0)

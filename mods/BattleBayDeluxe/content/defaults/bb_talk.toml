@@ -187,75 +187,75 @@ reject_words = ["A-game", "Abolishment", "Absolute Barrier", "Absolute Knights",
 # END generated
 
 [bb_talk.retail.lines]
-"bbcr_ie1_0200_bb" = "ev21_02000_010_050"  # Inazuma Kids FC
-"bbcr_ie1_0500_bb" = "ev21_05210_010_010"  # Brain
-"bbcr_ie1_0900_bb" = "ev21_09202_010_010"  # Shuriken
-"bbcr_ie1_1000_bb" = { label = "ev21_10200_010_010", speaker = 0x8E226AAC }  # Farm
-"bbcr_legend_ie1_04_bb" = "ev21_06220_010_060"  # Gafitas
-"bbcr_legend_ie1_05_bb" = { label = "ev21_06220_010_050", speaker = 0xBADFCAC5 }  # Fase previa FF A
-"bbcr_legend_ie1_07_bb" = { label = "ev21_09202_010_010", speaker = 0x8AAF161E }
-"bbcr_legend_ie1_08_bb" = "ev21_12000_010_060"  # Fase nacional FF B
-"bbcr_ie2_0600_bb" = { label = "ev22_06210_010_010", speaker = 0x7618DA9B }  # Claustro Sagrado
-"bbcr_ie3_0500_bb" = "ev23_05200_010_010"  # Dragones de Fuego
-"bbcr_ie1_0300_bb" = "ev21_03204_010_010"  # Occult
-"bbcr_ie2_2000_bb" = "ev22_20220_010_010"  # Emperadores Oscuros
-"bbcr_ie3_0300_bb" = "ev23_03200_010_040"
-"bbcr_ie3_0600_bb" = "ev23_06214_010_010"  # Knights of Queen
-"bbcr_ie3_0700_bb" = "ev23_07210_010_080"  # <MNT:TEAMK>
-"bbcr_ie3_1100_bb" = "ev23_12224_010_010"  # Orfeo
-"bbcr_go1_0500_bb" = "ev24_05210_010_010"  # Poderosa Fe
-"bbcr_go1_1700_bb" = "ev26_06000_010_030"  # Revolucionarios
-"bbcr_go2_2700_bb" = "ev24_22230_010_060"
-"bbcr_legend_ie1_12_bb" = "ev21_09000_010_035"  # Fase nacional FF A
-"bbcr_go2_1700_bb" = "ev25_25200_010_040"  # Ragnah
-"bbcr_go2_0100_bb" = "ev25_01200_010_010"  # Protocolo Omega
-"bbcr_legend_ie1_09_bb" = "ev27_07000_010_040"  # Ultra Zeus
-"bbcr_legend_ie3_01_bb" = "ev27_07000_010_040"  # <FLA:REIJI> All Stars
-"bbcr_legend_go2_08_bb" = { label = "ev27_07000_010_040", speaker = 0x9E23A289 }
-"bbcr_legend_ares_03_bb" = { label = "ev27_07000_010_040", speaker = 0x63F5B1D9 }  # Los Princesos
-"bbcr_legend_go3_02_bb" = "ev27_07000_010_040"  # Leyendas rebeldes
-"bbcr_ie3_0200_bb" = "ev23_02210_010_002"  # Big Waves
-"bbcr_go1_0700_bb" = "ev24_07200_010_020"  # Cala Pirata
-"bbcr_go1_1000_bb" = "ev24_10220_010_040"  # Alpino
-"bbcr_go1_1500_bb" = "ev24_15220_010_010"  # Espejismo
-"bbcr_legend_go1_11_bb" = "ev24_15220_010_010"  # Alucinaciones
-"bbcr_go1_1800_bb" = "ev24_18210_010_010"  # Monte Olimpo
-"bbcr_go1_1900_bb" = "ev24_19200_010_010"  # Dragon Link
-"bbcr_legend_go1_09_bb" = "ev24_19200_010_010"  # Última Orden
-"bbcr_legend_go1_12_bb" = "ev24_19200_010_010"  # Pro Sector Quinto
-"bbcr_legend_go2_02_bb" = "ev25_02000_010_010"  # Élite Omega
-"bbcr_go2_1100_bb" = "ev25_18200_010_010"  # Cascada Perfecta
-"bbcr_go2_1400_bb" = "ev25_14000_010_030"  # Zan
-"bbcr_go2_1500_bb" = "ev25_23200_010_080"  # Gir
-"bbcr_legend_go2_05_bb" = "ev25_25210_010_010"  # Chrono Crisis
-"bbcr_go2_2200_bb" = "ev25_30000_010_080"  # Desesperdidos
-"bbcr_legend_go2_03_bb" = "ev25_20000_010_040"
-"bbcr_legend_go2_11_bb" = "ev25_11100_010_030"  # Fuerza de Orleans
-"bbcr_go3_0500_bb" = "ev26_05000_010_070"  # Muay Tigers
-"bbcr_go3_1300_bb" = "ev26_16202_010_010"  # Flota Ixar
-"bbcr_legend_go3_05_bb" = "ev26_16202_010_010"
-"bbcr_go3_1600_bb" = "ev26_19000_010_090"
-"bbcr_legend_go3_03_bb" = "ev21_02000_010_050"  # Pimpollos Eleven
-"bbcr_ares_0205_bb" = "ev27_02240_010_030"
-"bbcr_ares_0805_bb" = "ev27_09282_010_040"  # Academia Alia
-"bbcr_orion_0200_bb" = "ev28_02200_010_010"  # Demonios Brillantes
-"bbcr_orion_0300_bb" = "ev28_03000_010_090"  # Bailarines Eternos
-"bbcr_legend_go2_07_bb" = { label = "ev22_15000_010_020", speaker = 0x6DB78C11 }  # Osos Dorados
-"bbcr_legend_go2_10_bb" = { label = "ev23_13202_010_040", speaker = 0x6ECA59BB }  # Canes Escarlata
-"bbcr_legend_ares_07_bb" = { label = "ev27_07260_010_010", speaker = 0x6237DBEE }  # Llamas Glaciales
-"bbcr_ie1_0800_bb" = "ev21_08210_010_025"  # Veteranos Inazuma
-"bbcr_ie2_0900_bb" = "ev23_13100_010_040"  # Triple C
-"bbcr_legend_go1_08_bb" = { label = "ev23_13100_010_040", speaker = 0xEBCFE222 }  # Gerentes
-"bbcr_legend_ie2_05_bb" = { label = "ev22_01000_010_040", speaker = 0xDB18BACC }  # Alius B
-"bbcr_legend_ie2_07_bb" = { label = "ev15_00900_010_010", speaker = 0x9E23A289 }
-"bbcr_legend_ie2_10_bb" = { label = "ev23_20246_010_010", speaker = 0xF659AFD1 }
-"bbcr_ie3_0400_bb" = "ev27_09210_010_010"
-"bbcr_legend_ie3_04_bb" = { label = "ev27_07200_010_010", speaker = 0x9E23A289 }  # Ases Internacionales
-"bbcr_legend_ie3_11_bb" = "ev23_18200_010_090"  # Hermanas Estrelladas
-"bbcr_go1_0600_bb" = { label = "ev24_06208_010_040", speaker = 0xD955538E }  # Royal Academy
-"bbcr_go1_1300_bb" = "ev24_13000_010_030"  # Oscuridad Ancestral
-"bbcr_legend_go1_04_bb" = { label = "ev24_07220_010_015", speaker = 0x1501A534 }
-"bbcr_legend_go1_07_bb" = { label = "ev24_18200_010_030", speaker = 0xA11AF422 }  # Superestrellas CI
-"bbcr_legend_go1_13_bb" = { label = "ev23_13202_010_040", speaker = 0x6ECA59BB }
-"bbcr_go2_0800_bb" = "ev25_11201_010_010"  # Protocolo Omega 3.0
-"bbcr_legend_go2_04_bb" = "ev25_08231_010_010"  # Belladona
+"battlebaydeluxe_ie1_0200_bb" = "ev21_02000_010_050"  # Inazuma Kids FC
+"battlebaydeluxe_ie1_0500_bb" = "ev21_05210_010_010"  # Brain
+"battlebaydeluxe_ie1_0900_bb" = "ev21_09202_010_010"  # Shuriken
+"battlebaydeluxe_ie1_1000_bb" = { label = "ev21_10200_010_010", speaker = 0x8E226AAC }  # Farm
+"battlebaydeluxe_legend_ie1_04_bb" = "ev21_06220_010_060"  # Gafitas
+"battlebaydeluxe_legend_ie1_05_bb" = { label = "ev21_06220_010_050", speaker = 0xBADFCAC5 }  # Fase previa FF A
+"battlebaydeluxe_legend_ie1_07_bb" = { label = "ev21_09202_010_010", speaker = 0x8AAF161E }
+"battlebaydeluxe_legend_ie1_08_bb" = "ev21_12000_010_060"  # Fase nacional FF B
+"battlebaydeluxe_ie2_0600_bb" = { label = "ev22_06210_010_010", speaker = 0x7618DA9B }  # Claustro Sagrado
+"battlebaydeluxe_ie3_0500_bb" = "ev23_05200_010_010"  # Dragones de Fuego
+"battlebaydeluxe_ie1_0300_bb" = "ev21_03204_010_010"  # Occult
+"battlebaydeluxe_ie2_2000_bb" = "ev22_20220_010_010"  # Emperadores Oscuros
+"battlebaydeluxe_ie3_0300_bb" = "ev23_03200_010_040"
+"battlebaydeluxe_ie3_0600_bb" = "ev23_06214_010_010"  # Knights of Queen
+"battlebaydeluxe_ie3_0700_bb" = "ev23_07210_010_080"  # <MNT:TEAMK>
+"battlebaydeluxe_ie3_1100_bb" = "ev23_12224_010_010"  # Orfeo
+"battlebaydeluxe_go1_0500_bb" = "ev24_05210_010_010"  # Poderosa Fe
+"battlebaydeluxe_go1_1700_bb" = "ev26_06000_010_030"  # Revolucionarios
+"battlebaydeluxe_go2_2700_bb" = "ev24_22230_010_060"
+"battlebaydeluxe_legend_ie1_12_bb" = "ev21_09000_010_035"  # Fase nacional FF A
+"battlebaydeluxe_go2_1700_bb" = "ev25_25200_010_040"  # Ragnah
+"battlebaydeluxe_go2_0100_bb" = "ev25_01200_010_010"  # Protocolo Omega
+"battlebaydeluxe_legend_ie1_09_bb" = "ev27_07000_010_040"  # Ultra Zeus
+"battlebaydeluxe_legend_ie3_01_bb" = "ev27_07000_010_040"  # <FLA:REIJI> All Stars
+"battlebaydeluxe_legend_go2_08_bb" = { label = "ev27_07000_010_040", speaker = 0x9E23A289 }
+"battlebaydeluxe_legend_ares_03_bb" = { label = "ev27_07000_010_040", speaker = 0x63F5B1D9 }  # Los Princesos
+"battlebaydeluxe_legend_go3_02_bb" = "ev27_07000_010_040"  # Leyendas rebeldes
+"battlebaydeluxe_ie3_0200_bb" = "ev23_02210_010_002"  # Big Waves
+"battlebaydeluxe_go1_0700_bb" = "ev24_07200_010_020"  # Cala Pirata
+"battlebaydeluxe_go1_1000_bb" = "ev24_10220_010_040"  # Alpino
+"battlebaydeluxe_go1_1500_bb" = "ev24_15220_010_010"  # Espejismo
+"battlebaydeluxe_legend_go1_11_bb" = "ev24_15220_010_010"  # Alucinaciones
+"battlebaydeluxe_go1_1800_bb" = "ev24_18210_010_010"  # Monte Olimpo
+"battlebaydeluxe_go1_1900_bb" = "ev24_19200_010_010"  # Dragon Link
+"battlebaydeluxe_legend_go1_09_bb" = "ev24_19200_010_010"  # Última Orden
+"battlebaydeluxe_legend_go1_12_bb" = "ev24_19200_010_010"  # Pro Sector Quinto
+"battlebaydeluxe_legend_go2_02_bb" = "ev25_02000_010_010"  # Élite Omega
+"battlebaydeluxe_go2_1100_bb" = "ev25_18200_010_010"  # Cascada Perfecta
+"battlebaydeluxe_go2_1400_bb" = "ev25_14000_010_030"  # Zan
+"battlebaydeluxe_go2_1500_bb" = "ev25_23200_010_080"  # Gir
+"battlebaydeluxe_legend_go2_05_bb" = "ev25_25210_010_010"  # Chrono Crisis
+"battlebaydeluxe_go2_2200_bb" = "ev25_30000_010_080"  # Desesperdidos
+"battlebaydeluxe_legend_go2_03_bb" = "ev25_20000_010_040"
+"battlebaydeluxe_legend_go2_11_bb" = "ev25_11100_010_030"  # Fuerza de Orleans
+"battlebaydeluxe_go3_0500_bb" = "ev26_05000_010_070"  # Muay Tigers
+"battlebaydeluxe_go3_1300_bb" = "ev26_16202_010_010"  # Flota Ixar
+"battlebaydeluxe_legend_go3_05_bb" = "ev26_16202_010_010"
+"battlebaydeluxe_go3_1600_bb" = "ev26_19000_010_090"
+"battlebaydeluxe_legend_go3_03_bb" = "ev21_02000_010_050"  # Pimpollos Eleven
+"battlebaydeluxe_ares_0205_bb" = "ev27_02240_010_030"
+"battlebaydeluxe_ares_0805_bb" = "ev27_09282_010_040"  # Academia Alia
+"battlebaydeluxe_orion_0200_bb" = "ev28_02200_010_010"  # Demonios Brillantes
+"battlebaydeluxe_orion_0300_bb" = "ev28_03000_010_090"  # Bailarines Eternos
+"battlebaydeluxe_legend_go2_07_bb" = { label = "ev22_15000_010_020", speaker = 0x6DB78C11 }  # Osos Dorados
+"battlebaydeluxe_legend_go2_10_bb" = { label = "ev23_13202_010_040", speaker = 0x6ECA59BB }  # Canes Escarlata
+"battlebaydeluxe_legend_ares_07_bb" = { label = "ev27_07260_010_010", speaker = 0x6237DBEE }  # Llamas Glaciales
+"battlebaydeluxe_ie1_0800_bb" = "ev21_08210_010_025"  # Veteranos Inazuma
+"battlebaydeluxe_ie2_0900_bb" = "ev23_13100_010_040"  # Triple C
+"battlebaydeluxe_legend_go1_08_bb" = { label = "ev23_13100_010_040", speaker = 0xEBCFE222 }  # Gerentes
+"battlebaydeluxe_legend_ie2_05_bb" = { label = "ev22_01000_010_040", speaker = 0xDB18BACC }  # Alius B
+"battlebaydeluxe_legend_ie2_07_bb" = { label = "ev15_00900_010_010", speaker = 0x9E23A289 }
+"battlebaydeluxe_legend_ie2_10_bb" = { label = "ev23_20246_010_010", speaker = 0xF659AFD1 }
+"battlebaydeluxe_ie3_0400_bb" = "ev27_09210_010_010"
+"battlebaydeluxe_legend_ie3_04_bb" = { label = "ev27_07200_010_010", speaker = 0x9E23A289 }  # Ases Internacionales
+"battlebaydeluxe_legend_ie3_11_bb" = "ev23_18200_010_090"  # Hermanas Estrelladas
+"battlebaydeluxe_go1_0600_bb" = { label = "ev24_06208_010_040", speaker = 0xD955538E }  # Royal Academy
+"battlebaydeluxe_go1_1300_bb" = "ev24_13000_010_030"  # Oscuridad Ancestral
+"battlebaydeluxe_legend_go1_04_bb" = { label = "ev24_07220_010_015", speaker = 0x1501A534 }
+"battlebaydeluxe_legend_go1_07_bb" = { label = "ev24_18200_010_030", speaker = 0xA11AF422 }  # Superestrellas CI
+"battlebaydeluxe_legend_go1_13_bb" = { label = "ev23_13202_010_040", speaker = 0x6ECA59BB }
+"battlebaydeluxe_go2_0800_bb" = "ev25_11201_010_010"  # Protocolo Omega 3.0
+"battlebaydeluxe_legend_go2_04_bb" = "ev25_08231_010_010"  # Belladona

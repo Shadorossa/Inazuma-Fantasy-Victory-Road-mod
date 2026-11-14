@@ -1,0 +1,18 @@
+# Inazuma Fantasy's tab in the character bank (VRFW card_filter type, docs/framework/card-filter.md §9, same shape as IECross).
+# Members = the characters whose chara_base team_3 is the Fantasy belong team (content\characters\**), never a list of ids.
+schema = "VRFW.card_filter/1"
+
+[[bank_tab]]
+id = "fantasy"
+series = 0xB2D2CD9B             # crc32("evt_chara_series_fantasy"), type 11; the tab's name = its name text
+team = 0x5595D5FA               # crc32("evt_belong_team_fantasy")
+icon = "#/menu/200_icon/16_icon_list_tab/<LG>/icon_list_tab.g4tx:icon_list_tab_series11"
+icon_off = "#/menu/200_icon/16_icon_list_tab/<LG>/icon_list_tab.g4tx:icon_list_tab_series11_off"
+order = 200
+
+# Members are listed in TODO and this tab only, not under the retail series tabs.
+[[series]]
+id = "fantasy"
+series = 0xB2D2CD9B
+team = 0x5595D5FA
+exclusive = true

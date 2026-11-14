@@ -26,6 +26,7 @@ if VRFW.host ~= nil then
     SHOW = 66378409, SET_TEXT = VRFW.commands.SET_MENU_TEXT_STRING, TEXT_GET = VRFW.commands.TEXT_GET, FOCUS_DATA = 1666448199, SE = VRFW.commands.SND_PLAY_SE, SE_NG = 2086672038, MSG = 2289627655, MSG_WAIT = 2351835063,
     set = nil, title = "",
   }
+  --- Internal: state of the contact hub screen.
   VRFW.contact_hub = CH
 
   local log = VRFW.logger.new("vrfw.ContactHub")
@@ -35,7 +36,7 @@ if VRFW.host ~= nil then
     return (type(s) == "string") and s or ""
   end
 
-  -- the header and the help line of the office (after every redraw of the list's own)
+  -- Internal: the header and the help line of the office (after every redraw of the list's own)
   function CH.dress()
     if CH.set == nil then
       return
@@ -46,6 +47,7 @@ if VRFW.host ~= nil then
     VRFW.host.menu_command(CH.SET_TEXT, CH.GUIDE, CH.GUIDE_MESH, text(CH.HELP), 0)
   end
 
+  --- Internal: opens the contact hub; no args.
   function CH.open()
     local okd, game = VRFW.host.menu_command(CH.FOCUS_DATA, 0)
     if not okd or type(game) ~= "number" or game == 0 then
@@ -69,6 +71,7 @@ if VRFW.host ~= nil then
     funcLuaMenuCommand(CH.ACTIVE, CH.MENU, false)
     funcLuaMenuCommand(CH.VISIBLE, CH.CURSOR, false)
     local okp, parent = pcall(function() return MENU_DEF.GetParentMenuID(CH.MENU) end)
+    --- Internal: parent menu id of the contact hub, or nil.
     CH.parent = (okp and type(parent) == "number" and parent ~= 0) and parent or nil
     if vrfw_hub_yield ~= nil then
       pcall(vrfw_hub_yield, true, CH.SCREEN)

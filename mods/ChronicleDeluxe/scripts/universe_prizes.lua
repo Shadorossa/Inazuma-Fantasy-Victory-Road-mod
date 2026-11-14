@@ -9,64 +9,17 @@ local info, warn = VRFW.logger("ChronicleDeluxe.UniversePrizes")
 local FOLDER = "content/universe_prizes"
 local KIND = "ChronicleDeluxe.universe_prize/1"
 local DEFAULT_POOL = "items"
+-- the chance shown for a pool without its config value
+local NO_CHANCE = 0
 local POOL_TEXT = "ChronicleDeluxe.universe_prize_pool_"
 
 local ITEM_TABLE = "data/common/gamedata/item/item_config"
 local ITEM_ID, ITEM_SUB_CATEGORY = 1, 7              -- 1-based columns shared by the item lists
-local SHOP_TABLE = "data/common/gamedata/shop/shop_config"
-local SHOP_ROWS = "SHOP_INFO_ITEM"
-local SHOP_ITEM, SHOP_CONDITION = 3, 23
 local SKILL_TABLE = "data/common/gamedata/skill/skill_config"
 local SKILL_ROWS = "m_skillInfoList"
-local HIDE_FLAG = "VRFW_ROW_HIDDEN"
-local CONDITION_HASH = 0x34
-
-local BASE64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
 
 local POOLS = nil
 local rolls = 0
-
-local function condition_mentions(text, flag)
-  local bytes, buffer, bits = {}, 0, 0
-  for i = 1, #text do
-    local value = BASE64:find(text:sub(i, i), 1, true)
-    if value == nil then
-      break
-    end
-    buffer = (buffer % 65536) * 64 + (value - 1)
-    bits = bits + 6
-    if bits >= 8 then
-      bits = bits - 8
-      bytes[#bytes + 1] = math.floor(buffer / 2 ^ bits) % 256
-    end
-  end
-  for i = 1, #bytes - 4 do
-    if bytes[i] == CONDITION_HASH
-      and bytes[i + 1] * 16777216 + bytes[i + 2] * 65536 + bytes[i + 3] * 256 + bytes[i + 4] == flag then
-      return true
-    end
-  end
-  return false
-end
-
-local function sold_items()
-  local sold, hidden_by_text = {}, {}
-  local flag = VRFW.crc32(HIDE_FLAG)
-  for _, row in ipairs(VRFW.table.raw(VRFW.table_files.file_name(SHOP_TABLE), SHOP_ROWS, { SHOP_ITEM, SHOP_CONDITION })) do
-    local text = row[SHOP_CONDITION]
-    local hidden = false
-    if type(text) == "string" and text ~= "" then
-      if hidden_by_text[text] == nil then
-        hidden_by_text[text] = condition_mentions(text, flag)
-      end
-      hidden = hidden_by_text[text]
-    end
-    if not hidden and type(row[SHOP_ITEM]) == "number" then
-      sold[u32(row[SHOP_ITEM])] = true
-    end
-  end
-  return sold
-end
 
 local function skill_powers()
   local powers = {}
@@ -76,21 +29,33 @@ local function skill_powers()
   return powers
 end
 
+local settings_warned = {}
+
+-- a number of config.toml (its only value), or nil with one warning when it is missing or not a number
+local function setting(path, min, max, effect)
+  local v = VRFW.config(path, nil, min, max)
+  if v == nil and not settings_warned[path] then
+    settings_warned[path] = true
+    VRFW.warn("config: config.toml " .. path .. " is missing or not a number: " .. effect)
+  end
+  return v
+end
+
 local function resolve_category(prize, pool_name, where)
   local wanted = {}
   for _, sub_category in ipairs(type(prize.sub_categories) == "table" and prize.sub_categories or {}) do
     wanted[sub_category] = true
   end
-  local sold = prize.sold_in_shop and sold_items() or nil
+  local sold = prize.sold_in_shop and VRFW.shop.sold_items() or nil
   local powers = prize.weight_by_skill_power and skill_powers() or nil
-  local exponent = VRFW.config("universe_prizes." .. pool_name .. ".power_exponent", 0, 0, 8)
+  local exponent = powers and setting("universe_prizes." .. pool_name .. ".power_exponent", 0, 8, "its techniques weigh the same") or nil
   local items, running, total = {}, {}, 0
   for _, row in ipairs(VRFW.table.raw(VRFW.table_files.file_name(ITEM_TABLE), tostring(prize.list), { ITEM_ID, ITEM_SUB_CATEGORY })) do
     local id = u32(row[ITEM_ID])
     if wanted[row[ITEM_SUB_CATEGORY]] and (sold == nil or sold[id]) then
       local power = powers and powers[id] or nil
       if powers == nil or (power ~= nil and power > 0) then
-        total = total + (powers and power ^ -exponent or 1)
+        total = total + (exponent and power ^ -exponent or 1)
         items[#items + 1] = id
         running[#items] = total
       end
@@ -154,10 +119,10 @@ local function pick_from_category(entry, random)
   return entry.items[low]
 end
 
--- the chance in percent that a pull adds an item of this pool
+-- the chance in percent that a pull adds an item of this pool (nil without its config value: the pool gives nothing)
 local function pool_chance(pool, is_last_star)
   local key = is_last_star and ".last_star_chance_percent" or ".chance_percent"
-  return VRFW.config("universe_prizes." .. pool.name .. key, 0, 0, 100)
+  return setting("universe_prizes." .. pool.name .. key, 0, 100, "the pool gives nothing")
 end
 
 local function pool_summary(pool)
@@ -198,7 +163,7 @@ function ChronicleDeluxe.UniversePrizeRates(is_last_star)
   for _, pool in ipairs(pools()) do
     local count, likely = pool_summary(pool)
     rows[#rows + 1] = VRFW.crc32(POOL_TEXT .. pool.name)
-    rows[#rows + 1] = pool_chance(pool, is_last_star)
+    rows[#rows + 1] = pool_chance(pool, is_last_star) or NO_CHANCE
     rows[#rows + 1] = count
     rows[#rows + 1] = likely
   end
@@ -212,7 +177,7 @@ function ChronicleDeluxe.RollUniversePrize(is_last_star)
     local chance = pool_chance(pool, is_last_star)
     rolls = rolls + 1
     local random = VRFW.random("ChronicleDeluxe.universe_prize", { VRFW.random.int(0, 2147483646), rolls })
-    if random:float() * 100 < chance then
+    if chance ~= nil and random:float() * 100 < chance then
       local entry = pool.entries[random:weighted(pool.weights)]
       won[#won + 1] = entry.item or pick_from_category(entry, random)
     end

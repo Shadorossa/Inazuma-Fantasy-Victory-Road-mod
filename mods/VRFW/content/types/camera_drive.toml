@@ -2,6 +2,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.camera_drive/1"
 folder = "content/camera_drives"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Match.CameraDrive"
+v2_kind_folder = "Match/CameraDrives"
+v2_version = 1
 label = "Shot camera"
 label_es = "Cámara de tiros"
 doc = "Switches the match camera to a chosen preset while a shot is played."

@@ -3,6 +3,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.shop_aura_card/1"
 folder = "content/shop_aura_cards"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Shop.AuraCard"
+v2_kind_folder = "Shop/AuraCards"
+v2_version = 1
 label = "Shop aura cards"
 label_es = "Cartas de aura de tienda"
 doc = "Special-move items of one sub-kind are drawn in a shop with the aura card of their aura type."

@@ -24,9 +24,11 @@ local KP_DEFAULT = tonumber(RAW.keshin_points_default) or 200
 
 -- game layout
 local Actors = VRFW.players
-local MI_TEAMS, TEAM_STRIDE, TEAM_ON_PITCH = 0x60, 0x1130, 0x1050
-local MI_HALF_LEN, MI_HALF, MI_USER_TEAM = 0x1C, 0x2BFB, 0x2C29
-local MEM_LINK_SLOT, MEM_POSITION, MEM_FLAGS, MEM_SENT_OFF = 0x68, 0x71, 0x7A, 0x08
+local MI_TEAMS, TEAM_STRIDE, TEAM_ON_PITCH = VRFW.game.field("MatchInfo.Teams"), VRFW.game.field("MatchTeam"), VRFW.game.field("MatchTeam.OnPitch")
+local MI_HALF_LEN, MI_USER_TEAM = VRFW.game.field("MatchInfo.HalfLength"), VRFW.game.field("MatchInfo.UserTeam")
+local MEM_POSITION, MEM_FLAGS = VRFW.game.field("MatchTeamMember.Position"), VRFW.game.field("MatchTeamMember.Flags")
+-- The current half, the member's link slot and its sent-off flag have no game profile name.
+local MI_HALF, MEM_LINK_SLOT, MEM_SENT_OFF = 0x2BFB, 0x68, 0x08
 local CTRL_BY_TEAM = 0x60
 local PEND_FLAG_NO_COST, PEND_FLAG_HYPER_GAUGE = 0x08, 0x10
 local Live = VRFW.match.live
@@ -650,7 +652,7 @@ function R.battery_frame(in_match)
 end
 
 local layout_had = nil
-VRFW.on("signal:vrfw.off_pitch.layout", function()
+VRFW.on("script:signal:vrfw.off_pitch.layout", function()
   layout_had = {}
   for _, p in pairs(players) do
     if p.battery and p.battery.bit_set then
@@ -661,7 +663,7 @@ VRFW.on("signal:vrfw.off_pitch.layout", function()
   return nil
 end)
 
-VRFW.on("signal:vrfw.off_pitch.layout_done", function()
+VRFW.on("script:signal:vrfw.off_pitch.layout_done", function()
   for _, p in ipairs(layout_had or {}) do
     if p.battery then
       if member_on_pitch_ignoring_bit(p.team, p.battery.member) then
@@ -771,7 +773,7 @@ local function tired_step(p, ratio)
   end
 end
 
-VRFW.on("move_speed", function(ev)
+VRFW.on("match:move_speed", function(ev)
   local a = ev.actor
   if not a or not a.handle then return nil end
   local p = players[a.handle]
@@ -880,7 +882,7 @@ local function slot_busy(es)
   return es ~= nil and ((es.fusion or 0) ~= 0 or es.swap == true)
 end
 
-VRFW.on("tick", function(ev)
+VRFW.on("frame:tick", function(ev)
   local m = ev.match or NO_MATCH
   local mi = game_global("sp_match")
   frame.mi = mi

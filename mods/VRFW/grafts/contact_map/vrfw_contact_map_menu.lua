@@ -345,20 +345,20 @@ local function DrawBust(layer, idx, card, x, y, size)
     BUST.key[layer][idx] = card
     BUST.chara[tk] = chara
   end
-  -- the face mesh stays hidden while the face loads (VRFW.face_icon.settle in Step)
+  -- the face mesh stays hidden while the face loads (VRFW.face_icon settles it after Step)
   VRFW.face_icon.face(layer, idx, BUST.chara[layer .. ":" .. idx], BUST.MESH, BUST.TEX,
     {kit = 0, keeper = false, use_args = true})
   Kit.show(layer, idx)
 end
 
--- Steps the busts that are still loading.
+-- Notes when the busts that were loading have all come in (VRFW.face_icon settles them after Step).
+local bust_loading = false
 local function BustStep()
-  if VRFW.face_icon.pending() then
-    VRFW.face_icon.settle()
-    if not VRFW.face_icon.pending() then
-      OtNote("face in")
-    end
+  local loading = VRFW.face_icon.pending()
+  if bust_loading and not loading then
+    OtNote("face in")
   end
+  bust_loading = loading
 end
 
 local function DrawFace(layer, idx, face, x, y, size)

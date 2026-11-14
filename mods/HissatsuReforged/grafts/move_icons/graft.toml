@@ -1,4 +1,4 @@
-# Move-row icons ( docs/internal/types/technique.md §4c, sprites research/mods/_aside/InazumaFantasy/_tools/move_icons_build.py):
+# Move-row icons ( docs/internal/types/technique.md §4c, sprites move_icons_build.py (old Inazuma Fantasy tool, removed 2026-11-12)):
 # every badge of a special move's icon set (technique engine CMND_VRFW_MOVE_ICONS: long shot, counter shot, shot
 # block), side by side, in every move list, through ONE shared row function (HissatsuReforged.move_icons_row): the «double icon» of a
 # move with two properties (e.g. long shot + counter shot). Mod Hissatsu Reforged since 2026-10-14 (was Inazuma Fantasy's

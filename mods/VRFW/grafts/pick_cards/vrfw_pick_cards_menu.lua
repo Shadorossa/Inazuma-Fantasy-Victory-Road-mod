@@ -600,9 +600,6 @@ function Step()
       DrawAll()
     end
   end
-  if VRFW.face_icon ~= nil and VRFW.face_icon.pending() then
-    VRFW.face_icon.settle()
-  end
   PollPointer()
   local free = vrfw_co == nil and open_guard <= 0 and funcLuaCommand(C.MSG_BUSY) ~= true
   Kit.poll_keys(NAV_KEYS, Act, {enabled = free})

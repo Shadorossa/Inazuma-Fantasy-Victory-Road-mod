@@ -7,7 +7,7 @@ For = "config"
   Key = "difficulty"
   Type = "table"
   Label = { es = "Dificultad", en = "Difficulty" }
-  Help = { es = "Los niveles de la fila «Dificultad» (Novato, Aficionado, Profesional, Clase mundial, Infierno). Los demás valores de esta lista son los de Infierno; cada nivel los calcula desde aquí. Solo cambian las reglas de la IA.", en = "The levels of the row «Difficulty» (Novice, Amateur, Professional, World class, Hell). The other values of this list are Hell's; each level computes them from here. Only the AI rules change." }
+  Help = { es = "Los niveles de la fila «Dificultad» (Novato, Aficionado, Profesional, Clase mundial, Infierno, Leyenda). Los demás valores de esta lista son los de Infierno; cada nivel los calcula desde aquí, y Leyenda solo cambia la sexta entrada de cada lista de valores. Solo cambian las reglas de la IA.", en = "The levels of the row «Difficulty» (Novice, Amateur, Professional, World class, Hell, Leyenda). The other values of this list are Hell's; each level computes them from here, and Leyenda only changes the sixth entry of each values list. Only the AI rules change." }
   [[Shape.Field]]
   Key = "difficulty.from"
   Type = "table"
@@ -2068,3 +2068,88 @@ For = "config"
   Type = "float"
   Label = { es = "Tensión que conserva", en = "Tension kept" }
   Help = { es = "Tensión que guarda tras una técnica en su zona de tiro (0 a 300).", en = "Tension it keeps after a move in its shoot zone (0 to 300)." }
+  [[Shape.Field]]
+  Key = "stick_read"
+  Type = "table"
+  Label = { es = "Lectura de tu stick (Leyenda)", en = "Stick read (Leyenda)" }
+  Help = { es = "En Leyenda el rival lee tu stick real, con retraso y errores de humano, para anticipar pases y regates.", en = "At Leyenda the rival reads your real stick, late and with human mistakes, to anticipate passes and dribbles." }
+  [[Shape.Field]]
+  Key = "stick_read.react_s"
+  Type = "float"
+  Label = { es = "Retraso de reacción", en = "Reaction delay" }
+  Help = { es = "Segundos que tarda en ver tu stick (0 a 1).", en = "Seconds before it sees your stick (0 to 1)." }
+  [[Shape.Field]]
+  Key = "stick_read.error"
+  Type = "float"
+  Label = { es = "Fallo de lectura", en = "Read miss" }
+  Help = { es = "Probabilidad de que no lea tu stick en cada lectura (0 a 1).", en = "Chance it misses your stick at each read (0 to 1)." }
+  [[Shape.Field]]
+  Key = "stick_read.noise_deg"
+  Type = "float"
+  Label = { es = "Error de puntería", en = "Aim error" }
+  Help = { es = "Grados de error de cada lectura, como máximo (0 a 90).", en = "Degrees each read can be off, at most (0 to 90)." }
+  [[Shape.Field]]
+  Key = "stick_read.decide_s"
+  Type = "float"
+  Label = { es = "Cada cuánto relee", en = "Read again every" }
+  Help = { es = "Segundos entre dos lecturas nuevas (fallo y error nuevos).", en = "Seconds between two new reads (new miss and error)." }
+  [[Shape.Field]]
+  Key = "stick_read.pass_weight"
+  Type = "float"
+  Label = { es = "Peso en el pase", en = "Weight on passes" }
+  Help = { es = "Cuánto pesa tu stick frente a tu carrera al adivinar tu pase (0 a 1).", en = "How much your stick counts over your run when it guesses your pass (0 to 1)." }
+  [[Shape.Field]]
+  Key = "stick_read.duel_cover"
+  Type = "int"
+  Label = { es = "Cubre tu regate", en = "Covers your dribble" }
+  Help = { es = "1 = su defensor en un duelo cubre el lado al que va tu stick.", en = "1 = its duel defender covers the side your stick goes to." }
+  [[Shape.Field]]
+  Key = "stick_read.attack_read"
+  Type = "int"
+  Label = { es = "Lee a tu defensor", en = "Reads your defender" }
+  Help = { es = "1 = su atacante en un duelo lee el lado al que va el stick de tu defensor.", en = "1 = its duel attacker reads the side your defender's stick goes to." }
+  [[Shape.Field]]
+  Key = "human_habits"
+  Type = "table"
+  Label = { es = "Tus hábitos (Leyenda)", en = "Your habits (Leyenda)" }
+  Help = { es = "En Leyenda el rival aprende durante el partido cómo juegas (lado de pase, regate, tiro, presión) y lo olvida rápido si cambias.", en = "At Leyenda the rival learns during the match how you play (pass, dribble and shot side, pressing) and forgets it fast when you change." }
+  [[Shape.Field]]
+  Key = "human_habits.half_life_s"
+  Type = "float"
+  Label = { es = "Memoria de hábitos", en = "Habit memory" }
+  Help = { es = "Segundos en que un hábito pierde la mitad de su peso (más bajo = se adapta antes).", en = "Seconds for a habit to lose half its weight (lower = adapts sooner)." }
+  [[Shape.Field]]
+  Key = "stick_press"
+  Type = "table"
+  Label = { es = "Presión al girarte (Leyenda)", en = "Press when you turn (Leyenda)" }
+  Help = { es = "Presiona en cuanto tu portador apunta el stick hacia su propia portería.", en = "It presses as soon as your carrier points his stick toward his own goal." }
+  [[Shape.Field]]
+  Key = "stick_press.players"
+  Type = "int"
+  Label = { es = "Jugadores que presionan", en = "Pressing players" }
+  Help = { es = "Cuántos rivales salen a por ti.", en = "How many rivals go at you." }
+  [[Shape.Field]]
+  Key = "weak_side_attack"
+  Type = "table"
+  Label = { es = "Ataque por el lado débil (Leyenda)", en = "Weak side attack (Leyenda)" }
+  Help = { es = "Sus apoyos van al lado del campo más lejos del jugador que controlas.", en = "Its support players go to the side farthest from the player you control." }
+  [[Shape.Field]]
+  Key = "pass_away_from_stick"
+  Type = "table"
+  Label = { es = "Pase contra tu stick (Leyenda)", en = "Pass against your stick (Leyenda)" }
+  Help = { es = "Si tu defensor corre hacia la línea de pase, cambia el pase al compañero libre del otro lado.", en = "When your defender runs at the pass lane, the pass goes to the free teammate on the other side." }
+  [[Shape.Field]]
+  Key = "run_behind_defender"
+  Type = "table"
+  Label = { es = "Desmarque a tu espalda (Leyenda)", en = "Run behind you (Leyenda)" }
+  Help = { es = "Su delantero corre al espacio detrás del defensor que controlas, por el lado que dejas libre.", en = "Its forward runs into the space behind the defender you control, on the side you leave open." }
+  [[Shape.Field]]
+  Key = "duel_probe"
+  Type = "table"
+  Label = { es = "Sonda de duelos (Leyenda)", en = "Duel probe (Leyenda)" }
+  Help = { es = "Diagnóstico: registra cada elección de duelo de la CPU y si ya te habías decidido.", en = "Diagnostic: logs each CPU duel choice and whether you had already committed." }
+  [[Shape.Field]]
+  Key = "duel_probe.on"
+  Type = "bool"
+  Label = { es = "Registrar", en = "Log it" }
+  Help = { es = "Activa la línea del registro.", en = "Turns the log line on." }

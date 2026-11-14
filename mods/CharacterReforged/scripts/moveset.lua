@@ -77,3 +77,12 @@ function CharacterReforged.Moveset(id)
   out.mix = load_mix()[key]
   return out
 end
+
+-- Every card's own mix as { [card] = aura command id }, in one call, for a caller that walks every card.
+function CharacterReforged.MovesetMixes()
+  return load_mix()
+end
+
+-- The card lists and the mix rules are read at script load (off the game thread), so the first moveset question does not read them.
+pcall(load_lists)
+pcall(load_mix)

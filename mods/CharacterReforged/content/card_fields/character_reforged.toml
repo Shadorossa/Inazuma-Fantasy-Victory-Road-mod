@@ -1,0 +1,34 @@
+schema = "VRFW.card_field/1"
+
+# Suerte: chara_param stat_luck; a card that stores 0 gets the rounded mean of its seven stats (scripts\lib\stats_curve.lua derived_luck).
+[[VRFW.CardStat]]
+name = "luck"
+stat = "luck"
+label = { en = "Luck", es = "Suerte" }
+help = { en = "Critical catches and critical special moves ([stat_effects] of the config).", es = "Paradas críticas y supertécnicas críticas ([stat_effects] de la configuración)." }
+derive = "mean"
+derive_from = ["kick", "control", "technique", "pressure", "physical", "intelligence", "agility"]
+
+# Libertad: chara_param stat_freedom, the free training points (scripts\lib\stats_curve.lua, training).
+[[VRFW.CardStat]]
+name = "freedom"
+stat = "freedom"
+label = { en = "Freedom", es = "Libertad" }
+help = { en = "Free training points.", es = "Puntos de entrenamiento libres." }
+
+# The aura slot of the skill set: learn list slot 9 when it holds an aura of the slot's types (scripts\mix_slots.lua default_fill).
+[[VRFW.CardSlot]]
+name = "aura"
+label = { en = "Aura", es = "Aura" }
+help = { en = "Keshin, totem or awakening of the skill set.", es = "Keshin, tótem o despertar del set de técnicas." }
+types_from = "content/skill_set:CharacterReforged.SkillSet.aura_types"
+learn_slot = 9
+
+# The mix slot: learn list slot 9 when it holds a Mix-Max or mode change, else the card's entry of [CharacterReforged.Mix] (scripts\moveset.lua).
+[[VRFW.CardSlot]]
+name = "mix"
+label = { en = "Mix", es = "Mix" }
+help = { en = "Mix-Max or mode change of the skill set.", es = "Mixi Max o modo cambio del set de técnicas." }
+types_from = "content/skill_set:CharacterReforged.SkillSet.mix_types"
+learn_slot = 9
+card_table = "content/movesets:CharacterReforged.Mix"

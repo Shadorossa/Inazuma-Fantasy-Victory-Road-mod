@@ -17,6 +17,7 @@ if VRFW.route_slots == nil then
     by_idx = nil,              -- piece index -> extended slot (per VM, built on first use)
     installed = false,
   }
+  --- Advanced: Namespace of the route slot handling: route node clear and lock state per slot.
   VRFW.route_slots = M
 
   local function log(...)
@@ -39,6 +40,7 @@ if VRFW.route_slots == nil then
     if M.by_idx ~= nil then
       return M.by_idx
     end
+    --- Internal: map from route node index to its slot data, rebuilt on demand.
     M.by_idx = {}
     local n = call(real, M.NODE_COUNT)
     if type(n) ~= "number" then
@@ -103,17 +105,17 @@ if VRFW.route_slots == nil then
     pcall(real, M.SAVE_SET, M.OWNER, "route_slot." .. tostring(slot), c .. "," .. l, 1)
   end
 
-  --- Reads a route-slot flag of kind `kind`; `d` is the default.
+  --- Advanced: Reads a route-slot flag of kind `kind`; `d` is the default.
   function M.get(kind, slot, d)
     return get(funcLuaCommand, kind, slot, d)
   end
 
-  --- Writes a route-slot flag of kind `kind`.
+  --- Internal: Writes a route-slot flag of kind `kind`.
   function M.set(kind, slot, on, d)
     set(funcLuaCommand, kind, slot, on, d)
   end
 
-  --- Installs the route-slot commands once; answers true, or false, why.
+  --- Advanced: Installs the route-slot commands once; answers true, or false, why.
   function M.install()
     if M.installed then
       return false, "already installed"
@@ -144,12 +146,13 @@ if VRFW.route_slots == nil then
       end
       return nxt(...)
     end
+    --- Internal: true once the route slot command hook is installed.
     M.installed = VRFW.host.hook_command({ M.PIECE, M.CLEAR_GET, M.LOCK_GET, M.CLEAR_SET, M.LOCK_SET }, handler,
       "VRFW.route_slots")
     return M.installed
   end
 
-  --- Wraps OnInit so the commands are installed once the script is up.
+  --- Internal: Wraps OnInit so the commands are installed once the script is up.
   function M.watch()
     local prev = OnInit
     OnInit = function(...)

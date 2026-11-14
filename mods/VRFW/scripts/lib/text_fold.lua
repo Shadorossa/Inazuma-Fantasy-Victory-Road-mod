@@ -1,3 +1,4 @@
+-- Accent and case folding of UTF-8 text, for search keys and sorting names. Call: at load or in a handler.
 -- Accent and case folding of a UTF-8 text, for search keys and name grouping.
 local M = {}
 
@@ -9,7 +10,7 @@ local GROUPS = {
   U = "ÙÚÛÜùúûü", Y = "Ýýÿ",
 }
 
---- The UTF-8 characters of `s`, as an array.
+--- VRFW.text_fold.chars(s): the UTF-8 characters of s, as a list. Call: at load or in a handler.
 function M.chars(s)
   local out = {}
   for ch in tostring(s or ""):gmatch(UTF8_CHAR) do
@@ -37,17 +38,17 @@ local function upper_char(ch)
   return PLAIN[ch] or ch:upper()
 end
 
---- Text `s` in lower case (Latin letters with accents too).
+--- VRFW.text_fold.fold(s): s in lower case without accents (for comparing names). Call: at load or in a handler.
 function M.fold(s)
   return (tostring(s or ""):gsub(UTF8_CHAR, lower_char))
 end
 
---- Text `s` in upper case (Latin letters with accents too).
+--- VRFW.text_fold.fold_upper(s): s in upper case, accented Latin letters included. Call: at load or in a handler.
 function M.fold_upper(s)
   return (tostring(s or ""):gsub(UTF8_CHAR, upper_char))
 end
 
---- Text with `{1}`..`{9}` replaced by the arguments.
+--- VRFW.text_fold.fill_template(text, ...): text with {1}..{9} replaced by the arguments. Call: at load or in a handler.
 function M.fill_template(text, ...)
   local args = { ... }
   return (tostring(text or ""):gsub("{(%d)}", function(k)

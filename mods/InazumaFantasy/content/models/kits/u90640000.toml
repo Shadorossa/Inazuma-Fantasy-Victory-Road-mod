@@ -1,0 +1,4 @@
+schema = "VRFW.model/1"
+# Komasan's body, purse, bundle and head flames: one full-body clothes model, his own body and never a team kit.
+format = "native"
+game_path = "chr/_uniform/u90640000"

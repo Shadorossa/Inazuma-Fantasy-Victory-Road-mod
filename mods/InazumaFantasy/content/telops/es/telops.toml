@@ -1,0 +1,7 @@
+schema = "VRFW.telop_list/2"
+# The moves' name banners (Spanish) that differ from the any folder's: <id>.png beside this list, each cloning its base
+# move's banner (`from`).
+
+[[telop]]
+id = "whs91016"                 # Tormenta meteoro V (the owner's Spanish picture)
+from = "whs10160"

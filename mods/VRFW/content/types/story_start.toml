@@ -2,6 +2,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.story_start/1"
 folder = "content/story_start"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Framework.StoryStart"
+v2_kind_folder = "Framework/StoryStart"
+v2_version = 1
 label = "Story start"
 label_es = "Inicio de historia"
 

@@ -1,6 +1,6 @@
 schema = "VRFW.team/2"
 default_lang = "en"
-# Source: research/mods/_aside/InazumaFantasy/_tools/wiki_teams_build.py The Windies (IE, «Sonny Raimon's route» #2; report status: missing).
+# Source: wiki_teams_build.py (old Inazuma Fantasy tool, removed 2026-11-12) The Windies (IE, «Sonny Raimon's route» #2; report status: missing).
 [[team]]
 name = "ct_wk_the_windies"
 key = "evt_ct_wk_the_windies"

@@ -1,0 +1,14 @@
+# Yami Enma's miximax colours: his own model has no game character to lend him colour keys, so this mod declares them.
+# His white hair is the hair colour, his grey skin the face and body skin, and the red iris inside the blue ring his iris.
+# The black brows and lashes are never recoloured.
+schema = "VRFW.miximax_palette/1"
+
+[[VRFW.MiximaxPalette]]
+character = "c90650000"
+head = "_face/90_FANTASY/c90650000/c90650000.g4tx"
+hair = "#DEE1E9"
+face = "#86827E"
+iris = "#FC615D"
+skin = "#86827E"
+# The painted zones of his head: the eyes on the face atlas (his skin is painted on the head texture too, so it keeps its colour), the white hair and the purple mane around his head on the head texture (never the smoke below it).
+zones = { face = "assets/images/miximax_zones/c90650000_face.png", hair = "assets/images/miximax_zones/c90650000_hair.png" }

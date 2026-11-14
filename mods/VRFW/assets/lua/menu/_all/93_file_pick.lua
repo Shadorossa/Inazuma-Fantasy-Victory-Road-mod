@@ -6,6 +6,7 @@ if VRFW.file_pick == nil then
     OPEN = VRFW.ids.crc32("CMND_VRFW_FILE_PICK_OPEN"),   -- Arguments: area, extension, title; results: ticket, or nil and why.
     STATE = VRFW.ids.crc32("CMND_VRFW_FILE_PICK_STATE"), -- Arguments: ticket; results: state, then the file name or why.
   }
+  --- File windows for the player's files: open, save. Call only from OnInit, Step or another callback.
   VRFW.file_pick = P
   local log = VRFW.logger.new("VRFW file pick")
 
@@ -25,6 +26,7 @@ if VRFW.file_pick == nil then
     end
   end
 
+  -- VRFW.file_pick.save({area, name, ext, title}): asks where to save. Returns "picked", ticket, file, or "cancelled" / "unavailable". Write it with VRFW.files.picked_write. Call only from OnInit, Step or another callback.
   --- Asks where to save: opts = { area, name, ext, title } -> "picked", ticket, file | "cancelled" | "unavailable", why.
   -- A "picked" ticket is written once with VRFW.files.picked_write in a script; "unavailable" means the caller's own list flow runs.
   function P.save(opts)
@@ -36,6 +38,7 @@ if VRFW.file_pick == nil then
     return wait(ticket)
   end
 
+  -- VRFW.file_pick.open({area, ext, title}): asks which file to open. Returns "picked", ticket, file, or "cancelled" / "unavailable". Read it with VRFW.files.picked_read. Call only from OnInit, Step or another callback.
   --- Asks which file to open: opts = { area, ext, title } -> "picked", ticket, file | "cancelled" | "unavailable", why.
   -- A "picked" ticket is read with VRFW.files.picked_read in a script; "unavailable" means the caller's own list flow runs.
   function P.open(opts)

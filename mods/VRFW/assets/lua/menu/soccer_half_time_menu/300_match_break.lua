@@ -64,6 +64,7 @@ do
 
   local prev = OnOpenLayer
   if type(prev) == "function" and VRFW.match_break_open ~= OnOpenLayer then
+    --- Internal: wrapped OnOpenLayer that relabels the title and back layers of the half time menu.
     VRFW.match_break_open = function(a1, a2, ...)
       prev(a1, a2, ...)
       if a1 == L_TITLE or a1 == L_BACK then

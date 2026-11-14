@@ -1,6 +1,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.coach_look/1"
 folder = "content/coach_looks"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Character.CoachLook"
+v2_kind_folder = "Characters/CoachLooks"
+v2_version = 1
 label = "Coach looks"
 label_es = "Aspecto de entrenadores"
 doc = "While the rule holds, a coach who plays or stands as a member of the team keeps his coach clothes."

@@ -24,11 +24,6 @@ if BetterUI.power_counter == nil then
 
   local CMD_SPRITE = 558735651     -- (layer, atlas path crc, new sprite, old sprite, 0, instance): a mesh shows another sprite
   local CMD_CRITICAL = "CMND_VRFW_CRITICAL"
-  local PROBE_STEP = 100           -- px the layer moves while its offset is measured
-  local PROBE_WAIT = 2             -- frames between a probe move and its reading
-  local SNAP = 3                   -- px: an item this close to its place is shown
-  local DONE = 0.5                 -- px: an item this close is in place and left alone
-  local SETTLE = 1                 -- frames between a move and the next correction
 
   local function command(name, ...)
     return VRFW.host.menu_command(Crc(name), ...)
@@ -52,133 +47,46 @@ if BetterUI.power_counter == nil then
     VRFW.host.menu_command(CMD_SPRITE, layer, Crc(picture.atlas), Crc(picture.sprite), Crc(plate.picture_slot), 0, index)
   end
 
-  function P.GlobalPosition(layer, index, node)
-    local x, y = command("CMND_GET_MESH_GLOBAL_POSITION", layer, index, node)
-    if type(x) ~= "number" or type(y) ~= "number" then
-      return nil
+  -- Where tag `i`'s centre goes, in layout px of soccer10_25 (anchored to the screen centre, y up): `tag_gap` px right of
+  -- the total's right end `digits_end`, on the total's middle line. Without `digits_end` the total is the retail one,
+  -- `tag_default_digits` digits centred on the retail number node.
+  local function TagCentre(i, layout, digits_end)
+    if digits_end == nil then
+      local node_x = i == 1 and layout.left_retail_number_x or layout.right_retail_number_x
+      digits_end = node_x + layout.tag_default_digits * layout.digit_width / 2
     end
-    return x, y
+    return digits_end + layout.tag_gap + layout.tag_width * layout.tag_scale / 2, layout.digits_mid_y
   end
 
-  -- Where on screen a plate's tag anchor goes so the tag sits on the ribbon, just right of the total's last digit (the digits are centred on the number node).
-  function P.TagTarget(i, layout, digits)
-    local plate = P.PLATES[i]
-    local layer = Crc(plate.layer)
-    if command("CMND_IS_OPEN_LAYER", layer) ~= true then
-      return nil
-    end
-    local x, y = P.GlobalPosition(layer, 0, Crc(plate.number_node))
-    if x == nil or y == nil or type(layout) ~= "table" or layout.tag_scale == nil or layout.tag_anchor_x == nil
-      or layout.tag_gap == nil or layout.tag_width == nil or layout.tag_digit_width == nil or layout.tag_default_digits == nil then
-      return nil
-    end
-    local scale = layout.tag_scale
-    local right_edge = x + (digits or layout.tag_default_digits) * layout.tag_digit_width / 2
-    return right_edge + layout.tag_gap + (layout.tag_width / 2 - layout.tag_anchor_x) * scale, y
-  end
-
-  -- A placer moves the instances of one layer so that one of their nodes lands on a screen point.
-  function P.NewPlacer(layer_name, node_name, log)
-    return { layer = Crc(layer_name), node = Crc(node_name), map = nil, probe = nil, items = {}, log = log }
-  end
-
-  -- true once the layer's position -> screen map is known; placer.map == false when it cannot be
-  function P.Measure(p)
-    if p.map ~= nil then
-      return p.map ~= false
-    end
-    if p.probe == nil then
-      p.probe = { step = 0, wait = PROBE_WAIT }
-      command("CMND_SET_LAYER_LOCAL_POS", p.layer, 0, 0, 0, 0)
-      return false
-    end
-    if p.probe.wait > 0 then
-      p.probe.wait = p.probe.wait - 1
-      return false
-    end
-    local x, y = P.GlobalPosition(p.layer, 0, p.node)
-    if x == nil then
-      p.map = false
-      p.log("placer: no global position for its node: off")
-      return false
-    end
-    if p.probe.step == 0 then
-      p.probe.x0, p.probe.y0, p.probe.step, p.probe.wait = x, y, 1, PROBE_WAIT
-      command("CMND_SET_LAYER_LOCAL_POS", p.layer, PROBE_STEP, PROBE_STEP, 0, 0)
-      return false
-    end
-    local scale_x, scale_y = (x - p.probe.x0) / PROBE_STEP, (y - p.probe.y0) / PROBE_STEP
-    if math.abs(scale_x) < 0.1 or math.abs(scale_y) < 0.1 then
-      p.map = false
-      p.log("placer: position does not move its node: off")
-      return false
-    end
-    p.map = { x = scale_x, y = scale_y, origin_x = p.probe.x0, origin_y = p.probe.y0 }
-    return true
-  end
-
-  function P.Started(p, instance)
-    return p.items[instance + 1] ~= nil
-  end
-
-  function P.Hide(p, instance)
-    command("CMND_SET_LAYER_VISIBLE", p.layer, instance, false)
-    p.items[instance + 1] = nil
-  end
-
-  -- one step of moving `instance` so its node lands on (x, y); true when it is shown in place
-  function P.Place(p, instance, x, y)
-    local map = p.map
-    local item = p.items[instance + 1]
-    if item == nil then
-      item = { x = (x - map.origin_x) / map.x, y = (y - map.origin_y) / map.y, shown = false, wait = SETTLE }
-      p.items[instance + 1] = item
-      command("CMND_SET_LAYER_LOCAL_POS", p.layer, item.x, item.y, 0, instance)
-      return false
-    end
-    if item.wait > 0 then
-      item.wait = item.wait - 1
-      return false
-    end
-    local now_x, now_y = P.GlobalPosition(p.layer, instance, p.node)
-    if now_x == nil then
-      P.Hide(p, instance)
-      return false
-    end
-    local error_x, error_y = x - now_x, y - now_y
-    if not item.shown and math.abs(error_x) <= SNAP and math.abs(error_y) <= SNAP then
-      item.shown = true
-      command("CMND_SET_LAYER_VISIBLE", p.layer, instance, true)
-    end
-    if math.abs(error_x) > DONE or math.abs(error_y) > DONE then
-      item.x = item.x + error_x / map.x
-      item.y = item.y + error_y / map.y
-      item.wait = SETTLE
-      command("CMND_SET_LAYER_LOCAL_POS", p.layer, item.x, item.y, 0, instance)
-      return false
-    end
-    return item.shown
-  end
-
-  -- the tag layer's instance `instance` shows the tag sprite only
-  function P.DressTag(instance, scale)
-    local layer = Crc(P.TAG_LAYER)
+  -- Shows tag instance `i - 1` with its centre on layout point (x, y). The tag layer has no anchor, so its origin is the
+  -- layout's top-left corner with y up, and its scale applies around that origin together with the mesh centre
+  -- (`tag_centre_x`, `tag_centre_y` in its object).
+  local function PlaceTag(i, layout, x, y)
+    local layer, instance, scale = Crc(P.TAG_LAYER), i - 1, layout.tag_scale
     command("CMND_SET_LAYER_LOCAL_SCALE", layer, scale, scale, 1, instance)
     VRFW.host.menu_command(CMD_SPRITE, layer, Crc(TAG.atlas), Crc(TAG.sprite), Crc(TAG.slot), 0, instance)
     command("CMND_SET_MESH_VISIBLE", layer, Crc(TAG.mesh), true, instance)
     command("CMND_SET_MESH_VISIBLE", layer, Crc(TAG.glow), false, instance)
     command("CMND_SET_MENU_TEXT_STRING", layer, Crc(TAG.text), "", instance)
+    local local_x = layout.layout_width / 2 + x - layout.tag_centre_x * scale
+    local local_y = y - layout.layout_height / 2 - layout.tag_centre_y * scale
+    command("CMND_SET_LAYER_LOCAL_POS", layer, local_x, local_y, 0, instance)
+    command("CMND_SET_LAYER_VISIBLE", layer, instance, true)
   end
 
-  -- A tag set: the tags of the plates whose player made a critical hit, placed while their plates are open; `digits` (optional) holds each total's digit count.
-  function P.NewTags(critical, layout, log, digits)
-    return { critical = critical, layout = layout, digits = digits or {}, placer = P.NewPlacer(P.TAG_LAYER, TAG.mesh, log), done = false, opened = false,
-      hidden = false }
+  -- A tag set: the tags of the plates whose player made a critical hit. `ends` (optional) holds each total's right end in
+  -- layout px; without it the totals are the retail ones.
+  function P.NewTags(critical, layout, log, ends)
+    return { critical = critical, layout = layout, ends = ends or {}, log = log, done = false, opened = false }
   end
 
   -- one step of the tag set; true when nothing is left to do
   function P.StepTags(t)
     if t.done then
+      return true
+    end
+    if type(t.layout) ~= "table" then
+      t.done = true
       return true
     end
     local layer = Crc(P.TAG_LAYER)
@@ -192,35 +100,20 @@ if BetterUI.power_counter == nil then
     if command("CMND_IS_OPEN_LAYER", layer) ~= true or command("CMND_IS_LOADING_LAYER", layer) == true then
       return false
     end
-    if not t.hidden then
-      t.hidden = true
-      for i = 1, #P.PLATES do
+    for i = 1, #P.PLATES do
+      if t.critical[i] then
+        PlaceTag(i, t.layout, TagCentre(i, t.layout, t.ends[i]))
+      else
         command("CMND_SET_LAYER_VISIBLE", layer, i - 1, false)
       end
     end
-    if not P.Measure(t.placer) then
-      t.done = t.placer.map == false
-      return t.done
-    end
-    local done = true
-    for i = 1, #P.PLATES do
-      if t.critical[i] then
-        local x, y = P.TagTarget(i, t.layout, t.digits[i])
-        if x ~= nil and not P.Started(t.placer, i - 1) then
-          P.DressTag(i - 1, t.layout.tag_scale)
-        end
-        if x == nil or not P.Place(t.placer, i - 1, x, y) then
-          done = false
-        end
-      end
-    end
-    t.done = done
-    return done
+    t.done = true
+    return true
   end
 
   function P.HideTags(t)
     for i = 1, #P.PLATES do
-      P.Hide(t.placer, i - 1)
+      command("CMND_SET_LAYER_VISIBLE", Crc(P.TAG_LAYER), i - 1, false)
     end
     t.done = true
   end

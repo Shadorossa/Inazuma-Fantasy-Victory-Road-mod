@@ -25,6 +25,7 @@ if VRFW.top_bar == nil then
             vrfw_topbar_drop_plate = 1010, vrfw_topbar_drop_icon = 1011, vrfw_topbar_drop_label = 1012},
     raised = false, fading = false,
   }
+  --- Internal: State of the top bar: icon strip with drop-downs drawn on menu screens.
   VRFW.top_bar = TB
 
   local L_ICON, L_PLATE = 2854477426 --[[vrfw_topbar_icon]], 3730537440 --[[vrfw_topbar_plate]]
@@ -92,6 +93,7 @@ if VRFW.top_bar == nil then
   local logger
   local function Log(...)
     if TB.logn >= (TB.DEBUG and 200 or 60) then return end
+    --- Internal: count of top-bar log lines written.
     TB.logn = TB.logn + 1
     local p = {}
     for i = 1, select("#", ...) do p[#p + 1] = tostring((select(i, ...))) end
@@ -122,8 +124,10 @@ if VRFW.top_bar == nil then
   -- the menu this VM runs, from the script stem the loader gives the patch files ("soccer_top_menu_1.03.98.00")
   local stem = type(VRFW.patch) == "table" and VRFW.patch.script or nil
   if type(stem) == "string" then
+    --- Internal: menu stem name the top bar is running in.
     TB.name = stem:gsub("_%d+%.%d+%.%d+[%.%d]*$", "")
   end
+  --- Internal: host rules of the top bar read from the menu rules.
   TB.host = {}
 
   local function Rules(ids, ...)
@@ -144,8 +148,10 @@ if VRFW.top_bar == nil then
     local known, gate, leave, session, dpad, open, rank_centre, standalone, rplate, rnode, rcx, ravoid, open_yield,
       variants, open_hold, active_only, plates = Rules(C.TB_HOST, TB.name or "")
     TB.host = {}
+    --- Internal: atlas name of the top-bar plates, or nil.
     TB.plates_atlas = (type(plates) == "string" and plates ~= "") and plates or nil
     local function nz(v) return (type(v) == "number" and v ~= 0) and v or nil end
+    --- Internal: rank plate rules (plate, node, centre_x, avoid), each nil when 0.
     TB.rank = {plate = nz(rplate), node = nz(rnode), centre_x = nz(rcx), avoid = nz(ravoid)}
     if known == true then
       TB.host = {gate = gate ~= "" and gate or nil, leave = leave ~= "" and leave or nil, session = session == true,
@@ -420,6 +426,7 @@ if VRFW.top_bar == nil then
       return
     end
     if not TB.drop_drawn then HideDropLabels() end
+    --- Internal: true when the drop-down layers are drawn.
     TB.drop_drawn = true
     local left, top, w, h, cell = DropBox(TB.sel)
     local middle_y = top + h / 2
@@ -457,6 +464,7 @@ if VRFW.top_bar == nil then
 
   -- the bar's layers to their TB.PRIO draw priority (every instance, children included), once per showing
   local function Raise()
+    --- Internal: true once the top-bar layers are raised to their draw priority.
     TB.raised = true
     local n = 0
     for name, prio in pairs(TB.PRIO) do
@@ -472,6 +480,7 @@ if VRFW.top_bar == nil then
   end
 
   local function Draw()
+    --- Internal: signature of the badges drawn last.
     TB.badge_sig = BadgeSig()
     local show = TB.shown and TB.tex_ready and not TB.fading
     if show and not TB.raised then Raise() end
@@ -553,6 +562,7 @@ if VRFW.top_bar == nil then
 
   local function TexReady()
     if TB.tex_ready then return true end
+    --- Internal: frames waited for the top-bar textures to load.
     TB.tex_t = TB.tex_t + TB.CHECK_EVERY
     local busy = false
     for tc in pairs(Atlases()) do
@@ -582,6 +592,7 @@ if VRFW.top_bar == nil then
   local function Select(i, sound)
     if i == TB.sel then return end
     TB.sel, TB.dsel, TB.dshut = i, nil, false
+    --- Internal: frames left of the selection highlight animation.
     TB.sel_t = TB.SEL_FRAMES
     if i ~= nil and sound then funcLuaCommand(C.SE, C.SE_MOVE) end
     Draw()
@@ -611,8 +622,10 @@ if VRFW.top_bar == nil then
       end
     end
     TB.nav, TB.mouse, TB.release, TB.nav_t, TB.open_t = true, false, nil, 0, 0
+    --- Internal: focus layer and index the navigation started from.
     TB.nav_from = {layer = TB.flayer, idx = TB.fidx}
     VRFW.top_bar.guard.beat(true)
+    --- Internal: index of the selected top-bar icon, or nil.
     TB.sel = nil
     Select(pick, true)
     Log("nav enter", why, "icon", pick, "from", tostring(TB.flayer), tostring(TB.fidx), "x", tostring(fx))
@@ -620,6 +633,7 @@ if VRFW.top_bar == nil then
 
   local function NavLeave(key, why)
     TB.nav, TB.dsel = false, nil
+    --- Internal: key code of the button held on leaving the top bar, or 0.
     TB.release = key or 0
     Select(nil, false)
     Log("nav leave", why)
@@ -657,6 +671,7 @@ if VRFW.top_bar == nil then
 
   local function NavRelease()
     if TB.release == nil then return end
+    --- Internal: frames the leave key has been held.
     TB.release_t = (TB.release_t or 0) + 1
     if TB.release ~= 0 and TB.release_t < 120 and Held(TB.release, true) then
       return
@@ -669,6 +684,7 @@ if VRFW.top_bar == nil then
   end
 
   local function UndoWrap(old)
+    --- Internal: true while the top bar itself moves the game focus.
     TB.self_focus = true
     pcall(funcLuaMenuCommand, C.FOCUS_SET, TB.flayer, TB.fidx, false)
     pcall(funcLuaMenuCommand, C.FOCUS_SET, old.layer, old.idx, true)
@@ -775,7 +791,9 @@ if VRFW.top_bar == nil then
     local fading = open and funcLuaCommand(C.IS_FADE) == true
     local changed = open ~= TB.shown or block ~= TB.block or ready ~= was_ready or moved or open_off ~= (TB.open_drawn == true)
       or rows_changed or BadgeSig() ~= (TB.badge_sig or "") or fading ~= TB.fading
+    --- Internal: true while the top bar is fading.
     TB.fading = fading
+    --- Internal: true while the open icon is drawn off.
     TB.open_drawn = open_off
     for i = 1, #TB.entries do
       if (cur[i] == true) ~= (TB.cur[i] == true) then changed = true end
@@ -940,7 +958,9 @@ if VRFW.top_bar == nil then
       path = "direct"
     end
     VRFW.top_bar.guard.beat(false)
+    --- Internal: index of the selected drop-down row, or nil.
     TB.dsel = nil
+    --- Internal: coroutine running the chosen entry.
     TB.co = coroutine.create(GoCo)
     local ok, err = coroutine.resume(TB.co, e, path)
     if not ok then Log("error", err) TB.co = nil end
@@ -1067,6 +1087,7 @@ if VRFW.top_bar == nil then
       if not ok or coroutine.status(TB.co) == "dead" then TB.co = nil end
       return
     end
+    --- Internal: frame counter of the top bar.
     TB.frame = TB.frame + 1
     if TB.DEBUG and TB.dbg_steps == 0 then
       TB.dbg_steps = 1
@@ -1187,6 +1208,7 @@ if VRFW.top_bar == nil then
       TB.defer_t = 0
       return
     end
+    --- Internal: frames waited before the deferred start.
     TB.defer_t = TB.defer_t + 10
     local open = SessionOpen()
     local host = false
@@ -1239,6 +1261,7 @@ if VRFW.top_bar == nil then
 
   local function WrapStep(poll)
     if TB.wrapped then return end
+    --- Internal: true once the menu Step function is wrapped.
     TB.wrapped = true
     local step = Step
     Step = function(...)
@@ -1256,6 +1279,7 @@ if VRFW.top_bar == nil then
   -- whose stem is not its menu's name, e.g.
   local GUARD_TTL = 30
   local GD = VRFW.top_bar.guard or {}
+  --- Internal: Guard that keeps the menu cursor off while the top bar owns the input.
   VRFW.top_bar.guard = GD
   GD.raw, GD.menu, GD.off, GD.last, GD.still, GD.beat_n = GD.raw, nil, false, nil, 0, GD.beat_n or 0
   -- the menu's own wish (its Lua's last MENU_ACTIVE for itself in this VM; none = active, the state a menu opens in).
@@ -1289,7 +1313,7 @@ if VRFW.top_bar == nil then
     end
     return out
   end
-  --- Bumps the navigation heartbeat parameter, or clears it.
+  --- Internal: Bumps the navigation heartbeat parameter, or clears it.
   function GD.beat(on)
     if on then
       GD.beat_n = (GD.beat_n % 1000000) + 1
@@ -1304,8 +1328,9 @@ if VRFW.top_bar == nil then
     if v ~= GD.last then GD.last, GD.still = v, 0 else GD.still = GD.still + 1 end
     return GD.still < GUARD_TTL
   end
-  --- Hides the focus cursors that are on, remembering them for focus_show.
+  --- Internal: Hides the focus cursors that are on, remembering them for focus_show.
   function GD.focus_hide()
+    --- Internal: cursor layers hidden by the guard.
     GD.hidden = {}
     for layer, on in pairs(GD.cursor_on or {}) do
       local okf, act = pcall(GD.raw, C.CTRL_FOCUS_ACTIVE, layer)
@@ -1318,7 +1343,7 @@ if VRFW.top_bar == nil then
       end
     end
   end
-  --- Shows again the cursors focus_hide remembered.
+  --- Internal: Shows again the cursors focus_hide remembered.
   function GD.focus_show()
     local hidden = GD.hidden or {}
     GD.hidden = {}
@@ -1366,10 +1391,14 @@ if VRFW.top_bar == nil then
   end
   local function Guard()
     if GD.installed or type(TB.name) ~= "string" or TB.name == "?" or TB.name:find("^title") then return end
+    --- Internal: true once the guard is installed.
     GD.installed = true
+    --- Internal: crc32 of the menu stem the guard protects.
     GD.menu = CRC32(TB.name)
+    --- Internal: set of menu crcs the guard covers.
     GD.menus = {[GD.menu] = true}   -- + the host's `variants` (Init, after the rules are read)
     local raw = funcLuaMenuCommand
+    --- Internal: the original funcLuaMenuCommand kept by the guard.
     GD.raw = raw
     funcLuaMenuCommand = function(id, ...)
       if id == C.ATTACH_TRACE and select("#", ...) >= 4 then
@@ -1417,6 +1446,7 @@ if VRFW.top_bar == nil then
   end
 
   local function Init()
+    --- Internal: counter of top-bar initialisations.
     TB.init_seq = (TB.init_seq or 0) + 1
     pcall(Guard)
     TB.on, TB.shown, TB.sel, TB.held, TB.co, TB.cur, TB.block = false, false, nil, 0, nil, {}, false
@@ -1445,6 +1475,7 @@ if VRFW.top_bar == nil then
     end
     local n = funcLuaMenuCommand(C.LAYER_NUM, L_ICON)
     if type(n) ~= "number" or n <= 0 then return end
+    --- Internal: maximum number of top-bar entries.
     TB.MAX = n
     TB.menu, TB.self_crc = CRC32(TB.name), CRC32(TB.name)
     if VRFW.top_bar.guard ~= nil and VRFW.top_bar.guard.menus ~= nil then
@@ -1456,12 +1487,16 @@ if VRFW.top_bar == nil then
     if VRFW.param.has(K.BUSY) then VRFW.param.clear(K.BUSY) end -- stale after a reset
     if VRFW.param.has(K.NAV) then VRFW.param.clear(K.NAV) end   -- no focus at a hub's start
     local nd, np = funcLuaMenuCommand(C.LAYER_NUM, L_DICON), funcLuaMenuCommand(C.LAYER_NUM, L_DPLATE)
+    --- Internal: true when the menu has the drop-down layers.
     TB.has_drop = type(nd) == "number" and nd > 0 and type(np) == "number" and np > 0
     TB.dsel, TB.dshut, TB.drop_drawn = nil, false, TB.has_drop   -- drawn = hide its quads at the first Draw
+    --- Internal: drop-down state, nil when closed.
     TB.drop_out = nil
+    --- Internal: top-bar entries loaded from the declarations.
     TB.entries = LoadEntries()
     TB.xs, TB.ws = {}, {}
     Layout()
+    --- Internal: texture of the top-bar plates, or nil.
     TB.plate_tex = nil
     for _, tex in pairs(Atlases()) do
       funcLuaMenuCommand(C.LOAD_TEX, tex)
@@ -1477,6 +1512,7 @@ if VRFW.top_bar == nil then
         Log("WARN no [vrfw.TopBarStyle] PlatesAtlas declared: the plates are read from the first icon's atlas")
       end
     end
+    --- Internal: true when the top bar has at least one entry.
     TB.on = #TB.entries > 0
     local ng = 0
     for _, e in ipairs(TB.entries) do if e.kind == "group" then ng = ng + 1 end end
@@ -1565,7 +1601,7 @@ if VRFW.top_bar.step == nil then
     step_logger = step_logger or VRFW.logger.new("EVT top_bar step")
     step_logger.debug(table.concat(p, " "))
   end
-  --- Applies a pending top-bar target for this frame; answers whether there was one to apply.
+  --- Internal: Applies a pending top-bar target for this frame; answers whether there was one to apply.
   function VRFW.top_bar.step(step)
     if type(CRC32) ~= "function" then return false end
     local target = Get(TARGET)
@@ -1595,7 +1631,7 @@ if VRFW.top_bar.step == nil then
 end
 
 if VRFW.top_bar.hide == nil then
-  --- Hides or shows the top bar; answers true.
+  --- Internal: Hides or shows the top bar; answers true.
   function VRFW.top_bar.hide(on)
     local HIDE = 1455983968 --[[vrfw_top_bar_hidden]]
     if on then

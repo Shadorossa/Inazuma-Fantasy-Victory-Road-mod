@@ -1,0 +1,36 @@
+# Declaration schema of CharacterReforged.sets/1 (content\equipment): fields read from the records the mods ship. `vrfw check` validates the files with it and the ModManager draws their forms from it.
+schema = "VRFW.decl_schema/1"
+kind = "CharacterReforged.sets/1"
+folder = "content/equipment"
+# v2 words, read beside the v1 ones until the switch: the type and its kind folder.
+v2_type = "CharacterReforged.Equipment.Set"
+v2_kind_folder = "Equipment/Sets"
+label = "Equipment sets"
+label_es = "Conjuntos de equipamiento"
+doc = "Sets of equipment pieces with the bonus given by wearing several of them."
+doc_es = "Conjuntos de piezas de equipamiento con la bonificación que da llevar varias."
+
+[entry.Set]
+provides = "equipment_set"
+entry_table = "set"
+name = { type = "string", required = true }
+members = { type = "strings", required = true }
+element = { type = "string" }
+element_from = { type = "string" }
+bonus = { type = "records", fields = { pieces = { type = "int" }, stats = { type = "table" }, effects = { type = "records", fields = { kind = { type = "string" }, move_kind = { type = "string" }, value = { type = "int" }, event = { type = "string" }, stats = { type = "strings" }, score = { type = "string" }, effect = { type = "string" }, element = { type = "string" }, element_from = { type = "string" }, when = { type = "string" } } } }, required = true }
+
+[entry.AutoSet]
+entry_table = "auto_set"
+name = { type = "string", required = true }
+kind = { type = "string", required = true }
+# v2 words, read beside the v1 ones until the switch: the type and its kind folder.
+v2_type = "CharacterReforged.Equipment.Set"
+v2_kind_folder = "Equipment/Sets"
+bonus = { type = "table" }
+pieces = { type = "int" }
+effects = { type = "records", fields = { kind = { type = "string" }, event = { type = "string" }, value = { type = "int" } } }
+
+[entry.Join]
+entry_table = "join"
+set = { type = "string", required = true }
+items = { type = "strings", required = true }

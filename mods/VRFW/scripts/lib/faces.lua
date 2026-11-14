@@ -1,4 +1,4 @@
--- VRFW faces (docs/framework/chara-index.md §2): whether a character has a face icon of its own.
+-- Advanced: VRFW faces (docs/framework/chara-index.md §2): whether a character has a face icon of its own.
 local M = {}
 
 local FACE_FILE = "data/dx11/menu/200_icon/10_icon_chr/face/%s_l.g4tx"
@@ -33,7 +33,7 @@ function M.of_character(base)
   return M.of_name(name)
 end
 
---- a card (chara_param id) -> as of_character of its character
+--- Advanced: a card (chara_param id) -> as of_character of its character
 function M.of_card(card)
   local ok, base = pcall(VRFW.character.base_of, u32(card))
   if not ok or type(base) ~= "number" then return nil end

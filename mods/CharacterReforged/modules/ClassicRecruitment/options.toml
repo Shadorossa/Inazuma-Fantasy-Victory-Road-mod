@@ -11,20 +11,21 @@ default = 1
 order = 174
 restart = true                                 # The gated files are read at the start.
 
-# Read at run time by ClassicRecruitment.gacha_removed (Lua); the hub map's function point table is built at start.
+# Read at run time by ClassicRecruitment.gacha_removed (Lua): off = the Players Universe gacha is closed; the hub map's function point table is built at start.
 [[option]]
-id = "remove_gacha"                            # row key ClassicRecruitment.remove_gacha
+id = "players_universe"                        # row key ClassicRecruitment.players_universe
 type = "toggle"
-label = "option_remove_gacha"                  # text\keys.toml, 9 languages
-help = "option_remove_gacha_help"
-default = 1
+label = "option_players_universe"              # text\keys.toml, 9 languages
+help = "option_players_universe_help"
+default = 0
 order = 175
 
-# Read at run time by ClassicRecruitment.spirit_menus_hidden (Lua): visibility only, drops and the album stay.
+# Read by ClassicRecruitment.spirits_hidden (Lua) and gates content\duplicate_rules\classic_recruitment.toml: off = spirits hidden and one card per player; drops and the album stay.
 [[option]]
-id = "player_spirit_menus"                     # row key ClassicRecruitment.player_spirit_menus
+id = "spirit_section"                          # row key ClassicRecruitment.spirit_section
 type = "toggle"
-label = "option_player_spirit_menus"           # text\keys.toml, 9 languages
-help = "option_player_spirit_menus_help"
-default = 0
+label = "option_spirit_section"                # text\keys.toml, 9 languages
+help = "option_spirit_section_help"
+default = 1
 order = 176
+restart = true                                 # The duplicate rule file is gated at the start; spirits_hidden reads the same start value.

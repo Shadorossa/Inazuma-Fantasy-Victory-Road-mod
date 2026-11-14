@@ -1,0 +1,6 @@
+schema = "VRFW.game/2"
+
+# () -> the rarity key of config.toml [hero_style] (the styles of the skill table's idol button)
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_HERO_STYLE_RARITY"
+handler = "CharacterReforged.HeroStyle.Rarity"

@@ -2,6 +2,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.random_team/1"
 folder = "content/random_teams"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Team.RandomTeam"
+v2_kind_folder = "Teams/RandomTeams"
+v2_version = 1
 label = "Random teams"
 label_es = "Equipos aleatorios"
 doc = "Teams built at random from a pool of cards, with rules such as unique players and element themes."

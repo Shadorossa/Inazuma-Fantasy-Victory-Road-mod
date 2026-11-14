@@ -1,0 +1,14 @@
+# Enma Awoken's miximax colours: his own model has no game character to lend him colour keys, so this mod declares them.
+# His white hair is the hair colour, his red skin the face and body skin, and the orange iris his iris.
+# The dark brows and lashes are never recoloured.
+schema = "VRFW.miximax_palette/1"
+
+[[VRFW.MiximaxPalette]]
+character = "c90680000"
+head = "_face/90_FANTASY/c90680000/c90680000.g4tx"
+hair = "#DBD8D8"
+face = "#C57168"
+iris = "#C86E42"
+skin = "#C57168"
+# The painted zones of his head: the eyes on the face atlas (his skin is painted on the head texture too, so it keeps its colour), the white hair and the grey mane on the head texture (never the blue smoke).
+zones = { face = "assets/images/miximax_zones/c90680000_face.png", hair = "assets/images/miximax_zones/c90680000_hair.png" }

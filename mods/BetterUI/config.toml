@@ -4,6 +4,9 @@ skip_prematch_editor = true
 
 slanted_kizuna = true
 
+# Height every menu of content/header_shift/menus.toml moves up under the shorter header (layout units).
+header_shift_dy = 54.9
+
 # The card colour of each player position wherever cards are coloured by position (ClassicCards position looks).
 [position_card_looks]
 goalkeeper = "goalkeeper"
@@ -24,23 +27,50 @@ pitch_bottom = -323   # the lowest card centre (the own goal line is at -381)
 
 # The duel counter's plates (screen betterui_power_counter_menu; read once per opening).
 [duel_counter]
-# Where a plate's total sits on its ribbon, in the plate's own units (1 unit = 0.75 px on screen); both sides keep the same gap from their label, room for six digits.
-left_number_x = 389
-right_number_x = -310
-# px on screen a move's name may take under the digits: the two totals are 431 px apart, so the two names never touch.
-label_room = 420
+# A plate's total starts digits_gap layout px after its label and grows outward (layout x of _gtxt_br_total_at01's and _at02's right edges).
+left_label_end_x = -246.5
+right_label_end_x = 140.1
+# The gap the retail number place leaves after the left label at three digits.
+digits_gap = 6
+# Every duel puts the plates' inner content edges at minus and plus half_distance layout px from the screen centre, on the retail line, so they mirror each other.
+# It rises to the retail plates' outer edges plus plate_gap, then drops so the wider plate fits in layout_width, never below the retail outer edges.
+half_distance = 450
+# Layout x of soccer10_25 _br_total_at_base01's left edge and _base02's right edge (the plates' slide node origins).
+left_plate_edge = -474.5
+right_plate_edge = 458.9
+# A plate's layout px per unit of its own (the _pos_telop03_l / _r scale).
+plate_scale = 0.75
+# The retail plates' outer visible edges (layout x of _icon_br_chr_dmy01's left edge and _icon_br_chr_dmy02's right edge).
+left_plate_outer_x = -433.2
+right_plate_outer_x = 432.6
+# Where the ribbons' visible part (alpha >= 64 of 255) ends toward the centre (layout x of base01's right end and base02's left end).
+left_ribbon_inner_x = -109.25
+right_ribbon_inner_x = 93.0
+# The right plate's label left edge (layout x of _gtxt_br_total_at02's left edge).
+right_label_inner_x = 2.1
+# The width one digit of a total takes, in layout px (measured on the install 721 captures).
+digit_width = 38.4
+# Clear space between a moved plate's inner content and the retail plate, in layout px.
+plate_gap = 16
 # Frames between a bust's model being complete and its mesh showing (an empty capture cell draws white).
 bust_settle_frames = 2
-# The «critical» tag (both counters, duel and shot), placed on the ribbon just right of the plate's total; lengths are screen px at tag_scale 1.
+# The «critical» tag (both counters, duel and shot), centred on the total's middle line just right of its last digit; all lengths are layout px.
 # The tag's size as a fraction of its normal size.
 tag_scale = 0.36
-# From the tag mesh's anchor to its centre, to the right.
-tag_anchor_x = 123
-# The tag's width.
-tag_width = 234
+# The tag mesh's width at tag_scale 1 (_cmd_back_base01 in content/menus/duel_readout.toml).
+tag_width = 180
+# The tag mesh's centre in its object (cmn03_01 _cmd_back_base01 at (-397, 182), 180 x 96); the tag layer's origin is the layout's top-left corner.
+tag_centre_x = -307
+tag_centre_y = 134
 # Clear space between the last digit and the tag's left edge.
 tag_gap = 10
-# The width one digit of a total takes.
-tag_digit_width = 70
+# The layout y of the totals' middle line (the centre of _num_br_total_at01_dmy01).
+digits_mid_y = 329.7
+# The retail number nodes (layout x of _num_total_at01 and _at02), where the shot readout's totals sit.
+left_retail_number_x = -156.5
+right_retail_number_x = 229.4
 # The digit count assumed when the caller does not know the total (the shot counter).
 tag_default_digits = 3
+# The layout's size; the plates stay inside layout_width.
+layout_width = 1920
+layout_height = 1080

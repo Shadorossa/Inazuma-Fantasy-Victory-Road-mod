@@ -30,8 +30,8 @@ extra_kits = [
 ]
 
 store_kits = [
-    { team = "pltm_cro_ie7_02", store = "InazumaFantasy.general_store", store_mod = "InazumaFantasy", price = 14, currency = "tk_bb000001" },
-    { team = "tm_prc_050200", store = "InazumaFantasy.general_store", store_mod = "InazumaFantasy", price = 14, currency = "tk_bb000001", icon_from = "uni_u031401", icon_png = "assets/images/menu/200_icon/02_icon_item/icon_item07/uni_u117301.png", names = { es = "Equipación de club", en = "Club Kit", fr = "Maillot de club", de = "Vereinstrikot", it = "Divisa del club", pt = "Uniforme de clube", ja = "部活ウェア", zh_hans = "社团球衣", zh_hant = "社團服裝" } },
+    { team = "pltm_cro_ie7_02", store = "InazumaFantasy.general_store", store_merge = "InazumaFantasy.shops", price = 14, currency = "tk_bb000001" },
+    { team = "tm_prc_050200", store = "InazumaFantasy.general_store", store_merge = "InazumaFantasy.shops", price = 14, currency = "tk_bb000001", icon_from = "uni_u031401", icon_png = "assets/images/menu/200_icon/02_icon_item/icon_item07/uni_u117301.png", names = { es = "Equipación de club", en = "Club Kit", fr = "Maillot de club", de = "Vereinstrikot", it = "Divisa del club", pt = "Uniforme de clube", ja = "部活ウェア", zh_hans = "社团球衣", zh_hant = "社團服裝" } },
 ]
 
 # The heroic player rules.
@@ -76,23 +76,6 @@ ares = "Ares"
 orion = "Orion"
 victory_road = "VR"
 
-[[free_match_base_form]]
-team = "tm_cro_go2_0800"     # Protocolo Omega 3.0 (its players miximaxed with Zanark)
-name = "fm_protocol_omega_3_base"
-
-[[free_match_base_form]]
-team = "tm_cro_original_0300" # Plathos
-name = "fm_plathos_base"
-
-[[free_match_base_form]]
-team = "tm_cro_original_0400" # Destructores
-name = "fm_destructores_base"
-coach = true
-
-[[free_match_shuffle]]
-team = "tm_cro_orion_1200"   # Chispas Perfectas (La marca llama de nuevo)
-name = "fm_perfect_spark_shuffle"
-key = "chronicle_deluxe_fms_perfect_spark"
 [drops]
 max_manuals = 32
 weight = 10               # loot weight of one manual / the boots / one aura

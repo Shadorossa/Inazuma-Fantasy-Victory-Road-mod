@@ -794,9 +794,6 @@ function BetterQoL.original_names.face_step()
       N.face_ask(k)
     end
   end
-  if VRFW.face_icon.pending() then
-    VRFW.face_icon.settle()
-  end
 end
 
 function BetterQoL.original_names.grid_draw()

@@ -85,7 +85,7 @@ local function pool(s)
   end
   local listed = {}
   for _, r in ipairs(enjoy) do
-    listed[U.u32(r.team)] = true
+    listed[VRFW.ids.unsigned(r.team)] = true
   end
   local patterns = {}
   for _, k in ipairs(s.keys) do
@@ -93,10 +93,10 @@ local function pool(s)
   end
   local out = {}
   for _, r in ipairs(rows) do
-    local id = U.u32(r.id or r[1] or 0)
+    local id = VRFW.ids.unsigned(r.id or r[1] or 0)
     local key = tostring(r.key or r[2] or "")
     if id ~= 0 and key ~= "" and listed[id] and key_matches(key, patterns) then
-      out[#out + 1] = { team = id, key = key, name = U.u32(r.name_text or r[4] or 0) }
+      out[#out + 1] = { team = id, key = key, name = VRFW.ids.unsigned(r.name_text or r[4] or 0) }
     end
   end
   table.sort(out, function(a, b)
@@ -249,7 +249,7 @@ end
 
 local LIVE = false
 
-VRFW.on("match_start", function()
+VRFW.on("match:start", function()
   LIVE = false
   local r = load().run
   if type(r) == "table" and r.loaded then
@@ -259,7 +259,7 @@ VRFW.on("match_start", function()
   return nil
 end)
 
-VRFW.on("signal:vrfw.match_result", function()
+VRFW.on("script:signal:vrfw.match_result", function()
   if not LIVE then
     return nil
   end
@@ -279,7 +279,7 @@ VRFW.on("signal:vrfw.match_result", function()
   return nil
 end)
 
-VRFW.on("slot_load", function()
+VRFW.on("save:slot_load", function()
   STORE:forget()
   LIVE = false
   return nil
@@ -328,7 +328,7 @@ function BattleBayDeluxe.DailyPrepare(date)
   d.attempts = (d.attempts or 0) + 1
   save()
   info(string.format("%d: match %d/%d, team %s vs %s, difficulty %d (the Campaña's block lent)", p.date, r.k + 1,
-    p.matches, U.hex(p.team), U.hex(p.rivals[r.k + 1]), diff))
+    p.matches, VRFW.ids.hex_text(p.team), VRFW.ids.hex_text(p.rivals[r.k + 1]), diff))
   return { ok = true, k = r.k }
 end
 

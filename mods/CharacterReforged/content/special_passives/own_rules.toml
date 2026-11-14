@@ -1,0 +1,110 @@
+schema = "VRFW.passive/1"
+
+[[VRFW.Tag]]
+name = "striker"
+text = "tag_striker"
+icon = "cr_tag_striker"
+
+[[VRFW.Tag]]
+name = "cannon"
+text = "tag_cannon"
+icon = "cr_tag_cannon"
+
+[[VRFW.Tag]]
+name = "speedster"
+text = "tag_speedster"
+icon = "cr_tag_speedster"
+
+[[VRFW.Tag]]
+name = "acrobat"
+text = "tag_acrobat"
+icon = "cr_tag_acrobat"
+
+[[VRFW.Tag]]
+name = "brain"
+text = "tag_brain"
+icon = "cr_tag_brain"
+
+[[VRFW.Tag]]
+name = "captain"
+text = "tag_captain"
+icon = "cr_tag_captain"
+
+[[VRFW.Tag]]
+name = "wall"
+text = "tag_wall"
+icon = "cr_tag_wall"
+
+[[VRFW.Tag]]
+name = "beast"
+text = "tag_beast"
+icon = "cr_tag_beast"
+
+[[VRFW.Tag]]
+name = "trickster"
+text = "tag_trickster"
+icon = "cr_tag_trickster"
+
+[[VRFW.Tag]]
+name = "mystic"
+text = "tag_mystic"
+icon = "cr_tag_mystic"
+
+[[VRFW.Tag]]
+name = "divine"
+text = "tag_divine"
+icon = "cr_tag_divine"
+
+[[VRFW.Tag]]
+name = "noble"
+text = "tag_noble"
+icon = "cr_tag_noble"
+
+[[VRFW.Tag]]
+name = "rebel"
+text = "tag_rebel"
+icon = "cr_tag_rebel"
+
+[[VRFW.Tag]]
+name = "veteran"
+text = "tag_veteran"
+icon = "cr_tag_veteran"
+
+[[VRFW.Tag]]
+name = "rookie"
+text = "tag_rookie"
+icon = "cr_tag_rookie"
+
+[[VRFW.Tag]]
+name = "cosmic"
+text = "tag_cosmic"
+icon = "cr_tag_cosmic"
+
+[[VRFW.Tag]]
+name = "dancer"
+text = "tag_dancer"
+icon = "cr_tag_dancer"
+
+[[VRFW.Tag]]
+name = "martial"
+text = "tag_martial"
+icon = "cr_tag_martial"
+
+[[VRFW.Tag]]
+name = "astral"
+text = "tag_astral"
+icon = "cr_tag_astral"
+
+[[VRFW.Tag]]
+name = "guardian"
+text = "tag_guardian"
+icon = "cr_tag_guardian"
+
+[[VRFW.PassiveCap]]
+name = "own_total"
+max_percent = 25
+
+# the open team-wide ones (no tag, group or saga): their own sub-cap of ±8 %
+[[VRFW.PassiveCap]]
+name = "own_open"
+max_percent = 8

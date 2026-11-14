@@ -67,6 +67,7 @@ function TeamLineup.Kit(team)
 end
 
 local DATA_OFFSET = {}   -- member row address -> its offset as the data had it
+local LEVEL_TEAM = {}    -- member row address -> the team that CMND_VRFW_TEAM_LEVEL last wrote it under
 function TeamLineup.Level(team, game, difficulty, level)
   team = u32(team)
   game = u32(game)
@@ -84,10 +85,25 @@ function TeamLineup.Level(team, game, difficulty, level)
     end
     local ms = VRFW.memory.struct("RandomTeamMember", a)
     local v = math.max(-998, math.min(998, DATA_OFFSET[a] + want - base))
-    if pcall(function() ms.LevelOffset = v end) then n = n + 1 end
+    if pcall(function() ms.LevelOffset = v end) then n = n + 1; LEVEL_TEAM[a] = team end
   end
   debug(string.format("team 0x%08X: level %d (game 0x%08X difficulty %d row level %d): %d row(s)", team, want, game,
     difficulty, base, n))
+  return true, n
+end
+
+-- CMND_VRFW_TEAM_LEVEL_RESTORE(team, 0 = every team): the member rows CMND_VRFW_TEAM_LEVEL wrote get their data offsets back.
+function TeamLineup.LevelRestore(team)
+  team = u32(team)
+  local n = 0
+  for a, t in pairs(LEVEL_TEAM) do
+    if team == 0 or t == team then
+      local ms = VRFW.memory.struct("RandomTeamMember", a)
+      if pcall(function() ms.LevelOffset = DATA_OFFSET[a] end) then n = n + 1 end
+      LEVEL_TEAM[a] = nil
+    end
+  end
+  debug(string.format("level restore %s: %d row(s)", team == 0 and "every team" or string.format("team 0x%08X", team), n))
   return true, n
 end
 
@@ -231,9 +247,9 @@ do
     VRFW.warn("team_lineup: the match teams block is not set up: a match player's page shows his card's set")
   end
 end
-VRFW.on("match_start", function() MATCH.on = true return nil end)
-VRFW.on("match_end", function() MATCH.on = false return nil end)
-VRFW.on("game_reset", function() MATCH.on = false return nil end)
+VRFW.on("match:start", function() MATCH.on = true return nil end)
+VRFW.on("match:end", function() MATCH.on = false return nil end)
+VRFW.on("game:reset", function() MATCH.on = false return nil end)
 
 -- the roster slot of card `card` in team `team` (staff slots left out); nil when he is not a member
 local function member_slot(team, card)

@@ -1,0 +1,15 @@
+schema = "VRFW.text/2"
+table = "menu_text"
+
+# the free match tab of the chain teams the player has beaten (content/teams/90_rules/chain_free_match_tab.toml)
+[[row]]
+id = "ChronicleDeluxe.FreeMatchTabChain"
+es = "Cadena"
+en = "Chain"
+fr = "Chaîne"
+de = "Kette"
+it = "Catena"
+pt = "Cadeia"
+ja = "対戦ルート"
+zh_hans = "对战路线"
+zh_hant = "對戰路線"

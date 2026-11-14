@@ -1,0 +1,52 @@
+# BetterUI, general list window (win05_01: formation list, chara bank, VS route, match record, town lists): square flat
+# panel, no drop shadow. The frame sprite keeps its translucent black fill (its own interior, stretched over the old
+# 20 px shadow margin, which turns transparent) and the two corner masks of the blue panel become square.
+schema = "VRFW.image/1"
+
+[[recipe]]
+name = "frame_flat"
+game = "#/menu/10_win/win05/win05_01/win05_01.g4tx"
+sprite = "list_base02_02"
+ops = [
+    { op = "crop", box = [34, 34, 650, 270] },
+    { op = "resize", size = [644, 264] },
+    { op = "crop", box = [-20, -20, 664, 284] },
+]
+
+[[recipe]]
+name = "mask_bottom_square"
+game = "#/menu/10_win/win05/win05_01/win05_01.g4tx"
+texture = "list_msk00"
+ops = [
+    { op = "crop", box = [2, 0, 646, 256] },
+    { op = "resize", size = [644, 267] },
+    { op = "crop", box = [-2, 0, 646, 268] },
+]
+
+[[recipe]]
+name = "mask_top_square"
+game = "#/menu/10_win/win05/win05_01/win05_01.g4tx"
+texture = "list_msk01"
+ops = [
+    { op = "crop", box = [2, 12, 646, 268] },
+    { op = "resize", size = [644, 267] },
+    { op = "crop", box = [-2, -1, 646, 267] },
+]
+
+[[sprite]]
+atlas = "#/menu/10_win/win05/win05_01/win05_01.g4tx"
+name = "list_base02_02"
+recipe = "frame_flat"
+size = [684, 304]
+
+[[texture]]
+atlas = "#/menu/10_win/win05/win05_01/win05_01.g4tx"
+name = "list_msk00"
+recipe = "mask_bottom_square"
+size = [648, 268]
+
+[[texture]]
+atlas = "#/menu/10_win/win05/win05_01/win05_01.g4tx"
+name = "list_msk01"
+recipe = "mask_top_square"
+size = [648, 268]

@@ -1,0 +1,24 @@
+# The framework's negative rows become positive: on = the banners or boot screens show; the stored values are inverted so the game behaves as before.
+schema = "VRFW.migration/1"
+id = "VRFW.positive_option_rows"
+description = "The rows hide_aura, hide_technique and skip_boot_screens become aura_banners, technique_banners and boot_screens with their stored values inverted"
+phase = "data"
+after = ["VRFW.no_compat_names", "VRFW.vrfw_prefix_data"]
+
+[[step]]
+kind = "invert_option_row"
+from = "telop_engine.hide_aura"
+to = "telop_engine.aura_banners"
+if_target = "keep_target"
+
+[[step]]
+kind = "invert_option_row"
+from = "telop_engine.hide_technique"
+to = "telop_engine.technique_banners"
+if_target = "keep_target"
+
+[[step]]
+kind = "invert_option_row"
+from = "mods_menu.skip_boot_screens"
+to = "mods_menu.boot_screens"
+if_target = "keep_target"

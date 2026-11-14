@@ -3,6 +3,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.match_move_level/1"
 folder = "content/match_move_level"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Match.MoveLevel"
+v2_kind_folder = "Match/MoveLevels"
+v2_version = 1
 label = "Match move level"
 label_es = "Nivel de técnicas en partido"
 doc = "The level every move of a side takes in the matches that fit the rule."

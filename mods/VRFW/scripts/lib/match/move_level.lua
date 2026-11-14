@@ -1,3 +1,4 @@
+--- Advanced: Library: move level rules of the running match.
 
 local ME = VRFW.match.equipment
 local MatchRules = VRFW.match.rules
@@ -34,12 +35,12 @@ local function load()
   return RULES
 end
 
---- The move level rule answer of `side` for match info `info`.
+--- Advanced: The move level rule answer of `side` for match info `info`.
 function M.for_match_info(info, side)
   return MatchRules.answer(load(), info, side, GRADE_FIELDS)
 end
 
---- The move level rule answer of `side` for the running match.
+--- Advanced: The move level rule answer of `side` for the running match.
 function M.running(side)
   local g = VRFW.game and VRFW.game.match_equipment_info
   if type(g) ~= "function" then return nil end

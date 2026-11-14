@@ -1,10 +1,11 @@
+-- The result of the last finished match, for any mod. Call: in a handler (not while the script loads).
 -- The result of the last finished match, readable from any mod's script (docs/framework/match-result.md).
 
 local M = {}
 
 local PREFIX = "vrfw.match_result."
 
--- the keys and their kinds: "int", "bool" (0 / 1), "side" (0 / 1, absent = none)
+-- Internal: the keys and their kinds: "int", "bool" (0 / 1), "side" (0 / 1, absent = none)
 M.KEYS = {
   seq = "int", home_score = "int", away_score = "int", user_side = "int", shootout = "bool",
   shootout_home = "int", shootout_away = "int", extra_time = "bool", winner_side = "int", won = "bool",
@@ -24,7 +25,7 @@ local function get(key)
   return nil
 end
 
---- the last published result, nil when none
+--- VRFW.match.results.last(): the last finished match's result table, or nil when none. Call: in a handler (not while the script loads).
 function M.last()
   local seq = get("seq")
   if not seq then return nil end

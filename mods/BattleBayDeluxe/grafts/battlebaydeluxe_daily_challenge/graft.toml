@@ -1,0 +1,26 @@
+# Battle Bay «Reto diario» (docs/game/modes/bb-daily-challenge.md): the «Campaña» row's window and the run's matches on
+# the lent campaign block. Order 349: its OnInit sync runs before battlebaydeluxe_tournament's (346).
+name = "battlebaydeluxe_daily_challenge"
+mod = "BattleBayDeluxe"
+order = 349
+module = "lua_bridge"
+requires = ["battlebaydeluxe_tournament"]
+conflicts = []
+wraps = ["OnInit", "OnDecideFocus", "OnBack", "WaitExecOtherMenu", "Step"]
+description = "Battle Bay: «Reto diario» in the «Campaña» row's window, a seeded daily run of 3 matches"
+
+[[files]]
+stem = "bb_stadium_top_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "daily_challenge_top.lua"
+  marker = "battlebaydeluxe_daily_challenge top"
+
+[[files]]
+stem = "bb_stadium_campaign_end_window"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "daily_challenge_end.lua"
+  marker = "battlebaydeluxe_daily_challenge end"

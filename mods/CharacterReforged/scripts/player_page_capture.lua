@@ -63,6 +63,18 @@ function P.Config()
   return mode, camera, report, camera == CAMERAS.bust and 1 or 0, live, gate
 end
 
+-- The PERFIL model's stick zoom limits for the plate_model graft: closest metres from the head, farthest metres behind
+-- the page framing, metres per frame at full tilt and the zoom target's height share (config.toml [player_page]).
+function P.ZoomConfig()
+  return setting("player_page.zoom_near", 1.8, 0.5, 20), setting("player_page.zoom_far", 4.0, 0, 30),
+    setting("player_page.zoom_speed", 0.12, 0.01, 2), setting("player_page.zoom_head", 0.9, 0, 1)
+end
+
+-- The size factor of the player page's type tag (config.toml [player_page] type_tag_scale) for the plate_pages graft.
+function P.TypeTagScale()
+  return setting("player_page.type_tag_scale", 1.5, 0.5, 4)
+end
+
 local wait = nil
 
 local function probe_line(s, why)
@@ -270,4 +282,4 @@ function P.Report(when, key, camera, model)
   return 1
 end
 
-log("player page capture commands ready (CMND_CHARACTERREFORGED_PAGE_CAPTURE_CONFIG / _REPORT / _LIVE / _DRAWN / _BIND / _BOUND)")
+log("player page capture commands ready (CMND_CHARACTERREFORGED_PAGE_CAPTURE_CONFIG / _REPORT / _LIVE / _DRAWN / _BIND / _BOUND / CMND_CHARACTERREFORGED_PAGE_ZOOM_CONFIG / CMND_CHARACTERREFORGED_TYPE_TAG_SCALE)")

@@ -262,22 +262,20 @@ function CharacterReforged.hyper_card.partner(A, face, ctx, inst)
     funcLuaMenuCommand(3405944500, A, CharacterReforged.hyper_card.CHR_MESH, false, inst)
     return false
   end
-  funcLuaMenuCommand(3405944500, A, CharacterReforged.hyper_card.CHR_MESH, true, inst)
   pcall(funcLuaCommand, 2996279796, ctx or "plate_page", face)
   local has = funcLuaMenuCommand(2208175668 --[[has a miximax face icon]], face)
-  if has then
-    funcLuaMenuCommand(346643487 --[[SwapLayerFaceIconTex]], A, inst, CharacterReforged.hyper_card.CHR_MESH, CharacterReforged.hyper_card.CHR_SLOT, face, 0, 12, true,
-      true, true, 5)
-  else
-    VRFW.face_icon.request(A, inst, face, CharacterReforged.hyper_card.CHR_MESH, CharacterReforged.hyper_card.CHR_SLOT)
-  end
+  -- VRFW.face_icon shows the mesh once the texture has loaded, so the cleared slot's white fill never shows.
+  VRFW.face_icon.forget(A, inst, CharacterReforged.hyper_card.CHR_MESH)
+  VRFW.face_icon.face(A, inst, face, CharacterReforged.hyper_card.CHR_MESH, CharacterReforged.hyper_card.CHR_SLOT,
+    has and {art = 12} or nil)
   CharacterReforged.hyper_card.log("partner", tostring(A), tostring(face), tostring(has))
   return true
 end
 
 CharacterReforged.hyper_card.FACE_BY_TYPE = {[0] = {2449339029, 1051570875, 8}, [1] = {2449339029, 1051570875, 8},
   [2] = {478320441, 3237726902, 12}, [3] = {2449339029, 1051570875, 14}}
-function CharacterReforged.hyper_card.portrait(A, skill, fusion, mc, ctx, inst)
+-- Draws the portrait of an aura card; with `rules.partner_frame` an aura's own face takes the partner's frame (mesh, size, crop).
+function CharacterReforged.hyper_card.portrait(A, skill, fusion, mc, ctx, inst, rules)
   inst = inst or 0
   funcLuaMenuCommand(3405944500, A, CharacterReforged.hyper_card.FS_MESH, false, inst)
   funcLuaMenuCommand(3405944500, A, CharacterReforged.hyper_card.CHR_MESH, false, inst)
@@ -292,8 +290,13 @@ function CharacterReforged.hyper_card.portrait(A, skill, fusion, mc, ctx, inst)
   local face = t ~= nil and CharacterReforged.hyper_card.FACE_BY_TYPE[t] or nil
   local okc, cid = funcLuaCommand(CharacterReforged.hyper_card.SKILL_INFO, skill, 17)
   if okc and cid ~= nil and cid ~= 0 and face ~= nil then
-    funcLuaMenuCommand(3405944500, A, face[1], true, inst)
-    funcLuaMenuCommand(346643487 --[[SwapLayerFaceIconTex]], A, inst, face[1], face[2], cid, 0, face[3], true, true, true, 5)
+    local mesh, slot = face[1], face[2]
+    if rules ~= nil and rules.partner_frame then
+      mesh, slot = CharacterReforged.hyper_card.CHR_MESH, CharacterReforged.hyper_card.CHR_SLOT
+    end
+    -- VRFW.face_icon shows the mesh once the texture has loaded.
+    VRFW.face_icon.forget(A, inst, mesh)
+    VRFW.face_icon.face(A, inst, cid, mesh, slot, {art = face[3]})
     return cid
   end
   return nil
@@ -366,6 +369,54 @@ function CharacterReforged.hyper_card.steps(cost, scale)
     return 0
   end
   return math.min(10, math.max(1, math.floor(cost / scale * 10 + 0.5)))
+end
+-- The «Armadura» badge of a keshin card: the retail framed badge _gtxt_cmd_armed01 on its own layer, centred on the
+-- bottom edge of the card's band.
+CharacterReforged.hyper_card.ARMOUR_BADGE = 1206374040              -- _gtxt_cmd_armed01
+CharacterReforged.hyper_card.ARMOUR_BADGE_K = 0.8                   -- size factor on the retail 120 x 48 badge
+CharacterReforged.hyper_card.EXIST_LAYER = 262659071                -- (layer) -> layer declared on this menu
+
+-- Returns the armour `chara` can wear with keshin `skill` (0 = none or not a keshin), from the mod's armour data.
+function CharacterReforged.hyper_card.keshin_armour(skill, chara)
+  if CharacterReforged.hyper_card.aura_type(skill) ~= 0 or chara == nil or chara == 0 then
+    return 0
+  end
+  local ok, armour = pcall(funcLuaCommand, CALC_CRC("CMND_CHARACTERREFORGED_KESHIN_HYPER_ARMOUR"), chara, skill)
+  return (ok and type(armour) == "number") and armour or 0
+end
+
+-- Shows the badge on rules.layer when `chara` can wear an armour with keshin `skill`, else hides it.
+-- rules.band = {x, top, w, h} of the card's band in the badge layer's frame; rules.scale (default 1) and rules.prio
+-- (draw priority, optional). Returns the badge point {x, y} when shown, else nil.
+function CharacterReforged.hyper_card.armour_mark(skill, chara, rules)
+  local T = rules.layer
+  if T == nil or funcLuaMenuCommand(CharacterReforged.hyper_card.EXIST_LAYER, T) ~= true then
+    return nil
+  end
+  local armour = CharacterReforged.hyper_card.keshin_armour(skill, chara)
+  local open = funcLuaMenuCommand(2640875187, T, 0)
+  if armour == 0 then
+    if open then
+      funcLuaMenuCommand(711242136, T, 0, false)
+    end
+    return nil
+  end
+  if not open then
+    funcLuaMenuCommand(629267548, T, 0)
+  end
+  local b, s = rules.band, rules.scale or 1
+  local at = {b[1] + b[3] * s / 2, b[2] - b[4] * s}
+  local k = s * CharacterReforged.hyper_card.ARMOUR_BADGE_K
+  funcLuaMenuCommand(3405944500, T, CharacterReforged.hyper_card.ARMOUR_BADGE, true, 0)
+  funcLuaMenuCommand(3778714801, T, k, k, 1, 0)
+  funcLuaMenuCommand(1389957207, T, at[1], at[2], 0, 0)
+  if rules.prio ~= nil then
+    pcall(funcLuaMenuCommand, 1491630496, T, 0, rules.prio, true)
+  end
+  funcLuaMenuCommand(711242136, T, 0, true)
+  CharacterReforged.hyper_card.log("armour badge", string.format("%08X", skill or 0), tostring(armour),
+    string.format("%.1f", at[1]), string.format("%.1f", at[2]))
+  return at
 end
 -- ----- evt hiper_card END =====
 CharacterReforged.HYPER_PAGE_BANDS = CharacterReforged.hyper_card.BANDS        -- shared card component (character_reforged_hiper_card.lua)
@@ -461,6 +512,21 @@ function CharacterReforged.hyper_page_mix_of(chara)
     return 0
   end
   return VRFW.ids.unsigned(page.mix_of(chara))
+end
+
+-- Returns the learn level card `chara` still needs for `skill` shown in his aura or mix slot (0 = learned).
+function CharacterReforged.hyper_page_need(chara, skill)
+  local proj = CharacterReforged.hyper_page_projection(chara)
+  if proj == nil or skill == nil or skill == 0 then
+    return 0
+  end
+  if VRFW.ids.unsigned(proj.aura) == skill then
+    return tonumber(proj.aura_need) or 0
+  end
+  if VRFW.ids.unsigned(proj.mix) == skill then
+    return tonumber(proj.mix_need) or 0
+  end
+  return 0
 end
 
 -- L3 on the Hiper page
@@ -797,7 +863,7 @@ end
 -- Reuses the aura character's portrait, as the retail aura windows draw it.
 CharacterReforged.HYPER_PAGE_FACE_BY_TYPE = CharacterReforged.hyper_card.FACE_BY_TYPE   -- one table (research/grafts/plate_hiper_plate/character_reforged_hiper_card.lua)
 CharacterReforged.HYPER_PAGE_TYPE_ICON = CharacterReforged.hyper_card.TYPE_ICON
-CharacterReforged.HYPER_PAGE_MIXIMAX_CARRIER = 2450842569 --[[wmm_evt]]
+CharacterReforged.HYPER_PAGE_MIXIMAX_CARRIER = 2450842569
 function CharacterReforged.hyper_page.mx_ask(chara)
   local ok, exists, partner, m1, m2, pchara, best, phdl = pcall(funcLuaCommand, CALC_CRC("CMND_CHARACTERREFORGED_MIXIMAX_FUSION_GET"), chara)
   return ok, exists == true, partner, m1, m2, pchara, best, phdl
@@ -876,11 +942,11 @@ CharacterReforged.hyper_page.GEO = {
   BAND_H = 88, BAND_TOP = 160, BAND_X = -473,     -- face layer: band top / left inside the layer (PH_BAND_TOP, PH_X0)
   ROW_X = -453,                                    -- the rows' left edge on the page (PH_X0 + 20)
   TENS_J = {[1] = {225, -175}, [2] = {225, -380}},
-  -- Layout of the band (origin) and the tag size factor on the retail 120 x 48 badge (0.8).
-  BAND_W = 930, TAG_J = {0, 0}, TAG_K = 0.8, TAG_PRIO = 580,
+  -- Band width and the draw priority of the «Armadura» badge (the PEG plate sits behind it).
+  BAND_W = 930, TAG_PRIO = 580,
 }
 CharacterReforged.hyper_page.TENS = 309454530
-CharacterReforged.hyper_page.TAG = 1033927205
+CharacterReforged.hyper_page.TAG = 1033927205         -- cr_ph_armour_tag
 -- Position of the PEG pool on the header spirit card.
 CharacterReforged.hyper_page.POOL = 1109875106
 CharacterReforged.hyper_page.POOL_K, CharacterReforged.hyper_page.POOL_CX, CharacterReforged.hyper_page.POOL_CY, CharacterReforged.hyper_page.POOL_PRIO = 3.0, 180, -7, 575
@@ -921,8 +987,8 @@ function CharacterReforged.hyper_page.hide_extras()
   for i = 1, n.face - 1 do
     pcall(CharacterReforged.hyper_page.aura_band, nil, i)
   end
-  for _, lt in ipairs({{CharacterReforged.hyper_page.ROW, 1, n.row - 1}, {CharacterReforged.hyper_page.TENS, 0, n.tens - 1}, {CharacterReforged.hyper_page.TAG, 0, 0},
-      {CharacterReforged.hyper_page.POOL, 0, 2}}) do
+  for _, lt in ipairs({{CharacterReforged.hyper_page.ROW, 1, n.row - 1}, {CharacterReforged.hyper_page.TENS, 0, n.tens - 1},
+      {CharacterReforged.hyper_page.TAG, 0, 0}, {CharacterReforged.hyper_page.POOL, 0, 2}}) do
     if HyperPageExists(lt[1]) then
       for i = lt[2], lt[3] do
         if funcLuaMenuCommand(C.IS_OPEN_LAYER, lt[1], i) then
@@ -933,48 +999,16 @@ function CharacterReforged.hyper_page.hide_extras()
   end
 end
 
-function CharacterReforged.hyper_page.armour_tag(at, s)
-  local T = CharacterReforged.hyper_page.TAG
-  if not HyperPageExists(T) then
-    return false
-  end
-  if at == nil then
-    if funcLuaMenuCommand(C.IS_OPEN_LAYER, T, 0) then
-      funcLuaMenuCommand(C.LAYER_VISIBLE, T, 0, false)
-    end
-    if CharacterReforged.hyper_page.armourAt ~= nil then
-      CharacterReforged.hyper_page.armourAt = nil
-      pcall(CharacterReforged.hyper_page.peg_tag_place)
-    end
-    return true
-  end
-  local G = CharacterReforged.hyper_page.GEO
-  HyperPageOpen(T, 0)
-  CharacterReforged.hyper_page.armourAt = at                             -- the pool plate goes left of the badge
-  pcall(CharacterReforged.hyper_page.peg_tag_place)
-  local k = (s or 1) * G.TAG_K
-  funcLuaMenuCommand(C.MESH_VISIBLE, T, 1206374040 --[[_gtxt_cmd_armed01]], true, 0)
-  funcLuaMenuCommand(C.LOCAL_SCALE, T, k, k, 1, 0)
-  funcLuaMenuCommand(C.LOCAL_POS, T, at[1] - G.TAG_J[1], at[2] - G.TAG_J[2], 0, 0)
-  pcall(funcLuaMenuCommand, C.DRAW_PRIORITY, T, 0, G.TAG_PRIO, true)
-  funcLuaMenuCommand(C.LAYER_VISIBLE, T, 0, true)
-  HyperPageLog("armour tag", string.format("%.1f", at[1]), string.format("%.1f", at[2]), string.format("%.2f", k))
-  return true
-end
-
+-- The «Armadura» badge of the header keshin card: the shared rule on this page's band; the PEG plate goes left of it.
 function CharacterReforged.hyper_page.hiper_armour_tag(skill, chara)
-  if HyperPageAuraType(skill) ~= 0 or chara == nil or chara == 0 then
-    return false
-  end
-  local cmd = CALC_CRC("CMND_CHARACTERREFORGED_KESHIN_HYPER_ARMOUR")
-  local ok, armour, param = pcall(funcLuaCommand, cmd, chara, skill)
-  local has = ok and type(armour) == "number" and armour ~= 0
-  HyperPageLog("hiper armour", string.format("%08X", skill), tostring(armour), tostring(param))
-  if not has then
-    return false
-  end
   local G = CharacterReforged.hyper_page.GEO
-  return CharacterReforged.hyper_page.armour_tag({G.BAND_X + G.BAND_W / 2, G.BAND_TOP - G.BAND_H}, 1)
+  local at = CharacterReforged.hyper_card.armour_mark(skill, chara, {layer = CharacterReforged.hyper_page.TAG,
+    band = {G.BAND_X, G.BAND_TOP, G.BAND_W, G.BAND_H}, prio = G.TAG_PRIO})
+  if at ~= CharacterReforged.hyper_page.armourAt then
+    CharacterReforged.hyper_page.armourAt = at
+    pcall(CharacterReforged.hyper_page.peg_tag_place)
+  end
+  return at ~= nil
 end
 
 -- Position of the pool tag on the header card.
@@ -1139,6 +1173,7 @@ end
 function CharacterReforged.hyper_page.spirit_move(L, skill, chara, fusion)
   local R = CharacterReforged.hyper_page.ROW
   CharacterReforged.hyper_page.spiritRow = false               -- set when the move row (and its gauge) is drawn
+  local need = CharacterReforged.hyper_page_need(chara, skill)
   local ok, move = CharacterReforged.hyper_page.aura_move(skill)
   if fusion ~= nil then
     -- the fusion's chosen move, drawn with the partner's handle (his element colour, not the "not owned" grey)
@@ -1160,8 +1195,18 @@ function CharacterReforged.hyper_page.spirit_move(L, skill, chara, fusion)
   end
   local a = CharacterReforged.hyper_page.skl or {g_useFormationCharaSkillLayer, L_DETAIL, 0, 1803124851, 0, g_useFormationCharaSkillBlankLayer,
     g_useSkillAIUseMarkLayer}
-  local okf, err = VRFW.ui_plates.move_plate.fill(R, 0, chara, move, {set = CharacterReforged.hyper_page.origSkl, page = a[2], page_inst = a[3],
-    point = a, restore = a, open = HyperPageOpen})
+  local o = {set = CharacterReforged.hyper_page.origSkl, page = a[2], page_inst = a[3], point = a, restore = a, open = HyperPageOpen}
+  local okf, err
+  if need > 0 then
+    -- a slot move not learned yet: the list row's lock and its learn level on the right, as the technique rows
+    o.locked, o.need = true, need
+    okf, err = VRFW.ui_plates.move_plate.row(R, 0, chara, move, o)
+    if okf then
+      funcLuaMenuCommand(C.LAYER_VISIBLE, R, 0, true)
+    end
+  else
+    okf, err = VRFW.ui_plates.move_plate.fill(R, 0, chara, move, o)
+  end
   if not okf then
     HyperPageLog("spirit move row failed", string.format("%08X", move), tostring(err))
     return
@@ -1183,7 +1228,7 @@ function CharacterReforged.hyper_page.spirit_move(L, skill, chara, fusion)
       end})
   end
   HyperPageLog("spirit move", string.format("%08X", skill), string.format("%08X", move), okc and cost or -1,
-    tostring(scale), steps)
+    tostring(scale), steps, "learn level", need)
 end
 
 -- Reuses the band sprite of an aura skill.
@@ -1234,9 +1279,7 @@ function CharacterReforged.hyper_page.show_skill(skill, chara)
   -- the keshin's pool as a second gauge right of its move's PEG (after PoolTag, which hides instance 0)
   pcall(CharacterReforged.hyper_page.pool_gauge, L, (fusion == nil and mc == nil and CharacterReforged.hyper_page.spiritRow) and CharacterReforged.hyper_page.peg_info(skill) or nil, skill)
   pcall(CharacterReforged.hyper_page.quote_bar, L, true)
-  if fusion == nil then
-    pcall(CharacterReforged.hyper_page.hiper_armour_tag, skill, chara)
-  end
+  pcall(CharacterReforged.hyper_page.hiper_armour_tag, (fusion == nil and mc == nil) and skill or 0, chara)
   if fusion ~= nil then
     local pname = fusion.name or "?"
     -- no stat-gains text (the gains are on Atributos)

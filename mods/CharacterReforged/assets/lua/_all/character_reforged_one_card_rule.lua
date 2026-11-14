@@ -9,11 +9,18 @@ if CharacterReforged.one_card_per_player == nil then
   end
 end
 
-if CharacterReforged.raised_copy_rarity == nil then
-  local RAISED_COPY_RARITY = 3649620525  -- CMND_CHARACTERREFORGED_RAISED_COPY_RARITY (rarity, the card's own rarity) -> 1 or 0
+if CharacterReforged.copy_rarity == nil then
+  local COPY_RARITY = 3460068810  -- CMND_CHARACTERREFORGED_COPY_RARITY (rarity, the card's chara_param col 41) -> rarity
 
-  -- True while a copy saved at `rarity` of a card whose own rarity is `card_rarity` is kept beside the card's other copies (content\duplicate_rules, raised_copy_rarities).
-  function CharacterReforged.raised_copy_rarity(rarity, card_rarity)
-    return VRFW.host.command(RAISED_COPY_RARITY, rarity, card_rarity) == 1
+  -- The rarity a copy saved at `rarity` of a card of special rarity `card_rarity` holds in the loaded save (content\duplicate_rules): with the card it names one player.
+  function CharacterReforged.copy_rarity(rarity, card_rarity)
+    local held = VRFW.host.command(COPY_RARITY, rarity, card_rarity)
+    return type(held) == "number" and held or rarity
+  end
+
+  -- True when the club holds card `card` at the rarity a copy saved at `rarity` holds: the same card at another rarity is another player.
+  function CharacterReforged.holds_copy(card, rarity)
+    local R = VRFW.recruit
+    return R.copies(card, CharacterReforged.copy_rarity(rarity, R.special_rarity(card))) > 0
   end
 end

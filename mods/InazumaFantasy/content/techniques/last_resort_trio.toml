@@ -1,0 +1,24 @@
+schema = "VRFW.technique/3"
+# Last Resort for three players: the retail 3-player row (whs03275: any two partners, its power, TP, names and banner)
+# playing the normal Last Resort cut-in (ev60_03270) with the players split as in the retail trio version (ev74_01280).
+
+[[technique]]
+name = "last_resort_trio"
+base = "whs03275"
+manual = true
+name_text = "base"
+description_text = "base"
+  # Player 1 opens (c0010) and plays c0020 with player 2 in the place of his own double (base seat s01).
+  # Player 3 jumps, kicks and sends the dragon shot (c0030-c0050, the base's s00).
+  [technique.animation]
+  from = "ev60_03270"
+  id = "ev60_83270"
+  # seats = 4: the base has 2 seats (s01 is player 1's double), so s02 and s03 are added as players 2 and 3.
+  seats = 4
+  cuts = [
+    "c0010",
+    { cut = "c0020", seats = { s02 = "s01" } },
+    { cut = "c0030", seats = { s03 = "s00" } },
+    { cut = "c0040", seats = { s03 = "s00" } },
+    { cut = "c0050", seats = { s03 = "s00" } },
+  ]

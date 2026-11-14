@@ -16,32 +16,32 @@ button = "CMD_FUROR_PHASE"                # synced matches: each team's own L3 (
 # small gains from actions (to = actor: the actor's team; goal: the team that scored)
 [[VRFW.MomentumGain]]
 momentum = "gauge"
-on = "goal"
+on = "match:goal"
 to = "other"                              # the team that conceded (Strikers' comeback spirit)
 amount = 8
 
 [[VRFW.MomentumGain]]
 momentum = "gauge"
-on = "goal"
+on = "match:goal"
 to = "actor"
 amount = 3
 
 [[VRFW.MomentumGain]]
 momentum = "gauge"
-on = "keeper_save"
+on = "match:keeper_save"
 amount = 4
 
 [[VRFW.MomentumGain]]
 momentum = "gauge"
-on = "duel_won"
+on = "match:duel_won"
 amount = 1.5
 
 [[VRFW.MomentumGain]]
 momentum = "gauge"
-on = "block_won"
+on = "match:block_won"
 amount = 1
 
 [[VRFW.MomentumGain]]
 momentum = "gauge"
-on = "technique_result:won"
+on = "match:hissatsu_result:won"
 amount = 2

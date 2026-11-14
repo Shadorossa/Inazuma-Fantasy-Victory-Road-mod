@@ -1,3 +1,4 @@
+--- Advanced: Library: aura skill rows of aura_skill_config (spirit, armour, miximax moves).
 local Id = VRFW.ids
 local u32 = Id.unsigned
 
@@ -13,7 +14,7 @@ local armours = {}     -- keshin id -> { armour ids } (the reverse of spirit_of)
 local spirit_moves = { [false] = {}, [true] = {} }
 local loaded = false
 
---- Reads the aura tables once; true when they are available.
+--- Advanced: Reads the aura tables once; true when they are available.
 function M.load()
   if loaded then
     return true
@@ -64,23 +65,23 @@ function M.load()
   return true
 end
 
---- The aura table row of move `id`; nil when it has none.
+--- Advanced: The aura table row of move `id`; nil when it has none.
 function M.row(id)
   return rows[id]
 end
 
---- Every move id of the aura table, as an array.
+--- Advanced: Every move id of the aura table, as an array.
 function M.ids()
   return ids
 end
 
---- The aura type of move `id`; nil when it has none.
+--- Advanced: The aura type of move `id`; nil when it has none.
 function M.type(id)
   local r = rows[id or 0]
   return r and r.type or nil
 end
 
---- The text key of move `id`.
+--- Internal: The text key of move `id`.
 function M.key(id)
   local r = rows[id or 0]
   if r and r.key ~= "" then
@@ -89,7 +90,7 @@ function M.key(id)
   return string.format("0x%08X", id or 0)
 end
 
---- The spirit that armour `armour` belongs to.
+--- Internal: The spirit that armour `armour` belongs to.
 function M.spirit(armour)
   if VRFW.form and VRFW.form.spirit_of then
     local ok, s = pcall(VRFW.form.spirit_of, armour)
@@ -100,22 +101,22 @@ function M.spirit(armour)
   return spirit_of[armour]
 end
 
---- The armours of keshin `keshin`, as an array.
+--- Advanced: The armours of keshin `keshin`, as an array.
 function M.armours_of(keshin)
   return armours[keshin] or {}
 end
 
---- The set of spirit moves (with armour moves when `with_armours` is true).
+--- Advanced: The set of spirit moves (with armour moves when `with_armours` is true).
 function M.spirit_moves(with_armours)
   return spirit_moves[with_armours == true]
 end
 
---- True when move `id` is a spirit move.
+--- Advanced: True when move `id` is a spirit move.
 function M.is_spirit_move(id, with_armours)
   return id ~= nil and id ~= 0 and spirit_moves[with_armours == true][id] == true
 end
 
---- The aura move row of move `id`; nil when it is none.
+--- Internal: The aura move row of move `id`; nil when it is none.
 function M.aura_move(id)
   local r = rows[id or 0]
   if not r then

@@ -1,3 +1,4 @@
+-- Internal: state of the title row buttons.
 
 
 local TR = {
@@ -582,15 +583,17 @@ local function TR_Press(e, nxt, a1, a2)
   return 1
 end
 
+--- Internal: state of the title row buttons.
 VRFW.title_row = VRFW.title_row or {}
 
--- true = title item `id` is a declared button whose action runs inside the title (the title is still there after it)
+-- Internal: true = title item `id` is a declared button whose action runs inside the title (the title is still there after it)
 function VRFW.title_row.stays(id)
   local r = TR_Row()
   local e = r and r.by_item[id]
   return e ~= nil and e.kind ~= "title"
 end
 
+--- Internal: title item of the declared button `key`; answers the item, or nil.
 function VRFW.title_row.item(key)
   for _, e in ipairs(TR_Entries()) do
     if e.key == key then
@@ -600,6 +603,7 @@ function VRFW.title_row.item(key)
   return nil
 end
 
+--- Internal: calls fn with the title row wrappers off (fn, ...); answers its results.
 function VRFW.title_row.retail(fn, ...)
   local was = tr.raw
   tr.raw = true
@@ -611,11 +615,12 @@ function VRFW.title_row.retail(fn, ...)
   return table.unpack(r, 2, r.n)
 end
 
--- the title items of the game's buttons the mods take out of the row (set: item id -> true)
+-- Internal: the title items of the game's buttons the mods take out of the row (set: item id -> true)
 function VRFW.title_row.hidden_items()
   return (TR_Hidden())
 end
 
+--- Internal: slot position of the declared title button `key`; answers the position, or nil.
 function VRFW.title_row.position(key)
   local r = TR_Row()
   if not r then

@@ -1,0 +1,62 @@
+# The framework's own background of the title screen and the save slot list (title_menu layer title00_01_title_top_st).
+# The picture is derived from Level-5 assets: never committed. One value of the «Title background» row
+# (docs/framework/title-background.md); vrfw_title_clouds.toml is the same background.
+schema = "VRFW.image/1"
+
+[[VRFW.TitleBackground]]
+Name = "framework"
+TextKey = "mod_options.title_background_framework"
+Order = 20
+Default = true
+
+# ---- press-start background + characters (title_menu layer title00_01_title_top_st) -------------------------------
+
+[[sprite]]
+atlas = "#/menu/50_title/title00/title00_01_st/title00_01_st.g4tx"
+name = "bg_sky01_st"
+recipe = "background"
+
+[[sprite]]
+atlas = "#/menu/50_title/title00/title00_01_st/title00_01_st.g4tx"
+name = "bg_chr02_st"
+recipe = "character_left"
+
+[[sprite]]
+atlas = "#/menu/50_title/title00/title00_01_st/title00_01_st.g4tx"
+name = "bg_chr01_st"
+recipe = "character_right"
+
+# ---- no sun flare: bg_lens_flare01_st (2356 x 1200, drawn additive) made transparent black ------------------------
+
+[[sprite]]
+atlas = "#/menu/50_title/title00/title00_01_st/title00_01_st.g4tx"
+name = "bg_lens_flare01_st"
+recipe = "no_flare"
+
+# ---- recipes -------------------------------------------------------------------------------------------------------
+
+[[recipe]]
+name = "no_flare"
+canvas = [2356, 1200]
+
+[[recipe]]
+name = "sheet"
+png = "vrfw_title_art/vrfw_title_sheet.png"
+
+# bg_sky01_st (0, 0, 5280, 2400) of the texture = rows 0..801 of the sheet (its last rows fade out: made opaque)
+[[recipe]]
+name = "background"
+from = "sheet"
+ops = [{ op = "crop", box = [0, 0, 1762, 801] }, { op = "resize", size = [5280, 2400] }, { op = "opaque" }]
+
+# bg_chr02_st (0, 3608, 2008, 2384)
+[[recipe]]
+name = "character_left"
+from = "sheet"
+ops = [{ op = "crop", box = [0, 1204, 670, 2000] }, { op = "resize", size = [2008, 2384] }]
+
+# bg_chr01_st (2012, 3608, 1760, 1992)
+[[recipe]]
+name = "character_right"
+from = "sheet"
+ops = [{ op = "crop", box = [671, 1204, 1259, 1869] }, { op = "resize", size = [1760, 1992] }]

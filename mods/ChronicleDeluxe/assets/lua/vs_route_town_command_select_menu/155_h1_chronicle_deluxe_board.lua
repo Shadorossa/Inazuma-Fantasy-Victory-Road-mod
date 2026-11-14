@@ -9,16 +9,16 @@ local P = ChronicleDeluxe.lineup
 
 P.BAND_ID = "ChronicleDeluxe.lineup"
 P.BAND_ORDER = 20                  -- after the match challenge line (10)
-P.LAYER = {PITCH = 3017938276 --[[chronicle_deluxe_lineup_pitch]], CARD = 260350298 --[[chronicle_deluxe_lineup_card]],
-  TEXT = 572235342 --[[chronicle_deluxe_lineup_text]], MARK = 2145700856 --[[chronicle_deluxe_lineup_mark]]}
+P.LAYER = {PITCH = 3017938276, CARD = 260350298,
+  TEXT = 572235342, MARK = 2145700856}
 P.TEXT_FORMATION, P.TEXT_BUTTON = 0, 1
 P.STARTERS = 11                    -- formation slots 0..10
 P.MEMBER_SLOTS = 29                -- team set members 0..28 (as the VS screen reads them)
-P.FUNCTION_TEAM_DOCK = 1238658383  -- crc32("chronicle_deluxe_team_dock"): the Y row's function
+P.FUNCTION_TEAM_DOCK = 1238658383  -- the Y row's function
 P.BUTTON_TEXT = 1601543300
 P.ITEM_TEAM_DOCK = 0
-P.MENU = 1193383590                -- vs_route_town_command_select_menu
-P.ROWS = 284009563                 -- vsroute01_16_sub_list (the battle rows)
+P.MENU = 1193383590
+P.ROWS = 284009563                 -- (the battle rows)
 P.CHRONICLE_DIFFICULTY = 1
 P.RESULT = 2612514222              -- the menu's result parameter (the board reads it)
 P.C = {
@@ -26,18 +26,18 @@ P.C = {
   TEXT = 1083631230, LAYER_NUM = 1175615627,
   DRAW_PRIORITY = 1491630496,      -- (layer, instance, priority, children)
   FILL_CARD = 2329292196,
-  TEAM_SET = 3713813716,           -- CMND_GET_VS_USE_TEAM_SET
+  TEAM_SET = 3713813716,
   TEAM_SET_INFO = 1033065575,      -- (set, 0, what): 4 formation, 7 uniform, 8 (+ member) captain
   TEAM_MEMBER = 1720957768,        -- (set, 0, member, what): 0 player handle, 1 formation slot
   CHARA_INFO = 1131797651,         -- (handle, 0): level
-  FORMATION_INFO = 2649030357,     -- CMND_GET_SOCCER_FORMATION_INFO
-  TEXT_GET = 4074371074,           -- CMND_TEXT_GET (menu_text id)
+  FORMATION_INFO = 2649030357,
+  TEXT_GET = 4074371074,           -- (menu_text id)
   TEXT_OF_ID = 297699480,          -- (text id) -> the string (the formation's name)
   CHECK_INPUT = 4265778440, MENU_CTRL = 1332654303,
   POINTER = 558229292,             -- the pointer's screen px (y down)
-  ENTER_CLICK = 1651523701,        -- CMD_ENTER_CLICK: mouse, Enter, A
-  ENTER = 1981080283,              -- CMD_ENTER: Enter, A (so a click is ENTER_CLICK without ENTER)
-  SE = 1917805374, SE_DECIDE = 3848881948 --[[sy0000]],
+  ENTER_CLICK = 1651523701,        -- mouse, Enter, A
+  ENTER = 1981080283,              -- Enter, A (so a click is ENTER_CLICK without ENTER)
+  SE = 1917805374, SE_DECIDE = 3848881948,
   FOCUS_GET = 2603265800,          -- (layer) -> the focused row index (0-based)
   CHRONICLE_TEAM = 634509816,
   TEAM_PARAM = 2151743654,         -- (team, what): 3 formation, 4 uniform, 8 member count
@@ -96,23 +96,23 @@ P.CARD_NAMES = {
   {"hidden_exp_gauge", "true"}, {"material_rarity_color", "rarity_color"},
 }
 -- Text object (the framework's vrfw_mp_label, the retail corner button cmn03_01).
-P.LABEL = {TEXT_NODE = 378327766 --[[_text_cmd_back01]], PLATE = 298211823 --[[_cmd_back_base01]],
-  PLATE_ADD = 2853207670 --[[_cmd_back_base01_add]], TEXT_LEFT = -384, TEXT_MID_Y = 144, CHAR_WIDTH = 12.5,
+P.LABEL = {TEXT_NODE = 378327766, PLATE = 298211823,
+  PLATE_ADD = 2853207670, TEXT_LEFT = -384, TEXT_MID_Y = 144, CHAR_WIDTH = 12.5,
   PLATE_LEFT = -397, PLATE_WIDTH = 416, PLATE_HEIGHT = 76,
   TEXT_BOX_WIDTH = 1600, TEXT_BOX_HEIGHT = 76}   -- a centred line's box: wide enough that the game never squeezes it
 -- Pieces of the card that the board does not show.
-P.CARD_HIDE = {2635558741 --[[_icon_card01]], 69091055 --[[_icon_card02]], 814224422 --[[_icon_lock01]],
-  2843821468 --[[_icon_lock02]], 3345942320 --[[_icon_chr_focus_l01]], 3491095421 --[[_icon_chr_focus_s01]]}
+P.CARD_HIDE = {2635558741, 69091055, 814224422,
+  2843821468, 3345942320, 3491095421}
 -- Card drawn from its own sprites (a fill the game refused).
 P.SPRITE_CARD = {
   TEXTURE = 4225297828,            -- #/menu/102_team/team00/team00_01/<LG>/team00_01.g4tx
   PLATE = 3124533534, PLATE_SLOT = 627420056,
   FACE = 3220507922, FACE_SLOT = 372537510,
-  PLATES = {{16, 570978177 --[[icon_chr_base01_s05]]}, {32, 3161258530 --[[icon_chr_base01_s02]]},
-    {64, 627420056 --[[icon_chr_base01_s01]]}, {128, 3137420859 --[[icon_chr_base01_s06]]}},
-  NODES_OFF = {1517329426 --[[_pos_base01]], 1387831794 --[[_pos_leader01]], 3417436232 --[[_pos_leader02]],
-    3662440288 --[[_pos_gauge_exp_s01]], 1260240154 --[[_pos_ai_role02]], 2423840957 --[[_num_chr_s01]],
-    158445831 --[[_num_chr_s02]]},
+  PLATES = {{16, 570978177}, {32, 3161258530},
+    {64, 627420056}, {128, 3137420859}},
+  NODES_OFF = {1517329426, 1387831794, 3417436232,
+    3662440288, 1260240154, 2423840957,
+    158445831},
   MESHES_OFF = {2494321055, 775876763, 2197319787, 3491095421, 1910176454, 4283246729, 378264806, 1054577830,
     430313174, 670064111, 1198450632, 3690620419, 3364549413, 55677738, 1107078292, 3639999790, 3899116140,
     3397635553, 570644301, 3137996535},
@@ -581,9 +581,6 @@ function P.follow_focus()
 end
 
 function P.step()
-  if VRFW.face_icon.pending() then
-    VRFW.face_icon.settle()
-  end
   if P.pending then
     P.pending = false
     if VRFW.route_board_commands.L.flag then
@@ -706,8 +703,8 @@ end
 
 -- Panel layout per list layer kind (0 normal, 1 gate).
 K.PANEL = {
-  [0] = {node = 785322415 --[[_list_base01]], width = 700, height = 644, slots = 8},
-  [1] = {node = 3083223061 --[[_list_base02]], width = 700, height = 472, slots = 5}
+  [0] = {node = 785322415, width = 700, height = 644, slots = 8},
+  [1] = {node = 3083223061, width = 700, height = 472, slots = 5}
 }
 K.ROW_HEIGHT = 70
 K.NODE_SCALE = 2885415772         -- (layer, instance, node, width, height): a quad's size in px
@@ -725,7 +722,7 @@ function K.service_piece()
 end
 
 function K.fits_panel(kind)
-  return EVT_ChrFrameFit == nil and VRFW.match_difficulty ~= nil
+  return VRFW.match_difficulty ~= nil
     and (VRFW.match_difficulty.set(kind == 1 and "gate" or "route") ~= nil or K.service_piece())
 end
 
@@ -736,22 +733,22 @@ end
 
 -- Autocomplete: Select on the Chronicle row asks the board (vs_route_town_menu) to record the win.
 K.SELECT_FUNCTION = 692387310     -- the CMD_FUNCTION of CMD_FUNC2 in this menu's setting (Select, keyboard Tab)
-K.SELECT_INPUT = 3170216173 --[[CMD_FUNC2]]
+K.SELECT_INPUT = 3170216173
 K.SELECT_GLYPH = 3401540579       -- the guide glyph retail pairs with CMD_FUNC2 on this menu
-K.AUTOCOMPLETE_TEXT = 3847662389  -- crc32("chronicle_deluxe_autocomplete_prompt")
-K.AUTOCOMPLETE_REQUEST = 1168198373 -- crc32("chronicle_deluxe_autocomplete_request"): read by the board
+K.AUTOCOMPLETE_TEXT = 3847662389
+K.AUTOCOMPLETE_REQUEST = 1168198373 -- read by the board
 K.CHRONICLE = 1                   -- the Chronicle row's difficultyType
-K.ROWS = 284009563                -- vsroute01_16_sub_list
-K.MENU = 1193383590               -- vs_route_town_command_select_menu
-K.GUIDE_LAYER = 1138543975        -- mainmenu01_06_base_button_guide
+K.ROWS = 284009563
+K.MENU = 1193383590
+K.GUIDE_LAYER = 1138543975
 K.CMD = {
-  GET_CLEAR = 4034518619,         -- CMND_GET_CHRONICLE_CLEAR_STATUS (slot, difficulty)
-  GET_LOCK = 3394595467,          -- CMND_GET_CHRONICLE_LOCK_STATUS (slot, difficulty)
+  GET_CLEAR = 4034518619,         -- (slot, difficulty)
+  GET_LOCK = 3394595467,          -- (slot, difficulty)
   FOCUSED_ROW = 2603265800,       -- (list layer) -> focused row, from 0
   GUIDE_EXTRA = 2190844859,       -- (parent menu, guide layer, 0, on): retail turns it on for a guide with two entries
   SOUND = 1917805374,
-  SOUND_DECIDE = 3848881948,      -- sy0000
-  CLOSE_MENU = 320421347,         -- CMND_CLOSE_MENU_OBJECT
+  SOUND_DECIDE = 3848881948,
+  CLOSE_MENU = 320421347,
 }
 
 -- Returns the focused battle row.

@@ -23,44 +23,140 @@ phase = "pre"
 value = "[args[2] + 0x6C]:u32"
 write = "[state(VRFW.level_sync.request) + 4]:u32"
 
+# The match team build (0x15E9D60) makes each player's temporary match card at this level from the saved card named by opts + 0x20, so the game itself gives it that level's stats, moves and board.
 [[VRFW.Hook]]
-name = "LevelSync.StatLevel"
-game = "Match.BuildCharaLevelCall"
+name = "LevelSync.MatchCopyLevel"
 kind = "call"
+pattern = "48 8D 45 B0 B9 03 00 00 00 48 89 44 24 20 0F 44 D1 44 0F B7 CE 48 8D 4C 24 4C 45 8B C7 E8 ?? ?? ?? ?? 8B 4C 24 4C 85 C9"
+offset = 29
+rva = 0x15EA697
+target_rva = 0xE86380
+arguments = ["ptr", "u32", "u32", "u16", "ptr"]
+returns = "ptr"
+apply = "script"
+
+# The block's byte +8 is 1 while the game builds the match card of a saved card, for the status level answers below.
+[[VRFW.Hook.answer]]
+phase = "pre"
+value = "if(mask([args[5] + 0x20]:u32, 0xF000) == 0, if([args[5] + 0x20]:u32 > 0, 1, 0), 0)"
+write = "[state(VRFW.level_sync.request) + 8]:u8"
+
+[[VRFW.Hook.answer]]
+phase = "post"
+value = "0"
+write = "[state(VRFW.level_sync.request) + 8]:u8"
+
+# The card level of the rules whose moves come from that level (`moves = "level"`), most specific first; only copies of saved cards (pool 0).
+
+# the match's game and row
+[[VRFW.Hook.answer]]
+phase = "pre"
+when = [{ value = "[args[5] + 0x20]:u32", not = 0 }, { value = "mask([args[5] + 0x20]:u32, 0xF000)", equals = 0 }]
+table = "VRFW.LevelSync.CardRaise"
+key = ["[state(VRFW.level_sync.request) + 4]:u32", "[state(VRFW.level_sync.request)]:u8"]
+write = "args[4]"
+
+[[VRFW.Hook.answer]]
+phase = "pre"
+when = [{ value = "[args[5] + 0x20]:u32", not = 0 }, { value = "mask([args[5] + 0x20]:u32, 0xF000)", equals = 0 }]
+value = "min(args[4], lookup(VRFW.LevelSync.CardCap, [state(VRFW.level_sync.request) + 4]:u32, [state(VRFW.level_sync.request)]:u8))"
+write = "args[4]"
+
+# the match's game, any row
+[[VRFW.Hook.answer]]
+phase = "pre"
+when = [{ value = "[args[5] + 0x20]:u32", not = 0 }, { value = "mask([args[5] + 0x20]:u32, 0xF000)", equals = 0 }]
+table = "VRFW.LevelSync.CardRaise"
+key = ["[state(VRFW.level_sync.request) + 4]:u32", "0"]
+write = "args[4]"
+
+[[VRFW.Hook.answer]]
+phase = "pre"
+when = [{ value = "[args[5] + 0x20]:u32", not = 0 }, { value = "mask([args[5] + 0x20]:u32, 0xF000)", equals = 0 }]
+value = "min(args[4], lookup(VRFW.LevelSync.CardCap, [state(VRFW.level_sync.request) + 4]:u32, 0))"
+write = "args[4]"
+
+# any game, the match's row
+[[VRFW.Hook.answer]]
+phase = "pre"
+when = [{ value = "[args[5] + 0x20]:u32", not = 0 }, { value = "mask([args[5] + 0x20]:u32, 0xF000)", equals = 0 }]
+table = "VRFW.LevelSync.CardRaise"
+key = ["0", "[state(VRFW.level_sync.request)]:u8"]
+write = "args[4]"
+
+[[VRFW.Hook.answer]]
+phase = "pre"
+when = [{ value = "[args[5] + 0x20]:u32", not = 0 }, { value = "mask([args[5] + 0x20]:u32, 0xF000)", equals = 0 }]
+value = "min(args[4], lookup(VRFW.LevelSync.CardCap, 0, [state(VRFW.level_sync.request)]:u8))"
+write = "args[4]"
+
+# The owned status refresh (0xD89E50) passes this level to Chara.GetParamStatus, which computes the base stats of the card at it.
+[[VRFW.Hook]]
+name = "LevelSync.StatusLevel"
+kind = "call"
+pattern = "C6 44 24 70 00 E8 ?? ?? ?? ?? 48 8D 4D 10 0F B7 D0 4C 8D 4C 24 20 4C 8D 44 24 78 E8"
+offset = 5
+rva = 0xD89EEA
+target_rva = 0xD8A5C0
 arguments = ["ptr", "ptr"]
 returns = "u16"
 apply = "script"
 
-# The first rule found, most specific first: (game, row), (game, any row), (any game, row).
+# Every rule's stats level, most specific first; only match cards (pool 3 / 0xC) of saved cards: board and moves keep reading the card's own level.
+# A card is a saved card's copy while the request's byte +8 (0 or 1) is set or while it has a saved owner, so their sum is not 0.
 
 # the match's game and row
 [[VRFW.Hook.answer]]
 phase = "post"
+when = [
+  { value = "mask([[args[1] + 8]]:u32, 0xF000)", in = [0x3000, 0xC000] },
+  { value = "[state(VRFW.level_sync.request) + 8]:u8 + owned([[args[1] + 8]]:u32)", not = 0 },
+]
 table = "VRFW.LevelSync.Raise"
 key = ["[state(VRFW.level_sync.request) + 4]:u32", "[state(VRFW.level_sync.request)]:u8"]
 
 [[VRFW.Hook.answer]]
 phase = "post"
+when = [
+  { value = "mask([[args[1] + 8]]:u32, 0xF000)", in = [0x3000, 0xC000] },
+  { value = "[state(VRFW.level_sync.request) + 8]:u8 + owned([[args[1] + 8]]:u32)", not = 0 },
+]
 value = "min(ret, lookup(VRFW.LevelSync.Cap, [state(VRFW.level_sync.request) + 4]:u32, [state(VRFW.level_sync.request)]:u8))"
 
 # the match's game, any row
 [[VRFW.Hook.answer]]
 phase = "post"
+when = [
+  { value = "mask([[args[1] + 8]]:u32, 0xF000)", in = [0x3000, 0xC000] },
+  { value = "[state(VRFW.level_sync.request) + 8]:u8 + owned([[args[1] + 8]]:u32)", not = 0 },
+]
 table = "VRFW.LevelSync.Raise"
 key = ["[state(VRFW.level_sync.request) + 4]:u32", "0"]
 
 [[VRFW.Hook.answer]]
 phase = "post"
+when = [
+  { value = "mask([[args[1] + 8]]:u32, 0xF000)", in = [0x3000, 0xC000] },
+  { value = "[state(VRFW.level_sync.request) + 8]:u8 + owned([[args[1] + 8]]:u32)", not = 0 },
+]
 value = "min(ret, lookup(VRFW.LevelSync.Cap, [state(VRFW.level_sync.request) + 4]:u32, 0))"
 
 # any game, the match's row
 [[VRFW.Hook.answer]]
 phase = "post"
+when = [
+  { value = "mask([[args[1] + 8]]:u32, 0xF000)", in = [0x3000, 0xC000] },
+  { value = "[state(VRFW.level_sync.request) + 8]:u8 + owned([[args[1] + 8]]:u32)", not = 0 },
+]
 table = "VRFW.LevelSync.Raise"
 key = ["0", "[state(VRFW.level_sync.request)]:u8"]
 
 [[VRFW.Hook.answer]]
 phase = "post"
+when = [
+  { value = "mask([[args[1] + 8]]:u32, 0xF000)", in = [0x3000, 0xC000] },
+  { value = "[state(VRFW.level_sync.request) + 8]:u8 + owned([[args[1] + 8]]:u32)", not = 0 },
+]
 value = "min(ret, lookup(VRFW.LevelSync.Cap, 0, [state(VRFW.level_sync.request)]:u8))"
 
 # The level the player sees: the rule in force (same order as the stat level answers); no rule = the level itself.

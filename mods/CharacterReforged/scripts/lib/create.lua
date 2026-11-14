@@ -259,6 +259,18 @@ function CharacterReforged.Create.Refusal(i, code)
   return label_id, id_of(reason), label_text, text_of(reason)
 end
 
+-- (card) -> base, partner, glyph sprite id, preview command id of the stored pair that card is in (base 0 = in no pair)
+function CharacterReforged.Create.PairOf(card)
+  local base, partner, system = A.PartnerPairOf(card)
+  if type(base) ~= "number" or base == 0 then return 0, 0, 0, 0 end
+  for _, s in ipairs(load_systems()) do
+    if s.pair_system == system or s.system == system then
+      return base, partner, id_of(s.confirm_icon), id_of(s.preview)
+    end
+  end
+  return base, partner, 0, 0
+end
+
 function CharacterReforged.Create.Log(step, ...)
   local parts = {}
   for i = 1, select("#", ...) do
@@ -274,7 +286,7 @@ function CharacterReforged.Create.Log(step, ...)
 end
 
 -- the systems are read again after a hot reload of the mods' files
-VRFW.on("game_reset", function()
+VRFW.on("game:reset", function()
   SYSTEMS = nil
   PROHIBITED_BADGE = nil
   SNAP = {}

@@ -1,0 +1,101 @@
+schema = "VRFW.game/2"
+
+# Match modifiers, the equipment commands and the classic items' Suerte (logic: scripts\equipment.lua).
+
+[[VRFW.MatchStat]]
+name = "CharacterReforged.Bonus"
+order = 30
+stat = "clamp(args[4] + lookup_or(CharacterReforged.StatAdd, lookup_or(CharacterReforged.StatAdd, 0, owner(args[2]), i), args[2], i), 1, 9999)"
+
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_ITEM_PAGE"
+handler = "CharacterReforged.ItemPage"
+
+# the 8 stat points of the worn items' affinity and sets, as CharacterReforged.Bonus adds them in the match
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_EQUIPMENT_STAT_BONUS"
+handler = "CharacterReforged.StatBonus"
+
+# the item card's «Conjunto» page: the item's set, its pieces in order and its bonus tiers (nil = in no set)
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_ITEM_SET"
+handler = "CharacterReforged.ItemSet"
+
+[[VRFW.MatchStat]]
+name = "CharacterReforged.RivalBonus"
+order = 30
+owned = false
+npc = true
+stat = "clamp(args[4] + lookup_or(CharacterReforged.RivalAdd, 0, args[3], i), 1, 9999)"
+
+# Match info and play data blocks the framework's match libraries read.
+[[VRFW.Global]]
+name = "match_equipment_info"
+base = "game_root"
+chain = ["Game.RootMatch"]
+
+[[VRFW.Global]]
+name = "match_equipment_play_data"
+base = "game_root"
+chain = ["Game.RootPlayData"]
+
+[[VRFW.CommandFilter]]
+name = "CharacterReforged.RivalEquipHandle"
+command = 0x07AB2BC2
+handler = "CharacterReforged.RivalEquipHandle"
+
+[[VRFW.CommandFilter]]
+name = "CharacterReforged.RivalInventoryField"
+command = 0x9EAD709F
+handler = "CharacterReforged.RivalInventoryField"
+
+[[VRFW.CommandFilter]]
+name = "CharacterReforged.EquipOptimal"
+command = 0x8E2B81D9
+handler = "CharacterReforged.EquipOptimal"
+needs = ["CharacterReforged.HasFreeCopy", "CharacterReforged.CharaCanEquip", "CharacterReforged.InventoryUsable",
+  "CharacterReforged.EquipStats", "CharacterReforged.EquipToSlot", "CharacterReforged.CharaEquipRole",
+  "CharacterReforged.EquipInvHdl", "equipment_items"]
+
+[[VRFW.Function]]
+name = "CharacterReforged.HasFreeCopy"
+game = "Item.HasFreeCopy"
+
+[[VRFW.Function]]
+name = "CharacterReforged.CharaCanEquip"
+game = "Item.CharaCanEquip"
+
+[[VRFW.Function]]
+name = "CharacterReforged.InventoryUsable"
+game = "Item.InventoryUsable"
+
+[[VRFW.Function]]
+name = "CharacterReforged.EquipStats"
+game = "Item.EquipStats"
+
+[[VRFW.Function]]
+name = "CharacterReforged.EquipToSlot"
+game = "Item.EquipToSlot"
+
+[[VRFW.Function]]
+name = "CharacterReforged.CharaEquipRole"
+game = "Item.CharaEquipRole"
+
+[[VRFW.Function]]
+name = "CharacterReforged.EquipInvHdl"
+game = "Item.GetEquipInvHdl"
+
+# [g_gameRoot] + Game.RootItems = the inventory the optimizer walks
+[[VRFW.Global]]
+name = "equipment_items"
+base = "game_root"
+chain = ["Game.RootItems"]
+
+# The tabs of the equipment picker's and the shop's filter windows (content\item_filter_sections\equipment.toml).
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_EQUIPMENT_ITEM_FILTER"
+handler = "CharacterReforged.ItemFilter"
+
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_EQUIPMENT_LUCK"
+handler = "CharacterReforged.Luck"

@@ -1,0 +1,29 @@
+# Komajiro (c90690000.toml), from the Yo-kai Watch 4++ rip: his own skeleton, head and body split; his eye ring is pale
+# green (the black pupil is his iris), his closed mouth is the line painted under his muzzle, his centre lip joints
+# are the jaw pivot inside the head.
+# Built by _tools/model_builder.py (dev-only, never installed) with --src the rip's folder.
+recipe = "rip_small_body"
+
+[rules]
+face_id = "c90690000"
+clothes_id = "u90690000"
+dae = "Komajiro.dae"
+body = "c000201"
+rip_prefix = "y02230000_"
+head_mesh = "10"
+flame_meshes = ["20", "21"]
+hair_joints = ["hir"]
+body_meshes = []
+eye_joints = ["eld", "eye", "pup"]
+mouth_joints = ["lip", "jaw", "tth", "tng"]
+zone_tolerance = 30
+hair_tolerance = 30
+ink = [0.1, 0.09, 0.11]
+right_eye_mirrored = false
+iris_is_pupil = true
+mouth_line = 0.55
+mouth_line_painted = true
+mouth_height_joints = ["l_lip3_1_0", "r_lip3_1_0"]
+mouth_inside = [0.22, 0.08, 0.12]
+tongue = [0.78, 0.38, 0.44]
+teeth = [0.96, 0.96, 0.96]

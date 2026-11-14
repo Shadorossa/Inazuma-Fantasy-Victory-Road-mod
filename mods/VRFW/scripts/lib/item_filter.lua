@@ -1,4 +1,4 @@
--- A mod's side of the item filter sections (VRFW.item_filter, docs/framework/item-filter-sections.md).
+-- Advanced: A mod's side of the item filter sections (VRFW.item_filter, docs/framework/item-filter-sections.md).
 local ItemFilter = {}
 
 -- The files that declare the sections ([[VRFW.ItemFilterSection]]).
@@ -6,18 +6,21 @@ local SECTION_FOLDERS = { "content/item_filter_sections" }
 -- The mod's native table the framework's item test reads: [item id] = 1 hides the item.
 local REJECTED_TABLE = "ItemFilter.Rejected"
 
---- The handler of a mod's serve command. `spec`: `command` (the command's name, as the sections' `serve`), `items()`
+--- Advanced: The handler of a mod's serve command. `spec`: `command` (the command's name, as the sections' `serve`), `items()`
 --- (every item id the tests know), `test(test, character, rows)` (a function (item) -> true when the row holds for the
---- item), `list(name)` (the rows of an `each` list: { name, label, test, inventories = { [inventory] = true } | nil }).
---- Requests: ("rows", section, inventory) -> n, then value, label per row; ("context", character) -> true;
+--- item), `list(name)` (the rows of an `each` list: { name, label, test, inventories = { [inventory] = true } | nil }),
+--- optional `inventory_of(item)` (the item's inventory type; a filter sent for one inventory then hides only its items).
+--- Requests: ("rows", section, inventory) -> n, then value, label per row (rows with needs_player only while the list
+--- has a player); ("context", character) -> true;
 --- ("tick", scope, section, values...) -> true: rows ticked in a section that filters (a command takes 32 arguments at
 --- most, so a section may come in several requests); ("apply", scope) -> the number of items hidden by the rows
---- ticked since the last one. Scope "list" = the list's filter, "window" = the filter window's own while it is open,
---- "close" = the window closed.
+--- ticked since the last one; ("apply", scope, inventory) limits them to the items of that inventory. Scope "list" =
+--- the list's filter (with an inventory: that inventory's, the others kept; without: the only one), "window" = the
+--- filter window's own while it is open, "close" = the window closed.
 function ItemFilter.server(spec)
   local info, warn = VRFW.logger("item_filter")
   local sections = nil
-  local state = { character = 0, list = nil, window = nil, items = nil, ticked = {} }
+  local state = { character = 0, lists = {}, window = nil, items = nil, ticked = {} }
 
   local function label_of(key)
     local ok, text = pcall(VRFW.text, key)
@@ -44,7 +47,7 @@ function ItemFilter.server(spec)
               end
               for _, e in ipairs(list) do rows[#rows + 1] = e end
             elseif type(r.name) == "string" and type(r.test) == "string" then
-              rows[#rows + 1] = { name = r.name, label = label_of(r.text), test = r.test }
+              rows[#rows + 1] = { name = r.name, label = label_of(r.text), test = r.test, needs_player = r.needs_player == true }
             else
               warn(d.name .. ": a row has neither each nor name and test (left out)")
             end
@@ -63,8 +66,8 @@ function ItemFilter.server(spec)
     return state.items
   end
 
-  -- The items a set of ticked rows hides: { [item] = true }, nil when no section filters.
-  local function rejected_by(groups)
+  -- The items a set of ticked rows hides (of `inventory` only, when given): { [item] = true }, nil when no section filters.
+  local function rejected_by(groups, inventory)
     local filters = {}
     local all = load_sections()
     for _, g in ipairs(groups) do
@@ -85,7 +88,9 @@ function ItemFilter.server(spec)
     end
     if #filters == 0 then return nil end
     local rejected = {}
+    local of = inventory ~= nil and spec.inventory_of or nil
     for _, item in ipairs(universe()) do
+      if of and of(item) ~= inventory then goto next_item end
       for _, tests in ipairs(filters) do
         local passes = false
         for _, test in ipairs(tests) do
@@ -99,15 +104,17 @@ function ItemFilter.server(spec)
           break
         end
       end
+      ::next_item::
     end
     return rejected
   end
 
-  -- The table the item test reads: the window's filter while it is open, else the list's.
+  -- The table the item test reads: the window's filter while it is open, else the list's of every inventory.
   local function publish()
-    local rejected = state.window or state.list
     local entries = {}
-    for item in pairs(rejected or {}) do entries[#entries + 1] = { item, 1 } end
+    for _, rejected in pairs(state.window and { state.window } or state.lists) do
+      for item in pairs(rejected) do entries[#entries + 1] = { item, 1 } end
+    end
     local ok, e = pcall(VRFW.native.table_replace, REJECTED_TABLE, nil, entries)
     if not ok then warn(REJECTED_TABLE .. ": " .. tostring(e)) end
     if state.published ~= #entries then
@@ -149,7 +156,7 @@ function ItemFilter.server(spec)
       local rows = load_sections()[section]
       local out, n = {}, 0
       for value, row in ipairs(rows or {}) do
-        if row.inventories == nil or row.inventories[inventory] then
+        if (row.inventories == nil or row.inventories[inventory]) and not (row.needs_player and state.character == 0) then
           n = n + 1
           out[#out + 1] = value
           out[#out + 1] = row.label
@@ -166,14 +173,17 @@ function ItemFilter.server(spec)
       tick(scope, section, select(3, ...))
       return true
     elseif request == "apply" then
-      local scope = ...
+      local scope, inventory = ...
+      inventory = type(inventory) == "number" and inventory or nil
       if scope == "close" then
         state.ticked = {}
         state.window = nil
       elseif scope == "window" then
-        state.window = rejected_by(ticked_of(scope)) or {}
+        state.window = rejected_by(ticked_of(scope), inventory) or {}
+      elseif scope == "list" and inventory ~= nil then
+        state.lists[inventory] = rejected_by(ticked_of(scope), inventory)
       elseif scope == "list" then
-        state.list = rejected_by(ticked_of(scope))
+        state.lists = { rejected_by(ticked_of(scope)) }
       else
         return 0
       end

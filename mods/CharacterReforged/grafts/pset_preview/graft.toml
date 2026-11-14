@@ -1,5 +1,5 @@
 # «Set de jugador» preview: while the skill table's Sets list is open, the right page lists what the focused set stores.
-# Layers + setting: research/scripts/pset_preview_build.py; texts: research/mods/_aside/InazumaFantasy/_tools/ss2_popup_text_build.py.
+# Layers + setting: research/scripts/pset_preview_build.py; texts: ss2_popup_text_build.py (old Inazuma Fantasy tool, removed 2026-11-12).
 name = "pset_preview"
 mod = "CharacterReforged"
 order = 320

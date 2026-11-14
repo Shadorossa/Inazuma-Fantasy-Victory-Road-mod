@@ -1,0 +1,13 @@
+schema = "VRFW.menu/2"
+
+# The technique use bar under the TENSIÓN row of the skill table's move card (graft hissatsu_use_bar): the retail
+# training gauge, 8 stacked instances for the grade colour fade (instance 0 also draws the track and the two
+# numbers), and 3 text labels (the current grade, the next grade, «Máx.»).
+[[patch]]
+menu = "vrfw_skill_slot_menu"
+add_layer = { name = "hissatsu_reforged_use_bar", object = "team13_16_beans_gauge", count = 8, align = [3, 8], scale = 0.20000000298023224, after = "cr_ss_hiper_detail", groups = [{ group = "vrfw_skill_slot_menu", flags = [0, 0, 1, 0, 1, 0], after = "cr_ss_hiper_detail" }] }
+resources = ["#/menu/102_team/team13/team13_16/team13_16.g4tx"]
+
+[[patch]]
+menu = "vrfw_skill_slot_menu"
+add_layer = { name = "hissatsu_reforged_use_label", object = "vrfw_mp_label", count = 3, after = "hissatsu_reforged_use_bar", groups = [{ group = "vrfw_skill_slot_menu", flags = [0, 0, 1, 0, 1, 0], after = "hissatsu_reforged_use_bar" }] }

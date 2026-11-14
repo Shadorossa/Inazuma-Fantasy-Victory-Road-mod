@@ -1,0 +1,23 @@
+# written by ModManager: the effect entries of one special move
+schema = "VRFW.effect/1"
+
+[[effect]]
+from = "ega0001"
+name = "ega00xz"
+object = "ega00xz"
+
+[[event_command]]
+args = ["ega0001"]
+command = "CMD_36E5B708"
+event = "ev60_70076"
+list = "eff"
+set = ["ega00xz"]
+
+[[recolor]]
+colorize = 0.75
+copy = "ega00xz"
+effect = "ega0001"
+hue = 280.0
+mode = "set"
+particles = true
+vertex_colors = "all"

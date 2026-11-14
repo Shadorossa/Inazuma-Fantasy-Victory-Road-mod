@@ -9,4 +9,4 @@ local function push()
   if a and b then pcall(function() CharacterReforged.SetRoleMedalThresholds(a, b) end) end
 end
 
-VRFW.on("slot_load", push)
+VRFW.on("save:slot_load", push)

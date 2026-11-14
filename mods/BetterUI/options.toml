@@ -1,3 +1,4 @@
+schema = "VRFW.option/2"
 
 [[option]]
 id = "duel_and_shot_counters"
@@ -6,3 +7,11 @@ label = "duel_and_shot_counters"                             # text\keys.toml
 help = "duel_and_shot_counters_help"
 default = 1
 order = 410
+
+[[option]]
+id = "rival_gauges"
+type = "toggle"
+label = "rival_gauges"                                       # text\keys.toml
+help = "rival_gauges_help"
+default = 1
+order = 420

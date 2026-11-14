@@ -1,6 +1,6 @@
 schema = "VRFW.team/2"
 default_lang = "en"
-# Source: research/mods/_aside/InazumaFantasy/_tools/wiki_teams_build.py Ryuugaku Team (IE2, «Hakuren's Coach's route» #4; report status: missing).
+# Source: wiki_teams_build.py (old Inazuma Fantasy tool, removed 2026-11-12) Ryuugaku Team (IE2, «Hakuren's Coach's route» #4; report status: missing).
 [[team]]
 name = "ct_wk_ryuugaku_team"
 key = "evt_ct_wk_ryuugaku_team"

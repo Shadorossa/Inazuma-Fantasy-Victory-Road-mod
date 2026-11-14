@@ -74,7 +74,9 @@ function Recruit.Holders(...)
   for n, handle in ipairs(columns.handle) do
     local h, param = u32(handle), u32(columns.param[n])
     if math.floor(h / 4096) % 16 == 0 and want[param] then
-      out[#out + 1] = { handle = h, param = param, level = tonumber(columns.level[n]) or 1, busy = in_fusion(h) }
+      local okR, record = pcall(VRFW.character.record, h)
+      out[#out + 1] = { handle = h, param = param, level = tonumber(columns.level[n]) or 1, busy = in_fusion(h),
+        rarity = okR and record and record.rarity or 0 }
     end
   end
   return out
@@ -180,18 +182,18 @@ local function bump(key, n)
   VRFW.save.set(key, v + n)
 end
 
-VRFW.on("match_start", function(ev) match = { user = 0, rival = 0 } end)
+VRFW.on("match:start", function(ev) match = { user = 0, rival = 0 } end)
 
-VRFW.on("goal:user", function(ev)
+VRFW.on("match:goal:user", function(ev)
   if match then match.user = match.user + 1 end
   bump("stats.goals", 1)
 end)
 
-VRFW.on("goal:rival", function(ev)
+VRFW.on("match:goal:rival", function(ev)
   if match then match.rival = match.rival + 1 end
 end)
 
-VRFW.on("match_end", function(ev)
+VRFW.on("match:end", function(ev)
   if match and match.user > match.rival then
     bump("stats.matches_won", 1)
   end

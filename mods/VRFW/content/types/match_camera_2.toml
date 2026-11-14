@@ -2,6 +2,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.match_camera/2"
 folder = "content/cameras"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Match.Camera"
+v2_kind_folder = "Match/Cameras"
+v2_version = 2
 label = "Match camera presets (v2)"
 label_es = "Preajustes de cámara de partido (v2)"
 doc = "A match camera preset: its angle, distance and field of view."

@@ -4,6 +4,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.rule/1"
 folder = "content/rules"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Rule"
+v2_kind_folder = "Rules"
+v2_version = 1
 label = "Rulebooks"
 label_es = "Libros de reglas"
 doc = "The rulebook of a match: its time, teams, play rules, end conditions, challenge and pitch."

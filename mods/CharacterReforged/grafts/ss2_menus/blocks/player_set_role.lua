@@ -767,9 +767,10 @@ function PL.set_face(L, k, kit)
   local param = funcLuaCommand(C.CHARA_GET, n, 4) or 0
   local key = funcLuaCommand(C.CHARA_GET, n, 1) or 0
   local okk, keeper = pcall(MENU_DEF.IsKeeper, param)
-  VRFW.face_icon.request(L, k, {handle = n, kind = 255, chara = key}, PL.MESH_AREA, PL.SLOT_AREA,
+  -- VRFW.face_icon shows the face mesh once its texture has loaded.
+  VRFW.face_icon.forget(L, k, PL.MESH_AREA)
+  VRFW.face_icon.face(L, k, {handle = n, kind = 255, chara = key}, PL.MESH_AREA, PL.SLOT_AREA,
     {kit = kit or 0, keeper = okk and keeper == true})
-  funcLuaMenuCommand(C.MESH_VISIBLE, L, PL.MESH_AREA, true, k)
 end
 
 function PL.set_row_draw(k, e, selected)

@@ -6,23 +6,107 @@ schema = "VRFW.base_table/1"
 name = "TROPHY_REWARD"
 columns = ["item", "count"]
 set = [
+  { row = 0, cells = { item = 0x5F36B7C6, count = 10 } },   # activity_story_miniquest_001: tk_si000004 x10 -> tk_hr000008 x10
+  { row = 1, cells = { item = 0x5F36B7C6, count = 10 } },   # activity_story_miniquest_002: tk_si000007 x10 -> tk_hr000008 x10
+  { row = 2, cells = { item = 0x5F36B7C6, count = 10 } },   # activity_story_miniquest_003: tk_si000003 x10 -> tk_hr000008 x10
+  { row = 3, cells = { item = 0x5F36B7C6, count = 10 } },   # activity_story_miniquest_004: tk_si000001 x10 -> tk_hr000008 x10
+  { row = 4, cells = { item = 0x5F36B7C6, count = 10 } },   # activity_story_miniquest_005: tk_si000005 x10 -> tk_hr000008 x10
+  { row = 5, cells = { item = 0x5F36B7C6, count = 10 } },   # activity_story_miniquest_006: tk_si000001 x10 -> tk_hr000008 x10
+  { row = 6, cells = { item = 0x5F36B7C6, count = 10 } },   # activity_story_miniquest_007: tk_si000002 x10 -> tk_hr000008 x10
+  { row = 7, cells = { item = 0x5F36B7C6, count = 10 } },   # activity_story_miniquest_008: tk_si000006 x10 -> tk_hr000008 x10
+  { row = 8, cells = { item = 0x5F36B7C6, count = 10 } },   # activity_story_miniquest_009: tk_si000004 x10 -> tk_hr000008 x10
+  { row = 9, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_explore_001: tk_si000001 x5 -> tk_hr000008 x5
+  { row = 10, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_explore_002: tk_si000007 x5 -> tk_hr000008 x5
+  { row = 11, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_explore_003: tk_si000003 x5 -> tk_hr000008 x5
+  { row = 12, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_explore_004: tk_si000002 x5 -> tk_hr000008 x5
+  { row = 13, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_explore_005: tk_si000004 x5 -> tk_hr000008 x5
+  { row = 14, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_explore_006: tk_si000006 x5 -> tk_hr000008 x5
+  { row = 15, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_explore_007: tk_si000005 x5 -> tk_hr000008 x5
+  { row = 16, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_explore_008: tk_si000007 x5 -> tk_hr000008 x5
+  { row = 17, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_explore_009: tk_si000003 x5 -> tk_hr000008 x5
+  { row = 18, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_explore_010: tk_si000001 x5 -> tk_hr000008 x5
+  { row = 19, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_explore_011: tk_si000003 x5 -> tk_hr000008 x5
+  { row = 20, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_explore_012: tk_si000005 x5 -> tk_hr000008 x5
+  { row = 21, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_explore_013: tk_si000004 x5 -> tk_hr000008 x5
+  { row = 22, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_explore_014: tk_si000001 x5 -> tk_hr000008 x5
+  { row = 23, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_explore_015: tk_si000006 x5 -> tk_hr000008 x5
+  { row = 24, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_explore_016: tk_si000002 x5 -> tk_hr000008 x5
+  { row = 25, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_explore_017: tk_si000007 x5 -> tk_hr000008 x5
+  { row = 26, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_explore_018: tk_si000004 x5 -> tk_hr000008 x5
+  { row = 27, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_explore_019: tk_si000005 x5 -> tk_hr000008 x5
+  { row = 28, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_explore_020: tk_si000003 x5 -> tk_hr000008 x5
+  { row = 29, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_explore_021: tk_si000001 x5 -> tk_hr000008 x5
+  { row = 30, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_explore_022: tk_si000002 x5 -> tk_hr000008 x5
+  { row = 31, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_explore_023: tk_si000006 x5 -> tk_hr000008 x5
+  { row = 32, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_explore_024: tk_si000004 x5 -> tk_hr000008 x5
+  { row = 33, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_explore_025: tk_si000001 x5 -> tk_hr000008 x5
+  { row = 34, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_photo_001: tk_si000002 x5 -> tk_hr000008 x5
+  { row = 35, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_photo_002: tk_si000007 x5 -> tk_hr000008 x5
+  { row = 36, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_photo_003: tk_si000001 x5 -> tk_hr000008 x5
+  { row = 37, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_photo_004: tk_si000004 x5 -> tk_hr000008 x5
+  { row = 38, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_photo_005: tk_si000005 x5 -> tk_hr000008 x5
+  { row = 39, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_photo_006: tk_si000002 x5 -> tk_hr000008 x5
+  { row = 40, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_photo_007: tk_si000003 x5 -> tk_hr000008 x5
+  { row = 41, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_photo_008: tk_si000001 x5 -> tk_hr000008 x5
+  { row = 42, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_photo_009: tk_si000007 x5 -> tk_hr000008 x5
+  { row = 43, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_photo_010: tk_si000006 x5 -> tk_hr000008 x5
+  { row = 44, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_photo_011: tk_si000005 x5 -> tk_hr000008 x5
+  { row = 45, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_photo_012: tk_si000004 x5 -> tk_hr000008 x5
+  { row = 46, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_photo_013: tk_si000003 x5 -> tk_hr000008 x5
+  { row = 47, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_photo_014: tk_si000007 x5 -> tk_hr000008 x5
+  { row = 48, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_photo_015: tk_si000004 x5 -> tk_hr000008 x5
+  { row = 49, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_photo_016: tk_si000006 x5 -> tk_hr000008 x5
+  { row = 50, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_photo_017: tk_si000004 x5 -> tk_hr000008 x5
+  { row = 51, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_photo_018: tk_si000002 x5 -> tk_hr000008 x5
+  { row = 52, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_photo_019: tk_si000003 x5 -> tk_hr000008 x5
+  { row = 53, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_photo_020: tk_si000005 x5 -> tk_hr000008 x5
+  { row = 54, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_photo_021: tk_si000001 x5 -> tk_hr000008 x5
+  { row = 55, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_photo_022: tk_si000002 x5 -> tk_hr000008 x5
+  { row = 56, cells = { item = 0x5F36B7C6, count = 3 } },   # activity_story_achieve_003: tk_si000003 x3 -> tk_hr000008 x3
+  { row = 57, cells = { item = 0x5F36B7C6, count = 3 } },   # activity_story_achieve_001: tk_si000007 x3 -> tk_hr000008 x3
+  { row = 58, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_achieve_001: tk_si000004 x5 -> tk_hr000008 x5
+  { row = 59, cells = { item = 0x5F36B7C6, count = 10 } },   # activity_story_achieve_001: tk_si000001 x10 -> tk_hr000008 x10
+  { row = 60, cells = { item = 0x5F36B7C6, count = 3 } },   # activity_story_achieve_002: tk_si000005 x3 -> tk_hr000008 x3
+  { row = 61, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_achieve_002: tk_si000002 x5 -> tk_hr000008 x5
+  { row = 62, cells = { item = 0x5F36B7C6, count = 10 } },   # activity_story_achieve_002: tk_si000006 x10 -> tk_hr000008 x10
+  { row = 63, cells = { item = 0x5F36B7C6, count = 3 } },   # activity_story_achieve_004: tk_si000006 x3 -> tk_hr000008 x3
+  { row = 64, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_achieve_004: tk_si000005 x5 -> tk_hr000008 x5
+  { row = 65, cells = { item = 0x5F36B7C6, count = 10 } },   # activity_story_achieve_004: tk_si000002 x10 -> tk_hr000008 x10
+  { row = 66, cells = { item = 0x5F36B7C6, count = 3 } },   # activity_story_achieve_005: tk_si000001 x3 -> tk_hr000008 x3
+  { row = 67, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_achieve_005: tk_si000003 x5 -> tk_hr000008 x5
+  { row = 68, cells = { item = 0x5F36B7C6, count = 10 } },   # activity_story_achieve_005: tk_si000004 x10 -> tk_hr000008 x10
+  { row = 69, cells = { item = 0x5F36B7C6, count = 3 } },   # activity_story_achieve_006: tk_si000003 x3 -> tk_hr000008 x3
+  { row = 70, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_achieve_006: tk_si000006 x5 -> tk_hr000008 x5
   { row = 71, cells = { item = 0xD0F48F64, count = 60 } },   # activity_story_achieve_006: ex0001 x10 -> tk_bb000001 x60
+  { row = 72, cells = { item = 0x5F36B7C6, count = 3 } },   # activity_story_achieve_007: tk_si000005 x3 -> tk_hr000008 x3
+  { row = 73, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_achieve_007: tk_si000006 x5 -> tk_hr000008 x5
+  { row = 74, cells = { item = 0x5F36B7C6, count = 10 } },   # activity_story_achieve_007: tk_si000002 x10 -> tk_hr000008 x10
+  { row = 75, cells = { item = 0x5F36B7C6, count = 3 } },   # activity_story_achieve_008: tk_si000001 x3 -> tk_hr000008 x3
   { row = 76, cells = { item = 0xD0F48F64, count = 15 } },   # activity_story_achieve_008: tr000005 x5 -> tk_bb000001 x15
   { row = 77, cells = { item = 0xD0F48F64, count = 30 } },   # activity_story_achieve_008: tr000001 x10 -> tk_bb000001 x30
+  { row = 78, cells = { item = 0x5F36B7C6, count = 3 } },   # activity_story_achieve_010: tk_si000004 x3 -> tk_hr000008 x3
   { row = 79, cells = { item = 0xD0F48F64, count = 15 } },   # activity_story_achieve_010: tr000007 x5 -> tk_bb000001 x15
   { row = 80, cells = { item = 0xD0F48F64, count = 30 } },   # activity_story_achieve_010: tr000002 x10 -> tk_bb000001 x30
+  { row = 81, cells = { item = 0x5F36B7C6, count = 3 } },   # activity_story_achieve_012: tk_si000003 x3 -> tk_hr000008 x3
   { row = 82, cells = { item = 0xD0F48F64, count = 15 } },   # activity_story_achieve_012: tr000004 x5 -> tk_bb000001 x15
   { row = 83, cells = { item = 0xD0F48F64, count = 30 } },   # activity_story_achieve_012: tr000003 x10 -> tk_bb000001 x30
+  { row = 84, cells = { item = 0x5F36B7C6, count = 3 } },   # activity_story_achieve_013: tk_si000002 x3 -> tk_hr000008 x3
   { row = 85, cells = { item = 0xD0F48F64, count = 15 } },   # activity_story_achieve_013: tr000006 x5 -> tk_bb000001 x15
   { row = 86, cells = { item = 0xD0F48F64, count = 30 } },   # activity_story_achieve_013: tr000007 x10 -> tk_bb000001 x30
+  { row = 87, cells = { item = 0x5F36B7C6, count = 3 } },   # activity_story_achieve_022: tk_si000006 x3 -> tk_hr000008 x3
   { row = 88, cells = { item = 0xD0F48F64, count = 15 } },   # activity_story_achieve_022: tr000005 x5 -> tk_bb000001 x15
   { row = 89, cells = { item = 0xD0F48F64, count = 30 } },   # activity_story_achieve_022: tr000006 x10 -> tk_bb000001 x30
+  { row = 90, cells = { item = 0x5F36B7C6, count = 3 } },   # activity_story_achieve_023: tk_si000007 x3 -> tk_hr000008 x3
   { row = 91, cells = { item = 0xD0F48F64, count = 15 } },   # activity_story_achieve_023: tr000004 x5 -> tk_bb000001 x15
   { row = 92, cells = { item = 0xD0F48F64, count = 30 } },   # activity_story_achieve_023: tr000005 x10 -> tk_bb000001 x30
+  { row = 93, cells = { item = 0x5F36B7C6, count = 3 } },   # activity_story_achieve_021: tk_si000001 x3 -> tk_hr000008 x3
   { row = 94, cells = { item = 0xD0F48F64, count = 15 } },   # activity_story_achieve_021: tr000003 x5 -> tk_bb000001 x15
   { row = 95, cells = { item = 0xD0F48F64, count = 30 } },   # activity_story_achieve_021: tr000001 x10 -> tk_bb000001 x30
+  { row = 96, cells = { item = 0x5F36B7C6, count = 3 } },   # activity_story_achieve_024: tk_si000006 x3 -> tk_hr000008 x3
   { row = 97, cells = { item = 0xD0F48F64, count = 15 } },   # activity_story_achieve_024: tr000001 x5 -> tk_bb000001 x15
   { row = 98, cells = { item = 0xD0F48F64, count = 30 } },   # activity_story_achieve_024: tr000004 x10 -> tk_bb000001 x30
+  { row = 99, cells = { item = 0x5F36B7C6, count = 3 } },   # activity_story_achieve_009: tk_si000001 x3 -> tk_hr000008 x3
+  { row = 100, cells = { item = 0x5F36B7C6, count = 5 } },   # activity_story_achieve_009: tk_si000005 x5 -> tk_hr000008 x5
   { row = 101, cells = { item = 0xD0F48F64, count = 60 } },   # activity_story_achieve_009: ex0001 x10 -> tk_bb000001 x60
   { row = 102, cells = { item = 0xD0F48F64, count = 15 } },   # activity_story_achieve_020: ex0001 x3 -> tk_bb000001 x15
   { row = 103, cells = { item = 0xD0F48F64, count = 15 } },   # activity_story_achieve_020: tr000005 x5 -> tk_bb000001 x15
@@ -78,10 +162,10 @@ set = [
   { row = 153, cells = { item = 0xD0F48F64, count = 30 } },   # activity_whole_achieve_007: ex0001 x20 -> tk_bb000001 x30
   { row = 154, cells = { item = 0x5F36B7C6, count = 20 } },   # activity_whole_achieve_007: ti01002610 x1 -> tk_hr000008 x20
   { row = 155, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_008: ex0007 x1 -> tk_bb000001 x15
-  { row = 156, cells = { item = 0xD0F48F64, count = 26 } },   # activity_whole_achieve_008: ex0008 x1 -> tk_bb000001 x26
+  { row = 156, cells = { item = 0xD0F48F64, count = 30 } },   # activity_whole_achieve_008: ex0008 x1 -> tk_bb000001 x30
   { row = 157, cells = { item = 0x5F36B7C6, count = 20 } },   # activity_whole_achieve_008: nm04101 x1 -> tk_hr000008 x20
   { row = 158, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_009: ex0007 x1 -> tk_bb000001 x15
-  { row = 159, cells = { item = 0xD0F48F64, count = 26 } },   # activity_whole_achieve_009: ex0008 x1 -> tk_bb000001 x26
+  { row = 159, cells = { item = 0xD0F48F64, count = 30 } },   # activity_whole_achieve_009: ex0008 x1 -> tk_bb000001 x30
   { row = 160, cells = { item = 0xD0F48F64, count = 60 } },   # activity_whole_achieve_009: ex0008 x3 -> tk_bb000001 x60
   { row = 161, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_010: ex0006 x2 -> tk_bb000001 x15
   { row = 162, cells = { item = 0xD0F48F64, count = 30 } },   # activity_whole_achieve_010: ex0001 x20 -> tk_bb000001 x30
@@ -130,31 +214,31 @@ set = [
   { row = 208, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_021: ex0001 x5 -> tk_bb000001 x15
   { row = 209, cells = { item = 0x5F36B7C6, count = 10 } },   # activity_whole_achieve_021: coa_animal_an000102 x1 -> tk_hr000008 x10
   { row = 210, cells = { item = 0x5F36B7C6, count = 20 } },   # activity_whole_achieve_021: nm05301 x1 -> tk_hr000008 x20
-  { row = 211, cells = { item = 0xD0F48F64, count = 9 } },   # activity_whole_achieve_022: ex0006 x1 -> tk_bb000001 x9
+  { row = 211, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_022: ex0006 x1 -> tk_bb000001 x15
   { row = 212, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_022: tr000001 x15 -> tk_bb000001 x15
   { row = 213, cells = { item = 0x5F36B7C6, count = 20 } },   # activity_whole_achieve_022: nm03601 x1 -> tk_hr000008 x20
-  { row = 214, cells = { item = 0xD0F48F64, count = 9 } },   # activity_whole_achieve_023: ex0006 x1 -> tk_bb000001 x9
+  { row = 214, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_023: ex0006 x1 -> tk_bb000001 x15
   { row = 215, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_023: tr000002 x15 -> tk_bb000001 x15
   { row = 216, cells = { item = 0x5F36B7C6, count = 20 } },   # activity_whole_achieve_023: nm04103 x1 -> tk_hr000008 x20
-  { row = 217, cells = { item = 0xD0F48F64, count = 9 } },   # activity_whole_achieve_024: ex0006 x1 -> tk_bb000001 x9
+  { row = 217, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_024: ex0006 x1 -> tk_bb000001 x15
   { row = 218, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_024: tr000003 x15 -> tk_bb000001 x15
   { row = 219, cells = { item = 0x5F36B7C6, count = 20 } },   # activity_whole_achieve_024: nm00306 x1 -> tk_hr000008 x20
-  { row = 220, cells = { item = 0xD0F48F64, count = 9 } },   # activity_whole_achieve_025: ex0006 x1 -> tk_bb000001 x9
+  { row = 220, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_025: ex0006 x1 -> tk_bb000001 x15
   { row = 221, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_025: tr000004 x15 -> tk_bb000001 x15
   { row = 222, cells = { item = 0x5F36B7C6, count = 20 } },   # activity_whole_achieve_025: nm04401 x1 -> tk_hr000008 x20
-  { row = 223, cells = { item = 0xD0F48F64, count = 9 } },   # activity_whole_achieve_026: ex0006 x1 -> tk_bb000001 x9
+  { row = 223, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_026: ex0006 x1 -> tk_bb000001 x15
   { row = 224, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_026: tr000005 x15 -> tk_bb000001 x15
   { row = 225, cells = { item = 0x5F36B7C6, count = 20 } },   # activity_whole_achieve_026: nm00101 x1 -> tk_hr000008 x20
-  { row = 226, cells = { item = 0xD0F48F64, count = 9 } },   # activity_whole_achieve_027: ex0006 x1 -> tk_bb000001 x9
+  { row = 226, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_027: ex0006 x1 -> tk_bb000001 x15
   { row = 227, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_027: tr000006 x15 -> tk_bb000001 x15
   { row = 228, cells = { item = 0x5F36B7C6, count = 20 } },   # activity_whole_achieve_027: nm00102 x1 -> tk_hr000008 x20
-  { row = 229, cells = { item = 0xD0F48F64, count = 9 } },   # activity_whole_achieve_028: ex0006 x1 -> tk_bb000001 x9
+  { row = 229, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_028: ex0006 x1 -> tk_bb000001 x15
   { row = 230, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_028: tr000007 x15 -> tk_bb000001 x15
   { row = 231, cells = { item = 0x5F36B7C6, count = 20 } },   # activity_whole_achieve_028: nm00103 x1 -> tk_hr000008 x20
-  { row = 232, cells = { item = 0xD0F48F64, count = 9 } },   # activity_whole_achieve_029: ex0006 x1 -> tk_bb000001 x9
+  { row = 232, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_029: ex0006 x1 -> tk_bb000001 x15
   { row = 233, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_029: tr000001 x15 -> tk_bb000001 x15
   { row = 234, cells = { item = 0x5F36B7C6, count = 20 } },   # activity_whole_achieve_029: nm00104 x1 -> tk_hr000008 x20
-  { row = 235, cells = { item = 0xD0F48F64, count = 9 } },   # activity_whole_achieve_030: ex0006 x1 -> tk_bb000001 x9
+  { row = 235, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_030: ex0006 x1 -> tk_bb000001 x15
   { row = 236, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_030: tr000002 x15 -> tk_bb000001 x15
   { row = 237, cells = { item = 0x5F36B7C6, count = 20 } },   # activity_whole_achieve_030: nm00105 x1 -> tk_hr000008 x20
   { row = 238, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_031: ex0001 x5 -> tk_bb000001 x15
@@ -205,31 +289,31 @@ set = [
   { row = 287, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_049: tr000006 x15 -> tk_bb000001 x15
   { row = 288, cells = { item = 0x5F36B7C6, count = 20 } },   # activity_whole_achieve_049: nm02301 x1 -> tk_hr000008 x20
   { row = 289, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_050: ex0001 x3 -> tk_bb000001 x15
-  { row = 290, cells = { item = 0xD0F48F64, count = 27 } },   # activity_whole_achieve_050: ex0006 x3 -> tk_bb000001 x27
+  { row = 290, cells = { item = 0xD0F48F64, count = 30 } },   # activity_whole_achieve_050: ex0006 x3 -> tk_bb000001 x30
   { row = 291, cells = { item = 0x5F36B7C6, count = 20 } },   # activity_whole_achieve_050: ti01000300 x1 -> tk_hr000008 x20
   { row = 292, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_051: ex0001 x3 -> tk_bb000001 x15
-  { row = 293, cells = { item = 0xD0F48F64, count = 27 } },   # activity_whole_achieve_051: ex0006 x3 -> tk_bb000001 x27
+  { row = 293, cells = { item = 0xD0F48F64, count = 30 } },   # activity_whole_achieve_051: ex0006 x3 -> tk_bb000001 x30
   { row = 294, cells = { item = 0x5F36B7C6, count = 20 } },   # activity_whole_achieve_051: ti11020090 x1 -> tk_hr000008 x20
   { row = 295, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_052: ex0001 x3 -> tk_bb000001 x15
-  { row = 296, cells = { item = 0xD0F48F64, count = 27 } },   # activity_whole_achieve_052: ex0006 x3 -> tk_bb000001 x27
+  { row = 296, cells = { item = 0xD0F48F64, count = 30 } },   # activity_whole_achieve_052: ex0006 x3 -> tk_bb000001 x30
   { row = 297, cells = { item = 0x5F36B7C6, count = 20 } },   # activity_whole_achieve_052: ti01000100 x1 -> tk_hr000008 x20
   { row = 298, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_053: ex0001 x3 -> tk_bb000001 x15
-  { row = 299, cells = { item = 0xD0F48F64, count = 27 } },   # activity_whole_achieve_053: ex0006 x3 -> tk_bb000001 x27
+  { row = 299, cells = { item = 0xD0F48F64, count = 30 } },   # activity_whole_achieve_053: ex0006 x3 -> tk_bb000001 x30
   { row = 300, cells = { item = 0x5F36B7C6, count = 20 } },   # activity_whole_achieve_053: ti01000010 x1 -> tk_hr000008 x20
   { row = 301, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_054: ex0001 x3 -> tk_bb000001 x15
-  { row = 302, cells = { item = 0xD0F48F64, count = 27 } },   # activity_whole_achieve_054: ex0006 x3 -> tk_bb000001 x27
+  { row = 302, cells = { item = 0xD0F48F64, count = 30 } },   # activity_whole_achieve_054: ex0006 x3 -> tk_bb000001 x30
   { row = 303, cells = { item = 0x5F36B7C6, count = 20 } },   # activity_whole_achieve_054: ti00000013 x1 -> tk_hr000008 x20
   { row = 304, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_055: ex0001 x3 -> tk_bb000001 x15
-  { row = 305, cells = { item = 0xD0F48F64, count = 27 } },   # activity_whole_achieve_055: ex0006 x3 -> tk_bb000001 x27
+  { row = 305, cells = { item = 0xD0F48F64, count = 30 } },   # activity_whole_achieve_055: ex0006 x3 -> tk_bb000001 x30
   { row = 306, cells = { item = 0x5F36B7C6, count = 20 } },   # activity_whole_achieve_055: ti11010040 x1 -> tk_hr000008 x20
   { row = 307, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_056: ex0001 x3 -> tk_bb000001 x15
-  { row = 308, cells = { item = 0xD0F48F64, count = 27 } },   # activity_whole_achieve_056: ex0006 x3 -> tk_bb000001 x27
+  { row = 308, cells = { item = 0xD0F48F64, count = 30 } },   # activity_whole_achieve_056: ex0006 x3 -> tk_bb000001 x30
   { row = 309, cells = { item = 0x5F36B7C6, count = 20 } },   # activity_whole_achieve_056: ti00000017 x1 -> tk_hr000008 x20
   { row = 310, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_057: ex0001 x3 -> tk_bb000001 x15
-  { row = 311, cells = { item = 0xD0F48F64, count = 27 } },   # activity_whole_achieve_057: ex0006 x3 -> tk_bb000001 x27
+  { row = 311, cells = { item = 0xD0F48F64, count = 30 } },   # activity_whole_achieve_057: ex0006 x3 -> tk_bb000001 x30
   { row = 312, cells = { item = 0x5F36B7C6, count = 20 } },   # activity_whole_achieve_057: ti00000021 x1 -> tk_hr000008 x20
   { row = 313, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_058: ex0001 x3 -> tk_bb000001 x15
-  { row = 314, cells = { item = 0xD0F48F64, count = 27 } },   # activity_whole_achieve_058: ex0006 x3 -> tk_bb000001 x27
+  { row = 314, cells = { item = 0xD0F48F64, count = 30 } },   # activity_whole_achieve_058: ex0006 x3 -> tk_bb000001 x30
   { row = 315, cells = { item = 0x5F36B7C6, count = 20 } },   # activity_whole_achieve_058: ti00000005 x1 -> tk_hr000008 x20
   { row = 316, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_059: ex0001 x3 -> tk_bb000001 x15
   { row = 317, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_059: tr000003 x15 -> tk_bb000001 x15
@@ -247,13 +331,13 @@ set = [
   { row = 329, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_063: tr000007 x15 -> tk_bb000001 x15
   { row = 330, cells = { item = 0x5F36B7C6, count = 20 } },   # activity_whole_achieve_063: nm00205 x1 -> tk_hr000008 x20
   { row = 331, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_064: ex0001 x3 -> tk_bb000001 x15
-  { row = 332, cells = { item = 0xD0F48F64, count = 27 } },   # activity_whole_achieve_064: ex0006 x3 -> tk_bb000001 x27
+  { row = 332, cells = { item = 0xD0F48F64, count = 30 } },   # activity_whole_achieve_064: ex0006 x3 -> tk_bb000001 x30
   { row = 333, cells = { item = 0x5F36B7C6, count = 20 } },   # activity_whole_achieve_064: ti11020050 x1 -> tk_hr000008 x20
   { row = 334, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_065: ex0001 x3 -> tk_bb000001 x15
-  { row = 335, cells = { item = 0xD0F48F64, count = 27 } },   # activity_whole_achieve_065: ex0006 x3 -> tk_bb000001 x27
+  { row = 335, cells = { item = 0xD0F48F64, count = 30 } },   # activity_whole_achieve_065: ex0006 x3 -> tk_bb000001 x30
   { row = 336, cells = { item = 0x5F36B7C6, count = 20 } },   # activity_whole_achieve_065: ti04000010 x1 -> tk_hr000008 x20
   { row = 337, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_066: ex0001 x3 -> tk_bb000001 x15
-  { row = 338, cells = { item = 0xD0F48F64, count = 27 } },   # activity_whole_achieve_066: ex0006 x3 -> tk_bb000001 x27
+  { row = 338, cells = { item = 0xD0F48F64, count = 30 } },   # activity_whole_achieve_066: ex0006 x3 -> tk_bb000001 x30
   { row = 339, cells = { item = 0x5F36B7C6, count = 20 } },   # activity_whole_achieve_066: ti02023810 x1 -> tk_hr000008 x20
   { row = 340, cells = { item = 0xD0F48F64, count = 8 } },   # activity_whole_achieve_067: tr000001 x3 -> tk_bb000001 x8
   { row = 341, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_067: tr000001 x15 -> tk_bb000001 x15
@@ -282,24 +366,24 @@ set = [
   { row = 364, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_075: ex0001 x3 -> tk_bb000001 x15
   { row = 365, cells = { item = 0xD0F48F64, count = 30 } },   # activity_whole_achieve_075: ex0001 x20 -> tk_bb000001 x30
   { row = 366, cells = { item = 0x5F36B7C6, count = 20 } },   # activity_whole_achieve_075: ti00000009 x1 -> tk_hr000008 x20
-  { row = 367, cells = { item = 0xD0F48F64, count = 9 } },   # activity_whole_achieve_076: ex0006 x1 -> tk_bb000001 x9
-  { row = 368, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_076: ex0007 x1 -> tk_bb000001 x15
+  { row = 367, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_076: ex0006 x1 -> tk_bb000001 x15
+  { row = 368, cells = { item = 0xD0F48F64, count = 30 } },   # activity_whole_achieve_076: ex0007 x1 -> tk_bb000001 x30
   { row = 369, cells = { item = 0x5F36B7C6, count = 20 } },   # activity_whole_achieve_076: ti04000090 x1 -> tk_hr000008 x20
-  { row = 370, cells = { item = 0xD0F48F64, count = 9 } },   # activity_whole_achieve_077: ex0006 x1 -> tk_bb000001 x9
-  { row = 371, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_077: ex0007 x1 -> tk_bb000001 x15
+  { row = 370, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_077: ex0006 x1 -> tk_bb000001 x15
+  { row = 371, cells = { item = 0xD0F48F64, count = 30 } },   # activity_whole_achieve_077: ex0007 x1 -> tk_bb000001 x30
   { row = 372, cells = { item = 0x5F36B7C6, count = 20 } },   # activity_whole_achieve_077: ti00000003 x1 -> tk_hr000008 x20
-  { row = 373, cells = { item = 0xD0F48F64, count = 9 } },   # activity_whole_achieve_078: ex0006 x1 -> tk_bb000001 x9
-  { row = 374, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_078: ex0007 x1 -> tk_bb000001 x15
+  { row = 373, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_078: ex0006 x1 -> tk_bb000001 x15
+  { row = 374, cells = { item = 0xD0F48F64, count = 30 } },   # activity_whole_achieve_078: ex0007 x1 -> tk_bb000001 x30
   { row = 375, cells = { item = 0x5F36B7C6, count = 20 } },   # activity_whole_achieve_078: ti01001900 x1 -> tk_hr000008 x20
-  { row = 376, cells = { item = 0xD0F48F64, count = 9 } },   # activity_whole_achieve_079: ex0006 x1 -> tk_bb000001 x9
-  { row = 377, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_079: ex0007 x1 -> tk_bb000001 x15
+  { row = 376, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_079: ex0006 x1 -> tk_bb000001 x15
+  { row = 377, cells = { item = 0xD0F48F64, count = 30 } },   # activity_whole_achieve_079: ex0007 x1 -> tk_bb000001 x30
   { row = 378, cells = { item = 0x5F36B7C6, count = 20 } },   # activity_whole_achieve_079: ti00000019 x1 -> tk_hr000008 x20
-  { row = 379, cells = { item = 0xD0F48F64, count = 9 } },   # activity_whole_achieve_080: ex0006 x1 -> tk_bb000001 x9
-  { row = 380, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_080: ex0007 x1 -> tk_bb000001 x15
+  { row = 379, cells = { item = 0xD0F48F64, count = 15 } },   # activity_whole_achieve_080: ex0006 x1 -> tk_bb000001 x15
+  { row = 380, cells = { item = 0xD0F48F64, count = 30 } },   # activity_whole_achieve_080: ex0007 x1 -> tk_bb000001 x30
   { row = 381, cells = { item = 0x5F36B7C6, count = 20 } },   # activity_whole_achieve_080: ti00000020 x1 -> tk_hr000008 x20
-  { row = 382, cells = { item = 0xD0F48F64, count = 27 } },   # activity_whole_achieve_081: ex0006 x3 -> tk_bb000001 x27
+  { row = 382, cells = { item = 0xD0F48F64, count = 60 } },   # activity_whole_achieve_081: ex0006 x3 -> tk_bb000001 x60
   { row = 383, cells = { item = 0xD0F48F64, count = 60 } },   # activity_whole_achieve_082: ex0006 x10 -> tk_bb000001 x60
-  { row = 384, cells = { item = 0xD0F48F64, count = 45 } },   # activity_whole_achieve_083: ex0007 x3 -> tk_bb000001 x45
+  { row = 384, cells = { item = 0xD0F48F64, count = 60 } },   # activity_whole_achieve_083: ex0007 x3 -> tk_bb000001 x60
   { row = 385, cells = { item = 0xD0F48F64, count = 60 } },   # activity_whole_achieve_084: ex0007 x10 -> tk_bb000001 x60
   { row = 386, cells = { item = 0xD0F48F64, count = 60 } },   # activity_whole_achieve_085: ex0008 x10 -> tk_bb000001 x60
   { row = 450, cells = { item = 0xD0F48F64, count = 15 } },   # victoryroad_achieve_033: whs01390 x5 -> tk_bb000001 x15

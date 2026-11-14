@@ -1,21 +1,20 @@
-local PLAY_SOUND = 1917805374             -- (sound)
-local SOUND_DECIDE = 3848881948           -- sy0000
-local SOUND_CANCEL = 202039849            -- sy0006
+local PLAY_SOUND = VRFW.commands.SND_PLAY_SE             -- (sound)
+local SOUND_DECIDE = VRFW.ids.crc32("sy0000")
+local SOUND_CANCEL = VRFW.ids.crc32("sy0006")
 local WINDOW_TEXT = 2289627655            -- (text id, 0, 0, 0, 0, 0, false)
 local WINDOW_BUTTONS = 2351835063         -- (buttons, 0)
 local WINDOW_SOUNDS = 528596549           -- (decide sound, cancel sound)
 local WINDOWS_FREE = 682363669
-local TEXT_POOL_EMPTY = 612388116         -- ChronicleDeluxe.universe_pool_empty
+local TEXT_POOL_EMPTY = VRFW.ids.crc32("ChronicleDeluxe.universe_pool_empty")
 
 local function pool()
   return ChronicleDeluxe.UniversePool
 end
 
-local retail_init = OnInit
-function OnInit(...)
+VRFW.host.wrap_once("OnInit", "ChronicleDeluxe.universe_pool", function(retail_init, ...)
   pool().forget()
   return retail_init(...)
-end
+end)
 
 -- True when the star the cursor is on has no card left to give.
 local function selected_star_spent()
@@ -35,8 +34,7 @@ local function selected_star_spent()
 end
 
 -- Before the confirmation and the payment: a star with nothing left says so and costs nothing.
-local retail_decided = StartStarDecided
-function StartStarDecided()
+VRFW.host.wrap_once("StartStarDecided", "ChronicleDeluxe.universe_pool", function(retail_decided)
   if not IsSelectStarKeyValid() or not selected_star_spent() then
     return retail_decided()
   end
@@ -50,12 +48,11 @@ function StartStarDecided()
   end)
   ApplyStarCursorPos()
   ChangeCursorMesh(false)
-end
+end)
 
-local lottery_with_repeats = LotteryStarSignCharacter
-function LotteryStarSignCharacter(sign, is_last_star)
+VRFW.host.wrap_once("LotteryStarSignCharacter", "ChronicleDeluxe.universe_pool", function(lottery_with_repeats, sign, is_last_star)
   if not pool().active() then
     return lottery_with_repeats(sign, is_last_star)
   end
   return pool().draw(sign, is_last_star)
-end
+end)

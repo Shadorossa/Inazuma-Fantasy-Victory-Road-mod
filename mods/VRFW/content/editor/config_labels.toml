@@ -152,6 +152,16 @@ For = "config"
   Label = { es = "Informe de animaciones", en = "Animation report" }
   Help = { es = "Escribe en el registro un informe del motor de animaciones (depuración).", en = "Writes an animation engine report to the log (debug)." }
   [[Shape.Field]]
+  Key = "anim.contact_probe"
+  Type = "table"
+  Label = { es = "Sonda de contactos (W11e)", en = "Contact probe (W11e)" }
+  Help = { es = "Diagnóstico de solo lectura del orden de pose y composición de los esqueletos.", en = "Read-only diagnostic of the skeleton pose and compose order." }
+  [[Shape.Field]]
+  Key = "anim.contact_probe.enabled"
+  Type = "bool"
+  Label = { es = "Activar sonda", en = "Enable probe" }
+  Help = { es = "Tras empezar un evento, escribe en el registro (prefijo w11e:) la pose y las matrices de un hueso durante unos fotogramas.", en = "After an event starts, logs one joint's pose and matrices for some frames (w11e: prefix)." }
+  [[Shape.Field]]
   Key = "item"
   Type = "table"
   Label = { es = "Objetos", en = "Items" }

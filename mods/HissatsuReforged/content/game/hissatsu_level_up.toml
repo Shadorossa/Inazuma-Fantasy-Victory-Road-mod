@@ -88,8 +88,17 @@ handler = "HissatsuReforged.Cmd.CanPlace"
 name = "CMND_HISSATSUREFORGED_RETAIL_STOCK"
 handler = "HissatsuReforged.Cmd.RetailStock"
 
+[[VRFW.Command]]
+name = "CMND_HISSATSUREFORGED_GRADE_COLOR"   # (grade 0..5) -> r, g, b 0..255 ([ranks] grade_colors), nil when none
+handler = "HissatsuReforged.Cmd.GradeColor"
+
 [[VRFW.CommandFilter]]
 name = "HissatsuReforged.SetSkillGrade"
 command = "CMND_SET_SKILL"
 handler = "HissatsuReforged.AfterSetSkill"
 phase = "after"
+
+# What each move level changes (the move card's effects, BetterUI's «Habilidades» screen).
+[[VRFW.Command]]
+name = "CMND_HISSATSUREFORGED_MOVE_LEVEL_EFFECTS"   # (move) -> { count, [i] = { level, kind, value } }
+handler = "HissatsuReforged.LevelEffects"

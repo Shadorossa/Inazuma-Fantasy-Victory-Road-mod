@@ -1,0 +1,298 @@
+schema = "VRFW.shop_merge/1"
+
+# Inazuma Fantasy's three shops (General Store, Training Shop, Special Moves), filled from every game shop's rows by item
+# category and priced by this rule; the engine resolves them at load (docs/framework/shop-merge.md). The game shops
+# lose the rows these shops take, and a game shop left with no visible row opens as the General Store.
+
+[[VRFW.ShopMerge]]
+name = "shops"
+story_shops = ["0x61245112", "0x1CF22DA7"]
+hide_spirits = true
+spirit_shops_kept = ["0x66B2F9E6"]
+# the rows of an item item_config does not have (the game cannot list them) are hidden too
+hide_unknown_items = true
+# a team's away kit (a kit whose key is another kit's key + _20) is not sold: no row, the game shops keep it hidden
+skip_away_kits = true
+extra_items = [
+    "em060317", "em110020", "em110024",
+    # the Fabled Seed, which no game shop sells; stock 0 = no purchase limit (the game caps the stack at 4)
+    { item = "ex0010", price = 200, stock = 0 },
+    # the community pack crests, at the median game crest price
+    { item = "InazumaFantasy.crest_murasaki_bara_gakuen", price = 17 },
+    { item = "InazumaFantasy.crest_uzumaki_gakuen", price = 17 },
+    { item = "InazumaFantasy.crest_onigawara_gakuen", price = 17 },
+    { item = "InazumaFantasy.crest_snow_star_academy", price = 17 },
+    { item = "InazumaFantasy.crest_the_revolutionaries_academy", price = 17 },
+    { item = "InazumaFantasy.crest_black_lotus_academy", price = 17 },
+    { item = "InazumaFantasy.crest_teikoku", price = 17 },
+    { item = "InazumaFantasy.crest_zeus", price = 17 },
+    # the story's last step (c09_trigger RunCmd_Phase23 AddItem) gives this tactic: the row unlocks with the story cleared flag
+    { item = "ht20160", unlock = [{ flag = 0x2CB86A25 }] },
+]
+mod_outfits = true
+exclude_items = [
+    "whk00490", "whk00555",
+    # season and beta trophies (no seasons with the framework on)
+    "coi_object_k01h1001a", "coi_object_k01h1001a_S1", "coi_object_k01h1001b", "coi_object_k01h1001b_S1", "coi_object_k01h1001c", "coi_object_k01h1001c_S1",
+    # only from a DLC pack or a mailbox gift
+    "coi_facility_k01h101", "coi_object_gi801", "coi_object_k01h102", "coi_object_k01h105", "coi_object_kt000020", "coi_object_kt000021",
+]
+# every menu entry of a game shop left with no visible row (mode menus, shortcuts) opens this shop of the merge instead
+redirect_emptied_to = "general_store"
+
+[VRFW.ShopMerge.chronicle_rewards]
+kinds = ["EMBLEM"]
+difficulties = [4]
+
+# Every special move a player can obtain gets a row in a category with `learnable = true`, sold by a game shop or not.
+[VRFW.ShopMerge.learnable]
+min_rows = 5
+skills = { file = "skill_config", list = "m_skillInfoList", key = "skillIDStr", grade = "power_max", disabled = "isDisablePlayableUntilNextPatch" }
+override_bases = { file = "override_skill_config", list = "m_OverrideSkillInfoList" }
+obtained = [
+    { file = "chara_param", list = "CHARA_PARAM_INFO", columns = [11, 13, 15, 17, 19, 21, 23, 25, 27] },   # a playable spirit's moves
+    { file = "ability_learning_config", list = "ABILITY_LEARNING_BOARD_EFFECT", columns = [0] },          # ability boards
+    { file = "ability_learning_config", list = "ABILITY_LEARNING_SKILL_SET_DATA", columns = [1, 2, 3, 4, 5, 6, 7, 8, 9] },
+    { file = "common_item_table", list = "ITBL_ITEMS", columns = [0] },                                   # item reward tables
+    { file = "soccer_prize_config", list = "ITBL_ITEMS", columns = [0] },                                 # match prizes
+    { file = "trophy_config", list = "TROPHY_REWARD", columns = [0] },                                    # trophy rewards
+    { file = "delivery_config", list = "m_DeliveryContentsDataList", columns = [1, 6] },                  # gifts
+]
+unobtainable = [
+    { reason = "the move of a keshin / armed / soul / miximax command", file = "aura_skill_config", list = "AURA_CMD_INFO", columns = [6] },
+    { reason = "a rival team's move only", file = "team_config", list = "TEAM_MEMBER_SKILL_CONFIG_INFO", columns = [1, 2, 3, 4, 5, 6] },
+]
+
+# The series of a kit or crest key: the two digits after its prefix, in this order.
+[VRFW.ShopMerge.sort_series]
+order = [1, 2, 3, 4, 5, 6, 7, 8, 11]
+key_prefixes = ["uni_u", "em"]
+
+# The kits and crests of a team sit together (sort = "team"): a game home kit key is uni_u + series, team and variant digits.
+[VRFW.ShopMerge.sort_team]
+kit_prefix = "uni_u"
+
+[[VRFW.ShopMerge.shop]]
+name = "general_store"
+name_text = "InazumaFantasy.general_store_name"
+based_on = "0xB13B2BD5"
+
+  [[VRFW.ShopMerge.shop.category]]
+  id = "outfits"
+  kinds = ["COSTUME"]
+  include_story = true
+  sort = "catalog"               # a mod outfit has no catalog number: first
+  story_no_condition = true
+  story_if_mod = "BetterQoL"
+  min_price = 28
+
+  [[VRFW.ShopMerge.shop.category]]
+  id = "tickets_kizuna"          # Kizuna area tickets and the town expansion pass
+  kinds = ["IMPORTANT"]
+  key_prefixes = ["gd11"]
+  include_story = true
+
+  [[VRFW.ShopMerge.shop.category]]
+  id = "tickets_stadium"
+  kinds = ["IMPORTANT"]
+  key_prefixes = ["gd12"]
+  include_story = true
+  sort = "catalog"
+
+  [[VRFW.ShopMerge.shop.category]]
+  id = "tickets_other"           # every other key item a shop sells
+  kinds = ["IMPORTANT"]
+  include_story = true
+
+  [[VRFW.ShopMerge.shop.category]]
+  id = "consumables"
+  kinds = ["CONSUME"]
+  sort = "catalog"
+  prices = { ex0001 = 30, ex0002 = 80, ex0003 = 140 }
+  price_by_contents = true       # a box item (a Victory crate) costs its expected contents: [price.contents]
+
+  [[VRFW.ShopMerge.shop.category]]
+  id = "name_plates"
+  kinds = ["NAME_PLATE"]
+  sort = "catalog"
+  sell_all = true                # every plate a retail reward table gives, at the median price of the section
+  # trophy rewards and item lotteries; a plate only a tournament season gives, or no table at all, is not sold
+  sell_all_given_by = [
+    { file = "trophy_config", list = "TROPHY_REWARD", columns = [0] },
+    { file = "common_item_table", list = "ITBL_ITEMS", columns = [0] },
+  ]
+
+  [[VRFW.ShopMerge.shop.category]]
+  id = "kits"                    # team kits sold in shops
+  kinds = ["FASHION"]
+  include_story = true
+  sort = "team"
+
+  [[VRFW.ShopMerge.shop.category]]
+  id = "emblems"                 # team emblems (crests)
+  kinds = ["EMBLEM"]
+  include_story = true
+  sort = "team"
+
+  [[VRFW.ShopMerge.shop.category]]
+  id = "kizuna_decorations"      # Kizuna town objects, facilities and animals
+  kinds = ["CRAFT_OBJ", "ANIMAL"]
+  include_story = true
+  sort = "catalog"
+  sell_all = true                # every item of these kinds, sold by a retail shop or not (median price of the section)
+
+  [[VRFW.ShopMerge.shop.category]]
+  id = "stickers"                # decorative stickers
+  kinds = ["KIZUNA_LINK"]
+  include_story = true
+  sort = "name"                  # natural order of the name: Sticker 2 before Sticker 10
+  sell_all = true                # every item of these kinds, sold by a retail shop or not (median price of the section)
+
+  [[VRFW.ShopMerge.shop.category]]
+  id = "titles"
+  kinds = ["TITLE"]
+  sort = "catalog"
+  sell_all = true                # every item of these kinds, sold by a retail shop or not (median price of the section)
+
+[[VRFW.ShopMerge.shop]]
+name = "training_shop"
+name_text = "InazumaFantasy.training_shop_name"
+based_on = "0x9BE09172"          # Tienda Vs
+
+  [[VRFW.ShopMerge.shop.category]]
+  id = "boots"
+  kinds = ["SHOES"]
+  sort = "catalog"
+
+  [[VRFW.ShopMerge.shop.category]]
+  id = "bracelets"               # bracelets and gloves
+  kinds = ["MISANGA"]
+  sort = "catalog"
+
+  [[VRFW.ShopMerge.shop.category]]
+  id = "pendants"
+  kinds = ["ACCESSORY"]
+  sort = "catalog"
+
+  [[VRFW.ShopMerge.shop.category]]
+  id = "specials"                # the special equipment slot
+  kinds = ["SPECIAL"]
+  sort = "catalog"
+
+  [[VRFW.ShopMerge.shop.category]]
+  id = "tactics"                 # special tactics
+  kinds = ["SPECIAL_TACTICS"]
+  sort = "catalog"
+  include_story = true           # the story training shop rows, with their retail story phase condition
+  sell_all = true                # every tactic, sold by a retail shop or not (median price of the section)
+
+  [[VRFW.ShopMerge.shop.category]]
+  id = "synergies"               # synergy items
+  kinds = ["SYNERGY_FLAG"]
+  sort = "catalog"
+  min_price = 4                  # 2 wins (the retail rows convert to 1)
+
+  [[VRFW.ShopMerge.shop.category]]
+  id = "moves_keshin_and_others" # keshin, miximax, soul and keshin tactic moves
+  kinds = ["SPECIAL_SKILL"]
+  skill_kinds = [171, 173, 174, 175]
+  sort = "skill_type"            # shot / dribble / block / catch (the game's skill category order), then catalog; untyped moves last
+  type_from = "wh"               # the type of a move = the skill category of the retail moves sharing its key letter after this prefix
+  min_price = 30
+
+  [[VRFW.ShopMerge.shop.category]]
+  id = "awakenings"              # the awakening moves, last in the shop (Furor's [[VRFW.Unobtainable]] leaves them out while it is active)
+  kinds = ["SPECIAL_SKILL"]
+  skill_kinds = [176]
+  sort = "catalog"
+  min_price = 30
+
+[[VRFW.ShopMerge.shop]]
+name = "technique_shop"
+name_text = "InazumaFantasy.technique_shop_name"
+based_on = "0x4E6077DA"
+
+  [[VRFW.ShopMerge.shop.category]]
+  id = "shot"
+  kinds = ["SPECIAL_SKILL"]
+  skill_kinds = [161]
+  key_prefixes = ["wh"]
+  sort = "catalog"
+  learnable = true
+  price_by_power = true
+
+  [[VRFW.ShopMerge.shop.category]]
+  id = "dribble"
+  kinds = ["SPECIAL_SKILL"]
+  skill_kinds = [162]
+  key_prefixes = ["wh"]
+  sort = "catalog"
+  learnable = true
+  price_by_power = true
+
+  [[VRFW.ShopMerge.shop.category]]
+  id = "block"
+  kinds = ["SPECIAL_SKILL"]
+  skill_kinds = [163]
+  key_prefixes = ["wh"]
+  sort = "catalog"
+  learnable = true
+  price_by_power = true
+
+  [[VRFW.ShopMerge.shop.category]]
+  id = "catch"
+  kinds = ["SPECIAL_SKILL"]
+  skill_kinds = [164]
+  key_prefixes = ["wh"]
+  sort = "catalog"
+  learnable = true
+  price_by_power = true
+
+# Price: every row is in Puntos de pasión; a game row's currencies are converted by `value` / `rate` and `premium`, times `scale`.
+[VRFW.ShopMerge.price]
+currency = "tk_bb000001"
+rate = 10
+scale = 2
+[VRFW.ShopMerge.price.power]
+anchors = [[300, 3], [360, 6], [440, 10], [540, 18], [640, 32], [720, 40], [800, 48]]
+
+# A box item costs the expected value of one opening, rounded up: the game draws one table of the box by the table's
+# weight, then one entry of that table by the entry's weight (nie.exe v7.2.1 0x11D9220 and 0xE94B50).
+# An entry is worth count x the price of its item in these shops, a currency its `value` / `rate` or `premium`,
+# and nothing when no shop sells it. The tables are priced after the chest drop filters of this mod, alone and with
+# each other mod's: the highest value is the price.
+[VRFW.ShopMerge.price.contents]
+boxes = { file = "item_emission_rarity_table_config", items = "m_itemEmissionRarityTableConfigList", tables = "m_itemEmissionRarityTableConfigInfoList" }
+tables = { file = "common_item_table", table = "ITBL_BASE", slice = "ITBL_BASE_REF_ITEMS", entry = "ITBL_ITEMS" }
+
+[VRFW.ShopMerge.price.value]
+tk_si000001 = 1
+tk_si000002 = 1
+tk_si000003 = 1
+tk_si000004 = 1
+tk_si000005 = 1
+tk_si000006 = 1
+tk_si000007 = 1
+tk_hr000008 = 1
+tk_hr000001 = 2
+tk_hr000002 = 2
+tk_hr000003 = 2
+tk_hr000004 = 2
+tk_hr000005 = 2
+tk_hr000006 = 2
+tk_hr000007 = 2
+tk_hr000009 = 2
+tk_vi000001 = 3
+tk_vi000002 = 3
+tk_vi000003 = 3
+tk_bb000002 = 3
+tk_bb000003 = 3
+tk_ki000001 = 3
+tk_ki000002 = 3
+tk_ki000003 = 3
+[VRFW.ShopMerge.price.premium]
+tk_bb000001 = 1
+tk_tnm000001 = 1
+tk_tnm000002 = 1
+tk_ki000004 = 1
+tk_ki000005 = 1

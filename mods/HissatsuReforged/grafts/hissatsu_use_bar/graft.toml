@@ -1,0 +1,17 @@
+# Hissatsu Reforged: under the TENSIÓN row of Character Reforged's skill table detail (vrfw_skill_slot_menu), a bar of the
+# technique's uses towards its next level («12 ━━━━ 30»), «Máx.» on a full bar when uses raise it no further.
+# Data: CMND_HISSATSUREFORGED_USES (uses, grade, next threshold) of scripts\hissatsu_level_up.lua; layers: the add-on
+# addons\CharacterReforged\content\menus\skill_table_use_bar.toml; text: HissatsuReforged.UseBarMax. HOOK file only.
+name = "hissatsu_use_bar"
+mod = "HissatsuReforged"
+order = 340
+module = "lua_bridge"
+requires = []
+conflicts = []
+wraps = []
+description = "Hissatsu Reforged: the technique use bar in the Fantasy skill table detail"
+
+[[hooks]]
+stem = "vrfw_skill_slot_menu"
+source = "use_bar_skill_table.lua"
+require = ["CharacterReforgedSkillTableOpenOriginalBoard", "CharacterReforgedSkillTablePickCoroutine"]

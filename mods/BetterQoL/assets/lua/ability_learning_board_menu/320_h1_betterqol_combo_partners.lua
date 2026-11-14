@@ -21,6 +21,7 @@ do
   BetterQoL.combo_partners.K_ENTER = 1981080283
   BetterQoL.combo_partners.K_CLICK = 1651523701
   BetterQoL.combo_partners.K_BACK = 3011112225
+  BetterQoL.combo_partners.K_RCLICK = 3473063670 -- CMD_MOUSE_RIGHT_CLICK
   BetterQoL.combo_partners.K_UP = 1197218715
   BetterQoL.combo_partners.K_DOWN = 3259546669
   BetterQoL.combo_partners.K_FUNC4 = 1435897304
@@ -113,13 +114,21 @@ do
     VRFW.host.command(1917805374, id)
   end
 
-  function BetterQoL.combo_partners.key(k)
+  function BetterQoL.combo_partners.input(k)
     local v = VRFW.host.command(4265778440, BetterQoL.combo_partners.CTRL, k)
     if v == true then
       return true
     end
     local w = VRFW.host.command(4265778440, BetterQoL.combo_partners.CTRL2, k)
     return w == true
+  end
+
+  -- Back also answers to right click, as the retail CMD_MOUSE_RIGHT_CLICK -> CMD_BACK row of every menu layer.
+  function BetterQoL.combo_partners.key(k)
+    if BetterQoL.combo_partners.input(k) then
+      return true
+    end
+    return k == BetterQoL.combo_partners.K_BACK and BetterQoL.combo_partners.input(BetterQoL.combo_partners.K_RCLICK)
   end
 
   function BetterQoL.combo_partners.message(s)
@@ -219,13 +228,6 @@ do
     end
     BetterQoL.combo_partners.FACES[id] = {chara = want, hdl = hdl, drawn = drawn}
     return drawn
-  end
-
-  -- the faces still loading shown (from the screens' Step)
-  function BetterQoL.combo_partners.faces_settle()
-    if VRFW.face_icon.pending() then
-      VRFW.face_icon.settle()
-    end
   end
 
   -- the row's highlight only (a cursor move)
@@ -918,7 +920,6 @@ do
   BetterQoL.combo_partners.wrap_global("Step", function(prev)
     return function(...)
       local r = table.pack(prev(...))
-      pcall(BetterQoL.combo_partners.faces_settle)
       local ok, err = pcall(BetterQoL.combo_partners.poll)
       if not ok then
         BetterQoL.combo_partners.log("poll failed", tostring(err))

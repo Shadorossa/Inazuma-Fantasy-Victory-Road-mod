@@ -15,11 +15,11 @@ local function store(m)
   VRFW.save.set("mr_last_against", a)
 end
 
-VRFW.on("match_start", function(ev)
+VRFW.on("match:start", function(ev)
   VRFW.save.set("mr_last_for", 0)
   VRFW.save.set("mr_last_against", 0)
 end)
 
-VRFW.on("goal", function(ev)
+VRFW.on("match:goal", function(ev)
   store(ev.match)
 end)

@@ -312,62 +312,62 @@ local function log_half_over(state)
     p and p.clock or -1, p and tostring(p.length) or "?", S.announced_end))
 end
 
-VRFW.on("match_start", function()
+VRFW.on("match:start", function()
   S.half, S.counting, S.skip_logged = nil, false, nil
   reset_half_end()
   telop_end()
   return nil
 end)
-VRFW.on("match_end", function()
+VRFW.on("match:end", function()
   S.half, S.counting, S.skip_logged = nil, false, nil
   reset_half_end()
   telop_end()
   return nil
 end)
 
-VRFW.on("state_enter:9", function()
+VRFW.on("match:state_enter:9", function()
   current()
   return nil
 end)
 
-VRFW.on("state_enter:11", function()
+VRFW.on("match:state_enter:11", function()
   log_half_over(11)
   S.counting = false
   reset_half_end()
   return nil
 end)
 
-VRFW.on("foul", function()
+VRFW.on("match:foul", function()
   add("foul")
   whistle("foul")
   return nil
 end)
 
-VRFW.on("goal", function()
+VRFW.on("match:goal", function()
   add("goal")
   S.shot_running = false
   whistle("goal")
   return nil
 end)
 
-VRFW.on("cutin_start", function(ev)
+VRFW.on("match:cutin_start", function(ev)
   if SETTINGS.technique_groups[ev.arg] then add("technique") end
   S.cutin_running = true
   return nil
 end)
 
-VRFW.on("cutin_end", function()
+VRFW.on("match:cutin_end", function()
   S.cutin_running = false
   running_ended()
   return nil
 end)
 
-VRFW.on("shot_start", function()
+VRFW.on("match:shot_start", function()
   S.shot_running, S.shot_over, S.pending_whistle = true, false, nil
   return nil
 end)
 
-VRFW.on("shot_end", function()
+VRFW.on("match:shot_end", function()
   S.shot_running = false
   if S.over_time and not S.whistled then
     S.shot_over = true
@@ -380,28 +380,28 @@ VRFW.on("shot_end", function()
   return nil
 end)
 
-VRFW.on("chain_window_start", function()
+VRFW.on("match:chain_window_start", function()
   S.chain_open = true
   return nil
 end)
 
-VRFW.on("chain_window_end", function()
+VRFW.on("match:chain_window_end", function()
   S.chain_open = false
   running_ended()
   return nil
 end)
 
-VRFW.on("keeper_save", function()
+VRFW.on("match:keeper_save", function()
   whistle("the keeper saved the shot")
   return nil
 end)
 
-VRFW.on("ball_stopped", function()
+VRFW.on("match:ball_stopped", function()
   whistle("the shot was stopped")
   return nil
 end)
 
-VRFW.on("keeper_scene", function()
+VRFW.on("match:keeper_scene", function()
   add("keeper_scene")
   return nil
 end)
@@ -411,7 +411,7 @@ VRFW.on("match:substitution:post", function()
   return nil
 end)
 
-VRFW.on("possession", function(ev)
+VRFW.on("match:possession", function(ev)
   local a = ev.actor
   if a == nil or a.team == nil then return nil end
   S.last_owner = { team = a.team, handle = a.handle }
@@ -451,7 +451,7 @@ end)
 for _, st in ipairs(SETTINGS.end_states) do
   local n = tonumber(st)
   if n then
-    VRFW.on("state_enter:" .. math.floor(n), function()
+    VRFW.on("match:state_enter:" .. math.floor(n), function()
       S.shot_running = false
       whistle("state " .. math.floor(n))
       return nil
@@ -459,7 +459,7 @@ for _, st in ipairs(SETTINGS.end_states) do
   end
 end
 
-VRFW.on("time_up:regular", function()
+VRFW.on("match:time_up:regular", function()
   local p = current()
   if p == nil or not S.counting or S.announced then return nil end
   S.counting = false
@@ -481,7 +481,7 @@ VRFW.on("time_up:regular", function()
 end)
 
 -- the announced time is used up, or a limit set after it is reached
-VRFW.on("time_up:end", function()
+VRFW.on("match:time_up:end", function()
   local p = current()
   if p == nil or S.announced == nil or not SETTINGS.play_on or S.whistled then return nil end
   -- only at the end itself (length + added time, the trigger's 2 s lead)
@@ -509,7 +509,7 @@ VRFW.on("time_up:end", function()
 end)
 
 for _, st in ipairs(SETTINGS.telop_end_states) do
-  VRFW.on("state_enter:" .. math.floor(st), function()
+  VRFW.on("match:state_enter:" .. math.floor(st), function()
     log_half_over(math.floor(st))
     telop_end()
     return nil

@@ -6,8 +6,8 @@ local info, warn = VRFW.logger("transform_cross")
 
 -- The numbers of the layout, in the order the command returns them.
 local NUMBER_KEYS = {
-  "centre_x", "centre_y", "ring_size", "dim_brightness", "plate_left", "plate_scale", "row_pitch", "text_scale", "name_scale", "name_room",
-  "name_room_face", "type_offset_x", "type_offset_y", "name_offset_x", "name_offset_y", "pill_offset_x", "pill_offset_y",
+  "centre_x", "centre_y", "ring_size", "dim_brightness", "side_gap", "plate_scale", "plate_height_scale", "vertical_gap", "text_scale",
+  "name_scale", "name_room", "name_room_face", "name_offset_x", "pill_gap", "tactics_plate_scale",
 }
 -- The arrow of an entry as the command's direction code.
 local DIRECTION_CODES = { up = 1, left = 2, right = 3, down = 4 }
@@ -43,8 +43,8 @@ local function read_layout()
     values[#values + 1] = code
   end
   layout = values
-  info(string.format("layout: ring %s wide at %s,%s, plates from x %s at scale %s, rows %s apart",
-    section.ring_size, section.centre_x, section.centre_y, section.plate_left, section.plate_scale, section.row_pitch))
+  info(string.format("layout: ring %s wide at %s,%s, menu plates %s from its sides and %s above and below it at scale %s",
+    section.ring_size, section.centre_x, section.centre_y, section.side_gap, section.vertical_gap, section.plate_scale))
   return layout
 end
 

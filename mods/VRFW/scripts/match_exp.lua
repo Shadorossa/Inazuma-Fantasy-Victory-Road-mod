@@ -23,8 +23,13 @@ local TOTAL_EXP = 0xDC8
 local RESULT_OVERRIDE_FLAGS, RESULT_OVERRIDE_WON, RESULT_WON = 0xD74, 0xD75, 0xDE8
 local RESULT_OVERRIDE_LOST, RESULT_OVERRIDE_DRAWN, RESULT_LOST, RESULT_DRAWN = 0xD76, 0xD77, 0xDE9, 0xDEA
 -- match info (MatchExpInfo)
-local INFO_GAME, INFO_DIFFICULTY, INFO_USER_TEAM, INFO_SCORES, INFO_SCORE_SIDE = 4, 0x15, 0x4C, 0x2C26, 0x2C29
-local TEAMS, TEAM_SIZE, MEMBERS_FROM, MEMBERS_TO, MEMBER_SIZE = 0x1E0, 0x4A8, 0x80, 0x250, 0x10
+local INFO_GAME, INFO_DIFFICULTY = VRFW.game.field("MatchInfo.Game"), VRFW.game.field("MatchInfo.Difficulty")
+local INFO_SCORES, INFO_SCORE_SIDE = VRFW.game.field("MatchInfo.Score"), VRFW.game.field("MatchInfo.UserTeam")
+-- The match info's own user team field has no game profile name.
+local INFO_USER_TEAM = 0x4C
+local TEAMS, TEAM_SIZE = VRFW.game.field("Party.MatchTeams"), VRFW.game.field("PartyMatchTeam")
+local MEMBERS_FROM, MEMBER_SIZE = VRFW.game.field("PartyMatchTeam.Members"), VRFW.game.field("PartyMatchMember")
+local MEMBERS_TO = MEMBERS_FROM + VRFW.game.field("Party.MatchTeamMemberCount") * MEMBER_SIZE
 -- character record (VRFW.character.record(hdl).addr): the EXP inside the current level
 local RECORD_EXP = 8
 -- save flag block (MatchExpFlags): one clear status byte per statusFlagIndex; bit 1 + the difficulty's place below

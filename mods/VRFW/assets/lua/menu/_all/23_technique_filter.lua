@@ -1,3 +1,4 @@
+--- Internal: Namespace of the technique filter extension.
 VRFW.technique_filter = VRFW.technique_filter or {}
 if VRFW.technique_filter.save == nil and type(SaveFilterData) == "function" and type(LoadFilterData) == "function"
     and type(OpenFilter) == "function" and type(OnAfterReceiveFilterParamCommon) == "function"
@@ -5,8 +6,8 @@ if VRFW.technique_filter.save == nil and type(SaveFilterData) == "function" and 
     and type(InsertFilterParam) == "function" then
   local TS = {
     CMD_VALUES = VRFW.commands.VRFW_TECHNIQUE_FILTER_VALUES,
-    CMD_FAMILIES = VRFW.commands.VRFW_TECHNIQUE_FILTER_FAMILIES,
-    FAMILY_CODE = 256,
+    CMD_TABS = VRFW.commands.VRFW_TECHNIQUE_FILTER_TABS,
+    ADDED_CODE = 256,          -- saved value of the first row of the added tabs, +1 per further row
     CMD_KEEP = VRFW.commands.VRFW_TECHNIQUE_FILTER_KEEP,
     CMD_KEPT = VRFW.commands.VRFW_TECHNIQUE_FILTER_KEPT,
     CMD_SAVE = 3666261249,
@@ -14,6 +15,7 @@ if VRFW.technique_filter.save == nil and type(SaveFilterData) == "function" and 
     ALL = 8,                   -- list item type "all rows of a tab" (value = the tab's type)
     loading = nil,
   }
+  --- Internal: State that saves and restores the technique filter choices.
   VRFW.technique_filter.save = TS
 
   local function served()
@@ -25,10 +27,16 @@ if VRFW.technique_filter.save == nil and type(SaveFilterData) == "function" and 
     for i = 1, r[2] do
       values[i] = r[2 + i]
     end
-    local f = table.pack(pcall(funcLuaCommand, TS.CMD_FAMILIES))
-    if f[1] and type(f[2]) == "number" and type(f[3]) == "number" and f[3] > 0 then
-      for i = 1, f[3] do
-        values[f[2] + i] = TS.FAMILY_CODE + i - 1
+    local f = table.pack(pcall(funcLuaCommand, TS.CMD_TABS))
+    if f[1] and type(f[2]) == "number" and type(f[3]) == "number" then
+      local at, added = 4, 0
+      for _ = 1, f[3] do
+        local n = type(f[at + 5]) == "number" and f[at + 5] or 0
+        for _ = 1, n do
+          values[f[2] + added + 1] = TS.ADDED_CODE + added
+          added = added + 1
+        end
+        at = at + 6 + 2 * n
       end
     end
     return values
@@ -73,6 +81,7 @@ if VRFW.technique_filter.save == nil and type(SaveFilterData) == "function" and 
   local game_load = LoadFilterData
   --- Retail override: remembers the filter id, then loads it.
   function LoadFilterData(a1, a2)
+    --- Internal: filter data id being loaded.
     TS.loading = a1
     return game_load(a1, a2)
   end

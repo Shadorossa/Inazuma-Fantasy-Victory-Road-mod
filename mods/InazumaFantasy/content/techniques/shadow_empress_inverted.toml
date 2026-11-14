@@ -1,0 +1,50 @@
+schema = "VRFW.technique/3"
+# Emperatriz oscura inversa: the keshin shot of the colour-inverted Crystal Rabbit (wks_fantasy_k902020, model k902020).
+# «Inversa» as the keshin: its cut-in ev60_90090 is Shadow Empress's (whs10090, ev60_10090) mirrored left to right
+# (keshin, shooter, ball, shadows, camera, lights and effect points; _tools/crystal_rabbit_inverted_build.py) without the
+# retail banner, with copies of its effects in inverted colours (content/effects/shadow_empress_inverted.toml).
+# Power and TP: whs10090's. Shadow Empress stays the game's.
+
+[[technique]]
+name = "shadow_empress_inverted"
+base = "whs10090"
+manual = true
+users = 1
+event = "ev60_90090"
+  [technique.text.es]
+  name = "Emperatriz oscura inversa"
+  description = "Domina el campo con un poderío invertido y\nlanza un golpe de luz que atraviesa la red."
+  [technique.text.en]
+  name = "Inverted Shadow Empress"
+  description = "Command the pitch with inverted might and\ndrive a strike of light straight through the net."
+  [technique.text.fr]
+  name = "Impératrice des ombres inversée"
+  description = "Contrôlez le terrain d'une puissance inversée\net délivrez une frappe de lumière comme une lance."
+  [technique.text.de]
+  name = "Umgekehrte Schattenkaiserin"
+  description = "Beherrsche das Feld mit umgekehrter Macht und\ntreibe einen Lichtstich geradewegs durchs Netz."
+  [technique.text.it]
+  name = "Imperatrice Oscura Invertita"
+  description = "Domina il campo con potenza invertita e sferra\nun colpo di luce dritto verso la rete."
+  [technique.text.pt]
+  name = "Imperatriz das Sombras Invertida"
+  description = "Domina o campo com um poder invertido e desfere\num golpe de luz na direção do gol."
+  [technique.text.ja]
+  name = "リバース・エンプレス・シャドウ"
+  description = "反転した威圧感でピッチを支配し\n光の大槍でゴールを貫く！"
+  [technique.text.zh_hans]
+  name = "反转帝影裁决"
+  description = "以反转的压迫感支配整个赛场，\n光之长枪贯穿球门。"
+  [technique.text.zh_hant]
+  name = "反轉帝影裁決"
+  description = "以反轉的威壓支配全場，\n光之長槍貫穿球門。"
+
+# The inverted keshin's keshin shot.
+[[aura]]
+aura = "wks_fantasy_k902020"
+technique = "shadow_empress_inverted"
+
+# The mirrored cut-in takes the retail cut-in's environment row.
+[[event_env]]
+event = "ev60_90090"
+from = "ev60_10090"

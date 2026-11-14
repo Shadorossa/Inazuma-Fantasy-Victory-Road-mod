@@ -32,21 +32,23 @@ if VRFW.bank_tabs == nil then
   }
 
   local logger
-  --- Logs through the bank-tabs logger, at most 20 lines.
+  --- Internal: Logs through the bank-tabs logger, at most 20 lines.
   function BT.log(...)
     if BT.logs >= 20 then
       return
     end
+    --- Internal: count of log lines written by the bank tabs.
     BT.logs = BT.logs + 1
     logger = logger or VRFW.logger.new("VRFW bank_tabs")
     logger(...)
   end
 
-  --- The declared bank tabs (read once per VM).
+  --- Internal: The declared bank tabs (read once per VM).
   function BT.list()
     if BT.tabs ~= nil then
       return BT.tabs
     end
+    --- Internal: list of the bank tabs read from the framework command.
     BT.tabs = {}
     local ok, n = pcall(funcLuaCommand, BT.CMD_TABS)
     if not ok or type(n) ~= "number" then
@@ -63,7 +65,7 @@ if VRFW.bank_tabs == nil then
     return BT.tabs
   end
 
-  --- Append the declared tabs to tab table `t` (once each) and make it the table of `stem`.
+  --- Internal: Append the declared tabs to tab table `t` (once each) and make it the table of `stem`.
   function BT.apply(t, stem)
     if type(t) ~= "table" then
       return
@@ -84,7 +86,7 @@ if VRFW.bank_tabs == nil then
     BT.log(stem, "tabs", #t)
   end
 
-  --- True when v looks like a retail tab table.
+  --- Internal: True when v looks like a retail tab table.
   function BT.is_tab_table(v)
     if type(v) ~= "table" or #v < 2 then
       return false
@@ -98,7 +100,7 @@ if VRFW.bank_tabs == nil then
     return true
   end
 
-  --- The retail tab tables reachable from locals table L.
+  --- Internal: The retail tab tables reachable from locals table L.
   function BT.find(L)
     local found, seen, live = {}, {}, nil
     local function add(v)
@@ -155,7 +157,7 @@ if VRFW.bank_tabs == nil then
     return out
   end
 
-  --- The current bank tab of `stem`; nil when there is none.
+  --- Internal: The current bank tab of `stem`; nil when there is none.
   function BT.current(stem)
     local t = BT.tables[stem]
     if t == nil then
@@ -169,7 +171,7 @@ if VRFW.bank_tabs == nil then
     return nil
   end
 
-  --- The filter params with listItemType 2 (team) = `team` in every series.
+  --- Internal: The filter params with listItemType 2 (team) = `team` in every series.
   function BT.team_filter(params, team)
     local out = {}
     if params ~= nil then
@@ -186,11 +188,12 @@ if VRFW.bank_tabs == nil then
     return out
   end
 
-  --- Wraps the retail list-view icon and number setters once per VM.
+  --- Internal: Wraps the retail list-view icon and number setters once per VM.
   function BT.wrap()
     if BT.wrapped or LISTVIEW == nil then
       return
     end
+    --- Internal: true once LISTVIEW.SetupTabIcon is wrapped for the bank tabs.
     BT.wrapped = true
     local icon = LISTVIEW.SetupTabIcon
     LISTVIEW.SetupTabIcon = function(a1, a2, a3, a4, ...)
@@ -226,7 +229,7 @@ if VRFW.bank_tabs == nil then
     end
   end
 
-  --- The tab pager of `stem`; nil when it has no tabs.
+  --- Internal: The tab pager of `stem`; nil when it has no tabs.
   function BT.pager(stem)
     local t = BT.tables[stem]
     if t == nil or VRFW.tab_pager == nil then
@@ -273,7 +276,7 @@ if VRFW.bank_tabs == nil then
     return pager
   end
 
-  --- The L2 / R2 prompts in the end caps of a paged bar (the engine draws the keys of the device in use).
+  --- Internal: The L2 / R2 prompts in the end caps of a paged bar (the engine draws the keys of the device in use).
   function BT.capacity_spec(stem)
     local pager = BT.pagers[stem]
     return {
@@ -283,7 +286,7 @@ if VRFW.bank_tabs == nil then
     }
   end
 
-  --- Installs the bank tabs on menu `stem` through VRFW.host.
+  --- Internal: Installs the bank tabs on menu `stem` through VRFW.host.
   function BT.attach(stem)
     if VRFW.host == nil then
       return
@@ -417,5 +420,6 @@ if VRFW.bank_tabs == nil then
     })
   end
 
+  --- Internal: Namespace of the bank tabs: extra tab icons and labels added to the bank list views.
   VRFW.bank_tabs = BT
 end

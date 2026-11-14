@@ -152,3 +152,135 @@
     VRFW.ui_plates.header_row.arch_box(G.TAG, G.PLATE, 0, G.hdl, G.tagSt or {}, {sprite = G.SP_SLANTBOX, atlas = G.TX_OWN,
       sprite_dual = G.SP_SLANTBOX2, dual_cmd = type(BetterQoL) == "table" and type(BetterQoL.passive_icons) == "table" and BetterQoL.passive_icons.CMD_INFO or nil})
   end
+
+  -- The player's type tag: one icon per archetype tag of his character (CMND_VRFW_CHARACTER_TAGS, the icon sprite of
+  -- each [[VRFW.Tag]], in declared order) on one slanted box right of the header's rarity title, vertically centred on
+  -- the title, at a fixed place (also without a title); no icon = hidden. Box = gauge copy cr_pp_ttag showing
+  -- cr_pp_typetag<n> (n = icon count); icons = the gauge copy instances cr_pp_ticon 0..G.TT_BOX.max - 1. The icons are
+  -- read when the shown player changes (G.type_tag_fill from the header fill); the step follows the page's visibility.
+  G.TTAG, G.TICON = @crc:cr_pp_ttag@, @crc:cr_pp_ticon@
+  G.TICON_TRACE = {[0] = @crc:cr_pp_ticon0@, @crc:cr_pp_ticon1@, @crc:cr_pp_ticon2@}
+  G.SP_TYPETAG = {@crc:cr_pp_typetag1@, @crc:cr_pp_typetag2@, @crc:cr_pp_typetag3@}
+  G.TT_BOX = {h = 21, icon = 17, gap = 4, pad = 9, slant = 0.3226, k = 4, shadow = 3, max = 3}
+  G.TT_RECT = {1520, 143, 175, 28}           -- the header's rarity title rect (player_header.toml _player_rarity01)
+  G.TT_CENTRE = 0.4805                       -- the title's visible rows' centre (icon_rarity rows 9..114 of 128)
+  G.TT_X = 1688                              -- the box's left corner: 5 px right of the title band's bottom-right end
+  G.CMD_TAGS = @crc:CMND_VRFW_CHARACTER_TAGS@
+  G.CMD_TAG_SCALE = @crc:CMND_CHARACTERREFORGED_TYPE_TAG_SCALE@
+
+  -- The size factor of the whole type tag (config.toml [player_page] type_tag_scale), kept once answered; 1 while the
+  -- command does not answer. The tag grows from its bottom-left corner, so it keeps sitting on the header plate.
+  function G.type_tag_scale()
+    if G.ttScale == nil then
+      local ok, v = pcall(funcLuaCommand, G.CMD_TAG_SCALE)
+      if ok and type(v) == "number" and v > 0 then
+        G.ttScale = v
+      else
+        return 1
+      end
+    end
+    return G.ttScale
+  end
+
+  -- Lays gauge copy instance i of layer L over the screen rect (left, top, w, h) showing sprite sp of team11_01.
+  function G.type_tag_place(L, i, sp, left, top, w, h)
+    local sx, sy = w / 476, h / 44
+    Cmd(C.SPRITE, L, G.TX_T1101, sp, G.SP_FRAME, 0, i)
+    Cmd(C.SCALE, L, sx, sy, 1, i)
+    Cmd(C.POS, L, left - 94 * sx, -top + 816 * sy, 0, i)
+  end
+
+  function G.type_tag_hide()
+    if Exists(G.TTAG) and Cmd(C.IS_OPEN, G.TTAG, 0) == true then
+      Cmd(C.VIS, G.TTAG, 0, false)
+    end
+    if Exists(G.TICON) then
+      for i = 0, G.TT_BOX.max - 1 do
+        if Cmd(C.IS_OPEN, G.TICON, i) == true then
+          Cmd(C.VIS, G.TICON, i, false)
+        end
+      end
+    end
+  end
+
+  -- The shown player changed: the sprite hashes of his tag icons (empty = none).
+  function G.type_tag_fill(hdl)
+    local icons = {}
+    if type(hdl) == "number" and hdl ~= 0 then
+      local r = table.pack(pcall(funcLuaCommand, G.CMD_TAGS, hdl))
+      if r[1] and type(r[2]) == "number" then
+        for k = 1, r[2] do
+          local sprite = r[2 + 2 * k]
+          if type(sprite) == "string" and sprite ~= "" and #icons < G.TT_BOX.max then
+            icons[#icons + 1] = VRFW.crc32(sprite)
+          end
+        end
+      end
+    end
+    local key = table.concat(icons, ",")
+    if G.ttKey ~= key then
+      G.ttKey, G.ttIcons, G.ttShown = key, icons, nil
+    end
+  end
+
+  function G.type_tag()
+    local L, I = G.TTAG, G.TICON
+    if not On() or not Exists(L) or not Exists(I) or not Exists(G.PAGE) then
+      return
+    end
+    local up = Cmd(C.IS_VIS, G.PAGE, 0) == true and Cmd(C.IS_OPEN, G.PAGE, 0) == true
+    local icons = G.ttIcons or {}
+    if not up or #icons == 0 or G.in_office() then
+      G.type_tag_hide()
+      return
+    end
+    if not Ready(L, 0) then
+      return
+    end
+    for i = 0, #icons - 1 do
+      if not Ready(I, i) then
+        return
+      end
+    end
+    if not G.ready[L * 16] then
+      G.ready[L * 16] = true
+      Cmd(C.TRACE, G.PAGE, 0, L, true)
+      for _, m in ipairs({G.N_TOP, G.N_SIDE, 2043683848}) do
+        Cmd(C.MESH, L, m, false, 0)
+      end
+    end
+    for i = 0, G.TT_BOX.max - 1 do
+      if not G.ready[I * 16 + i] and Cmd(C.IS_OPEN, I, i) == true then
+        G.ready[I * 16 + i] = true
+        Cmd(C.TRACE, G.PAGE, 0, G.TICON_TRACE[i], true)
+        for _, m in ipairs({G.N_TOP, G.N_SIDE, 2043683848}) do
+          Cmd(C.MESH, I, m, false, i)
+        end
+      end
+    end
+    if G.ttShown ~= G.ttKey then
+      G.ttShown = G.ttKey
+      -- the box: its image covers the band plus its shadow (image sides rounded up to multiples of 4 px); every length
+      -- is scaled about the box's bottom-left corner (G.TT_X, the bottom of the unscaled box)
+      local b, n, sc = G.TT_BOX, #icons, G.type_tag_scale()
+      local run = b.slant * b.h
+      local bw = 2 * b.pad + run + n * b.icon + (n - 1) * b.gap
+      local iw = math.ceil((bw + b.shadow) * b.k / 4) * 4 / b.k
+      local ih = math.ceil((b.h + 1) * b.k / 4) * 4 / b.k
+      local cy = G.TT_RECT[2] + G.TT_CENTRE * G.TT_RECT[4]
+      local bottom = cy + b.h / 2
+      G.type_tag_place(L, 0, G.SP_TYPETAG[n], G.TT_X, bottom - b.h * sc, iw * sc, ih * sc)
+      for i = 0, b.max - 1 do
+        if i < n then
+          local x = G.TT_X + (b.pad + run / 2 + i * (b.icon + b.gap)) * sc
+          G.type_tag_place(I, i, icons[i + 1], x, bottom - (b.h + b.icon) / 2 * sc, b.icon * sc, b.icon * sc)
+        elseif Cmd(C.IS_OPEN, I, i) == true then
+          Cmd(C.VIS, I, i, false)
+        end
+      end
+    end
+    Cmd(C.VIS, L, 0, true)
+    for i = 0, #icons - 1 do
+      Cmd(C.VIS, I, i, true)
+    end
+  end

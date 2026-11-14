@@ -1,0 +1,20 @@
+schema = "VRFW.synergy/1"
+
+# The Inazuma Fantasy Chrono Storm Miximax Idols join the CharacterReforged pool chrono_storm_miximax (synergy sf11009).
+[[VRFW.SynergyPool]]
+extends = "CharacterReforged.chrono_storm_miximax"
+charas = [
+    "InazumaFantasy.arion_tezcat_idol",   # Arion Sherwind
+    "InazumaFantasy.riccardo_nobunaga_idol",   # Riccardo Di Rigo
+    "InazumaFantasy.victor_okita_idol",   # Victor Blade
+    "InazumaFantasy.fei_big_idol", "InazumaFantasy.fei_rex_idol",   # Fei Rune
+    "InazumaFantasy.lapin_liu_bei_idol",   # Jean-Pierre Lapin
+    "InazumaFantasy.gabriel_joan_idol",   # Gabriel García
+    "InazumaFantasy.ryoma_sakamoto_idol",   # Ryoma Nishiki
+    "InazumaFantasy.goldie_dragon_queen_idol",   # Goldie Lemmon
+    "InazumaFantasy.sor_quetzalcoatlus_idol",   # Sor
+    "InazumaFantasy.sol_zhuge_idol",   # Sol Daystar (Zhuge Liang)
+    "InazumaFantasy.zanark_clara_idol", "InazumaFantasy.zanark_cao_cao_idol",   # Zanark Avalonic
+    "InazumaFantasy.bailong_zhuge_idol",   # Bai Long (Zhuge Liang)
+]
+same_person = [["c05028160", "InazumaFantasy.zanark_clara_idol", "InazumaFantasy.zanark_cao_cao_idol"]]   # Zanark's Miximax cards carry different name texts

@@ -4,33 +4,98 @@ local better_ui_block = function()
 BetterUI = type(BetterUI) == "table" and BetterUI or {}
 local BETTER_UI_SIGNATURE = "BETTER_UI_GRAFT"
 
-if BetterUI.preset == nil then
-  BetterUI.preset = "limpio"
-end
 BetterUI.flags = BetterUI.flags or {}
-for k, v in pairs({ bank_sort_guide = true, buff_icons = true, buff_panel = false, corner_buttons = true, duel_telop = true, enemy_meters = true, esc_guide = true, exec_offset = true, header_short = true, nickname_pill = true, team_param_guide = true, zone_exec = false, zone_hud = true }) do
+for k, v in pairs({ bank_sort_guide = true, buff_icons = true, corner_buttons = true, enemy_meters = true, esc_guide = true, header_short = true, nickname_pill = true, team_param_guide = true, zone_hud = true }) do
   if BetterUI.flags[k] == nil then
     BetterUI.flags[k] = v
   end
 end
 
-@UI_WRAP@
+local function UiOn(flag)
+  return BetterUI.flags[flag] == true
+end
+
+local function Pack(...)
+  return { n = select("#", ...), ... }
+end
+
+-- Logs at most 30 UI messages.
+local log_count = 0
+local function UiLog(...)
+  if log_count >= 30 then
+    return
+  end
+  log_count = log_count + 1
+  local parts = {}
+  for i = 1, select("#", ...) do
+    parts[#parts + 1] = tostring((select(i, ...)))
+  end
+  if type(funcLuaCommand) == "function" then
+    VRFW.host.command(@crc:CMND_VRFW_LOG_DEBUG@, "BetterUI @TAG@ " .. table.concat(parts, " "))
+  end
+end
+
+-- Runs filter(call, id, ...) on every funcLuaMenuCommand of this VM as an innermost VRFW.host command hook, so the
+-- other hooks run outside it; call(id, ...) passes the same command on and runs another one on the function under
+-- every hook; a nil answer passes the command on.
+local function UiHookMenuCommand(filter)
+  local function register(host)
+    local real = host.real_menu_command
+    host.hook_command("*", function(nxt, id, ...)
+      local function call(command, ...)
+        if command == id then
+          return nxt(command, ...)
+        end
+        return real(command, ...)
+      end
+      local r = filter(call, id, ...)
+      if r ~= nil then
+        return table.unpack(r, 1, r.n)
+      end
+      return nxt(id, ...)
+    end, "BetterUI.@TAG@", { menu = true, priority = host.INNERMOST })
+  end
+  if type(VRFW) == "table" and type(VRFW.host) == "table" and type(VRFW.host.hook_command) == "function" then
+    register(VRFW.host)
+  else
+    -- The menu chunk runs before the Lua patch files: BetterUI's lua/_all/better_ui.lua registers the queue after VRFW's.
+    BetterUI.command_hooks = BetterUI.command_hooks or {}
+    BetterUI.command_hooks[#BetterUI.command_hooks + 1] = register
+  end
+end
+
+-- Wraps a menu callback (OnSetupLayer, OnOpenLayer, ...) that the chunk already defined: `after` runs after it.
+local function UiWrapCallback(name, after)
+  local orig = rawget(_ENV, name)
+  if type(orig) ~= "function" then
+    return false
+  end
+  rawset(_ENV, name, function(...)
+    local r = Pack(orig(...))
+    local ok, err = pcall(after, ...)
+    if not ok then
+      UiLog("error", name, err)
+    end
+    return table.unpack(r, 1, r.n)
+  end)
+  return true
+end
 
 -- Layer ids of soccer_formation_menu, soccer_team_dock_menu and team_dock_formation_menu.
-local UI_TP_LAYER = 3159119257
-local UI_TP_PILL = 3418019775
-local UI_TP_BTN = 950238781
-local UI_TP_TEXT = 378156699
-local UI_TP_ICON = 260772049   -- the team build-type icon, kept hidden
-local UI_TP_BTN_STYLE = 965926135
-local UI_TP_TEXT_STYLE = 2403837512      -- fs_guide01 (-1891129784 as signed int32)
+local UI_TP_LAYER = @crc:mainmenu01_18_team_parameter_button_guide@
+local UI_TP_PILL = @crc:_guide_base01@
+local UI_TP_BTN = @crc:_text_btn01@
+local UI_TP_TEXT = @crc:_text_guide01@
+local UI_TP_ICON = @crc:_icon_build_dmy01@   -- the team build-type icon, kept hidden
+local UI_TP_BTN_STYLE = @crc:fs_48_cc_2d0_btn@
+local UI_TP_TEXT_STYLE = @crc:fs_guide01@      -- fs_guide01 (-1891129784 as signed int32)
 local UI_TP_DEFAULT_TEXT = 1938000735      -- "[CTEAMPARAM01]Bonific. de equipo[C]"
-local CMND_SET_MESH_VISIBLE = 3405944500
-local CMND_SET_LAYER_VISIBLE = 711242136
+local CMND_SET_MESH_VISIBLE = @crc:CMND_SET_MESH_VISIBLE@
+local CMND_SET_LAYER_VISIBLE = @crc:CMND_SET_LAYER_VISIBLE@
 local CMND_SET_TEXT_FONTSTYLE = 2333948100
-local CMND_SET_MENU_TEXT_STRING = 1083631230
-local CMND_UPDATE_TEXT_PLATE = 1172899594
-local CMND_TEXT_GET = 4074371074
+local CMND_SET_MENU_TEXT_STRING = @crc:CMND_SET_MENU_TEXT_STRING@
+local CMND_UPDATE_TEXT_PLATE = @crc:CMND_UPDATE_TEXT_PLATE@
+local CMND_TEXT_GET = @crc:CMND_TEXT_GET@
 local ui_tp_logged = false
 
 local UiFixTeamParam

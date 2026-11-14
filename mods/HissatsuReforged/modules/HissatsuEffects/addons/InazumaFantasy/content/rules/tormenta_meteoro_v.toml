@@ -1,0 +1,11 @@
+# Tormenta meteoro V: Inazuma Fantasy's move that replaces Meteoric Fire Tornado V (whs10160) keeps that move's effect.
+schema = "VRFW.behaviour/1"
+if_mod = "HissatsuEffects.technique_passives"   # options.toml row «technique_passives»: off = not read
+
+# It gets +15% power while its team leads by 2 or more, with the same card text as whs10160.
+[[rule]]
+id = "te_tormenta_meteoro_v"
+on = "match:move_power"
+text = "HissatsuEffects.te_whs10160"
+when = { technique = ["InazumaFantasy.tormenta_meteoro_v"], score_margin = { min = 2 } }
+do = { power_mult = 1.15 }

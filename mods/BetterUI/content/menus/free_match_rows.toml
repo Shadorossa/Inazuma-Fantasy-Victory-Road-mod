@@ -1,0 +1,26 @@
+# Free match team list («Partido libre», soccer_vs_cpu_list_menu, «Elige un equipo …»): one column, 10 rows on
+# screen instead of 9, in the empty band the retail list leaves above the help bar.
+# * The list layout team05_03_evt_fm10.g4pkm is the retail team05_03 with one more row joint after _list10, the rows
+#   at the pitch that fits the new view and the scissor / scrollbar grown to it; built by
+#   research/mods/BetterUI/_tools/bui_free_match_rows_build.py from the retail layout and mViewNum below.
+# * Navigation, scrolling (one row per step), the scrollbar, the cursor and the focus stay native: mViewNum is the
+#   view, mLocatorNum the row locators (view + one above + one below), the row layers one per locator.
+schema = "VRFW.menu/2"
+
+[[object_set]]
+object = "team05_03_soccer_cpu_opponent_list"
+set = [
+    { parameter = "SkeletonAnime", match = { 1 = "common/menu/102_team/team05/team05_03/team05_03.g4pkm" }, values = { 1 = "common/menu/102_team/team05/team05_03/team05_03_evt_fm10.g4pkm" } },
+    { parameter = "mViewNum", values = { 1 = 10 } },
+    { parameter = "mLocatorNum", values = { 1 = 12 } },
+]
+
+[[patch]]
+menu = "soccer_vs_cpu_list_menu"
+layer = "mainmenu90_19_vs_cpu_list_item"
+count = 12
+
+[[patch]]
+menu = "soccer_vs_cpu_list_menu"
+layer = "vsroute01_06b_town_map_piece_clear_icon"
+count = 12

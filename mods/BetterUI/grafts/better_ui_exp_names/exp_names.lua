@@ -1,8 +1,8 @@
 BetterUI = type(BetterUI) == "table" and BetterUI or {}
 do
   local EXP_NAMES = {
-    CARD_LAYER = 1774749226,                             -- chara card, 20 instances
-    TEXT = 170976702,
+    CARD_LAYER = @crc:team00_03_chara_card_for_result@,                             -- chara card, 20 instances
+    TEXT = @crc:_text_chr01@,
     CMD_TEXT_VISIBLE = @crc:CMND_SET_MENU_TEXT_VISIBLE@, -- (layer, text, visible, idx)
     CMD_NODE_VISIBLE = 2158717427,                       -- (layer, node, visible, idx)
     LOG = @crc:CMND_VRFW_LOG@,

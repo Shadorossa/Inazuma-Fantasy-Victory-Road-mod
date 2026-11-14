@@ -3,16 +3,16 @@ BetterUI.controls_guide = {
   MENU = "@MENU@",
   TEXT = 3488731598,          -- the corner button's own label
   ICON = 3794706590,          -- <CMD_FUNC3>
-  KEY = 3421673595,           -- CMD_FUNC3
+  KEY = @crc:CMD_FUNC3@,           -- CMD_FUNC3
   FUNCTION = 1643904886,      -- the lists' retail CMD_FUNC3 function
   PLAY_SOUND = @crc:CMND_SND_PLAY_SE@,
-  DECIDE_SOUND = 3848881948,  -- the retail sound of the controls guide button
+  DECIDE_SOUND = @crc:sy0000@,  -- the retail sound of the controls guide button
   guide_on = false,
 }
 
 -- corner_buttons flag of the menu cleanup block
 function BetterUI.controls_guide.hidden()
-  return BetterUI.preset ~= "off" and type(BetterUI.flags) == "table" and BetterUI.flags.corner_buttons == true
+  return type(BetterUI.flags) == "table" and BetterUI.flags.corner_buttons == true
 end
 
 do

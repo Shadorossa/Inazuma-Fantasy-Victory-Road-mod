@@ -104,6 +104,8 @@ universe_pool_empty = "No players are left to draw from this orb."
 universe_card_owned = "Already in your club"
 mod_name = "Chronicle Deluxe"
 mod_description = "More Chronicle mode: new matches on the IE1 board and three chains from the original IE1 and IE2 with their rivals, chests and ranks, plus a Chronicle battle and a Heroica battle up to Lv 200 for every team. Matches drop move manuals, boots, auras and the rival's kit, and the free match offers Lv 50, 99 and 200. Players Universe gives each character his own star, with daily advanced cards and new constellations on the map."
+option_heroic_requirements = "Heroic Battle requirements"
+option_heroic_requirements_help = "On: a Heroic Battle can only be started with the team it asks for (the players it names and its required player). Off: any team can start it. Its aura rules, rewards and first win stay the same."
 
 [es.new]
 chara_face_01 = { text = "Forrest Linden", table = "chara_text" }
@@ -208,6 +210,8 @@ universe_pool_empty = "Ya no quedan jugadores por conseguir en este orbe."
 universe_card_owned = "Ya en tu club"
 mod_name = "Chronicle Deluxe"
 mod_description = "Más modo Crónica: partidos nuevos en el tablero de IE1 y tres cadenas de los IE1 e IE2 originales con sus rivales, cofres y rangos, además de una batalla de Crónica y una Batalla heroica hasta Lv 200 para cada equipo. Los partidos sueltan manuales de supertécnicas, botas, auras y la equipación del rival, y el partido libre ofrece Lv 50, 99 y 200. El Universo del jugador da a cada personaje su propia estrella, con cartas avanzadas diarias y nuevas constelaciones en el mapa."
+option_heroic_requirements = "Requisitos de batalla heroica"
+option_heroic_requirements_help = "Activado: una Batalla heroica solo se puede empezar con el equipo que pide (los jugadores que indica y su jugador obligatorio). Desactivado: cualquier equipo puede empezarla. Sus reglas de auras, sus recompensas y su primera victoria no cambian."
 
 [fr.new]
 chara_face_01 = { text = "Forrest Linden", table = "chara_text" }
@@ -312,6 +316,8 @@ universe_pool_empty = "Il ne reste plus de joueurs à obtenir dans cet orbe."
 universe_card_owned = "Déjà dans ton club"
 mod_name = "Chronicle Deluxe"
 mod_description = "Plus de mode Chronique : de nouveaux matchs sur le plateau d'IE1 et trois chaînes des IE1 et IE2 originaux avec leurs rivaux, coffres et rangs, plus une bataille de Chronique et une bataille héroïque jusqu'au Lv 200 pour chaque équipe. Les matchs font gagner des manuels de supertechniques, des chaussures, des auras et la tenue du rival, et le match libre propose Lv 50, 99 et 200. L'Univers des joueurs donne à chaque personnage sa propre étoile, avec des cartes avancées quotidiennes et de nouvelles constellations sur la carte."
+option_heroic_requirements = "Conditions des batailles héroïques"
+option_heroic_requirements_help = "Activé : une bataille héroïque ne peut être lancée qu'avec l'équipe qu'elle demande (les joueurs indiqués et son joueur obligatoire). Désactivé : n'importe quelle équipe peut la lancer. Ses règles d'auras, ses récompenses et sa première victoire ne changent pas."
 
 [de.new]
 chara_face_01 = { text = "Forrest Linden", table = "chara_text" }
@@ -416,6 +422,8 @@ universe_pool_empty = "In dieser Kugel sind keine Spieler mehr zu erhalten."
 universe_card_owned = "Schon in deinem Verein"
 mod_name = "Chronicle Deluxe"
 mod_description = "Mehr Chronik-Modus: neue Spiele auf dem Brett von IE1 und drei Ketten aus dem originalen IE1 und IE2 mit ihren Rivalen, Truhen und Rängen, dazu für jedes Team einen Chronik-Kampf und einen Heldenkampf bis Lv 200. Spiele bringen Technik-Handbücher, Schuhe, Auren und das Trikot des Rivalen, und das freie Spiel bietet Lv 50, 99 und 200. Das Spieler-Universum gibt jedem Charakter seinen eigenen Stern, mit täglichen fortgeschrittenen Karten und neuen Sternbildern auf der Karte."
+option_heroic_requirements = "Bedingungen der Heldenkämpfe"
+option_heroic_requirements_help = "An: Ein Heldenkampf kann nur mit dem verlangten Team gestartet werden (die genannten Spieler und ihr Pflichtspieler). Aus: Jedes Team kann ihn starten. Seine Aura-Regeln, Belohnungen und der erste Sieg bleiben gleich."
 
 [it.new]
 chara_face_01 = { text = "Forrest Linden", table = "chara_text" }
@@ -520,6 +528,8 @@ universe_pool_empty = "Non ci sono più giocatori da ottenere in questa sfera."
 universe_card_owned = "Già nel tuo club"
 mod_name = "Chronicle Deluxe"
 mod_description = "Più modalità Cronaca: nuove partite sul tabellone di IE1 e tre catene dagli IE1 e IE2 originali con i loro rivali, forzieri e rank, più una battaglia di Cronaca e una battaglia eroica fino al Lv 200 per ogni squadra. Le partite fanno ottenere manuali di supertecniche, scarpe, aure e la divisa del rivale, e la partita libera offre Lv 50, 99 e 200. L'Universo dei giocatori dà a ogni personaggio la sua stella, con carte avanzate giornaliere e nuove costellazioni sulla mappa."
+option_heroic_requirements = "Requisiti delle battaglie eroiche"
+option_heroic_requirements_help = "Attivato: una battaglia eroica si può iniziare solo con la squadra che richiede (i giocatori indicati e il suo giocatore obbligatorio). Disattivato: qualsiasi squadra può iniziarla. Le regole delle aure, le ricompense e la prima vittoria restano uguali."
 
 [pt.new]
 chara_face_01 = { text = "Forrest Linden", table = "chara_text" }
@@ -624,6 +634,8 @@ universe_pool_empty = "Já não há jogadores para obter nesta orbe."
 universe_card_owned = "Já está no teu clube"
 mod_name = "Chronicle Deluxe"
 mod_description = "Mais modo Crónica: jogos novos no tabuleiro do IE1 e três cadeias dos IE1 e IE2 originais com os seus rivais, baús e classificações, mais uma batalha de Crónica e uma Batalha heroica até ao Nv. 200 para cada equipa. Os jogos dão manuais de supertécnicas, chuteiras, auras e o equipamento do rival, e o jogo livre oferece Nv. 50, 99 e 200. O Universo dos jogadores dá a cada personagem a sua própria estrela, com cartas avançadas diárias e novas constelações no mapa."
+option_heroic_requirements = "Requisitos da Batalha heroica"
+option_heroic_requirements_help = "Ativado: uma Batalha heroica só pode ser iniciada com a equipa que pede (os jogadores indicados e o seu jogador obrigatório). Desativado: qualquer equipa pode iniciá-la. As regras de auras, as recompensas e a primeira vitória não mudam."
 
 [ja.new]
 chara_face_01 = { text = "[森河/もりかわ] [樹/いつき]", table = "chara_text" }
@@ -728,6 +740,8 @@ universe_pool_empty = "このオーブから獲得できる選手はもういま
 universe_card_owned = "すでにクラブにいます"
 mod_name = "Chronicle Deluxe"
 mod_description = "クロニクルモードをもっと楽しめます。IE1の盤面に新しい試合を追加し、初代IE1・IE2の3つのルートをライバルや宝箱、ランクとともに収録。各チームにクロニクルバトルとヒロイックバトル（Lv 200まで）があります。試合では必殺技の書、シューズ、オーラ、相手のユニフォームが手に入り、フリーマッチにはLv 50・99・200があります。プレイヤーズユニバースでは、各キャラクターに専用の星があり、毎日の上級カードとマップ上の新しい星座が加わります。"
+option_heroic_requirements = "ヒロイックバトルの出場条件"
+option_heroic_requirements_help = "オン：ヒロイックバトルは指定されたチーム（指定の選手と必須の選手）でしか始められません。オフ：どのチームでも始められます。オーラのルール、報酬、初勝利はそのままです。"
 
 [zh_hans.new]
 chara_face_01 = { text = "森河 树", table = "chara_text" }
@@ -832,6 +846,8 @@ universe_pool_empty = "这个宝珠已经没有可获得的球员了。"
 universe_card_owned = "已在你的俱乐部中"
 mod_name = "Chronicle Deluxe"
 mod_description = "更多编年史模式：在 IE1 棋盘上新增比赛，收录初代 IE1 和 IE2 的三条路线（含对手、宝箱和评价），每支球队还有最高 Lv 200 的编年史对战和英雄对战。比赛会掉落必杀技秘籍、球鞋、灵气以及对手的队服，自由比赛提供 Lv 50、99、200 三种难度。球员宇宙为每个角色提供专属的星星，并带来每日进阶卡片和地图上的新星座。"
+option_heroic_requirements = "英雄对战出场条件"
+option_heroic_requirements_help = "开启：英雄对战只能用指定的队伍开始（指定的球员和必须上场的球员）。关闭：任何队伍都能开始。灵气规则、奖励和首胜不变。"
 
 [zh_hant.new]
 chara_face_01 = { text = "森河 樹", table = "chara_text" }
@@ -936,3 +952,5 @@ universe_pool_empty = "這個寶珠已經沒有可獲得的球員了。"
 universe_card_owned = "已在你的俱樂部中"
 mod_name = "Chronicle Deluxe"
 mod_description = "更多編年史模式：在 IE1 棋盤上新增比賽，收錄初代 IE1 和 IE2 的三條路線（含對手、寶箱和評價），每支球隊還有最高 Lv 200 的編年史對戰和英雄對戰。比賽會掉落必殺技秘笈、球鞋、靈氣以及對手的隊服，自由比賽提供 Lv 50、99、200 三種難度。球員宇宙為每個角色提供專屬的星星，並帶來每日進階卡片和地圖上的新星座。"
+option_heroic_requirements = "英雄對戰出場條件"
+option_heroic_requirements_help = "開啟：英雄對戰只能用指定的隊伍開始（指定的球員和必須上場的球員）。關閉：任何隊伍都能開始。靈氣規則、獎勵和首勝不變。"

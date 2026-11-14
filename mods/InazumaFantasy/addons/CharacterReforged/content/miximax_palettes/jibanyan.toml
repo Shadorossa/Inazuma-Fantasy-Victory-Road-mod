@@ -1,0 +1,14 @@
+# Jibanyan's miximax colours: his own model has no game character to lend him colour keys, so this mod declares them.
+# The red fur is his hair colour, the cream fur his face and body skin and the black pupil his iris.
+# The yellow eye ring is his sclera, so it is never recoloured and never given to a partner.
+schema = "VRFW.miximax_palette/1"
+
+[[VRFW.MiximaxPalette]]
+character = "c90620000"
+head = "_face/90_FANTASY/c90620000/c90620000.g4tx"
+hair = "#F74B2E"
+face = "#FFFFEF"
+iris = "#000000"
+skin = "#FFFFEF"
+# The painted zones of his head: red fur and cream fur only, so his eyes keep their colour.
+zones = { face = "assets/images/miximax_zones/c90620000_face.png", hair = "assets/images/miximax_zones/c90620000_hair.png" }

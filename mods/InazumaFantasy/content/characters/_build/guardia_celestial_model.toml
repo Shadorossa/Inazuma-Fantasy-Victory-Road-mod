@@ -1,0 +1,18 @@
+# Guardia celestial's giant (guardia_celestial_model.toml): the ghost of Ultramanos magicas in the colours of Impulso
+# del equipo definitivo, with a rainbow aura in its own shape. Built by _tools/model_builder.py (dev-only, never installed).
+recipe = "retail_recolour"
+
+[rules]
+giant = "ev63_01660"
+model = "ev63_91660"
+model_folder = "chr/_waza/ev63_91660"
+rainbow_picture = "images/fx/guardia_celestial_rainbow.png"
+final_shot_textures = "dx11/effect/event/ev60/ev60023500/ev60023500.g4tx"
+rainbow_texture = "whs0090_ef_06"
+ghost_effect = "common/effect/event/ev63/ev63016600/ev63016600.g4pkm"
+aura_material = "Effect_T3ThresholdF_55"
+aura_priority = 30
+# luminance -> colour, from the final shot's textures: Jump_02, Jump_01, whs0090_ef_04, white
+gradient = [[0.0, [1.0, 0.624, 0.0]], [0.25, [0.996, 0.867, 0.004]], [0.6, [0.996, 0.973, 0.776]], [1.0, [1.0, 1.0, 1.0]]]
+recoloured = ["_10", "_20", "_10sp", "_20sp"]
+shells = [[0.012, 150], [0.024, 95], [0.038, 55]]

@@ -1,0 +1,104 @@
+schema = "VRFW.character/2"
+default_lang = "en"
+
+# Enma Awoken: forward, wind (his long hair turning into blue spirit smoke), on the retail tall c000301 skeleton, wearing his own outfit (content/looks/enma_awoken.toml; force_kit 1: no team kit replaces it).
+# Stats rolled once (seed 20261115) inside the range of the 22 forward cards of this mod: kick and agility in their upper half, the rest in their lower half.
+[[character]]
+name = "enma_awoken"
+based_on = "c05029720"  # template: Luke Triton (own clothes, no kit)
+order = 206
+
+  [character.base]
+  id = 0xDFAB4852  # crc32("c90680000")
+  name = "c90680000"
+  name_text = 0xCCF88935  # crc32("c90680000_name")
+  short_name_text = 0x306A2A43  # crc32("c90680000_short")
+  upper_name_text = 0xD11D657D  # crc32("c90680000_upper")
+  description_text = 0x1594B12F  # crc32("c90680000_description")
+  model = 0x68D7C838
+  # album only: not on any team, so Luke's belong team is cleared
+  team_1 = 0
+  team_2 = 0
+  team_3 = 0x5595D5FA  # crc32("evt_belong_team_fantasy"): the bank's Fantasy tab
+
+  [character.new_model]
+  id = 0x68D7C838  # crc32("c90680000_model")
+  from = "c05029720"
+  [character.new_model.cells]
+  body = 0x4973FC81  # crc32("c90680000_body"), content/tables/common/gamedata/character/chara_model.toml
+  head_mesh_path = "_face/90_FANTASY/c90680000/c90680000.g4md"
+  clothes = 0x8D9C8AF1  # crc32("u90680000_10"), his outfit, content/looks/enma_awoken.toml
+  skin_color = 0xC57168FF  # his red skin: the outfit's skin part draws the wearer's skin colour
+  shoes = 0
+  gloves = 0
+  force_kit = 1
+
+  [character.text.ja]
+  name = "覚醒エンマ"
+  short = "覚醒エンマ"
+  upper = "KAKUSEI ENMA"
+  description = "[妖魔界/ようまかい]を[統/す]べる[大王/だいおう]\nエンマが[覚醒/かくせい]した[姿/すがた]。"
+
+  [character.text.en]
+  name = "Enma Awoken"
+  short = "Enma Awoken"
+  upper = "ENMA AWOKEN"
+  description = "Enma, the great king who rules the\nYo-kai world, in his awakened form."
+
+  [character.text.es]
+  name = "Enma Awoken"
+  short = "Enma Awoken"
+  upper = "ENMA AWOKEN"
+  description = "Enma, el gran rey que gobierna el mundo\nyo-kai, en su forma despertada."
+
+  [character.text.fr]
+  name = "Enma Awoken"
+  short = "Enma Awoken"
+  upper = "ENMA AWOKEN"
+  description = "Enma, le grand roi qui règne sur le monde\nyo-kai, sous sa forme éveillée."
+
+  [character.text.de]
+  name = "Enma Awoken"
+  short = "Enma Awoken"
+  upper = "ENMA AWOKEN"
+  description = "Enma, der große König der Yo-kai-Welt,\nin seiner erwachten Gestalt."
+
+  [character.text.it]
+  name = "Enma Awoken"
+  short = "Enma Awoken"
+  upper = "ENMA AWOKEN"
+  description = "Enma, il grande re che governa il mondo\nyo-kai, nella sua forma risvegliata."
+
+  [character.text.pt]
+  name = "Enma Awoken"
+  short = "Enma Awoken"
+  upper = "ENMA AWOKEN"
+  description = "Enma, o grande rei que governa o mundo\nyo-kai, na sua forma despertada."
+
+  [character.text.zh_hans]
+  name = "觉醒阎魔"
+  short = "觉醒阎魔"
+  upper = "ENMA AWOKEN"
+  description = "统治妖魔界的大王\n阎魔觉醒后的姿态。"
+
+  [character.text.zh_hant]
+  name = "覺醒閻魔"
+  short = "覺醒閻魔"
+  upper = "ENMA AWOKEN"
+  description = "統治妖魔界的大王\n閻魔覺醒後的姿態。"
+
+  [[character.cards]]
+  id = 0x84CF6FE0  # crc32("c90680000_card")
+  from = 0xEDB0B29D  # template: Luke Triton's card
+  order = 206
+  element = "wind"
+  position = "fw"
+  rank = 3
+  growth = "normal"
+  stats = { kick = 354, control = 230, technique = 261, pressure = 185, physical = 188, intelligence = 210, agility = 216, luck = 124, freedom = 0 }
+  moves = [
+    { move = "whs00990", level = 1 },                     # The Typhoon (shot, wind, 360)
+    { move = "who00950", level = 20 },                    # Tornado Tunnel (dribble, wind, 440)
+    { move = "whs02260", level = 38 },                    # Majestic Radiance (shot, wind, 540)
+    { move = "whs02900", level = 60 },                    # God Alone Knows (shot, wind, 640)
+  ]

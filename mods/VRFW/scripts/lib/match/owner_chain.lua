@@ -1,14 +1,14 @@
--- The last owners of the ball in a match, used to name the player who assisted a goal.
+-- Advanced: The last owners of the ball in a match, used to name the player who assisted a goal.
 local M = {}
 
 local LENGTH = 8
 
---- A new, empty chain.
+--- Advanced: A new, empty chain.
 function M.new()
   return {}
 end
 
---- Adds `owner` of `team` as the ball's new owner; answers false when `owner` already held it.
+--- Advanced: Adds `owner` of `team` as the ball's new owner; answers false when `owner` already held it.
 function M.push(chain, owner, team)
   local n = #chain
   if n > 0 and chain[n][1] == owner then
@@ -21,7 +21,7 @@ function M.push(chain, owner, team)
   return true
 end
 
---- The teammate of `team` who gave `scorer` the ball; nil when the goal had no assist.
+--- Advanced: The teammate of `team` who gave `scorer` the ball; nil when the goal had no assist.
 function M.assist(chain, scorer, team)
   local n = #chain
   local seen = false

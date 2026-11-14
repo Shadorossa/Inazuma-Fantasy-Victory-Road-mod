@@ -16,3 +16,8 @@ file = "universe_days.lua"
 [[script]]
 file = "universe_orbs.lua"
 allow = ["save"]
+
+# the pachangas of the free match list: the armed game and the won ones, kept in the save slot
+[[script]]
+file = "free_match_pachanga.lua"
+allow = ["save"]

@@ -7,6 +7,7 @@ local Fit, G, Hit, Initials, Int = Screen.fit, Screen.G, Screen.hit, Screen.init
 local Log, ModById, PopupButtons, PopupWindow = Screen.log, Screen.mod_by_id, Screen.popup_buttons, Screen.popup_window
 local Quad, RV, SE_MOVE, SE_NG, SP, Str = Screen.quad, Screen.RV, Screen.SE_MOVE, Screen.SE_NG, Screen.SP, Screen.str
 local T, TextIdKey, Txt, Units, Wrap, ui = Screen.T, Screen.text_id_key, Screen.txt, Screen.units, Screen.wrap, Screen.ui
+local BASE = Screen.BASE
 
 RV.OPT = {ROWS = Crc("CMND_VRFW_OPTION_ROWS"), ROW = Crc("CMND_VRFW_OPTION_ROW"), GET = Crc("CMND_VRFW_OPTION_GET"),
           SET = Crc("CMND_VRFW_OPTION_SET"), STEP = Crc("CMND_VRFW_OPTION_STEP"), TEXT = Crc("CMND_VRFW_OPTION_TEXT")}
@@ -86,6 +87,11 @@ function RV.text_of(id, fallback)
   return fallback
 end
 
+-- The settings list the keys and the pointer act on: the docked page's, else the Settings tab's.
+function RV.set_state()
+  return ui.popup or ui.all_settings
+end
+
 -- (value, changeable): nil for a row with its own Lua behaviour or a value nobody answers
 function RV.value(r)
   if r.module ~= nil then
@@ -148,7 +154,7 @@ end
 
 -- Y on a setting: the focused row goes back to its default value.
 function RV.restore_default(m)
-  local r = RV.set_rows(m)[ui.popup.srow or 1]
+  local r = RV.set_rows(m)[RV.set_state().srow or 1]
   local v, live = nil, false
   if r ~= nil and r.module == nil then
     v, live = RV.value(r)
@@ -184,7 +190,7 @@ end
 
 -- the selected row's (or `row`'s) value one step in direction `dir` (±1), stored where the row keeps it
 function RV.change(m, dir, row)
-  local r = row or RV.set_rows(m)[ui.popup.srow or 1]
+  local r = row or RV.set_rows(m)[RV.set_state().srow or 1]
   if r ~= nil and r.module ~= nil then
     return RV.toggle_module(r.module)
   end
@@ -206,9 +212,11 @@ function RV.change(m, dir, row)
   Draw()
 end
 
-RV.HEAD_H, RV.ROW_H, RV.SET_ROWS = 34, 46, 11
+RV.HEAD_H, RV.ROW_H = 28, 38
 -- where a page draws its settings rows: quad / left text / centred text layers, section bar height
-RV.PAGE_ROW = {q = "P1", l = "PL", c = "PC", bar_h = RV.HEAD_H - 6}
+RV.PAGE_ROW = {q = "P1", l = "PL", c = "PC", bar_h = RV.HEAD_H}
+-- the Settings tab's first column: the screen's own layers (its backdrop is on Q0, under them)
+RV.TAB_ROW = {q = "Q1", l = "TL", c = "TC", bar_h = RV.HEAD_H}
 -- The retail atlases a setting row is drawn from (the Options menu's row pieces, the list window's check box, the alert icons).
 RV.ART = {
   option = "#/menu/108_option/option01/option01_02/option01_02.g4tx",
@@ -216,10 +224,19 @@ RV.ART = {
   alert = "#/menu/20_cmn/cmn01/cmn01_10/cmn01_10.g4tx",
   changed = "#/menu/20_cmn/cmn01/cmn01_12/cmn01_12.g4tx",
 }
--- A setting row's measures: child indent, where the value zone starts (share of the plate), check box side, mark side,
--- the fewest values that draw a gauge, the opacity of a row that cannot change.
-RV.ROW = {CHILD_INDENT = 30, VALUE_FROM = 0.61, CHECK_SIDE = 26, MARK_SIDE = 24, GAUGE_MIN_VALUES = 8, LOCKED_OPACITY = 0.55,
-          LABEL_SCALE = 0.7, VALUE_SCALE = 0.66, NOTE_SCALE = 0.5}
+-- A setting row's measures (screen px; the sprites are atlas.rs size::SET_*): child indent, check box side, mark side,
+-- the fewest values that draw a slider, the opacity of a row that cannot change, the text scales.
+RV.ROW = {CHILD_INDENT = 22, CHECK_SIDE = 26, MARK_SIDE = 24, GAUGE_MIN_VALUES = 8, LOCKED_OPACITY = 0.55,
+          LABEL_SCALE = 0.66, VALUE_SCALE = 0.62, NOTE_SCALE = 0.5,
+          GAP = 4,                                   -- between two rows (plate height = RV.ROW_H - GAP)
+          CAP_W = 12, VALUE_W = 252, TREE_SIDE = 16,  -- plate start, value box, tree mark (atlas sizes)
+          LABEL_X = 30, TREE_W = 26, LABEL_MIN_W = 260, MARKS_W = 56,   -- label start, tree room, label column floor, mark column
+          TRACK_X = 34, TRACK_Y = 8,                 -- the slider track inside the value box: inset from each end, from the bottom
+          HELP_GAP = 24, HELP_MIN_W = 320, HELP_LINES = 8,   -- the help pane right of the rows
+          HELP_BAR_H = 40, HELP_LINE_H = 28, VALUE_LINE_H = 30,   -- the help's title bar, one help line, one value line
+          COL_GAP = 48,                              -- between two columns of rows
+          STRIP_GAP = 16, STRIP_VALUES_W = 520, STRIP_PAD = 10,   -- the help strip under the columns: gap above, value block, padding
+          STRIP_HELP_LINES = 3}                      -- the most help lines the strip shows (its height follows, the rows above get the rest)
 
 -- Sprite `sprite` of retail atlas `atlas` (a key of RV.ART) as a quad.
 function RV.art_quad(layer, atlas, sprite, x, y, w, h, alpha)
@@ -277,18 +294,18 @@ function RV.activate(m, n)
     funcLuaCommand(C.SE, SE_NG)
     return
   end
-  ui.popup.srow, ui.popup.szone = n, "rows"
+  local p = RV.set_state()
+  p.srow, p.szone = n, "rows"
   RV.change(m, 1)
 end
 
--- The pad in the "Settings" view.
-function RV.settings_key(id)
-  local m = ModById(ui.popup.id)
+-- The pad on the settings rows of mod `m` (a page's "Settings" view or the Settings tab).
+function RV.settings_key(id, m)
   local rows = m and RV.set_rows(m) or {}
   if #rows == 0 then
     return false
   end
-  local p = ui.popup
+  local p = RV.set_state()
   local lines = RV.layout(m)
   local function moved(ok)
     funcLuaCommand(C.SE, ok and SE_MOVE or SE_NG)
@@ -326,11 +343,45 @@ function RV.settings_key(id)
     end
     p.srow = lines[k].items[1]
     moved(true)
+  elseif p.grid ~= nil and p.grid.cols > 1 then
+    p.srow = sel
+    moved(RV.column_move(p, id == FN.LEFT and -1 or 1))
   else
     p.srow = sel
     RV.change(m, id == FN.LEFT and -1 or 1)
   end
   return true
+end
+
+-- Left / right on rows drawn in columns (p.grid from RV.draw_settings): the focus goes to the row at the nearest height
+-- of the column d (±1) away, past the page's edge to the next / previous page. false = no column there.
+function RV.column_move(p, d)
+  local pages = p.grid.pages
+  for pk, page in ipairs(pages) do
+    for c, col in ipairs(page) do
+      for _, e in ipairs(col) do
+        if e.n == p.srow then
+          local to = page[c + d]
+          if to == nil and pages[pk + d] ~= nil then
+            local np = pages[pk + d]
+            to = np[d > 0 and 1 or #np]
+          end
+          if to == nil then
+            return false
+          end
+          local best = to[1]
+          for _, t in ipairs(to) do
+            if math.abs(t.y - e.y) < math.abs(best.y - e.y) then
+              best = t
+            end
+          end
+          p.srow = best.n
+          return true
+        end
+      end
+    end
+  end
+  return false
 end
 
 -- a setting's label split into its "[Prefix]" (the chip) and the rest; the module group's name
@@ -354,15 +405,15 @@ function RV.set_help(r)
   return id ~= nil and Str(Call(C.TEXT_GET, id)) or ""
 end
 
--- a module's slim section bar: its badge (icon or two letters) and its name
+-- a module's section header: its name and a thin line to the rows' end (one quad)
 function RV.draw_group_bar(style, mm, x, y, w)
   local h = style.bar_h
-  Quad(style.q, SP("row_head"), x, y, w, h)
-  local name = RV.group_name(mm)
-  if not CE.draw_icon(style.q, mm, x + 8, y + 3, h - 6, 1) then
-    Txt(style.c, Initials({name = name, id = name}), x + 8 + (h - 6) / 2, y + h / 2, 0.5)
+  local name = Cut(RV.group_name(mm), Fit(w - 60, 0.6))
+  Txt(style.l, "[CN]" .. name .. "[C]", x + 4, y + h / 2, 0.6)
+  local lx = x + 18 + math.floor(Units(name) * G.PX * 0.6)
+  if lx < x + w then
+    Quad(style.q, SP("line"), lx, math.floor(y + h / 2), x + w - lx, 2)
   end
-  Txt(style.l, Cut(name, Fit(w - 80, 0.66)), x + h + 14, y + h / 2, 0.66)
 end
 
 -- a category's sub-header inside its mod: its name only, no plate
@@ -371,14 +422,22 @@ function RV.draw_category_bar(style, category, x, y, w)
   Txt(style.l, Cut(name, Fit(w - 24, 0.58)), x + 12, y + style.bar_h / 2, 0.58)
 end
 
--- The value zone of a row (from x0 to x1): the picker arrows on the focused row, then a check box, a gauge or the value's text.
-function RV.draw_value(style, r, v, live, focused, x0, x1, y, h)
+-- The value box of a row (from x0, R.VALUE_W wide): the box, the picker arrows on the focused row, then a check box, a slider or the value's text.
+function RV.draw_value(style, r, v, live, focused, x0, y, h)
   local R = RV.ROW
-  local cy, mid = y + h / 2, (x0 + x1) / 2
+  local x1 = x0 + R.VALUE_W
+  local cy, mid = y + h / 2, x0 + R.VALUE_W / 2
+  local alpha = live and 1 or R.LOCKED_OPACITY
   local ink = focused and "" or (live and "[CB]" or "[CWG]")
   local close = ink ~= "" and "[C]" or ""
+  local text, position, count = nil, nil, nil
+  if v ~= nil and not (r.module == nil and (r.kind == "lua" or r.storage == "lua")) then
+    text, position, count = RV.fmt(r, v)
+  end
+  local slider = count ~= nil and count >= R.GAUGE_MIN_VALUES
+  Quad(style.q, SP("set_val" .. (slider and "_g" or "") .. (focused and "_sel" or "")), x0, y, R.VALUE_W, h, alpha)
   if r.module == nil and (r.kind == "lua" or r.storage == "lua") then
-    Txt(style.c, ink .. Cut(T("set_lua"), Fit(x1 - x0, R.NOTE_SCALE)) .. close, mid, cy, R.NOTE_SCALE)
+    Txt(style.c, ink .. Cut(T("set_lua"), Fit(R.VALUE_W - 30, R.NOTE_SCALE)) .. close, mid, cy, R.NOTE_SCALE)
     return
   end
   if v == nil then
@@ -386,83 +445,91 @@ function RV.draw_value(style, r, v, live, focused, x0, x1, y, h)
     return
   end
   if focused and live then
-    RV.art_quad(style.q, "option", "btn_arrow_l01", x0 + 6, cy - 17, 28, 34)
-    RV.art_quad(style.q, "option", "btn_arrow_r01", x1 - 34, cy - 17, 28, 34)
+    Quad(style.q, SP("set_arr_l"), x0 + 12, math.floor(cy - 10), 12, 20)
+    Quad(style.q, SP("set_arr_r"), x1 - 24, math.floor(cy - 10), 12, 20)
   end
-  local text, position, count = RV.fmt(r, v)
-  text = Cut(text, Fit(x1 - x0 - 130, R.VALUE_SCALE))
+  text = Cut(text, Fit(R.VALUE_W - 70, R.VALUE_SCALE))
   if count == 2 and (r.module ~= nil or r.kind == "toggle") then
     local tw = Units(text) * G.PX * R.VALUE_SCALE
-    RV.draw_check(style.q, mid - tw / 2 - R.CHECK_SIDE, cy, v == 1, live and 1 or R.LOCKED_OPACITY)
+    RV.draw_check(style.q, mid - tw / 2 - R.CHECK_SIDE, cy, v == 1, alpha)
     Txt(style.c, ink .. text .. close, mid + 14, cy, R.VALUE_SCALE)
-  elseif count ~= nil and count >= R.GAUGE_MIN_VALUES then
-    Txt(style.c, ink .. text .. close, mid, cy - 6, R.VALUE_SCALE)
-    local gx, gw = x0 + 52, x1 - x0 - 104
-    RV.art_quad(style.q, "option", "gauge_base01", gx, y + h - 11, gw, 6)
+  elseif slider then
+    -- the slider's fill on the box's own track (R.TRACK_X from each end, R.TRACK_Y above the bottom)
+    Txt(style.c, ink .. text .. close, mid, cy - 4, R.VALUE_SCALE)
+    local gw = R.VALUE_W - 2 * R.TRACK_X
     local fill = math.floor(gw * position / (count - 1))
     if fill > 0 then
-      RV.art_quad(style.q, "option", "gauge_bar01", gx, y + h - 11, fill, 6)
+      Quad(style.q, SP(focused and "cyan" or "blue"), x0 + R.TRACK_X, y + h - R.TRACK_Y, fill, 3, alpha)
     end
   else
     Txt(style.c, ink .. text .. close, mid, cy, R.VALUE_SCALE)
   end
 end
 
--- The value zone (x0, x1) of row r drawn at x, w wide (a child row is indented).
-function RV.value_zone(r, x, w)
-  if r.parent ~= nil then
-    x, w = x + RV.ROW.CHILD_INDENT, w - RV.ROW.CHILD_INDENT
+-- The widest label among rows `rows` (screen px at the label scale).
+function RV.label_width(rows)
+  local w = 0
+  for _, r in ipairs(rows) do
+    local label, chip = RV.set_label(r)
+    if chip ~= nil then
+      label = chip .. " · " .. label
+    end
+    w = math.max(w, math.floor(Units(label) * G.PX * RV.ROW.LABEL_SCALE))
   end
-  return x + math.floor(w * RV.ROW.VALUE_FROM), x + w - 20
+  return w
 end
 
--- One setting row in the Options menu's look: plate (the child plate under a parent row), changed mark, label, restart mark, default, value.
+-- The plate width of a page's rows: label column (the widest label, clamped), the mark column, the value box.
+function RV.plate_width(rows, w)
+  local R = RV.ROW
+  local fixed = R.LABEL_X + R.TREE_W + R.MARKS_W + R.VALUE_W
+  return math.min(w - R.HELP_MIN_W, fixed + math.max(R.LABEL_MIN_W, RV.label_width(rows)))
+end
+
+-- The value box's left edge of row r on a plate drawn at x, w wide.
+function RV.value_x(x, w)
+  return x + w - RV.ROW.VALUE_W
+end
+
+-- One setting row: plate (start + stretched body, 1:1 sprites), tree mark of a child row, label, mark column (changed, restart), value box.
 function RV.draw_row(style, r, x, y, w, h, focused)
   local R = RV.ROW
-  local x0, x1 = RV.value_zone(r, x, w)
   local v, live = RV.value(r)
+  local alpha = live and 1 or R.LOCKED_OPACITY
   local child = r.parent ~= nil
-  if child then
-    x, w = x + R.CHILD_INDENT, w - R.CHILD_INDENT
-  end
+  local px = child and x + R.CHILD_INDENT or x
+  local vx = RV.value_x(x, w)
   local cy = y + h / 2
-  RV.art_quad(style.q, "option", (child and "option_list_base03_" or "option_list_base02_") .. (focused and "on" or "off"), x, y, w, h,
-              live and 1 or R.LOCKED_OPACITY)
+  local sel = focused and "_sel" or ""
+  Quad(style.q, SP("set_l" .. sel), px, y, R.CAP_W, h, alpha)
+  Quad(style.q, SP("set_m" .. sel), px + R.CAP_W, y, vx - px, h, alpha)   -- the body runs on under the value box
+  local tx = x + R.LABEL_X
+  if child then
+    Quad(style.q, SP("set_tree" .. sel), px + 12, math.floor(cy - R.TREE_SIDE / 2), R.TREE_SIDE, R.TREE_SIDE, alpha)
+    tx = tx + R.TREE_W
+  end
   local ink = focused and "" or (live and "[CB]" or "[CWG]")
   local close = ink ~= "" and "[C]" or ""
-  local changed, pending = RV.row_state(r, v)
-  local tx = x + (child and math.floor(w * 0.085) or 36)
+  local changed = RV.row_state(r, v)
+  -- the mark column right before the value box: changed (left slot), restart (right slot)
+  local mx = vx - R.MARKS_W
   if changed then
-    RV.art_quad(style.q, "changed", "icon_new03", tx - R.MARK_SIDE - 4, cy - R.MARK_SIDE / 2, R.MARK_SIDE, R.MARK_SIDE)
+    RV.art_quad(style.q, "changed", "icon_new03", mx, math.floor(cy - R.MARK_SIDE / 2), R.MARK_SIDE, R.MARK_SIDE)
   end
-  local right = x0 - 12
-  if changed then
-    -- The default value ends where the value zone starts.
-    local s = Cut(T("set_default_is", {v = (RV.fmt(r, r.default))}), Fit(170, R.NOTE_SCALE))
-    right = right - math.floor(Units(s) * G.PX * R.NOTE_SCALE)
-    Txt(style.l, (focused and "" or "[CWG]") .. s .. (focused and "" or "[C]"), right, cy, R.NOTE_SCALE)
-    right = right - 12
+  if r.restart then
+    RV.art_quad(style.q, "alert", "icon_error01", mx + R.MARK_SIDE + 4, math.floor(cy - R.MARK_SIDE / 2), R.MARK_SIDE, R.MARK_SIDE)
   end
-  local note = pending and T("set_on_restart") or nil
-  local room = right - tx - (r.restart and (R.MARK_SIDE + 10) or 0) - (note ~= nil and math.floor(Units(note) * G.PX * R.NOTE_SCALE) + 8 or 0)
   local label, chip = RV.set_label(r)
   if chip ~= nil then
     label = chip .. " · " .. label
   end
-  label = Cut(label, Fit(room, R.LABEL_SCALE))
+  label = Cut(label, Fit(mx - 8 - tx, R.LABEL_SCALE))
   Txt(style.l, ink .. label .. close, tx, cy, R.LABEL_SCALE)
-  if r.restart then
-    local mx = tx + math.floor(Units(label) * G.PX * R.LABEL_SCALE) + 10
-    RV.art_quad(style.q, "alert", "icon_error01", mx, cy - R.MARK_SIDE / 2, R.MARK_SIDE, R.MARK_SIDE)
-    if note ~= nil then
-      Txt(style.l, (focused and "" or "[CY]") .. note .. (focused and "" or "[C]"), mx + R.MARK_SIDE + 6, cy, R.NOTE_SCALE)
-    end
-  end
-  RV.draw_value(style, r, v, live, focused, x0, x1, y, h)
+  RV.draw_value(style, r, v, live, focused, vx, y, h)
 end
 
--- The value lines of a setting's sheet from y: now, default and, on a restart row, when a change applies.
-function RV.draw_set_values(style, r, x, y)
+-- The value lines of a setting's help pane from y: now, default and, on a restart row, when a change applies.
+function RV.draw_set_values(style, r, x, y, w)
   local v = RV.value(r)
   local lines = {}
   if v ~= nil then
@@ -472,129 +539,254 @@ function RV.draw_set_values(style, r, x, y)
     end
   end
   if r.restart then
-    lines[#lines + 1] = {"set_applies", T("set_on_restart")}
+    local _, pending = RV.row_state(r, v)
+    lines[#lines + 1] = {"set_applies", T("set_on_restart"), pending}
   end
   for k, l in ipairs(lines) do
-    Txt(style.l, "[CWG]" .. T(l[1]) .. ":[C]  [CB]" .. Cut(l[2], 40) .. "[C]", x, y + (k - 1) * 30, 0.64)
+    local value = Cut(l[2], Fit(w - math.floor(Units(T(l[1])) * G.PX * 0.6) - 30, 0.6))
+    Txt(style.l, "[CWG]" .. T(l[1]) .. ":[C]  " .. (l[3] and "[CY]" or "[CB]") .. value .. "[C]", x, y + (k - 1) * 30, 0.6)
   end
 end
 
-function RV.draw_set_sheet(style, r, owner, x, ty, w)
-  local _, chip = RV.set_label(r)
-  local from = {}
-  if owner ~= nil then
-    from[#from + 1] = owner
+-- the value lines a setting's help shows (RV.draw_set_values): now, default, when a change applies
+function RV.value_lines(r)
+  local v = RV.value(r)
+  local n = v ~= nil and 1 or 0
+  if v ~= nil and r.module == nil and r.default ~= nil then
+    n = n + 1
   end
-  if r.group ~= nil then
-    from[#from + 1] = RV.group_name(r.group)
-  end
-  if chip ~= nil then
-    from[#from + 1] = chip
-  end
-  if #from > 0 then
-    Txt(style.l, "[CN]" .. Cut(table.concat(from, "  ·  "), Fit(w, 0.64)) .. "[C]", x, ty, 0.64)
-    ty = ty + 34
-  end
+  return n + (r.restart and 1 or 0)
+end
+
+-- the help text of row r as wrapped lines `units` wide (at most RV.ROW.HELP_LINES), and whether it has its own help
+function RV.help_lines(r, units, maxl)
   local help = RV.set_help(r)
-  for k, l in ipairs(Wrap(help ~= "" and help or T("set_no_help"), Fit(w, 0.64), G.SET_HELP_LINES)) do
-    Txt(style.l, (help ~= "" and "[CB]" or "[CWG]") .. l .. "[C]", x, ty + (k - 1) * 30, 0.64)
-  end
-  RV.draw_set_values(style, r, x, ty + G.SET_HELP_LINES * 30 + 14)
+  return Wrap(help ~= "" and help or T("set_no_help"), units, maxl or RV.ROW.HELP_LINES), help ~= ""
 end
 
--- the focused setting's strip under a page's rows (y = its top): a bar with its label, its help at the left, its values at the right
-function RV.draw_set_strip(r, x, y, w)
-  local hh = 40
+-- the focused setting's help pane right of the rows (x, y = its top left, w x h): a bar with its label, its help, its values
+function RV.draw_set_help(r, x, y, w, h)
+  local R = RV.ROW
+  local hh = R.HELP_BAR_H
   Quad("P1", SP("hbar"), x, y, w, hh)
-  Txt("PL", Cut((RV.set_label(r)), Fit(w - 40, 0.72)), x + 20, y + hh / 2, 0.72)
-  local hw = math.floor(w * 0.64)
-  local help = RV.set_help(r)
-  for k, l in ipairs(Wrap(help ~= "" and help or T("set_no_help"), Fit(hw - 20, 0.62), G.SET_STRIP_LINES)) do
-    Txt("PL", (help ~= "" and "[CB]" or "[CWG]") .. l .. "[C]", x + 20, y + hh + 24 + (k - 1) * 30, 0.62)
+  Txt("PL", Cut((RV.set_label(r)), Fit(w - 32, 0.66)), x + 16, y + hh / 2, 0.66)
+  local lines, own = RV.help_lines(r, Fit(w - 32, 0.6), math.max(1, math.min(R.HELP_LINES, math.floor((h - hh - 140) / R.HELP_LINE_H))))
+  for k, l in ipairs(lines) do
+    Txt("PL", (own and "[CB]" or "[CWG]") .. l .. "[C]", x + 16, y + hh + 24 + (k - 1) * R.HELP_LINE_H, 0.6)
   end
-  RV.draw_set_values(RV.PAGE_ROW, r, x + hw + 20, y + hh + 24)
+  RV.draw_set_values(RV.PAGE_ROW, r, x + 16, y + hh + 24 + #lines * R.HELP_LINE_H + 20, w - 32)
 end
 
-function RV.draw_settings(m)
-  local rows = RV.set_rows(m)
-  local px, py = G.WIN_X + 32, RV.body_y() + 14
-  local w = G.WIN_W - 64
+-- The help strip under the columns (x, y, w wide): a bar with the focused setting's label, its help at the left, its
+-- values at the right.
+function RV.draw_set_strip(r, x, y, w)
+  local R = RV.ROW
+  local hh = R.HELP_BAR_H
+  Quad("P1", SP("hbar"), x, y, w, hh)
+  Txt("PL", Cut((RV.set_label(r)), Fit(w - 32, 0.66)), x + 16, y + hh / 2, 0.66)
+  local lines, own = RV.help_lines(r, Fit(w - 48 - R.STRIP_VALUES_W, 0.6), R.STRIP_HELP_LINES)
+  local ty = y + hh + R.STRIP_PAD + R.HELP_LINE_H / 2
+  for k, l in ipairs(lines) do
+    Txt("PL", (own and "[CB]" or "[CWG]") .. l .. "[C]", x + 16, ty + (k - 1) * R.HELP_LINE_H, 0.6)
+  end
+  RV.draw_set_values(RV.PAGE_ROW, r, x + w - R.STRIP_VALUES_W, ty, R.STRIP_VALUES_W - 16)
+end
+
+-- The strip's height for rows `rows` on a frame w wide: room for the longest help and the most value lines among them,
+-- so no setting's help is cut and the columns above keep one height on every page.
+function RV.strip_height(rows, w)
+  local R = RV.ROW
+  local ck = "set_strip:" .. tostring(rows) .. ":" .. w
+  local h = RV.cache[ck]
+  if h == nil then
+    local units, hl, vl = Fit(w - 48 - R.STRIP_VALUES_W, 0.6), 1, 1
+    for _, r in ipairs(rows) do
+      hl = math.max(hl, #(RV.help_lines(r, units, R.STRIP_HELP_LINES)))
+      vl = math.max(vl, RV.value_lines(r))
+    end
+    h = R.HELP_BAR_H + 2 * R.STRIP_PAD + math.max(hl * R.HELP_LINE_H, vl * R.VALUE_LINE_H)
+    RV.cache[ck] = h
+  end
+  return h
+end
+
+-- The instances one line of the settings draws per layer kind (q quads, l left texts, c centred texts): a section bar,
+-- or a row with its plate, tree mark, marks and value box pieces (the focused row's picker arrows are kept apart).
+function RV.line_cost(l, rows)
+  if l.kind == "head" then
+    return l.group ~= nil and 1 or 0, 1, 0
+  end
+  local r = rows[l.items[1]]
+  local v = RV.value(r)
+  local q = 3 + (r.parent ~= nil and 1 or 0) + (RV.row_state(r, v) and 1 or 0) + (r.restart and 1 or 0)
+  local count = nil
+  if v ~= nil and not (r.module == nil and (r.kind == "lua" or r.storage == "lua")) then
+    count = select(3, RV.fmt(r, v))
+  end
+  if count == 2 and (r.module ~= nil or r.kind == "toggle") then
+    q = q + 2
+  elseif count ~= nil and count >= RV.ROW.GAUGE_MIN_VALUES then
+    q = q + 1
+  end
+  return q, 1, 1
+end
+
+-- The pages of `lines` in columns `avail` high, one column a layer set of `free` ({q, l, c} instances left for it).
+-- A column takes lines while they fit its height and its layers; a section bar goes only with its first row, so no
+-- column ends on a bar, and a column starting inside a mod's rows repeats its bar.
+-- pages[k][c] = the rows of column c: {n = row number, y = its offset from the top}; .lines = every line it draws.
+function RV.pack_pages(lines, rows, avail, free)
+  local pages, li = {}, 1
+  while lines[li] ~= nil do
+    local page = {}
+    for c = 1, #free do
+      local left = {q = free[c].q, l = free[c].l, c = free[c].c}
+      local col, y = {lines = {}}, 0
+      -- a column that starts inside a mod's rows repeats that mod's bar on top
+      if lines[li] ~= nil and lines[li].kind == "row" then
+        local j = li - 1
+        while j > 0 and not (lines[j].kind == "head" and lines[j].group ~= nil) do
+          j = j - 1
+        end
+        if j > 0 then
+          col.lines[1] = {line = j, y = 0}
+          y, left.q, left.l = lines[j].h, left.q - 1, left.l - 1
+        end
+      end
+      while lines[li] ~= nil do
+        local k, h, q, l, cc = li, 0, 0, 0, 0
+        while true do
+          local dq, dl, dc = RV.line_cost(lines[k], rows)
+          h, q, l, cc = h + lines[k].h, q + dq, l + dl, cc + dc
+          if lines[k].kind ~= "head" or lines[k + 1] == nil then
+            break
+          end
+          k = k + 1
+        end
+        if y + h > avail or q > left.q or l > left.l or cc > left.c then
+          break
+        end
+        for j = li, k do
+          if lines[j].kind == "row" then
+            col[#col + 1] = {n = lines[j].items[1], y = y, line = j}
+          end
+          col.lines[#col.lines + 1] = {line = j, y = y}
+          y = y + lines[j].h
+        end
+        left.q, left.l, left.c = left.q - q, left.l - l, left.c - cc
+        li = k + 1
+      end
+      if #col == 0 then
+        break
+      end
+      page[#page + 1] = col
+    end
+    if #page == 0 then
+      break   -- not even one row fits: the rest stays off the screen (Quad / Txt log the full layer)
+    end
+    pages[#pages + 1] = page
+  end
+  return pages
+end
+
+-- Where a mod page draws its settings: its body, the rows lit while the page has the keys.
+function RV.page_set_frame()
+  return {x = G.WIN_X + 32, y = RV.body_y() + 14, w = G.WIN_W - 64, bottom = RV.foot_y() - 40, focused = CE.page_focused(),
+          styles = {RV.PAGE_ROW}}
+end
+
+-- The settings rows of mod `m` in frame `f` = {x, y, w, bottom (above the note), focused, styles (one layer set a column),
+-- empty (text key), keys (note prefix)}. The columns as many as the width holds (at most one a style); one column has
+-- the help pane at its right, more columns the help strip under them across the width. Each page fills the height.
+function RV.draw_settings(m, f)
+  local rows = m ~= nil and RV.set_rows(m) or {}
+  local px, py, w = f.x, f.y, f.w
+  local p = RV.set_state()
+  p.grid = nil
   if #rows == 0 then
-    local why = (m.enabled and m.state == 0 and not m.pending) and "set_none" or "set_inactive"
-    for i, l in ipairs(Wrap(T(why), Fit(G.WIN_W - 80, 0.8), 3)) do
+    local why = f.empty or ((m.enabled and m.state == 0 and not m.pending) and "set_none" or "set_inactive")
+    for i, l in ipairs(Wrap(T(why), Fit(w - 16, 0.8), 3)) do
       Txt("PL", "[CN]" .. l .. "[C]", px, py + 26 + (i - 1) * 34, 0.8)
     end
     return
   end
-  local p = ui.popup
+  local R = RV.ROW
   local sel = math.max(1, math.min(p.srow or 1, #rows))
   p.srow = sel
   local lines = RV.layout(m)
-  local strip_y = RV.foot_y() - G.SET_STRIP_H
-  local bottom = strip_y - 40         -- above the page line and the focused setting's strip
-  local avail = bottom - py
-  -- scroll: the selected line on the page (with its section bar when it is right above)
-  local sl = RV.where(lines, sel) or 1
-  local top = math.max(1, math.min(p.stop or 1, #lines))
-  if sl < top then
-    top = sl
+  local bottom = f.bottom
+  local col_min = R.LABEL_X + R.TREE_W + R.MARKS_W + R.VALUE_W + R.LABEL_MIN_W
+  local cols = math.max(1, math.min(#f.styles, math.floor((w + R.COL_GAP) / (col_min + R.COL_GAP))))
+  local pw, rows_bottom, reserve
+  if cols > 1 then
+    pw = math.floor((w - (cols - 1) * R.COL_GAP) / cols)
+    local sh = RV.strip_height(rows, w)
+    rows_bottom = bottom - R.STRIP_GAP - sh
+    reserve = {P1 = 1, PL = 2 + math.floor((sh - R.HELP_BAR_H) / R.HELP_LINE_H) + 3}   -- the strip and the note line
+  else
+    pw = RV.plate_width(rows, w)
+    rows_bottom = bottom
+    reserve = {P1 = 1, PL = 2 + R.HELP_LINES + 3}   -- the help pane and the note line
   end
-  while top > 1 and lines[top - 1].kind == "head" and top - 1 <= sl do
-    top = top - 1
+  -- the instances each column's layers still have, the focused row's two picker arrows and what the help draws kept back
+  local free = {}
+  for c = 1, cols do
+    local s = f.styles[c]
+    free[c] = {q = Screen.free(s.q) - 2 - (reserve[s.q] or 0), l = Screen.free(s.l) - (reserve[s.l] or 0),
+               c = Screen.free(s.c) - (reserve[s.c] or 0)}
   end
-  local function fits(a, b)
-    local hsum, nrows = 0, 0
-    for k = a, b do
-      hsum = hsum + lines[k].h
-      nrows = nrows + (lines[k].kind == "row" and 1 or 0)
-    end
-    return hsum <= avail and nrows <= RV.SET_ROWS
-  end
-  while top < sl and not fits(top, sl) do
-    top = top + 1
-  end
-  p.stop = top
-  local y, first, last, drawn = py, nil, nil, 0
-  for k = top, #lines do
-    local l = lines[k]
-    local need = l.h
-    local below = k + 1
-    while l.kind == "head" and lines[below] ~= nil do   -- a bar only with its first row, past any bar right under it
-      need = need + lines[below].h
-      if lines[below].kind ~= "head" then
-        break
-      end
-      below = below + 1
-    end
-    if y + need > bottom or (l.kind == "row" and drawn >= RV.SET_ROWS) then
-      break
-    end
-    if l.kind == "head" and l.group ~= nil then
-      RV.draw_group_bar(RV.PAGE_ROW, l.group, px, y + 4, w)
-    elseif l.kind == "head" then
-      RV.draw_category_bar(RV.PAGE_ROW, l.category, px, y + 4, w)
-    else
-      local n = l.items[1]
-      first, last, drawn = first or n, n, drawn + 1
-      local foc = CE.page_focused() and p.szone ~= "buttons" and n == sel
-      RV.draw_row(RV.PAGE_ROW, rows[n], px, y, w, RV.ROW_H - 4, foc)
-      Hit(px, y, w, RV.ROW_H - 4, "set" .. n, function() RV.activate(m, n) end)   -- hover moves p.srow too (Hover)
-      if foc then
-        -- A click on a picker arrow of the focused row steps its value back or on.
-        local x0, x1 = RV.value_zone(rows[n], px, w)
-        Hit(x0, y, 40, RV.ROW_H - 4, "arrow_l", function() RV.change(m, -1, rows[n]) end)
-        Hit(x1 - 40, y, 40, RV.ROW_H - 4, "arrow_r", function() RV.change(m, 1, rows[n]) end)
+  local pages = RV.pack_pages(lines, rows, rows_bottom - py, free)
+  p.grid = {cols = cols, pages = pages}
+  -- the page with the focused row
+  local page = pages[1] or {}
+  for _, pg in ipairs(pages) do
+    for _, col in ipairs(pg) do
+      for _, e in ipairs(col) do
+        if e.n == sel then
+          page = pg
+        end
       end
     end
-    y = y + l.h
+  end
+  local first, last = nil, nil
+  local h = RV.ROW_H - RV.ROW.GAP
+  for c, col in ipairs(page) do
+    local style = f.styles[c]
+    local cx = px + (c - 1) * (pw + R.COL_GAP)
+    for _, e in ipairs(col.lines) do
+      local l = lines[e.line]
+      local y = py + e.y
+      if l.kind == "head" and l.group ~= nil then
+        RV.draw_group_bar(style, l.group, cx, y, pw)
+      elseif l.kind == "head" then
+        RV.draw_category_bar(style, l.category, cx, y, pw)
+      else
+        local n = l.items[1]
+        first, last = first or n, n
+        local foc = f.focused and p.szone ~= "buttons" and n == sel
+        RV.draw_row(style, rows[n], cx, y, pw, h, foc)
+        Hit(cx, y, pw, h, "set" .. n, function() RV.activate(m, n) end)   -- hover moves p.srow too (Hover)
+        if foc then
+          -- A click on a picker arrow of the focused row steps its value back or on.
+          local vx = RV.value_x(cx, pw)
+          Hit(vx, y, 40, h, "arrow_l", function() RV.change(m, -1, rows[n]) end)
+          Hit(vx + RV.ROW.VALUE_W - 40, y, 40, h, "arrow_r", function() RV.change(m, 1, rows[n]) end)
+        end
+      end
+    end
   end
   -- where the page is, and the short note on where these values live
-  local note = T("set_note")
+  local note = (f.keys or "") .. T("set_note")
   if first ~= nil and (first > 1 or last < #rows) then
     note = T("report_rows", {n = first, c = last, t = #rows}) .. "   ·   " .. note
   end
   Txt("PL", "[CWG]" .. Cut(note, Fit(w, 0.58)) .. "[C]", px, bottom + 20, 0.58)
-  RV.draw_set_strip(rows[sel], px, strip_y, w)
+  if cols > 1 then
+    RV.draw_set_strip(rows[sel], px, rows_bottom + R.STRIP_GAP, w)
+  else
+    local hx = px + pw + R.HELP_GAP
+    RV.draw_set_help(rows[sel], hx, py, px + w - hx, bottom - py)
+  end
 end
 
 -- a mod's own rows: rows with no category first, then each category together in the order its first row is declared
@@ -642,6 +834,57 @@ function RV.set_rows(m)
   return r
 end
 
+-- the active mods other than the framework in load order, and a signature of them
+local function OtherActiveMods()
+  local active, parts = {}, {}
+  for _, m in ipairs(Screen.mods()) do
+    if m.enabled and m.family == nil and m.id ~= BASE then
+      active[#active + 1] = m
+    end
+  end
+  table.sort(active, function(a, b)
+    local pa, pb = a.pos > 0 and a.pos or math.huge, b.pos > 0 and b.pos or math.huge
+    if pa ~= pb then
+      return pa < pb
+    end
+    return a.order < b.order
+  end)
+  for _, m in ipairs(active) do
+    parts[#parts + 1] = m.id
+    for _, mm in ipairs(m.modules or {}) do
+      parts[#parts + 1] = mm.enabled and mm.id or ""
+    end
+  end
+  return active, table.concat(parts, "|")
+end
+
+-- the framework's page and the Settings tab list every active mod's rows under that mod's bar, the framework first (modules under theirs)
+local OwnRows = RV.set_rows
+function RV.set_rows(m)
+  if m.id ~= BASE then
+    return OwnRows(m)
+  end
+  local active, sig = OtherActiveMods()
+  local ck = "setrows_all:" .. sig
+  local r = RV.cache[ck]
+  if r == nil then
+    r = {}
+    table.insert(active, 1, m)
+    for _, om in ipairs(active) do
+      for _, o in ipairs(OwnRows(om)) do
+        local row = {}
+        for k, v in pairs(o) do
+          row[k] = v
+        end
+        row.group = o.group or om
+        r[#r + 1] = row
+      end
+    end
+    RV.cache[ck] = r
+  end
+  return r
+end
+
 local function DrawDetails()
   local m = ModById(ui.popup.id)
   while m == nil and ui.popup ~= nil do
@@ -667,7 +910,7 @@ local function DrawDetails()
   elseif v == "modules" then
     RV.draw_modules(m)
   elseif v == "settings" then
-    RV.draw_settings(m)
+    RV.draw_settings(m, RV.page_set_frame())
   elseif v == "news" then
     RV.draw_news(m)
   else
@@ -676,5 +919,49 @@ local function DrawDetails()
   RV.footer(m)
 end
 
--- for 100_mods_screen.lua and the files after this one
+-- The Settings tab: the framework page's rows (every active mod's settings) on the screen's width under the tool row.
+function CE.draw_all_settings()
+  local x0, y0, x1, y1 = G.LIST_X, G.BOX_Y, G.WIN_X + G.WIN_W, G.BOX_BOTTOM
+  Quad("Q0", SP("white"), x0, y0, x1 - x0, y1 - y0, G.BACKDROP_ALPHA)
+  local K = Screen.K
+  RV.draw_settings(Screen.base_mod(), {x = x0 + 32, y = y0 + 14, w = x1 - x0 - 64, bottom = y1 - 40, focused = ui.page == nil,
+                                       styles = {RV.TAB_ROW, RV.PAGE_ROW}, empty = "set_none_all",
+                                       keys = K.L1 .. K.R1 .. " " .. K.A .. " " .. T("sc_change") .. "   ·   "})
+end
+
+-- The Settings tab's label: its name and how many settings it lists.
+function CE.all_settings_label()
+  local m = Screen.base_mod()
+  return T("tab_settings_all", {n = m ~= nil and #RV.set_rows(m) or 0})
+end
+
+-- A on the Settings tab: the focused row moves one step.
+function CE.all_settings_decide()
+  local m = Screen.base_mod()
+  if m == nil or #RV.set_rows(m) == 0 then
+    funcLuaCommand(C.SE, SE_NG)
+    return
+  end
+  RV.activate(m, ui.all_settings.srow or 1)
+end
+
+-- L1 / R1 on the Settings tab: the focused row's value one step back / on.
+function CE.all_settings_step(d)
+  local m = Screen.base_mod()
+  if m == nil or #RV.set_rows(m) == 0 then
+    funcLuaCommand(C.SE, SE_NG)
+    return
+  end
+  RV.change(m, d)
+end
+
+-- An arrow on the Settings tab: up / down move between rows, left / right between the columns (past the last, to the
+-- next page).
+function CE.all_settings_key(id)
+  if not RV.settings_key(id, Screen.base_mod()) then
+    funcLuaCommand(C.SE, SE_NG)
+  end
+end
+
+-- Internal: for 100_mods_screen.lua and the files after this one
 Screen.draw_details = DrawDetails

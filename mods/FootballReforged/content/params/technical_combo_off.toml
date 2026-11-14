@@ -1,0 +1,5 @@
+schema = "VRFW.param/1"
+# Technical Combo off: the game's own match rule flag isEnableTechnicalCombo (CSoccerGlobalParam, retail 1) is set to 0.
+unless_option = "technical_combo"
+[game_param.CSoccerGlobalParam]
+isEnableTechnicalCombo = 0

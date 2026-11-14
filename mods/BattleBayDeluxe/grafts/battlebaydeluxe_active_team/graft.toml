@@ -1,0 +1,62 @@
+# Battle Bay «Active team» tile (docs/game/modes/estadio-bb.md §16): it previews and plays the player's active team,
+# mirrored onto the tile at each hub opening and panel draw; the Personal Teams tiles list BetterQoL's team templates.
+name = "battlebaydeluxe_active_team"
+mod = "BattleBayDeluxe"
+order = 348
+module = "lua_bridge"
+requires = []
+conflicts = []
+wraps = ["UpdateFormation", "UpdateTacticsLayer", "UpdateBackgroundIcon", "UpdateTeamNameText", "SetupEmblemIcon", "OnInit", "OnDecideFocus"]
+description = "Battle Bay: the Active team tile previews and mirrors the player's active team"
+
+[[files]]
+stem = "enjoy_team_select_menu_campaign"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "active_team_common.lua"
+  marker = "battlebaydeluxe_active_team common"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "active_team.lua"
+  marker = "battlebaydeluxe_active_team"
+
+[[files]]
+stem = "enjoy_team_select_menu_offline"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "active_team_common.lua"
+  marker = "battlebaydeluxe_active_team common"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "active_team.lua"
+  marker = "battlebaydeluxe_active_team"
+
+[[files]]
+stem = "bb_stadium_top_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "active_team_common.lua"
+  marker = "battlebaydeluxe_active_team common"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "active_team_top.lua"
+  marker = "battlebaydeluxe_active_team top"
+
+[[files]]
+stem = "soccer_top_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "active_team_common.lua"
+  marker = "battlebaydeluxe_active_team common"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "active_team_top.lua"
+  marker = "battlebaydeluxe_active_team top"

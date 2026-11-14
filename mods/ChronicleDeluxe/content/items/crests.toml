@@ -1,5 +1,5 @@
 schema = "VRFW.item/2"
-# Owner-made crests sold in Inazuma Fantasy's general store (add-on rule: addons/InazumaFantasy/_general_store.toml).
+# Owner-made crests sold in Inazuma Fantasy's general store (the shop merge add-on addons/InazumaFantasy/content/shop_merges/chronicle_deluxe.toml).
 default_lang = "en"
 
 [[item]]

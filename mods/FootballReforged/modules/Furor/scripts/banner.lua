@@ -24,12 +24,12 @@ local function ease(t)
   return t * t * (3 - 2 * t)
 end
 
-VRFW.on("signal:Furor.gauge.phase", function(ev)
+VRFW.on("script:signal:Furor.gauge.phase", function(ev)
   started_at = VRFW.now_ms()
   return nil
 end)
-VRFW.on("match_start", function(ev) started_at = nil return nil end)
-VRFW.on("match_end", function(ev) started_at = nil return nil end)
+VRFW.on("match:start", function(ev) started_at = nil return nil end)
+VRFW.on("match:end", function(ev) started_at = nil return nil end)
 
 function Furor.Banner()
   local s = SETTINGS

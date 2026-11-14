@@ -12,7 +12,7 @@ do
 
   local prev = SwapLayerGamePhaseHalfIconTex
   if type(prev) == "function" and VRFW.extra_time_half_label ~= SwapLayerGamePhaseHalfIconTex then
-    --- Retail wrap: labels the extra-time half; answers the previous results.
+    --- Internal: Retail wrap: labels the extra-time half; answers the previous results.
     VRFW.extra_time_half_label = function(half, ...)
       local r = table.pack(prev(half, ...))
       local ok, phase, nth = pcall(funcLuaCommand, C.BREAK)

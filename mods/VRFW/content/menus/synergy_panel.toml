@@ -47,3 +47,19 @@ add_layer = { name = "vrfw_syn_crest", object = "vrfw_emblem_tile", count = 36, 
 [[patch]]
 menu = "soccer_formation_menu"
 add_layer = { name = "vrfw_syn_icon", object = "team16_03_synergy_chara_condition_list", count = 24, groups = [{ group = "team_dock_formation_menu", flags = [0, 0, 0, 0, 1, 0] }] }
+
+[[patch]]
+menu = "soccer_battle_setting_flow_vs_menu"
+add_layer = { name = "vrfw_syn_row", object = "team16_03_synergy_chara_condition_list", count = 6, groups = [{ group = "soccer_battle_setting_flow_formation_menu", flags = [0, 0, 0, 0, 1, 0] }] }
+
+[[patch]]
+menu = "soccer_battle_setting_flow_vs_menu"
+add_layer = { name = "vrfw_syn_face", object = "team16_03_synergy_chara_condition_list", count = 72, groups = [{ group = "soccer_battle_setting_flow_formation_menu", flags = [0, 0, 0, 0, 1, 0] }] }
+
+[[patch]]
+menu = "soccer_battle_setting_flow_vs_menu"
+add_layer = { name = "vrfw_syn_crest", object = "vrfw_emblem_tile", count = 36, groups = [{ group = "soccer_battle_setting_flow_formation_menu", flags = [0, 0, 0, 0, 1, 0] }] }
+
+[[patch]]
+menu = "soccer_battle_setting_flow_vs_menu"
+add_layer = { name = "vrfw_syn_icon", object = "team16_03_synergy_chara_condition_list", count = 24, groups = [{ group = "soccer_battle_setting_flow_formation_menu", flags = [0, 0, 0, 0, 1, 0] }] }

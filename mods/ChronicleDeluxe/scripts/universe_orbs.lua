@@ -1,8 +1,19 @@
 ChronicleDeluxe = ChronicleDeluxe or {}
 
 local STATE_KEY = "universe_orb."
-local DEFAULT_PULLS = 5
 local MIN_PULLS, MAX_PULLS = 1, 99
+
+local pulls_warned = false
+
+-- config.toml [universe_orbs] pulls_for_rate_up (its only value), or nil with one warning when it is missing or not a number: no rate-up orb
+local function pulls_for_rate_up()
+  local pulls = VRFW.config("universe_orbs.pulls_for_rate_up", nil, MIN_PULLS, MAX_PULLS)
+  if pulls == nil and not pulls_warned then
+    pulls_warned = true
+    VRFW.warn("config: config.toml universe_orbs.pulls_for_rate_up is missing or not a number: no rate-up orb")
+  end
+  return pulls
+end
 
 local function key_of(sign)
   return STATE_KEY .. string.format("%.0f", sign)
@@ -31,7 +42,8 @@ function ChronicleDeluxe.UniverseOrbPull(sign, star)
   else
     state.active = 0
     state.count = state.count + 1
-    if state.count >= VRFW.config("universe_orbs.pulls_for_rate_up", DEFAULT_PULLS, MIN_PULLS, MAX_PULLS) then
+    local pulls = pulls_for_rate_up()
+    if pulls ~= nil and state.count >= pulls then
       state.count, state.pending = 0, star
     end
   end

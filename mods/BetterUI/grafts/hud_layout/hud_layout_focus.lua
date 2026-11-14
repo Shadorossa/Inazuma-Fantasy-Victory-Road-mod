@@ -40,3 +40,31 @@ end
 
 HLF_Wrap("UpdateFocusCountDownTimer")
 HLF_Wrap("UpdateSkillDecideCountDownTimer")
+
+-- Versus name plates (rival on top, «CONTRA» between, the player below; retail layer soccer08_01, the root the plate
+-- instances hang from): the whole block sits lower, nearer the bottom edge, with its internal spacing kept.
+-- The offset is applied to the root layer when it opens or sets up; engine calls only from those callbacks.
+BetterUI.hud_layout.FOCUS_VS_DY = -90          -- layout units (+ = up): the plates' bottom edge moves from y ~192 to ~102
+BetterUI.hud_layout.FOCUS_VS_DX = 0
+
+local HLF_VS_LAYER = 1752673562 --[[soccer08_01_focus_battle_self_status_attach_locator]]
+local HLF_VS_CMND_POS = 1389957207 --[[CMND_SET_LAYER_LOCAL_POS]]
+
+local function HLF_VsApply()
+  if type(funcLuaMenuCommand) == "function" then
+    pcall(funcLuaMenuCommand, HLF_VS_CMND_POS, HLF_VS_LAYER, BetterUI.hud_layout.FOCUS_VS_DX, BetterUI.hud_layout.FOCUS_VS_DY, 0, 0)
+  end
+end
+
+local function HLF_VsWrap(name)
+  VRFW.host.wrap_once(name, "BetterUI.hud_layout.focus_vs", function(previous, a1, ...)
+    local r = Pack(previous(a1, ...))
+    if a1 == HLF_VS_LAYER then
+      pcall(HLF_VsApply)
+    end
+    return table.unpack(r, 1, r.n)
+  end)
+end
+
+HLF_VsWrap("OnSetupLayer")
+HLF_VsWrap("OnOpenLayer")

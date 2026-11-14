@@ -1,0 +1,14 @@
+schema = "VRFW.option/2"
+# Hissatsu Reforged › its row on the Mods screen's «Ajustes» and in Opciones › «Opciones de mods».
+# Values: <data dir>\mod_options\. restart = true: the gated files are read at the start.
+# power_changes: the moves' new power (content\techniques\hissatsu_overhaul_power.toml, if_mod = "HissatsuReforged.power_changes").
+# Off = that file is not read: every move keeps the game's power_min / power_max.
+
+[[option]]
+id = "power_changes"                    # row key HissatsuReforged.power_changes
+type = "toggle"
+label = "option_power_changes"   # text\keys.toml, 9 languages
+help = "option_power_changes_help"
+default = 1
+order = 510
+restart = true

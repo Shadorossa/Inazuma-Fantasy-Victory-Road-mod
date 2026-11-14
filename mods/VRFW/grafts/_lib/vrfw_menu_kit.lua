@@ -1,4 +1,4 @@
---@section Call --- Runs funcLuaCommand(cmd, ...) under pcall; answers its results, or nil when it failed.
+--@section Call --- Advanced: Runs funcLuaCommand(cmd, ...) under pcall; answers its results, or nil when it failed.
 local function Call(cmd, ...)
   local r = table.pack(pcall(funcLuaCommand, cmd, ...))
   if not r[1] then
@@ -6,46 +6,46 @@ local function Call(cmd, ...)
   end
   return table.unpack(r, 2, r.n)
 end
---@section Int --- Rounds v to the nearest integer; answers 0 when v is not a number.
+--@section Int --- Advanced: Rounds v to the nearest integer; answers 0 when v is not a number.
 local function Int(v)
   if type(v) ~= "number" then
     return 0
   end
   return math.floor(v + 0.5)
 end
---@section Pct --- n as a percentage of total, as text with at most one decimal; "0" when total is not positive.
+--@section Pct --- Advanced: n as a percentage of total, as text with at most one decimal; "0" when total is not positive.
 local function Pct(n, total)
   if total <= 0 then
     return "0"
   end
   return (string.format("%.1f", n * 100 / total):gsub("%.", ","))
 end
---@section Ask --- Asks a yes / no question with this menu's input off; answers true for yes.
+--@section Ask --- Advanced: Asks a yes / no question with this menu's input off; answers true for yes.
 local function Ask(text)
   funcLuaMenuCommand(C.MENU_ACTIVE, MENU, false)
   local yes = VRFW.question.ask(text)
   funcLuaMenuCommand(C.MENU_ACTIVE, MENU, true)
   return yes
 end
---@section Message --- Shows an OK window with this menu's input off; `button` is its button text.
+--@section Message --- Advanced: Shows an OK window with this menu's input off; `button` is its button text.
 local function Message(text, button)
   funcLuaMenuCommand(C.MENU_ACTIVE, MENU, false)
   VRFW.question.notice(text, {button = button})
   funcLuaMenuCommand(C.MENU_ACTIVE, MENU, true)
 end
---@section ItemGet --- Shows the game's item-obtained window for item `id` with this menu's input off.
+--@section ItemGet --- Advanced: Shows the game's item-obtained window for item `id` with this menu's input off.
 local function ItemGet(id)
   funcLuaMenuCommand(C.MENU_ACTIVE, MENU, false)
   VRFW.question.item_get(id)
   funcLuaMenuCommand(C.MENU_ACTIVE, MENU, true)
 end
---@section Close --- Stores `result` in the result parameter and closes this menu.
+--@section Close --- Advanced: Stores `result` in the result parameter and closes this menu.
 local function Close(result)
   VRFW.param.replace(KEY_RESULT, result)
   funcLuaMenuCommand(C.MENU_ACTIVE, MENU, false)
   funcLuaCommand(C.CLOSE_MENU, MENU)
 end
---@section StartCo --- Starts fn(arg) as this screen's coroutine, unless one is already running.
+--@section StartCo --- Advanced: Starts fn(arg) as this screen's coroutine, unless one is already running.
 local function StartCo(fn, arg)
   if vrfw_co ~= nil then
     return
@@ -61,15 +61,15 @@ local function StartCo(fn, arg)
     vrfw_co = nil
   end
 end
---@section Pack --- Packs the arguments; answers {n = count, ...}.
+--@section Pack --- Advanced: Packs the arguments; answers {n = count, ...}.
 local function Pack(...)
   return {n = select("#", ...), ...}
 end
---@section ParamPerMille --- Stores `rate` (0..1) in parameter `key` as a per-mille integer.
+--@section ParamPerMille --- Advanced: Stores `rate` (0..1) in parameter `key` as a per-mille integer.
 local function SetParamPerMille(key, rate)
   VRFW.param.replace(key, math.floor(math.max(0, math.min(1, rate)) * 1000 + 0.5), "plain")
 end
---@section Cmd --- Runs funcLuaMenuCommand(...) under pcall; answers its results, or nil when it failed.
+--@section Cmd --- Advanced: Runs funcLuaMenuCommand(...) under pcall; answers its results, or nil when it failed.
 local function Cmd(...)
   if type(funcLuaMenuCommand) ~= "function" then
     return nil
@@ -80,7 +80,7 @@ local function Cmd(...)
   end
   return table.unpack(r, 2, r.n)
 end
---@section call --- Runs funcLuaCommand(cmd, ...) under pcall; answers its results, or nil when it failed.
+--@section call --- Advanced: Runs funcLuaCommand(cmd, ...) under pcall; answers its results, or nil when it failed.
 local function call(cmd, ...)
   local r = table.pack(pcall(funcLuaCommand, cmd, ...))
   if not r[1] then
@@ -88,7 +88,7 @@ local function call(cmd, ...)
   end
   return table.unpack(r, 2, r.n)
 end
---@section U32 --- Normalises id to an unsigned 32-bit number; 0 when it is not a number.
+--@section U32 --- Advanced: Normalises id to an unsigned 32-bit number; 0 when it is not a number.
 local function to_u32(id)
   id = tonumber(id) or 0
   if id < 0 then
@@ -96,8 +96,10 @@ local function to_u32(id)
   end
   return id
 end
---@section Pointer
+--@section Pointer --- Advanced: Mouse pointer hit-zone tracker for menus.
+--- Advanced: Namespace: mouse pointer tracker for menus; holds new().
 VRFW.pointer = VRFW.pointer or {}
+--- Advanced: Creates a mouse pointer tracker; answers a table with zone setters (rect, box, inst), position, at, poll and reset.
 VRFW.pointer.new = VRFW.pointer.new or function()
   local P = {zones = {}, on = false, x = nil, y = nil, hot = nil, prev = {}, edge_t = 0, REPEAT = 10}
   local MOVED, POS, GPOS, CHECK, CTRL = 3272825600, 558229292, 4002164178, 4265778440, 1332654303
@@ -249,7 +251,8 @@ VRFW.pointer.new = VRFW.pointer.new or function()
   end
   return P
 end
---@section Keys
+--@section Keys --- Advanced: Menu key constants and press tracking.
+--- Advanced: Constants: command hashes of the menu keys, plus held(cmd, ctrl) and new_press().
 VRFW.keys = VRFW.keys or (function()
   local K = {
     UP = 1197218715, DOWN = 3259546669, LEFT = 2765147006, RIGHT = 2075023265,   -- CMD_UP / DOWN / LEFT / RIGHT
@@ -301,8 +304,10 @@ VRFW.keys = VRFW.keys or (function()
   end
   return K
 end)()
---@section CharaModel
+--@section CharaModel --- Advanced: 3D character model preview on a menu layer.
+--- Advanced: Namespace: 3D character model preview helper for menus; holds new().
 VRFW.chara_model = VRFW.chara_model or {}
+--- Advanced: Creates a character model preview (layer, opts); answers a table with show(pid), hide, release, ok and step.
 VRFW.chara_model.new = VRFW.chara_model.new or function(layer, opts)
   opts = opts or {}
   local M = {pid = nil, chara = nil, pend = nil, build = nil, hide_build = false, logs = 0, failed = false,

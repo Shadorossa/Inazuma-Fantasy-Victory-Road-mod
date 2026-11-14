@@ -15,10 +15,8 @@ stem = "soccer_top_menu"
   type = "append_block"
   source = "menu_cleanup.lua"
   marker = "better_ui menu_cleanup"
-  crc = "none"
-  generator = "research/mods/BetterUI/_tools/better_ui_generators.py:better_ui_plain"
-  generator_arguments = { part = "better_ui_menu_cleanup.lua", tag = "menu_cleanup_soccer_top", name = "menu_cleanup", scope = "BetterUI" }
-  include = { "@UI_WRAP@" = "../_src/better_ui/better_ui_wrap.lua" }
+  generator = "research/mods/BetterUI/_tools/betterui_generators.py:better_ui_snippet"
+  generator_arguments = { part = "better_ui_menu_cleanup.lua", name = "menu_cleanup", scope = "BetterUI" }
   vars = { "@TAG@" = "menu_cleanup_soccer_top" }
 
 [[files]]
@@ -28,10 +26,8 @@ stem = "chronicle_mode_top_menu"
   type = "append_block"
   source = "menu_cleanup.lua"
   marker = "better_ui menu_cleanup"
-  crc = "none"
-  generator = "research/mods/BetterUI/_tools/better_ui_generators.py:better_ui_plain"
-  generator_arguments = { part = "better_ui_menu_cleanup.lua", tag = "menu_cleanup_chronicle_top", name = "menu_cleanup", scope = "BetterUI" }
-  include = { "@UI_WRAP@" = "../_src/better_ui/better_ui_wrap.lua" }
+  generator = "research/mods/BetterUI/_tools/betterui_generators.py:better_ui_snippet"
+  generator_arguments = { part = "better_ui_menu_cleanup.lua", name = "menu_cleanup", scope = "BetterUI" }
   vars = { "@TAG@" = "menu_cleanup_chronicle_top" }
 
 [[files]]
@@ -41,8 +37,6 @@ stem = "bb_stadium_top_menu"
   type = "append_block"
   source = "menu_cleanup.lua"
   marker = "better_ui menu_cleanup"
-  crc = "none"
-  generator = "research/mods/BetterUI/_tools/better_ui_generators.py:better_ui_plain"
-  generator_arguments = { part = "better_ui_menu_cleanup.lua", tag = "menu_cleanup_bb_stadium_top", name = "menu_cleanup", scope = "BetterUI" }
-  include = { "@UI_WRAP@" = "../_src/better_ui/better_ui_wrap.lua" }
+  generator = "research/mods/BetterUI/_tools/betterui_generators.py:better_ui_snippet"
+  generator_arguments = { part = "better_ui_menu_cleanup.lua", name = "menu_cleanup", scope = "BetterUI" }
   vars = { "@TAG@" = "menu_cleanup_bb_stadium_top" }

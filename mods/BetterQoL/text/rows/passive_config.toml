@@ -254,16 +254,3 @@ pt = "Este espaço está fora do limite de Passivas configuráveis (max_slots na
 ja = "この枠は設定可能パッシブ数の上限外（BetterQoLの設定のmax_slots）。\n変更するには上限を上げよう。それまでは今のパッシブのまま。"
 zh_hans = "该栏位超出了可设定被动技能的上限（BetterQoL设置中的max_slots）。\n提高该上限即可更改；在此之前保留其被动技能。"
 zh_hant = "該欄位超出了可設定被動技能的上限（BetterQoL設定中的max_slots）。\n提高該上限即可更改；在此之前保留其被動技能。"
-
-# the team dock popup row of the hero style selector (grafts/hero_style)
-[[row]]
-id = "better_qol_hero_style"
-es = "Selector de héroe"
-en = "Hero Style"
-fr = "Style de héros"
-de = "Heldenstil"
-it = "Stile eroe"
-pt = "Estilo de Ícone"
-ja = "英雄スタイル選択"
-zh_hans = "英雄风格选择"
-zh_hant = "英雄風格選擇"

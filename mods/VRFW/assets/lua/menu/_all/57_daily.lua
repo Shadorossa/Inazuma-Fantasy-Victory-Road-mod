@@ -22,10 +22,11 @@ if VRFW.daily == nil then
     watched = {},
     frames = 0,
   }
+  --- Internal: Namespace of the daily rival helpers.
   VRFW.daily = D
 
   local logger
-  --- Logs text once through the daily logger.
+  --- Internal: Logs text once through the daily logger.
   function D.log(text)
     logger = logger or VRFW.logger.new("VRFW daily")
     logger.once(text, text)
@@ -42,7 +43,7 @@ if VRFW.daily == nil then
     return nil
   end
 
-  --- The current period of `kind`: index, seconds left, label; nil for an unknown kind.
+  --- Advanced: The current period of `kind`: index, seconds left, label; nil for an unknown kind.
   function D.period(kind, id)
     local k = kind_of(kind)
     if k == nil then
@@ -58,7 +59,7 @@ if VRFW.daily == nil then
   local G = {}
   G.__index = G
 
-  --- A seeded generator for key and spec.Period; nil on a bad key or period.
+  --- Internal: A seeded generator for key and spec.Period; nil on a bad key or period.
   function D.rng(key, spec)
     spec = spec or {}
     local k = kind_of(spec.Period)
@@ -76,7 +77,7 @@ if VRFW.daily == nil then
     return setmetatable({ key = key, period = k, version = spec.Version or 1, id = id, cursor = 0 }, G)
   end
 
-  --- The period seed as hex, then its id; nil for an unknown period.
+  --- Internal: The period seed as hex, then its id; nil for an unknown period.
   function D.seed(key, spec)
     spec = spec or {}
     local k = kind_of(spec.Period)
@@ -224,30 +225,30 @@ if VRFW.daily == nil then
     return items[i], i
   end
 
-  --- Whether `key` is new this period: is_new, previous period, current period.
+  --- Internal: Whether `key` is new this period: is_new, previous period, current period.
   function D.seen(key, kind)
     local isNew, prev, cur = VRFW.host.command(D.CMD.SEEN, key, kind_of(kind) or "")
     return isNew == true, prev or -1, cur or -1
   end
 
-  --- Marks `key` done this period; answers ok, streak, newly_done.
+  --- Internal: Marks `key` done this period; answers ok, streak, newly_done.
   function D.mark_done(key, kind)
     local ok, streak, newly = VRFW.host.command(D.CMD.MARK_DONE, key, kind_of(kind) or "")
     return ok == true, streak or 0, newly == true
   end
 
-  --- True when `key` is done this period.
+  --- Internal: True when `key` is done this period.
   function D.is_done(key, kind)
     return VRFW.host.command(D.CMD.IS_DONE, key, kind_of(kind) or "") == true
   end
 
-  --- Streak of `key`: current, best, total.
+  --- Internal: Streak of `key`: current, best, total.
   function D.streak(key, kind)
     local s, b, t = VRFW.host.command(D.CMD.STREAK, key, kind_of(kind) or "")
     return s or 0, b or 0, t or 0
   end
 
-  --- Status of `key` as a table (done, streak, best, total, last, current, seconds).
+  --- Internal: Status of `key` as a table (done, streak, best, total, last, current, seconds).
   function D.status(key, kind)
     local done, s, b, t, last, cur, secs = VRFW.host.command(D.CMD.STATUS, key, kind_of(kind) or "")
     return {
@@ -256,7 +257,7 @@ if VRFW.daily == nil then
     }
   end
 
-  --- Calls fn when the period of `kind` changes; answers true, or false, why.
+  --- Internal: Calls fn when the period of `kind` changes; answers true, or false, why.
   function D.on(kind, fn, id)
     local k = kind_of(kind)
     if k == nil or type(fn) ~= "function" then
@@ -276,7 +277,7 @@ if VRFW.daily == nil then
     return true
   end
 
-  --- Calls the handlers of every period that changed.
+  --- Internal: Calls the handlers of every period that changed.
   function D.poll()
     for _, k in ipairs({ "day", "week", "month" }) do
       local list = D.handlers[k]
@@ -298,7 +299,7 @@ if VRFW.daily == nil then
     end
   end
 
-  --- Installs the period watch on menu `stem` once; answers true, or false, why.
+  --- Internal: Installs the period watch on menu `stem` once; answers true, or false, why.
   function D.watch(stem)
     if D.watched[stem] or type(VRFW.host) ~= "table" or type(VRFW.host.on) ~= "function" then
       return false, "already watched, or no VRFW.host"

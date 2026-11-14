@@ -42,12 +42,16 @@ Exclude = "shop_currencies"
 Keep = [
     "tk_hr000008",                                # Puntos de amistad
     "tk_bb000001",
-    "tk_si000001", "tk_si000002", "tk_si000003", "tk_si000004", "tk_si000005", "tk_si000006", "tk_si000007",
 ]
 Fallback = "tk_hr000008"                    # Puntos de amistad
 
 [[VRFW.MatchDropRemove]]
 Items = ["tk_hr000009"]
+AllSources = true
+
+# No learning card (item sub-category 46: Pasión, Amistad, Amor, Gratitud, Vitalidad, Objetivo, Sueño) from prizes, quests, missions, gifts or any other grant.
+[[VRFW.MatchDropRemove]]
+SubCategories = [46]
 AllSources = true
 
 [[VRFW.MatchDropExtra]]

@@ -1,5 +1,6 @@
 if VRFW.team_page_sub_window_trace == nil and type(SetupWindowParams) == "function" and type(OnOpenLayer) == "function" then
   local T = { logged = {} }
+  --- Internal: trace state of the team page sub window.
   VRFW.team_page_sub_window_trace = T
 
   local function team_page()
@@ -21,6 +22,7 @@ if VRFW.team_page_sub_window_trace == nil and type(SetupWindowParams) == "functi
 
   local setup = SetupWindowParams
   SetupWindowParams = function(count, texts, size, ...)
+    --- Internal: set of sub-window log keys.
     T.logged = {}
     log_once("setup", "entries", count, "size code", size)
     return setup(count, texts, size, ...)

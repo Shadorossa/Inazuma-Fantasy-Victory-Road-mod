@@ -2,10 +2,11 @@ id = "InazumaFantasy"
 # name / description: English fallback of the text keys mod_name / mod_description (text\keys.toml)
 name = "Inazuma Fantasy"
 icon = "#/menu/200_icon/16_icon_list_tab/icon_list_tab.g4tx:icon_list_tab_token01"
-version = "0.3.0"
+version = "0.3.1"
 author = "Fantasy Team"
 description = "The Market gets its own shops priced in Passion Points that every match pays: a general store, a training shop and two special move shops. It adds Fantasy Idol cards, the Inazuma Fantasy title screen, a free match section with two mod teams and a daily legendary rival, and sells new special moves, including 30 by LegendaryAd and God Strike, and an Arion military outfit."
 priority = 0
+type = "gameplay"
 tags = ["Gameplay"]
 updated = "2026-11-09"
 prefix = "InazumaFantasy"
@@ -20,6 +21,15 @@ loader_min = "1.7.0"
 # its graft patches market_menu's merge path; early, the later wrappers of that script stay on top of it
 lua_early = true
 # File map: docs/game/mods/inazuma-fantasy.md
+
+# The game build this mod is made for: the launcher's Game version page offers this Steam depot manifest for download.
+[recommended_game]
+label = "v7.2.1"
+manifest = "5864006674348129563"
+
+# The saga row of this mod's moves in the move filter's series tab.
+[saga]
+text = "InazumaFantasy.saga_name"
 
 [exports]
 functions = []

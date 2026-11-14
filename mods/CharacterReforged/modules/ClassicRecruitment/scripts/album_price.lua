@@ -52,8 +52,13 @@ local function rule()
     local r, f = tonumber(k), tonumber(v)
     if r ~= nil and f ~= nil and f >= 0 then factor[math.floor(r)] = f end
   end
-  local value, median, count = card_values(cfg.value_file)
-  add_declared_values(value)
+  -- The card values come from mod files only, so the derived store keeps them between starts.
+  local kept = VRFW.derived("album_values", { cfg.value_file }, function()
+    local v, m, n = card_values(cfg.value_file)
+    add_declared_values(v)
+    return { value = v, median = m, count = n }
+  end)
+  local value, median, count = kept.value, kept.median, kept.count
   RULE = { item = VRFW.crc32(cfg.currency), base = tonumber(cfg.base) or 0, per_value = tonumber(cfg.per_value) or 0,
     per_level = tonumber(cfg.per_level) or 0, level_cap = tonumber(cfg.level_cap), factor = factor, value = value,
     median = median, icon_atlas = cfg.icon_atlas, icon_sprite = cfg.currency }
@@ -87,5 +92,5 @@ function ClassicRecruitment.AlbumPrices(level, cards)
   return counts, r.icon_atlas, r.icon_sprite
 end
 
--- the rule's files are read behind a save's loading screen, not on the album's first page
-VRFW.on("slot_load", function() rule() end)
+-- The rule reads mod files only, so the script load (off the game thread) builds it before any save load.
+rule()

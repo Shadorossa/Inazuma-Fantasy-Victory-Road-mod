@@ -52,6 +52,14 @@ stem = "soccer_battle_setting_flow_formation_menu"
   marker = "betterqol prematch skip lineups"
 
 [[files]]
+stem = "soccer_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "xs_match_hud.lua"
+  marker = "betterqol prematch skip match hud"
+
+[[files]]
 stem = "soccer_restart_guide_menu"
 
   [[files.ops]]

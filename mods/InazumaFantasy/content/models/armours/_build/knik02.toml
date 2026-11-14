@@ -1,0 +1,14 @@
+# The armour of the keshin Niké (knik02.toml), from the owner's Blender scene. Built by _tools/model_builder.py
+# (dev-only, never installed) with --src the folder of the scene; armour_every_body_build.py then refits it to the other
+# body groups.
+recipe = "glb_armour"
+source = "nike_armour.glb"
+
+[rules]
+name = "knik02"
+skeleton = "c000101"
+head_bone = "c_head_1_0"
+keshin_height_ratio = 2.0
+atlas_size = 2048
+outline_red = [5.0, 0.4, 0.4]   # the outline of the retail red armour ka002301
+mirror_match = 1e-4

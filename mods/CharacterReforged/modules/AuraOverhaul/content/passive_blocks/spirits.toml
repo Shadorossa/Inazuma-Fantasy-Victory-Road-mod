@@ -53,7 +53,7 @@ value = 12
 
 [[VRFW.Trigger]]
 name = "on_technique_result"
-on = "technique_result"
+on = "match:hissatsu_result"
 by = "self"
 
 [[VRFW.MoveKind]]
@@ -120,7 +120,7 @@ percent = 12
 
 [[VRFW.Trigger]]
 name = "on_goal"
-on = "goal"
+on = "match:goal"
 by = "self"
 
 [[VRFW.TensionMax]]
@@ -130,7 +130,7 @@ team = "opponent"
 
 [[VRFW.Trigger]]
 name = "on_dash"
-on = "dash"
+on = "match:dash"
 by = "self"
 
 [[VRFW.Stack]]
@@ -140,7 +140,7 @@ duration_s = 3
 
 [[VRFW.Trigger]]
 name = "on_duel_won"
-on = "duel_won"
+on = "match:duel_won"
 by = "self"
 
 [[VRFW.Stack]]
@@ -176,7 +176,7 @@ positions = ["fw"]
 
 [[VRFW.Trigger]]
 name = "on_goal_opponent"
-on = "goal"
+on = "match:goal"
 by = "opponent"
 
 [[VRFW.PoolRestore]]
@@ -186,7 +186,7 @@ no_pool_seconds = 6
 
 [[VRFW.Trigger]]
 name = "on_block_won_team"
-on = "block_won"
+on = "match:block_won"
 by = "team"
 
 [[VRFW.Tension]]
@@ -263,7 +263,7 @@ states = ["level"]
 
 [[VRFW.Trigger]]
 name = "on_goal_team"
-on = "goal"
+on = "match:goal"
 by = "team"
 
 [[VRFW.Stack]]
@@ -293,7 +293,7 @@ auras = ["wkk00510"]
 
 [[VRFW.Trigger]]
 name = "on_duel_lost"
-on = "duel_lost"
+on = "match:duel_lost"
 by = "self"
 
 [[VRFW.Chance]]
@@ -448,7 +448,7 @@ target = "team"
 
 [[VRFW.Trigger]]
 name = "on_foul_opponent"
-on = "foul"
+on = "match:foul"
 by = "opponent"
 
 [[VRFW.TensionMax]]
@@ -507,7 +507,7 @@ max = 4
 
 [[VRFW.Reset]]
 name = "reset_block_won_self"
-on = "block_won"
+on = "match:block_won"
 by = "self"
 
 [[VRFW.TechniquePower]]
@@ -544,7 +544,7 @@ target = "team"
 
 [[VRFW.Trigger]]
 name = "on_block_won"
-on = "block_won"
+on = "match:block_won"
 by = "self"
 
 [[VRFW.Stack]]
@@ -618,7 +618,7 @@ percent = -8
 
 [[VRFW.Trigger]]
 name = "on_keeper_save"
-on = "keeper_save"
+on = "match:keeper_save"
 by = "self"
 
 [[VRFW.Chance]]
@@ -647,7 +647,7 @@ value = 15
 
 [[VRFW.Trigger]]
 name = "on_ball_stopped"
-on = "ball_stopped"
+on = "match:ball_stopped"
 by = "self"
 
 [[VRFW.TensionMax]]

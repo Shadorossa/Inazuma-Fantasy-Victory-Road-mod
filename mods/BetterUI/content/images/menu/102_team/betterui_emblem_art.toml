@@ -1,7 +1,7 @@
 schema = "VRFW.image/1"
 # Own atlas of the emblem picker (graft better_ui_emblem_grid), drawn at boot from the player's game files:
 # the grey hex of the emblems the team does not wear, and the white fade bands over the grid's top and bottom edges.
-# The fade masks come from research/mods/BetterUI/_tools/emblem_grid_build.py ([emblem_grid] fade of _menu_build.toml).
+# The fade masks come from research/mods/BetterUI/_tools/betterui_emblem_grid_build.py ([emblem_grid] fade of _menu_build.toml).
 
 # the retail emblem tile plate (vs01_43) without its colour
 [[recipe]]

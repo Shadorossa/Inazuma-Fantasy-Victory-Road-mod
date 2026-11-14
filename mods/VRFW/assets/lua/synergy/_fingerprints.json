@@ -21,13 +21,5 @@
   ],
   "forbid": [],
   "ambiguous": []
- },
- "team_dock_formation_menu": {
-  "script": "team_dock_formation_menu_7.00.09.00",
-  "require": [
-   "OpenSubWinSelectCharaSetting"
-  ],
-  "forbid": [],
-  "ambiguous": []
  }
 }

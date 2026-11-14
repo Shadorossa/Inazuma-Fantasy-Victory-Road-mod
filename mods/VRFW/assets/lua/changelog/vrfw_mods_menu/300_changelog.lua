@@ -1,3 +1,4 @@
+-- Internal: list of extra buttons the mods menu adds for the changelog (fn, icon, cmd, key).
 
 
 local CLM = {
@@ -10,6 +11,7 @@ local CLM = {
 
 local CLM_Call = VRFW.host.command
 
+--- Internal: list of extra buttons the mods menu adds for the changelog (fn, icon, cmd, key).
 VRFW.mods_menu_changelog = VRFW.mods_menu_changelog or {}
 VRFW.mods_menu_changelog[#VRFW.mods_menu_changelog + 1] = {
   fn = VRFW.ids.crc32("vrfw_mm_extra3"),

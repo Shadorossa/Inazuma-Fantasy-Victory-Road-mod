@@ -2,6 +2,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.option_row/1"
 folder = "content/option_rows"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.OptionRow"
+v2_kind_folder = "OptionRows"
+v2_version = 1
 label = "Option rows"
 label_es = "Filas de opciones"
 doc = "One more value in a row of the game's settings menu, chosen like the game's own."

@@ -2,6 +2,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.card_filter/1"
 folder = "content/card_filters"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Card.Filter"
+v2_kind_folder = "Cards/Filters"
+v2_version = 1
 label = "Card bank filters"
 label_es = "Filtros del banco de cartas"
 doc = "The tabs of the card bank screens, filtered by series or team."

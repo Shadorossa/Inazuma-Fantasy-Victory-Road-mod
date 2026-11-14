@@ -17,9 +17,10 @@ if VRFW.pose_row == nil then
     MODEL_VISIBLE = 1890282463,  -- (handle, on)
     LAYER_VISIBLE = VRFW.commands.SET_LAYER_VISIBLE,   -- CMND_SET_LAYER_VISIBLE (layer, instance, on)
   }
+  --- Advanced: State of the pose rows extension.
   VRFW.pose_row = R
 
-  --- Logs through the pose-row tag.
+  --- Internal: Logs through the pose-row tag.
   function R.log(...)
     if PRINT ~= nil then pcall(PRINT, "VRFW.pose_row", ...) end
   end
@@ -34,7 +35,7 @@ if VRFW.pose_row == nil then
     return r == true
   end
 
-  --- Hides the visible layers of `layers`; answers what it hid.
+  --- Advanced: Hides the visible layers of `layers`; answers what it hid.
   function R.hide_layers(layers)
     local hidden = {}
     for _, l in ipairs(layers or {}) do
@@ -50,14 +51,14 @@ if VRFW.pose_row == nil then
     return hidden
   end
 
-  --- Shows again what hide_layers hid.
+  --- Advanced: Shows again what hide_layers hid.
   function R.show_layers(hidden)
     for _, h in ipairs(hidden or {}) do
       pcall(funcLuaMenuCommand, R.LAYER_VISIBLE, h[1], h[2], true)
     end
   end
 
-  --- The caller's models: hidden (on = false: each one's handle kept), shown again (on = true).
+  --- Internal: The caller's models: hidden (on = false: each one's handle kept), shown again (on = true).
   function R.model_show(list, on, kept)
     kept = kept or {}
     for k, m in ipairs(list or {}) do
@@ -77,7 +78,7 @@ if VRFW.pose_row == nil then
     return kept
   end
 
-  --- The caller's models hidden (on = false) / given back (on = true, with what the hide returned).
+  --- Advanced: The caller's models hidden (on = false) / given back (on = true, with what the hide returned).
   function R.caller_models(list, on, kept)
     if list == nil or #list == 0 then
       return nil
@@ -95,7 +96,7 @@ if VRFW.pose_row == nil then
     return R.model_show(list, on, kept)
   end
 
-  --- a whole-number parameter out of the screen, read once (0 when absent).
+  --- Internal: a whole-number parameter out of the screen, read once (0 when absent).
   function R.take(k)
     local v = VRFW.param.take(k)
     if v == nil then
@@ -108,7 +109,7 @@ if VRFW.pose_row == nil then
     return v
   end
 
-  --- Opens the pose row screen for `key` in a coroutine; answers pick and focus, nil on a cancel.
+  --- Advanced: Opens the pose row screen for `key` in a coroutine; answers pick and focus, nil on a cancel.
   function R.open(key, context, opts)
     opts = opts or {}
     if type(key) ~= "string" or coroutine.running() == nil then

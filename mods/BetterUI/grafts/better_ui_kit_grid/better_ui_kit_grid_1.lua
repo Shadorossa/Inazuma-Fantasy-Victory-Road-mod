@@ -12,8 +12,8 @@ do
   Screen.NAME_PLATE = @crc:team07_03_uniform_info@
   Screen.NAME_TEXT = @crc:_text_detail01@
   Screen.NAME_ICONS = { @crc:_icon_uniform_dmy01@, @crc:_icon_uniform_dmy02@ }
-  Screen.C = { EXISTS = 2947612279, GET = 3522198769, LAYER_VISIBLE = 711242136, MESH_VISIBLE = 3405944500,
-    ITEM_ID = 2662166687, ITEM_NAME = 1883585771, ITEM_UNIFORM = 845816129, SET_TEXT = 1083631230,
+  Screen.C = { EXISTS = 2947612279, GET = 3522198769, LAYER_VISIBLE = @crc:CMND_SET_LAYER_VISIBLE@, MESH_VISIBLE = @crc:CMND_SET_MESH_VISIBLE@,
+    ITEM_ID = 2662166687, ITEM_NAME = @crc:CMND_GET_ITEM_PARAM@, ITEM_UNIFORM = 845816129, SET_TEXT = @crc:CMND_SET_MENU_TEXT_STRING@,
     ITEM_ICON = 3508889864, LIST_BUILT = 2787787510 }
 
   -- The rules of the shared picker grid (VRFW.equip_grid): this screen's layers, art and what a tile shows.

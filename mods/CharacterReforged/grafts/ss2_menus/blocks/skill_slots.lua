@@ -491,13 +491,13 @@ local function SetupSkillInfo(skill)
   end
   if aura_chara ~= 0 then
     -- Keshin, armour and totem characters have no list face icon.
-    pcall(funcLuaMenuCommand, 4176779611 --[[ResetFaceIcon]], L_INFO, 0, 2052777044 --[[item_chr_dmy01]])
+    -- VRFW.face_icon shows the portrait mesh once its texture has loaded.
+    VRFW.face_icon.forget(L_INFO, 0, 2787359195 --[[_item_chr_dmy01]])
     local okd, drawn = pcall(PL.aura_portrait, L_INFO, 0, 2787359195 --[[_item_chr_dmy01]], 2052777044, skill)
     aura_chara = (okd and drawn) and aura_chara or 0
   end
   if aura_chara ~= 0 then
     funcLuaMenuCommand(C.MESH_VISIBLE, L_INFO, 2634282032 --[[_item_chr_base01]], true, 0)
-    funcLuaMenuCommand(C.MESH_VISIBLE, L_INFO, 2787359195 --[[_item_chr_dmy01]], true, 0)
   else
     funcLuaMenuCommand(C.MESH_VISIBLE, L_INFO, 2634282032 --[[_item_chr_base01]], false, 0)
     funcLuaMenuCommand(C.MESH_VISIBLE, L_INFO, 2787359195 --[[_item_chr_dmy01]], false, 0)
@@ -672,7 +672,7 @@ function PL.detail_hide_all()
   if PL.set_detail_layout ~= nil then
     pcall(PL.set_detail_layout, nil)                -- back to the layout's own positions (passive windows, card)
   end
-  local all = {L_DETAIL, L_DETAIL_LV, PL.L_PV_DETAIL, PL.L_HIPER, PL.L_HROW, 1281343292}
+  local all = {L_DETAIL, L_DETAIL_LV, PL.L_PV_DETAIL, PL.L_HIPER, PL.L_HROW, 1281343292, PL.ARMOUR_MARK.layer}
   for _, A in pairs(PL.AURA_LAYER or {}) do
     all[#all + 1] = A
   end
@@ -883,7 +883,7 @@ function PL.passive_board(item, name, effect)
   if type(name) == "string" and name ~= "" then   -- the passive's own name, not the slot label
     funcLuaMenuCommand(C.TEXT, L, PL.LAYOUT_PV.name, name, 0)
   end
-  if type(effect) == "string" then                -- the effect lines alone (a signature passive's text holds its name)
+  if type(effect) == "string" then                -- the effect lines alone (an own passive's text holds its name)
     funcLuaMenuCommand(C.TEXT, L, PL.LAYOUT_PV.flavor, effect, 0)
     funcLuaMenuCommand(@crc:CMND_SET_MENU_TEXT_VISIBLE@, L, PL.LAYOUT_PV.flavor, true, 0)
   end
@@ -1095,6 +1095,9 @@ function PL.hiper_aura(skill, team_info)
   return true
 end
 
+-- The «Armadura» badge layer and the keshin card's band _fs_base01 in this screen's layout (cr_team00_30_detail).
+PL.ARMOUR_MARK = {layer = 1033927205 --[[cr_ph_armour_tag]], band = {-275, 200, 930, 88}}
+
 function PL.hiper_card(skill)
   local t = CharacterReforged.hyper_card.aura_type(skill)
   local A = t ~= nil and PL.AURA_LAYER[t] or nil
@@ -1109,6 +1112,9 @@ function PL.hiper_card(skill)
   local okp, ep = pcall(CharacterReforged.hyper_card.portrait, A, skill, nil, mc, "skill_panel", 0)
   if not okp then
     pcall(Call, C.LOG, "skill_slots", "portrait failed", tostring(ep))
+  end
+  if t == 0 then
+    pcall(CharacterReforged.hyper_card.armour_mark, skill, n, PL.ARMOUR_MARK)
   end
   local d = ""
   funcLuaMenuCommand(2735666188 --[[text visible]], A, 2956552560 --[[_text_flavor02]], false, 0)
@@ -1745,7 +1751,7 @@ end
 local L_PV_PANEL = 3303957920
 local L_PV_ROW = 811691761
 local L_BLACKBG = 3801549073
-local L_BTN_ICON = 1221220500      -- an unused button layer, kept hidden (setting layer)
+local L_BTN_ICON = 1221220500      -- the idol button (Character Reforged hero style button)
 local L_BTN_SS = 2729134238          -- "Pasiva personalizada" button
 local SET_PREVIEW_ROWS = 9                              -- panel rows = row-layer instances 0..8
 local BG_COUNT = 2                             -- 2 stacked cmn02_01_blackbg dims
@@ -1849,9 +1855,9 @@ local function SkillSlotLock()
   return not PL.has_service("six_sense"), 0, nil
 end
 
--- The signature passive cannot be changed.
-function PL.signature()
-  local ok, passive = pcall(funcLuaCommand, @crc:CMND_PASSIVESSYNERGIES_OWN_PASSIVE@, n)
+-- The own passive cannot be changed.
+function PL.own_passive()
+  local ok, passive = pcall(funcLuaCommand, @crc:CMND_CHARACTERREFORGED_OWN_PASSIVE@, n)
   if ok and type(passive) == "number" then
     return to_u32(passive)
   end
@@ -1860,7 +1866,7 @@ end
 
 local function SkillSlotButtonRefresh()
   local _, item = SkillSlotGet()
-  item = PL.signature() or item
+  item = PL.own_passive() or item
   ButtonIcon(ROW_ICON_SKILL_SLOT, SkillSlotIcon(item))
   local locked = SkillSlotLock()
   funcLuaMenuCommand(C.LAYER_VISIBLE, L_PV_ROW, ROW_ICON_SKILL_SLOT, not character_reforged_pv_open)
@@ -1871,17 +1877,17 @@ end
 
 -- Shows the info card while the six-sense button has the focus.
 local function SkillSlotInfo()
-  local signature = PL.signature()
-  if signature ~= nil then                        -- read only: the own passive's detail, or nothing without one
+  local own_passive = PL.own_passive()
+  if own_passive ~= nil then                        -- read only: the own passive's detail, or nothing without one
     local shown = false
-    if signature ~= 0 and PL.passive_detail ~= nil then
+    if own_passive ~= 0 and PL.passive_detail ~= nil then
       local parts = type(CharacterReforged) == "table" and CharacterReforged.parts or nil
       local passive_display = type(parts) == "table" and parts.passive_display or nil
-      local display = type(passive_display) == "table" and passive_display.of(n, signature) or nil
+      local display = type(passive_display) == "table" and passive_display.of(n, own_passive) or nil
       if type(display) == "table" then
-        shown = pcall(PL.passive_detail, display.name, display.effect, signature, display.effect)
+        shown = pcall(PL.passive_detail, display.name, display.effect, own_passive, display.effect)
       else
-        shown = pcall(PL.passive_detail, "", "", signature)
+        shown = pcall(PL.passive_detail, "", "", own_passive)
       end
     end
     SetVisibleEquipInfoWindow(false)
@@ -1889,7 +1895,7 @@ local function SkillSlotInfo()
       pcall(CharacterReforged.skill_table_detail_hide)
     end
     funcLuaMenuCommand(C.TEXT, 3078308064 --[[mainmenu90_05_content_guide_line01]], 378156699 --[[_text_guide01]],
-      PL.txt(signature ~= 0 and PL.TX.SIG_GUIDE or PL.TX.SIG_NONE), 0)
+      PL.txt(own_passive ~= 0 and PL.TX.SIG_GUIDE or PL.TX.SIG_NONE), 0)
     return
   end
   local _, item = SkillSlotGet()
@@ -2024,8 +2030,7 @@ local COMMAND_FCS_NEXT = 2734193315
 
 local SetPreviewPrevSetupLayer = OnSetupLayer
 function OnSetupLayer(a1, a2)
-  if a1 == L_BTN_ICON then
-    funcLuaMenuCommand(C.LAYER_VISIBLE, a1, a2, false)
+  if a1 == L_BTN_ICON then                       -- drawn by the idol button file
     return
   elseif a1 == L_BTN_SS then
     funcLuaMenuCommand(C.TEXT, a1, 625330766 --[[_text_cmd01]], "", a2)
@@ -2069,8 +2074,7 @@ end
 
 local SetPreviewPrevOpenLayer = OnOpenLayer
 function OnOpenLayer(a1, a2)
-  if a1 == L_BTN_ICON then
-    funcLuaMenuCommand(C.LAYER_VISIBLE, a1, a2, false)
+  if a1 == L_BTN_ICON then                       -- drawn by the idol button file
     return
   elseif a1 == L_BTN_SS then
     funcLuaMenuCommand(@crc:CMND_PLAY_ANIME_TYPE@, a1, a2, 2734777837 --[[Focus]], 2, 973515837 --[[button]])
@@ -2120,7 +2124,7 @@ end
 -- "Eliminar" on the six-sense button takes the item off
 local SetPreviewPrevFunction = OnFunction
 function OnFunction(a1, a2)
-  if a1 == 4109882573 and character_reforged_focus_layer == L_BTN_SS and vrfw_co == nil and PL.signature() == nil then
+  if a1 == 4109882573 and character_reforged_focus_layer == L_BTN_SS and vrfw_co == nil and PL.own_passive() == nil then
     local _, item = SkillSlotGet()
     if item ~= 0 then
       SetPreviewCall(@crc:CMND_CHARACTERREFORGED_SIX_SENSE@, n, 1, 0, -1)

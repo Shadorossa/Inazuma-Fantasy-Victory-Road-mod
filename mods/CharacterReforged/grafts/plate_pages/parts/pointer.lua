@@ -25,27 +25,7 @@
     pcall(dir > 0 and SetPersonalPlateNextPage or SetPersonalPlatePrevPage)
   end
   function G.ptr_form()
-    local M = CharacterReforged.page_model
-    if G.ptype == G.HIPER_TYPE then        -- the Hiper page, Normal / the shown aura's form
-      G.hiper_toggle("click")
-      return
-    end
-    if G.ptype == CharacterReforged.PLAYER_PAGE_STATS_TYPE then  -- ATRIBUTOS, Normal / Miximax
-      G.mx_toggle("click")
-      return
-    end
-    if G.view_offered() then
-      pcall(M.open_view, "click")
-      return
-    end
-    if type(M) ~= "table" or M.phase ~= "ready" or CharacterReforged.PAGE_MODEL_PAGE_FORMS ~= true or type(M.forms) ~= "table"
-        or #M.forms <= 1 or type(M.mark_fresh) ~= "function" then
-      return
-    end
-    M.last = M.tick or 0
-    M.fidx = (M.fidx or 1) % #M.forms + 1
-    pcall(funcLuaCommand, @crc:CMND_SND_PLAY_SE@, 2629173176)   -- sy0009, as R3
-    M.mark_fresh()
+    G.form_press("click")                  -- the page's one form handler (parts/forms.lua)
   end
   function G.pointer()
     if G.gotoT ~= nil then
@@ -86,21 +66,11 @@
       end
       P.rect(G.PTR_R3[1], G.PTR_R3[2], G.PTR_R3[3], G.PTR_R3[4], "r3")
     end
-    local forms = type(CharacterReforged.page_model) == "table" and type(CharacterReforged.page_model.forms) == "table" and #CharacterReforged.page_model.forms or 0
-    if G.ptype == CharacterReforged.PLAYER_PAGE_DESCRIPTION_TYPE and not G.in_office() then
+    if G.ptype == CharacterReforged.PLAYER_PAGE_DESCRIPTION_TYPE and not G.in_office() and G.view_offered() then
+      P.rect(G.PTR_FORM[1], G.PTR_FORM[2], G.PTR_FORM[3], G.PTR_FORM[4], "form")
+    elseif G.fbBox ~= nil then
       local b = G.fbBox
-      if G.view_offered() then
-        P.rect(G.PTR_FORM[1], G.PTR_FORM[2], G.PTR_FORM[3], G.PTR_FORM[4], "form")
-      elseif forms > 1 and b ~= nil then
-        P.rect(b[1], b[2], b[3], b[4], "form")   -- the form badge (tiles + RS key)
-      end
-    elseif G.ptype == G.HIPER_TYPE and not G.in_office() and G.fbBox ~= nil
-        and (G.hiperTgt ~= nil or G.hiperDouble == true) then
-      local b = G.fbBox
-      P.rect(b[1], b[2], b[3], b[4], "form")     -- the Hiper page's form badge
-    elseif G.ptype == CharacterReforged.PLAYER_PAGE_STATS_TYPE and not G.in_office() and G.fbBox ~= nil and G.mx_avail() then
-      local b = G.fbBox
-      P.rect(b[1], b[2], b[3], b[4], "form")     -- ATRIBUTOS' Normal / Miximax badge
+      P.rect(b[1], b[2], b[3], b[4], "form")     -- the form badge (tiles + RS key), on every form page
     end
     local ev = P.poll()
     local c = ev.click

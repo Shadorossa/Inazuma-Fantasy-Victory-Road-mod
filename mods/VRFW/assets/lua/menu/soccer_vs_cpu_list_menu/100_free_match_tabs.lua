@@ -1,5 +1,7 @@
 
+--- Advanced: tab state of the free match list (VRFW.free_match_tabs).
 VRFW.free_match_tabs = VRFW.free_match_tabs or {}
+--- Namespace: hooks mods add to the free match list tabs.
 VRFW.free_match_tab_hooks = VRFW.free_match_tab_hooks or {}
 
 local FMT = {
@@ -118,7 +120,7 @@ local function FMT_Page1Total()
   return n
 end
 
--- the tab index of extra tab `id` (nil: not declared / no framework DLL); for mods (call it inside a callback)
+-- Internal: the tab index of extra tab `id` (nil: not declared / no framework DLL); for mods (call it inside a callback)
 function VRFW.free_match_tabs.index(id)
   for _, t in ipairs(FMT_All()) do
     if t.id == id then

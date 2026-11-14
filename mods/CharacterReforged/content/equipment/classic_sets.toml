@@ -1,0 +1,207 @@
+
+
+schema = "CharacterReforged.sets/1"
+
+[[set]]
+name = "Paradise"
+members = ["CharacterReforged.paradise_bracelet", "CharacterReforged.paradise_pendant"]
+  [[set.bonus]]
+  pieces = 2
+  stats = { physical = 0.0571, control = 0.0571 }
+
+[[set]]
+name = "Samurai"
+members = ["CharacterReforged.shinsengumi_sandals", "CharacterReforged.shinsengumi_gloves", "CharacterReforged.warrior_sandals", "CharacterReforged.warrior_gloves", "CharacterReforged.bright_sandals", "CharacterReforged.bright_gloves", "CharacterReforged.dashing_gloves", "eq_sh1104901"]
+  [[set.bonus]]
+  pieces = 2
+  stats = { intelligence = 0.0571, technique = 0.0571 }
+
+[[set]]
+name = "ThreeKingdoms"
+members = ["CharacterReforged.eastern_boots", "CharacterReforged.eastern_gloves", "CharacterReforged.fortress_boots", "CharacterReforged.fortress_gloves"]
+  [[set.bonus]]
+  pieces = 2
+  stats = { kick = 0.0571, agility = 0.0571 }
+
+[[set]]
+name = "RoundTable"
+members = ["CharacterReforged.sabaton_boots", "CharacterReforged.gauntlets", "CharacterReforged.knights_boots", "CharacterReforged.knights_gloves"]
+  [[set.bonus]]
+  pieces = 2
+  stats = { physical = 0.0571, agility = 0.0571 }
+
+[[join]]
+set = "Angel"
+items = ["CharacterReforged.black_boots", "CharacterReforged.eternal_boots", "CharacterReforged.sacred_bracelet", "CharacterReforged.cross_pendant", "CharacterReforged.sacred_pendant", "CharacterReforged.black_gloves", "CharacterReforged.almighty_faith_gloves", "CharacterReforged.eternal_gloves", "CharacterReforged.angelic_bracelet"]
+
+[[join]]
+set = "Training"
+items = ["CharacterReforged.practice_boots", "CharacterReforged.discipline_boots", "CharacterReforged.power_boots", "CharacterReforged.vitality_boots", "CharacterReforged.discipline_gloves", "CharacterReforged.vitality_gloves"]
+
+[[join]]
+set = "Thunder"
+items = ["CharacterReforged.thunder_boots", "CharacterReforged.inazuma_pendant", "CharacterReforged.raimon_gloves", "CharacterReforged.reserve_gloves", "CharacterReforged.kids_gloves", "CharacterReforged.thunder_gloves", "CharacterReforged.sherwind_gloves", "CharacterReforged.champion_gloves"]
+
+[[join]]
+set = "FirePath"
+items = ["CharacterReforged.wildfire_boots", "CharacterReforged.wildfire_gloves", "CharacterReforged.volcano_boots", "CharacterReforged.ash_boots", "CharacterReforged.magmavia_eleven_gloves", "CharacterReforged.volcano_gloves", "CharacterReforged.ash_gloves"]
+
+[[join]]
+set = "MountainPath"
+items = ["CharacterReforged.terra_boots", "CharacterReforged.terra_gloves", "CharacterReforged.sandstorm_boots", "CharacterReforged.erg_boots", "CharacterReforged.silica_eleven_gloves", "CharacterReforged.sandstorm_gloves", "CharacterReforged.erg_gloves"]
+
+[[join]]
+set = "Darkness"
+items = ["CharacterReforged.terror_boots", "CharacterReforged.tezcat_bracelet", "CharacterReforged.gothic_pendant", "CharacterReforged.ancient_gloves", "CharacterReforged.zero_gloves", "CharacterReforged.terror_gloves", "CharacterReforged.demonic_bracelet", "CharacterReforged.destruction_pendant", "CharacterReforged.vampire_gloves", "CharacterReforged.nocturnal_gloves"]
+
+[[join]]
+set = "Sporty"
+items = ["CharacterReforged.sports_shoes", "CharacterReforged.active_bracelet", "CharacterReforged.sports_gloves"]
+
+[[join]]
+set = "Trendy"
+items = ["CharacterReforged.stripe_boots", "CharacterReforged.stripe_gloves"]
+
+[[join]]
+set = "Guardian"
+items = ["CharacterReforged.power_boots", "CharacterReforged.leather_bracelet"]
+
+[[join]]
+set = "Fiesta"
+items = ["CharacterReforged.harlequin_boots", "CharacterReforged.harlequin_gloves"]
+
+[[join]]
+set = "Tide"
+items = ["CharacterReforged.boat_boots", "CharacterReforged.pirates_cove_gloves", "CharacterReforged.sailor_gloves", "CharacterReforged.waterproof_boots", "CharacterReforged.cascade_gloves", "CharacterReforged.waterproof_gloves", "CharacterReforged.current_boots", "CharacterReforged.float_boots", "CharacterReforged.big_waves_gloves", "CharacterReforged.naiadi_eleven_gloves", "CharacterReforged.current_gloves", "CharacterReforged.float_gloves"]
+
+[[join]]
+set = "Royalty"
+items = ["CharacterReforged.gentleman_boots", "CharacterReforged.diamond_pendant", "CharacterReforged.gentleman_gloves", "CharacterReforged.noble_boots", "CharacterReforged.aristocrat_boots", "CharacterReforged.noble_gloves", "CharacterReforged.aristocrat_gloves"]
+
+[[join]]
+set = "Passion"
+items = ["CharacterReforged.devotion_boots", "CharacterReforged.red_bracelet", "CharacterReforged.devotion_gloves"]
+
+[[join]]
+set = "Wild"
+items = ["CharacterReforged.panther_boots", "CharacterReforged.panther_gloves", "CharacterReforged.muay_tigers_gloves", "CharacterReforged.storm_wolves_gloves", "CharacterReforged.team_ogre_gloves"]
+
+[[join]]
+set = "Greenwood"
+items = ["CharacterReforged.echo_boots", "CharacterReforged.seed_bracelet", "CharacterReforged.ivy_selective_gloves", "CharacterReforged.verdant_gloves", "CharacterReforged.echo_gloves", "CharacterReforged.white_deer_gloves", "CharacterReforged.peasant_gloves"]
+
+[[join]]
+set = "Challenger"
+items = ["CharacterReforged.uplifting_boots", "CharacterReforged.uplifting_gloves"]
+
+[[join]]
+set = "Glory"
+items = ["CharacterReforged.premium_boots", "CharacterReforged.inazuma_pendant", "CharacterReforged.premium_gloves", "CharacterReforged.global_boots", "CharacterReforged.champion_gloves", "CharacterReforged.global_gloves", "CharacterReforged.japanese_resistance_gloves"]
+
+[[join]]
+set = "Colorful"
+items = ["CharacterReforged.rainbow_bracelet"]
+
+[[join]]
+set = "Valiant"
+items = ["CharacterReforged.courage_bracelet", "CharacterReforged.courage_pendant"]
+
+[[join]]
+set = "Bond"
+items = ["CharacterReforged.heart_pendant", "CharacterReforged.national_boots", "CharacterReforged.national_gloves"]
+
+[[join]]
+set = "Moonlight"
+items = ["CharacterReforged.silver_pendant", "CharacterReforged.lunar_sea_gloves", "CharacterReforged.werewolf_gloves"]
+
+[[join]]
+set = "Scholar"
+items = ["CharacterReforged.prodigy_gloves", "CharacterReforged.study_pendant"]
+
+[[join]]
+set = "Cosmos"
+items = ["CharacterReforged.milky_way_gloves", "CharacterReforged.universal_gloves", "CharacterReforged.falam_medius_gloves", "CharacterReforged.ixar_fleet_gloves", "CharacterReforged.space_rankers_gloves"]
+
+[[join]]
+set = "Penguin"
+items = ["CharacterReforged.royal_gloves"]
+
+[[join]]
+set = "Frost"
+items = ["CharacterReforged.alpine_gloves"]
+
+[[join]]
+set = "School"
+items = ["CharacterReforged.kirkwood_gloves"]
+
+[[join]]
+set = "Occult"
+items = ["CharacterReforged.mirage_gloves"]
+
+[[join]]
+set = "Olympus"
+items = ["CharacterReforged.mt_olympus_gloves", "CharacterReforged.zeus_gloves"]
+
+[[join]]
+set = "Dragon"
+items = ["CharacterReforged.dragon_link_gloves", "CharacterReforged.fire_dragon_gloves"]
+
+[[join]]
+set = "Classic"
+items = ["CharacterReforged.golden_oldies_gloves", "CharacterReforged.dirty_bracelet"]
+
+[[join]]
+set = "Bloom"
+items = ["CharacterReforged.ivy_selective_gloves"]
+
+[[join]]
+set = "WindPath"
+items = ["CharacterReforged.flurry_gloves"]
+
+[[join]]
+set = "Swift"
+items = ["CharacterReforged.flurry_gloves"]
+
+[[join]]
+set = "Sleek"
+items = ["CharacterReforged.smart_gloves"]
+
+[[join]]
+set = "Victory"
+items = ["CharacterReforged.victory_gloves"]
+
+[[join]]
+set = "Endo"
+items = ["CharacterReforged.legendary_boots"]
+
+[[join]]
+set = "World"
+items = ["CharacterReforged.tonghanian_boots", "CharacterReforged.tonghanian_gloves", "CharacterReforged.shamshir_gloves"]
+
+[[join]]
+set = "Tech"
+items = ["CharacterReforged.automated_boots", "CharacterReforged.binary_boots", "CharacterReforged.automated_gloves", "CharacterReforged.binary_gloves"]
+
+[[join]]
+set = "Omega"
+items = ["CharacterReforged.omega_gloves", "CharacterReforged.omega_z_gloves", "CharacterReforged.zan_gloves", "CharacterReforged.gihl_gloves", "CharacterReforged.gahl_gloves", "CharacterReforged.ragnah_gloves"]
+
+[[join]]
+set = "Rebel"
+items = ["CharacterReforged.zanark_gloves", "CharacterReforged.despairado_gloves"]
+
+[[join]]
+set = "Alius"
+items = ["CharacterReforged.genesis_gloves"]
+
+[[join]]
+set = "Military"
+items = ["CharacterReforged.combat_boots", "CharacterReforged.combat_gloves"]
+
+[[join]]
+set = "ForestPath"
+items = ["CharacterReforged.sunbeam_boots", "CharacterReforged.hunting_boots", "CharacterReforged.fertilia_eleven_gloves", "CharacterReforged.sunbeam_gloves", "CharacterReforged.hunting_gloves"]
+
+[[join]]
+set = "Fortune"
+items = ["CharacterReforged.treasure_pendant"]

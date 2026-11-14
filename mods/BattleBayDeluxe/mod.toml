@@ -2,10 +2,11 @@ id = "BattleBayDeluxe"
 # English fallback; the Mods screen shows the text keys mod_name / mod_description (text\keys.toml).
 name = "Battle Bay Deluxe"
 icon = "#/menu/200_icon/16_icon_list_tab/icon_list_tab.g4tx:icon_list_tab_sp_area03"
-version = "0.3.0"
+version = "0.3.1"
 author = "Fantasy Team"
 description = "Adds the 221 Chronicle teams to the Battle Bay as teams to pick and rivals, with their original players, kits and special moves. Play with your active team, a Draft, a Tournament, a League, a daily challenge or a private 1v1 room."
 priority = 0
+type = "content"
 tags = ["Teams", "Gameplay"]
 updated = "2026-11-09"
 prefix = "BattleBayDeluxe"
@@ -20,8 +21,3 @@ conflicts = []
 permissions = ["memory", "call", "command", "state", "hook"]
 # Carries the grafts' funcLuaCommand calls of CMND_BATTLEBAYDELUXE_* commands.
 loader_modules = ["lua_bridge"]
-
-# BattleBayDeluxe.Ratings(): team id -> rating from battlebaydeluxe_team_rating.cfg.bin ({} when no mod ships it).
-[exports]
-functions = ["Ratings"]
-keys = []

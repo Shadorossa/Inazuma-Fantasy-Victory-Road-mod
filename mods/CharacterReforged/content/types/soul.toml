@@ -2,6 +2,9 @@
 schema = "VRFW.decl_schema/1"
 kind = "CharacterReforged.soul/1"
 folder = "content/souls"
+# v2 words, read beside the v1 ones until the switch: the type and its kind folder.
+v2_type = "CharacterReforged.Character.Soul"
+v2_kind_folder = "Characters/Souls"
 # The aura kind whose ModManager page edits these records (crates/modmanager/assets/auras_ui.toml).
 aura_kind = "soul"
 label = "Soul totems"

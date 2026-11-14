@@ -1,0 +1,106 @@
+schema = "VRFW.text/2"
+table = "skill_text"
+
+[[row]]
+id = 94460302  # InazumaFantasy own_c90620000
+kind = "noun"
+es = "[CPASSIVE01]Patas de furia[C]\\nCada duelo que gana:\\npoder de [CPASSIVE01]tiro[C] [CPASSIVE01]+3 %[C] (máx. 4, por parte)"
+en = "[CPASSIVE01]Paws of Fury[C]\\nEach duel he wins:\\n[CPASSIVE01]shot[C] power [CPASSIVE01]+3%[C] (max 4, per half)"
+fr = "[CPASSIVE01]Pattes de furie[C]\\nChaque duel gagné :\\npuissance de [CPASSIVE01]tir[C] [CPASSIVE01]+3 %[C] (max 4, par mi-temps)"
+de = "[CPASSIVE01]Pfoten des Zorns[C]\\nPro gewonnenem Duell:\\n[CPASSIVE01]Schuss[C]-Stärke [CPASSIVE01]+3 %[C] (max. 4, pro Halbzeit)"
+it = "[CPASSIVE01]Zampe furiose[C]\\nPer ogni duello vinto:\\npotenza di [CPASSIVE01]tiro[C] [CPASSIVE01]+3%[C] (max 4, per tempo)"
+pt = "[CPASSIVE01]Patas da fúria[C]\\nPor cada duelo que vence:\\npoder de [CPASSIVE01]remate[C] [CPASSIVE01]+3%[C] (máx. 4, por parte)"
+ja = "[CPASSIVE01]百烈肉球[C]\\nデュエルに勝つたびに：[CPASSIVE01]シュート[C]威力[CPASSIVE01]+3％[C]\\n（最大4回・ハーフごと）"
+zh_hans = "[CPASSIVE01]百烈肉球[C]\\n每赢得1次对决：[CPASSIVE01]射门[C]威力[CPASSIVE01]+3%[C]\\n（最多4次，每半场）"
+zh_hant = "[CPASSIVE01]百烈肉球[C]\\n每贏得1次對決：[CPASSIVE01]射門[C]威力[CPASSIVE01]+3%[C]\\n（最多4次，每半場）"
+
+[[row]]
+id = 2330045486  # InazumaFantasy own_c90640000
+kind = "noun"
+es = "[CPASSIVE01]Guardián del santuario[C]\\nEn su propio campo:\\npoder de [CPASSIVE01]bloqueo[C] y [CPASSIVE01]regate[C] [CPASSIVE01]+6 %[C]"
+en = "[CPASSIVE01]Shrine Guardian[C]\\nIn his own half:\\n[CPASSIVE01]block[C] and [CPASSIVE01]dribble[C] power [CPASSIVE01]+6%[C]"
+fr = "[CPASSIVE01]Gardien du sanctuaire[C]\\nDans son camp :\\npuissance de [CPASSIVE01]blocage[C] et de [CPASSIVE01]dribble[C] [CPASSIVE01]+6 %[C]"
+de = "[CPASSIVE01]Schreinwächter[C]\\nIn der eigenen Hälfte:\\n[CPASSIVE01]Block[C]- und [CPASSIVE01]Dribbling[C]-Stärke [CPASSIVE01]+6 %[C]"
+it = "[CPASSIVE01]Guardiano del santuario[C]\\nNella propria metà campo:\\npotenza di [CPASSIVE01]blocco[C] e [CPASSIVE01]dribbling[C] [CPASSIVE01]+6%[C]"
+pt = "[CPASSIVE01]Guardião do santuário[C]\\nNo seu meio-campo:\\npoder de [CPASSIVE01]bloqueio[C] e [CPASSIVE01]drible[C] [CPASSIVE01]+6%[C]"
+ja = "[CPASSIVE01]神社の守り神[C]\\n自陣にいる間：\\n[CPASSIVE01]ブロック[C]・[CPASSIVE01]ドリブル[C]威力[CPASSIVE01]+6％[C]"
+zh_hans = "[CPASSIVE01]神社的守护神[C]\\n在本方半场时：\\n[CPASSIVE01]拦截[C]和[CPASSIVE01]盘带[C]威力[CPASSIVE01]+6%[C]"
+zh_hant = "[CPASSIVE01]神社的守護神[C]\\n在本方半場時：\\n[CPASSIVE01]攔截[C]和[CPASSIVE01]盤帶[C]威力[CPASSIVE01]+6%[C]"
+
+[[row]]
+id = 1920034975  # InazumaFantasy own_c90690000
+kind = "noun"
+es = "[CPASSIVE01]Hermano relámpago[C]\\nEn el campo rival:\\npoder de [CPASSIVE01]bloqueo[C] y [CPASSIVE01]regate[C] [CPASSIVE01]+6 %[C]"
+en = "[CPASSIVE01]Lightning Brother[C]\\nIn the rival half:\\n[CPASSIVE01]block[C] and [CPASSIVE01]dribble[C] power [CPASSIVE01]+6%[C]"
+fr = "[CPASSIVE01]Frère éclair[C]\\nDans le camp adverse :\\npuissance de [CPASSIVE01]blocage[C] et de [CPASSIVE01]dribble[C] [CPASSIVE01]+6 %[C]"
+de = "[CPASSIVE01]Blitzbruder[C]\\nIn der gegnerischen Hälfte:\\n[CPASSIVE01]Block[C]- und [CPASSIVE01]Dribbling[C]-Stärke [CPASSIVE01]+6 %[C]"
+it = "[CPASSIVE01]Fratello fulmine[C]\\nNella metà campo avversaria:\\npotenza di [CPASSIVE01]blocco[C] e [CPASSIVE01]dribbling[C] [CPASSIVE01]+6%[C]"
+pt = "[CPASSIVE01]Irmão relâmpago[C]\\nNo meio-campo rival:\\npoder de [CPASSIVE01]bloqueio[C] e [CPASSIVE01]drible[C] [CPASSIVE01]+6%[C]"
+ja = "[CPASSIVE01]稲妻の弟[C]\\n敵陣にいる間：\\n[CPASSIVE01]ブロック[C]・[CPASSIVE01]ドリブル[C]威力[CPASSIVE01]+6％[C]"
+zh_hans = "[CPASSIVE01]闪电弟弟[C]\\n在对方半场时：\\n[CPASSIVE01]拦截[C]和[CPASSIVE01]盘带[C]威力[CPASSIVE01]+6%[C]"
+zh_hant = "[CPASSIVE01]閃電弟弟[C]\\n在對方半場時：\\n[CPASSIVE01]攔截[C]和[CPASSIVE01]盤帶[C]威力[CPASSIVE01]+6%[C]"
+
+[[row]]
+id = 3078718878  # InazumaFantasy own_c90650000
+kind = "noun"
+es = "[CPASSIVE01]Poder de las tinieblas[C]\\nSi su equipo va perdiendo:\\npoder de [CPASSIVE01]tiro[C] [CPASSIVE01]+8 %[C] y [CPASSIVE01]Tiro[C] [CPASSIVE01]+4 %[C]"
+en = "[CPASSIVE01]Power of Darkness[C]\\nWhile his team is behind:\\n[CPASSIVE01]shot[C] power [CPASSIVE01]+8%[C] and [CPASSIVE01]Kick[C] [CPASSIVE01]+4%[C]"
+fr = "[CPASSIVE01]Pouvoir des ténèbres[C]\\nQuand son équipe est menée :\\npuissance de [CPASSIVE01]tir[C] [CPASSIVE01]+8 %[C] et [CPASSIVE01]Tir[C] [CPASSIVE01]+4 %[C]"
+de = "[CPASSIVE01]Macht der Finsternis[C]\\nWenn sein Team zurückliegt:\\n[CPASSIVE01]Schuss[C]-Stärke [CPASSIVE01]+8 %[C] und [CPASSIVE01]Schuss[C] [CPASSIVE01]+4 %[C]"
+it = "[CPASSIVE01]Potere delle tenebre[C]\\nSe la sua squadra è in svantaggio:\\npotenza di [CPASSIVE01]tiro[C] [CPASSIVE01]+8%[C] e [CPASSIVE01]Tiro[C] [CPASSIVE01]+4%[C]"
+pt = "[CPASSIVE01]Poder das trevas[C]\\nSe a sua equipa estiver a perder:\\npoder de [CPASSIVE01]remate[C] [CPASSIVE01]+8%[C] e [CPASSIVE01]Remate[C] [CPASSIVE01]+4%[C]"
+ja = "[CPASSIVE01]闇の力[C]\\nチームが負けている間：\\n[CPASSIVE01]シュート[C]威力[CPASSIVE01]+8％[C]・[CPASSIVE01]キック[C][CPASSIVE01]+4％[C]"
+zh_hans = "[CPASSIVE01]黑暗之力[C]\\n本队落后时：\\n[CPASSIVE01]射门[C]威力[CPASSIVE01]+8%[C]，[CPASSIVE01]踢力[C][CPASSIVE01]+4%[C]"
+zh_hant = "[CPASSIVE01]黑暗之力[C]\\n本隊落後時：\\n[CPASSIVE01]射門[C]威力[CPASSIVE01]+8%[C]，[CPASSIVE01]踢力[C][CPASSIVE01]+4%[C]"
+
+[[row]]
+id = 4028759886  # InazumaFantasy own_c90660000
+kind = "noun"
+es = "[CPASSIVE01]Ira del Yasha[C]\\nEn el último tercio de cada parte:\\npoder de sus técnicas de [CPASSIVE01]fuego[C] [CPASSIVE01]+8 %[C]"
+en = "[CPASSIVE01]Yasha's Wrath[C]\\nIn the last third of each half:\\n[CPASSIVE01]Fire[C] technique power [CPASSIVE01]+8%[C]"
+fr = "[CPASSIVE01]Colère du Yasha[C]\\nDernier tiers de chaque mi-temps :\\npuissance des techniques [CPASSIVE01]Feu[C] [CPASSIVE01]+8 %[C]"
+de = "[CPASSIVE01]Zorn des Yasha[C]\\nIm letzten Drittel jeder Halbzeit:\\n[CPASSIVE01]Feuer[C]-Technikstärke [CPASSIVE01]+8 %[C]"
+it = "[CPASSIVE01]Ira dello Yasha[C]\\nNell'ultimo terzo di ogni tempo:\\npotenza delle tecniche [CPASSIVE01]Fuoco[C] [CPASSIVE01]+8%[C]"
+pt = "[CPASSIVE01]Ira do Yasha[C]\\nNo último terço de cada parte:\\npoder das técnicas de [CPASSIVE01]Fogo[C] [CPASSIVE01]+8%[C]"
+ja = "[CPASSIVE01]夜叉の怒り[C]\\n各ハーフの残り3分の1：\\n[CPASSIVE01]火[C]属性の技の威力[CPASSIVE01]+8％[C]"
+zh_hans = "[CPASSIVE01]夜叉之怒[C]\\n每个半场的最后三分之一：\\n[CPASSIVE01]火[C]属性技能威力[CPASSIVE01]+8%[C]"
+zh_hant = "[CPASSIVE01]夜叉之怒[C]\\n每個半場的最後三分之一：\\n[CPASSIVE01]火[C]屬性技能威力[CPASSIVE01]+8%[C]"
+
+[[row]]
+id = 3443644158  # InazumaFantasy own_c90670000
+kind = "noun"
+es = "[CPASSIVE01]Rey de los yokai[C]\\nEn la 2.ª parte:\\n[CPASSIVE01]Tiro[C] y [CPASSIVE01]Control[C] [CPASSIVE01]+3 %[C] a los [CPASSIVE01]yokai[C] de su equipo"
+en = "[CPASSIVE01]King of the Yo-kai[C]\\nIn the 2nd half:\\n[CPASSIVE01]Kick[C] and [CPASSIVE01]Control[C] [CPASSIVE01]+3%[C] for his team's [CPASSIVE01]Yo-kai[C]"
+fr = "[CPASSIVE01]Roi des Yo-kai[C]\\nEn 2e mi-temps :\\n[CPASSIVE01]Tir[C] et [CPASSIVE01]Contrôle[C] [CPASSIVE01]+3 %[C] pour les [CPASSIVE01]Yo-kai[C] de son équipe"
+de = "[CPASSIVE01]König der Yo-kai[C]\\nIn der 2. Halbzeit:\\n[CPASSIVE01]Schuss[C] und [CPASSIVE01]Kontrolle[C] [CPASSIVE01]+3 %[C] für die [CPASSIVE01]Yo-kai[C] seines Teams"
+it = "[CPASSIVE01]Re degli Yo-kai[C]\\nNel 2º tempo:\\n[CPASSIVE01]Tiro[C] e [CPASSIVE01]Controllo[C] [CPASSIVE01]+3%[C] agli [CPASSIVE01]Yo-kai[C] della sua squadra"
+pt = "[CPASSIVE01]Rei dos Yo-kai[C]\\nNa 2.ª parte:\\n[CPASSIVE01]Remate[C] e [CPASSIVE01]Controlo[C] [CPASSIVE01]+3%[C] para os [CPASSIVE01]Yo-kai[C] da sua equipa"
+ja = "[CPASSIVE01]妖怪の王[C]\\n後半：\\nチームの[CPASSIVE01]妖怪[C]の[CPASSIVE01]キック[C]・[CPASSIVE01]コントロール[C][CPASSIVE01]+3％[C]"
+zh_hans = "[CPASSIVE01]妖怪之王[C]\\n下半场：\\n本队[CPASSIVE01]妖怪[C]的[CPASSIVE01]踢力[C]和[CPASSIVE01]控球[C][CPASSIVE01]+3%[C]"
+zh_hant = "[CPASSIVE01]妖怪之王[C]\\n下半場：\\n本隊[CPASSIVE01]妖怪[C]的[CPASSIVE01]踢力[C]和[CPASSIVE01]控球[C][CPASSIVE01]+3%[C]"
+
+[[row]]
+id = 1326530863  # InazumaFantasy own_c90680000
+kind = "noun"
+es = "[CPASSIVE01]Despertar del rey[C]\\nCada gol de su equipo:\\npoder de todas sus técnicas [CPASSIVE01]+4 %[C] (máx. 3)"
+en = "[CPASSIVE01]The King Awakens[C]\\nEach goal of his team:\\nall his technique power [CPASSIVE01]+4%[C] (max 3)"
+fr = "[CPASSIVE01]Éveil du roi[C]\\nChaque but de son équipe :\\npuissance de toutes ses techniques [CPASSIVE01]+4 %[C] (max 3)"
+de = "[CPASSIVE01]Erwachen des Königs[C]\\nPro Tor seines Teams:\\nStärke all seiner Techniken [CPASSIVE01]+4 %[C] (max. 3)"
+it = "[CPASSIVE01]Risveglio del re[C]\\nPer ogni gol della sua squadra:\\npotenza di tutte le sue tecniche [CPASSIVE01]+4%[C] (max 3)"
+pt = "[CPASSIVE01]Despertar do rei[C]\\nPor cada golo da sua equipa:\\npoder de todas as suas técnicas [CPASSIVE01]+4%[C] (máx. 3)"
+ja = "[CPASSIVE01]王の覚醒[C]\\nチームがゴールするたびに：全技の威力[CPASSIVE01]+4％[C]\\n（最大3回）"
+zh_hans = "[CPASSIVE01]王之觉醒[C]\\n本队每进1球：所有技能威力[CPASSIVE01]+4%[C]\\n（最多3次）"
+zh_hant = "[CPASSIVE01]王之覺醒[C]\\n本隊每進1球：所有技能威力[CPASSIVE01]+4%[C]\\n（最多3次）"
+
+[[row]]
+id = 575864275  # InazumaFantasy own_c90370081
+kind = "noun"
+es = "[CPASSIVE01]Dos almas, un viento[C]\\nCon el balón en campo rival:\\npoder de [CPASSIVE01]tiro[C] y [CPASSIVE01]regate[C] [CPASSIVE01]+6 %[C]"
+en = "[CPASSIVE01]Two Souls, One Wind[C]\\nWith the ball in the rival half:\\n[CPASSIVE01]shot[C] and [CPASSIVE01]dribble[C] power [CPASSIVE01]+6%[C]"
+fr = "[CPASSIVE01]Deux âmes, un vent[C]\\nBallon au pied dans le camp adverse :\\npuissance de [CPASSIVE01]tir[C] et de [CPASSIVE01]dribble[C] [CPASSIVE01]+6 %[C]"
+de = "[CPASSIVE01]Zwei Seelen, ein Wind[C]\\nMit Ball in der gegnerischen Hälfte:\\n[CPASSIVE01]Schuss[C]- und [CPASSIVE01]Dribbling[C]-Stärke [CPASSIVE01]+6 %[C]"
+it = "[CPASSIVE01]Due anime, un vento[C]\\nCon la palla nella metà avversaria:\\npotenza di [CPASSIVE01]tiro[C] e [CPASSIVE01]dribbling[C] [CPASSIVE01]+6%[C]"
+pt = "[CPASSIVE01]Duas almas, um vento[C]\\nCom a bola no meio-campo rival:\\npoder de [CPASSIVE01]remate[C] e [CPASSIVE01]drible[C] [CPASSIVE01]+6%[C]"
+ja = "[CPASSIVE01]二つの魂、一つの風[C]\\n敵陣でボールを持っている間：\\n[CPASSIVE01]シュート[C]・[CPASSIVE01]ドリブル[C]威力[CPASSIVE01]+6％[C]"
+zh_hans = "[CPASSIVE01]两个灵魂，一阵风[C]\\n在对方半场持球时：\\n[CPASSIVE01]射门[C]和[CPASSIVE01]盘带[C]威力[CPASSIVE01]+6%[C]"
+zh_hant = "[CPASSIVE01]兩個靈魂，一陣風[C]\\n在對方半場持球時：\\n[CPASSIVE01]射門[C]和[CPASSIVE01]盤帶[C]威力[CPASSIVE01]+6%[C]"

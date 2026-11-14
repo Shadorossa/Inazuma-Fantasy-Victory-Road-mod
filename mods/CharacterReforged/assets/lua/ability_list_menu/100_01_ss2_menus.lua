@@ -70,8 +70,8 @@ local Miximax = {CREATE = 2771212752, FUSION = 2450842569, KEY_DEL = 99760714,
   KEY_BASE = 1847499704, chara = 0, param = 0,
 }
 -- "Mode change" tab: "Create new change" is item wmc_character_reforged_create (always choosable); the player's changes are items wmc_evt0..7 ("<Mode change>: <partner>", rows beyond his changes hidden); the opener hands over character_reforged_mc_n and the partner charas character_reforged_mc_c0..7.
-local ModeChange = {CREATE = 3690386077, CAR = {754700454, 1543299120, 3270881674, 3052568860, 731255999, 1553015849,
-  3315103123, 2996782341}, KEY_N = 691423532, KEY_C = {1938095046, 1340259466, 3605785904, 2716655014, 1065895941,
+local ModeChange = {CREATE = 3690386077, CAR = {754700454, 1543299120, 3270881674,
+  3052568860, 731255999, 1553015849, 3315103123, 2996782341}, KEY_N = 691423532, KEY_C = {1938095046, 1340259466, 3605785904, 2716655014, 1065895941,
   1217362067, 3515230505, 2793478591}, n = 0, c = {}}
 local function ModeChangeIndex(skill)
   for k = 1, #ModeChange.CAR do
@@ -669,9 +669,6 @@ function Step()
     RetailStep()
   end
   pcall(DetailWaitStep)
-  if VRFW.face_icon ~= nil and VRFW.face_icon.pending() then
-    VRFW.face_icon.settle()                        -- the miximax portrait shown once its face loaded
-  end
   ListState.frame = ListState.frame + 1
   if not character_reforged_pick then
     return

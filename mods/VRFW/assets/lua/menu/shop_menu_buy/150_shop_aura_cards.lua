@@ -42,6 +42,7 @@ if VRFW.host ~= nil then
   local FACE_TYPE_PARTNER = 12   -- face icon type of a partner portrait (the miximax card's)
 
   local ST = { loaded = false, on = false, subs = {}, layer_of = {}, cards = {} }
+  --- Internal: Namespace: the shop aura cards state (loaded, on, subs, layer_of, cards).
   VRFW.shop_aura_cards = ST
 
   local Log = VRFW.logger.new("vrfw.ShopAuraCards")
@@ -52,9 +53,11 @@ if VRFW.host ~= nil then
 
   local function load()
     if ST.loaded then return end
+    --- Internal: true once the card list was fetched from the plugin.
     ST.loaded = true
     local r = table.pack(VRFW.host.command(CMD.CARDS))
     if type(r[2]) ~= "number" then return end
+    --- Internal: true when the plugin enables the aura cards.
     ST.on = r[1] == true
     for k = 1, r[2] do
       local sub, aura_type, layer = r[3 * k], r[1 + 3 * k], r[2 + 3 * k]

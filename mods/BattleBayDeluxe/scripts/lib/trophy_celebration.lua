@@ -25,12 +25,12 @@ function Trophy.last_result()
 end
 
 function Trophy.rival_team()
-  local mi, party = U.global("trophy_match"), U.global("trophy_party")
-  local user = mi and U.rd("u8", mi + 0x2C29)
+  local mi, party = VRFW.game.global("trophy_match"), VRFW.game.global("trophy_party")
+  local user = mi and VRFW.memory.read("u8", mi + VRFW.game.field("MatchInfo.UserTeam"))
   if not party or not user or user > 1 then
     return 0
   end
-  return U.u32(U.rd("u32", party + 0x1E0 + (1 - user) * 0x4A8) or 0)
+  return VRFW.ids.unsigned(VRFW.memory.read("u32", party + VRFW.game.field("Party.MatchTeams") + (1 - user) * VRFW.game.field("PartyMatchTeam")) or 0)
 end
 
 function Trophy.play(competition)

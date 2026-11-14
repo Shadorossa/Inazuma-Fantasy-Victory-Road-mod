@@ -3,10 +3,11 @@ id = "HissatsuEffects"
 name = "Hissatsu Effects"
 prefix = "HissatsuEffects"
 folder = "HissatsuEffects"
-version = "0.3.0"
+version = "0.3.1"
 author = "Fantasy Team"
 description = "Gives almost every special move an effect of its own: Excalibur grows stronger the farther it flies, Doom Rain splits into 7 balls, Electric Trap locks the shot it stops. In the Skills list, Q / E turn a move's card to a page that explains its effect."
 priority = 0
+type = "gameplay"
 tags = ["Gameplay"]
 updated = "2026-11-09"
 requires = ["VRFW>=0.3.0", "HissatsuReforged>=0.3.0"]

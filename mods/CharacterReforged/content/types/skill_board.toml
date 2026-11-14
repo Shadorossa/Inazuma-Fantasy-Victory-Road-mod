@@ -2,6 +2,9 @@
 schema = "VRFW.decl_schema/1"
 kind = "CharacterReforged.skill_board/1"
 folder = "content/skill_board"
+# v2 words, read beside the v1 ones until the switch: the type and its kind folder.
+v2_type = "CharacterReforged.Skill.Board"
+v2_kind_folder = "Skills/Boards"
 label = "Skill board"
 label_es = "Tablero de habilidades"
 

@@ -1,64 +1,9 @@
 # Independent Battle Bay Deluxe data; edit this team's own declaration.
 schema = "VRFW.team/2"
 
-[[loadout]]
-id = "BattleBayDeluxe.legend_ie1_08.slot_0_moves"
-moves = [0xBFCC20E7, 0xBD8A9EBE, 0x8AF3EAB9, 0x5C38F92C, 0x3F18A8D1, 0xFB997A80]
-levels = [1, 1, 1, 1, 1, 0]
-
-[[loadout]]
-id = "BattleBayDeluxe.legend_ie1_08.slot_3_moves"
-moves = [0x55C71D2A, 0x322F0C40, 0xA8E0F6C2, 0x637C031A, 0x481F9847, 0xFB997A80]
-levels = [1, 1, 1, 1, 1, 0]
-
-[[loadout]]
-id = "BattleBayDeluxe.legend_ie1_08.slot_4_moves"
-moves = [0x55C71D2A, 0x3C843987, 0x574008CD, 0x2AF65736, 0x481F9847, 0xFB997A80]
-levels = [1, 1, 1, 1, 1, 0]
-
-[[loadout]]
-id = "BattleBayDeluxe.legend_ie1_08.slot_1_moves"
-moves = [0x5405771D, 0xAD6E4BF9, 0x00196EC2, 0x65B7C1F1, 0x481F9847, 0xFB997A80]
-levels = [1, 1, 1, 1, 1, 0]
-
-[[loadout]]
-id = "BattleBayDeluxe.legend_ie1_08.slot_2_moves"
-moves = [0x3069B219, 0xB5B7108F, 0x4031A7F5, 0xDD365E15, 0xD67B0DE4, 0xFB997A80]
-levels = [1, 1, 1, 1, 1, 0]
-
-[[loadout]]
-id = "BattleBayDeluxe.legend_ie1_08.slot_8_moves"
-moves = [0x2F78EA0D, 0x35E70F22, 0x6ADE9E01, 0x4AD6453E, 0xD67B0DE4, 0xFB997A80]
-levels = [1, 1, 1, 1, 1, 0]
-
-[[loadout]]
-id = "BattleBayDeluxe.legend_ie1_08.slot_6_moves"
-moves = [0x17A96A44, 0x70417B2E, 0x33ED6677, 0x2D3E5454, 0xA17C3D72, 0xFB997A80]
-levels = [1, 1, 1, 1, 1, 0]
-
-[[loadout]]
-id = "BattleBayDeluxe.legend_ie1_08.slot_9_moves"
-moves = [0x4AD6453E, 0x4E9A9232, 0x2F78EA0D, 0x3BF45E9A, 0xA611F96B, 0xFB997A80]
-levels = [1, 1, 1, 1, 1, 0]
-
-[[loadout]]
-id = "BattleBayDeluxe.legend_ie1_08.slot_10_moves"
-moves = [0x1C8CE2B8, 0x7577A26A, 0x3A4FFB6C, 0x0D368F6B, 0xD67B0DE4, 0xFB997A80]
-levels = [1, 1, 1, 1, 1, 0]
-
-[[loadout]]
-id = "BattleBayDeluxe.legend_ie1_08.slot_5_moves"
-moves = [0x322F0C40, 0x5781A373, 0xC21AFE80, 0xC7A9BB3A, 0xD67B0DE4, 0xFB997A80]
-levels = [1, 1, 1, 1, 1, 0]
-
-[[loadout]]
-id = "BattleBayDeluxe.legend_ie1_08.slot_7_moves"
-moves = [0xDEB28A7B, 0x427719AC, 0x592A96B4, 0x261BDCA8, 0xA611F96B, 0xFB997A80]
-levels = [1, 1, 1, 1, 1, 0]
-
 [[team]]
 name = "legend_ie1_08"
-key = "bbcr_legend_ie1_08_bb"
+key = "battlebaydeluxe_legend_ie1_08_bb"
 name_text = 0x848D4594
 level = 40
 series = "IE1"
@@ -81,129 +26,70 @@ stadium = 0xD769C365
 slot = 0
 card = 0x8FE0009B
 uid = 0x3176573D
-number = 1
-captain = false
-equipment = [0x00000000, 0x00000000, 0x00000000, 0x00000000]
-title = 0x00000000
-flag = 0
-level_offset = 0
 rarity_step = 4
 c14_19 = [2, 1, -1, 1, -1, -1]
-rates = [1, 1, 1, 1, 1, 1, 1, 1]
-role = [0, 0]
-loadout = "BattleBayDeluxe.legend_ie1_08.slot_0_moves"
+moves = [0xBFCC20E7, 0xBD8A9EBE, 0x8AF3EAB9, 0x5C38F92C, 0x3F18A8D1]
 
 [[team.member]]
 slot = 3
 card = 0xA4CD5358
 uid = 0x1A5B04FE
 number = 2
-captain = false
-equipment = [0x00000000, 0x00000000, 0x00000000, 0x00000000]
-title = 0x00000000
-flag = 0
-level_offset = 0
 rarity_step = 4
 c14_19 = [1, -1, -1, -1, -1, -1]
-rates = [1, 1, 1, 1, 1, 1, 1, 1]
-role = [0, 0]
-loadout = "BattleBayDeluxe.legend_ie1_08.slot_3_moves"
+moves = [0x55C71D2A, 0x322F0C40, 0xA8E0F6C2, 0x637C031A, 0x481F9847]
 
 [[team.member]]
 slot = 4
 card = 0xBDD66219
 uid = 0x034035BF
 number = 3
-captain = false
-equipment = [0x00000000, 0x00000000, 0x00000000, 0x00000000]
-title = 0x00000000
-flag = 0
-level_offset = 0
 rarity_step = 4
 c14_19 = [1, -1, -1, -1, -1, -1]
-rates = [1, 1, 1, 1, 1, 1, 1, 1]
-role = [0, 0]
-loadout = "BattleBayDeluxe.legend_ie1_08.slot_4_moves"
+moves = [0x55C71D2A, 0x3C843987, 0x574008CD, 0x2AF65736, 0x481F9847]
 
 [[team.member]]
 slot = 1
 card = 0xF297F4DE
 uid = 0x4C01A378
 number = 4
-captain = false
-equipment = [0x00000000, 0x00000000, 0x00000000, 0x00000000]
-title = 0x00000000
-flag = 0
-level_offset = 0
 rarity_step = 4
 c14_19 = [-1, -1, -1, 1, -1, -1]
-rates = [1, 1, 1, 1, 1, 1, 1, 1]
-role = [0, 0]
-loadout = "BattleBayDeluxe.legend_ie1_08.slot_1_moves"
+moves = [0x5405771D, 0xAD6E4BF9, 0x00196EC2, 0x65B7C1F1, 0x481F9847]
 
 [[team.member]]
 slot = 2
 card = 0xEF01B92D
 uid = 0x5197EE8B
 number = 5
-captain = false
-equipment = [0x00000000, 0x00000000, 0x00000000, 0x00000000]
-title = 0x00000000
-flag = 0
-level_offset = 0
 rarity_step = 4
-c14_19 = [-1, -1, -1, -1, -1, -1]
-rates = [1, 1, 1, 1, 1, 1, 1, 1]
-role = [0, 0]
-loadout = "BattleBayDeluxe.legend_ie1_08.slot_2_moves"
+moves = [0x3069B219, 0xB5B7108F, 0x4031A7F5, 0xDD365E15, 0xD67B0DE4]
 
 [[team.member]]
 slot = 8
 card = 0x44BD5EFD
 uid = 0xFA2B095B
 number = 6
-captain = false
-equipment = [0x00000000, 0x00000000, 0x00000000, 0x00000000]
-title = 0x00000000
-flag = 0
-level_offset = 0
 rarity_step = 4
 c14_19 = [1, -1, -1, -1, -1, -1]
-rates = [1, 1, 1, 1, 1, 1, 1, 1]
-role = [0, 0]
-loadout = "BattleBayDeluxe.legend_ie1_08.slot_8_moves"
+moves = [0x2F78EA0D, 0x35E70F22, 0x6ADE9E01, 0x4AD6453E, 0xD67B0DE4]
 
 [[team.member]]
 slot = 6
 card = 0xDD37DBAF
 uid = 0x63A18C09
-number = 7
-captain = false
-equipment = [0x00000000, 0x00000000, 0x00000000, 0x00000000]
-title = 0x00000000
-flag = 0
-level_offset = 0
 rarity_step = 4
 c14_19 = [1, -1, -1, 1, -1, -1]
-rates = [1, 1, 1, 1, 1, 1, 1, 1]
-role = [0, 0]
-loadout = "BattleBayDeluxe.legend_ie1_08.slot_6_moves"
+moves = [0x17A96A44, 0x70417B2E, 0x33ED6677, 0x2D3E5454, 0xA17C3D72]
 
 [[team.member]]
 slot = 9
 card = 0x8DA6BEC2
 uid = 0x3330E964
 number = 8
-captain = false
-equipment = [0x00000000, 0x00000000, 0x00000000, 0x00000000]
-title = 0x00000000
-flag = 0
-level_offset = 0
 rarity_step = 4
 c14_19 = [1, -1, 1, -1, -1, -1]
-rates = [1, 1, 1, 1, 1, 1, 1, 1]
-role = [0, 0]
-loadout = "BattleBayDeluxe.legend_ie1_08.slot_9_moves"
+moves = [0x4AD6453E, 0x4E9A9232, 0x2F78EA0D, 0x3BF45E9A, 0xA611F96B]
 
 [[team.member]]
 slot = 10
@@ -211,44 +97,24 @@ card = 0x9E23A289
 uid = 0x20B5F52F
 number = 9
 captain = true
-equipment = [0x00000000, 0x00000000, 0x00000000, 0x00000000]
-title = 0x00000000
-flag = 0
-level_offset = 0
 rarity_step = 4
 c14_19 = [2, 1, -1, 2, -1, -1]
-rates = [1, 1, 1, 1, 1, 1, 1, 1]
-role = [0, 0]
-loadout = "BattleBayDeluxe.legend_ie1_08.slot_10_moves"
+moves = [0x1C8CE2B8, 0x7577A26A, 0x3A4FFB6C, 0x0D368F6B, 0xD67B0DE4]
 
 [[team.member]]
 slot = 5
 card = 0xC42CEAEE
 uid = 0x7ABABD48
 number = 10
-captain = false
-equipment = [0x00000000, 0x00000000, 0x00000000, 0x00000000]
-title = 0x00000000
-flag = 0
-level_offset = 0
 rarity_step = 4
 c14_19 = [2, -1, -1, 1, -1, -1]
-rates = [1, 1, 1, 1, 1, 1, 1, 1]
-role = [0, 0]
-loadout = "BattleBayDeluxe.legend_ie1_08.slot_5_moves"
+moves = [0x322F0C40, 0x5781A373, 0xC21AFE80, 0xC7A9BB3A, 0xD67B0DE4]
 
 [[team.member]]
 slot = 7
 card = 0x5AAFC760
 uid = 0xE43990C6
 number = 11
-captain = false
-equipment = [0x00000000, 0x00000000, 0x00000000, 0x00000000]
-title = 0x00000000
-flag = 0
-level_offset = 0
 rarity_step = 4
 c14_19 = [1, -1, 1, -1, -1, -1]
-rates = [1, 1, 1, 1, 1, 1, 1, 1]
-role = [0, 0]
-loadout = "BattleBayDeluxe.legend_ie1_08.slot_7_moves"
+moves = [0xDEB28A7B, 0x427719AC, 0x592A96B4, 0x261BDCA8, 0xA611F96B]

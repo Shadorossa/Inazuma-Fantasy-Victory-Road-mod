@@ -1,3 +1,4 @@
+--- Advanced: Library of match difficulty rows by level, read from match_difficulty.toml.
 local M = {}
 
 local FILE = "content/defaults/match_difficulty.toml"
@@ -6,7 +7,7 @@ local ROWS = nil
 local AT_LEVEL = nil
 local LEVEL_OF = nil
 
---- Every difficulty row.
+--- Internal: Every difficulty row.
 function M.rows()
   if ROWS ~= nil then
     return ROWS
@@ -49,13 +50,13 @@ local function indexes()
   for _, list in pairs(AT_LEVEL) do table.sort(list) end
 end
 
---- The difficulty rows of level `level`, as an array.
+--- Internal: The difficulty rows of level `level`, as an array.
 function M.rows_at_level(level)
   indexes()
   return AT_LEVEL[level] or {}
 end
 
---- The level of difficulty row `row`.
+--- Internal: The level of difficulty row `row`.
 function M.level_of(row)
   indexes()
   return LEVEL_OF[row]

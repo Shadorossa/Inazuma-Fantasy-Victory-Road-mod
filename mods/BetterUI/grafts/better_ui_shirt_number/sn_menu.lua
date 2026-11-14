@@ -1,46 +1,111 @@
 BetterUI = type(BetterUI) == "table" and BetterUI or {}
 local BETTER_UI_SIGNATURE = "BETTER_UI_GRAFT"
 
-if BetterUI.preset == nil then
-  BetterUI.preset = "limpio"
-end
 BetterUI.flags = BetterUI.flags or {}
-for k, v in pairs({ bank_sort_guide = true, buff_icons = true, buff_panel = false, corner_buttons = true, duel_telop = true, enemy_meters = true, esc_guide = true, exec_offset = true, header_short = true, nickname_pill = true, shirt_number = true, team_param_guide = true, zone_exec = false, zone_hud = true }) do
+for k, v in pairs({ bank_sort_guide = true, buff_icons = true, corner_buttons = true, enemy_meters = true, esc_guide = true, header_short = true, nickname_pill = true, shirt_number = true, team_param_guide = true, zone_hud = true }) do
   if BetterUI.flags[k] == nil then
     BetterUI.flags[k] = v
   end
 end
 
-@UI_WRAP@
+local function UiOn(flag)
+  return BetterUI.flags[flag] == true
+end
+
+local function Pack(...)
+  return { n = select("#", ...), ... }
+end
+
+-- Logs at most 30 UI messages.
+local log_count = 0
+local function UiLog(...)
+  if log_count >= 30 then
+    return
+  end
+  log_count = log_count + 1
+  local parts = {}
+  for i = 1, select("#", ...) do
+    parts[#parts + 1] = tostring((select(i, ...)))
+  end
+  if type(funcLuaCommand) == "function" then
+    VRFW.host.command(@crc:CMND_VRFW_LOG_DEBUG@, "BetterUI @TAG@ " .. table.concat(parts, " "))
+  end
+end
+
+-- Runs filter(call, id, ...) on every funcLuaMenuCommand of this VM as an innermost VRFW.host command hook, so the
+-- other hooks run outside it; call(id, ...) passes the same command on and runs another one on the function under
+-- every hook; a nil answer passes the command on.
+local function UiHookMenuCommand(filter)
+  local function register(host)
+    local real = host.real_menu_command
+    host.hook_command("*", function(nxt, id, ...)
+      local function call(command, ...)
+        if command == id then
+          return nxt(command, ...)
+        end
+        return real(command, ...)
+      end
+      local r = filter(call, id, ...)
+      if r ~= nil then
+        return table.unpack(r, 1, r.n)
+      end
+      return nxt(id, ...)
+    end, "BetterUI.@TAG@", { menu = true, priority = host.INNERMOST })
+  end
+  if type(VRFW) == "table" and type(VRFW.host) == "table" and type(VRFW.host.hook_command) == "function" then
+    register(VRFW.host)
+  else
+    -- The menu chunk runs before the Lua patch files: BetterUI's lua/_all/better_ui.lua registers the queue after VRFW's.
+    BetterUI.command_hooks = BetterUI.command_hooks or {}
+    BetterUI.command_hooks[#BetterUI.command_hooks + 1] = register
+  end
+end
+
+-- Wraps a menu callback (OnSetupLayer, OnOpenLayer, ...) that the chunk already defined: `after` runs after it.
+local function UiWrapCallback(name, after)
+  local orig = rawget(_ENV, name)
+  if type(orig) ~= "function" then
+    return false
+  end
+  rawset(_ENV, name, function(...)
+    local r = Pack(orig(...))
+    local ok, err = pcall(after, ...)
+    if not ok then
+      UiLog("error", name, err)
+    end
+    return table.unpack(r, 1, r.n)
+  end)
+  return true
+end
 
 BetterUI.flags.shirt_number = true
 -- Parameter keys of soccer_performance_change_menu in shirt-number mode (param better_ui_shirt_number = 1, consumed at OnInit).
-local SN_KEY = 1715129561
-local SN_KEY_TYPE = 1943979971
-local SN_TEXT_ROW = 2345298946
-local SN_LIST = 3043452150 -- win05_35_performance_chara_list
-local SN_ITEM = 1076657304 -- win05_36_performance_chara_list_item
-local SN_WIN = 1075380614  -- uniform_no_window
-local SN_MENU = 927762597  -- soccer_performance_change_menu
-local SN_TITLE = 2089758945
+local SN_KEY = @crc:better_ui_shirt_number@
+local SN_KEY_TYPE = @crc:better_ui_shirt_number_type@
+local SN_TEXT_ROW = @crc:better_ui_shirt_number_row@
+local SN_LIST = @crc:win05_35_performance_chara_list@ -- win05_35_performance_chara_list
+local SN_ITEM = @crc:win05_36_performance_chara_list_item@ -- win05_36_performance_chara_list_item
+local SN_WIN = @crc:uniform_no_window@  -- uniform_no_window
+local SN_MENU = @crc:soccer_performance_change_menu@  -- soccer_performance_change_menu
+local SN_TITLE = @crc:_gtxt_performance01@
 local SN_TEAM_PARAM = 3357163798
-local SN_CURSOR = 2296367164 -- cmn05_01_cursor
+local SN_CURSOR = @crc:cmn05_01_cursor@ -- cmn05_01_cursor
 local SN_COACH_POS = 19
-local CMND_TEXT_GET = 4074371074
-local CMND_SET_MESH_VISIBLE = 3405944500
-local CMND_SET_LAYER_VISIBLE = 711242136
-local CMND_SET_MENU_INPUT = 1558704558
-local CMND_CLOSE_MENU_OBJECT = 320421347
-local CMND_IS_CLOSE_MENU_OBJECT = 1521844538
+local CMND_TEXT_GET = @crc:CMND_TEXT_GET@
+local CMND_SET_MESH_VISIBLE = @crc:CMND_SET_MESH_VISIBLE@
+local CMND_SET_LAYER_VISIBLE = @crc:CMND_SET_LAYER_VISIBLE@
+local CMND_SET_MENU_INPUT = @crc:CMND_SET_INPUT_ENABLE_MENU_OBJECT@
+local CMND_CLOSE_MENU_OBJECT = @crc:CMND_CLOSE_MENU_OBJECT@
+local CMND_IS_CLOSE_MENU_OBJECT = @crc:CMND_IS_CLOSE_MENU_OBJECT@
 local CMND_IS_OPENING = 667479479
-local CMND_PLAY_SE = 1917805374
-local SE_DECIDE = 3848881948 -- sy0000
-local SE_BEEP = 2086672038   -- sy0003
-local CMND_TEAM_CHARA_INDEX = 2113285063
-local CMND_TEAM_NUMBER = 3128968989
-local CMND_TEAM_MEMBER_INFO = 1720957768 -- (team, type, idx, what): 0 handle, 1 position slot, 2 number
+local CMND_PLAY_SE = @crc:CMND_SND_PLAY_SE@
+local SE_DECIDE = @crc:sy0000@ -- sy0000
+local SE_BEEP = @crc:sy0003@   -- sy0003
+local CMND_TEAM_CHARA_INDEX = @crc:CMND_GET_TEAM_CHARA_INDEX@
+local CMND_TEAM_NUMBER = @crc:CMND_SORT_GIMMICK_MP@
+local CMND_TEAM_MEMBER_INFO = @crc:CMND_REJECT_ALIGN_HUMAN@ -- (team, type, idx, what): 0 handle, 1 position slot, 2 number
 local CMND_TEAM_NUMBER_OWNER = 1967539593
-local CMND_TEAM_SET_NUMBER = 3095463779
+local CMND_TEAM_SET_NUMBER = @crc:CMND_OPEN_SEARCH_EQ_CG@
 local CMND_NUMBER_CHANGEABLE = 2573177663
 local CMND_NUM_WIN_DUP_POPUP = 2821144936
 local CMND_NUM_WIN_RESET = 1129326309

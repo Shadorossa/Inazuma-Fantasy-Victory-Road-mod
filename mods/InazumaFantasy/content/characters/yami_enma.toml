@@ -1,0 +1,104 @@
+schema = "VRFW.character/2"
+default_lang = "en"
+
+# Yami Enma: forward, wind, on the retail tall c000301 skeleton, wearing his own outfit (content/looks/yami_enma.toml; force_kit 1: no team kit replaces it).
+# Stats rolled once (seed 20261112) inside the range of the 20 forward cards of this mod: kick and agility in their upper half, the rest in their lower half.
+[[character]]
+name = "yami_enma"
+based_on = "c05029720"  # template: Luke Triton (own clothes, no kit)
+order = 203
+
+  [character.base]
+  id = 0x273B8CE3  # crc32("c90650000")
+  name = "c90650000"
+  name_text = 0x39060285  # crc32("c90650000_name")
+  short_name_text = 0xFBFE6744  # crc32("c90650000_short")
+  upper_name_text = 0x1A89287A  # crc32("c90650000_upper")
+  description_text = 0x072A123D  # crc32("c90650000_description")
+  model = 0xA343853F
+  # album only: not on any team, so Luke's belong team is cleared
+  team_1 = 0
+  team_2 = 0
+  team_3 = 0x5595D5FA  # crc32("evt_belong_team_fantasy"): the bank's Fantasy tab
+
+  [character.new_model]
+  id = 0xA343853F  # crc32("c90650000_model")
+  from = "c05029720"
+  [character.new_model.cells]
+  body = 0xBC8D7731  # crc32("c90650000_body"), content/tables/common/gamedata/character/chara_model.toml
+  head_mesh_path = "_face/90_FANTASY/c90650000/c90650000.g4md"
+  clothes = 0x16999F20  # crc32("u90650000_10"), his outfit, content/looks/yami_enma.toml
+  skin_color = 0x86827EFF  # his grey skin: the outfit's skin part draws the wearer's skin colour
+  shoes = 0
+  gloves = 0
+  force_kit = 1
+
+  [character.text.ja]
+  name = "闇エンマ"
+  short = "闇エンマ"
+  upper = "YAMI ENMA"
+  description = "[妖魔界/ようまかい]を[統/す]べる[大王/だいおう]\nエンマの[闇/やみ]の[姿/すがた]。"
+
+  [character.text.en]
+  name = "Yami Enma"
+  short = "Yami Enma"
+  upper = "YAMI ENMA"
+  description = "The shadow side of Enma, the great king\nwho rules the Yo-kai world."
+
+  [character.text.es]
+  name = "Yami Enma"
+  short = "Yami Enma"
+  upper = "YAMI ENMA"
+  description = "El lado oscuro de Enma, el gran rey\nque gobierna el mundo yo-kai."
+
+  [character.text.fr]
+  name = "Yami Enma"
+  short = "Yami Enma"
+  upper = "YAMI ENMA"
+  description = "La face sombre d'Enma, le grand roi\nqui règne sur le monde yo-kai."
+
+  [character.text.de]
+  name = "Yami Enma"
+  short = "Yami Enma"
+  upper = "YAMI ENMA"
+  description = "Die Schattenseite von Enma, dem großen\nKönig, der die Yo-kai-Welt regiert."
+
+  [character.text.it]
+  name = "Yami Enma"
+  short = "Yami Enma"
+  upper = "YAMI ENMA"
+  description = "Il lato oscuro di Enma, il grande re\nche governa il mondo yo-kai."
+
+  [character.text.pt]
+  name = "Yami Enma"
+  short = "Yami Enma"
+  upper = "YAMI ENMA"
+  description = "O lado sombrio de Enma, o grande rei\nque governa o mundo yo-kai."
+
+  [character.text.zh_hans]
+  name = "Yami Enma"
+  short = "Yami Enma"
+  upper = "YAMI ENMA"
+  description = "统治妖魔界的大王\n阎魔的暗之姿态。"
+
+  [character.text.zh_hant]
+  name = "Yami Enma"
+  short = "Yami Enma"
+  upper = "YAMI ENMA"
+  description = "統治妖魔界的大王\n閻魔的暗之姿態。"
+
+  [[character.cards]]
+  id = 0x7131E450  # crc32("c90650000_card")
+  from = 0xEDB0B29D  # template: Luke Triton's card
+  order = 203
+  element = "wind"
+  position = "fw"
+  rank = 3
+  growth = "normal"
+  stats = { kick = 353, control = 262, technique = 237, pressure = 165, physical = 158, intelligence = 196, agility = 225, luck = 135, freedom = 0 }
+  moves = [
+    { move = "whs00650", level = 1 },                     # Gungnir (shot, wind, 360)
+    { move = "who00220", level = 20 },                    # Dash Storm (dribble, wind, 440)
+    { move = "whs00900", level = 38 },                    # God Break (shot, wind, 540)
+    { move = "whs02680", level = 60 },                    # Twister Tornado (shot, wind, 640)
+  ]

@@ -1,0 +1,41 @@
+schema = "VRFW.menu/2"
+# Chronicle Deluxe: Select (CMD_FUNC2, Tab on the keyboard; free on this menu) switches the free match list between
+# Match and Pachanga (assets\lua\soccer_vs_cpu_list_menu\300_free_match_pachanga.lua).
+
+[[patch]]
+menu = "soccer_vs_cpu_list_menu"
+add_commands = [
+  { layer = "team05_03_soccer_cpu_opponent_list", input = "CMD_FUNC2", command = "CMD_FUNCTION", arg = 0x48115DEA },   # chronicle_deluxe_free_match_mode
+  { layer = "mainmenu90_19_vs_cpu_list_item", input = "CMD_FUNC2", command = "CMD_FUNCTION", arg = 0x48115DEA },
+]
+
+# The retail 5-a-side pitch of the team dock, for the team panel in Pachanga mode. The layer keeps the retail name: the
+# formation INCLUDE's 5-a-side drawing reads its corners from the layer of that name (VRFW.formation.five_a_side_view).
+# Both pitches attach the same 19 cards, blanks and coach, so only one may be open at a time: like the retail team
+# docks (soccer_team_dock_menu, team_dock_menu), the 5-a-side pitch does not open with the group (flags 0, 0) and the
+# panel opens it only in the five view (assets\lua\soccer_vs_cpu_list_menu\300_free_match_pachanga.lua).
+[[patch]]
+menu = "soccer_vs_cpu_list_menu"
+add_layer = { name = "mainmenu04_10_formation_base", object = "mainmenu04_10_formation_base", count = 1, align = [1, 8], scale = 0.20000000298023224, after = "soccer11_02_formation_frame", groups = [{ group = "soccer_vs_cpu_list_menu", flags = [0, 0, 0, 0, 1, 0], after = "soccer11_02_formation_frame" }] }
+
+# The 5-a-side pitch (field, cards and coach card) has its own locator in the team panel layout: the 11-a-side one
+# (_pos_atc_formation_field01, y -524) moved down by 91 px, so the pitch block sits centred between the rival header
+# and the help bar (owner, screenshot 1018).
+[[layout]]
+file = "common/menu/100_mainmenu/mainmenu90/mainmenu90_34/mainmenu90_34.g4pkm"
+joint = "_pos_atc_chronicle_deluxe_pachanga_field"
+parent = "_pos_offset01"
+translate = [1366.0, -615.0, 0.0]
+
+# The team panel of this screen only holds the 5-a-side pitch too, on that locator: layer mainmenu04_10_formation_base
+# (crc32 -776856363), locator _pos_atc_chronicle_deluxe_pachanga_field (crc32 1626536010).
+[[object]]
+name = "chronicle_deluxe_cpu_team_formation"
+from = "mainmenu90_34_cpu_team_formation"
+keep_name = true
+add = [{ block = "CMenuAttachLocator", parameter = "NullLayerName", values = [-776856363, 1626536010, -776856363, 0] }]
+
+[[redirect]]
+object = "mainmenu90_34_cpu_team_formation"
+to = "chronicle_deluxe_cpu_team_formation"
+menus = ["soccer_vs_cpu_list_menu"]

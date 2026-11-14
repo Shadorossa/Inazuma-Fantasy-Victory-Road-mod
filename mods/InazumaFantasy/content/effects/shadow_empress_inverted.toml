@@ -1,0 +1,170 @@
+schema = "VRFW.effect/1"
+# The inverted keshin shot (content/techniques/shadow_empress_inverted.toml): Shadow Empress's effect objects and status
+# tints as copies in the white keshin's colours: saturation down to 0.15, so the violet and magenta glows turn pale
+# white with a faint trace of the retail violet (the keshin's kept scarf colour). Brightness stays, so the additive
+# streaks keep their shape and never turn black.
+
+[[recolor]]
+object = "ev60100900"
+copy = "ev60800900"
+textures = "all"
+materials = "all"
+vertex_colors = "all"
+particles = true
+saturation = 0.15
+
+[[recolor]]
+object = "ev60100901"
+copy = "ev60800901"
+textures = "all"
+materials = "all"
+vertex_colors = "all"
+particles = true
+saturation = 0.15
+
+[[recolor]]
+object = "ev60100902"
+copy = "ev60800902"
+textures = "all"
+materials = "all"
+vertex_colors = "all"
+particles = true
+saturation = 0.15
+
+# The tints on the keshin, the shadow empresses and the ball.
+[[recolor]]
+aura = "body_aura_empress_shadow"
+copy = "body_aura_empress_shadow_80090"
+saturation = 0.15
+
+[[recolor]]
+aura = "body_aura_empress_shadow_2"
+copy = "body_aura_empress_shadow_2_80090"
+saturation = 0.15
+
+[[recolor]]
+aura = "ball_aura_empress_shadow"
+copy = "ball_aura_empress_shadow_80090"
+saturation = 0.15
+
+# The mirrored cut-in loads the copies instead of the retail objects.
+[[event_command]]
+event = "ev60_90090"
+command = "CMD_799A1EBA"                 # LOAD_ACTOR_RESOURCE
+args = ["ev60100900"]
+set = ["ev60100900", "common/effect/event/ev60/ev60800900/ev60800900.objbin"]
+
+[[event_command]]
+event = "ev60_90090"
+command = "CMD_799A1EBA"                 # LOAD_ACTOR_RESOURCE
+args = ["ev60100901"]
+set = ["ev60100901", "common/effect/event/ev60/ev60800901/ev60800901.objbin"]
+
+[[event_command]]
+event = "ev60_90090"
+command = "CMD_799A1EBA"                 # LOAD_ACTOR_RESOURCE
+args = ["ev60100902_1"]
+set = ["ev60100902_1", "common/effect/event/ev60/ev60800902/ev60800902.objbin"]
+
+[[event_command]]
+event = "ev60_90090"
+command = "CMD_799A1EBA"                 # LOAD_ACTOR_RESOURCE
+args = ["ev60100902_2"]
+set = ["ev60100902_2", "common/effect/event/ev60/ev60800902/ev60800902.objbin"]
+
+[[event_command]]
+event = "ev60_90090"
+command = "CMD_799A1EBA"                 # LOAD_ACTOR_RESOURCE
+args = ["ev60100902_3"]
+set = ["ev60100902_3", "common/effect/event/ev60/ev60800902/ev60800902.objbin"]
+
+[[event_command]]
+event = "ev60_90090"
+command = "CMD_799A1EBA"                 # LOAD_ACTOR_RESOURCE
+args = ["ev60100902_4"]
+set = ["ev60100902_4", "common/effect/event/ev60/ev60800902/ev60800902.objbin"]
+
+[[event_command]]
+event = "ev60_90090"
+command = "CMD_799A1EBA"                 # LOAD_ACTOR_RESOURCE
+args = ["ev60100902_5"]
+set = ["ev60100902_5", "common/effect/event/ev60/ev60800902/ev60800902.objbin"]
+
+[[event_command]]
+event = "ev60_90090"
+command = "CMD_799A1EBA"                 # LOAD_ACTOR_RESOURCE
+args = ["ev60100902_6"]
+set = ["ev60100902_6", "common/effect/event/ev60/ev60800902/ev60800902.objbin"]
+
+# The mirrored cut-in attaches the tint copies.
+[[event_command]]
+event = "ev60_90090"
+command = "CMD_C3FB5CC5"                 # ATTACH_AURA
+args = ["<ASSIGN>_s00_p<VARIATION>", "body_aura_empress_shadow"]
+set = ["<ASSIGN>_s00_p<VARIATION>", "body_aura_empress_shadow_80090"]
+
+[[event_command]]
+event = "ev60_90090"
+command = "CMD_C3FB5CC5"                 # ATTACH_AURA
+args = ["ev60_10090_s00_p<VARIATION>", "body_aura_empress_shadow_2"]
+set = ["ev60_10090_s00_p<VARIATION>", "body_aura_empress_shadow_2_80090"]
+
+[[event_command]]
+event = "ev60_90090"
+command = "CMD_C3FB5CC5"                 # ATTACH_AURA
+args = ["ev60_10090_s01_p<VARIATION>", "body_aura_empress_shadow_2"]
+set = ["ev60_10090_s01_p<VARIATION>", "body_aura_empress_shadow_2_80090"]
+
+[[event_command]]
+event = "ev60_90090"
+command = "CMD_C3FB5CC5"                 # ATTACH_AURA
+args = ["ev60_10090_s02_p<VARIATION>", "body_aura_empress_shadow_2"]
+set = ["ev60_10090_s02_p<VARIATION>", "body_aura_empress_shadow_2_80090"]
+
+[[event_command]]
+event = "ev60_90090"
+command = "CMD_C3FB5CC5"                 # ATTACH_AURA
+args = ["ev60_10090_s03_p<VARIATION>", "body_aura_empress_shadow_2"]
+set = ["ev60_10090_s03_p<VARIATION>", "body_aura_empress_shadow_2_80090"]
+
+[[event_command]]
+event = "ev60_90090"
+command = "CMD_C3FB5CC5"                 # ATTACH_AURA
+args = ["ev60_10090_s04_p<VARIATION>", "body_aura_empress_shadow_2"]
+set = ["ev60_10090_s04_p<VARIATION>", "body_aura_empress_shadow_2_80090"]
+
+[[event_command]]
+event = "ev60_90090"
+command = "CMD_C3FB5CC5"                 # ATTACH_AURA
+args = ["ev60_10090_s05_p<VARIATION>", "body_aura_empress_shadow_2"]
+set = ["ev60_10090_s05_p<VARIATION>", "body_aura_empress_shadow_2_80090"]
+
+[[event_command]]
+event = "ev60_90090"
+command = "CMD_C3FB5CC5"                 # ATTACH_AURA
+args = ["ev60_10090_s06_p<VARIATION>", "body_aura_empress_shadow_2"]
+set = ["ev60_10090_s06_p<VARIATION>", "body_aura_empress_shadow_2_80090"]
+
+[[event_command]]
+event = "ev60_90090"
+command = "CMD_C3FB5CC5"                 # ATTACH_AURA
+args = ["ev60_10090_s07_p<VARIATION>", "body_aura_empress_shadow_2"]
+set = ["ev60_10090_s07_p<VARIATION>", "body_aura_empress_shadow_2_80090"]
+
+[[event_command]]
+event = "ev60_90090"
+command = "CMD_C3FB5CC5"                 # ATTACH_AURA
+args = ["ev60_10090_s08_p<VARIATION>", "body_aura_empress_shadow_2"]
+set = ["ev60_10090_s08_p<VARIATION>", "body_aura_empress_shadow_2_80090"]
+
+[[event_command]]
+event = "ev60_90090"
+command = "CMD_C3FB5CC5"                 # ATTACH_AURA
+args = ["ev60_10090_s09_p<VARIATION>", "body_aura_empress_shadow_2"]
+set = ["ev60_10090_s09_p<VARIATION>", "body_aura_empress_shadow_2_80090"]
+
+[[event_command]]
+event = "ev60_90090"
+command = "CMD_C3FB5CC5"                 # ATTACH_AURA
+args = ["b000001_s00_p<VARIATION>", "ball_aura_empress_shadow"]
+set = ["b000001_s00_p<VARIATION>", "ball_aura_empress_shadow_80090"]

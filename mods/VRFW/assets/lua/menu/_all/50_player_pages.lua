@@ -24,26 +24,28 @@ if VRFW.player_pages == nil then
     by_index = nil,
     wrapped = {},
   }
+  --- Advanced: State of the player pages; pages are registered by declaration.
   VRFW.player_pages = P
 
   local logger
-  --- Logs through the player-pages logger.
+  --- Internal: Logs through the player-pages logger.
   function P.log(...)
     logger = logger or VRFW.logger.new("vrfw.PlayerPages")
     logger(...)
   end
 
-  --- a mod's page (see the header); a second add with the same name replaces the first; answers true, or false, why.
+  --- Advanced: a mod's page (see the header); a second add with the same name replaces the first; answers true, or false, why.
   function P.add(d)
     if type(d) ~= "table" or type(d.name) ~= "string" or type(d.index) ~= "number" or type(d.type) ~= "number" then
       return false, "a page needs a name, an index and a type"
     end
     P.decls[d.name] = d
+    --- Internal: cached page list, rebuilt after a new declaration.
     P.list = nil
     return true
   end
 
-  --- Sets the function that decides when page `name` shows; answers true, or false, why.
+  --- Advanced: Sets the function that decides when page `name` shows; answers true, or false, why.
   function P.show_when(name, fn)
     if type(name) ~= "string" or type(fn) ~= "function" then
       return false, "a page name and a function expected"
@@ -54,7 +56,7 @@ if VRFW.player_pages == nil then
     return true
   end
 
-  --- The resolved page list (built once).
+  --- Advanced: The resolved page list (built once).
   function P.resolve()
     if P.list ~= nil then
       return P.list
@@ -125,7 +127,7 @@ if VRFW.player_pages == nil then
     return out
   end
 
-  --- The team editor shows a team that is not one of the player's (lua\_all\81_team_editor.lua).
+  --- Internal: The team editor shows a team that is not one of the player's (lua\_all\81_team_editor.lua).
   function P.foreign_team()
     local editor = VRFW.team_editor
     if type(editor) ~= "table" or type(editor.foreign) ~= "function" then
@@ -135,7 +137,7 @@ if VRFW.player_pages == nil then
     return ok and v ~= nil
   end
 
-  --- True when page d is removed on this screen.
+  --- Internal: True when page d is removed on this screen.
   function P.removed(d)
     if d.foreign == false and P.foreign_team() then
       return true
@@ -149,7 +151,7 @@ if VRFW.player_pages == nil then
     return false
   end
 
-  --- True when page d is shown.
+  --- Internal: True when page d is shown.
   function P.on(d)
     if type(d.enabled) == "function" then
       local ok, v = pcall(d.enabled)
@@ -160,7 +162,7 @@ if VRFW.player_pages == nil then
     return not P.removed(d)
   end
 
-  --- The shown pages' indices in order; `count` = only indices below it (a screen whose page table has `count` rows).
+  --- Internal: The shown pages' indices in order; `count` = only indices below it (a screen whose page table has `count` rows).
   function P.order(count)
     local o = {}
     for _, d in ipairs(P.resolve()) do
@@ -171,14 +173,14 @@ if VRFW.player_pages == nil then
     return o
   end
 
-  --- Page index -> page type (nil = no such page).
+  --- Internal: Page index -> page type (nil = no such page).
   function P.type(index)
     P.resolve()
     local d = P.by_index[index]
     return d ~= nil and d.type or nil
   end
 
-  --- The slot of each page, by index.
+  --- Advanced: The slot of each page, by index.
   function P.slots()
     local m, slot = {}, 0
     for _, d in ipairs(P.resolve()) do
@@ -191,7 +193,7 @@ if VRFW.player_pages == nil then
     end
     return m
   end
-  --- The slot of the first page of type t; nil when there is none.
+  --- Advanced: The slot of the first page of type t; nil when there is none.
   function P.slot_of_type(t)
     local slot = 0
     for _, d in ipairs(P.resolve()) do
@@ -205,22 +207,25 @@ if VRFW.player_pages == nil then
     return nil
   end
 
-  --- a pointer click: the next Step answers `index` once (nil = clear).
+  --- Advanced: a pointer click: the next Step answers `index` once (nil = clear).
   function P.go_to(index)
+    --- Internal: page index requested by go_to.
     P.target = index
   end
 
-  --- Marks the page dots of this plate as drawn by the mod `owner`, so the framework leaves them alone.
+  --- Advanced: Marks the page dots of this plate as drawn by the mod `owner`, so the framework leaves them alone.
   function P.set_dots_owner(owner)
+    --- Internal: owner id of the page dots.
     P.dots_owner = owner
   end
 
-  --- Marks the page_change of every declaration as chained by the plate of the mod `owner`, so a page does not wrap the page change itself.
+  --- Advanced: Marks the page_change of every declaration as chained by the plate of the mod `owner`, so a page does not wrap the page change itself.
   function P.set_page_change_owner(owner)
+    --- Advanced: Owner id that handles page changes.
     P.page_change_owner = owner
   end
 
-  --- a mod's `fn(next, order)`, run after every step with the page it lands on and the shown order; answers true, or false, why.
+  --- Advanced: a mod's `fn(next, order)`, run after every step with the page it lands on and the shown order; answers true, or false, why.
   function P.on_step(fn)
     if type(fn) ~= "function" then
       return false, "a function expected"
@@ -229,7 +234,7 @@ if VRFW.player_pages == nil then
     return true
   end
 
-  --- The page after `cur` in direction dir (+1 E / -1 Q), wrapping; `count` as in Order.
+  --- Advanced: The page after `cur` in direction dir (+1 E / -1 Q), wrapping; `count` as in Order.
   function P.step(cur, dir, count)
     local o = P.order(count)
     local nxt = P.next_page(cur, dir, o)
@@ -239,7 +244,7 @@ if VRFW.player_pages == nil then
     return nxt
   end
 
-  --- The page after `cur` in direction dir within the order `o`.
+  --- Internal: The page after `cur` in direction dir within the order `o`.
   function P.next_page(cur, dir, o)
     local t = P.target
     P.target = nil
@@ -283,7 +288,7 @@ if VRFW.player_pages == nil then
     return true
   end
 
-  --- Wraps the retail plate page functions so the added pages work.
+  --- Internal: Wraps the retail plate page functions so the added pages work.
   function P.attach()
     Wrap("GetPersonalPlatePageType", function(orig)
       return function(a1, ...)

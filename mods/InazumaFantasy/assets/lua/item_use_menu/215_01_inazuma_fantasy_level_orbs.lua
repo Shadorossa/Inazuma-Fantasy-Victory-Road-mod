@@ -25,7 +25,7 @@ function OnInit()
   funcLuaCommand(3363400568, 1936259305)
   if l2 ~= nil then
     n8 = funcLuaCommand(2011560392 --[[CMND_GET_ITEM_NUM]], l2)
-    InazumaFantasyLevelOrb.levels = funcLuaCommand(3085025590, l2) or 0
+    InazumaFantasy.LevelOrb.levels = funcLuaCommand(3085025590, l2) or 0
   end
   n = 0
   n2 = 0
@@ -148,8 +148,8 @@ function OnDecideFocus(a1, a2)
       SetListItemCollisionEnable(true)
       return
     end
-    if InazumaFantasyLevelOrb.levels > 0 then
-      InazumaFantasyLevelOrb.open_amount_window()
+    if InazumaFantasy.LevelOrb.levels > 0 then
+      InazumaFantasy.LevelOrb.open_amount_window()
       return
     end
     CloseLevelupPopup()
@@ -404,8 +404,8 @@ function CheckIsEnableUseItem()
   return true
 end
 function CalcNextLevelAndNextExp(a1)
-  if InazumaFantasyLevelOrb.levels > 0 then
-    return InazumaFantasyLevelOrb.preview_one_orb(a1)
+  if InazumaFantasy.LevelOrb.levels > 0 then
+    return InazumaFantasy.LevelOrb.preview_one_orb(a1)
   end
   local ret = funcLuaCommand(1131797651, a1, 0)
   local ret2 = funcLuaCommand(1131797651, a1, 29)
@@ -471,9 +471,10 @@ end
 
 -- ===== EVT InazumaFantasy level_orbs BEGIN =====
 -- Inazuma Fantasy level orbs
-InazumaFantasyLevelOrb = { levels = 0 }
+InazumaFantasy = InazumaFantasy or {}
+InazumaFantasy.LevelOrb = { levels = 0 }
 
-function InazumaFantasyLevelOrb.set_window_params(from, per_orb, cap)
+function InazumaFantasy.LevelOrb.set_window_params(from, per_orb, cap)
   funcLuaCommand(3363400568, 3597201477)
   funcLuaCommand(3860611758, 3597201477, 0, from, 1)
   funcLuaCommand(3363400568, 4218745323)
@@ -482,17 +483,17 @@ function InazumaFantasyLevelOrb.set_window_params(from, per_orb, cap)
   funcLuaCommand(3860611758, 1528124263, 0, cap, 1)
 end
 
-function InazumaFantasyLevelOrb.clear_window_params()
+function InazumaFantasy.LevelOrb.clear_window_params()
   funcLuaCommand(3363400568, 3597201477)
   funcLuaCommand(3363400568, 4218745323)
   funcLuaCommand(3363400568, 1528124263)
 end
 
 -- Previews one orb on the menu's gauge.
-function InazumaFantasyLevelOrb.preview_one_orb(chara)
+function InazumaFantasy.LevelOrb.preview_one_orb(chara)
   local level = funcLuaCommand(1131797651, chara, 0)
   local cap = funcLuaCommand(1131797651, chara, 29)
-  local target = math.min(level + InazumaFantasyLevelOrb.levels, cap)
+  local target = math.min(level + InazumaFantasy.LevelOrb.levels, cap)
   if target >= cap then
     return target, 0
   end
@@ -500,12 +501,12 @@ function InazumaFantasyLevelOrb.preview_one_orb(chara)
 end
 
 -- Handles OnDecideFocus.
-function InazumaFantasyLevelOrb.open_amount_window()
+function InazumaFantasy.LevelOrb.open_amount_window()
   local level = funcLuaCommand(1131797651, n5, 0)
   local cap = funcLuaCommand(1131797651, n5, 29)
-  local per_orb = InazumaFantasyLevelOrb.levels
+  local per_orb = InazumaFantasy.LevelOrb.levels
   local most = math.min(n8, math.ceil((cap - level) / per_orb))
-  InazumaFantasyLevelOrb.set_window_params(level, per_orb, cap)
+  InazumaFantasy.LevelOrb.set_window_params(level, per_orb, cap)
   MENU_DEF.OpenNumWindow("InazumaFantasyLevelOrbAmountDone", "", 1, most, 2906066357, 1, 1956876983 --[[num_shop_window]])
   funcLuaCommand(3694408893, l2, 0, n8, false)
 end
@@ -513,7 +514,7 @@ end
 -- Receives the amount window's answer.
 function InazumaFantasyLevelOrbAmountDone(count)
   funcLuaCommand(320421347 --[[CMND_CLOSE_MENU_OBJECT]], 1956876983 --[[num_shop_window]])
-  InazumaFantasyLevelOrb.clear_window_params()
+  InazumaFantasy.LevelOrb.clear_window_params()
   if count == -1 then
     funcLuaMenuCommand(1558704558, 2384748956 --[[item_use_menu]], true)
     SetListItemCollisionEnable(true)
@@ -526,7 +527,7 @@ function InazumaFantasyLevelOrbAmountDone(count)
   SetupNumPrimitive(4016282723 --[[item02_04_chara_list_locator]], 0, 3334923667 --[[num_have01]], n8)
   local level = funcLuaCommand(1131797651, n5, 0)
   local cap = funcLuaCommand(1131797651, n5, 29)
-  local target = math.min(level + count * InazumaFantasyLevelOrb.levels, cap)
+  local target = math.min(level + count * InazumaFantasy.LevelOrb.levels, cap)
   local exp = -funcLuaCommand(1131797651, n5, 5)
   for walked = level, target - 1 do
     exp = exp + funcLuaMenuCommand(2018907327, n5, walked)

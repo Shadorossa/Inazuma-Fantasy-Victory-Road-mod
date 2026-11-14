@@ -6,5 +6,5 @@ target = "bb_24_team_senshinjapan_a"
   [[edit.member]]
   slot = 10
   patch = true
-  moves = [0x16658ADE, 0x16E01620, 0x69D15C3C, 0xAB8EF83A, 0x91FD9611]
+  moves = ["whs02880", "whs03250", "whs03100", 0xAB8EF83A, "whs02870"]
   levels = [1, 1, 1, 1, 1]

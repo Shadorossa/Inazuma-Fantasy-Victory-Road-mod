@@ -35,6 +35,14 @@ local function pairs_of(fusions)
   return out
 end
 
+-- Returns true while base card `base`'s mix half holds the fusion carrier (Character Reforged's partner locks own the rule).
+local function held(base)
+  local api = rawget(_G, "CharacterReforged")
+  if type(api) ~= "table" or type(api.PartnerHeld) ~= "function" then return true end
+  local ok, on = pcall(api.PartnerHeld, SYSTEM, base)
+  return not ok or on == true
+end
+
 local function publish_locks(fusions)
   local list = {}
   for _, f in ipairs(type(fusions) == "table" and fusions or {}) do
@@ -104,7 +112,7 @@ function CharacterReforged.Miximaxed.Set(base, partner, move1, move2)
   step("store")
   local others = {}
   for _, p in ipairs(pairs_of(st.fusions)) do
-    if p.base ~= base then others[#others + 1] = p end
+    if p.base ~= base and held(p.base) then others[#others + 1] = p end
   end
   local code, other = CharacterReforged.PairCheck(SYSTEM, base, partner, others)
   step("pair check")
@@ -146,7 +154,7 @@ local function check_pairs(base)
   if CHECK and CHECK.base == base then return CHECK.others end
   local others = {}
   for _, p in ipairs(pairs_of(store().fusions)) do
-    if p.base ~= base then others[#others + 1] = p end
+    if p.base ~= base and held(p.base) then others[#others + 1] = p end
   end
   CHECK = { base = base, others = others }
   return others
@@ -297,7 +305,7 @@ local function own_card(hdl)
   return u32(VRFW.memory.read("u32", e.address + at))
 end
 
-VRFW.on("extra_slot:" .. SKILL_SET_SLOT .. ":fusion_start", function(ev)
+VRFW.on("match:extra_slot:" .. SKILL_SET_SLOT .. ":fusion_start", function(ev)
   local a = ev and ev.actor
   if not a or not a.handle or not StatTransfer.Owned() then return end
   local chara = own_card(a.handle)
@@ -329,7 +337,7 @@ VRFW.on("extra_slot:" .. SKILL_SET_SLOT .. ":fusion_start", function(ev)
     pe == 0 and "none" or (pe_given and "given" or ("not given: " .. tostring(code)))))
 end)
 
-VRFW.on("extra_slot:" .. SKILL_SET_SLOT .. ":fusion_end", function(ev)
+VRFW.on("match:extra_slot:" .. SKILL_SET_SLOT .. ":fusion_end", function(ev)
   local a = ev and ev.actor
   if not a or not a.handle or not PE_ON[a.handle] then return end
   local pe = PE_ON[a.handle]
@@ -338,7 +346,7 @@ VRFW.on("extra_slot:" .. SKILL_SET_SLOT .. ":fusion_end", function(ev)
   info(string.format("match: actor %s: fusion over: max PE -%d (%s)", hex(a.handle), pe, (okc and done == true) and "taken off" or "not taken off"))
 end)
 
-VRFW.on("match_start", function() PE_ON = {} end)
+VRFW.on("match:start", function() PE_ON = {} end)
 
 -- CMND_CHARACTERREFORGED_MIXIMAX_SCENE(base) -> ok, event, map, partnerHdl, finalEvent, effectsOk | false, why
 function CharacterReforged.Miximaxed.Scene(b)
@@ -376,7 +384,7 @@ end
 CharacterReforged.MixFusions = CharacterReforged.Miximaxed.Fusions
 CharacterReforged.MixStoreBlob = CharacterReforged.Miximaxed.StoreBlob
 
-VRFW.on("slot_load", function()
+VRFW.on("save:slot_load", function()
   pcall(StatTransfer.Owned)
   pcall(StatTransfer.Rules)
   publish_locks(store().fusions)

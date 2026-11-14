@@ -134,8 +134,8 @@ function CharacterReforged.PlaceRulesCmd()
   return table.unpack(r)
 end
 
-VRFW.on("game_reset", function() RULES, PRULES = nil, nil end)
-VRFW.on("slot_load", function()
+VRFW.on("game:reset", function() RULES, PRULES = nil, nil end)
+VRFW.on("save:slot_load", function()
   pcall(CharacterReforged.SkillSetRules)
   pcall(CharacterReforged.PlaceRuleList)
   pcall(Unobtainable.set)

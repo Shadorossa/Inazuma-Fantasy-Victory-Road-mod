@@ -1,8 +1,10 @@
+-- Internal:
 -- lua_patch.scope: used
 
 VRFW.synergy = VRFW.synergy or {}
 local S = VRFW.synergy
 if S.apply_panel ~= nil then return end     -- defined once per menu VM
+--- Internal: command hash of VRFW_SYNERGY_PANEL.
 S.CMD_PANEL = S.CMD_PANEL or VRFW.commands.VRFW_SYNERGY_PANEL
 local CMD_TEXT_GET = VRFW.commands.TEXT_GET
 local CMD_LANGUAGE = VRFW.commands.GET_LANGUAGE_CODE
@@ -50,7 +52,8 @@ local ORANGE = { 1.0, 0.55, 0.12 }         -- the nexus row's tint (the name: [C
 local GHOST = { 0.62, 0.62, 0.62 }         -- a missing nexus's face / an empty slot's plate: grey ...
 local GHOST_ALPHA = 0.45                   -- Translucent.
 local WHITE = { 1, 1, 1 }
-local KIND_NEXUS, KIND_NEXUS_MISSING, KIND_FILLED, KIND_EMPTY = 1, 2, 3, 4
+-- the row kinds of CMND_VRFW_SYNERGY_PANEL's answer, by the names synergy.lua gives them
+local KIND_NEXUS, KIND_NEXUS_MISSING, KIND_FILLED, KIND_EMPTY = "nexus", "nexus_missing", "filled", "empty"
 
 local L_CREST, N_CREST = 527765702, 36
 local L_FACE, N_FACE = 734603085, 72
@@ -108,6 +111,7 @@ local function split_ids(s)
   return out
 end
 
+--- Internal: extra layer state per layer.
 S.ex = S.ex or {}
 local function ex(layer)
   local e = S.ex[layer]
@@ -257,6 +261,7 @@ local function show(layer, k, id, row, lx, px, plate, grey)
   w.scale = nil
   if not w.asked then ask(layer, k) end
   if w.ready then dress(layer, k) end
+  --- Internal: true while the extra rows are built.
   S.extras = true
 end
 
@@ -325,6 +330,7 @@ end
 
 local EXTRA_LAYERS = { L_ROW, L_CREST, L_FACE, L_ICON }
 
+--- Internal: places already written to the log.
 S.logged_places = S.logged_places or {}
 local function layout_frames()
   local L = S.layout
@@ -402,6 +408,7 @@ local function hide_extras()
     for _, w in pairs(e.want) do w.used = false end
   end
   S.extras = nil
+  --- Internal: layout of the current panel (detail, rows, grid, scale, drawn), nil when none.
   S.layout = nil
 end
 
@@ -447,6 +454,7 @@ local function locators_3_rows(detail, locators)
   for _, id in ipairs(split_ids(locators.on)) do M(LOCATOR_TRACE, detail, 0, id, true) end
 end
 
+--- Internal: Applies the synergy panel of item (item, rules); draws the rows, answers nothing, and hides the extras when item has no panel.
 function S.apply_panel(item, rules)
   rules = type(rules) == "table" and rules or {}
   local p = nil
@@ -714,6 +722,7 @@ function S.apply_panel(item, rules)
   end
 end
 
+--- Internal: records a built layer instance (layer, inst).
 function S.built(layer, inst)
   if (layer == L_CREST or layer == L_FACE or layer == L_ICON or layer == L_ROW) and type(inst) == "number" then
     local e = ex(layer)
@@ -729,6 +738,7 @@ function S.built(layer, inst)
   end
 end
 
+--- Internal: hides the extra synergy layers.
 function S.hide_extras()
   hide_extras()
 end

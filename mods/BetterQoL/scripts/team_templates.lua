@@ -64,6 +64,42 @@ end
 
 local remap -- logical -> physical team set
 
+-- The stable id of each template per slot: { version, next, ids = { [template number] = id } }; a new team gets a new id,
+-- so what is kept for a team (VRFW.team_loadout) never passes to the team that replaces it.
+local IDS = VRFW.save.doc.new("betterqol_template_ids.json", {
+  version = 1,
+  stage = true,
+  log = "team_templates",
+  default = function() return { version = 1, next = 1, ids = {} } end,
+  decode = function(d)
+    d.ids = type(d.ids) == "table" and d.ids or {}
+    d.next = int(d.next, 1)
+    d.version = 1
+    return d
+  end,
+})
+local LOADOUT_KEY_PREFIX = "BetterQoL.template:"
+
+-- writes the ids of `slot` (staged with the game's save)
+local function keep_ids(doc, slot)
+  local ok, why = IDS:put(doc, slot)
+  if not ok then warn("slot " .. slot .. ": template ids not kept (" .. tostring(why) .. ")") end
+end
+
+-- the id of template `n` in `slot` (`fresh` gives it a new one), and whether it is new; nil when the slot has no
+-- document; `later` leaves the write to the caller (keep_ids)
+local function template_id(slot, n, fresh, later)
+  local doc = IDS:get(slot)
+  if type(doc) ~= "table" then return nil end
+  local k = tostring(n)
+  local id = int(doc.ids[k], nil)
+  if id ~= nil and not fresh then return id, false end
+  id = math.max(int(doc.next, 1), 1)
+  doc.next, doc.ids[k] = id + 1, id
+  if not later then keep_ids(doc, slot) end
+  return id, true
+end
+
 local function table_ok()
   if remap then return remap end
   local t, seen = {}, {}
@@ -286,7 +322,7 @@ local function loads_now()
 end
 
 local reset_loads = nil
-VRFW.on("game_reset", function()
+VRFW.on("game:reset", function()
   reset_loads = loads_now()
   return nil
 end)
@@ -654,6 +690,7 @@ local function dock_template(n, online)
   st.templates[out] = { content = "stored", set = B.text_of_words(cur), idents = cur_idents }
   st.templates[n] = { content = "docked" }
   st.docks[d] = n
+  if tpl.content ~= "stored" then template_id(slot, n, true) end
   changed()
   info(string.format("slot %d: template %d in dock %d (%s), template %d stored; %d player slot(s) emptied; saved with the next game save", slot, n, d + 1,
     tpl.content == "stored" and "stored" or "new", out, #dropped))
@@ -831,6 +868,22 @@ function TT.Rival(n)
   end
   SS.rival_pending = true
   info(string.format("slot %d: template %d copied to team set %d for one match", slot, n, RIVAL_SET))
+  -- Diagnostic: a character on both sides has one record, so both sides play that record's moves (per-side sets are not written).
+  local mine, both = {}, 0
+  for d in pairs(active_docks(party) or {}) do
+    local w = read_set(data, t, S.FIRST_DOCK + d)
+    for k = 0, (w and S.MEMBERS or 0) - 1 do
+      local h = S.member_handle(w, 0, 0, k)
+      if h ~= 0 then mine[h] = true end
+    end
+  end
+  for k = 0, S.MEMBERS - 1 do
+    local h = S.member_handle(source, 0, 0, k)
+    if h ~= 0 and mine[h] then both = both + 1 end
+  end
+  if both > 0 then
+    warn(string.format("rival template %d: %d player(s) also play in the active team; one character record holds one set, so both sides play the same set", n, both))
+  end
   return RIVAL_SET
 end
 
@@ -881,21 +934,63 @@ function TT.WriteDock(set, words)
     if not restored then err("RESTORE FAILED too: " .. tostring(restore_why) .. " (do not save; restart the game)") end
     return false, tostring(why)
   end
+  local n = TT.OfDock(set)
+  if n then template_id(slot, n, true) end
   info(string.format("slot %d: team set %d rewritten from a team file; saved with the next game save", slot, set))
   return true
+end
+
+-- CMND_BETTERQOL_TEMPLATE_LOADOUT_KEY (team set) -> the stable key of the template that set holds; nil when it is no dock
+function TT.LoadoutKey(set)
+  local n = TT.OfDock(set)
+  local id = n and template_id(active_slot(), n, false)
+  return id and (LOADOUT_KEY_PREFIX .. id) or nil
+end
+
+-- CMND_BETTERQOL_TEMPLATE_LOADOUT_TEAMS -> every template that has players as "key:h,h,...;key:...", members of its playing team
+function TT.LoadoutTeams()
+  local party = party_ptr()
+  if not party then return nil end
+  local slot = active_slot()
+  local st = resolve(slot, party)
+  local parts, added = {}, false
+  for n = 1, #st.templates do
+    local w = template_words(st, n, party)
+    if w then
+      local handles = {}
+      for k = 0, S.MEMBERS - 1 do
+        local h = S.member_handle(w, 0, 0, k)
+        if h ~= 0 then handles[#handles + 1] = string.format("%08X", band(h, 0xFFFFFFFF)) end
+      end
+      local id, new = nil, false
+      if #handles > 0 then id, new = template_id(slot, n, false, true) end
+      added = added or new == true
+      if id then parts[#parts + 1] = LOADOUT_KEY_PREFIX .. id .. ":" .. table.concat(handles, ",") end
+    end
+  end
+  if added then keep_ids(IDS:get(slot), slot) end
+  return table.concat(parts, ";")
+end
+
+-- CMND_BETTERQOL_TEMPLATE_LOADOUT_KEY_OF (template number) -> that template's stable key (the links kept before team loadouts name templates by number)
+function TT.LoadoutKeyOf(n)
+  n = int(n, -1)
+  if n < 1 then return nil end
+  local id = template_id(active_slot(), n, false)
+  return id and (LOADOUT_KEY_PREFIX .. id) or nil
 end
 
 function BetterQoL.TemplateOfDock(set)
   return TT.OfDock(set)
 end
 
-VRFW.on("match_start", function()
+VRFW.on("match:start", function()
   if SS.rival_pending then
     SS.rival_pending, SS.rival_playing = false, true
   end
 end)
 
-VRFW.on("match_end", function()
+VRFW.on("match:end", function()
   if SS.rival_playing then
     local party = party_ptr()
     local ok, e = pcall(rival_end, active_slot(), party)
@@ -913,9 +1008,9 @@ local function party_was_rebuilt()
   return VRFW.state("mode.is.boot") == 1 or VRFW.state("mode.is.title") == 1
 end
 
-for _, trig in ipairs({ "mode_enter", "mode_leave" }) do
+for _, trig in ipairs({ "mode:enter", "mode:leave" }) do
   VRFW.on(trig, function()
-    if trig == "mode_enter" and party_was_rebuilt() then reset_loads = loads_now() end
+    if trig == "mode:enter" and party_was_rebuilt() then reset_loads = loads_now() end
     local ok, e = pcall(touch, trig)
     if not ok then warn(trig .. ": " .. tostring(e)) end
   end)

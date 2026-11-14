@@ -168,7 +168,7 @@ function CutinSkip.Skip()
   return 0
 end
 
-VRFW.on("cutin_start", function()
+VRFW.on("match:cutin_start", function()
   cutin_playing = true
   cutin_started_ms = VRFW.now_ms()
   press_seen = false
@@ -179,7 +179,7 @@ VRFW.on("cutin_start", function()
   return nil
 end)
 
-VRFW.on("cutin_end", function()
+VRFW.on("match:cutin_end", function()
   cutin_playing = false
   pending_slot = nil
   if skip_log then

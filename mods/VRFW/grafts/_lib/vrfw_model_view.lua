@@ -1,4 +1,4 @@
---@section ModelView
+--@section ModelView --- Advanced: Menu model view camera and pose helpers.
 local MV = {}
 MV.CAM, MV.CAM_OFS, MV.CAM_GET = 1752770328, 284729675, 1877348924   -- shared menu model camera offset (set / get)
 MV.ROT = 2463117189                    -- (layer, idx, rx, ry, rz): the retail view's turn after a build

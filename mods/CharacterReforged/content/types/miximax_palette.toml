@@ -1,6 +1,9 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.miximax_palette/1"
 folder = "content/miximax_palettes"
+# v2 words, read beside the v1 ones until the switch: the type and its kind folder.
+v2_type = "VRFW.Character.MiximaxPalette"
+v2_kind_folder = "Characters/MiximaxPalettes"
 label = "Miximax palettes"
 label_es = "Paletas de Miximax"
 doc = "One character's colour keys: as a partner he gives them to the base, as a base his own are replaced."

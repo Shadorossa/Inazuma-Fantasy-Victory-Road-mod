@@ -24,9 +24,10 @@ if VRFW.item_filter_sections == nil and VRFW.host ~= nil then
     list_menu = nil,              -- the list menu whose filter the mods hold
     window = nil,                 -- the open window: { menu, tabs = { { section, values, labels } } }
   }
+  --- Advanced: Namespace: the declared item filter sections of list menus.
   VRFW.item_filter_sections = IFS
 
-  --- The sections of list menu `menu`: { { name, text, icon, icon_off, symbol, serve } }, asked once per screen.
+  --- Internal: The sections of list menu `menu`: { { name, text, icon, icon_off, symbol, serve } }, asked once per screen.
   function IFS.sections(menu)
     local known = IFS.by_menu[menu]
     if known ~= nil then return known end
@@ -43,7 +44,7 @@ if VRFW.item_filter_sections == nil and VRFW.host ~= nil then
     return list
   end
 
-  --- One request to each serve command of the sections of `menu`.
+  --- Advanced: One request to each serve command of the sections of `menu`.
   function IFS.tell(menu, ...)
     local told = {}
     for _, section in ipairs(IFS.sections(menu)) do
@@ -54,7 +55,7 @@ if VRFW.item_filter_sections == nil and VRFW.host ~= nil then
     end
   end
 
-  --- Calls command(at, values...) once per VALUES_PER_CALL values, `at` = the place of the call's first value;
+  --- Internal: Calls command(at, values...) once per VALUES_PER_CALL values, `at` = the place of the call's first value;
   --- false when a call does not answer true.
   function IFS.in_calls(values, command)
     for at = 1, math.max(#values, 1), IFS.VALUES_PER_CALL do
@@ -64,9 +65,10 @@ if VRFW.item_filter_sections == nil and VRFW.host ~= nil then
     return true
   end
 
-  --- Tells the mods which rows of `params` are ticked in the sections of `menu`; scope "list" or "window".
-  --- A section with every row or no row ticked does not filter: nothing is sent for it.
-  function IFS.send(scope, menu, params)
+  --- Advanced: Tells the mods which rows of `params` are ticked in the sections of `menu`; scope "list" or "window"; `inventory`
+  --- (optional) = the filter holds for that inventory type's items only. A section with every row or no row ticked
+  --- does not filter: nothing is sent for it.
+  function IFS.send(scope, menu, params, inventory)
     for i, section in ipairs(IFS.sections(menu)) do
       local values, all = {}, false
       for _, p in ipairs(params) do
@@ -85,10 +87,10 @@ if VRFW.item_filter_sections == nil and VRFW.host ~= nil then
         end)
       end
     end
-    IFS.tell(menu, "apply", scope)
+    IFS.tell(menu, "apply", scope, inventory)
   end
 
-  --- `params` without the sections' rows (the save's filter set has no place for them), and true when any was left out.
+  --- Advanced: `params` without the sections' rows (the save's filter set has no place for them), and true when any was left out.
   function IFS.saved(params)
     local copy, dropped = {}, false
     for _, p in ipairs(params) do
@@ -99,7 +101,7 @@ if VRFW.item_filter_sections == nil and VRFW.host ~= nil then
     return copy, dropped
   end
 
-  --- True when a row of a section is ticked in `params`.
+  --- Internal: True when a row of a section is ticked in `params`.
   function IFS.filters(params)
     for _, p in ipairs(params) do
       if type(p) == "table" and p.listItemType == IFS.ROW_TYPE and p.option ~= 0 then return true end
@@ -107,7 +109,7 @@ if VRFW.item_filter_sections == nil and VRFW.host ~= nil then
     return false
   end
 
-  --- List screen `stem` tells the mods its player and its filter; its saved filter keeps the game's rows only.
+  --- Internal: List screen `stem` tells the mods its player and its filter; its saved filter keeps the game's rows only.
   function IFS.attach_list(stem)
     VRFW.host.wrap("SetStartMenu", function(game_start)
       return function(character, ...)
@@ -173,6 +175,7 @@ if VRFW.item_filter_sections == nil and VRFW.host ~= nil then
 
   -- The window opens for a list menu with sections: one more tab per section, with the rows its mod answers.
   local function window_setup()
+    --- Internal: locals of the open equipment list window, or nil.
     IFS.window = nil
     local L = window_locals()
     local menu = L and L.n
@@ -232,7 +235,7 @@ if VRFW.item_filter_sections == nil and VRFW.host ~= nil then
     return shown
   end
 
-  --- The filter window shows the sections of the list menu that opened it and tells the mods what is ticked.
+  --- Internal: The filter window shows the sections of the list menu that opened it and tells the mods what is ticked.
   function IFS.attach_window()
     local stem = IFS.WINDOW
     VRFW.host.on(stem, "SetupFilterGroupInfoArray", { id = "VRFW.item_filter_sections_setup", phase = "before",
@@ -260,7 +263,7 @@ if VRFW.item_filter_sections == nil and VRFW.host ~= nil then
     VRFW.host.on(stem, "SetItemFilter", { id = "VRFW.item_filter_sections_preview", phase = "before",
       fn = function()
         local w = IFS.window
-        if w ~= nil then IFS.send("window", w.menu, GetFilterParamArray()) end
+        if w ~= nil then IFS.send("window", w.menu, GetFilterParamArray(), GetInventoryType()) end
       end })
     -- «Y Todos» and «Restablecer» work on the rows of the tab shown, as in the game's tabs.
     VRFW.host.on(stem, "IsAllSelectedInCategory", { id = "VRFW.item_filter_sections_all", phase = "around",

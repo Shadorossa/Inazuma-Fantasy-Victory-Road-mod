@@ -309,12 +309,13 @@ do
 
   function CharacterReforged.training_mode.read_positions()
     local T = CharacterReforged.training_mode
-    local ok, chosen, main, sub, trained
+    local ok, chosen, main, sub, trained, following, previous
     if T.info.ok then
-      ok, chosen, main, sub, trained = VRFW.host.command(T.CMD.POSITION, T.hdl)
+      ok, chosen, main, sub, trained, following, previous = VRFW.host.command(T.CMD.POSITION, T.hdl)
     end
-    T.pos = {ok = ok == true, chosen = T.int(chosen), main = T.int(main), sub = T.int(sub), trained = trained == true}
-    T.pos.switchable = T.pos.ok and T.pos.sub ~= 0 and T.pos.sub ~= T.pos.main
+    T.pos = {ok = ok == true, chosen = T.int(chosen), main = T.int(main), sub = T.int(sub), trained = trained == true,
+      following = T.int(following), previous = T.int(previous)}
+    T.pos.switchable = T.pos.ok and T.pos.following ~= 0 and T.pos.following ~= T.pos.chosen
   end
 
   function CharacterReforged.training_mode.partner(i)
@@ -983,8 +984,7 @@ do
       if not T.info.ok then
         line = T.info.status == T.ERR_LOCKED and T.T("LOCKED") or T.T("NO_DATA")
       elseif T.sel == T.SEL_POS and T.pos.switchable then
-        local other = T.pos.chosen == T.pos.main and T.pos.sub or T.pos.main
-        line = T.T("POS_GUIDE", T.pos_name(T.pos.chosen), T.pos_name(other))
+        line = T.T("POS_GUIDE", T.pos_name(T.pos.chosen), T.pos_name(T.pos.following))
       elseif T.sel == T.SEL_POS then
         line = T.T("POS_SINGLE", T.pos_name(T.pos.chosen))
       else
@@ -1120,8 +1120,8 @@ do
     T.redraw(false)
   end
 
-  -- Handles the position row's Left, Right, Aceptar and click.
-  function CharacterReforged.training_mode.switch_position()
+  -- Handles the position row's Left (dir < 0: the previous allowed position), Right, Aceptar and click.
+  function CharacterReforged.training_mode.switch_position(dir)
     local T = CharacterReforged.training_mode
     T.hint = nil
     if not (T.info.ok and T.pos.switchable) then
@@ -1129,7 +1129,7 @@ do
       T.draw_guide()
       return
     end
-    local target = T.pos.chosen == T.pos.main and T.pos.sub or T.pos.main
+    local target = (dir ~= nil and dir < 0) and T.pos.previous or T.pos.following
     if T.pos.trained then
       funcLuaCommand(C.SE, SE_OK)
       if not VRFW.question.ask(T.T("ASK_POSITION", T.name, T.pos_name(target))) then
@@ -1146,7 +1146,7 @@ do
   function CharacterReforged.training_mode.step(dir)
     local T = CharacterReforged.training_mode
     if T.sel == T.SEL_POS then
-      return T.switch_position()
+      return T.switch_position(dir)
     end
     if not T.info.ok then
       funcLuaCommand(C.SE, SE_NG)

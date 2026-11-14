@@ -1,4 +1,4 @@
-# Save slots (research/mods/_aside/InazumaFantasy/_tools/slot_build.py): the slot screen before EMPEZAR
+# Save slots (slot_build.py (old Inazuma Fantasy tool, removed 2026-11-12)): the slot screen before EMPEZAR
 # (include/menu/title_menu_inc: one patch in StartItemSelectMenuCoroutine + vrfw_title_slot_block) and the new menu
 # vrfw_save_slot_menu (src/vrfw_save_slot_menu.lua; the legacy build padded it to the installed size, not needed here).
 # A VRFW base service: built into mod VRFW (`menu_assemble.py build --mod

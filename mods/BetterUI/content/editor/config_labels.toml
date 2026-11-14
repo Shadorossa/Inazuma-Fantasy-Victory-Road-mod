@@ -14,6 +14,11 @@ For = "config"
   Label = { es = "Placa de kizuna inclinada", en = "Slanted kizuna plate" }
   Help = { es = "La placa de kizuna del marcador se muestra inclinada como las barras.", en = "The match HUD kizuna plate is slanted like the gauge bars." }
   [[Shape.Field]]
+  Key = "header_shift_dy"
+  Type = "float"
+  Label = { es = "Subida bajo la cabecera", en = "Shift under the header" }
+  Help = { es = "Altura que suben las capas de los menús bajo la cabecera más corta (unidades de diseño).", en = "Height the menu layers move up under the shorter header (layout units)." }
+  [[Shape.Field]]
   Key = "position_card_looks"
   Type = "table"
   Label = { es = "Colores de carta por posición", en = "Card colours by position" }

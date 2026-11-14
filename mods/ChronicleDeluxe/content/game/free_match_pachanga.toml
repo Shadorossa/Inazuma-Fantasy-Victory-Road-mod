@@ -1,0 +1,11 @@
+schema = "VRFW.game/2"
+
+# (free match game, class) -> { friendly, friendly_active_team, game, difficulty } of the declared pachanga (scripts\free_match_pachanga.lua)
+[[VRFW.Command]]
+name = "CMND_CHRONICLEDELUXE_FREE_MATCH_PACHANGA_ARM"
+handler = "ChronicleDeluxe.FreeMatchPachangaArm"
+
+# (free match team id) -> the id of its five-a-side team, or nil (the [[VRFW.FormationFitTeams]] rule of content\teams, scripts\free_match_pachanga.lua)
+[[VRFW.Command]]
+name = "CMND_CHRONICLEDELUXE_FREE_MATCH_PACHANGA_FIVE"
+handler = "ChronicleDeluxe.FreeMatchPachangaFive"

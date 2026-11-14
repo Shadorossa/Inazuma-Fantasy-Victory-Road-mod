@@ -894,7 +894,7 @@ end
 
 spawn_radius_early = spawn_radius
 
-VRFW.on("game_reset", function(ev)
+VRFW.on("game:reset", function(ev)
   spawn_radius(nil)
   MenuScene.CameraStop("game reset")
   for _, s in ipairs(scenes) do clear_redirect(s) MenuScene.FilesOff(s, "game reset") end

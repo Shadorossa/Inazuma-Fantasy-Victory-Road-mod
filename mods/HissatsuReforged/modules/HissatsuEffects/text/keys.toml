@@ -5,35 +5,64 @@ default_lang = "en"
 [en.new]
 mod_name = "Hissatsu Effects"
 mod_description = "Gives almost every special move an effect of its own: Excalibur grows stronger the farther it flies, Doom Rain splits into 7 balls, Electric Trap locks the shot it stops. In the Skills list, Q / E turn a move's card to a page that explains its effect."
+option_technique_passives = "Special move passives"
+option_technique_passives_help = "On: special moves have their own effects. Off: no move effects, as in the game. Applies after restarting the game."
+# value_row_lead: the word that joins a rule sentence's leading value to its noun («+12 % de potencia»); the value
+# column drops it with the value, so the row reads «Potencia ...» ("" = none)
+value_row_lead = ""
 
 [es.new]
 mod_name = "Efectos de supertécnicas"
 mod_description = "Da a casi todas las supertécnicas un efecto propio: Excálibur gana potencia cuanto más lejos vuela, Diluvio letal se divide en 7 balones, Malla eléctrica bloquea el tiro que para. En la lista de Habilidades, Q / E pasan la tarjeta de una técnica a una página que explica su efecto."
+option_technique_passives = "Pasivas de supertécnicas"
+option_technique_passives_help = "Activado: las supertécnicas tienen sus efectos propios. Desactivado: sin efectos, como el juego. Se aplica al reiniciar el juego."
+value_row_lead = "de"
 
 [fr.new]
 mod_name = "Effets des supertechniques"
 mod_description = "Donne à presque toutes les supertechniques un effet propre : Excalibur gagne en puissance plus elle vole loin, Pluie fatale se divise en 7 ballons, Piège électrique verrouille le tir qu'il arrête. Dans la liste des Compétences, Q / E font passer la carte d'une technique à une page qui explique son effet."
+option_technique_passives = "Passifs des supertechniques"
+option_technique_passives_help = "Activé : les supertechniques ont leurs propres effets. Désactivé : aucun effet, comme le jeu. Appliqué au redémarrage du jeu."
+value_row_lead = "de"
 
 [de.new]
 mod_name = "Spezialtechnik-Effekte"
 mod_description = "Gibt fast jeder Spezialtechnik einen eigenen Effekt: Excalibur wird stärker, je weiter es fliegt, Doom Rain teilt sich in 7 Bälle, Electric Trap sperrt den Schuss, den es stoppt. In der Fähigkeitenliste blättern Q / E die Karte einer Technik zu einer Seite um, die ihren Effekt erklärt."
+option_technique_passives = "Passive der Spezialtechniken"
+option_technique_passives_help = "An: Spezialtechniken haben eigene Effekte. Aus: keine Effekte, wie im Spiel. Gilt nach einem Neustart des Spiels."
+value_row_lead = ""
 
 [it.new]
 mod_name = "Effetti delle supertecniche"
 mod_description = "Dà a quasi tutte le supertecniche un effetto proprio: Excalibur diventa più forte quanto più vola lontano, Pioggia fatale si divide in 7 palloni, Trappola elettrica blocca il tiro che ferma. Nell'elenco delle Abilità, Q / E portano la carta di una tecnica a una pagina che ne spiega l'effetto."
+option_technique_passives = "Passive delle supertecniche"
+option_technique_passives_help = "Attivo: le supertecniche hanno effetti propri. Disattivo: nessun effetto, come nel gioco. Si applica al riavvio del gioco."
+value_row_lead = "di"
 
 [pt.new]
 mod_name = "Efeitos das supertécnicas"
 mod_description = "Dá a quase todas as supertécnicas um efeito próprio: Excalibur ganha força quanto mais longe voa, Chuva fatal divide-se em 7 bolas, Armadilha elétrica bloqueia o remate que pára. Na lista de Habilidades, Q / E passam a carta de uma técnica para uma página que explica o seu efeito."
+option_technique_passives = "Passivas das supertécnicas"
+option_technique_passives_help = "Ligado: as supertécnicas têm efeitos próprios. Desligado: sem efeitos, como no jogo. Aplica-se ao reiniciar o jogo."
+value_row_lead = "de"
 
 [ja.new]
 mod_name = "必殺技の効果"
 mod_description = "ほぼすべての必殺技に固有の効果を付けます：エクスカリバーは遠くへ飛ぶほど強くなり、ドゥームレインは7つのボールに分かれ、エレクトリックトラップは止めたシュートを封じます。スキル一覧で Q / E を押すと、技のカードがその効果を説明するページに切り替わります。"
+option_technique_passives = "必殺技のパッシブ"
+option_technique_passives_help = "オン：必殺技に独自の効果。オフ：効果なし（ゲーム本来）。ゲーム再起動後に反映。"
+value_row_lead = ""
 
 [zh_hans.new]
 mod_name = "必杀技效果"
 mod_description = "为几乎所有必杀技加上专属效果：王者之剑飞得越远越强，毁灭之雨会分裂成7个球，电击陷阱会锁住被它拦下的射门。在技能列表中按 Q / E，可把招式卡片翻到说明其效果的页面。"
+option_technique_passives = "必杀技被动"
+option_technique_passives_help = "开启：必杀技拥有自身效果。关闭：没有效果，与原版相同。重启游戏后生效。"
+value_row_lead = ""
 
 [zh_hant.new]
 mod_name = "必殺技效果"
 mod_description = "為幾乎所有必殺技加上專屬效果：王者之劍飛得越遠越強，毀滅之雨會分裂成7個球，電擊陷阱會鎖住被它攔下的射門。在技能列表中按 Q / E，可把招式卡片翻到說明其效果的頁面。"
+option_technique_passives = "必殺技被動"
+option_technique_passives_help = "開啟：必殺技擁有自身效果。關閉：沒有效果，與原版相同。重啟遊戲後生效。"
+value_row_lead = ""

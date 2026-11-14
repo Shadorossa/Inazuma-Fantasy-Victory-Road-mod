@@ -7,7 +7,7 @@ id = "difficulty"                             # row key LegendaryAI.difficulty
 type = "list"
 label = "option_difficulty"                   # text\keys.toml, 9 languages
 help = "option_difficulty_help"
-values = [{ value = 0, name = "difficulty_novice", text = "Novice" }, { value = 1, name = "difficulty_amateur", text = "Amateur" }, { value = 2, name = "difficulty_professional", text = "Professional" }, { value = 3, name = "difficulty_world_class", text = "World class" }, { value = 4, name = "difficulty_hell", text = "Hell" }]
+values = [{ value = 0, name = "difficulty_novice", text = "Novice" }, { value = 1, name = "difficulty_amateur", text = "Amateur" }, { value = 2, name = "difficulty_professional", text = "Professional" }, { value = 3, name = "difficulty_world_class", text = "World class" }, { value = 4, name = "difficulty_hell", text = "Hell" }, { value = 5, name = "difficulty_legend", text = "Leyenda" }]
 default = 4
 order = 230
 restart = false
@@ -20,4 +20,14 @@ label = "option_canon_chronicle_battles"      # text\keys.toml, 9 languages
 help = "option_canon_chronicle_battles_help"
 default = 0
 order = 231
+restart = false
+
+# «Shot zone only in the rival's penalty area»: off = your shot zone is the game's own (content\shot_rules\zone.toml when_option), from the next match.
+[[option]]
+id = "user_shot_zone_box"                     # row key LegendaryAI.user_shot_zone_box
+type = "toggle"
+label = "option_user_shot_zone_box"           # text\keys.toml, 9 languages
+help = "option_user_shot_zone_box_help"
+default = 1
+order = 232
 restart = false

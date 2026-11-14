@@ -38,6 +38,26 @@ free_gacha = false
 # how many of the cost item the free gacha keeps (the bag's room for the item caps it)
 free_gacha_stock = 999
 
+# ---------------------------------------------------------------- diagnostics
+[diagnostics]
+# the frame and softlock watchdog (docs/framework/diagnostics.md): FRAME, FPS and SOFTLOCK lines in loader.log and issues.log
+enabled = true
+# a frame longer than this (ms) is a slow frame; slow frames closer than burst_gap_ms are one line
+slow_frame_ms = 50
+burst_gap_ms = 1000
+# a one-second average under this (frames per second) is a low frame rate
+low_fps = 45
+# input ignored: this many presses over this many seconds and the game took no command
+input_ignored_presses = 4
+input_ignored_s = 10
+# a match with no ball, state, cut-in or command change for this long (s, no menu open)
+match_frozen_s = 45
+# a cut-in that has not ended / a focus battle still updating after this long (s)
+cutin_stuck_s = 20
+focus_stuck_s = 60
+# the most watchdog lines one session writes
+max_lines = 300
+
 # ---------------------------------------------------------------- chara (chara\)
 [character]
 lang = "game"
@@ -55,6 +75,14 @@ keeper_scenes = true
 # ---------------------------------------------------------------- anim (anim\)
 [anim]
 report = true
+
+[anim.contact_probe]
+# read-only W11e probe (docs/internal/types/anim.md section 10): logs how the game evaluates and composes the actors' skeletons after a scene event starts
+enabled = false
+frames = 120
+joint = "r_w_1_0"
+models = 8
+runs = 1
 
 # ---------------------------------------------------------------- items (items\)
 [item]

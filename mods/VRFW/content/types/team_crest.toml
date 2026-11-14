@@ -2,6 +2,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.team_crest/1"
 folder = "content/team_crests"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Team.Crest"
+v2_kind_folder = "Teams/Crests"
+v2_version = 1
 label = "Team crests"
 label_es = "Escudos de equipo"
 doc = "The crest a team shows wherever the framework draws its crest."

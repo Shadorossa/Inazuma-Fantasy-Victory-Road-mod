@@ -24,7 +24,10 @@ keep_days = 60
 # beating the day's rival pays `reward` of `reward_item` once per day (0 = none)
 reward = 10
 reward_item = "tk_bb000001"
+# the Chronicle games (soccer_game_info key prefix) whose stadiums a rival team may use
 chronicle_prefix = "fbtl_cro"
+# the free-match team the rival stands in for (content/teams)
+slot_team = "evt_ct_ft_daily_legendary_rival"
 
 # The level orbs (scripts/level_orbs.lua): levels one orb gives, up to the player's cap.
 [level_orbs.levels]

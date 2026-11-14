@@ -1,9 +1,0 @@
-# The player set list's «Link to this team» row action (Character Reforged's skill table, key CMD_FUNC2).
-schema = "VRFW.menu/2"
-
-[[entry]]
-host = "CharacterReforged.player_sets.row_action"
-id = "set_links"
-text = "better_qol_set_link"
-order = 100
-action = { lua = "BetterQoL.set_links.row_action" }

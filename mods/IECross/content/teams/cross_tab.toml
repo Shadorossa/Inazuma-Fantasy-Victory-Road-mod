@@ -11,7 +11,7 @@ format = "11v11"
 label = { es = "Inazuma Eleven Cross", en = "Inazuma Eleven Cross", fr = "Inazuma Eleven Cross", de = "Inazuma Eleven Cross", it = "Inazuma Eleven Cross", pt = "Inazuma Eleven Cross", ja = "イナズマイレブン クロス", zh_hans = "闪电十一人 Cross", zh_hant = "閃電十一人 Cross" }
 condition = [{ call = "GetGlobalByteFlag", args = ["FOOTBALL_REFORGED_OFFICE_MODE"], value = 0 }]   # listed while the office (Oficina de fichajes) is off
 description = "The Cross tab of the free match (Competir contra bots)"
-# Tab order (research/mods/_aside/InazumaFantasy/_tools/team_order.py CROSS_ORDER).
+# Tab order (team_order.py (old Inazuma Fantasy tool, removed 2026-11-12) CROSS_ORDER).
 order = [
   "ct_cx_royal_academy", "ct_cx_ramen_kidokawa", "ct_cx_ramen_akihabara", "ct_cx_ramen_raimon_ob",
   "ct_cx_kaizoku_occult", "ct_cx_kaizoku_nose", "ct_cx_kaizoku_ij", "ct_cx_shin_mikage", "ct_cx_shin_zeus",

@@ -50,7 +50,7 @@ if VRFW.summon_presentation == nil then
     VRFW.param.replace(KEY_COUNT, #players)
   end
 
-  --- The request of this opening for the summon menu's Lua, consumed: {count, takes_input, cards, rarities}; nil = none.
+  --- Internal: The request of this opening for the summon menu's Lua, consumed: {count, takes_input, cards, rarities}; nil = none.
   function Presentation.take_request()
     local count = tonumber(VRFW.param.get(KEY_COUNT)) or 0
     if count <= 0 then
@@ -91,7 +91,7 @@ if VRFW.summon_presentation == nil then
     return funcLuaMenuCommand(VRFW.commands.IS_EXIST_MENU_OBJECT, SUMMON_MENU) == true
   end
 
-  -- From a coroutine of a menu's Step. spec = {players = {{card, rarity}, ...}, before, after, restore_camera, fade_back,
+  -- Advanced: From a coroutine of a menu's Step. spec = {players = {{card, rarity}, ...}, before, after, restore_camera, fade_back,
   -- takes_input}. The screen goes black, before() runs, the performance plays, after() runs. fade_back = lit again here;
   -- otherwise the caller lights it. restore_camera = the menu camera comes back. takes_input = the summon menu's rule:
   -- the summon menu switches its own input on before the performance.
@@ -139,6 +139,8 @@ if VRFW.summon_presentation == nil then
     return true
   end
 
+  --- Advanced: Maximum number of players the summon presentation handles.
   Presentation.MAX_PLAYERS = MAX_PLAYERS
+  --- Advanced: Namespace of the summon presentation helpers.
   VRFW.summon_presentation = Presentation
 end

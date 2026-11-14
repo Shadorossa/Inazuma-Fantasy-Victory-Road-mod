@@ -1,0 +1,11 @@
+schema = "ChronicleDeluxe.free_match_pachanga/1"
+# The Pachanga mode of the free match list: the friendly it starts, the retail street battle row it plays on (a
+# neutral 5v5 row, never the Chronicle game itself) and the tag its result is recognised by.
+[ChronicleDeluxe.FreeMatchPachanga]
+friendly = "ChronicleDeluxe.FreeMatchPachanga"
+friendly_active_team = "ChronicleDeluxe.FreeMatchPachangaActiveTeam"
+game = "sbtl_rojiura_01"
+difficulty = 1
+tag = "chronicle_deluxe_free_match_pachanga"
+# The rival fives: the [[VRFW.FormationFitTeams]] rule of content/teams/free_match_pachanga_fives.toml (<mod>.<Id>).
+rivals = "ChronicleDeluxe.pachanga_fives"

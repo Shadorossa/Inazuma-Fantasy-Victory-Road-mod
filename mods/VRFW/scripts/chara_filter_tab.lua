@@ -169,11 +169,8 @@ local function start()
     tab.album and "; the album's filter lists it too" or ""))
 end
 
--- [chara_param id] = mask of the rows his character's tags tick, built once
-local function card_masks()
-  if CharaFilterTab.mask_of then return CharaFilterTab.mask_of end
-  local rows = CharaFilterTab.rows
-  if not rows then return nil end
+-- [chara_param id] = mask of the rows `rows` (the tab's) his character's tags tick
+local function build_masks(rows)
   local bit_of = {}
   for i, r in ipairs(rows) do bit_of[r.name] = 2 ^ (i - 1) end
   local of = {}
@@ -186,14 +183,17 @@ local function card_masks()
       of[u32(card)] = m
     end
   end
-  CharaFilterTab.mask_of = of
   return of
 end
 
--- the index is built when a slot loads, so the first filtered list does not build it
-VRFW.on("slot_load", function()
-  pcall(card_masks)
-end)
+-- the masks, built once and kept between starts (mod tags and game cards only)
+local function card_masks()
+  if CharaFilterTab.mask_of then return CharaFilterTab.mask_of end
+  local rows = CharaFilterTab.rows
+  if not rows then return nil end
+  CharaFilterTab.mask_of = VRFW.derived("chara_filter_masks", nil, function() return build_masks(rows) end)
+  return CharaFilterTab.mask_of
+end
 
 -- (card, ticked row mask) -> 1 when his character has a tag of a ticked row
 VRFW.on("hook:" .. TAB_PASS, function(ev)
@@ -223,3 +223,8 @@ function CharaFilterTab.CmdTab()
 end
 
 start()
+-- built at load, so neither a slot load nor the first filtered list builds it
+if CharaFilterTab.rows then
+  local ok, e = pcall(card_masks)
+  if not ok then warn("the card index could not be built at load (" .. tostring(e) .. ")") end
+end

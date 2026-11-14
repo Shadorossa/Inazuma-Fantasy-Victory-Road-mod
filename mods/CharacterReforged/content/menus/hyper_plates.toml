@@ -15,15 +15,11 @@ resources = ["#/menu/102_team/team00/team00_30/<LG>/team00_30.g4tx"]
 menu = "soccer_command_action_menu"
 add_layer = { name = "cr_hiper_input", object = "cr_hiper_input", count = 4, after = "soccer08_10_p5_aura_skill_chara_icon", groups = [{ group = "soccer_command_action_menu", after = "soccer08_17_cancel_guide" }, { group = "soccer_battle_command_action_menu", after = "soccer08_17_cancel_guide" }] }
 
-# The text layers of a plate (two objects on one layout, built by _tools	ransform_cross_build.py): the type label over the
-# name, the cost or reason pill and the name. Instance i hangs on plate i (the plate object's attach rows).
+# The text layers of a plate (two objects on one layout, built by _tools\transform_cross_build.py): the cost or reason
+# pill and the name, on one line. Instance i hangs on plate i (the plate object's attach rows).
 [[patch]]
 menu = "soccer_command_action_menu"
-add_layer = { name = "cr_transform_type", object = "cr_transform_caption", count = 4, after = "cr_hiper_input", groups = [{ group = "soccer_command_action_menu", after = "soccer08_17_cancel_guide" }, { group = "soccer_battle_command_action_menu", after = "soccer08_17_cancel_guide" }] }
-
-[[patch]]
-menu = "soccer_command_action_menu"
-add_layer = { name = "cr_transform_pill", object = "cr_transform_caption", count = 4, after = "cr_transform_type", groups = [{ group = "soccer_command_action_menu", after = "soccer08_17_cancel_guide" }, { group = "soccer_battle_command_action_menu", after = "soccer08_17_cancel_guide" }] }
+add_layer = { name = "cr_transform_pill", object = "cr_transform_caption", count = 4, after = "cr_hiper_input", groups = [{ group = "soccer_command_action_menu", after = "soccer08_17_cancel_guide" }, { group = "soccer_battle_command_action_menu", after = "soccer08_17_cancel_guide" }] }
 
 [[patch]]
 menu = "soccer_command_action_menu"
@@ -71,7 +67,7 @@ translate = [0.0, 0.0, 0.0]
 
 # The three attach rows of the retail recast gauges become the rows of plates 0 to 2 and a fourth row is added
 # (entry cr_transform_plate01..04, locator _atc_plates01, layer soccer08_10_cmd_act_hiper_slot, instance); the right icon gets
-# a colour row like the other three (dim = darker).
+# a colour row like the other three (dim = darker). Rows cr_transform_tactics01..04 hang the tactics-look plates on the same locator.
 [[object]]
 name = "cr_transform_ring"
 from = "soccer08_14_tactics_screen_guide"
@@ -85,8 +81,24 @@ add = [
     { block = "gmdMenuObj", parameter = "Texture", values = ["#/menu/00_soccer/soccer08/soccer08_14/soccer08_14.g4tx"] },
     { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0xA1FEE638, 0xB0D25E04, 0x1A7DB629, 3], after = { parameter = "NullLayerName", match = { 1 = 0x3F9A739B } } },
     { block = "CMenuChangeMaterialColor", parameter = "tactics_dmy04", values = [533560899] },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0xA95CFD82, 0xB0D25E04, 0xB05344C4, 0], after = { parameter = "NullLayerName", match = { 1 = 0x3F9A739B } } },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x3055AC38, 0xB0D25E04, 0xB05344C4, 1], after = { parameter = "NullLayerName", match = { 1 = 0x3F9A739B } } },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x47529CAE, 0xB0D25E04, 0xB05344C4, 2], after = { parameter = "NullLayerName", match = { 1 = 0x3F9A739B } } },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0xD936090D, 0xB0D25E04, 0xB05344C4, 3], after = { parameter = "NullLayerName", match = { 1 = 0x3F9A739B } } },
 ]
 
 [[patch]]
 menu = "soccer_command_action_menu"
 add_layer = { name = "cr_transform_ring", object = "cr_transform_ring", count = 1, after = "soccer08_14_tactics_screen_guide", groups = [{ group = "soccer_command_action_menu", after = "soccer08_17_cancel_guide" }, { group = "soccer_battle_command_action_menu", after = "soccer08_17_cancel_guide" }] }
+
+# The plates in the look of the retail super-tactics plate (soccer08_12: coloured plate, icon, name), drawn instead of the move-row
+# plates while a mod declares the tactics_plate look for the command plates ([[VRFW.HudSkin]], CMND_VRFW_HUD_SKIN). Instance i hangs
+# on the ring's row cr_transform_tactics0<i+1>; the retail plate's own attach rows (recast gauge, exec mark) are left out.
+[[object]]
+name = "cr_transform_tactics_plate"
+from = "soccer08_12_tactics_cmd"
+drop_index_attach = true
+
+[[patch]]
+menu = "soccer_command_action_menu"
+add_layer = { name = "cr_transform_tactics_plate", object = "cr_transform_tactics_plate", count = 4, after = "soccer08_12_cmd_act_tactics_cmd", groups = [{ group = "soccer_command_action_menu", after = "soccer08_17_cancel_guide" }, { group = "soccer_battle_command_action_menu", after = "soccer08_17_cancel_guide" }] }

@@ -1,8 +1,8 @@
 local SLOT_ACTIVE = 4245285902       -- CMND_VRFW_SLOT_ACTIVE -> the loaded save's slot (0 = none)
 local SLOT_RESERVED = 1380583127
 local OPTION_GET = 4082322029        -- CMND_VRFW_OPTION_GET (row key) -> the value in force
-local REMOVE_GACHA_ROW = "ClassicRecruitment.remove_gacha"
-local REMOVE_GACHA_DEFAULT = 1       -- options.toml default
+local PLAYERS_UNIVERSE_ROW = "ClassicRecruitment.players_universe"
+local PLAYERS_UNIVERSE_DEFAULT = 0   -- options.toml default
 local CLASSIC_RECRUITMENT_ROW = "ClassicRecruitment.classic_recruitment"
 
 -- the rule of ClassicRecruitment.gacha_removed (assets\lua\_all\classic_recruitment_lib.lua), for a VM without it
@@ -21,8 +21,8 @@ local function gacha_removed()
       return false
     end
   end
-  local ok, value = pcall(funcLuaCommand, OPTION_GET, REMOVE_GACHA_ROW)
-  return (ok and type(value) == "number" and value or REMOVE_GACHA_DEFAULT) ~= 0
+  local ok, value = pcall(funcLuaCommand, OPTION_GET, PLAYERS_UNIVERSE_ROW)
+  return (ok and type(value) == "number" and value or PLAYERS_UNIVERSE_DEFAULT) == 0
 end
 
 function RunCmd_Map1()

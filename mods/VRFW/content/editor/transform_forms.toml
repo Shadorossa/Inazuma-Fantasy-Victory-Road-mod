@@ -33,11 +33,6 @@ Help = { en = "The [rules], [miximax] and [ability_list] tables of a transform f
 [[Shape]]
 Id = "transform_rules"
   [[Shape.Field]]
-  Key = "stack"
-  Type = "list"
-  Of = "string"
-  Label = { en = "Stack order (kinds)", es = "Orden de capas (tipos)" }
-  [[Shape.Field]]
   Key = "team_aura_max"
   Type = "int"
   Label = { en = "Auras per team at once", es = "Auras por equipo a la vez" }

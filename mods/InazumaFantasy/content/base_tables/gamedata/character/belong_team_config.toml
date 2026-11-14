@@ -1,0 +1,13 @@
+schema = "VRFW.base_table/1"
+# The «Inazuma Fantasy» belong team (crc32("evt_belong_team_fantasy"), its name: text\rows\team_text.toml): the team_3
+# of this mod's own characters, the player bank's Fantasy tab.
+
+[[list]]
+name = "m_belongTeamInfoList"
+columns = ["belongTeamId", "binderTeamOrderType", "teamNameTextId", "teamEmblemId_IE", "teamEmblemId_GO", "teamEmblemId_AREORI", "teamEmblemId_V", "teamNumber_IE1", "teamNumber_IE2", "teamNumber_IE3", "teamNumber_GO1", "teamNumber_GO2", "teamNumber_GO3", "teamNumber_ARES", "teamNumber_ORION", "teamNumber_V", "teamKit_IE", "teamKit_GO", "teamKit_AREORI", "teamKit_V"]
+sort = false
+splice = [
+  { at = 208, remove = 0, rows = [
+    [0x5595D5FA, 217, 0x2C1CDC40, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 999, 999, 999, 999, 999, 999, 999, 999, 999, 0x00000000, 0x00000000, 0x00000000, 0x00000000],
+  ] },
+]

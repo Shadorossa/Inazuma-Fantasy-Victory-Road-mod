@@ -20,15 +20,7 @@ local LAYOUT_NAMES = {
 
 local function layout()
   if LAYOUT == nil then
-    local out = {}
-    for key, name in pairs(LAYOUT_NAMES) do
-      local ok, v = pcall(VRFW.game.field, name)
-      if not ok or type(v) ~= "number" then
-        return nil
-      end
-      out[key] = v
-    end
-    LAYOUT = out
+    LAYOUT = VRFW.game.fields(LAYOUT_NAMES)
   end
   return LAYOUT
 end

@@ -4,3 +4,5 @@ schema = "VRFW.level_sync/1"
 name = "battle_bay_lv40"
 games = ["fbtl_bb_stadium_00"]
 level = 40
+# Stats of Lv 40; every move the saved player has learned stays usable (owner 2026-10-22, 2026-11-11).
+moves = "saved"

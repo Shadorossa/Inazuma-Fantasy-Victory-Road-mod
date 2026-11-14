@@ -1,3 +1,4 @@
+--- Advanced: Table: layout numbers and resource paths of the header and row plates.
 VRFW.ui_plates_layout = {
   header_row = {
     res = {"#/menu/200_icon/15_icon_common2/<LG>/icon_common2.g4tx"},

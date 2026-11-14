@@ -1,3 +1,4 @@
+--- Advanced: Library: series, eras, teams and crest ranks from the game tables.
 
 local Id = VRFW.ids
 
@@ -5,7 +6,9 @@ local M = {}
 
 local u32 = Id.unsigned
 local STEP = 100000
+--- Internal: Size of one rank band (100000) in the sort ranks.
 M.STEP = STEP
+--- Internal: Sort rank answered when an item has no rank; sorts after every ranked item.
 M.NO_RANK = 10 * STEP + STEP - 1
 
 local SERIES_TABLE, BELONG_TABLE, EMBLEM_TABLE, TEAM_TABLE = "character/chara_series", "character/belong_team",
@@ -27,7 +30,7 @@ end
 
 local trim = VRFW.strings.trim
 
---- A number, "0x..." text or name (its crc32) as an id; nil when unusable.
+--- Advanced: A number, "0x..." text or name (its crc32) as an id; nil when unusable.
 function M.id_value(v)
   return Id.parse(v, { hash_names = true })
 end
@@ -38,7 +41,7 @@ local function rows_of(tbl)
 end
 
 local SERIES = nil
---- The series table, read once.
+--- Advanced: The series table, read once.
 function M.series()
   if SERIES then return SERIES end
   SERIES = {}
@@ -108,20 +111,20 @@ local function belong()
   return B
 end
 
---- The series types of the belong table.
+--- Advanced: The series types of the belong table.
 function M.series_types() return belong().types end
---- The eras of the belong table.
+--- Internal: The eras of the belong table.
 function M.eras() return belong().eras end
---- The era of series type `k`.
+--- Advanced: The era of series type `k`.
 function M.era_of_type(k) return belong().type_era[k] end
---- The first series type of era `era`.
+--- Advanced: The first series type of era `era`.
 function M.first_type_of_era(era) return belong().era_type[era] end
---- Every row of the belong table.
+--- Advanced: Every row of the belong table.
 function M.teams() return belong().rows end
---- The belong row of team `id`; nil when it has none.
+--- Advanced: The belong row of team `id`; nil when it has none.
 function M.team(id) return belong().by_id[u32(id)] end
 
---- The sort rank of team `team` in series type `k`.
+--- Internal: The sort rank of team `team` in series type `k`.
 function M.team_rank(team, k)
   local row = belong().by_id[u32(team)]
   local n = row and k and row.numbers[k]
@@ -132,7 +135,7 @@ end
 
 -- a crest ranks by the earliest series of its own era the team exists in, else by the team's earliest series
 local CREST_RANK = nil
---- The sort rank of crest `emblem`; `M.NO_RANK` when it has none.
+--- Internal: The sort rank of crest `emblem`; `M.NO_RANK` when it has none.
 function M.crest_rank(emblem)
   if not CREST_RANK then
     CREST_RANK = {}
@@ -158,7 +161,7 @@ function M.crest_rank(emblem)
 end
 
 local CHARA_RANK = {}
---- The sort rank of character `base`.
+--- Advanced: The sort rank of character `base`.
 function M.character_rank(base)
   base = u32(base)
   local r = CHARA_RANK[base]
@@ -203,18 +206,19 @@ local function emblem_table()
   return EMBLEMS
 end
 
---- Every emblem id, as an array.
+--- Advanced: Every emblem id, as an array.
 function M.emblem_ids() return emblem_table().ids end
---- The key name of emblem `emblem`; nil when unknown.
+--- Advanced: The key name of emblem `emblem`; nil when unknown.
 function M.emblem_key(emblem) return emblem_table().keys[u32(emblem)] end
 
 local function usable(id)
   local ids = emblem_table().ids
   return (id or 0) ~= 0 and (ids == nil or ids[id] == true)
 end
+--- Internal: True when `id` is a nonzero emblem id known to the emblem table.
 M.usable_emblem = usable
 
---- The crest of team `team` in every era, as a table.
+--- Internal: The crest of team `team` in every era, as a table.
 function M.era_crests(team)
   local row = belong().by_id[u32(team)]
   return row and row.emblems or {}
@@ -263,10 +267,10 @@ local function named()
   return NAMED
 end
 
---- The crest a mod declares for team `team`; nil when none does.
+--- Internal: The crest a mod declares for team `team`; nil when none does.
 function M.declared_crest(team) return declared()[u32(team)] end
 
---- The crest of team `team` in era `era` (0 = none).
+--- Advanced: The crest of team `team` in era `era` (0 = none).
 function M.crest(team, era)
   team = u32(team)
   local d = declared()[team]
@@ -289,7 +293,7 @@ function M.crest(team, era)
 end
 
 local ITEM_SERIES = nil
---- Item id -> { [series type] = true } of every kit and emblem, from item_config's series rows.
+--- Advanced: Item id -> { [series type] = true } of every kit and emblem, from item_config's series rows.
 function M.item_series()
   if ITEM_SERIES then return ITEM_SERIES end
   ITEM_SERIES = {}
@@ -319,6 +323,93 @@ function M.item_series()
   return ITEM_SERIES
 end
 
+-- the technique files of every active mod, and the cell names of the technique table's series column
+local TECHNIQUE_FOLDERS = { "techniques", "content/techniques", "features/*/content/techniques" }
+local SERIES_CELLS = { "seriesIdCrc", "series_id_crc", "seriesidcrc" }
+
+-- the [saga] of every active mod's mod.toml, in load order: { mod, text, name, game_series = { [move key] = true } }
+local function mod_sagas()
+  local out = {}
+  local ok, files = pcall(VRFW.files.declarations, "mod.toml")
+  for _, f in ipairs(ok and type(files) == "table" and files or {}) do
+    local data = type(f.data) == "table" and f.data or {}
+    local saga = type(data.saga) == "table" and data.saga or {}
+    local keep = {}
+    for _, k in ipairs(type(saga.game_series_moves) == "table" and saga.game_series_moves or {}) do
+      if type(k) == "string" then keep[k] = true end
+    end
+    local id = tostring(f.mod)
+    out[#out + 1] = { mod = id, text = type(saga.text) == "string" and saga.text or "",
+      name = type(data.name) == "string" and data.name ~= "" and data.name or id, game_series = keep }
+  end
+  return out
+end
+
+-- move id -> the game series a mod's move stays in: a move its mod lists in [saga] game_series_moves, with the series
+-- its own [[technique]] declaration writes in cells
+local function kept_game_series(known, keep_of)
+  local out = {}
+  local ok, files = pcall(VRFW.files.declarations, TECHNIQUE_FOLDERS)
+  for _, f in ipairs(ok and type(files) == "table" and files or {}) do
+    local keep = keep_of[tostring(f.mod)] or {}
+    local list = type(f.data) == "table" and f.data.technique or nil
+    for _, d in ipairs(type(list) == "table" and list or {}) do
+      local key = type(d) == "table" and (d.key or d.name) or nil
+      if type(key) == "string" and keep[key] then
+        local cells = type(d.cells) == "table" and d.cells or {}
+        local v = col(cells, table.unpack(SERIES_CELLS))
+        local series = v ~= nil and M.id_value(v) or nil
+        local id = Id.technique(tostring(f.mod) .. "." .. key) or Id.technique(key)
+        if id and series and known[series] then
+          out[u32(id)] = series
+        else
+          VRFW.warn(string.format("%s: game_series_moves names %s, whose cells set no series of the game's table: it is in the mod's saga",
+            tostring(f.mod), key))
+        end
+      end
+    end
+  end
+  return out
+end
+
+local SAGAS = nil
+--- Advanced: The sagas of every technique, read once: { list = { { key, series, mod, text, name } }, of = { [move id] =
+--- saga key } }. The list holds the game's series rows in table order (key = the series id, named by the game's series
+--- name), then one saga per active mod in load order (key = the mod id; text = the text key of its mod.toml
+--- [saga] text, name = its display name). A game move is in the saga of its own skill table cell series_id_crc; a mod's
+--- move is in its mod's saga, unless the mod lists it in [saga] game_series_moves (then the series its cells set). A
+--- game move without a series is absent from `of`.
+function M.sagas()
+  if SAGAS then return SAGAS end
+  SAGAS = { list = {}, of = {} }
+  local known = {}
+  for _, s in ipairs(M.series()) do
+    known[s.id] = true
+    SAGAS.list[#SAGAS.list + 1] = { key = s.id, series = s.id, name_text = s.name_text }
+  end
+  local keep_of = {}
+  for _, m in ipairs(mod_sagas()) do
+    keep_of[m.mod] = m.game_series
+    SAGAS.list[#SAGAS.list + 1] = { key = m.mod, mod = m.mod, text = m.text, name = m.name }
+  end
+  local okw, owners = pcall(VRFW.ids.owners, "technique")
+  owners = okw and type(owners) == "table" and owners or {}
+  local kept = kept_game_series(known, keep_of)
+  for _, r in ipairs(rows_of("skill/skill")) do
+    local id = u32(col(r, "skill_id", "skillID"))
+    if id ~= 0 then
+      local owner = owners[id]
+      if owner then
+        SAGAS.of[id] = kept[id] or owner
+      else
+        local series = u32(col(r, "series_id_crc", "seriesIdCrc"))
+        if known[series] then SAGAS.of[id] = series end
+      end
+    end
+  end
+  return SAGAS
+end
+
 local COLOURS = nil
 local function colours()
   if COLOURS then return COLOURS end
@@ -339,13 +430,13 @@ local function colours()
   return COLOURS
 end
 
---- The colour of emblem `emblem`; nil when unknown.
+--- Internal: The colour of emblem `emblem`; nil when unknown.
 function M.emblem_colour(emblem)
   local id = type(emblem) == "string" and M.id_value(emblem) or u32(emblem)
   return id and colours()[id] or nil
 end
 
---- The word of `rule` matching the colour of emblem `emblem`; nil when unknown.
+--- Internal: The word of `rule` matching the colour of emblem `emblem`; nil when unknown.
 function M.colour_name(emblem, rule)
   local c = M.emblem_colour(emblem)
   if not c or type(rule) ~= "table" then return nil end
@@ -391,10 +482,10 @@ local function tags()
   return TAGS
 end
 
---- The teams with tag `tag`, as an array.
+--- Advanced: The teams with tag `tag`, as an array.
 function M.tagged(tag) return tags()[tag] or {} end
 
---- True when team `team` has tag `tag`.
+--- Internal: True when team `team` has tag `tag`.
 function M.has_tag(team, tag)
   local id = team
   if type(team) == "string" then
@@ -421,7 +512,7 @@ local function column_of(id, name, default)
 end
 
 local TEAM_ROWS = nil
---- The rows of the team table; nil, why when unreadable.
+--- Advanced: The rows of the team table; nil, why when unreadable.
 function M.team_rows()
   if TEAM_ROWS then return TEAM_ROWS end
   local ok, rows = pcall(VRFW.table.rows, TEAM_TABLE)
@@ -465,7 +556,7 @@ local function roster()
   return r
 end
 
---- The members of team `team` in the game data: array of { card, slot } ({} when unreadable).
+--- Advanced: The members of team `team` in the game data: array of { card, slot } ({} when unreadable).
 function M.members(team)
   local r = roster()
   if not r then return {} end
@@ -499,7 +590,7 @@ local function member_row_layout()
   return layout
 end
 
---- The live member rows of team `team`: { record, container, base, first, count, row_size, rows = row addresses }; nil, why.
+--- Advanced: The live member rows of team `team`: { record, container, base, first, count, row_size, rows = row addresses }; nil, why.
 function M.member_rows(team)
   local layout, missing = member_row_layout()
   if not layout then return nil, missing end
@@ -519,7 +610,7 @@ function M.member_rows(team)
 end
 
 local FREE_MATCH = {}   -- class -> team ids
---- The team ids of free match class `class`; nil, why when unreadable.
+--- Advanced: The team ids of free match class `class`; nil, why when unreadable.
 function M.free_match_teams(class)
   local cached = FREE_MATCH[class]
   if cached then return cached end
@@ -557,8 +648,19 @@ function M.free_match_teams(class)
   return out
 end
 
+local COLUMN_ROWS = {}   -- column list -> the team rows with only those columns
+-- the team rows with only the named columns (by name), read once per column list; nil, why when unreadable
+local function team_column_rows(columns)
+  local list_key = table.concat(columns, ",")
+  if COLUMN_ROWS[list_key] then return COLUMN_ROWS[list_key] end
+  local ok, rows = pcall(VRFW.table.rows, TEAM_TABLE, columns)
+  if not ok or type(rows) ~= "table" then return nil, tostring(rows) end
+  if #rows > 0 then COLUMN_ROWS[list_key] = rows end
+  return rows
+end
+
 local POOLS = {}   -- rule key -> rows
---- The team rows matching `rule`.
+--- Advanced: The team rows matching `rule`; `rule.columns` (column names) reads only those columns, plus the ones the rule tests.
 function M.pool(rule)
   rule = rule or {}
   local exclude, excluded_ids = {}, {}
@@ -571,26 +673,41 @@ function M.pool(rule)
   end
   table.sort(excluded_ids)
   local rule_key = table.concat({ tostring(rule.level), tostring(rule.key_prefix), tostring(rule.min_members),
-    tostring(rule.unique == true), tostring(rule.order), table.concat(excluded_ids, ",") }, "|")
+    tostring(rule.unique == true), tostring(rule.order), table.concat(excluded_ids, ","),
+    type(rule.columns) == "table" and table.concat(rule.columns, ",") or "" }, "|")
   local cached = POOLS[rule_key]
   if cached then return cached end
-  local rows, why = M.team_rows()
+  local prefix, level, unique = rule.key_prefix, rule.level, rule.unique
+  local rows, why
+  if type(rule.columns) == "table" then
+    local columns, listed = { "id" }, { id = true }
+    for _, c in ipairs(rule.columns) do
+      if not listed[c] then listed[c] = true; columns[#columns + 1] = c end
+    end
+    if prefix and not listed.key then columns[#columns + 1] = "key" end
+    if level ~= nil and not listed.level then columns[#columns + 1] = "level" end
+    rows, why = team_column_rows(columns)
+  else
+    rows, why = M.team_rows()
+  end
   if not rows then return nil, "team table not readable (" .. tostring(why) .. ")" end
   local r = nil
   if rule.min_members then
     r = roster()
     if not r then return nil, "team members not readable" end
   end
-  local prefix = rule.key_prefix
+  local prefix_len = prefix and #prefix or 0
   local out, seen, index = {}, {}, {}
+  -- one pass over the team table: the cheap key test first, the cells read in place (row.name or its position)
   for i, row in ipairs(rows) do
-    local id = u32(col(row, "id", 1) or 0)
-    local pass = id ~= 0 and not exclude[id] and not (rule.unique and seen[id])
-    if pass and rule.level ~= nil then pass = col(row, "level", 9) == rule.level end
-    if pass and prefix then
-      local key = col(row, "key", 2)
-      pass = type(key) == "string" and key:sub(1, #prefix) == prefix
+    local pass = true
+    if prefix then
+      local key = row.key or row[2]
+      pass = type(key) == "string" and key:sub(1, prefix_len) == prefix
     end
+    local id = pass and u32(row.id or row[1] or 0) or 0
+    pass = pass and id ~= 0 and not exclude[id] and not (unique and seen[id])
+    if pass and level ~= nil then pass = (row.level or row[9]) == level end
     if pass and r then
       local range = r.range[id]
       pass = range ~= nil and range[2] >= rule.min_members

@@ -1,12 +1,9 @@
 schema = "VRFW.skill_tab/1"
 
+# Bond transformations are never a player's: their move tab and team aura rows are left out; awakenings stay as in the game.
 [[VRFW.SkillTab]]
 category = 104
 hidden = true
 
-[[VRFW.SkillTab]]
-category = 105
-hidden = true
-
 [[VRFW.AuraListHide]]
-aura_types = [4, 5, 7]
+aura_types = [4]

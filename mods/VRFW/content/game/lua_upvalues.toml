@@ -1,0 +1,7 @@
+schema = "VRFW.game/2"
+
+# (fn, expect1, value1, ...) -> upvalues changed (-1 = not available): every numeric upvalue of fn equal to an expect
+# becomes its value. VRFW.formation.five_a_side_view switches the formation INCLUDE between its 11 and 5 drawings with it.
+[[VRFW.Command]]
+name = "CMND_VRFW_LUA_UPVALUES"
+builtin = "lua_upvalues"

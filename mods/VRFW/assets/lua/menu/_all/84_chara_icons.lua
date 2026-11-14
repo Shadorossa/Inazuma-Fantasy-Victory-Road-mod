@@ -17,6 +17,7 @@ if VRFW.chara_icons == nil then
     lang = nil,
     told = {},                   -- the missing game functions already logged
   }
+  --- Character icons: position and element. Safe at load.
   VRFW.chara_icons = I
 
   local function crc(s)
@@ -51,7 +52,7 @@ if VRFW.chara_icons == nil then
     return I.lang
   end
 
-  --- The position icon of `card`; nil when unknown.
+  --- VRFW.chara_icons.position(card): the position icon of a card, or nil. Safe at load.
   function I.position(card)
     if type(card) ~= "number" or card == 0 then
       return nil
@@ -80,7 +81,26 @@ if VRFW.chara_icons == nil then
     return v or nil
   end
 
-  --- The element icon of `card`; nil when unknown.
+  --- VRFW.chara_icons.element_sprite(element): the icon sprite the game draws for an element value, or nil. Safe at load.
+  function I.element_sprite(element)
+    if type(GetElementIcon) == "function" then
+      local ok, s = pcall(GetElementIcon, element)
+      return (ok and type(s) == "number" and s ~= 0) and s or nil
+    end
+    tell("GetElementIcon")
+    return crc(string.format(I.ELEMENT_SPRITE, element))
+  end
+
+  --- VRFW.chara_icons.forget([card]): forgets the cached icons of a card (every card when nil). Safe at load.
+  function I.forget(card)
+    if card == nil then
+      I.positions, I.elements = {}, {}
+    else
+      I.positions[card], I.elements[card] = nil, nil
+    end
+  end
+
+  --- VRFW.chara_icons.element(card): the element icon of a card, or nil. Safe at load.
   function I.element(card)
     if type(card) ~= "number" or card == 0 then
       return nil
@@ -102,7 +122,7 @@ if VRFW.chara_icons == nil then
           tell("GetCharaElementIconNameByCharaParamId")
         end
         if sprite == nil then
-          sprite = crc(string.format(I.ELEMENT_SPRITE, (el >= 1 and el <= 4) and el or 0))
+          sprite = I.element_sprite((el >= 1 and el <= 4) and el or 0)
         end
         if sprite then
           v = {tex = I.ELEMENT_TEX, sprite = sprite}

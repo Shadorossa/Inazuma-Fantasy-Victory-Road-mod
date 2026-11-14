@@ -1,0 +1,896 @@
+schema = "CharacterReforged.passive_icon/1"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08010030_fuego_de_la_nacion"
+icon = "own_passives_icon_shoot_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08010240_voz_de_la_defensa"
+icon = "own_passives_icon_block_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08010010_constelacion_gemela"
+icon = "own_passives_icon_control_self_count"
+
+# Lucas Star: Estrella fugaz familiar
+[[CharacterReforged.PassiveIcon]]
+passive = "c08010020_estrella_fugaz_familiar"
+icon = "own_passives_icon_shoot_self_ball"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c11808160_pizarra_del_entrenador"
+icon = "own_passives_icon_tension_self_event"
+
+# Baek Bull-wo: Estampida
+[[CharacterReforged.PassiveIcon]]
+passive = "c08020010_estampida"
+icon = "own_passives_icon_shoot_self_count"
+
+# Lee San-bull: Mina de rebote
+[[CharacterReforged.PassiveIcon]]
+passive = "c08020020_mina_de_rebote"
+icon = "own_passives_icon_kick_self_event"
+
+# Shin Bull-kot: Piel de toro
+[[CharacterReforged.PassiveIcon]]
+passive = "c08020030_piel_de_toro"
+icon = "own_passives_icon_block_team"
+
+# Seok Tel-bull: Capote
+[[CharacterReforged.PassiveIcon]]
+passive = "c08020040_capote"
+icon = "own_passives_icon_control_rival_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08020050_cornada_a_la_contra"
+icon = "own_passives_icon_pressure_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08020060_pizarra_del_ruedo"
+icon = "own_passives_icon_intelligence_team"
+
+# Han Bull-dang: Terreno firme
+[[CharacterReforged.PassiveIcon]]
+passive = "c08020070_terreno_firme"
+icon = "own_passives_icon_physical_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08020080_carga_por_la_banda"
+icon = "own_passives_icon_speed_self_event"
+
+# Kim Bull-bit: Pase de embestida
+[[CharacterReforged.PassiveIcon]]
+passive = "c08020090_pase_de_embestida"
+icon = "own_passives_icon_dribble_self_ball"
+
+# Hwang Bull-gim: Torbellino de cuernos
+[[CharacterReforged.PassiveIcon]]
+passive = "c08020100_torbellino_de_cuernos"
+icon = "own_passives_icon_wind_self_event"
+element = "wind"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08020110_el_portero_que_ordena"
+icon = "own_passives_icon_block_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08020120_rafaga_de_ballesta"
+icon = "own_passives_icon_kick_self_event"
+
+# Son Bull-gong: Cuerno de oro
+[[CharacterReforged.PassiveIcon]]
+passive = "c08020130_cuerno_de_oro"
+icon = "own_passives_icon_tension_self_event"
+
+# Harh Bull-gull: Muro de fuego
+[[CharacterReforged.PassiveIcon]]
+passive = "c08020140_muro_de_fuego"
+icon = "own_passives_icon_fire_self_count"
+element = "fire"
+
+# An Min-su: Sangre de toro nuevo
+[[CharacterReforged.PassiveIcon]]
+passive = "c11808010_sangre_de_toro_nuevo"
+icon = "own_passives_icon_dribble_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08030010_balon_del_diablo"
+icon = "own_passives_icon_forest_self_ball"
+element = "forest"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08030020_caida_del_ocaso"
+icon = "own_passives_icon_forest_self_half"
+element = "forest"
+
+# Seth Bael: Trance temporal
+[[CharacterReforged.PassiveIcon]]
+passive = "c08030030_trance_temporal"
+icon = "own_passives_icon_recast_self_count"
+
+# Ian Qubus: Portal espacial
+[[CharacterReforged.PassiveIcon]]
+passive = "c08030040_portal_espacial"
+icon = "own_passives_icon_agility_self_event"
+
+# Malik Sinn: Pecado compartido
+[[CharacterReforged.PassiveIcon]]
+passive = "c08030050_pecado_compartido"
+icon = "own_passives_icon_pressure_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08030060_senor_de_las_moscas"
+icon = "own_passives_icon_agility_rival_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08030070_circulo_infernal"
+icon = "own_passives_icon_block_self_ball"
+
+# Mortam Malius: Taladro mortal
+[[CharacterReforged.PassiveIcon]]
+passive = "c08030080_taladro_mortal"
+icon = "own_passives_icon_fire_team"
+element = "fire"
+
+# Damon Gorgon: Piedra al final
+[[CharacterReforged.PassiveIcon]]
+passive = "c08030090_piedra_al_final"
+icon = "own_passives_icon_block_self_clock"
+
+# Carlam Buer: Gravedad infernal
+[[CharacterReforged.PassiveIcon]]
+passive = "c08030100_gravedad_infernal"
+icon = "own_passives_icon_speed_rival_count"
+
+# Pazuza Ross: Pozo sin fondo
+[[CharacterReforged.PassiveIcon]]
+passive = "c08030110_pozo_sin_fondo"
+icon = "own_passives_icon_tension_cost_team"
+
+# Lu Jiver: Entrada infernal
+[[CharacterReforged.PassiveIcon]]
+passive = "c08030120_entrada_infernal"
+icon = "own_passives_icon_block_team"
+
+# Zagan Barbatos: Fuego fatuo
+[[CharacterReforged.PassiveIcon]]
+passive = "c08030130_fuego_fatuo"
+icon = "own_passives_icon_forest_self_ball"
+element = "forest"
+
+# Grant Grimoire: Grimorio
+[[CharacterReforged.PassiveIcon]]
+passive = "c11808020_grimorio"
+icon = "own_passives_icon_technique_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c11808030_bastion_de_la_ultima_hora"
+icon = "own_passives_icon_block_team_clock"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08040010_compas_de_tres"
+icon = "own_passives_icon_catch_self_count"
+
+# Kizomba Zakharov: Danza lenta
+[[CharacterReforged.PassiveIcon]]
+passive = "c08040020_danza_lenta"
+icon = "own_passives_icon_speed_team"
+
+# Rumba Mansurov: Rumba ardiente
+[[CharacterReforged.PassiveIcon]]
+passive = "c08040030_rumba_ardiente"
+icon = "own_passives_icon_block_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08040040_pasos_rapidos"
+icon = "own_passives_icon_speed_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08040050_cha_cha_cha"
+icon = "own_passives_icon_tension_self_event"
+
+# Hulan Nazarova: Ritmo sostenido
+[[CharacterReforged.PassiveIcon]]
+passive = "c08040060_ritmo_sostenido"
+icon = "own_passives_icon_stamina_team"
+
+# Polkan Ismailov: Polca encendida
+[[CharacterReforged.PassiveIcon]]
+passive = "c08040070_polca_encendida"
+icon = "own_passives_icon_kick_self_present"
+
+# Jazzar Belikov: Jazz sin escape
+[[CharacterReforged.PassiveIcon]]
+passive = "c08040080_jazz_sin_escape"
+icon = "own_passives_icon_agility_rival_count"
+
+# Limbo Zakharov: Limbo
+[[CharacterReforged.PassiveIcon]]
+passive = "c08040090_limbo"
+icon = "own_passives_icon_shoot_block_self_count"
+
+# Samba Sokolov: Samba de fuego
+[[CharacterReforged.PassiveIcon]]
+passive = "c08040100_samba_de_fuego"
+icon = "own_passives_icon_kick_self_event"
+
+# Tango Ahmedov: Tango a dos
+[[CharacterReforged.PassiveIcon]]
+passive = "c08040110_tango_a_dos"
+icon = "own_passives_icon_shoot_self_count"
+
+# Cancan Popov: Alta patada
+[[CharacterReforged.PassiveIcon]]
+passive = "c08040120_alta_patada"
+icon = "own_passives_icon_chain_shoot_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08040130_compas_de_arranque"
+icon = "own_passives_icon_tension_self_event"
+
+# Ballet Burkhanov: Gracia en puntas
+[[CharacterReforged.PassiveIcon]]
+passive = "c11808040_gracia_en_puntas"
+icon = "own_passives_icon_tension_cost_team"
+
+# Carrie Ogrova: Portera de samba
+[[CharacterReforged.PassiveIcon]]
+passive = "c11808050_portera_de_samba"
+icon = "own_passives_icon_punch_self_present"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08050010_halcon_del_desierto"
+icon = "own_passives_icon_catch_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08050020_muralla_de_las_arenas"
+icon = "own_passives_icon_block_self_level"
+
+# Merlin Al-Yaman: Ceniza renacida
+[[CharacterReforged.PassiveIcon]]
+passive = "c08050030_ceniza_renacida"
+icon = "own_passives_icon_technique_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08050040_salto_sobre_las_dunas"
+icon = "own_passives_icon_block_team_clock"
+
+# Buzzard Al-Sahma: Rayo cegador
+[[CharacterReforged.PassiveIcon]]
+passive = "c08050050_rayo_cegador"
+icon = "own_passives_icon_speed_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08050060_sol_en_los_ojos"
+icon = "own_passives_icon_technique_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08050070_aliento_del_brasero"
+icon = "own_passives_icon_tension_cost_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08050080_pase_de_halcon"
+icon = "own_passives_icon_control_self_ball"
+
+# Robin Al-Ahmar: Fuego de artificio
+[[CharacterReforged.PassiveIcon]]
+passive = "c08050090_fuego_de_artificio"
+icon = "own_passives_icon_long_shoot_self_ball"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08050100_picado_del_condor"
+icon = "own_passives_icon_wind_self_count"
+element = "wind"
+
+# Perry Al-Surah: Mente en llamas
+[[CharacterReforged.PassiveIcon]]
+passive = "c08050110_mente_en_llamas"
+icon = "own_passives_icon_fire_team"
+element = "fire"
+
+# Harris Al-Suhra: Espejismo de arena
+[[CharacterReforged.PassiveIcon]]
+passive = "c08050120_espejismo_de_arena"
+icon = "own_passives_icon_pressure_self_event"
+
+# Eagle Al-Suhra: Vuelo en bandada
+[[CharacterReforged.PassiveIcon]]
+passive = "c08050130_vuelo_en_bandada"
+icon = "own_passives_icon_fire_team"
+element = "fire"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c11808060_cantar_del_fenix"
+icon = "own_passives_icon_tension_cost_team"
+
+# Roc Nasr: Tormenta de arena
+[[CharacterReforged.PassiveIcon]]
+passive = "c11808070_tormenta_de_arena"
+icon = "own_passives_icon_control_rival_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08060010_punos_de_maestro"
+icon = "own_passives_icon_catch_self_count"
+
+# Coryn Fong: Flor de loto
+[[CharacterReforged.PassiveIcon]]
+passive = "c08060020_flor_de_loto"
+icon = "own_passives_icon_agility_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08060030_telon_de_carpa"
+icon = "own_passives_icon_control_rival_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08060040_ultimo_leon_en_pie"
+icon = "own_passives_icon_block_team_clock"
+
+# David Liang: Pase de circo
+[[CharacterReforged.PassiveIcon]]
+passive = "c08060050_pase_de_circo"
+icon = "own_passives_icon_control_team"
+
+# Donnie Yang: Golondrina vengadora
+[[CharacterReforged.PassiveIcon]]
+passive = "c08060060_golondrina_vengadora"
+icon = "own_passives_icon_shoot_self_event"
+
+# Bolo Cheung: Escudo de carne
+[[CharacterReforged.PassiveIcon]]
+passive = "c08060070_escudo_de_carne"
+icon = "own_passives_icon_physical_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08060080_disparo_del_heroe"
+icon = "own_passives_icon_shoot_self_count"
+
+# Jimmy Wongfu: Águila vengadora
+[[CharacterReforged.PassiveIcon]]
+passive = "c08060090_aguila_vengadora"
+icon = "own_passives_icon_mountain_self_trailing"
+element = "mountain"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08060100_talon_de_fuego"
+icon = "own_passives_icon_speed_self_count"
+
+# Stephen Chang: Cabezazo de kung-fu
+[[CharacterReforged.PassiveIcon]]
+passive = "c08060110_cabezazo_de_kung_fu"
+icon = "own_passives_icon_chain_shoot_self_ball"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08060120_dragon_ascendente"
+icon = "own_passives_icon_forest_team"
+element = "forest"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08060130_viento_del_dragon"
+icon = "own_passives_icon_speed_team"
+
+# Lucy Wongfu: Vuelo de hermana
+[[CharacterReforged.PassiveIcon]]
+passive = "c11808080_vuelo_de_hermana"
+icon = "own_passives_icon_technique_self_present"
+
+# Wilson Ip: Guardia doble
+[[CharacterReforged.PassiveIcon]]
+passive = "c11808090_guardia_doble"
+icon = "own_passives_icon_physical_team"
+
+# Pepe Ballester: Honda imparable
+[[CharacterReforged.PassiveIcon]]
+passive = "c11808170_honda_imparable"
+icon = "own_passives_icon_shoot_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08070010_cabalgata_invencible"
+icon = "own_passives_icon_speed_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08070020_luz_del_norte"
+icon = "own_passives_icon_control_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08070030_coraza_de_armadillo"
+icon = "own_passives_icon_physical_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08070040_mente_fria_en_la_zona"
+icon = "own_passives_icon_tension_self_event"
+
+# Miguel Hontiveros: Capa y espada
+[[CharacterReforged.PassiveIcon]]
+passive = "c08070050_capa_y_espada"
+icon = "own_passives_icon_block_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08070060_vaiven_de_plaza"
+icon = "own_passives_icon_dribble_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08070070_roca_en_el_camino"
+icon = "own_passives_icon_block_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08070080_salto_de_verbena"
+icon = "own_passives_icon_dribble_self_present"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08070090_cuenta_atras"
+icon = "own_passives_icon_block_self_ball"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08080010_rugido_del_outback"
+icon = "own_passives_icon_shoot_self_count"
+
+# Moai: Emboscada de piedra
+[[CharacterReforged.PassiveIcon]]
+passive = "c08080020_emboscada_de_piedra"
+icon = "own_passives_icon_pressure_self_event"
+
+# Mop: Fregona al rescate
+[[CharacterReforged.PassiveIcon]]
+passive = "c08080030_fregona_al_rescate"
+icon = "own_passives_icon_stamina_team"
+
+# Yoga: Equilibrio perfecto
+[[CharacterReforged.PassiveIcon]]
+passive = "c08080040_equilibrio_perfecto"
+icon = "own_passives_icon_recast_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08080050_telarana_de_la_cobra"
+icon = "own_passives_icon_speed_rival_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08080060_red_del_cazador"
+icon = "own_passives_icon_pressure_team"
+
+# Judge: Tarjeta amarilla
+[[CharacterReforged.PassiveIcon]]
+passive = "c08080070_tarjeta_amarilla"
+icon = "own_passives_icon_tension_rival_event"
+
+# Smokestack: Tren a vapor
+[[CharacterReforged.PassiveIcon]]
+passive = "c08080080_tren_a_vapor"
+icon = "own_passives_icon_speed_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08080090_muralla_del_arrecife"
+icon = "own_passives_icon_control_team"
+
+# Charmer: Hechizo de hierro
+[[CharacterReforged.PassiveIcon]]
+passive = "c08080100_hechizo_de_hierro"
+icon = "own_passives_icon_block_self_ball"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08080110_el_gigante_de_la_puerta"
+icon = "own_passives_icon_block_team_clock"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08080120_rugido_del_dinosaurio"
+icon = "own_passives_icon_kick_self_event"
+
+# Wizard: Varita de bombas
+[[CharacterReforged.PassiveIcon]]
+passive = "c08080130_varita_de_bombas"
+icon = "own_passives_icon_tension_cost_team"
+
+# Howler: Aullido salvaje
+[[CharacterReforged.PassiveIcon]]
+passive = "c08080140_aullido_salvaje"
+icon = "own_passives_icon_catch_self"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c11808100_subterfugio"
+icon = "own_passives_icon_shoot_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08090010_aguila_de_la_corte"
+icon = "own_passives_icon_tension_self_event"
+
+# Yuri Dolchin: Mirada de nieve
+[[CharacterReforged.PassiveIcon]]
+passive = "c08090020_mirada_de_nieve"
+icon = "own_passives_icon_tension_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08090030_dragon_de_la_estepa"
+icon = "own_passives_icon_forest_team"
+element = "forest"
+
+# Dmitri Pianov: Batuta afinada
+[[CharacterReforged.PassiveIcon]]
+passive = "c08090040_batuta_afinada"
+icon = "own_passives_icon_technique_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08090050_sombra_de_la_luna_nueva"
+icon = "own_passives_icon_own_move_team"
+
+# Mikhail Vivachev: Deslizamiento sutil
+[[CharacterReforged.PassiveIcon]]
+passive = "c08090060_deslizamiento_sutil"
+icon = "own_passives_icon_dribble_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08090070_trampa_en_la_nieve"
+icon = "own_passives_icon_control_rival_count"
+
+# Nikolai Glisanderov: Triple salida
+[[CharacterReforged.PassiveIcon]]
+passive = "c08090080_triple_salida"
+icon = "own_passives_icon_speed_self_event"
+
+# Boris Kaprichyov: Armadura de hielo
+[[CharacterReforged.PassiveIcon]]
+passive = "c08090090_armadura_de_hielo"
+icon = "own_passives_icon_physical_self_count"
+
+# Leonid Largov: Doble defensa
+[[CharacterReforged.PassiveIcon]]
+passive = "c08090100_doble_defensa"
+icon = "own_passives_icon_block_self_present"
+
+# Gregory Fortin: Muro de cristal
+[[CharacterReforged.PassiveIcon]]
+passive = "c08090110_muro_de_cristal"
+icon = "own_passives_icon_catch_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08090120_piedra_del_volcan"
+icon = "own_passives_icon_shoot_self_trailing"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08090130_trayectoria_optima"
+icon = "own_passives_icon_technique_team"
+
+# Martemeli Prestov: Fuerza de todos
+[[CharacterReforged.PassiveIcon]]
+passive = "c08090140_fuerza_de_todos"
+icon = "own_passives_icon_tension_cost_team"
+
+# Oleg Animatov: Cuchilla de patinaje
+[[CharacterReforged.PassiveIcon]]
+passive = "c08090150_cuchilla_de_patinaje"
+icon = "own_passives_icon_agility_self_count"
+
+# Serge Riktov: Gaviota dorada
+[[CharacterReforged.PassiveIcon]]
+passive = "c08090210_gaviota_dorada"
+icon = "own_passives_icon_kick_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c11808110_batuta_del_maestro"
+icon = "own_passives_icon_tension_cost_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08100010_alma_del_carnaval"
+icon = "own_passives_icon_tension_self_event"
+
+# Alegre: Pie de capoeira
+[[CharacterReforged.PassiveIcon]]
+passive = "c08100020_pie_de_capoeira"
+icon = "own_passives_icon_chain_shoot_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08100030_ritmo_de_tamborim"
+icon = "own_passives_icon_speed_self_event"
+
+# Manaus: Ginga
+[[CharacterReforged.PassiveIcon]]
+passive = "c08100040_ginga"
+icon = "own_passives_icon_control_rival_count"
+
+# Iguaçu: Samba de fuego vivo
+[[CharacterReforged.PassiveIcon]]
+passive = "c08100050_samba_de_fuego_vivo"
+icon = "own_passives_icon_kick_self_event"
+
+# Belo: Noche de carnaval
+[[CharacterReforged.PassiveIcon]]
+passive = "c08100060_noche_de_carnaval"
+icon = "own_passives_icon_tension_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08100070_cruz_del_sur"
+icon = "own_passives_icon_agility_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08100080_orca_de_la_bahia"
+icon = "own_passives_icon_dribble_self_ball"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08100090_fogata_de_playa"
+icon = "own_passives_icon_block_self_count"
+
+# Bernardo: Hueco blanco
+[[CharacterReforged.PassiveIcon]]
+passive = "c08100100_hueco_blanco"
+icon = "own_passives_icon_block_self_event"
+
+# Gonçalo: Barrera de marinera
+[[CharacterReforged.PassiveIcon]]
+passive = "c08100110_barrera_de_marinera"
+icon = "own_passives_icon_block_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08100120_tierra_que_tiembla"
+icon = "own_passives_icon_block_self_count"
+
+# Paulo: Paso de gigante
+[[CharacterReforged.PassiveIcon]]
+passive = "c08100130_paso_de_gigante"
+icon = "own_passives_icon_physical_self_count"
+
+# Cristiano Dabola: Samba de estrella
+[[CharacterReforged.PassiveIcon]]
+passive = "c11808120_samba_de_estrella"
+icon = "own_passives_icon_speed_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08110010_honor_de_la_reina"
+icon = "own_passives_icon_shoot_self_event"
+
+# Domenico Barberini: Galope gemelo
+[[CharacterReforged.PassiveIcon]]
+passive = "c08110020_galope_gemelo"
+icon = "own_passives_icon_speed_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08110030_espada_de_odin"
+icon = "own_passives_icon_mountain_self_count"
+element = "mountain"
+
+# Grandazzo Corsini: Falange real
+[[CharacterReforged.PassiveIcon]]
+passive = "c08110040_falange_real"
+icon = "own_passives_icon_block_self_count"
+
+# Medoro Gritti: Paso doble de tormenta
+[[CharacterReforged.PassiveIcon]]
+passive = "c08110050_paso_doble_de_tormenta"
+icon = "own_passives_icon_speed_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08110060_filo_de_la_guadana"
+icon = "own_passives_icon_shoot_block_self_count"
+
+# Zerbino Savelli: Pase de magia
+[[CharacterReforged.PassiveIcon]]
+passive = "c08110070_pase_de_magia"
+icon = "own_passives_icon_dribble_self_ball"
+
+# Bellona Orsini: Amanecer sin fin
+[[CharacterReforged.PassiveIcon]]
+passive = "c08110080_amanecer_sin_fin"
+icon = "own_passives_icon_shoot_rival_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08110090_polvo_del_sueno"
+icon = "own_passives_icon_agility_rival_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08110100_juramento_de_la_guardia"
+icon = "own_passives_icon_block_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08110110_bocado_de_la_verdad"
+icon = "own_passives_icon_tension_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08110120_furia_de_dragon"
+icon = "own_passives_icon_forest_team"
+element = "forest"
+
+# Fantaghirò Petrucci: Arco de siete colores
+[[CharacterReforged.PassiveIcon]]
+passive = "c08110130_arco_de_siete_colores"
+icon = "own_passives_icon_technique_self_count"
+
+# Rinaldo Torelli: Tormenta compartida
+[[CharacterReforged.PassiveIcon]]
+passive = "c08110140_tormenta_compartida"
+icon = "own_passives_icon_technique_self_present"
+
+# Marfisa Corsi: Lluvia de estrellas
+[[CharacterReforged.PassiveIcon]]
+passive = "c08110150_lluvia_de_estrellas"
+icon = "own_passives_icon_own_move_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08110160_escudo_de_la_guardia"
+icon = "own_passives_icon_catch_self_present"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c11808130_ultimo_recurso_del_mariscal"
+icon = "own_passives_icon_shoot_team_clock"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c11808140_centinela_del_reino"
+icon = "own_passives_icon_block_team_clock"
+
+# Betelgeuse: Supergigante roja
+[[CharacterReforged.PassiveIcon]]
+passive = "c08120010_supergigante_roja"
+icon = "own_passives_icon_shoot_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08120020_sombra_de_la_constelacion"
+icon = "own_passives_icon_shoot_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08120030_pie_de_la_leyenda"
+icon = "own_passives_icon_shoot_self_count"
+
+# Bellatrix: Pingüino de otro mundo
+[[CharacterReforged.PassiveIcon]]
+passive = "c08120040_pinguino_de_otro_mundo"
+icon = "own_passives_icon_shoot_team"
+
+# Mintaka: Cometa fugaz
+[[CharacterReforged.PassiveIcon]]
+passive = "c08120050_cometa_fugaz"
+icon = "own_passives_icon_own_move_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08120060_cinturon_de_orion"
+icon = "own_passives_icon_speed_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08120070_alineacion_celeste"
+icon = "own_passives_icon_technique_team"
+
+# Saiph: Fuerza de gravedad
+[[CharacterReforged.PassiveIcon]]
+passive = "c08120080_fuerza_de_gravedad"
+icon = "own_passives_icon_speed_rival_count"
+
+# Meissa: Plumas relucientes
+[[CharacterReforged.PassiveIcon]]
+passive = "c08120090_plumas_relucientes"
+icon = "own_passives_icon_agility_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08120100_cola_del_cisne"
+icon = "own_passives_icon_block_self_count"
+
+# Procyon: Escudo de sombra
+[[CharacterReforged.PassiveIcon]]
+passive = "c08120110_escudo_de_sombra"
+icon = "own_passives_icon_catch_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08120120_estrella_mas_brillante"
+icon = "own_passives_icon_block_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08120130_cinturon_de_asteroides"
+icon = "own_passives_icon_tension_cost_team"
+
+# Kappa: Lluvia de meteoros
+[[CharacterReforged.PassiveIcon]]
+passive = "c08120140_lluvia_de_meteoros"
+icon = "own_passives_icon_tension_cost_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08130010_capitan_de_barras_y_estrellas"
+icon = "own_passives_icon_tension_self_event"
+
+# Dylan Keats: Cuerno de unicornio
+[[CharacterReforged.PassiveIcon]]
+passive = "c08130020_cuerno_de_unicornio"
+icon = "own_passives_icon_shoot_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08130030_al_asalto_del_cielo"
+icon = "own_passives_icon_dribble_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08130050_paso_enganoso"
+icon = "own_passives_icon_control_rival_count"
+
+# Steve Woodmark: Barrida de chacal
+[[CharacterReforged.PassiveIcon]]
+passive = "c08130060_barrida_de_chacal"
+icon = "own_passives_icon_block_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08130080_puno_de_la_justicia"
+icon = "own_passives_icon_block_team"
+
+# Tony Strider: Tiro patriota
+[[CharacterReforged.PassiveIcon]]
+passive = "c08130090_tiro_patriota"
+icon = "own_passives_icon_kick_self_event"
+
+# Ted Bryant: Carga de reserva
+[[CharacterReforged.PassiveIcon]]
+passive = "c08130100_carga_de_reserva"
+icon = "own_passives_icon_stamina_team_clock"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08130110_punetazo_de_cohete"
+icon = "own_passives_icon_punch_self_ball"
+
+# Norbert Poindexter: Disparo en espiral
+[[CharacterReforged.PassiveIcon]]
+passive = "c08130120_disparo_en_espiral"
+icon = "own_passives_icon_long_shoot_self_trailing"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08130130_doble_ciclon"
+icon = "own_passives_icon_wind_team"
+element = "wind"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08130140_golpe_de_halcon"
+icon = "own_passives_icon_physical_team"
+
+# Rion: Primera nevada
+[[CharacterReforged.PassiveIcon]]
+passive = "c08090160_primera_nevada"
+icon = "own_passives_icon_agility_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08090170_tierra_del_dragon"
+icon = "own_passives_icon_shoot_self_present"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08090180_relampago_travieso"
+icon = "own_passives_icon_dribble_self_ball"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c08090190_ojo_de_ladron"
+icon = "own_passives_icon_block_self_count"
+
+# Wolfe: Destello de aprendiz
+[[CharacterReforged.PassiveIcon]]
+passive = "c08090200_destello_de_aprendiz"
+icon = "own_passives_icon_kick_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c11908310_aguila_en_el_nido"
+icon = "own_passives_icon_tension_self_event"
+
+# Gustav Nikolsky: Escudo sin escapatoria
+[[CharacterReforged.PassiveIcon]]
+passive = "c11908030_escudo_sin_escapatoria"
+icon = "own_passives_icon_block_self_count"
+
+# Ivan Allegrov: Ventisca eterna
+[[CharacterReforged.PassiveIcon]]
+passive = "c11908040_ventisca_eterna"
+icon = "own_passives_icon_intelligence_team"
+
+# Yekaterina Stronov: Tornado oscuro
+[[CharacterReforged.PassiveIcon]]
+passive = "c11908050_tornado_oscuro"
+icon = "own_passives_icon_forest_self_zone"
+element = "forest"
+
+# Truman Newton: Gaviota solar
+[[CharacterReforged.PassiveIcon]]
+passive = "c11908060_gaviota_solar"
+icon = "own_passives_icon_shoot_self_event"
+
+# Nelly Raimon: Flecha de Cupido
+[[CharacterReforged.PassiveIcon]]
+passive = "c11807240_flecha_de_cupido"
+icon = "own_passives_icon_shoot_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c11908110_mentor_del_inazuma"
+icon = "own_passives_icon_tension_cost_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c11908120_mirada_de_nino_estrellado"
+icon = "own_passives_icon_technique_self_present"
+
+# Lucas Star: Chispa de hermano menor
+[[CharacterReforged.PassiveIcon]]
+passive = "c11908130_chispa_de_hermano_menor"
+icon = "own_passives_icon_shoot_self_present"

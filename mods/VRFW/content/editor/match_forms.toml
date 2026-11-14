@@ -175,6 +175,11 @@ For = "VRFW.MatchChallenge"
   Label = { es = "Solo hasta la primera victoria", en = "Only until the first win" }
   Help = { es = "Ganado el partido, el desafío entero deja de aplicarse al repetirlo.", en = "Once the match is won, the whole challenge is off on replays." }
   [[Shape.Field]]
+  Key = "TeamRulesOption"
+  Type = "string"
+  Label = { es = "Opción de las condiciones de equipo", en = "Team conditions option" }
+  Help = { es = "Fila de opción (<mod>.<id>) que activa las condiciones y los jugadores obligatorios; desactivada, cualquier equipo puede empezar el partido. Vacío = siempre se aplican.", en = "Option row (<mod>.<id>) that switches the conditions and required starters; off, any team may start the match. Empty = they always apply." }
+  [[Shape.Field]]
   Key = "Games"
   Type = "list"
   Of = "string"

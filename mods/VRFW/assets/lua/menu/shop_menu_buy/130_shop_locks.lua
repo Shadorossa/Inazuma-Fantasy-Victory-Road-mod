@@ -65,15 +65,23 @@ if VRFW.host ~= nil then
   local KEY_ENTER, GUIDE_ENTER_A, GUIDE_ENTER_B = 1981080283, 1847312674, 2750714971
 
   local SL = {}
+  --- Internal: Namespace: lock marks on shop rows (state, reasons, greying).
   VRFW.shop_locks = SL
 
   local function reset()
+    --- Internal: rows listed as locked, by shop id.
     SL.on_by_shop = {}      -- shop id -> rows listed as locked
+    --- Internal: lock reason sentences by 'kind:a:b'.
     SL.phrases = {}         -- "kind:a:b" -> sentence
+    --- Internal: focused shop row instance, -1 when none.
     SL.focus = -1
+    --- Internal: instances greyed, by instance.
     SL.tint = {}            -- instance -> greyed
+    --- Internal: true while the item detail is hidden.
     SL.detail_hidden = false
+    --- Internal: visible state of the cards, by layer.
     SL.card_visible = {}
+    --- Internal: true while the shop is closing.
     SL.closing = false
   end
   reset()
@@ -91,7 +99,7 @@ if VRFW.host ~= nil then
   end
 
 
-  -- rows of the open shop are listed as locked
+  -- Internal: rows of the open shop are listed as locked
   function SL.on()
     local ok, id = pcall(GetShopId)
     if not ok or type(id) ~= "number" then return false end
@@ -119,7 +127,7 @@ if VRFW.host ~= nil then
     return s
   end
 
-  -- what a locked row waits for, as a sentence in the game's language
+  -- Internal: what a locked row waits for, as a sentence in the game's language
   function SL.phrase(kind, a, b)
     local key = tostring(kind) .. ":" .. tostring(a) .. ":" .. tostring(b)
     local s = SL.phrases[key]
@@ -143,6 +151,7 @@ if VRFW.host ~= nil then
     return s
   end
 
+  --- Internal: lock state of a shop row instance (inst); answers locked, kind, a, b, row, or false.
   function SL.instance_info(inst)
     if type(inst) ~= "number" or inst < 0 or not SL.on() then return false end
     local locked, row, kind, a, b = VRFW.host.command(CMD.LOCKED, inst)
@@ -150,6 +159,7 @@ if VRFW.host ~= nil then
     return locked == true, kind, a, b, row
   end
 
+  --- Internal: lock state of an item (item); answers true, kind, a, b when locked, else false.
   function SL.item_info(item)
     if type(item) ~= "number" or item == 0 or not SL.on() then return false end
     local locked, kind, a, b = VRFW.host.command(CMD.LOCKED_ITEM, item)
@@ -163,6 +173,7 @@ if VRFW.host ~= nil then
     return SL.focus
   end
 
+  --- Internal: lock state of the focused row or of item; answers locked, kind, a, b, or false.
   function SL.focus_info(item)
     if not SL.on() then return false end
     local l, kind, a, b, row = SL.instance_info(focus_instance())
@@ -174,13 +185,14 @@ if VRFW.host ~= nil then
     return SL.item_info(item)
   end
 
-  -- the focused row of the list (not the token / coin pickers) is locked
+  -- Internal: the focused row of the list (not the token / coin pickers) is locked
   function SL.focus_list(item)
     if not SL.on() then return false end
     if local_of("flag") == true or local_of("flag10") == true then return false end
     return (SL.focus_info(item)) == true
   end
 
+  --- Internal: greys or restores the material colour of a shop row (layer, inst, on).
   function SL.grey_row(layer, inst, on)
     local f = on and GREY or 1
     VRFW.host.menu_command(CMD.MATERIAL_COLOR, layer, inst, MATERIAL, f, f, f)

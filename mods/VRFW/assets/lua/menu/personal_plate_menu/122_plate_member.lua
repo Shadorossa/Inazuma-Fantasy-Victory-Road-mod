@@ -1,18 +1,27 @@
+--- Advanced: Namespace of the plate member helpers: which squad member the player plate shows.
 VRFW.plate_member = type(VRFW.plate_member) == "table" and VRFW.plate_member or {}
 if VRFW.plate_member.gear == nil then
   local M = VRFW.plate_member
+  --- Internal: param key hash of VRFW.plate_team.
   M.P_TEAM = 1930590710                 -- crc32 of VRFW.plate_team
+  --- Internal: param key hash of VRFW.plate_slot.
   M.P_SLOT = 469565326                  -- crc32 of VRFW.plate_slot
+  --- Internal: param key hash of VRFW.plate_card.
   M.P_CARD = 2716223290                 -- crc32 of VRFW.plate_card
+  --- Internal: param key hash of VRFW.plate_card_team.
   M.P_CARD_TEAM = 1860450077            -- crc32 of VRFW.plate_card_team
+  --- Internal: param key hash of VRFW.plate_handle.
   M.P_HANDLE = 139464907                -- crc32 of VRFW.plate_handle
+  --- Internal: param key hash of VRFW.plate_kit.
   M.P_KIT = 387402342                   -- crc32 of VRFW.plate_kit
+  --- Internal: command hashes the plate member lookups use.
   M.C = {
     GEAR = VRFW.commands.VRFW_TEAM_MEMBER_GEAR,
     INV_OF_SLOT = 128658370,            -- (charaStHdl, equip slot) -> the inventory handle worn there
     ITEM_OF_INV = 2662166687,           -- (inventory handle, 0) -> its item id
     CARD_KIT = VRFW.commands.VRFW_CONTACT_KIT,
   }
+  --- Internal: number of item slots a member wears.
   M.ITEM_SLOTS = 4
 
   local function Param(k)
@@ -20,6 +29,7 @@ if VRFW.plate_member.gear == nil then
     return type(v) == "number" and v or nil
   end
 
+  --- Internal: reads the plate's team and slot params; answers team, slot, or nil when none.
   function M.member()
     local team, slot = Param(M.P_TEAM), Param(M.P_SLOT)
     if team == nil or slot == nil or team == 0 then
@@ -28,7 +38,7 @@ if VRFW.plate_member.gear == nil then
     return team, slot
   end
 
-  -- The live character a line-up viewer shows (VRFW.plate_handle) and the kit of his team (VRFW.plate_kit, 0 = none).
+  -- Internal: The live character a line-up viewer shows (VRFW.plate_handle) and the kit of his team (VRFW.plate_kit, 0 = none).
   function M.handle()
     local hdl = VRFW.ids.unsigned(Param(M.P_HANDLE))
     if hdl == 0 then
@@ -54,6 +64,7 @@ if VRFW.plate_member.gear == nil then
     return items
   end
 
+  --- Internal: reads the shown member's kit and worn items; answers kit, items, or nil.
   function M.gear()
     local hdl, kit = M.handle()
     if hdl ~= nil then
@@ -70,6 +81,7 @@ if VRFW.plate_member.gear == nil then
     return kit, {[0] = a or 0, b or 0, c or 0, d or 0}
   end
 
+  --- Internal: reads the kit of the plate's card; answers uniform, source, or nil.
   function M.card_kit()
     local card = Param(M.P_CARD)
     if card == nil or card == 0 then
@@ -85,6 +97,7 @@ if VRFW.plate_member.gear == nil then
     return nil
   end
 
+  --- Advanced: Reads the kit of the member the plate shows; answers kit, source ("member" or the card's source), or nil.
   function M.kit()
     local kit = M.gear()
     if type(kit) == "number" and kit ~= 0 then
@@ -98,6 +111,7 @@ if VRFW.plate_member.gear == nil then
     if type(cur) ~= "function" or M.wrapped == cur then
       return
     end
+    --- Internal: the wrapped function installed for the plate member lookups.
     M.wrapped = make(cur)
     _ENV[name] = M.wrapped
   end
@@ -134,6 +148,7 @@ end
 
 if VRFW.plate_member.skill_set == nil then
   local M = VRFW.plate_member
+  --- Internal: command hashes of the member moves, learnset and skill lookups.
   M.MC = {
     MOVES = VRFW.commands.VRFW_TEAM_MEMBER_MOVES,
     LEARNSET = VRFW.commands.VRFW_CHARACTER_LEARNSET,
@@ -143,11 +158,15 @@ if VRFW.plate_member.skill_set == nil then
     BOARD_INV = 632801955,              -- (charaStHdl, board slot, kind) -> inventory handle
     SKILL_SET = VRFW.commands.VRFW_SKILL_SET,
     SKILL_INFO = VRFW.commands.GET_SOCCER_SKILL_INFO,
+    HALF = VRFW.commands.VRFW_EXTRA_SLOT_HALF,      -- (move) -> 0 aura slot, 1 mix slot, -1 neither (the extra slot's [source])
     LOG = VRFW.commands.VRFW_LOG,                   -- CMND_VRFW_LOG
   }
-  M.MIX_TYPES = {[2] = true, [6] = true} -- aura types of the mix slot: Mix-Max, mode change
+  M.AURA_HALF, M.MIX_HALF = 0, 1
+  --- Internal: number of move rows of the plate.
   M.ROWS = 6
+  --- Internal: cached set of the shown member, cleared when the plate changes.
   M.set_cache = nil
+  --- Internal: temporary member sets keyed by handle.
   M.temporary = {}
 
   local function U32(v) return VRFW.ids.unsigned(v) end
@@ -156,10 +175,10 @@ if VRFW.plate_member.skill_set == nil then
     for i, m in ipairs(moves) do
       local okc, known, category = pcall(call, M.MC.SKILL_INFO, m, 9)
       if m ~= 0 and okc and known and category == 8 then
-        local okt, kt, kind = pcall(call, M.MC.SKILL_INFO, m, 13)
-        if okt and kt and M.MIX_TYPES[kind] then
+        local okh, half = pcall(call, M.MC.HALF, m)
+        if okh and half == M.MIX_HALF then
           if set.mix == 0 then set.mix, set.mix_from = m, i - 1 end
-        elseif set.aura == 0 then
+        elseif okh and half == M.AURA_HALF and set.aura == 0 then
           set.aura, set.aura_from = m, i - 1
         end
       elseif m ~= 0 and #set.techniques < M.ROWS then
@@ -280,6 +299,7 @@ if VRFW.plate_member.skill_set == nil then
     return set.found and set or nil
   end
 
+  --- Internal: gets the skill set of the shown member (call, hdl); answers the set and whether it is temporary.
   function M.set(call, hdl)
     local live = M.handle()
     if live ~= nil then
@@ -292,6 +312,7 @@ if VRFW.plate_member.skill_set == nil then
     return TemporarySet(hdl), true
   end
 
+  --- Advanced: Reads the aura and mix of a member (hdl); answers {aura, mix, aura_from, mix_from}, or nil.
   function M.skill_set(hdl)
     if type(funcLuaCommand) ~= "function" then
       return nil
@@ -340,6 +361,7 @@ if VRFW.plate_member.skill_set == nil then
     end
     return nxt(cmd, a, b, ...)
   end
+  --- Internal: installs the plate member command hooks once.
   function M.install()
     if M.installed or type(funcLuaCommand) ~= "function" then
       return
@@ -348,6 +370,7 @@ if VRFW.plate_member.skill_set == nil then
     for cmd in pairs(answer) do
       ids[#ids + 1] = cmd
     end
+    --- Internal: true once the plate member command hooks are installed.
     M.installed = VRFW.host.hook_command(ids, answer_member, "VRFW.plate_member")
   end
   if VRFW.host ~= nil then

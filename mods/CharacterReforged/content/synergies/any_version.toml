@@ -1,0 +1,5 @@
+schema = "VRFW.synergy/1"
+
+# A character a synergy names (a game synergy's condition, a nexus, a pool's charas) is met by any version of him.
+[[VRFW.SynergyRules]]
+any_version = true

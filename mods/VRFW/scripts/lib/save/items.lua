@@ -1,4 +1,4 @@
--- Item stacks in a save: a pass that lowers the owned amount of chosen items in a save tree.
+-- Advanced: Item stacks in a save: a pass that lowers the owned amount of chosen items in a save tree.
 
 local T = VRFW.save_tree
 local Id = VRFW.ids
@@ -22,7 +22,7 @@ local function stack_lists(tree, inventory)
   return out
 end
 
---- Lowers the stock of every item of `most_by_item` (item id -> the most kept) in `tree`: report; false, why.
+--- Internal: Lowers the stock of every item of `most_by_item` (item id -> the most kept) in `tree`: report; false, why.
 function SaveItems.limit(tree, most_by_item)
   if not T.has_block(tree, BLOCK_INVENTORY) then return false, "block " .. BLOCK_INVENTORY .. " not found" end
   local inventory = T.unwrap(tree, "block" .. BLOCK_INVENTORY, "m_Permanent")
@@ -50,7 +50,7 @@ function SaveItems.limit(tree, most_by_item)
   return report
 end
 
---- One line of text for `report`.
+--- Internal: One line of text for `report`.
 function SaveItems.summary(report)
   return string.format("%d item stacks found, %d lowered; %d bytes patched", report.stacks, report.lowered, report.bytes_patched)
 end

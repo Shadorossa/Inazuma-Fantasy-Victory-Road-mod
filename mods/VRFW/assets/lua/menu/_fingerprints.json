@@ -177,6 +177,14 @@
   "forbid": [],
   "ambiguous": []
  },
+ "play_guide_top_menu": {
+  "script": "play_guide_top_menu_1.04.09.00",
+  "require": [
+   "GetListButtonLayerIndex"
+  ],
+  "forbid": [],
+  "ambiguous": []
+ },
  "post_menu": {
   "script": "post_menu",
   "require": [
@@ -277,6 +285,14 @@
   "chunk_crc": 2511073110,
   "chunk_size": 671
  },
+ "soccer_battle_setting_flow_formation_menu": {
+  "script": "soccer_battle_setting_flow_formation_menu_6.00.33.00",
+  "require": [
+   "StartGoToSoccerGame"
+  ],
+  "forbid": [],
+  "ambiguous": []
+ },
  "soccer_battle_vs_menu": {
   "script": "soccer_battle_vs_menu_1.04.02.00",
   "require": [
@@ -309,6 +325,14 @@
   "script": "soccer_half_time_menu_7.01.08.00",
   "require": [
    "EndHalfTime"
+  ],
+  "forbid": [],
+  "ambiguous": []
+ },
+ "soccer_parameter_menu": {
+  "script": "soccer_parameter_menu_6.00.22.00",
+  "require": [
+   "InitializeTabInfo"
   ],
   "forbid": [],
   "ambiguous": []

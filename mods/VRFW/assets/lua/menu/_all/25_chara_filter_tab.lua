@@ -17,6 +17,7 @@ if VRFW.chara_filter_tab == nil then
     ALL_TYPE = 9,                -- list item type of the "all of a category" params
     cache = nil,                 -- the served tab, false = none (asked once per menu VM)
   }
+  --- Internal: Namespace of the character filter tab helpers.
   VRFW.chara_filter_tab = CFT
 
   -- a text key in the game's language: string, text id (nil, nil when the key has no text)
@@ -29,7 +30,7 @@ if VRFW.chara_filter_tab == nil then
     return s, id
   end
 
-  --- The tab the framework serves: { text id, icon, icon_off, symbol, album, rows = { label } }; nil when none.
+  --- Internal: The tab the framework serves: { text id, icon, icon_off, symbol, album, rows = { label } }; nil when none.
   function CFT.served()
     if CFT.cache == nil then
       CFT.cache = false
@@ -50,14 +51,14 @@ if VRFW.chara_filter_tab == nil then
     return CFT.cache or nil
   end
 
-  --- The tab table entry of the served tab, or nil; `added` = for a tab list without the season slot (the album's).
+  --- Internal: The tab table entry of the served tab, or nil; `added` = for a tab list without the season slot (the album's).
   function CFT.entry(added)
     local tab = CFT.served()
     if tab == nil or (added and not tab.album) then return nil end
     return { tabIconType = CFT.ICON_TYPE, tabTextName = tab.text, bgIconTextureName = tab.symbol }
   end
 
-  --- Draws the tab icon on tab slot `slot` of menu `menu`; false when `icon_type` is not the tab's.
+  --- Internal: Draws the tab icon on tab slot `slot` of menu `menu`; false when `icon_type` is not the tab's.
   function CFT.draw_icon(menu, slot, icon_type)
     local tab = CFT.served()
     if icon_type ~= CFT.ICON_TYPE or tab == nil then return false end
@@ -66,7 +67,7 @@ if VRFW.chara_filter_tab == nil then
     return true
   end
 
-  --- Writes the label of row `value` on item `item` of menu `menu`; false when the row is not the tab's.
+  --- Internal: Writes the label of row `value` on item `item` of menu `menu`; false when the row is not the tab's.
   function CFT.draw_row(menu, item, item_type, value)
     local tab = CFT.served()
     if item_type ~= CFT.ROWS_TYPE or tab == nil or type(value) ~= "number" then return false end
@@ -76,7 +77,7 @@ if VRFW.chara_filter_tab == nil then
     return true
   end
 
-  --- `params` without the tab's rows and with its «all»: the save's filter set has no place for them.
+  --- Internal: `params` without the tab's rows and with its «all»: the save's filter set has no place for them.
   function CFT.saved(params)
     local copy, all = {}, false
     for _, p in ipairs(params) do
@@ -89,7 +90,7 @@ if VRFW.chara_filter_tab == nil then
     return copy
   end
 
-  --- Bank screen `stem` saves its filter without the tab's rows (they last while the screen is open).
+  --- Internal: Bank screen `stem` saves its filter without the tab's rows (they last while the screen is open).
   function CFT.attach_bank(stem)
     VRFW.host.wrap("SaveFilterData", function(game_save)
       return function(...)
@@ -100,7 +101,7 @@ if VRFW.chara_filter_tab == nil then
     end, { stem = stem, id = "VRFW.chara_filter_tab_save" })
   end
 
-  --- The filter window draws the tab's icon and row labels.
+  --- Internal: The filter window draws the tab's icon and row labels.
   function CFT.attach_window()
     VRFW.host.wrap("SetTabIcon", function(game_icon)
       return function(menu, slot, icon_type, ...)

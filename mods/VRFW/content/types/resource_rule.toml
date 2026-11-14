@@ -2,6 +2,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.resource_rule/1"
 folder = "content/resource_rules"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Rule.ResourceRule"
+v2_kind_folder = "Rules/ResourceRules"
+v2_version = 1
 label = "Resource rules"
 label_es = "Reglas de recursos"
 doc = "What a shot does with one of the engine's team gauges (spends it, gives part back)."

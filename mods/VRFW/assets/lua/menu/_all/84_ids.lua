@@ -20,7 +20,7 @@ if VRFW.ids == nil then
 
   local I = {}
 
-  --- v as an unsigned 32-bit number; `none` when it is no number.
+  --- VRFW.ids.unsigned_or(v, none): v as an unsigned 32-bit number, or `none`. Safe at load.
   function I.unsigned_or(v, none)
     local n = number_of(v)
     if n == nil then
@@ -29,12 +29,12 @@ if VRFW.ids == nil then
     return math.floor(n) % TWO_32
   end
 
-  --- v as an unsigned 32-bit number; 0 when it is no number.
+  --- VRFW.ids.unsigned(v): v as an unsigned 32-bit number (0 when v is not a number). Safe at load.
   function I.unsigned(v)
     return I.unsigned_or(v, 0)
   end
 
-  --- v as a signed 32-bit number.
+  --- VRFW.ids.signed(v): v as a signed 32-bit number. Safe at load.
   function I.signed(v)
     local n = I.unsigned(v)
     if n >= TWO_31 then
@@ -43,7 +43,7 @@ if VRFW.ids == nil then
     return n
   end
 
-  --- True for nil or the -1 / 0xFFFFFFFF "no id" value.
+  --- VRFW.ids.is_none(v): whether v means "no id" (nil, -1 or 0xFFFFFFFF). Safe at load.
   function I.is_none(v)
     if v == nil then
       return true
@@ -52,7 +52,7 @@ if VRFW.ids == nil then
     return n == -1 or n == TWO_32 - 1
   end
 
-  --- v as 0xXXXXXXXX text.
+  --- VRFW.ids.hex_text(v): v as 0xXXXXXXXX text. Safe at load.
   function I.hex_text(v)
     local n = I.unsigned(v)
     return string.format("0x%04X%04X", math.floor(n / 65536), n % 65536)
@@ -60,7 +60,7 @@ if VRFW.ids == nil then
 
   local crc_of_text = {}
 
-  --- The CRC-32 of text (cached).
+  --- VRFW.ids.crc32(text): the crc32 of a text (cached). Safe at load.
   function I.crc32(text)
     local crc = crc_of_text[text]
     if crc == nil then
@@ -70,5 +70,6 @@ if VRFW.ids == nil then
     return crc
   end
 
+  --- Id helpers of the menu VM: crc32 and 32-bit conversions. Safe at load.
   VRFW.ids = I
 end

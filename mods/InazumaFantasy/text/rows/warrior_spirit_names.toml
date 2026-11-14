@@ -86,48 +86,49 @@ zh_hant = "宛如為勝利祈禱之女神的風之化身。\\n以強烈的紐帶
 # zh_hant = "榮耀騎士·半人馬"
 # ```
 
-# These two warrior spirits are off for this version, and removing the comment marks brings them back.
+# Devoramentes (wks_fantasy_me000010).
+[[row]]
+id = 0xABA6C2A6  # InazumaFantasy.keshin_me000010_name
+kind = "noun"
+de = "Geistfresser"
+en = "Mindeater"
+es = "Devoramentes"
+fr = "Dévoreur d'esprits"
+it = "Divoramenti"
+ja = "マインドイーター"
+pt = "Devoramentes"
+zh_hans = "噬心者"
+zh_hant = "噬心者"
+
+[[row]]
+id = 0xABA6C2A6  # InazumaFantasy.keshin_me000010_name, long form
+kind = "noun"
+variant = 11
+de = "Traumzerstörer, Geistfresser"
+en = "The Dream Destroyer Mindeater"
+es = "Destructor de sueños, Devoramentes"
+fr = "Destructeur de rêves, Dévoreur d'esprits"
+it = "Distruttore di Sogni, Divoramenti"
+ja = "ドリームブレイカー・マインドイーター"
+pt = "Destruidor de Sonhos, Devoramentes"
+zh_hans = "梦境破坏者·噬心者"
+zh_hant = "夢境破壞者·噬心者"
+
+[[row]]
+id = 0xFE3010F4  # InazumaFantasy.keshin_me000010_desc
+kind = "text"
+de = "Traumzerstörer, Geistfresser"
+en = "The Dream Destroyer Mindeater"
+es = "Destructor de sueños, Devoramentes"
+fr = "Destructeur de rêves, Dévoreur d'esprits"
+it = "Distruttore di Sogni, Divoramenti"
+ja = "ドリームブレイカー・マインドイーター"
+pt = "Destruidor de Sonhos, Devoramentes"
+zh_hans = "梦境破坏者·噬心者"
+zh_hant = "夢境破壞者·噬心者"
+
+# This warrior spirit is off for this version, and removing the comment marks brings it back.
 # ```
-# [[row]]
-# id = 0xABA6C2A6  # InazumaFantasy.keshin_me000010_name
-# kind = "noun"
-# de = "Geistfresser"
-# en = "Mindeater"
-# es = "Devoramentes"
-# fr = "Dévoreur d'esprits"
-# it = "Divoramenti"
-# ja = "マインドイーター"
-# pt = "Devoramentes"
-# zh_hans = "噬心者"
-# zh_hant = "噬心者"
-#
-# [[row]]
-# id = 0xABA6C2A6  # InazumaFantasy.keshin_me000010_name, long form
-# kind = "noun"
-# variant = 11
-# de = "Traumzerstörer, Geistfresser"
-# en = "The Dream Destroyer Mindeater"
-# es = "Destructor de sueños, Devoramentes"
-# fr = "Destructeur de rêves, Dévoreur d'esprits"
-# it = "Distruttore di Sogni, Divoramenti"
-# ja = "ドリームブレイカー・マインドイーター"
-# pt = "Destruidor de Sonhos, Devoramentes"
-# zh_hans = "梦境破坏者·噬心者"
-# zh_hant = "夢境破壞者·噬心者"
-#
-# [[row]]
-# id = 0xFE3010F4  # InazumaFantasy.keshin_me000010_desc
-# kind = "text"
-# de = "Traumzerstörer, Geistfresser"
-# en = "The Dream Destroyer Mindeater"
-# es = "Destructor de sueños, Devoramentes"
-# fr = "Destructeur de rêves, Dévoreur d'esprits"
-# it = "Distruttore di Sogni, Divoramenti"
-# ja = "ドリームブレイカー・マインドイーター"
-# pt = "Destruidor de Sonhos, Devoramentes"
-# zh_hans = "梦境破坏者·噬心者"
-# zh_hant = "夢境破壞者·噬心者"
-#
 # [[row]]
 # id = 0x39112EB4  # InazumaFantasy.keshin_mx000010_name
 # kind = "noun"

@@ -15,72 +15,72 @@ if VRFW.game_menu == nil then
 
   local G = {}
 
-  --- Runs a named command through funcLuaCommand; answers its results.
+  --- Internal: Runs a named command through funcLuaCommand; answers its results.
   function G.call(name, ...)
     return run("funcLuaCommand", name, ...)
   end
 
-  --- Runs a named camera command; answers its results.
+  --- Internal: Runs a named camera command; answers its results.
   function G.call_camera(name, ...)
     return run("funcLuaCameraCommand", name, ...)
   end
 
-  --- Runs a named effect command; answers its results.
+  --- Internal: Runs a named effect command; answers its results.
   function G.call_effect(name, ...)
     return run("funcLuaEffectCommand", name, ...)
   end
 
-  --- The game mode.
+  --- Internal: The game mode.
   function G.game_mode()
     return G.call("GET_GAME_MODE")
   end
 
-  --- True while soccer is being played.
+  --- Internal: True while soccer is being played.
   function G.is_playing_soccer()
     return G.call("IS_PLAYING_SOCCER") == true
   end
 
-  --- The game time zone.
+  --- Internal: The game time zone.
   function G.time_zone()
     return G.call("GET_GAME_TIME_ZONE")
   end
 
-  --- The weather value of `field`.
+  --- Internal: The weather value of `field`.
   function G.weather(field)
     return G.call("GET_WEATHER", field or 0)
   end
 
-  --- The game step scale.
+  --- Internal: The game step scale.
   function G.step_scale()
     return G.call("GET_STEP_SCALE")
   end
 
-  --- Plays slow motion at `scale`, back after `back_s`, starting after `delay_s`.
+  --- Internal: Plays slow motion at `scale`, back after `back_s`, starting after `delay_s`.
   function G.slow_motion(scale, back_s, delay_s)
     return G.call_camera("PLAY_SLOW", scale or 1, back_s or 0, delay_s or 0)
   end
 
-  --- Shakes the camera.
+  --- Internal: Shakes the camera.
   function G.camera_shake(power, preset)
     return G.call_camera("PLAY_CAMERA_SHAKE", power or 1, preset or 0)
   end
 
-  --- Fades the screen out in `seconds`.
+  --- Internal: Fades the screen out in `seconds`.
   function G.fade_out(seconds)
     return G.call("START_SCREEN_FADE", 0, seconds or 0.5)
   end
 
-  --- Fades the screen in in `seconds`.
+  --- Internal: Fades the screen in in `seconds`.
   function G.fade_in(seconds)
     return G.call("START_SCREEN_FADE", 2, seconds or 0.5)
   end
 
-  --- True while the screen fades.
+  --- Internal: True while the screen fades.
   function G.is_fading()
     return G.call("BRIGHT_IS_FADE") == true
   end
 
-  --- The position of object `handle`: x, y, z; nil when it cannot be read.
+  --- Internal: The position of object `handle`: x, y, z; nil when it cannot be read.
   function G.object_position(handle)
     local ok, x, y, z = G.call_effect("GET_TARGET_CHARA_POS", handle)
     if ok ~= true then
@@ -89,40 +89,41 @@ if VRFW.game_menu == nil then
     return x, y, z
   end
 
-  --- Scales object `handle`; answers true when done.
+  --- Internal: Scales object `handle`; answers true when done.
   function G.set_object_scale(handle, x, y, z)
     return G.call("SET_SCALE", handle, x, y or x, z or x) == true
   end
 
-  --- True when temporary battle bit n is on.
+  --- Internal: True when temporary battle bit n is on.
   function G.battle_bit(n)
     return G.call("GET_TEMP_BTL_BIT_FLAG", n) == true
   end
 
-  --- Sets temporary battle bit n.
+  --- Internal: Sets temporary battle bit n.
   function G.set_battle_bit(n, on)
     return G.call("SET_TEMP_BTL_BIT_FLAG", n, on ~= false)
   end
 
-  --- Temporary battle byte n.
+  --- Internal: Temporary battle byte n.
   function G.battle_byte(n)
     return G.call("GET_TEMP_BTL_BYTE_FLAG", n)
   end
 
-  --- Sets temporary battle byte n.
+  --- Internal: Sets temporary battle byte n.
   function G.set_battle_byte(n, value)
     return G.call("SET_TEMP_BTL_BYTE_FLAG", n, value or 0)
   end
 
-  --- Ends the tutorial.
+  --- Internal: Ends the tutorial.
   function G.end_tutorial()
     return G.call("END_TUTORIAL")
   end
 
-  --- Adds an announce-log entry.
+  --- Internal: Adds an announce-log entry.
   function G.announce(kind, a, b)
     return G.call("REGIST_ANNOUNCE_LOG", kind or 0, a or 0, b or 0)
   end
 
+  --- Internal: Namespace of the in-game menu helpers.
   VRFW.game_menu = G
 end

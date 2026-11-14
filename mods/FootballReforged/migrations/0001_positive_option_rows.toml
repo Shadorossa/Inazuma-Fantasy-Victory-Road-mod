@@ -1,0 +1,12 @@
+# The negative row no_move_cooldown becomes positive: on = the cooldown applies; the stored value is inverted so the game behaves as before.
+schema = "VRFW.migration/1"
+id = "FootballReforged.positive_option_rows"
+description = "The row no_move_cooldown becomes move_cooldown with its stored value inverted"
+phase = "data"
+after = ["VRFW.no_compat_names"]
+
+[[step]]
+kind = "invert_option_row"
+from = "FootballReforged.no_move_cooldown"
+to = "FootballReforged.move_cooldown"
+if_target = "keep_target"

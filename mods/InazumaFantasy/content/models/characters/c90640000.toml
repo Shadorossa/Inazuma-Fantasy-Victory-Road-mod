@@ -1,0 +1,4 @@
+schema = "VRFW.model/1"
+# Komasan: head, eye and mouth patches, skeleton and objbin (built from the Yo-kai Watch 4 model).
+format = "native"
+game_path = "chr/_face/90_FANTASY/c90640000"

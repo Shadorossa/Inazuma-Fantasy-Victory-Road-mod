@@ -13,6 +13,7 @@ if vrfw_hub_yield == nil then
     },
     hidden = nil,   -- {{layer, idx}, ...} hidden by the last yield
   }
+  --- Internal: State of the hub yield: hides hub layers while another screen is open.
   VRFW.hub_yield = Y
 
   --- Hides or shows the hub's layers for `by`; answers how many changed.
@@ -41,6 +42,7 @@ if vrfw_hub_yield == nil then
       return #Y.hidden
     end
     local list = Y.hidden or {}
+    --- Internal: Layer list hidden by the hub yield; nil when none.
     Y.hidden = nil
     for _, e in ipairs(list) do
       pcall(funcLuaMenuCommand, Y.VISIBLE, e[1], e[2], true)

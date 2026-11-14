@@ -366,10 +366,10 @@ local function set_gate()
   end
 end
 
-VRFW.on("match_start", function() State.gate_set, State.ready_at, State.carrier = false, {}, nil return nil end)
-VRFW.on("match_end", function() State.gate_set, State.ready_at, State.carrier = false, {}, nil return nil end)
+VRFW.on("match:start", function() State.gate_set, State.ready_at, State.carrier = false, {}, nil return nil end)
+VRFW.on("match:end", function() State.gate_set, State.ready_at, State.carrier = false, {}, nil return nil end)
 
-VRFW.on("tick", function(ev)
+VRFW.on("frame:tick", function(ev)
   local m = ev.match or VRFW.match()
   local now = VRFW.now_ms()
   set_gate()

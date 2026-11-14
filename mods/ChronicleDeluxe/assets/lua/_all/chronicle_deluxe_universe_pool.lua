@@ -14,7 +14,7 @@ if ChronicleDeluxe.UniversePool == nil then
   local WHAT_BUCKET_RATE = 18              -- (bucket) -> ok, rate
   local BOOST_ACTIVE = 3127020518          -- (group) -> ok, active
   local GRANT_CARD = 2807419770            -- (card, rarity) -> handle, 0 when not given
-  local ROLL = 698416206                   -- CMND_CHRONICLEDELUXE_UNIVERSE_ROLL (upper) -> 1 to upper
+  local ROLL = VRFW.commands.CHRONICLEDELUXE_UNIVERSE_ROLL                   -- (upper) -> 1 to upper
   local BUCKETS = 3
   local BOOST_GROUPS = 4
 

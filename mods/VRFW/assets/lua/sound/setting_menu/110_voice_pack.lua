@@ -1,22 +1,31 @@
--- audio_engine: row "Voice pack" / "Voice pack" of Options > "Mod options" (setting_menu).
+-- Internal: audio_engine: row "Voice pack" / "Voice pack" of Options > "Mod options" (setting_menu).
 
 VRFW.voice_pack = VRFW.voice_pack or {}
+--- Internal: row key of the voice pack option in options.toml.
 VRFW.voice_pack.KEY = "audio_engine.voice_pack"  -- row key of options.toml
+--- Internal: text id of the no-voice-pack choice (value 0).
 VRFW.voice_pack.NONE_ID = 581565135              -- crc32("audio_engine.voice_pack_none"): value 0
+--- Internal: text id of the off choice.
 VRFW.voice_pack.OFF_ID = 2052939705
+--- Internal: 1 plus the number of installed voice-pack languages, refreshed by get.
 VRFW.voice_pack.COUNT = 1                        -- 1 + installed voice-pack languages (refreshed by get)
--- {framework name, ModLoader name} of each command (crc32 of the names)
+-- Internal: {framework name, ModLoader name} of each command (crc32 of the names)
 VRFW.voice_pack.GET = {VRFW.commands.VRFW_SOUND_VOICE_GET, VRFW.commands.VRFW_SOUND_VOICE_GET}
+--- Internal: command pair of the voice name lookup.
 VRFW.voice_pack.NAME = {VRFW.commands.VRFW_SOUND_VOICE_NAME, VRFW.commands.VRFW_SOUND_VOICE_NAME}
+--- Internal: command pair of the voice set command.
 VRFW.voice_pack.SET = {VRFW.commands.VRFW_SOUND_VOICE_SET, VRFW.commands.VRFW_SOUND_VOICE_SET}
+--- Internal: which command of each pair answers (framework or ModLoader), nil until probed.
 VRFW.voice_pack.SRC = nil
 
+--- Internal: calls the framework command of a pair, else the ModLoader's; answers the command's results.
 function VRFW.voice_pack.cmd(pair, ...)          -- the framework's command, else the ModLoader's
   if VRFW.voice_pack.SRC ~= nil then
     return VRFW.host.command(pair[VRFW.voice_pack.SRC], ...)
   end
   return VRFW.host.command(pair[1], ...)
 end
+--- Internal: text of a text id (id, fallback); answers a string, the fallback when empty.
 function VRFW.voice_pack.text(id, fallback)
   local s = VRFW.host.command(VRFW.commands.TEXT_GET, id)
   if type(s) == "string" and s ~= "" then
@@ -24,6 +33,7 @@ function VRFW.voice_pack.text(id, fallback)
   end
   return fallback
 end
+--- Internal: option row with get and set functions for the voice pack choice.
 VRFW.voice_pack.ROW = {
   get = function()                     -- stored index, nil = loader / module off
     local i, n = VRFW.host.command(VRFW.voice_pack.GET[1])

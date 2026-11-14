@@ -1,6 +1,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.emblem_colour/1"
 folder = "content/emblem_colours"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Team.EmblemColour"
+v2_kind_folder = "Teams/EmblemColours"
+v2_version = 1
 label = "Emblem colours"
 label_es = "Colores de emblemas"
 doc = "The measured colour of one emblem picture."

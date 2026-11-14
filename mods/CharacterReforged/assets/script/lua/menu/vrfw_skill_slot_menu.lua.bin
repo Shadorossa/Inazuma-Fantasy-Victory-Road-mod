@@ -1672,13 +1672,13 @@ local function SetupSkillInfo(skill)
   end
   if aura_chara ~= 0 then
     -- Keshin, armour and totem characters have no list face icon.
-    pcall(funcLuaMenuCommand, 4176779611 --[[ResetFaceIcon]], L_INFO, 0, 2052777044 --[[item_chr_dmy01]])
+    -- VRFW.face_icon shows the portrait mesh once its texture has loaded.
+    VRFW.face_icon.forget(L_INFO, 0, 2787359195 --[[_item_chr_dmy01]])
     local okd, drawn = pcall(PL.aura_portrait, L_INFO, 0, 2787359195 --[[_item_chr_dmy01]], 2052777044, skill)
     aura_chara = (okd and drawn) and aura_chara or 0
   end
   if aura_chara ~= 0 then
     funcLuaMenuCommand(C.MESH_VISIBLE, L_INFO, 2634282032 --[[_item_chr_base01]], true, 0)
-    funcLuaMenuCommand(C.MESH_VISIBLE, L_INFO, 2787359195 --[[_item_chr_dmy01]], true, 0)
   else
     funcLuaMenuCommand(C.MESH_VISIBLE, L_INFO, 2634282032 --[[_item_chr_base01]], false, 0)
     funcLuaMenuCommand(C.MESH_VISIBLE, L_INFO, 2787359195 --[[_item_chr_dmy01]], false, 0)
@@ -1853,7 +1853,7 @@ function PL.detail_hide_all()
   if PL.set_detail_layout ~= nil then
     pcall(PL.set_detail_layout, nil)                -- back to the layout's own positions (passive windows, card)
   end
-  local all = {L_DETAIL, L_DETAIL_LV, PL.L_PV_DETAIL, PL.L_HIPER, PL.L_HROW, 1281343292}
+  local all = {L_DETAIL, L_DETAIL_LV, PL.L_PV_DETAIL, PL.L_HIPER, PL.L_HROW, 1281343292, PL.ARMOUR_MARK.layer}
   for _, A in pairs(PL.AURA_LAYER or {}) do
     all[#all + 1] = A
   end
@@ -2064,7 +2064,7 @@ function PL.passive_board(item, name, effect)
   if type(name) == "string" and name ~= "" then   -- the passive's own name, not the slot label
     funcLuaMenuCommand(C.TEXT, L, PL.LAYOUT_PV.name, name, 0)
   end
-  if type(effect) == "string" then                -- the effect lines alone (a signature passive's text holds its name)
+  if type(effect) == "string" then                -- the effect lines alone (an own passive's text holds its name)
     funcLuaMenuCommand(C.TEXT, L, PL.LAYOUT_PV.flavor, effect, 0)
     funcLuaMenuCommand(1505208242, L, PL.LAYOUT_PV.flavor, true, 0)
   end
@@ -2269,22 +2269,20 @@ function CharacterReforged.hyper_card.partner(A, face, ctx, inst)
     funcLuaMenuCommand(3405944500, A, CharacterReforged.hyper_card.CHR_MESH, false, inst)
     return false
   end
-  funcLuaMenuCommand(3405944500, A, CharacterReforged.hyper_card.CHR_MESH, true, inst)
   pcall(funcLuaCommand, 2996279796, ctx or "plate_page", face)
   local has = funcLuaMenuCommand(2208175668 --[[has a miximax face icon]], face)
-  if has then
-    funcLuaMenuCommand(346643487 --[[SwapLayerFaceIconTex]], A, inst, CharacterReforged.hyper_card.CHR_MESH, CharacterReforged.hyper_card.CHR_SLOT, face, 0, 12, true,
-      true, true, 5)
-  else
-    VRFW.face_icon.request(A, inst, face, CharacterReforged.hyper_card.CHR_MESH, CharacterReforged.hyper_card.CHR_SLOT)
-  end
+  -- VRFW.face_icon shows the mesh once the texture has loaded, so the cleared slot's white fill never shows.
+  VRFW.face_icon.forget(A, inst, CharacterReforged.hyper_card.CHR_MESH)
+  VRFW.face_icon.face(A, inst, face, CharacterReforged.hyper_card.CHR_MESH, CharacterReforged.hyper_card.CHR_SLOT,
+    has and {art = 12} or nil)
   CharacterReforged.hyper_card.log("partner", tostring(A), tostring(face), tostring(has))
   return true
 end
 
 CharacterReforged.hyper_card.FACE_BY_TYPE = {[0] = {2449339029, 1051570875, 8}, [1] = {2449339029, 1051570875, 8},
   [2] = {478320441, 3237726902, 12}, [3] = {2449339029, 1051570875, 14}}
-function CharacterReforged.hyper_card.portrait(A, skill, fusion, mc, ctx, inst)
+-- Draws the portrait of an aura card; with `rules.partner_frame` an aura's own face takes the partner's frame (mesh, size, crop).
+function CharacterReforged.hyper_card.portrait(A, skill, fusion, mc, ctx, inst, rules)
   inst = inst or 0
   funcLuaMenuCommand(3405944500, A, CharacterReforged.hyper_card.FS_MESH, false, inst)
   funcLuaMenuCommand(3405944500, A, CharacterReforged.hyper_card.CHR_MESH, false, inst)
@@ -2299,8 +2297,13 @@ function CharacterReforged.hyper_card.portrait(A, skill, fusion, mc, ctx, inst)
   local face = t ~= nil and CharacterReforged.hyper_card.FACE_BY_TYPE[t] or nil
   local okc, cid = funcLuaCommand(CharacterReforged.hyper_card.SKILL_INFO, skill, 17)
   if okc and cid ~= nil and cid ~= 0 and face ~= nil then
-    funcLuaMenuCommand(3405944500, A, face[1], true, inst)
-    funcLuaMenuCommand(346643487 --[[SwapLayerFaceIconTex]], A, inst, face[1], face[2], cid, 0, face[3], true, true, true, 5)
+    local mesh, slot = face[1], face[2]
+    if rules ~= nil and rules.partner_frame then
+      mesh, slot = CharacterReforged.hyper_card.CHR_MESH, CharacterReforged.hyper_card.CHR_SLOT
+    end
+    -- VRFW.face_icon shows the mesh once the texture has loaded.
+    VRFW.face_icon.forget(A, inst, mesh)
+    VRFW.face_icon.face(A, inst, cid, mesh, slot, {art = face[3]})
     return cid
   end
   return nil
@@ -2373,6 +2376,54 @@ function CharacterReforged.hyper_card.steps(cost, scale)
     return 0
   end
   return math.min(10, math.max(1, math.floor(cost / scale * 10 + 0.5)))
+end
+-- The «Armadura» badge of a keshin card: the retail framed badge _gtxt_cmd_armed01 on its own layer, centred on the
+-- bottom edge of the card's band.
+CharacterReforged.hyper_card.ARMOUR_BADGE = 1206374040              -- _gtxt_cmd_armed01
+CharacterReforged.hyper_card.ARMOUR_BADGE_K = 0.8                   -- size factor on the retail 120 x 48 badge
+CharacterReforged.hyper_card.EXIST_LAYER = 262659071                -- (layer) -> layer declared on this menu
+
+-- Returns the armour `chara` can wear with keshin `skill` (0 = none or not a keshin), from the mod's armour data.
+function CharacterReforged.hyper_card.keshin_armour(skill, chara)
+  if CharacterReforged.hyper_card.aura_type(skill) ~= 0 or chara == nil or chara == 0 then
+    return 0
+  end
+  local ok, armour = pcall(funcLuaCommand, CALC_CRC("CMND_CHARACTERREFORGED_KESHIN_HYPER_ARMOUR"), chara, skill)
+  return (ok and type(armour) == "number") and armour or 0
+end
+
+-- Shows the badge on rules.layer when `chara` can wear an armour with keshin `skill`, else hides it.
+-- rules.band = {x, top, w, h} of the card's band in the badge layer's frame; rules.scale (default 1) and rules.prio
+-- (draw priority, optional). Returns the badge point {x, y} when shown, else nil.
+function CharacterReforged.hyper_card.armour_mark(skill, chara, rules)
+  local T = rules.layer
+  if T == nil or funcLuaMenuCommand(CharacterReforged.hyper_card.EXIST_LAYER, T) ~= true then
+    return nil
+  end
+  local armour = CharacterReforged.hyper_card.keshin_armour(skill, chara)
+  local open = funcLuaMenuCommand(2640875187, T, 0)
+  if armour == 0 then
+    if open then
+      funcLuaMenuCommand(711242136, T, 0, false)
+    end
+    return nil
+  end
+  if not open then
+    funcLuaMenuCommand(629267548, T, 0)
+  end
+  local b, s = rules.band, rules.scale or 1
+  local at = {b[1] + b[3] * s / 2, b[2] - b[4] * s}
+  local k = s * CharacterReforged.hyper_card.ARMOUR_BADGE_K
+  funcLuaMenuCommand(3405944500, T, CharacterReforged.hyper_card.ARMOUR_BADGE, true, 0)
+  funcLuaMenuCommand(3778714801, T, k, k, 1, 0)
+  funcLuaMenuCommand(1389957207, T, at[1], at[2], 0, 0)
+  if rules.prio ~= nil then
+    pcall(funcLuaMenuCommand, 1491630496, T, 0, rules.prio, true)
+  end
+  funcLuaMenuCommand(711242136, T, 0, true)
+  CharacterReforged.hyper_card.log("armour badge", string.format("%08X", skill or 0), tostring(armour),
+    string.format("%.1f", at[1]), string.format("%.1f", at[2]))
+  return at
 end
 -- ===== EVT hiper_card END =====
 end
@@ -2519,6 +2570,9 @@ function PL.hiper_aura(skill, team_info)
   return true
 end
 
+-- The «Armadura» badge layer and the keshin card's band _fs_base01 in this screen's layout (cr_team00_30_detail).
+PL.ARMOUR_MARK = {layer = 1033927205 --[[cr_ph_armour_tag]], band = {-275, 200, 930, 88}}
+
 function PL.hiper_card(skill)
   local t = CharacterReforged.hyper_card.aura_type(skill)
   local A = t ~= nil and PL.AURA_LAYER[t] or nil
@@ -2533,6 +2587,9 @@ function PL.hiper_card(skill)
   local okp, ep = pcall(CharacterReforged.hyper_card.portrait, A, skill, nil, mc, "skill_panel", 0)
   if not okp then
     pcall(Call, C.LOG, "skill_slots", "portrait failed", tostring(ep))
+  end
+  if t == 0 then
+    pcall(CharacterReforged.hyper_card.armour_mark, skill, n, PL.ARMOUR_MARK)
   end
   local d = ""
   funcLuaMenuCommand(2735666188 --[[text visible]], A, 2956552560 --[[_text_flavor02]], false, 0)
@@ -3169,7 +3226,7 @@ end
 local L_PV_PANEL = 3303957920
 local L_PV_ROW = 811691761
 local L_BLACKBG = 3801549073
-local L_BTN_ICON = 1221220500      -- an unused button layer, kept hidden (setting layer)
+local L_BTN_ICON = 1221220500      -- the idol button (Character Reforged hero style button)
 local L_BTN_SS = 2729134238          -- "Pasiva personalizada" button
 local SET_PREVIEW_ROWS = 9                              -- panel rows = row-layer instances 0..8
 local BG_COUNT = 2                             -- 2 stacked cmn02_01_blackbg dims
@@ -3273,9 +3330,9 @@ local function SkillSlotLock()
   return not PL.has_service("six_sense"), 0, nil
 end
 
--- The signature passive cannot be changed.
-function PL.signature()
-  local ok, passive = pcall(funcLuaCommand, 1144239916, n)
+-- The own passive cannot be changed.
+function PL.own_passive()
+  local ok, passive = pcall(funcLuaCommand, 2777885667, n)
   if ok and type(passive) == "number" then
     return to_u32(passive)
   end
@@ -3284,7 +3341,7 @@ end
 
 local function SkillSlotButtonRefresh()
   local _, item = SkillSlotGet()
-  item = PL.signature() or item
+  item = PL.own_passive() or item
   ButtonIcon(ROW_ICON_SKILL_SLOT, SkillSlotIcon(item))
   local locked = SkillSlotLock()
   funcLuaMenuCommand(C.LAYER_VISIBLE, L_PV_ROW, ROW_ICON_SKILL_SLOT, not character_reforged_pv_open)
@@ -3295,17 +3352,17 @@ end
 
 -- Shows the info card while the six-sense button has the focus.
 local function SkillSlotInfo()
-  local signature = PL.signature()
-  if signature ~= nil then                        -- read only: the own passive's detail, or nothing without one
+  local own_passive = PL.own_passive()
+  if own_passive ~= nil then                        -- read only: the own passive's detail, or nothing without one
     local shown = false
-    if signature ~= 0 and PL.passive_detail ~= nil then
+    if own_passive ~= 0 and PL.passive_detail ~= nil then
       local parts = type(CharacterReforged) == "table" and CharacterReforged.parts or nil
       local passive_display = type(parts) == "table" and parts.passive_display or nil
-      local display = type(passive_display) == "table" and passive_display.of(n, signature) or nil
+      local display = type(passive_display) == "table" and passive_display.of(n, own_passive) or nil
       if type(display) == "table" then
-        shown = pcall(PL.passive_detail, display.name, display.effect, signature, display.effect)
+        shown = pcall(PL.passive_detail, display.name, display.effect, own_passive, display.effect)
       else
-        shown = pcall(PL.passive_detail, "", "", signature)
+        shown = pcall(PL.passive_detail, "", "", own_passive)
       end
     end
     SetVisibleEquipInfoWindow(false)
@@ -3313,7 +3370,7 @@ local function SkillSlotInfo()
       pcall(CharacterReforged.skill_table_detail_hide)
     end
     funcLuaMenuCommand(C.TEXT, 3078308064 --[[mainmenu90_05_content_guide_line01]], 378156699 --[[_text_guide01]],
-      PL.txt(signature ~= 0 and PL.TX.SIG_GUIDE or PL.TX.SIG_NONE), 0)
+      PL.txt(own_passive ~= 0 and PL.TX.SIG_GUIDE or PL.TX.SIG_NONE), 0)
     return
   end
   local _, item = SkillSlotGet()
@@ -3346,7 +3403,9 @@ local function SkillSlotInfo()
   funcLuaMenuCommand(C.TEXT, 3078308064 --[[mainmenu90_05_content_guide_line01]], 378156699 --[[_text_guide01]], guide, 0)
 end
 
+--- Advanced: Namespace: mouse pointer tracker for menus; holds new().
 VRFW.pointer = VRFW.pointer or {}
+--- Advanced: Creates a mouse pointer tracker; answers a table with zone setters (rect, box, inst), position, at, poll and reset.
 VRFW.pointer.new = VRFW.pointer.new or function()
   local P = {zones = {}, on = false, x = nil, y = nil, hot = nil, prev = {}, edge_t = 0, REPEAT = 10}
   local MOVED, POS, GPOS, CHECK, CTRL = 3272825600, 558229292, 4002164178, 4265778440, 1332654303
@@ -3599,8 +3658,7 @@ local COMMAND_FCS_NEXT = 2734193315
 
 local SetPreviewPrevSetupLayer = OnSetupLayer
 function OnSetupLayer(a1, a2)
-  if a1 == L_BTN_ICON then
-    funcLuaMenuCommand(C.LAYER_VISIBLE, a1, a2, false)
+  if a1 == L_BTN_ICON then                       -- drawn by the idol button file
     return
   elseif a1 == L_BTN_SS then
     funcLuaMenuCommand(C.TEXT, a1, 625330766 --[[_text_cmd01]], "", a2)
@@ -3644,8 +3702,7 @@ end
 
 local SetPreviewPrevOpenLayer = OnOpenLayer
 function OnOpenLayer(a1, a2)
-  if a1 == L_BTN_ICON then
-    funcLuaMenuCommand(C.LAYER_VISIBLE, a1, a2, false)
+  if a1 == L_BTN_ICON then                       -- drawn by the idol button file
     return
   elseif a1 == L_BTN_SS then
     funcLuaMenuCommand(3781155141, a1, a2, 2734777837 --[[Focus]], 2, 973515837 --[[button]])
@@ -3695,7 +3752,7 @@ end
 -- "Eliminar" on the six-sense button takes the item off
 local SetPreviewPrevFunction = OnFunction
 function OnFunction(a1, a2)
-  if a1 == 4109882573 and character_reforged_focus_layer == L_BTN_SS and vrfw_co == nil and PL.signature() == nil then
+  if a1 == 4109882573 and character_reforged_focus_layer == L_BTN_SS and vrfw_co == nil and PL.own_passive() == nil then
     local _, item = SkillSlotGet()
     if item ~= 0 then
       SetPreviewCall(8065085, n, 1, 0, -1)
@@ -4496,9 +4553,10 @@ function PL.set_face(L, k, kit)
   local param = funcLuaCommand(C.CHARA_GET, n, 4) or 0
   local key = funcLuaCommand(C.CHARA_GET, n, 1) or 0
   local okk, keeper = pcall(MENU_DEF.IsKeeper, param)
-  VRFW.face_icon.request(L, k, {handle = n, kind = 255, chara = key}, PL.MESH_AREA, PL.SLOT_AREA,
+  -- VRFW.face_icon shows the face mesh once its texture has loaded.
+  VRFW.face_icon.forget(L, k, PL.MESH_AREA)
+  VRFW.face_icon.face(L, k, {handle = n, kind = 255, chara = key}, PL.MESH_AREA, PL.SLOT_AREA,
     {kit = kit or 0, keeper = okk and keeper == true})
-  funcLuaMenuCommand(C.MESH_VISIBLE, L, PL.MESH_AREA, true, k)
 end
 
 function PL.set_row_draw(k, e, selected)
@@ -5600,7 +5658,7 @@ function PL.ss_list(list, init)
 end
 
 function CharacterReforged.skill_slot_pick_coroutine()
-  if PL.signature() ~= nil then                  -- Signature Passives: read only (the detail shows on focus)
+  if PL.own_passive() ~= nil then                  -- Own Passives: read only (the detail shows on focus)
     funcLuaCommand(C.SE, SE_NG)
     pcall(SkillSlotInfo)
     return
@@ -5834,8 +5892,8 @@ function PL.mx_clear()
   funcLuaCommand(C.SE, SE_REMOVE)
 end
 
-PL.MX_CREATE = 2771212752              -- "Crear miximax" (Character Reforged's create item, never equipped)
-PL.MX_FUSION = 2450842569                     -- the fusion aura (the Hiper slot holds it)
+PL.MX_CREATE = 2771212752  -- "Crear miximax" (Character Reforged's create item, never equipped)
+PL.MX_FUSION = 2450842569                         -- the fusion aura (the Hiper slot holds it)
 PL.MX_KEY_DEL = 99760714            -- pick block: Eliminar on a list entry
 PL.MX_KEY_PRIME = 2900901523          -- pick block: "Crear miximax" greyed (Prime base)
 PL.MX_KEY_BASE = 1847499704            -- pick block: the base player's handle
@@ -6572,18 +6630,12 @@ function PL.mx_detail(f, team_info)
   local face = f.face or f.chara
   if face ~= nil and face ~= 0 then
     pcall(PL.face_reset, A)
-    funcLuaMenuCommand(C.MESH_VISIBLE, A, 478320441 --[[_icon_chr_dmy01]], true, 0)
-    -- Mirrors retail UpdateMixiMaxDetailInfo.
+    -- Mirrors retail UpdateMixiMaxDetailInfo; VRFW.face_icon shows the mesh once the texture has loaded.
     pcall(funcLuaCommand, 2996279796, "skill_panel", face)   -- the partner on purpose (module appearance)
     local has = funcLuaMenuCommand(2208175668, face)
-    local r
     VRFW.face_icon.forget(A, 0)                     -- drawn again on every fill: the retail fill may change the mesh
-    if has then
-      r = funcLuaMenuCommand(346643487 --[[SwapLayerFaceIconTex]], A, 0, 478320441, 3237726902 --[[icon_chr_dmy01]],
-        face, 0, 12, true, true, true, 5)
-    else
-      r = VRFW.face_icon.face(A, 0, face, 478320441 --[[_icon_chr_dmy01]], 3237726902 --[[icon_chr_dmy01]])
-    end
+    local r = VRFW.face_icon.face(A, 0, face, 478320441 --[[_icon_chr_dmy01]], 3237726902 --[[icon_chr_dmy01]],
+      has and {art = 12} or nil)
     r = tostring(has) .. "/" .. tostring(r)
     pcall(Call, C.LOG, "skill_slots", "miximax portrait", "chara", tostring(f.chara), "face key", tostring(face),
       "param", string.format("%08X", f.partner or 0), tostring(r))
@@ -6843,6 +6895,8 @@ PL.HS_ROW = {BASE1 = 970690259 --[[_item_list_base01]], BASE2 = 2583835390 --[[_
   TOTEM_SHORT = 3938180986 --[[crc32(character_reforged_hs_totem_short)]],
   PAD1 = "", PAD2 = "", CUT = 14,
   POS1 = 1307475940 --[[_pos_list01]], TEXT_SHIFT1 = 57, TEXT_SHIFT2 = 38,
+  -- A half's lock: node _pos_lock01 of instance 0 of its plate layer (plate origin 9 right of the row's), its padlock drawn over the half's portrait centre at the technique rows' height (the mix half SHIFT2 further right).
+  BADGE_LOCK = {-50, -6},
   BASE_X = -283, FOCUS_X = -286,
   -- Portrait layout.
   FACE_SIZE = 54, FACE_Y = 27, AURA_FACE_X = -7, MIX_FACE_X = -26,
@@ -6871,6 +6925,10 @@ PL.HS_ROW = {BASE1 = 970690259 --[[_item_list_base01]], BASE2 = 2583835390 --[[_
 -- Makes one row again (a level-locked Hiper row, never split).
 function PL.hs_unsplit_row()
   local R, L = PL.HS_ROW, L_ROW
+  -- The halves' own locks go off (the whole row shows the row lock).
+  for half = 0, 1 do
+    pcall(PL.hs_lock_badge, half, 0)
+  end
   funcLuaMenuCommand(R.SCALE, L, 0, R.BASE1, R.BASE1_SIZE[1], R.BASE1_SIZE[2])
   funcLuaMenuCommand(R.SCALE, L, 0, R.FOCUS1, R.FOCUS_SIZE[1], R.FOCUS_SIZE[2])
   funcLuaMenuCommand(C.MESH_VISIBLE, L, R.FOCUS1, true, 0)
@@ -6941,10 +6999,41 @@ function PL.hs_short_name(name)
   return name
 end
 
+-- The learn level each Hiper half still needs (0 aura, 1 mix; 0 = open) and the badge each half waits to draw again.
+PL.hs_half_need = {[0] = 0, [1] = 0}
+PL.hs_lock_wait = {[0] = false, [1] = false}
+
+-- Shows half `half`'s lock with learn level `need` inside (0 = off): the technique rows' own padlock, on instance 0 of that half's plate layer drawn over the list row.
+function PL.hs_lock_badge(half, need)
+  local P, R = PL.RP, PL.HS_ROW
+  local L = half == 1 and P.MIX_LOCK or P.L
+  local want = P.LAYERS[L]
+  need = tonumber(need) or 0
+  PL.hs_half_need[half], PL.hs_lock_wait[half] = need, false
+  if P == nil or not P.ON or type(VRFW.ui_plates) ~= "table" or not funcLuaMenuCommand(262659071, L) then
+    return
+  end
+  if need <= 0 then
+    if want[0] then
+      want[0] = false
+      pcall(PL.row_plate_sync)
+    end
+    return
+  end
+  local fresh = funcLuaMenuCommand(2640875187, L, 0) ~= true
+  PL.open(L, 0)
+  local x = R.BADGE_LOCK[1] + (half == 1 and R.SHIFT2 or 0)
+  local ok = VRFW.ui_plates.move_plate.lock_badge(L, 0, need, x, R.BADGE_LOCK[2])
+  -- A plate instance opened or still loading takes its parts again on a later Step.
+  PL.hs_lock_wait[half] = fresh or funcLuaMenuCommand(3057768039, L) == true
+  want[0] = ok == true
+  pcall(PL.row_plate_sync)
+end
+
 -- Splits the Hiper row (instance 0).
 function PL.hs_split_row()
   local R, L = PL.HS_ROW, L_ROW
-  local aura, mix = PL.shown_skill_set_slots()
+  local aura, mix, aura_need, mix_need = PL.shown_skill_set_slots()
   local mix_partner = mix ~= 0 and PL.hs_mix_partner(mix) or nil
   local function label(id, half)
     if id == 0 then
@@ -6956,6 +7045,14 @@ function PL.hs_split_row()
   end
   local tinted = PL.hs_plates_ready()
   PL.hs_plates_wait = not tinted
+  -- A half the player has not reached yet: its name greyed, its portrait under the lock with its learn level (PL.hs_lock_badge).
+  local function locked_label(id, half, need)
+    local t = label(id, half)
+    if need > 0 and t ~= "" then
+      t = PL.LOCK_COLOR .. t .. "[C]"
+    end
+    return t
+  end
   -- Moves the left set (the aura slot).
   funcLuaMenuCommand(R.TRANSLATE, L, 0, R.POS1, 0, -R.TEXT_SHIFT1)
   funcLuaMenuCommand(R.TRANSLATE, L, 0, R.BASE1, 0, R.BASE_X + R.TEXT_SHIFT1)
@@ -6971,8 +7068,9 @@ function PL.hs_split_row()
   funcLuaMenuCommand(C.MESH_VISIBLE, L, R.FOCUS1, PL.hs_half == 0, 0)
   funcLuaMenuCommand(2333948100 --[[text style]], L, 0, R.TEXT1, R.STYLE)
   funcLuaMenuCommand(R.SCALE, L, 0, R.TEXT1, R.TEXT1_SPLIT_W, R.TEXT1_BOX[2])
-  funcLuaMenuCommand(C.TEXT, L, R.TEXT1, label(aura, 0), 0)
+  funcLuaMenuCommand(C.TEXT, L, R.TEXT1, locked_label(aura, 0, aura_need), 0)
   funcLuaMenuCommand(C.TEXT_ALPHA, L, 0, R.TEXT1, 1)
+  pcall(PL.hs_lock_badge, 0, aura_need)
   PL.hs_face(R.ICON1, R.ICON_SLOT1, R.AURA_FACE_X, aura ~= 0 and function(L1, m, s)
     return PL.aura_portrait(L1, 0, m, s, aura)
   end or nil, string.format("%s:%08X", tostring(n), to_u32(aura)))
@@ -6995,8 +7093,9 @@ function PL.hs_split_row()
   funcLuaMenuCommand(C.MESH_VISIBLE, L, R.FOCUS2, PL.hs_half == 1, 0)
   funcLuaMenuCommand(2333948100 --[[text style]], L, 0, R.TEXT2, R.STYLE)
   funcLuaMenuCommand(R.SCALE, L, 0, R.TEXT2, R.TEXT2_SPLIT_W, R.TEXT2_BOX[2])
-  funcLuaMenuCommand(C.TEXT, L, R.TEXT2, label(mix, 1), 0)
+  funcLuaMenuCommand(C.TEXT, L, R.TEXT2, locked_label(mix, 1, mix_need), 0)
   funcLuaMenuCommand(C.TEXT_ALPHA, L, 0, R.TEXT2, 1)
+  pcall(PL.hs_lock_badge, 1, mix_need)
   PL.hs_face(R.ICON2, R.ICON_SLOT2, R.MIX_FACE_X, mix ~= 0 and function(L1, m, s)
     if mix_partner == nil then
       return false
@@ -7018,34 +7117,39 @@ function PL.hs_face(mesh, slot, x, draw, key)
   funcLuaMenuCommand(R.TRANSLATE, L, 0, mesh, 1, R.FACE_Y)
   funcLuaMenuCommand(R.SCALE, L, 0, mesh, R.FACE_SIZE, R.FACE_SIZE)
   if draw ~= nil and key ~= nil and PL.hs_faces and PL.hs_face_key[slot] == key then
-    funcLuaMenuCommand(C.MESH_VISIBLE, L, mesh, true, 0)   -- the row refresh hid the icon mesh: the same portrait again
+    -- The row refresh hid the icon mesh: the same portrait shows again once its texture has loaded.
+    if not VRFW.face_icon.loading(L, 0, mesh) then
+      funcLuaMenuCommand(C.MESH_VISIBLE, L, mesh, true, 0)
+    end
     return
   end
   PL.hs_face_key[slot] = nil
+  VRFW.face_icon.forget(L, 0, mesh)
   funcLuaMenuCommand(R.RESET_FACE, L, 0, slot)
   if draw == nil then
     funcLuaMenuCommand(C.MESH_VISIBLE, L, mesh, false, 0)
     return
   end
   PL.hs_faces = true
+  -- VRFW.face_icon.face keeps the mesh hidden while the new texture loads, so the reset slot's white fill never shows.
   local okd, drawn = pcall(draw, L, mesh, slot)
-  if not (okd and drawn == true) then
-    funcLuaMenuCommand(R.RESET_FACE, L, 0, slot)
+  if not (okd and drawn) then
+    VRFW.face_icon.forget(L, 0, mesh)
     okd, drawn = pcall(PL.owner_face, L, 0, mesh, slot)
   end
-  local shown = okd and drawn == true
-  funcLuaMenuCommand(C.MESH_VISIBLE, L, mesh, shown, 0)
-  if shown then
+  if okd and drawn then
     PL.hs_face_key[slot] = key
+  else
+    funcLuaMenuCommand(C.MESH_VISIBLE, L, mesh, false, 0)
   end
 end
 
--- Draws a character's list face icon (VRFW.face_icon, as the bank and dock lists draw it) on (mesh, slot).
+-- Draws a character's list face icon (VRFW.face_icon, as the bank and dock lists draw it) on (mesh, slot); returns "drawn", "loading" or false.
 function PL.list_face(L, idx, mesh, slot, key)
   if type(key) ~= "number" or key == 0 then
     return false
   end
-  return VRFW.face_icon.request(L, idx, key, mesh, slot)
+  return VRFW.face_icon.face(L, idx, key, mesh, slot)
 end
 
 -- Draws the shown player's own face icon on (mesh, slot).
@@ -7056,11 +7160,11 @@ function PL.owner_face(L, idx, mesh, slot)
   end
   local param = funcLuaCommand(C.CHARA_GET, n, 4) or 0
   local okk, keeper = pcall(MENU_DEF.IsKeeper, param)
-  return VRFW.face_icon.request(L, idx, {handle = n, kind = 255, chara = key}, mesh, slot,
+  return VRFW.face_icon.face(L, idx, {handle = n, kind = 255, chara = key}, mesh, slot,
     {kit = 0, keeper = okk and keeper == true})
 end
 
--- Draws an aura skill's portrait on (mesh, slot) by the retail aura windows' rule.
+-- Draws an aura skill's portrait on (mesh, slot) by the retail aura windows' rule; returns "drawn", "loading" or false.
 function PL.aura_portrait(L, idx, mesh, slot, skill)
   local ok, cid = funcLuaCommand(C.SKILL_INFO, skill, 17)
   if not ok or type(cid) ~= "number" or cid == 0 then
@@ -7074,9 +7178,7 @@ function PL.aura_portrait(L, idx, mesh, slot, skill)
   if art == nil then
     return PL.list_face(L, idx, mesh, slot, cid)
   end
-  local okr, r = pcall(funcLuaMenuCommand, 346643487 --[[SwapLayerFaceIconTex]], L, idx, mesh, slot, cid, 0, art, true,
-    true, true, 5)
-  return okr and r ~= false
+  return VRFW.face_icon.face(L, idx, cid, mesh, slot, {art = art})
 end
 
 function PL.hs_mix_partner(mix)
@@ -7092,6 +7194,11 @@ function PL.hs_mix_partner(mix)
     if okm and m ~= nil and (m.face or 0) ~= 0 then
       return {face = m.face, name = m.name}
     end
+  end
+  -- A fusion or mode change carrier has no partner of its own: the stored record above is its only partner.
+  local okc, _, _, carrier = pcall(funcLuaCommand, PL.HS_CMD.SLOT_OF, mix)
+  if okc and type(carrier) == "number" and carrier ~= 0 then
+    return nil
   end
   local ok, cid = funcLuaCommand(C.SKILL_INFO, mix, 17)
   if ok and type(cid) == "number" and cid ~= 0 then
@@ -7145,6 +7252,19 @@ function CharacterReforgedSkillTablePickCoroutine(row)
   if not ok then
     error(err, 0)
   end
+end
+
+-- Confirm on a level-locked half of the Hiper row is refused with the retail cannot sound, as on a locked technique row.
+PL.hs_prev_decide = OnDecideFocus
+function OnDecideFocus(a1, a2)
+  if vrfw_co == nil and a1 == L_ROW and a2 == 0 then
+    pcall(PL.hs_pointer_pick)
+    if (PL.hs_half_need[PL.hs_half] or 0) > 0 then
+      funcLuaCommand(C.SE, SE_NG)
+      return
+    end
+  end
+  return PL.hs_prev_decide(a1, a2)
 end
 
 -- Sets the selected half (Left or Right on the Hiper row, R3).
@@ -7474,6 +7594,12 @@ PL.hs_prev_step = Step
 function Step(...)
   local r = PL.hs_prev_step ~= nil and PL.hs_prev_step(...) or nil
   pcall(PL.hs_poll_r3)
+  for half = 0, 1 do
+    local L = half == 1 and PL.RP.MIX_LOCK or PL.RP.L
+    if PL.hs_lock_wait[half] and funcLuaMenuCommand(3057768039, L) ~= true then
+      pcall(PL.hs_lock_badge, half, PL.hs_half_need[half])
+    end
+  end
   if PL.hs_plates_wait and PL.hs_plates_ready() then   -- the tinted plates came in: redraw the split row
     PL.hs_plates_wait = false
     if not CharacterReforged.skill_table_is_locked(0) then
@@ -7544,7 +7670,7 @@ function PL.row_has_focus()
   if not PL.ctrl_focus(L_ROW) then
     return false
   end
-  for _, b in ipairs({L_BTN, L_BTN_SS, PL.L_BTN_ROLE}) do
+  for _, b in ipairs({L_BTN, L_BTN_SS, PL.L_BTN_ROLE, L_BTN_ICON}) do
     if PL.ctrl_focus(b) then
       return false
     end
@@ -7598,7 +7724,12 @@ PL.RP = {
   -- The plate's own parts, sprites and states.
   IS_OPEN = 2640875187, IS_VISIBLE = 1262717583,
   want = {},
+  -- The mix half's lock: the same plate on its own layer, instance r on list row r (only instance 0, the Hiper row, is drawn).
+  MIX_LOCK = 4262169076 --[[character_reforged_ss_mix_lock]],
+  mix_lock_want = {},
 }
+-- Each plate layer of the rows and the table of the instances it wants shown.
+PL.RP.LAYERS = {[PL.RP.L] = PL.RP.want, [PL.RP.MIX_LOCK] = PL.RP.mix_lock_want}
 
 function PL.row_plate(r, skill, locked, need, fixed, inactive)
   local P = PL.RP
@@ -7628,14 +7759,15 @@ function PL.row_plate_sync(step)
   if type(VRFW.ui_plates) == "table" then
     VRFW.ui_plates.move_plate.pump(step)
   end
-  if not funcLuaMenuCommand(262659071, P.L) then
-    return
-  end
-  for r = 0, ROW_NUM - 1 do
-    if funcLuaMenuCommand(P.IS_OPEN, P.L, r) then
-      local v = P.want[r] == true and funcLuaMenuCommand(P.IS_VISIBLE, L_ROW, r) == true
-      if (funcLuaMenuCommand(P.IS_VISIBLE, P.L, r) == true) ~= v then
-        funcLuaMenuCommand(C.LAYER_VISIBLE, P.L, r, v)
+  for L, want in pairs(P.LAYERS) do
+    if funcLuaMenuCommand(262659071, L) then
+      for r = 0, ROW_NUM - 1 do
+        if funcLuaMenuCommand(P.IS_OPEN, L, r) then
+          local v = want[r] == true and funcLuaMenuCommand(P.IS_VISIBLE, L_ROW, r) == true
+          if (funcLuaMenuCommand(P.IS_VISIBLE, L, r) == true) ~= v then
+            funcLuaMenuCommand(C.LAYER_VISIBLE, L, r, v)
+          end
+        end
       end
     end
   end
@@ -7668,7 +7800,7 @@ end
 
 PL.rp_prev_setup_layer = OnSetupLayer
 function OnSetupLayer(a1, a2)
-  if a1 == PL.RP.L then
+  if PL.RP.LAYERS[a1] ~= nil then
     funcLuaMenuCommand(Priority, a1, a2, PL.RP.PRIO, true)
     funcLuaMenuCommand(C.LAYER_VISIBLE, a1, a2, false)
     return
@@ -7699,7 +7831,7 @@ end
 
 PL.rp_prev_open_layer = OnOpenLayer
 function OnOpenLayer(a1, a2)
-  if a1 == PL.RP.L then
+  if PL.RP.LAYERS[a1] ~= nil then
     funcLuaMenuCommand(C.LAYER_VISIBLE, a1, a2, false)   -- PL.row_plate_sync shows it (next Step)
     return
   elseif a1 == PL.L_CPK_LIST or a1 == PL.L_CPK_ROW or a1 == PL.L_CPK_ARROW then
@@ -7713,9 +7845,6 @@ PL.rp_prev_step = Step
 function Step(...)
   local r = PL.rp_prev_step ~= nil and PL.rp_prev_step(...) or nil
   pcall(PL.row_plate_sync, true)
-  if VRFW.face_icon ~= nil and VRFW.face_icon.pending() then
-    VRFW.face_icon.settle()
-  end
   return r
 end
 -- ===== Move plate rows + own list layers END =====
@@ -7732,11 +7861,12 @@ end
 function PL.skill_set_projection()
   return CharacterReforged.player_sets.skill_set_projection(n)
 end
+-- Returns the aura and mix the two Hiper halves show and the learn level each half still needs (0 = open; CharacterReforged.move_rows.with_locked).
 function PL.shown_skill_set_slots()
   local own, mix = PL.row_move(0), PL.hs_mix()
   local okp, proj = pcall(PL.skill_set_projection)
   if not okp or proj == nil then
-    return own, mix
+    return own, mix, 0, 0
   end
   local aura = own
   local kind = own ~= 0 and PL.hs_kind(own) or nil
@@ -7746,7 +7876,8 @@ function PL.shown_skill_set_slots()
   if mix == 0 then
     mix = proj.mix
   end
-  return aura, mix
+  local shown = CharacterReforged.move_rows.with_locked(funcLuaCommand, n, {aura = aura, mix = mix})
+  return shown.aura, shown.mix, shown.aura_need, shown.mix_need
 end
 
 PL.proj_prev_equip = CharacterReforged.skill_table_equip
@@ -7845,7 +7976,7 @@ function OnInit(...)
 end
 -- ===== unlimited copies END =====
 
--- ===== Fantasy slot fallbacks ===== An equip, reset or removal on a half also takes that half's list / board
+-- ===== Reforged slot fallbacks ===== An equip, reset or removal on a half also takes that half's list / board
 
 
 -- Returns the board slots holding a fallback of `half`.
@@ -7915,7 +8046,7 @@ function PL.fallback_reset_coroutine(row)
   end
   return PL.fb_prev_reset(row)
 end
--- ===== Fantasy slot fallbacks END =====
+-- ===== Reforged slot fallbacks END =====
 
 -- ===== Hiper row
 PL.HALF_CMD_DEFAULT = 2076075108

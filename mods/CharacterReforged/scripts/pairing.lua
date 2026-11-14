@@ -211,7 +211,7 @@ function A.BoardPlace(hdl, slot, inv)
 end
 
 -- the rules are read again after a hot reload of the mods' files
-VRFW.on("game_reset", function()
+VRFW.on("game:reset", function()
   RULES = nil
   DECLARATIONS = nil
   CHARA_OF_PARAM = {}

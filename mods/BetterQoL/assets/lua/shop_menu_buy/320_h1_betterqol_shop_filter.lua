@@ -121,6 +121,11 @@ function BetterQoL.shop_filter.open(slot, inv)
   BetterQoL.shop_filter.param(BetterQoL.shop_filter.KEY_MENU, BetterQoL.shop_filter.SHOP)
   BetterQoL.shop_filter.param(BetterQoL.shop_filter.KEY_INV, inv)
   BetterQoL.shop_filter.log("open", slot, inv)
+  -- the mods' filter sections learn this tab's inventory type and that the shop's list has no player
+  pcall(funcLuaCommand, 2721607605, inv)
+  if VRFW ~= nil and VRFW.item_filter_sections ~= nil then
+    VRFW.item_filter_sections.tell(BetterQoL.shop_filter.SHOP, "context", 0)
+  end
   funcLuaCommand(433545986 --[[CMND_OPEN_MENU_OBJECT]], BetterQoL.shop_filter.MENU)
   local n = 0
   while n < BetterQoL.shop_filter.WAIT and funcLuaCommand(3693934564 --[[CMND_IS_OPEN_MENU_OBJECT]], BetterQoL.shop_filter.MENU, BetterQoL.shop_filter.WIN) ~= true do
@@ -149,7 +154,12 @@ function BetterQoL.shop_filter.open(slot, inv)
 end
 
 function BetterQoL.shop_filter.apply(slot, inv, params)
-  local flat = BetterQoL.shop_filter.flat(params)
+  -- the game's test takes the game's rows; the mods' filter sections get theirs for this tab's inventory type
+  local sections = VRFW ~= nil and VRFW.item_filter_sections or nil
+  local flat = BetterQoL.shop_filter.flat(sections ~= nil and sections.saved(params) or params)
+  if sections ~= nil then
+    sections.send("list", BetterQoL.shop_filter.SHOP, params, inv)
+  end
   local ok, live = pcall(funcLuaCommand, BetterQoL.shop_filter.CMD_SET, slot, inv, table.unpack(flat))
   BetterQoL.shop_filter.log("apply", slot, inv, #params, ok and live)
   if not ok or live ~= true then
@@ -186,6 +196,9 @@ function BetterQoL.shop_filter.resume(...)
 end
 
 function BetterQoL.shop_filter.reset()
+  if VRFW ~= nil and VRFW.item_filter_sections ~= nil then
+    VRFW.item_filter_sections.send("list", BetterQoL.shop_filter.SHOP, {})
+  end
   local ok, live, n = pcall(funcLuaCommand, BetterQoL.shop_filter.CMD_RESET)
   BetterQoL.shop_filter.LIVE = ok and live == true
   return ok and n or 0

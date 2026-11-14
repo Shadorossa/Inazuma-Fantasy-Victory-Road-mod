@@ -2,6 +2,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.rival_players/1"
 folder = "content/rival_players"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Team.RivalPlayer"
+v2_kind_folder = "Teams/RivalPlayers"
+v2_version = 1
 label = "Rival players"
 label_es = "Jugadores rivales"
 doc = "Passives, stats and training of the rival players in the matches that fit a rule."

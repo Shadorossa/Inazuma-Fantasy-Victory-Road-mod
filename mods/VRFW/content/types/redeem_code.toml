@@ -2,6 +2,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.redeem_code/1"
 folder = "content/redeem_codes"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Shop.RedeemCode"
+v2_kind_folder = "Shop/RedeemCodes"
+v2_version = 1
 label = "Redeem codes"
 label_es = "Códigos de canje"
 doc = "Codes typed in the mailbox's password entry that give items once per save."

@@ -1,0 +1,166 @@
+schema = "VRFW.migration/1"
+id = "CharacterReforged.passives_and_equipment_in_base"
+description = "Passives & Synergies and Equipment are part of Character Reforged: their option row, config, registry numbers and list entries move"
+phase = "data"
+after = ["VRFW.no_compat_names", "CharacterReforged.module_merges", "CharacterReforged.team_keshin_summons_in_base"]
+
+# the own passive row keeps its value
+[[step]]
+kind = "rename_option_row"
+from = "PassivesSynergies.own_passives"
+to = "CharacterReforged.own_passives"
+if_target = "keep_target"
+
+# the player's tuned Equipment rules: moved key by key under the base's [equipment] section
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "mods.Equipment.stats"
+to = "mods.CharacterReforged.equipment.stats"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "mods.Equipment.scale"
+to = "mods.CharacterReforged.equipment.scale"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "mods.Equipment.drops"
+to = "mods.CharacterReforged.equipment.drops"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "mods.Equipment.mod_shops"
+to = "mods.CharacterReforged.equipment.mod_shops"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "mods.Equipment.shape"
+to = "mods.CharacterReforged.equipment.shape"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "mods.Equipment.penalty"
+to = "mods.CharacterReforged.equipment.penalty"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "mods.Equipment.names"
+to = "mods.CharacterReforged.equipment.names"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "mods.Equipment.sets"
+to = "mods.CharacterReforged.equipment.sets"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "Equipment.stats"
+to = "CharacterReforged.equipment.stats"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "Equipment.scale"
+to = "CharacterReforged.equipment.scale"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "Equipment.drops"
+to = "CharacterReforged.equipment.drops"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "Equipment.mod_shops"
+to = "CharacterReforged.equipment.mod_shops"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "Equipment.shape"
+to = "CharacterReforged.equipment.shape"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "Equipment.penalty"
+to = "CharacterReforged.equipment.penalty"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "Equipment.names"
+to = "CharacterReforged.equipment.names"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_save_key"
+file = "{data}/config.toml"
+from = "Equipment.sets"
+to = "CharacterReforged.equipment.sets"
+if_target = "keep_target"
+
+# the base is not a module: no list entry follows them
+[[step]]
+kind = "remove_from_mod_lists"
+id = "PassivesSynergies"
+
+[[step]]
+kind = "remove_from_mod_lists"
+id = "Equipment"
+
+# what is left: the save folders, every PassivesSynergies.* / Equipment.* registry key and save id map entry (numbers kept)
+[[step]]
+kind = "rename_mod_id"
+from = "PassivesSynergies"
+to = "CharacterReforged"
+if_target = "keep_target"
+
+[[step]]
+kind = "rename_mod_id"
+from = "Equipment"
+to = "CharacterReforged"
+if_target = "keep_target"
+
+[[step]]
+kind = "delete_key"
+file = "{state}/changelog_seen.json"
+key = "mods.PassivesSynergies"
+
+[[step]]
+kind = "delete_key"
+file = "{state}/changelog_seen.json"
+key = "mods.Equipment"
+
+# the module folders of the previous version would load as a second copy of the features
+[[step]]
+kind = "delete_folder"
+path = "{game}/mods/CharacterReforged/modules/PassivesSynergies"
+
+[[step]]
+kind = "delete_folder"
+path = "{game}/mods/CharacterReforged/modules/Equipment"

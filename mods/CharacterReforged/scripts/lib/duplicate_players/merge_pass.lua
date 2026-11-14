@@ -52,9 +52,11 @@ local function retirable(record)
 end
 MergePass.retirable = retirable
 
--- duplicates = the same chara_param id after the pass (a converted special card counts as its base card)
-local function final_card(record)
-  return record.converts_to or record.card
+-- duplicates = the same chara_param id at the same rarity after the pass (a converted special card counts as its base card): Ídolo, Basara and normal copies are different players
+local function final_copy(record, policy)
+  local card = record.converts_to or record.card
+  local card_rarity = record.converts_to ~= nil and 0 or record.special_rarity
+  return string.format("%010d:%02d", card, Rules.copy_rarity(policy, record.rarity, card_rarity))
 end
 
 local KEEP_TESTS = {
@@ -107,7 +109,7 @@ function MergePass.plan(records, policy, is_hidden)
           plan.rarity[#plan.rarity + 1] = { record.handle, record.card, record.rarity, record.character, record.converts_to }
         end
         if policy.one_card_per ~= nil or convert then
-          local key = final_card(record)
+          local key = final_copy(record, policy)
           local group = groups[key]
           if not group then
             group = {}
@@ -212,6 +214,7 @@ function MergePass.run(tree, facts, policy)
       if handle and handle ~= 0 then in_a_team[handle] = true end
     end
   end
+  VRFW.time.mark_step("pass: columns and teams")
   local converting = policy.convert_special_cards == true
   local records, index_of = {}, {}
   for i = 0, count - 1 do
@@ -230,7 +233,9 @@ function MergePass.run(tree, facts, policy)
     end
   end
   report.players = #records
+  VRFW.time.mark_step("pass: records")
   local plan = MergePass.plan(records, policy, is_hidden)
+  VRFW.time.mark_step("pass: plan")
   report.protected = #plan.protected
   for _, entry in ipairs(plan.raised) do
     report.lines[#report.lines + 1] = string.format("raised copy kept 0x%08X card 0x%08X at rarity %d: no duplicate of the card's other copies", entry[1], entry[2], entry[3])
@@ -603,7 +608,8 @@ function MergePass.run(tree, facts, policy)
   end
   if has_spirits then
     local permanent = T.unwrap(tree, "block18", "m_Permanent")
-    for _, list_name in ipairs(SPIRIT_LISTS) do
+    -- Only the spirits of hidden cards are cleared, so the lists are walked only when a card is hidden.
+    for _, list_name in ipairs(facts:has_hidden() and SPIRIT_LISTS or {}) do
       local spirit_list, spirit_total = T.array(tree, permanent, list_name)
       for k = 0, (spirit_total or 0) - 1 do
         local spirit = T.at(spirit_list, k)

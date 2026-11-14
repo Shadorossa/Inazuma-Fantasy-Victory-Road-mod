@@ -2,6 +2,9 @@
 schema = "VRFW.decl_schema/1"
 kind = "BetterQoL.passive_config/1"
 folder = "content/passive_config"
+# v2 words, read beside the v1 ones until the switch: the type and its kind folder.
+v2_type = "BetterQoL.Passive.Config"
+v2_kind_folder = "Passives/Configs"
 label = "Passive settings"
 label_es = "Ajustes de pasivas"
 

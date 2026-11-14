@@ -51,4 +51,4 @@ function Chronicle.Pieces()
 end
 
 pcall(load, true)
-VRFW.on("slot_load", function() pcall(load, true) end)
+VRFW.on("save:slot_load", function() pcall(load, true) end)

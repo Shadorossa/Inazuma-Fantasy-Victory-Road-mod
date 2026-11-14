@@ -1,0 +1,104 @@
+schema = "VRFW.character/2"
+default_lang = "en"
+
+# Lord Enma: midfielder, fire (his red robe and the flames of the Yo-kai king), on the retail tall c000301 skeleton, wearing his own outfit (content/looks/enma.toml; force_kit 1: no team kit replaces it).
+# Stats rolled once (seed 20261114) inside the range of the 12 midfielder cards of this mod: control and intelligence in their upper half, the rest in their lower half.
+[[character]]
+name = "enma"
+based_on = "c05029720"  # template: Luke Triton (own clothes, no kit)
+order = 205
+
+  [character.base]
+  id = 0x5DFBDF83  # crc32("c90670000")
+  name = "c90670000"
+  name_text = 0x3DF3D2B8  # crc32("c90670000_name")
+  short_name_text = 0xA392DE85  # crc32("c90670000_short")
+  upper_name_text = 0x42E591BB  # crc32("c90670000_upper")
+  description_text = 0xD31682FA  # crc32("c90670000_description")
+  model = 0xFB2F3CFE
+  # album only: not on any team, so Luke's belong team is cleared
+  team_1 = 0
+  team_2 = 0
+  team_3 = 0x5595D5FA  # crc32("evt_belong_team_fantasy"): the bank's Fantasy tab
+
+  [character.new_model]
+  id = 0xFB2F3CFE  # crc32("c90670000_model")
+  from = "c05029720"
+  [character.new_model.cells]
+  body = 0xB878A70C  # crc32("c90670000_body"), content/tables/common/gamedata/character/chara_model.toml
+  head_mesh_path = "_face/90_FANTASY/c90670000/c90670000.g4md"
+  clothes = 0x54BC985D  # crc32("u90670000_10"), his outfit, content/looks/enma.toml
+  skin_color = 0xC86652FF  # his red skin: the outfit's skin part draws the wearer's skin colour
+  shoes = 0
+  gloves = 0
+  force_kit = 1
+
+  [character.text.ja]
+  name = "エンマ"
+  short = "エンマ"
+  upper = "ENMA"
+  description = "[妖魔界/ようまかい]を[統/す]べる[大王/だいおう]。\n[若/わか]き[妖怪/ようかい]の[王/おう]。"
+
+  [character.text.en]
+  name = "Lord Enma"
+  short = "Lord Enma"
+  upper = "LORD ENMA"
+  description = "The great king who rules the Yo-kai\nworld, young lord of all Yo-kai."
+
+  [character.text.es]
+  name = "Lord Enma"
+  short = "Lord Enma"
+  upper = "LORD ENMA"
+  description = "El gran rey que gobierna el mundo\nyo-kai, joven señor de todos los yo-kai."
+
+  [character.text.fr]
+  name = "Lord Enma"
+  short = "Lord Enma"
+  upper = "LORD ENMA"
+  description = "Le grand roi qui règne sur le monde\nyo-kai, jeune seigneur de tous les yo-kai."
+
+  [character.text.de]
+  name = "Lord Enma"
+  short = "Lord Enma"
+  upper = "LORD ENMA"
+  description = "Der große König der Yo-kai-Welt,\njunger Herrscher aller Yo-kai."
+
+  [character.text.it]
+  name = "Lord Enma"
+  short = "Lord Enma"
+  upper = "LORD ENMA"
+  description = "Il grande re che governa il mondo\nyo-kai, giovane signore di tutti gli yo-kai."
+
+  [character.text.pt]
+  name = "Lord Enma"
+  short = "Lord Enma"
+  upper = "LORD ENMA"
+  description = "O grande rei que governa o mundo\nyo-kai, jovem senhor de todos os yo-kai."
+
+  [character.text.zh_hans]
+  name = "阎魔"
+  short = "阎魔"
+  upper = "ENMA"
+  description = "统治妖魔界的大王，\n年轻的妖怪之王。"
+
+  [character.text.zh_hant]
+  name = "閻魔"
+  short = "閻魔"
+  upper = "ENMA"
+  description = "統治妖魔界的大王，\n年輕的妖怪之王。"
+
+  [[character.cards]]
+  id = 0x75C4346D  # crc32("c90670000_card")
+  from = 0xEDB0B29D  # template: Luke Triton's card
+  order = 205
+  element = "fire"
+  position = "mf"
+  rank = 3
+  growth = "normal"
+  stats = { kick = 250, control = 266, technique = 248, pressure = 192, physical = 177, intelligence = 281, agility = 161, luck = 202, freedom = 0 }
+  moves = [
+    { move = "who00770", level = 1 },                     # Pyroclastic (dribble, fire, 360)
+    { move = "whs01660", level = 20 },                    # Supernatural Strike (shot, fire, 440)
+    { move = "who01230", level = 38 },                    # Magmire (dribble, fire, 540)
+    { move = "whs03270", level = 60 },                    # Last Resort (shot, fire, 640)
+  ]

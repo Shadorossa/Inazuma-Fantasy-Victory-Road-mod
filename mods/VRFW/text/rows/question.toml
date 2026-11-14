@@ -1,4 +1,4 @@
-# VRFW.question.list (assets\lua\menu\_all\93_question.lua): a list of names in the game's language.
+# VRFW.question.list (assets\lua\menu\_all\93_question.lua): a list of names in the game's language, cut to a number of lines.
 schema = "VRFW.text/2"
 table = "menu_text"
 
@@ -25,3 +25,15 @@ pt = "%s e %s"
 ja = "%s、%s"
 zh_hans = "%s和%s"
 zh_hant = "%s和%s"
+
+[[row]]
+id = "VRFW.Text.ListMore"
+es = "… y %s más"
+en = "… and %s more"
+fr = "… et %s de plus"
+de = "… und %s weitere"
+it = "… e altri %s"
+pt = "… e mais %s"
+ja = "…ほか%s件"
+zh_hans = "…等另外%s项"
+zh_hant = "…等另外%s項"

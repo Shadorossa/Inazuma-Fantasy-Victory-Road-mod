@@ -42,6 +42,7 @@ if VRFW.emblem_grid == nil then
     LABEL_HIDE_NODES = {"_pos_base02", "_pos_leader01", "_pos_ai_role01", "_num_chr_l01", "_num_chr_l02",
       "_pos_gauge_exp_l01"},
   }
+  --- Advanced: Namespace of the emblem grid: the selectable grid of emblem tiles and its input handling.
   VRFW.emblem_grid = EG
 
   local function crc(s)
@@ -61,14 +62,23 @@ if VRFW.emblem_grid == nil then
     return false
   end
 
+  --- Advanced: True while key `name` of EG.KEYS (up, down, left, right, enter, back, click, ...) is down on the menu controller.
+  function EG.key_down(name)
+    return EG.KEYS[name] ~= nil and In(EG.KEYS[name])
+  end
+
+  --- Internal: pad button masks per action name (up, down, left, right, enter, back, shoulders, triggers).
   EG.PAD = {up = {0x10}, down = {0x40}, left = {0x80}, right = {0x20}, enter = {0x4000}, back = {0x2000, 0x1},
             all = {0x1000}, l1 = {0x400}, r1 = {0x800}, l2 = {0x100}, r2 = {0x200}}
+  --- Internal: keyboard virtual-key codes per action name, matching the pad actions.
   EG.VK = {up = {0x26}, down = {0x28}, left = {0x25}, right = {0x27}, enter = {0x0D}, back = {0x1B, 0x08},
            l1 = {0x21}, r1 = {0x22}, l2 = {0x51}, r2 = {0x45}}
+  --- Internal: command hash of VRFW_INPUT_PAD.
   EG.C.PAD = VRFW.commands.VRFW_INPUT_PAD
+  --- Internal: command hash of VRFW_INPUT_KEY.
   EG.C.KEY = VRFW.commands.VRFW_INPUT_KEY
 
-  --- Shows only the plate of tile (layer, k): the other plates, the badges and the lock are hidden.
+  --- Internal: Shows only the plate of tile (layer, k): the other plates, the badges and the lock are hidden.
   function EG.dress_tile(layer, k)
     VRFW.host.menu_command(EG.C.NODE_VISIBLE, layer, crc("_pos_enjoy_list01"), true, k)
     for _, m in ipairs(EG.TILE_HIDE_NODES) do
@@ -80,12 +90,12 @@ if VRFW.emblem_grid == nil then
     VRFW.host.menu_command(EG.C.MESH_VISIBLE, layer, crc(EG.PLATE), true, k)
   end
 
-  --- Shows or hides the cursor outline of tile (layer, k).
+  --- Internal: Shows or hides the cursor outline of tile (layer, k).
   function EG.highlight_tile(layer, k, on)
     VRFW.host.menu_command(EG.C.MESH_VISIBLE, layer, crc(EG.OUTLINE), on, k)
   end
 
-  --- Shows or hides the check mark of tile (layer, k).
+  --- Internal: Shows or hides the check mark of tile (layer, k).
   function EG.mark_tile(layer, k, on)
     VRFW.host.menu_command(EG.C.MESH_VISIBLE, layer, crc(EG.CHECK), on, k)
   end
@@ -121,7 +131,7 @@ if VRFW.emblem_grid == nil then
     return false
   end
 
-  --- A new emblem grid for options o.
+  --- Advanced: A new emblem grid for options o.
   function EG.new(o)
     local g = setmetatable({}, G)
     g.tile, g.label = o.tile, o.label
@@ -196,6 +206,9 @@ if VRFW.emblem_grid == nil then
     return n
   end
 
+  --- Advanced: Display width of text s in average glyphs (a CJK / full-width glyph = 2).
+  EG.glyph_units = GlyphUnits
+
   -- s cut to at most `units` glyph units, CUT_MARK included
   local function CutToUnits(s, units)
     local out, n = {}, GlyphUnits(EG.CUT_MARK)
@@ -210,9 +223,9 @@ if VRFW.emblem_grid == nil then
     return (table.concat(out):gsub("%s+$", "")) .. EG.CUT_MARK
   end
 
-  --- Fits a label to its tile: answers text, x scale, y scale.
-  function G:fit_name(s)
-    local room = math.max(EG.LABEL_W, self.px - EG.LABEL_GAP)
+  --- Internal: Fits name s into `room` px: answers text, x scale, y scale.
+  function EG.fit_label(s, room)
+    room = math.max(EG.LABEL_W, room)
     local width = GlyphUnits(s) * EG.GLYPH_W
     if width <= 0 or width <= EG.LABEL_W then
       return s, 1, 1
@@ -227,30 +240,35 @@ if VRFW.emblem_grid == nil then
     return s, sy / squeeze, sy
   end
 
-  --- Draws label j at (x, y) with text s and fit `fit`.
-  function G:draw_label(j, x, y, s, fit)
-    local L = self.label
-    if L == nil or not self.label_ok then
-      return
-    end
+  --- Fits a label to its tile: answers text, x scale, y scale.
+  function G:fit_name(s)
+    return EG.fit_label(s, self.px - EG.LABEL_GAP)
+  end
+
+  --- Advanced: Label instance j of layer L (a vrfw_tile_label layer) shows text s centred at (x, y) (layer space, y up), its
+  --- text `scale` times the label size, fitted into `room` px when given; s nil hides it. `opened` (the caller's table)
+  --- remembers the instances already opened; `prio` = its draw priority (nil = the object's).
+  function EG.show_label(L, j, x, y, s, opened, room, prio, scale)
     if s == nil then
-      if self.lopened[j] then
+      if opened[j] then
         VRFW.host.menu_command(EG.C.LAYER_VISIBLE, L, j, false)
       end
       return
     end
-    if not self.lopened[j] then
+    if not opened[j] then
       VRFW.host.menu_command(EG.C.OPEN_LAYER, L, j)
-      self.lopened[j] = true
+      opened[j] = true
     end
     local sx, sy = 1, 1
-    if fit then
-      s, sx, sy = self:fit_name(s)
+    if room ~= nil then
+      s, sx, sy = EG.fit_label(s, room)
     end
+    scale = scale or 1
+    sx, sy = sx * scale, sy * scale
     VRFW.host.menu_command(EG.C.LOCAL_SCALE, L, sx, sy, 1, j)
     VRFW.host.menu_command(EG.C.LOCAL_POS, L, x, y + EG.LABEL_DY * sy, 0, j)
-    if self.prio then
-      VRFW.host.menu_command(EG.C.SET_PRIO, L, j, self.prio + 2)
+    if prio then
+      VRFW.host.menu_command(EG.C.SET_PRIO, L, j, prio)
     end
     VRFW.host.menu_command(EG.C.LAYER_VISIBLE, L, j, true)
     for _, m in ipairs(EG.LABEL_HIDE) do
@@ -261,6 +279,15 @@ if VRFW.emblem_grid == nil then
     end
     VRFW.host.menu_command(EG.C.TEXT_VISIBLE, L, EG.LABEL_TEXT, true, j)
     VRFW.host.menu_command(EG.C.SET_TEXT, L, EG.LABEL_TEXT, s, j)
+  end
+
+  --- Draws label j at (x, y) with text s and fit `fit`.
+  function G:draw_label(j, x, y, s, fit)
+    if self.label == nil or not self.label_ok then
+      return
+    end
+    EG.show_label(self.label, j, x, y, s, self.lopened, fit and (self.px - EG.LABEL_GAP) or nil,
+      self.prio and (self.prio + 2) or nil)
   end
 
   --- Tile k shows item d (1-based; nil = hidden).

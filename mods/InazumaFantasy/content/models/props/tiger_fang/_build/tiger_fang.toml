@@ -1,0 +1,23 @@
+# Colmillo del Tigre's tiger (tiger_fang.toml): Tiger Drive's tiger refitted to Beast Fang's skeleton, whose motion
+# packs the cut-in keeps. Built by _tools/model_builder.py (dev-only, never installed).
+recipe = "retail_refit"
+
+[rules]
+tiger = "ev60_00960"
+panther = "ev63_00300"
+model = "ev63_86020"
+model_folder = "models/props/tiger_fang"
+scale = 0.75
+tiger_hinge = [0.0, 1.703, 0.379]
+panther_pivot = [0.0, 0.0, -0.378]
+shift = [0.0, 0.15, 0.10]
+jaw_degrees = 35.0
+mouth_corner = [-0.16, 0.04]
+body_from = -0.75
+body_to = -1.25
+neck_front = -0.15
+neck_back = -0.85
+neck_top = -0.02
+neck_half_width = 0.62
+neck_sag = 0.08
+textures = ["10", "10line", "10nml", "10oc", "10sp", "10spm"]

@@ -1,0 +1,11 @@
+schema = "VRFW.technique_filter_tab/1"
+
+# The move filter window gets a series tab: one row per series that holds a technique, named by the game's series name,
+# and one row for the techniques that have no series. Its icon and symbol are the ones of the game's own series tab.
+[[VRFW.TechniqueFilterTab]]
+name = "series"
+rows = "series"
+text = "BetterQoL.filter_tab_series"
+none_text = "BetterQoL.filter_row_no_series"
+icon = "icon_list_tab_filter08"
+symbol = "filter_symbol08"

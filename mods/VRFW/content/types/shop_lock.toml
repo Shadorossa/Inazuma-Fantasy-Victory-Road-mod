@@ -2,6 +2,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.shop_lock/1"
 folder = "content/shop_locks"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Shop.Lock"
+v2_kind_folder = "Shop/Locks"
+v2_version = 1
 label = "Shop locks"
 label_es = "Bloqueos de tienda"
 doc = "Shops whose rows hidden by an unmet progress condition are shown as locked instead of left out."

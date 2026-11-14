@@ -1,0 +1,16 @@
+# Declaration schema of CharacterReforged.luck/1 (content\equipment): fields read from the records the mods ship. `vrfw check` validates the files with it and the ModManager draws their forms from it.
+schema = "VRFW.decl_schema/1"
+kind = "CharacterReforged.luck/1"
+folder = "content/equipment"
+# v2 words, read beside the v1 ones until the switch: the type and its kind folder.
+v2_type = "CharacterReforged.Equipment.Luck"
+v2_kind_folder = "Equipment/Lucks"
+label = "Equipment luck"
+label_es = "Suerte del equipamiento"
+doc = "The luck each equipment item gives, by the item key (a game item's key, or the icon key of a key_id item)."
+doc_es = "La suerte que da cada objeto de equipamiento, por la clave del objeto (la de un objeto del juego o la clave de icono de un objeto key_id)."
+
+[entry.Item]
+entry_table = "item"
+item = { type = "string", required = true }
+luck = { type = "number", required = true }

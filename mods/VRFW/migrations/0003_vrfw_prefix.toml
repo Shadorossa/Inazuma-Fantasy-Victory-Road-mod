@@ -30,8 +30,9 @@ from = "{game}/evt_loader"
 to = "{game}/vrfw_loader"
 if_target = "keep_target"
 
+# 4. The renamed old loader folders ModLoader 1.4 left in the game folder: folders `evt_loader.migrated`, `-2`, `-3`...
 [[step]]
-kind = "move_file"
-from = "{game}/evt_loader.migrated"
-to = "{game}/vrfw_loader.migrated"
+kind = "move_folder"
+from = "{game}/evt_loader.migrated*"
+to = "{game}/vrfw_loader.migrated*"
 if_target = "keep_target"

@@ -1,0 +1,9 @@
+schema = "VRFW.sound/1"
+
+# Eternal Punishment's match music (content\teams\punishment.toml `music`): MP3 decoded to 48 kHz stereo, ends trimmed,
+# loudness of the retail street-match music bg30030, the whole track loops (ClassicRecruitment friendly_music_build.py).
+
+[[music]]
+category = "match"
+name = "Bakuchi Dancer"
+file = "assets/sounds/music/inazumafantasy_bakuchi_dancer.hca"

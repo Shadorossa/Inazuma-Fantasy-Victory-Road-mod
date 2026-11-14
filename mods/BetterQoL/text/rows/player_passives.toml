@@ -1,0 +1,15 @@
+schema = "VRFW.text/2"
+table = "menu_text"
+
+# the title of the «Bonificaciones de equipo» page with each player's passives (L1 / R1 page row).
+[[row]]
+id = "betterqol_player_passives"
+es = "Pasivas de jugador"
+en = "Player Passives"
+fr = "Passifs de joueur"
+de = "Spieler-Passivfähigkeiten"
+it = "Abilità passive giocatore"
+pt = "Passivas de Jogador"
+ja = "選手パッシブ"
+zh_hans = "球员被动技能"
+zh_hant = "球員被動技能"

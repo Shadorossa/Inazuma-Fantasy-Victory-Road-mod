@@ -3,6 +3,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.match_training/1"
 folder = "content/match_training"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Match.Training"
+v2_kind_folder = "Match/Trainings"
+v2_version = 1
 label = "Match training"
 label_es = "Entrenamiento en partido"
 doc = "The level a side's players play at in the matches that fit the rule."

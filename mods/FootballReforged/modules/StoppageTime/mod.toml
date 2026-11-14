@@ -1,10 +1,11 @@
 id = "StoppageTime"
 # name / description: the English fallback; the card shows the text keys mod_name / mod_description (text\keys.toml)
 name = "Stoppage Time"
-version = "0.3.0"
+version = "0.3.1"
 author = "Fantasy Team"
 description = "Added time at the end of every half, as in real football: fouls, special moves, keeper scenes, goals and substitutions add seconds, rounded to whole minutes (1 to 5). A «+N» banner shows when regular time ends, and the half ends on the play once the added time runs out."
 priority = 0
+type = "gameplay"
 tags = ["Gameplay"]
 updated = "2026-11-09"
 # This mod's own names (Lua StoppageTime.X, command CMND_STOPPAGETIME_TELOP, layer stoppage_time_telop); never VRFW.

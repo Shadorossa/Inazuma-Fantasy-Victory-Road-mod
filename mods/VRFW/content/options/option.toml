@@ -38,3 +38,19 @@ values = [
 default = 0
 # First child of the custom style group; a child's order only places it among its siblings.
 order = 121
+
+# Background of the title screen and the save slot list. Mods add values with [[VRFW.TitleBackground]] (image type);
+# the value is read when the game starts. It has no parent row: the group above does not switch it.
+[[option]]
+id = "title_background"
+visual = true
+type = "list"
+label = "title_background"
+help = "title_background_help"
+values = [
+    { value = 0, name = "title_background_default", text = "Default" },
+]
+default = 0
+restart = true
+# After the custom style group and its children.
+order = 126

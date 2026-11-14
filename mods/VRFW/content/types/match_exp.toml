@@ -2,6 +2,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.match_exp/1"
 folder = "content/match_exp"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Match.Exp"
+v2_kind_folder = "Match/Exp"
+v2_version = 1
 label = "Match EXP"
 label_es = "EXP de partido"
 doc = "The EXP each player of the user's team gets after a match, set by the level gap to the rival and the match rank."

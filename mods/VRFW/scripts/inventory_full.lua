@@ -200,7 +200,7 @@ else
     return nil
   end)
 
-  VRFW.on("game_reset", function()
+  VRFW.on("game:reset", function()
     purchase = nil
     return nil
   end)

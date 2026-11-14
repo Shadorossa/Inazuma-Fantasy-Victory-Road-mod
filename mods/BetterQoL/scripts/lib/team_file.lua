@@ -73,8 +73,41 @@ local function character_name(param)
   return string.format("%08X", param)
 end
 
+-- The per-team records of a packed text (VRFW.team_loadout.pack): { [charaStHdl] = { [field key] = value } }.
+local function unpack_loadouts(text)
+  local out = {}
+  if type(text) ~= "string" then return out end
+  for entry in text:gmatch("[^\30]+") do
+    local h, record = entry:match("^(%x+)\31(.*)$")
+    local handle = h and tonumber(h, 16)
+    if handle then
+      local fields = {}
+      for line in record:gmatch("[^\n]+") do
+        local key, value = line:match("^([^=]+)=(.*)$")
+        if key then fields[key] = value end
+      end
+      if next(fields) ~= nil then out[handle] = fields end
+    end
+  end
+  return out
+end
+
+-- A member's per-team record as packed text (VRFW.team_loadout.unpack), keys in one order.
+local function pack_loadout(handle, fields)
+  local keys, lines = {}, {}
+  for key, value in pairs(fields) do
+    if type(key) == "string" and type(value) == "string" and not key:find("[=\n\30\31]") and not value:find("[\n\30\31]") then
+      keys[#keys + 1] = key
+    end
+  end
+  table.sort(keys)
+  for _, key in ipairs(keys) do lines[#lines + 1] = key .. "=" .. fields[key] end
+  if #lines == 0 then return nil end
+  return string.format("%08X", band(handle, 0xFFFFFFFF)) .. "\31" .. table.concat(lines, "\n")
+end
+
 -- The team `team` of the set `words` as a file table; nil when it has no member and no name.
-local function team_to_file(needed, words, team)
+local function team_to_file(needed, words, team, loadouts)
   local out = { index = team, member = {} }
   local slot_of_handle = {}
   for slot = 0, S.MEMBERS - 1 do
@@ -88,6 +121,7 @@ local function team_to_file(needed, words, team)
         chara.name = character_name(param)
         out.member[#out.member + 1] = {
           slot = slot, chara = chara, order = order, number = band(detail, 0xFFFF), position = band(rshift(detail, 16), 0xFF),
+          loadout = loadouts[handle],   -- what the player carries in this team (VRFW.team_loadout fields)
         }
         slot_of_handle[handle] = slot
       end
@@ -131,13 +165,14 @@ local function team_to_file(needed, words, team)
   return out
 end
 
--- CMND_BETTERQOL_TEAM_FILE_EXPORT (team set[, save ticket]) answers true, file and area (nil for a picked file), or false and why.
-function TeamFile.Export(set, ticket)
+-- CMND_BETTERQOL_TEAM_FILE_EXPORT (team set[, save ticket[, the members' team records, VRFW.team_loadout.pack]]) answers true, file and area (nil for a picked file), or false and why.
+function TeamFile.Export(set, ticket, loadouts)
   local words = BetterQoL.TeamTemplates.DockWords(set)
   if not words then return false, "the shown team cannot be read" end
   local needed, teams = {}, {}
+  local records = unpack_loadouts(loadouts)
   for team = 0, S.TEAMS - 1 do
-    teams[#teams + 1] = team_to_file(needed, words, team)
+    teams[#teams + 1] = team_to_file(needed, words, team, records)
   end
   if #teams == 0 then return false, "empty" end
   local name = teams[1].name
@@ -223,8 +258,9 @@ local function values_in_use()
   return in_use
 end
 
--- Writes file team `source` over team `team` of `words` -> members placed, names of the members the save does not own, fields kept.
-local function file_to_team(read, source, words, team, owned, in_use)
+-- Writes file team `source` over team `team` of `words` -> members placed, names of the members the save does not own, fields kept;
+-- the team records of the placed members go to `loadouts` (packed texts).
+local function file_to_team(read, source, words, team, owned, in_use, loadouts)
   local placed, skipped, kept = 0, {}, 0
   local function put(offset, value) words[word_at(team, offset)] = value end
   for slot = 0, S.MEMBERS - 1 do
@@ -253,12 +289,15 @@ local function file_to_team(read, source, words, team, owned, in_use)
         words[at + RECORD.HANDLE] = chosen.handle
         words[at + RECORD.NUMBER_POSITION] = bor(band(int(member.number, 0), 0xFFFF), lshift(band(int(source.positions[slot + 1], 0), 0xFF), 16))
         placed = placed + 1
+        local packed = type(member.loadout) == "table" and pack_loadout(chosen.handle, member.loadout) or nil
+        if packed then loadouts[#loadouts + 1] = packed end
         if slot == int(source.captain, -1) then
           put(FIELD.CAPTAIN_CHARACTER, param)
           put(FIELD.CAPTAIN_HANDLE, chosen.handle)
         end
       else
-        skipped[#skipped + 1] = type(member.chara) == "table" and type(member.chara.name) == "string" and member.chara.name or "?"
+        local name = type(member.chara) == "table" and type(member.chara.name) == "string" and member.chara.name or "?"
+        skipped[#skipped + 1] = { card = param, name = name }
       end
     end
   end
@@ -295,7 +334,35 @@ local function file_to_team(read, source, words, team, owned, in_use)
   return placed, skipped, kept
 end
 
--- CMND_BETTERQOL_TEAM_FILE_APPLY (index, team set[, open ticket]) answers true, members placed, members skipped, their names and fields kept, or false and why.
+-- The names the game shows for the skipped members `skipped`, each character once, in the order of the file.
+local function shown_names(skipped)
+  local cards, seen = {}, {}
+  for _, member in ipairs(skipped) do
+    local key = member.card ~= 0 and member.card or member.name
+    if not seen[key] then
+      seen[key] = true
+      cards[#cards + 1] = member
+    end
+  end
+  local list = {}
+  for _, member in ipairs(cards) do
+    if member.card ~= 0 then list[#list + 1] = member.card end
+  end
+  local okl, lang = pcall(VRFW.files.game_language)
+  if not okl or type(lang) ~= "string" or lang == "" then lang = VRFW.names.language(nil) end
+  local okn, by_card = pcall(VRFW.names.shown_card_names, list, lang)
+  if not okn then info("skipped members' names not read: " .. tostring(by_card)) end
+  by_card = okn and type(by_card) == "table" and by_card or {}
+  local out = {}
+  for _, member in ipairs(cards) do
+    local name = by_card[member.card]
+    out[#out + 1] = (type(name) == "string" and name ~= "") and name or member.name
+  end
+  return out
+end
+
+-- CMND_BETTERQOL_TEAM_FILE_APPLY (index, team set[, open ticket]) answers true, members placed, members skipped, the list of their shown names (each once), fields kept
+-- and the placed members' team records (VRFW.team_loadout.pack), or false and why.
 function TeamFile.Apply(index, set, ticket)
   local read, why = read_file(index, ticket)
   if not read then return false, tostring(why) end
@@ -312,19 +379,21 @@ function TeamFile.Apply(index, set, ticket)
   if not current then return false, "the shown team cannot be read" end
   local words = S.copy_words(current)
   local owned, in_use = owned_players(), values_in_use()
-  local placed, skipped, kept = 0, {}, 0
+  local placed, skipped, kept, loadouts = 0, {}, 0, {}
   for _, source in ipairs(body.teams) do
     local team = int(type(source) == "table" and source.index, -1)
     if team >= 0 and team < S.TEAMS then
-      local team_placed, team_skipped, team_kept = file_to_team(read, source, words, team, owned, in_use)
+      local team_placed, team_skipped, team_kept = file_to_team(read, source, words, team, owned, in_use, loadouts)
       placed, kept = placed + team_placed, kept + team_kept
-      for _, name in ipairs(team_skipped) do skipped[#skipped + 1] = name end
+      for _, member in ipairs(team_skipped) do skipped[#skipped + 1] = member end
     end
   end
   S.recount(words, 0)
   local ok, write_why = BetterQoL.TeamTemplates.WriteDock(set, words)
   if not ok then return false, tostring(write_why) end
+  local skipped_ids = {}
+  for k, member in ipairs(skipped) do skipped_ids[k] = member.name end
   info(string.format("import %s into team set %s: %d member(s) placed, %d not owned [%s], %d field(s) kept", read.file,
-    tostring(set), placed, #skipped, table.concat(skipped, ", "), kept))
-  return true, placed, #skipped, table.concat(skipped, ", "), kept
+    tostring(set), placed, #skipped, table.concat(skipped_ids, ", "), kept))
+  return true, placed, #skipped, shown_names(skipped), kept, table.concat(loadouts, "\30")
 end

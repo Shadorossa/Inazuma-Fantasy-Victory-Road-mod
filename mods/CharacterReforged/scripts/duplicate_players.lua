@@ -43,7 +43,7 @@ function CharacterReforged.DuplicatePolicy()
   return Rules.load()
 end
 
-VRFW.on("slot_copy", function(event)
+VRFW.on("save:slot_copy", function(event)
   deliver_reports()
   local from, to = event.from, event.to
   local policy = Rules.load()
@@ -111,20 +111,28 @@ local function backup_once(slot)
   return { done = true, where = tostring(where) }
 end
 
-VRFW.on("slot_load", function(event)
+VRFW.on("save:slot_load", function(event)
   deliver_reports()
   local slot = event.slot
   if not event.has_data or not is_player_slot(slot) then return nil end
   local policy = Rules.load()
   if #policy.names == 0 or not policy.apply_on_load then return nil end
+  -- A load keeps the duplicates a save holds unless the one-card rule itself asks to merge them on load.
+  if not policy.merge_on_load then policy.one_card_per = nil end
+  -- the game already holds this save (it applied it) and the slot is not writable: the pass runs at the next load of this slot
+  if event.after_load then return nil end
   local tree, why = T.open(slot)
+  VRFW.time.mark_step("save read")
   if not tree then
     warn("LOAD slot " .. slot .. ": the save could not be read (" .. tostring(why) .. "): the slot loads as it is")
     return nil
   end
   local ok, report, outcome = pcall(function()
-    return MergePass.run(tree, CardFacts.load(policy), policy)
+    local facts = CardFacts.load(policy)
+    VRFW.time.mark_step("card facts")
+    return MergePass.run(tree, facts, policy)
   end)
+  VRFW.time.mark_step("pass end")
   if not ok then
     warn("LOAD slot " .. slot .. ": the duplicate rules could not be applied (" .. tostring(report) .. "): the slot loads as it is")
     return nil
@@ -135,10 +143,6 @@ VRFW.on("slot_load", function(event)
   end
   local counts = report.to_normal_rarity .. " normal cards to rarity " .. tostring(policy.normal_card_rarity) .. ", "
     .. report.duplicates_merged .. " duplicates merged, " .. report.hidden_released .. " hidden cards released"
-  if event.after_load then
-    log("LOAD slot " .. slot .. " (the save read at boot, not writable): waiting for the next load of this slot: " .. counts)
-    return nil
-  end
   local backup = backup_once(slot)
   if backup.done and not backup.earlier then
     log("LOAD slot " .. slot .. ": backup of the save before the duplicate rules -> " .. backup.where)
@@ -183,13 +187,13 @@ function CharacterReforged.OneCardPerPlayer()
   return one_card_rule and slot > 0 and is_player_slot(slot) and 1 or 0
 end
 
-local raised_copy_policy = nil            -- the merged duplicate policy, read once
+local copy_policy = nil                  -- the merged duplicate policy, read once
 
--- 1 while a club copy saved at `rarity` of a card whose own rarity is `card_rarity` is a raised copy in the loaded save, else 0.
-function CharacterReforged.RaisedCopyRarity(rarity, card_rarity)
-  if type(rarity) ~= "number" or type(card_rarity) ~= "number" then return 0 end
-  if raised_copy_policy == nil then raised_copy_policy = Rules.load() end
+-- The rarity a club copy saved at `rarity` of a card of special rarity `card_rarity` (chara_param col 41) holds in the loaded save: the rarity that, with the card, names one player.
+function CharacterReforged.CopyRarity(rarity, card_rarity)
+  if type(rarity) ~= "number" or type(card_rarity) ~= "number" then return rarity end
+  if copy_policy == nil then copy_policy = Rules.load() end
   local slot = VRFW.slots.ready() and VRFW.slots.active() or 0
-  if slot <= 0 or not is_player_slot(slot) then return 0 end
-  return Rules.is_raised_copy(raised_copy_policy, rarity, card_rarity) and 1 or 0
+  if slot <= 0 or not is_player_slot(slot) then return rarity end
+  return Rules.copy_rarity(copy_policy, rarity, card_rarity)
 end

@@ -3,9 +3,10 @@ VRFW = VRFW or {}
 if VRFW.menu == nil then
   local H = { COUNT = 1063911870, ENTRY = 2768609349, HIDDEN = 3842910571 }
 
+  --- Advanced: Table of the menu engine; holds the host table H and the menu entry helpers.
   VRFW.menu = { H = H }
 
-  --- The menu entries registered for `host`; an empty table when there are none.
+  --- Advanced: The menu entries registered for `host`; an empty table when there are none.
   function VRFW.menu.entries(host)
     local out = {}
     local n = VRFW.host.command(H.COUNT, host)
@@ -20,13 +21,13 @@ if VRFW.menu == nil then
     return out
   end
 
-  --- True when entry `key` of `host` is hidden.
+  --- Internal: True when entry `key` of `host` is hidden.
   function VRFW.menu.hidden(host, key)
     local h = VRFW.host.command(H.HIDDEN, host, key)
     return h == true
   end
 
-  --- Runs a menu entry (a Lua global or a menu to open); answers true when it ran, false otherwise.
+  --- Internal: Runs a menu entry (a Lua global or a menu to open); answers true when it ran, false otherwise.
   function VRFW.menu.run(e, open_menu)
     if e == nil then return false end
     if e.kind == "lua" then

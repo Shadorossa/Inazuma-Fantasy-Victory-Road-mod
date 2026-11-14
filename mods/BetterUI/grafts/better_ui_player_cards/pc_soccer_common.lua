@@ -1,46 +1,111 @@
 BetterUI = type(BetterUI) == "table" and BetterUI or {}
 local BETTER_UI_SIGNATURE = "BETTER_UI_GRAFT"
 
-if BetterUI.preset == nil then
-  BetterUI.preset = "limpio"
-end
 BetterUI.flags = BetterUI.flags or {}
-for k, v in pairs({ bank_sort_guide = true, buff_icons = true, buff_panel = false, compact_cards = true, corner_buttons = true, duel_telop = true, enemy_meters = true, esc_guide = true, exec_offset = true, header_short = true, nickname_pill = true, team_param_guide = true, zone_exec = false, zone_hud = true }) do
+for k, v in pairs({ bank_sort_guide = true, buff_icons = true, compact_cards = true, corner_buttons = true, enemy_meters = true, esc_guide = true, header_short = true, nickname_pill = true, team_param_guide = true, zone_hud = true }) do
   if BetterUI.flags[k] == nil then
     BetterUI.flags[k] = v
   end
 end
 
-@UI_WRAP@
+local function UiOn(flag)
+  return BetterUI.flags[flag] == true
+end
+
+local function Pack(...)
+  return { n = select("#", ...), ... }
+end
+
+-- Logs at most 30 UI messages.
+local log_count = 0
+local function UiLog(...)
+  if log_count >= 30 then
+    return
+  end
+  log_count = log_count + 1
+  local parts = {}
+  for i = 1, select("#", ...) do
+    parts[#parts + 1] = tostring((select(i, ...)))
+  end
+  if type(funcLuaCommand) == "function" then
+    VRFW.host.command(@crc:CMND_VRFW_LOG_DEBUG@, "BetterUI @TAG@ " .. table.concat(parts, " "))
+  end
+end
+
+-- Runs filter(call, id, ...) on every funcLuaMenuCommand of this VM as an innermost VRFW.host command hook, so the
+-- other hooks run outside it; call(id, ...) passes the same command on and runs another one on the function under
+-- every hook; a nil answer passes the command on.
+local function UiHookMenuCommand(filter)
+  local function register(host)
+    local real = host.real_menu_command
+    host.hook_command("*", function(nxt, id, ...)
+      local function call(command, ...)
+        if command == id then
+          return nxt(command, ...)
+        end
+        return real(command, ...)
+      end
+      local r = filter(call, id, ...)
+      if r ~= nil then
+        return table.unpack(r, 1, r.n)
+      end
+      return nxt(id, ...)
+    end, "BetterUI.@TAG@", { menu = true, priority = host.INNERMOST })
+  end
+  if type(VRFW) == "table" and type(VRFW.host) == "table" and type(VRFW.host.hook_command) == "function" then
+    register(VRFW.host)
+  else
+    -- The menu chunk runs before the Lua patch files: BetterUI's lua/_all/better_ui.lua registers the queue after VRFW's.
+    BetterUI.command_hooks = BetterUI.command_hooks or {}
+    BetterUI.command_hooks[#BetterUI.command_hooks + 1] = register
+  end
+end
+
+-- Wraps a menu callback (OnSetupLayer, OnOpenLayer, ...) that the chunk already defined: `after` runs after it.
+local function UiWrapCallback(name, after)
+  local orig = rawget(_ENV, name)
+  if type(orig) ~= "function" then
+    return false
+  end
+  rawset(_ENV, name, function(...)
+    local r = Pack(orig(...))
+    local ok, err = pcall(after, ...)
+    if not ok then
+      UiLog("error", name, err)
+    end
+    return table.unpack(r, 1, r.n)
+  end)
+  return true
+end
 
 BetterUI.flags.compact_cards = true
 -- soccer_common
 local PC_CMD_CARD_HDL = 3837561292      -- chara card by chara status handle (native 0xCC2590)
 local PC_CMD_CARD_PARAM = 2339877830    -- chara card by chara param id (native 0xCC2080)
-local PC_CMD_CARD_TABLE = 2329292196    -- chara card from a table {layerName, layerIdx, ...} (0xCC0BF0)
+local PC_CMD_CARD_TABLE = @crc:CMND_SPECIFY_CONTENT_BAR@    -- chara card from a table {layerName, layerIdx, ...} (0xCC0BF0)
 local PC_CMD_LEADER_SOCCER = 1000031904 -- leader card by soccer chara handle
-local PC_CMD_LEADER_TEAM = 3550249130   -- leader card of the team
+local PC_CMD_LEADER_TEAM = @crc:CMND_DELETE_RESULT_PHASE_GET@   -- leader card of the team
 local PC_CMD_PRIM_VISIBLE = 1233047821  -- (layer, idx, prim, visible)
-local PC_CMD_MESH_VISIBLE = 3405944500  -- (layer, mesh, visible, idx)
+local PC_CMD_MESH_VISIBLE = @crc:CMND_SET_MESH_VISIBLE@  -- (layer, mesh, visible, idx)
 local PC_CMD_NODE_VISIBLE = 2158717427  -- (layer, node, visible, idx)
-local PC_CMD_TEXT_VISIBLE = 1505208242  -- CMND_SET_MENU_TEXT_VISIBLE (layer, text, visible, idx)
-local PC_CMD_PLAY_ANIME = 3781155141    -- CMND_PLAY_ANIME_TYPE (layer, idx, set, 0, type)
+local PC_CMD_TEXT_VISIBLE = @crc:CMND_SET_MENU_TEXT_VISIBLE@  -- CMND_SET_MENU_TEXT_VISIBLE (layer, text, visible, idx)
+local PC_CMD_PLAY_ANIME = @crc:CMND_PLAY_ANIME_TYPE@    -- CMND_PLAY_ANIME_TYPE (layer, idx, set, 0, type)
 local PC_CMD_ANIME_RESET = 1586300804   -- (layer, idx, set, 1, 0)
-local PC_CMD_MESH_POSE = 2373227714     -- CMND_GET_MESH_POSE (layer, idx, node) -> ok, x, y, z, ...
-local PC_CMD_LAYER_NUM = 1175615627     -- CMND_GET_CREATE_LAYER_NUM (layer) -> instance count
-local PC_TEXT_NAME = 170976702
-local PC_NODE_MARK = 1726289776
-local PC_NODE_MARK_PARENT = 3279539624
-local PC_LAYER_SOCCER = 1973487846
+local PC_CMD_MESH_POSE = @crc:CMND_GET_MESH_POSE@     -- CMND_GET_MESH_POSE (layer, idx, node) -> ok, x, y, z, ...
+local PC_CMD_LAYER_NUM = @crc:CMND_GET_CREATE_LAYER_NUM@     -- CMND_GET_CREATE_LAYER_NUM (layer) -> instance count
+local PC_TEXT_NAME = @crc:_text_chr01@
+local PC_NODE_MARK = @crc:_pos_atc_free02@
+local PC_NODE_MARK_PARENT = @crc:_pos_base02@
+local PC_LAYER_SOCCER = @crc:team00_01_chara_card_for_soccer@
 -- the formation layers of a formation screen (the menu-count fallback of the layout test)
 local PC_FORMATION_LAYERS = {
-  [1973487846] = true, [1658289671] = true,
-  [3241819447] = true
+  [@crc:team00_01_chara_card_for_soccer@] = true, [@crc:team00_01_chara_card_for_leader@] = true,
+  [@crc:team00_01_chara_card_for_move@] = true
 }
-local PC_LV_MESHES = {1343488901, 1198450632, 1451641049, 1107078292}
+local PC_LV_MESHES = {@crc:_gtxt_lv_l01@, @crc:_gtxt_lv_s01@, @crc:_num_chr_dmy_l01@, @crc:_num_chr_dmy_s01@}
 local PC_LV_PRIMS = {
-  3653219854, 3469038147, 3883528262, 97120277, 3238733729,
-  1687159846, 1202218120, 3594422447, 3957043376, 1031695061
+  @crc:num_chr_l01@, @crc:num_chr_s01@, @crc:num_chr_l01_q@, @crc:num_chr_s01_q@, @crc:num_chr_l01_gray@,
+  @crc:num_chr_s01_gray@, @crc:num_chr_l01_cup@, @crc:num_chr_s01_cup@, @crc:num_chr_l01_basara@, @crc:num_chr_s01_basara@
 }
 local PC_HIDDEN_MESH = {}
 for _, v in ipairs(PC_LV_MESHES) do

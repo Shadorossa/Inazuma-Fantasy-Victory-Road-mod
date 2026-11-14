@@ -1,3 +1,4 @@
+--- Advanced: Library of seeded random and placement helpers for teams.
 
 local C = {}
 
@@ -7,11 +8,13 @@ local TWO32 = 4294967296
 C.POS_GK, C.POS_FW, C.POS_MF, C.POS_DF = 1, 2, 3, 4
 
 local Id = VRFW.ids
+--- Internal: Normalises an id to an unsigned 32-bit number.
 C.u32 = Id.unsigned
 
+--- Internal: Formats an id as hex text.
 C.hex = Id.hex_text
 
---- a seed argument (a game Lua number: up to 2^53, possibly negative) as two u32 halves
+--- Internal: a seed argument (a game Lua number: up to 2^53, possibly negative) as two u32 halves
 function C.split(v)
   if type(v) ~= "number" or v ~= v then
     return 0, 0
@@ -20,7 +23,7 @@ function C.split(v)
   return C.u32(floor(v / TWO32)), C.u32(v)
 end
 
---- The framework's seeded generator (VRFW.random); `words` = seed parts (numbers), `stream` = 1 roster / 2 look.
+--- Internal: The framework's seeded generator (VRFW.random); `words` = seed parts (numbers), `stream` = 1 roster / 2 look.
 function C.rng(words, stream)
   local w = {}
   for i, x in ipairs(words) do w[i] = x end
@@ -28,7 +31,7 @@ function C.rng(words, stream)
   return VRFW.random("VRFW.random_team", w)
 end
 
---- a [min, max] pair from a number or a list (nil = none)
+--- Internal: a [min, max] pair from a number or a list (nil = none)
 function C.range(v)
   if type(v) == "number" then
     return { floor(v), floor(v) }
@@ -43,7 +46,7 @@ function C.range(v)
   return nil
 end
 
---- a set { [n] = true } from a number or a list of numbers (nil = none)
+--- Internal: a set { [n] = true } from a number or a list of numbers (nil = none)
 function C.number_set(v, conv)
   conv = conv or function(x)
     return type(x) == "number" and floor(x) or nil
@@ -65,7 +68,7 @@ function C.number_set(v, conv)
   return any and s or nil
 end
 
---- a weight table { ["key"] = w } with number-like keys: { [n] = w } (nil = none)
+--- Internal: a weight table { ["key"] = w } with number-like keys: { [n] = w } (nil = none)
 function C.weights(v)
   if type(v) ~= "table" then
     return nil
@@ -81,7 +84,7 @@ function C.weights(v)
   return any and out or nil
 end
 
---- The places of the roster: the starter classes, then the bench.
+--- Internal: The places of the roster: the starter classes, then the bench.
 function C.places(starter_classes, bench_rows, bench_keeper)
   local out = {}
   for k, cls in ipairs(starter_classes) do
@@ -100,7 +103,7 @@ function C.places(starter_classes, bench_rows, bench_keeper)
   return out
 end
 
---- Pick the roster.
+--- Internal: Pick the roster.
 function C.pick(opt)
   local rng = opt.rng
   local base = {}
@@ -202,7 +205,7 @@ function C.pick(opt)
   return { picks = picks, theme = theme, fallbacks = fallbacks }
 end
 
---- a formation placement's positionId as a card position class: 1 keeper, 2-3 defence, 4-7 midfield, else forward
+--- Internal: a formation placement's positionId as a card position class: 1 keeper, 2-3 defence, 4-7 midfield, else forward
 function C.placement_class(position_id)
   if position_id == 1 then
     return C.POS_GK

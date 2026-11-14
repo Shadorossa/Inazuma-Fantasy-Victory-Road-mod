@@ -6,15 +6,15 @@ BetterUI = type(BetterUI) == "table" and BetterUI or {}
 BetterUI.kickoff_button.SCALE = 0.72        -- size (retail 1.0)
 BetterUI.kickoff_button.CENTRE_Y = 150      -- plate centre height in the layout (_pos_btn01 y), kept when scaling
 
-local kickoff_button_layer = 1684251946 --[[soccer00_27_restart_button]]
-local kickoff_button_add = {3354808620 --[[_restart_btn_base_add01]], 1593770134 --[[_restart_btn_base_add02]]}
+local kickoff_button_layer = 1684251946
+local kickoff_button_add = {3354808620, 1593770134}
 local better_ui_ko_closing = false
 local better_ui_ko_idx = nil
 
 BetterUI.kickoff_button.FORMATION_GAP = 8              -- screen units between the two plates
 BetterUI.kickoff_button.FORMATION_SCALE = 1.0
-local kickoff_button_form = 81089765 --[[soccer01_33_formation_button_guide]]
-local kickoff_button_n_pos = 3118168032 --[[_pos_btn01]]
+local kickoff_button_form = 81089765
+local kickoff_button_n_pos = 3118168032
 local kickoff_button_n_touch = 830613497 --[[_touch_btn01: the plate's top-left corner, (-220, +36) from _pos_btn01]]
 local kickoff_button_touch_dx = -220
 local kickoff_button_n_fbase = 1517329426 --[[_pos_base01 of soccer01_33: the plate's top-left corner]]
@@ -35,12 +35,12 @@ end
 
 local function kickoff_button_look(idx)
   for i = 1, #kickoff_button_add do
-    kickoff_button_cmd(3405944500 --[[CMND_SET_MESH_VISIBLE]], kickoff_button_layer, kickoff_button_add[i], false, idx)
+    kickoff_button_cmd(3405944500, kickoff_button_layer, kickoff_button_add[i], false, idx)
   end
 end
 
 local function kickoff_button_gp(layer, idx, node)
-  local ok, x, y = pcall(funcLuaMenuCommand, 499270986 --[[CMND_GET_MESH_GLOBAL_POSITION]], layer, idx, node)
+  local ok, x, y = pcall(funcLuaMenuCommand, 499270986, layer, idx, node)
   if ok and type(x) == "number" and type(y) == "number" then
     return x, y
   end
@@ -48,11 +48,10 @@ local function kickoff_button_gp(layer, idx, node)
 end
 
 local function kickoff_button_place()
-  if character_reforged_pp_idx == nil or better_ui_ko_idx == nil or better_ui_ko_closing
-      or BetterUI.preset == "off" then
+  if character_reforged_pp_idx == nil or better_ui_ko_idx == nil or better_ui_ko_closing then
     return
   end
-  local okOpen, open = pcall(funcLuaMenuCommand, 2640875187 --[[CMND_IS_OPEN_LAYER]], kickoff_button_form, character_reforged_pp_idx)
+  local okOpen, open = pcall(funcLuaMenuCommand, 2640875187, kickoff_button_form, character_reforged_pp_idx)
   if not okOpen or open ~= true then
     return
   end
@@ -70,7 +69,7 @@ local function kickoff_button_place()
   end
   if math.abs(kf - BetterUI.kickoff_button.FORMATION_SCALE) > 0.03 then
     character_reforged_pp_s = character_reforged_pp_s * BetterUI.kickoff_button.FORMATION_SCALE / kf
-    kickoff_button_cmd(3778714801 --[[CMND_SET_LAYER_LOCAL_SCALE]], kickoff_button_form, character_reforged_pp_s, character_reforged_pp_s, 1, character_reforged_pp_idx)
+    kickoff_button_cmd(3778714801, kickoff_button_form, character_reforged_pp_s, character_reforged_pp_s, 1, character_reforged_pp_idx)
     return
   end
   local dir = (ty >= py) and 1 or -1 -- screen y direction of "up"
@@ -87,21 +86,18 @@ local function kickoff_button_place()
   end
   character_reforged_pp_lx = character_reforged_pp_lx + ex / kf
   character_reforged_pp_ly = character_reforged_pp_ly + ey * dir / kf
-  kickoff_button_cmd(1389957207 --[[CMND_SET_LAYER_LOCAL_POS]], kickoff_button_form, character_reforged_pp_lx, character_reforged_pp_ly, 0, character_reforged_pp_idx)
+  kickoff_button_cmd(1389957207, kickoff_button_form, character_reforged_pp_lx, character_reforged_pp_ly, 0, character_reforged_pp_idx)
 end
 
 local function kickoff_button_setup(idx)
-  if BetterUI.preset == "off" then
-    return
-  end
   better_ui_ko_idx = idx
   better_ui_ko_closing = false
   local s = BetterUI.kickoff_button.SCALE
-  kickoff_button_cmd(3778714801 --[[CMND_SET_LAYER_LOCAL_SCALE]], kickoff_button_layer, s, s, 1, idx)
+  kickoff_button_cmd(3778714801, kickoff_button_layer, s, s, 1, idx)
   -- Scales the button around the layer origin (bottom centre).
-  kickoff_button_cmd(1389957207 --[[CMND_SET_LAYER_LOCAL_POS]], kickoff_button_layer, 0, math.floor(BetterUI.kickoff_button.CENTRE_Y * (1 - s) + 0.5), 0, idx)
+  kickoff_button_cmd(1389957207, kickoff_button_layer, 0, math.floor(BetterUI.kickoff_button.CENTRE_Y * (1 - s) + 0.5), 0, idx)
   kickoff_button_look(idx)
-  pcall(funcLuaCommand, 519897777 --[[CMND_VRFW_LOG]], "BetterUI kickoff button", "scale " .. tostring(s))
+  pcall(funcLuaCommand, 519897777, "BetterUI kickoff button", "scale " .. tostring(s))
 end
 
 local better_ui_ko_prevSetup = rawget(_ENV, "OnSetupLayer")
@@ -124,7 +120,7 @@ local better_ui_ko_prevStep = rawget(_ENV, "Step")
 if type(better_ui_ko_prevStep) == "function" then
   rawset(_ENV, "Step", function(...)
     local r = better_ui_ko_prevStep(...)
-    if better_ui_ko_idx ~= nil and BetterUI.preset ~= "off" then
+    if better_ui_ko_idx ~= nil then
       kickoff_button_look(better_ui_ko_idx)
       kickoff_button_place()
     end

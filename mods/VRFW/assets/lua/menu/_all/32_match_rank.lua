@@ -9,6 +9,7 @@ if VRFW.match_rank == nil then
     list_cache = nil,
     by = nil,
   }
+  --- Internal: Namespace: the match rank helpers of the menu VM.
   VRFW.match_rank = R
 
   local logger
@@ -17,7 +18,7 @@ if VRFW.match_rank == nil then
     logger(...)
   end
 
-  --- The declared ranks, best first (read once per VM).
+  --- Internal: The declared ranks, best first (read once per VM).
   function R.list()
     if R.list_cache ~= nil then
       return R.list_cache
@@ -40,19 +41,19 @@ if VRFW.match_rank == nil then
     return R.list_cache
   end
 
-  --- The rank with Id `id`; nil when unknown.
+  --- Internal: The rank with Id `id`; nil when unknown.
   function R.by_id(id)
     R.list()
     return id ~= nil and R.by[id] or nil
   end
 
-  --- The Order of a rank Id (0 = none / unknown).
+  --- Internal: The Order of a rank Id (0 = none / unknown).
   function R.order(id)
     local r = R.by_id(id)
     return r ~= nil and r.order or 0
   end
 
-  --- The rank Id of an old numeric rank value; other values unchanged.
+  --- Internal: The rank Id of an old numeric rank value; other values unchanged.
   function R.from_legacy(v)
     local n = tonumber(v)
     if n ~= nil then
@@ -61,7 +62,7 @@ if VRFW.match_rank == nil then
     return v
   end
 
-  --- The display label of a rank Id; "" for nil.
+  --- Internal: The display label of a rank Id; "" for nil.
   function R.label(id)
     if id == nil then
       return ""
@@ -86,7 +87,7 @@ if VRFW.match_rank == nil then
     return true
   end
 
-  --- The rank Id for a match score (goals for, against); nil when unknown.
+  --- Internal: The rank Id for a match score (goals for, against); nil when unknown.
   function R.of(f, a)
     f, a = tonumber(f) or -1, tonumber(a) or -1
     local list = R.list()
@@ -107,7 +108,7 @@ if VRFW.match_rank == nil then
     return nil
   end
 
-  --- The last match's rank Id and score (id, for, against).
+  --- Internal: The last match's rank Id and score (id, for, against).
   function R.last()
     local okF, f = pcall(funcLuaCommand, R.SAVE_GET, R.OWNER, "mr_last_for", -1)
     local okA, a = pcall(funcLuaCommand, R.SAVE_GET, R.OWNER, "mr_last_against", -1)
@@ -116,7 +117,7 @@ if VRFW.match_rank == nil then
     return R.of(f, a), f, a
   end
 
-  --- The rank Id whose order matches the rounded average; nil when none does.
+  --- Internal: The rank Id whose order matches the rounded average; nil when none does.
   function R.for_order(avg)
     local o = math.floor((tonumber(avg) or 0) + 0.5)
     for _, r in ipairs(R.list()) do

@@ -4,37 +4,102 @@ local better_ui_block = function()
 BetterUI = type(BetterUI) == "table" and BetterUI or {}
 local BETTER_UI_SIGNATURE = "BETTER_UI_GRAFT"
 
-if BetterUI.preset == nil then
-  BetterUI.preset = "limpio"
-end
 BetterUI.flags = BetterUI.flags or {}
-for k, v in pairs({ bank_sort_guide = true, buff_icons = true, buff_panel = false, corner_buttons = true, deluxe_badge = true, duel_telop = true, enemy_meters = true, esc_guide = true, exec_offset = true, header_short = true, nickname_pill = true, team_param_guide = true, zone_exec = false, zone_hud = true }) do
+for k, v in pairs({ bank_sort_guide = true, buff_icons = true, corner_buttons = true, deluxe_badge = true, enemy_meters = true, esc_guide = true, header_short = true, nickname_pill = true, team_param_guide = true, zone_hud = true }) do
   if BetterUI.flags[k] == nil then
     BetterUI.flags[k] = v
   end
 end
 
-@UI_WRAP@
+local function UiOn(flag)
+  return BetterUI.flags[flag] == true
+end
+
+local function Pack(...)
+  return { n = select("#", ...), ... }
+end
+
+-- Logs at most 30 UI messages.
+local log_count = 0
+local function UiLog(...)
+  if log_count >= 30 then
+    return
+  end
+  log_count = log_count + 1
+  local parts = {}
+  for i = 1, select("#", ...) do
+    parts[#parts + 1] = tostring((select(i, ...)))
+  end
+  if type(funcLuaCommand) == "function" then
+    VRFW.host.command(@crc:CMND_VRFW_LOG_DEBUG@, "BetterUI @TAG@ " .. table.concat(parts, " "))
+  end
+end
+
+-- Runs filter(call, id, ...) on every funcLuaMenuCommand of this VM as an innermost VRFW.host command hook, so the
+-- other hooks run outside it; call(id, ...) passes the same command on and runs another one on the function under
+-- every hook; a nil answer passes the command on.
+local function UiHookMenuCommand(filter)
+  local function register(host)
+    local real = host.real_menu_command
+    host.hook_command("*", function(nxt, id, ...)
+      local function call(command, ...)
+        if command == id then
+          return nxt(command, ...)
+        end
+        return real(command, ...)
+      end
+      local r = filter(call, id, ...)
+      if r ~= nil then
+        return table.unpack(r, 1, r.n)
+      end
+      return nxt(id, ...)
+    end, "BetterUI.@TAG@", { menu = true, priority = host.INNERMOST })
+  end
+  if type(VRFW) == "table" and type(VRFW.host) == "table" and type(VRFW.host.hook_command) == "function" then
+    register(VRFW.host)
+  else
+    -- The menu chunk runs before the Lua patch files: BetterUI's lua/_all/better_ui.lua registers the queue after VRFW's.
+    BetterUI.command_hooks = BetterUI.command_hooks or {}
+    BetterUI.command_hooks[#BetterUI.command_hooks + 1] = register
+  end
+end
+
+-- Wraps a menu callback (OnSetupLayer, OnOpenLayer, ...) that the chunk already defined: `after` runs after it.
+local function UiWrapCallback(name, after)
+  local orig = rawget(_ENV, name)
+  if type(orig) ~= "function" then
+    return false
+  end
+  rawset(_ENV, name, function(...)
+    local r = Pack(orig(...))
+    local ok, err = pcall(after, ...)
+    if not ok then
+      UiLog("error", name, err)
+    end
+    return table.unpack(r, 1, r.n)
+  end)
+  return true
+end
 
 BetterUI.flags.deluxe_badge = true
 -- Layer and mesh ids of title_menu_2.
-local UI_DX_LAYER = 3427392471
+local UI_DX_LAYER = @crc:title02_21_dlc_buy_btn@
 local UI_DX_MESHES = {
-  2781781827,
-  1714296966,
-  1667304963,
-  3487882952,
-  2381063373,
+  @crc:_buy_btn_base01@,
+  @crc:_buy_btn_ok01@,
+  @crc:_buy_btn_ol01@,
+  @crc:_icon_check_buy01@,
+  @crc:_icon_buy01@,
 }
-local UI_DX_LOWER = 3873872512   -- fallback focus: the lower button row
+local UI_DX_LOWER = @crc:title00_07_item_button_lower@   -- fallback focus: the lower button row
 local UI_DX_OWNED = 2127863466
-local CMND_SET_MESH_VISIBLE = 3405944500
-local CMND_SET_LAYER_VISIBLE = 711242136
-local CMND_IS_OPEN_LAYER = 2640875187
-local CMND_GET_CREATE_LAYER_NUM = 1175615627
-local CMND_SET_ENABLE_CTRL_FOCUS = 3518307824
-local CMND_SET_HIT_ZONE = 855005857       -- (layer, idx, bool): the instance's mouse zone
-local CMND_SET_ON_CHANGE_FOCUS_MOUSE = 2206938151
+local CMND_SET_MESH_VISIBLE = @crc:CMND_SET_MESH_VISIBLE@
+local CMND_SET_LAYER_VISIBLE = @crc:CMND_SET_LAYER_VISIBLE@
+local CMND_IS_OPEN_LAYER = @crc:CMND_IS_OPEN_LAYER@
+local CMND_GET_CREATE_LAYER_NUM = @crc:CMND_GET_CREATE_LAYER_NUM@
+local CMND_SET_ENABLE_CTRL_FOCUS = @crc:CMND_SET_ENABLE_CTRL_FOCUS@
+local CMND_SET_HIT_ZONE = @crc:CMND_SET_MENU_COLLISION_HIT_ALL@       -- (layer, idx, bool): the instance's mouse zone
+local CMND_SET_ON_CHANGE_FOCUS_MOUSE = @crc:CMND_SET_ON_CHANGE_FOCUS_MOUSE@
 local CMND_FOCUS_INSTANCE = 1778826357    -- (layer, idx, bool): retail OnFunction moves the focus with it
 local ui_dx_logged = false
 

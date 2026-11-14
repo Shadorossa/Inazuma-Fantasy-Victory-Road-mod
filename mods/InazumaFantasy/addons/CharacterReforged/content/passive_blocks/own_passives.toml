@@ -1,0 +1,170 @@
+schema = "VRFW.passive_block/1"
+# The blocks of the own passives of InazumaFantasy's new characters.
+
+# Jibanyan: Paws of Fury
+[[VRFW.Trigger]]
+name = "jibanyan_when_duel_won_by_self"
+on = "match:duel_won"
+by = "self"
+
+[[VRFW.Stack]]
+name = "jibanyan_stack_max4_per_half"
+max = 4
+per_half = true
+
+[[VRFW.TechniquePower]]
+name = "jibanyan_techniquepower_self_shoot_3"
+value = 3
+kinds = ["shoot"]
+target = "self"
+mode = "percent"
+
+[[VRFW.GamePassive]]
+name = "jibanyan_card_c90620000"
+passive = "own_c90620000"
+unlock = "always"
+
+# Komasan: Shrine Guardian
+[[VRFW.Zone]]
+name = "komasan_zone_own_half"
+z = [-200.0, 0.0]
+frame = "team"
+
+[[VRFW.TechniquePower]]
+name = "komasan_techniquepower_self_block_dribble_6"
+value = 6
+kinds = ["block", "dribble"]
+target = "self"
+mode = "percent"
+
+[[VRFW.GamePassive]]
+name = "komasan_card_c90640000"
+passive = "own_c90640000"
+unlock = "always"
+
+# Komajiro: Lightning Brother
+[[VRFW.Zone]]
+name = "komajiro_zone_rival_half"
+z = [0.0, 200.0]
+frame = "team"
+
+[[VRFW.TechniquePower]]
+name = "komajiro_techniquepower_self_block_dribble_6"
+value = 6
+kinds = ["block", "dribble"]
+target = "self"
+mode = "percent"
+
+[[VRFW.GamePassive]]
+name = "komajiro_card_c90690000"
+passive = "own_c90690000"
+unlock = "always"
+
+# Yami Enma: Power of Darkness
+[[VRFW.Score]]
+name = "yami_enma_score_trailing"
+states = ["trailing"]
+
+[[VRFW.TechniquePower]]
+name = "yami_enma_techniquepower_self_shoot_8"
+value = 8
+kinds = ["shoot"]
+target = "self"
+mode = "percent"
+
+[[VRFW.Stat]]
+name = "yami_enma_stat_self_kick_4"
+value = 4
+mode = "percent"
+stats = ["kick"]
+target = "self"
+
+[[VRFW.GamePassive]]
+name = "yami_enma_card_c90650000"
+passive = "own_c90650000"
+unlock = "always"
+
+# Yasha Enma: Yasha's Wrath
+[[VRFW.Clock]]
+name = "yasha_enma_clock_last_third"
+half_fraction_from = "2/3"
+
+[[VRFW.MoveElement]]
+name = "yasha_enma_move_element_fire"
+elements = ["fire"]
+
+[[VRFW.TechniquePower]]
+name = "yasha_enma_techniquepower_self_8"
+value = 8
+target = "self"
+mode = "percent"
+
+[[VRFW.GamePassive]]
+name = "yasha_enma_card_c90660000"
+passive = "own_c90660000"
+unlock = "always"
+
+# Lord Enma: King of the Yo-kai
+[[VRFW.Half]]
+name = "enma_half_2"
+halves = [2]
+
+[[VRFW.Trait]]
+name = "enma_trait_yokai"
+team_groups = ["InazumaFantasy.yokai"]
+
+[[VRFW.Stat]]
+name = "enma_stat_team_kick_control_3_yokai"
+value = 3
+mode = "percent"
+stats = ["kick", "control"]
+target = "team"
+trait = "enma_trait_yokai"
+
+[[VRFW.GamePassive]]
+name = "enma_card_c90670000"
+passive = "own_c90670000"
+unlock = "always"
+
+# Enma Awoken: The King Awakens
+[[VRFW.Trigger]]
+name = "enma_awoken_when_goal_by_team"
+on = "match:goal"
+by = "team"
+
+[[VRFW.Stack]]
+name = "enma_awoken_stack_max3"
+max = 3
+
+[[VRFW.TechniquePower]]
+name = "enma_awoken_techniquepower_self_4"
+value = 4
+target = "self"
+mode = "percent"
+
+[[VRFW.GamePassive]]
+name = "enma_awoken_card_c90680000"
+passive = "own_c90680000"
+unlock = "always"
+
+# Tezcat Mixi Max Arion: Two Souls, One Wind
+[[VRFW.HasBall]]
+name = "tezcat_arion_holds_ball"
+holds = true
+
+[[VRFW.Zone]]
+name = "tezcat_arion_zone_rival_half"
+z = [0.0, 200.0]
+frame = "team"
+
+[[VRFW.TechniquePower]]
+name = "tezcat_arion_techniquepower_self_shoot_dribble_6"
+value = 6
+kinds = ["shoot", "dribble"]
+target = "self"
+mode = "percent"
+
+[[VRFW.GamePassive]]
+name = "tezcat_mixi_max_arion_card_c90370081"
+passive = "own_c90370081"
+unlock = "always"

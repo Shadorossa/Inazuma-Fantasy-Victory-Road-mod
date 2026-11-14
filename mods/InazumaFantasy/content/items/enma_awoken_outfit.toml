@@ -1,0 +1,39 @@
+schema = "VRFW.item/2"
+default_lang = "en"
+
+# Enma Awoken's own clothes sold as an outfit: built on the retail c000301 skeleton, so the players of that body group wear it.
+
+[[VRFW.Outfit]]
+Name = "enma_awoken_outfit"
+Kit = { Uniform = "0x11CCD387" }  # crc32("inazumafantasy_uni_enma_awoken_outfit"), content/looks/enma_awoken.toml
+IconKey = "cos_if_enma_awoken_outfit"
+Who = { Body = [4] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Ropa de Enma Awoken"
+  Description = "La ropa de Enma Awoken.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Enma Awoken's outfit"
+  Description = "Enma Awoken's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Enma Awoken"
+  Description = "Les vêtements de Enma Awoken.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Enma Awoken"
+  Description = "Die Kleidung von Enma Awoken.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Enma Awoken"
+  Description = "Gli abiti di Enma Awoken.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Enma Awoken"
+  Description = "A roupa de Enma Awoken.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[覚醒/かくせい]エンマの[衣装/いしょう]"
+  Description = "[覚醒/かくせい]エンマの[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "觉醒阎魔的服装"
+  Description = "觉醒阎魔的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "覺醒閻魔的服裝"
+  Description = "覺醒閻魔的衣服。\n只有體型相同的球員可以穿。"

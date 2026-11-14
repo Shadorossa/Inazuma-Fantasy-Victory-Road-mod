@@ -1521,6 +1521,104 @@ hook = "pass_read"
 summary = "through balls of the other side: a pass whose landing point is `lead_m` (default 4) deeper than its receiver, or behind the side's last outfield player, sends `chasers` (default 2) players within `range_m` (default 40) at the kick: the first to his PassRead point, the others `goal_side_m` (default 3) apart goal side of the landing point; `drop` 1 (default): the other defenders higher than that point run back goal side of it (never closer than `line_min_m`, default 6, to the goal line). Out of possession, with Shape and no offside / box line: the back line stands at least `runner_cover_m` (default 2) goal side of the other side's deepest outfield player and, while nobody of the side is within `pressure_m` (default 6) of the carrier, at least `free_gap_m` (default 18) behind the ball"
 
 [[team]]
+name = "LooseBallRead"
+kind = "table"
+keys = ["players", "range_m", "run_speed_mps", "hold_s", "sprint", "min_flight_s", "rebound_mps", "rebound_every_s"]
+min = 0.0
+max = 60.0
+hook = "pass_read"
+summary = "a kick with no teammate receiver (a clearance, a loose kick; KickDispatch) of either side: the side's `players` (default 1) nearest outfield players within `range_m` (default 40) run at once to the game's landing point (the request's target) until its flight time plus `hold_s` (default 0.3; sprint with `sprint`, default 1); kicks shorter than `min_flight_s` (default 0.3) and kicks into a goal mouth are left to the game. A loose ball no kick explains (a rebound, a deflection) moving faster than `rebound_mps` (default 3; 0 = off): every `rebound_every_s` (default 0.1) the `players` runners that meet it soonest on its straight path (`run_speed_mps`, default 7) run to that point. Log `match ai: team T loose ball read: …` / `team T rebound read: …`"
+
+[[team]]
+name = "PassPredict"
+kind = "table"
+keys = ["receivers", "at", "every_s", "seconds", "range_m", "facing_weight", "open_weight", "distance_weight", "min_speed_mps"]
+min = 0.0
+max = 60.0
+hook = "pass_lane_cut"
+summary = "in play while the other side holds the ball, before any pass: every `every_s` (default 0.15) the carrier's teammates within `range_m` (default 30) are scored by his heading (his run, `facing_weight`, default 1; under `min_speed_mps`, default 0.5, no heading), how open the lane is (the nearest player of this side to it, up to 10 m, `open_weight`, default 1) and the distance (`distance_weight`, default 0.5); for the `receivers` (default 2) best the nearest free player of this side (not the one nearest to the carrier) moves to the point `at` (default 0.5) along the lane for `seconds` (default 0.5), like PassLaneCut. Log `match ai: team T pass predict: …` when the likely receivers change"
+
+[[team]]
+name = "StickRead"
+kind = "table"
+keys = ["react_s", "error", "noise_deg", "decide_s", "min_stick", "pass_weight", "duel_min", "duel_shift_m", "duel_cover", "attack_read", "learn_speed_mps", "learn_samples", "learn_agreement"]
+min = 0.0
+max = 90.0
+hook = "stick_read"
+summary = "the side reads the other side's real move stick (the `[stick] axes` commands, through the axis service) as it was `react_s` ago (default 0.2 s), turned into a pitch direction it learns from that side's carrier runs (at least `learn_speed_mps`, default 3, with the stick past `min_stick`, default 0.5; ready after `learn_samples`, default 20, when `learn_agreement`, default 0.8, of them agree). Every `decide_s` (default 0.35) it rolls a new read: missed with the chance `error` (default 0.15), else off by up to `noise_deg` (default 10). Uses: PassPredict aims at the receivers the stick points to (`pass_weight`, default 0.7, over the run); in focus duels (stick sideways at least `duel_min`, default 0.35) its defender covers the side the carrier's stick goes to (`duel_cover`, default 1: a move to the other side is mirrored, a straight one shifts `duel_shift_m`, default 0.8) and FocusAttackRead takes the side the defender's stick goes to (`attack_read`, default 1). Log `match ai: team T stick read: …`, `duel stick cover …`, `pass predict: … + stick read`"
+
+[[team]]
+name = "HumanHabits"
+kind = "table"
+keys = ["half_life_s", "min_weight", "press_window_s", "pass_weight", "duel_min", "shot_shift_m"]
+min = 0.0
+max = 600.0
+hook = "habit_model"
+summary = "a live model of the other side's human (only a human side, offline): his pass side and depth (relative to his attack), his duel side as carrier and as defender, his shot side, his time from a duel's start to his first side step / breakthrough / pass out, and whether he escapes a StickPress (a pass or the ball kept for `press_window_s`, default 2) or loses the ball; each a count decayed with half-life `half_life_s` (default 40 s) so a change of style shows within a minute, read once it weighs `min_weight` (default 3). Readers: PassPredict (pass side and depth x `pass_weight`, default 0.6), the StickRead duel reads when the stick gives no clear side (lean at least `duel_min`, default 0.3), ZoneWallTrack (the walls shift `shot_shift_m`, default 0.6, toward his shot side), StickPress (more pressers when he escapes), RunBehindDefender (open side), DuelCommitProbe. Log `match ai: team T habits of your side H: ...` every 15 s"
+
+[[team]]
+name = "StickPress"
+kind = "table"
+keys = ["back_dot", "players", "escape_extra", "range_m", "press_s", "cooldown_s"]
+min = 0.0
+max = 30.0
+hook = "ai_move"
+summary = "the other side's human carrier's stick (StickRead, late and imperfect) points toward his own goal (its share along his attack at most -`back_dot`, default 0.5): the side's `players` (default 2) nearest outfield players within `range_m` (default 20) chase him sprinting for `press_s` (default 1.2), `escape_extra` (default 1) more when HumanHabits says he escapes most presses; then nothing for `cooldown_s` (default 3). Log `match ai: team T stick press: ...`"
+
+[[team]]
+name = "WeakSideAttack"
+kind = "table"
+keys = ["runners", "width_m", "ahead_m", "gap_m", "run_s", "every_s"]
+min = 0.0
+max = 60.0
+key_ranges = { ahead_m = [-30.0, 30.0] }
+hook = "ai_move"
+summary = "the side holds the ball against a human: every `every_s` (default 0.5) its `runners` (default 1) forwards / midfielders nearest to the spot `width_m` (default 15) sideways from the carrier on the side away from the player the human controls and `ahead_m` (default 8) toward the goal it attacks run there for `run_s` (default 1), each next one `gap_m` (default 6) further back. Log `match ai: team T weak side: ...`"
+
+[[team]]
+name = "PassAwayFromStick"
+kind = "table"
+keys = ["lane_dot", "away_dot", "min_m", "max_m", "open_m"]
+min = 0.0
+max = 60.0
+key_ranges = { lane_dot = [-1.0, 1.0], away_dot = [-1.0, 1.0] }
+hook = "pass_read"
+summary = "a ground pass of the side (KickDispatch) against a human: when his stick (StickRead) runs along the pass lane (share at least `lane_dot`, default 0.5), the pass goes to the teammate `min_m`..`max_m` (default 6..30) away whose direction from the kicker goes against the stick (share at most `away_dot`, default 0) with nobody of the other side within `open_m` (default 3) of the lane, the farthest from the player the human controls, if he is farther than the first receiver; same ball speed (flight time scaled), receiver rewritten. Log `match ai: team T pass away: ...`"
+
+[[team]]
+name = "RunBehindDefender"
+kind = "table"
+keys = ["behind_m", "side_m", "carrier_range_m", "runner_range_m", "run_s", "cooldown_s"]
+min = 0.0
+max = 60.0
+hook = "ai_move"
+summary = "the side holds the ball within `carrier_range_m` (default 30) of the player the human controls: its forward nearest (within `runner_range_m`, default 20) to the spot `behind_m` (default 8) behind that player toward the goal it attacks and `side_m` (default 3) to the side his stick (StickRead; no read: his habitual defending side, HumanHabits) leaves open sprints there for `run_s` (default 1.5); then nothing for `cooldown_s` (default 4). Log `match ai: team T run behind: ...`"
+
+[[team]]
+name = "DuelCommitProbe"
+kind = "bool"
+hook = "duel_choice"
+summary = "diagnostic: one log line per CPU duel move choice of the side (FocusSkillChoose) with the focus manager's first-choice and answering sides and the human's habitual commit time (HumanHabits): the data a lever that waits until the human commits needs (whether the game asks the CPU again). Log `match ai: team T duel probe: ...`"
+
+[[team]]
+name = "ZoneWallTrack"
+kind = "table"
+keys = ["from_m", "gap_m"]
+min = 0.0
+max = 60.0
+hook = "ai_move"
+summary = "in the other side's shoot zone: the side's players in the game's two wall slots keep their spots on the line from the shooter to the goal, `from_m` (default 3) from him and `gap_m` (default 1.2) apart across it, recomputed every frame: the game's wall action goes to that spot, running while the player is more than 1 m away (ZoneWallHold holds them there). Log `match ai: team T zone wall track: …` when a spot moves 1 m or more"
+
+[[team]]
+name = "PassSafety"
+kind = "table"
+keys = ["reaction_s", "run_speed_mps", "clear_m", "lob_max_s", "min_flight_s", "lob_vertical_mps"]
+min = 0.0
+max = 60.0
+hook = "pass_read"
+summary = "a ground pass of this side (KickDispatch, after PassSpeed; vertical speed up to `lob_vertical_mps`, default 1; at least `min_flight_s`, default 0.3): when a player of the other side reaches a point of its path before the ball (`reaction_s`, default 0.1, `run_speed_mps`, default 7), the pass becomes a lob to the same point whose arc is `clear_m` (default 2.5) over every such point, with the game's gravity (learned from its own air kicks, 2 x vertical speed / flight time); it stays a ground pass when the gravity is not learned yet, the lob needs more than `lob_max_s` (default 2), or an opponent reaches the landing point within the lob's flight. Log `match ai: team T pass safety: …` per decision"
+
+[[team]]
 name = "KeeperHoldRespect"
 kind = "bool"
 hook = "ai_move"
@@ -1717,6 +1815,13 @@ summary = "the side holds the ball and the other side's deepest outfield player 
 [passing]
 commands = ["CMD_PASS_01"]
 move_actions = [0]
+
+# the move stick's analog commands (x, y) StickRead reads; the pair the user moved last is used
+[stick]
+axes = [["CMD_MOVE_X", "CMD_MOVE_Y"], ["CMD_MOVE_LX", "CMD_MOVE_LY"]]
+# the stick-to-pitch turn read from kick-off before any run teaches it (degrees, from the log line `learned your stick's turn`; unset = learned in the first runs)
+# seed_turn_deg = 0.0
+# seed_mirror = false
 
 [ai_move]
 chase_action = 15

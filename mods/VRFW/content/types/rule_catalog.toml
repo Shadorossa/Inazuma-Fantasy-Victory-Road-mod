@@ -2,6 +2,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.rule_catalog/1"
 folder = "content/rules"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Rule.Catalog"
+v2_kind_folder = "Rules/Catalogs"
+v2_version = 1
 label = "Rule catalogue"
 label_es = "Catálogo de reglas"
 

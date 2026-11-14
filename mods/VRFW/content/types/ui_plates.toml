@@ -2,6 +2,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.ui_plates/1"
 folder = "content/defaults"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Menu.UiPlate"
+v2_kind_folder = "Menus/UiPlates"
+v2_version = 1
 
 [entry.HeaderRow]
 doc = "Layout of the shared header row (Lua: VRFW.ui_plates.header_row): screen px at 1080p unless noted."

@@ -2,12 +2,12 @@ schema = "VRFW.team/2"
 
 # Battle Bay Deluxe's Orfeo: its members' move lists are all at level 1.
 [[edit]]
-target = "bbcr_ie3_1100_bb"
+target = "battlebaydeluxe_ie3_1100_bb"
   [[edit.member]]
   slot = 8
   card = 0xFFF7C4EE
   number = 7
-  moves = [0xA5F2EFEA, 0x31ABD82E, 0x427719AC, 0x5E233E68]  # Brave Shot, Circus Block, Gale Dash, Super Elastico
+  moves = ["whs01240", "whd00260", "who00270", "who00560"]  # Brave Shot, Circus Block, Gale Dash, Super Elastico
   levels = [1, 1, 1, 1]
   [[edit.member]]
   slot = 15

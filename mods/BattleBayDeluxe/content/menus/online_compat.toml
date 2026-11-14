@@ -1,8 +1,9 @@
 schema = "VRFW.menu/2"
+# vrfw_mp_plate x53: the match panel plates (28) plus two icon plates for each of the 12 rows of the compatibility table and its lock (VRFW.match_panel.plates_needed).
 
 [[patch]]
 menu = "bb_stadium_top_menu"
-add_layer = { name = "vrfw_mp_plate", object = "vrfw_mp_plate", count = 28, align = [1, 8], scale = 0.2, groups = [{ group = "bb_stadium_top_menu", flags = [0, 0, 0, 0, 1, 0] }] }
+add_layer = { name = "vrfw_mp_plate", object = "vrfw_mp_plate", count = 53, align = [1, 8], scale = 0.2, groups = [{ group = "bb_stadium_top_menu", flags = [0, 0, 0, 0, 1, 0] }] }
 resources = [
     "#/menu/108_option/option01/option01_23/option01_23.g4tx",
     "#/menu/108_option/option01/option01_02/option01_02.g4tx",

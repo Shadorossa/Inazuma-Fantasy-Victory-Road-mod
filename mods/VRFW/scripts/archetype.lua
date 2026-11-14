@@ -595,9 +595,9 @@ end
 local ON = start()
 
 if ON then
-  VRFW.on("match_start", function() reset_match() end)
+  VRFW.on("match:start", function() reset_match() end)
 
-  VRFW.on("match_end", function()
+  VRFW.on("match:end", function()
     clear_effects()
     for side = 0, 1 do
       SIDE[side] = nil
@@ -605,19 +605,19 @@ if ON then
     end
   end)
 
-  VRFW.on("possession", function(ev)
+  VRFW.on("match:possession", function(ev)
     if ev.actor and (ev.actor.team == 0 or ev.actor.team == 1) then last_owner_side = ev.actor.team end
   end)
 
-  VRFW.on("shot_start", function() if last_owner_side then fire(last_owner_side, "shot") end end)
+  VRFW.on("match:shot_start", function() if last_owner_side then fire(last_owner_side, "shot") end end)
 
   -- every shot that reaches a keeper (saved or beaten): the keeper's rival side shot on target
-  VRFW.on("keeper_scene", function(ev)
+  VRFW.on("match:keeper_scene", function(ev)
     local t = ev.actor and ev.actor.team
     if t == 0 or t == 1 then fire(1 - t, "shot_on_target") end
   end)
 
-  VRFW.on("goal", function(ev)
+  VRFW.on("match:goal", function(ev)
     local side = side_of(ev.arg, ev.match)
     if side then
       fire(side, "goal")
@@ -637,7 +637,7 @@ local function needs_tick()
 end
 
 if ON and needs_tick() then
-  VRFW.on("tick", function(ev)
+  VRFW.on("frame:tick", function(ev)
     local m = ev.match or {}
     local dt = tonumber(m.dt) or 0
     local live_dt = Live.live_time_step(m)

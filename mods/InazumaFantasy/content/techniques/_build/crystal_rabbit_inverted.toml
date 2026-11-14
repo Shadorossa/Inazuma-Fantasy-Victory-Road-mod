@@ -1,0 +1,16 @@
+# The colour-inverted Crystal Rabbit (crystal_rabbit_inverted.toml): the retail keshin on a white palette, its summon and
+# the cut-ins that ship its packs mirrored left to right. Built by _tools/model_builder.py (dev-only, never installed).
+recipe = "mirrored_keshin"
+
+[rules]
+source = "k002020"
+model = "k902020"
+summon = "ev80_00040"
+portrait = "../../../_tools/crystal_rabbit_white_portrait.png"
+accent_saturation = 0.6   # the eyes' magenta; the body (~0.35) and the cream (< 0.1) stay below
+accent_value = 0.6        # the spear's pale blue edges; its navy base is ~0.22
+mask_grow = 2
+line_value = 0.08
+light_split = 0.6         # the navy stays below ~0.5, the cream above ~0.85
+white = [1.0, 1.0, 1.0]
+white_shadow = [0.64, 0.69, 0.79]   # a cool grey-blue for the deepest retail shade

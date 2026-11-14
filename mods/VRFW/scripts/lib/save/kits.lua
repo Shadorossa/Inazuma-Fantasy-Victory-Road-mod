@@ -1,4 +1,4 @@
--- Team kit items in a save: the kit list the game loads and a pass that takes chosen kit items out of a save tree.
+-- Advanced: Team kit items in a save: the kit list the game loads and a pass that takes chosen kit items out of a save tree.
 -- remove: `by_item[item id] = entry` names the kit items to take out.
 
 local T = VRFW.save_tree
@@ -10,7 +10,7 @@ local SaveKits = {}
 
 local BLOCK_INVENTORY, BLOCK_TEAMS = 4, 7
 
---- The kit items of the game: { by_key, by_id }; nil, why when unreadable.
+--- Advanced: The kit items of the game: { by_key, by_id }; nil, why when unreadable.
 function SaveKits.items()
   local out = { by_key = {}, by_id = {} }
   local ok, rows = pcall(VRFW.table.rows, "item/item_fashion")
@@ -26,14 +26,14 @@ function SaveKits.items()
   return out
 end
 
---- The home kit item of away kit `key`; nil when it is none.
+--- Advanced: The home kit item of away kit `key`; nil when it is none.
 function SaveKits.home_of(items, key)
   local home_key = type(key) == "string" and key:match("^(.+)_%d+$") or nil
   if not home_key or home_key == key then return nil end
   return items.by_key[home_key]
 end
 
---- The removal entry of kit `key`; nil when unknown.
+--- Advanced: The removal entry of kit `key`; nil when unknown.
 function SaveKits.entry(items, key)
   local kit = items.by_key[key]
   if not kit then return nil end
@@ -52,7 +52,7 @@ local function teams(tree)
   return out
 end
 
---- Takes the kits of `by_item` out of `tree`: report; false, why.
+--- Advanced: Takes the kits of `by_item` out of `tree`: report; false, why.
 function SaveKits.remove(tree, by_item)
   for _, id in ipairs({ BLOCK_INVENTORY, BLOCK_TEAMS }) do
     if not T.has_block(tree, id) then return false, "block " .. id .. " not found" end
@@ -100,7 +100,7 @@ function SaveKits.remove(tree, by_item)
   return report
 end
 
---- One line of text for `report`.
+--- Advanced: One line of text for `report`.
 function SaveKits.summary(report)
   return string.format("%d teams back to their home kit, %d invFashion stacks emptied; %d bytes patched", report.teams, report.stacks, report.bytes_patched)
 end

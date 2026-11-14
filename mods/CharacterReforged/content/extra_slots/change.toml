@@ -24,6 +24,7 @@ pass_when_empty = true
 [VRFW.ExtraSlot.source]
 team_aura = true
 mix_only = true
+learn_lock = true                    # below the player's first Hiper learn level the mode change slot stays empty too (as the skill set slots)
 mix_table = "ModeChangeMix"
 team_commands = ["mix"]
 

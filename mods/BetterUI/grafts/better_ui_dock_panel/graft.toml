@@ -1,5 +1,5 @@
 # BetterUI: «Plantilla de equipo» (soccer_team_dock_menu) left panel, header bar and dock number arrows re-laid out.
-# Positions: research/mods/BetterUI/_tools/better_ui_dock_panel.py --write (the generated block of dock_panel.lua).
+# Positions: research/mods/BetterUI/_tools/betterui_dock_panel.py --write (the generated block of dock_panel.lua).
 name = "better_ui_dock_panel"
 order = 920
 module = "lua_bridge"
@@ -18,4 +18,3 @@ stem = "soccer_team_dock_menu"
   type = "append_block"
   source = "dock_panel.lua"
   marker = "better_ui_dock_panel"
-  crc = "none"

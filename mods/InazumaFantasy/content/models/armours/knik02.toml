@@ -1,0 +1,4 @@
+schema = "VRFW.model/1"
+# The armour of the keshin Niké: meshes per body group and texture (assets/models/armours/knik02, _tools/nike_armour_model_build.py).
+format = "native"
+game_path = "chr/_armd/knik02"

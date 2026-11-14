@@ -1,3 +1,5 @@
+-- Names as the game shows them: characters, teams and cards, by language. Call: at load or in a handler.
+--- Library: game text lookups for character, team and card names by language.
 
 local GT = {}
 
@@ -6,7 +8,7 @@ local FALLBACK = "en"
 
 local cache = {}
 
---- The language name of game language `code`.
+--- Advanced: The language name of game language `code`.
 function GT.language(code, ...)
   local c = tonumber(code)
   if c and c >= 0 and type(VRFW.files.game_languages) == "function" then
@@ -20,7 +22,7 @@ function GT.language(code, ...)
   return FALLBACK
 end
 
---- Text `s` without its furigana and outer spaces.
+--- Internal: Text `s` without its furigana and outer spaces.
 function GT.without_furigana(s)
   return (s:gsub("%[([^/%]]*)/[^%]]*%]", "%1"):gsub("^%s+", ""):gsub("%s+$", ""))
 end
@@ -47,7 +49,7 @@ local function text_of(row)
   return type(v) == "string" and v or false
 end
 
---- The file key of table `tbl` the game has open in language `lang`; nil when none.
+--- Advanced: The file key of table `tbl` the game has open in language `lang`; nil when none.
 function GT.shown_key(lang, tbl)
   if type(VRFW.files.opened) ~= "function" then return nil end
   local ok, key = pcall(VRFW.files.opened, "/text/" .. string.lower(lang) .. "/" .. tbl .. ".cfg.bin")
@@ -55,7 +57,7 @@ function GT.shown_key(lang, tbl)
   return nil
 end
 
---- The texts of `ids` in table `tbl` and language `lang`.
+--- Advanced: The texts of `ids` in table `tbl` and language `lang`.
 function GT.texts(tbl, lang, ids, key)
   local slot = key or (tbl .. "/" .. lang)
   local c = cache[slot]
@@ -103,17 +105,17 @@ local function names(tbl, ids, lang, keep_furigana)
   return out
 end
 
---- The names of characters `ids` in language `lang`.
+--- VRFW.names.chara_names(ids, lang[, keep_furigana]): the names of characters `ids` in language `lang`, from the game texts. Call: at load or in a handler.
 function GT.chara_names(ids, lang, keep_furigana)
   return names("chara_text", ids, lang, keep_furigana)
 end
 
---- The names of teams `ids` in language `lang`.
+--- VRFW.names.team_names(ids, lang[, keep_furigana]): the names of teams `ids` in language `lang`, from the game texts. Call: at load or in a handler.
 function GT.team_names(ids, lang, keep_furigana)
   return names("team_text", ids, lang, keep_furigana)
 end
 
---- The names of teams `ids` as the game shows them in language `lang`.
+--- VRFW.names.shown_team_names(ids, lang): the team names the game shows now (mod overrides included). Call: at load or in a handler.
 function GT.shown_team_names(ids, lang)
   local Tags = VRFW.name_tags
   local texts = GT.texts("team_text", lang, ids, GT.shown_key(lang, "team_text"))
@@ -125,8 +127,8 @@ function GT.shown_team_names(ids, lang)
   return out
 end
 
---- The names of `cards` in language `lang`.
-function GT.card_names(cards, lang, keep_furigana)
+-- The chara_text ids of `cards`: card -> text id, and the list of those ids.
+local function name_texts_of_cards(cards)
   local text_of_card, ids = {}, {}
   for _, card in ipairs(cards) do
     local okb, base = pcall(VRFW.character.base_of, card)
@@ -137,12 +139,46 @@ function GT.card_names(cards, lang, keep_furigana)
       ids[#ids + 1] = id
     end
   end
-  local by_id = GT.chara_names(ids, lang, keep_furigana)
+  return text_of_card, ids
+end
+
+-- Each card of `cards` with its name from `by_id` (text id -> name), "" when it has none.
+local function names_of_cards(cards, text_of_card, by_id)
   local out = {}
   for _, card in ipairs(cards) do
     out[card] = by_id[text_of_card[card] or 0] or ""
   end
   return out
+end
+
+--- VRFW.names.card_names(cards, lang[, keep_furigana]): the names of cards in language `lang`, from the game texts. Call: at load or in a handler.
+function GT.card_names(cards, lang, keep_furigana)
+  local text_of_card, ids = name_texts_of_cards(cards)
+  return names_of_cards(cards, text_of_card, GT.chara_names(ids, lang, keep_furigana))
+end
+
+--- VRFW.names.shown_chara_names(ids, lang): the character names the game shows now (mod overrides included). Call: at load or in a handler.
+function GT.shown_chara_names(ids, lang)
+  local Tags = VRFW.name_tags
+  local texts = GT.texts("chara_text", lang, ids, GT.shown_key(lang, "chara_text"))
+  local out, missing = {}, {}
+  for _, id in ipairs(ids) do
+    local s = texts[id]
+    if s and s ~= "" then
+      out[id] = GT.without_furigana(Tags.clean(s, lang))
+    else
+      missing[#missing + 1] = id
+    end
+  end
+  local own = #missing > 0 and GT.chara_names(missing, lang) or {}
+  for _, id in ipairs(missing) do out[id] = own[id] or "" end
+  return out
+end
+
+--- VRFW.names.shown_card_names(cards, lang): the card names the game shows now (mod overrides included). Call: at load or in a handler.
+function GT.shown_card_names(cards, lang)
+  local text_of_card, ids = name_texts_of_cards(cards)
+  return names_of_cards(cards, text_of_card, GT.shown_chara_names(ids, lang))
 end
 
 return GT

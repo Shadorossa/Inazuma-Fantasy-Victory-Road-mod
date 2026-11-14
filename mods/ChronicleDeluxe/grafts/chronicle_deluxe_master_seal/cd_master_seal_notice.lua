@@ -1,13 +1,14 @@
 ChronicleDeluxe = ChronicleDeluxe or {}
 ChronicleDeluxe.master_seal = ChronicleDeluxe.master_seal or {
-  KEY = 3061358348,
-  TEXT = 3424470956,           -- crc32("chronicle_deluxe_master_seal_obtained"), menu_text
-  TEXT_GET = 4074371074,       -- CMND_TEXT_GET
+  KEY = @crc:ke000900@,
+  TEXT = @crc:chronicle_deluxe_master_seal_obtained@,           -- menu_text
+  TEXT_GET = @crc:CMND_TEXT_GET@,
   MSG_OPEN = 2289627655,
   MSG_BUSY = 898725220,        -- a message window is open
-  SE = 1917805374, SE_GET = 2086672038,   -- the board's message sound (sy0003)
+  SE = @crc:CMND_SND_PLAY_SE@, SE_GET = @crc:sy0003@,   -- the board's message sound
+  PENDING = "chronicle_deluxe_master_seal_pending", -- the game parameter that holds an unshown notice; it outlives a board re-created before the notice shows (an open event's map change, a trigger's event)
   before = false,
-  pending = false,
+  pending = nil,               -- nil until this board read the parameter
 }
 local Seal = ChronicleDeluxe.master_seal
 
@@ -38,10 +39,14 @@ if VRFW.host ~= nil then
   VRFW.host.on(stem, "VRFW.route_board.cleared", {id = id, phase = "after", fn = function(r, c)
     if not Seal.before and Seal.owned() and VRFW.copies.slot_ok() then
       Seal.pending = true
+      VRFW.param.replace(Seal.PENDING, 1)
     end
     Seal.before = true
   end})
   VRFW.host.on(stem, "PreStep", {id = id, phase = "after", fn = function()
+    if Seal.pending == nil then
+      Seal.pending = VRFW.param.has(Seal.PENDING)
+    end
     if not Seal.pending or VRFW.route_board == nil or VRFW.route_board.L.n21 ~= 0 then
       return
     end
@@ -49,6 +54,7 @@ if VRFW.host ~= nil then
       return
     end
     Seal.pending = false
+    VRFW.param.clear(Seal.PENDING)
     Seal.show()
   end})
 end

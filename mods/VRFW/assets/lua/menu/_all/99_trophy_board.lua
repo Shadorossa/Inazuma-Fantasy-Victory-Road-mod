@@ -1,4 +1,4 @@
--- VRFW: the score card of the champions' celebration (docs/framework/trophy.md).
+-- Internal: VRFW: the score card of the champions' celebration (docs/framework/trophy.md).
 VRFW.trophy_board = VRFW.trophy_board or {}
 do
   local BOARD = {
@@ -32,7 +32,7 @@ do
   local previous = OnOpenLayer
   if type(previous) == "function" and type(SetupEmblemIconFromResultView) == "function"
     and previous ~= VRFW.trophy_board.open then
-    --- Retail wrap: hides the unfilled plates of a trophy board; answers the previous results.
+    --- Internal: Retail wrap: hides the unfilled plates of a trophy board; answers the previous results.
     VRFW.trophy_board.open = function(layer, index, ...)
       local results = table.pack(previous(layer, index, ...))
       if layer == BOARD.IMAGE or BOARD.PLATES[layer] then

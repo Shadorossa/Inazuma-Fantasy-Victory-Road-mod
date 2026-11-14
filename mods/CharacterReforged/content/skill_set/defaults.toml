@@ -3,12 +3,13 @@ schema = "CharacterReforged.skill_set/1"
 [CharacterReforged.SkillSet]
 # the 6 move rows: special moves only (no aura of any type)
 moves_refuse_auras = true
-# the aura slot: keshin, totem and awakening (power 5, change 7); an armour comes through its keshin
-aura_types = [0, 3, 5, 7]
-# the mix slot: Mix-Max and «Modo cambio» (their creation entries and carriers have these types too)
+# the aura slot: keshin, totem and awakening power (5); an armour comes through its keshin
+aura_types = [0, 3, 5]
+# the mix slot: Mix-Max and «Modo cambio» only (their creation entries and carriers have these types too); kizuna trans (4) and awakening change (7) are in no Hiper half
 mix_types = [2, 6]
 # the mix slot kinds that add stats (a «Modo cambio» only swaps the player into his partner)
 mix_stat_types = [2]
 aura_board_slots = [8]
-moveset_export = "CharacterReforged.Moveset"
+# the export that answers every card's own mix ({ [card] = mix id }) in one call
+moveset_export = "CharacterReforged.MovesetMixes"
 

@@ -166,7 +166,7 @@ end
 start()
 
 -- a title return ends any hold (the title's own fade-in then shows it)
-VRFW.on("game_reset", function(ev)
+VRFW.on("game:reset", function(ev)
   cover_release("game reset")
 end)
 

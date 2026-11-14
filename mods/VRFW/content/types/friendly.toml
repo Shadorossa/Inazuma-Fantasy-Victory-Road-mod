@@ -2,6 +2,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.friendly/1"
 folder = "content/friendlies"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Match.Friendly"
+v2_kind_folder = "Match/Friendlies"
+v2_version = 1
 label = "Friendlies"
 label_es = "Amistosos"
 doc = "A friendly match: its team, rival, rules and what follows it."

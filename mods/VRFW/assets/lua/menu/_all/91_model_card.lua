@@ -2,6 +2,7 @@
 -- VRFW model cards, game Lua side (every menu VM; script side scripts\model_card.lua; docs/framework/model-card.md).
 if VRFW.model_card == nil then
   local MC = {}
+  --- Advanced: Namespace: the model card helpers (character and kit cards on menu layers).
   VRFW.model_card = MC
 
   local CMD = {
@@ -21,6 +22,7 @@ if VRFW.model_card == nil then
   local SCROLL_MESHES = { "_scr_line01", "_scr_obj01" }
   local KEY = nil
 
+  --- Internal: model card state per layer.
   MC.layers = {}
   local function HideShopParts(layer, idx)
     for _, mesh in ipairs(SCROLL_MESHES) do VRFW.host.menu_command(VRFW.commands.SET_MESH_VISIBLE, layer, VRFW.crc32(mesh), false, idx or 0) end
@@ -29,7 +31,7 @@ if VRFW.model_card == nil then
   local function WatchSetup()
     if OnSetupLayer == MC.setup or type(OnSetupLayer) ~= "function" then return end
     local inner = OnSetupLayer
-    --- Runs the card's setup, then hides the shop parts on its layers.
+    --- Internal: Runs the card's setup, then hides the shop parts on its layers.
     MC.setup = function(a1, a2, ...)
       local r = table.pack(inner(a1, a2, ...))
       if MC.layers[a1] then HideShopParts(a1, a2) end
@@ -60,7 +62,7 @@ if VRFW.model_card == nil then
     return d, sx, feet
   end
 
-  --- A new model card for `spec`.
+  --- Advanced: A new model card for `spec`.
   function MC.new(spec)
     local K = { spec = spec, want = nil, held = nil, free_frames = 0, covered = false, logs = 0, opened = false }
     local layer = spec.layer

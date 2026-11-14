@@ -1,15 +1,21 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.technique_filter_tab/1"
 folder = "content/technique_filter_tabs"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Menu.HissatsuFilterTab"
+v2_kind_folder = "Menus/HissatsuFilterTabs"
+v2_version = 1
 label = "Technique filter tabs"
 label_es = "Pestañas de filtro de técnicas"
 doc = "A tab of its own in the move filter window, after the game's tabs."
 doc_es = "Una pestaña propia en la ventana de filtro de técnicas, después de las del juego."
 
 [entry.TechniqueFilterTab]
-doc = "a tab of its own in the move filter window, after the game's tabs; one tab per kind of rows (a later mod's declaration of the same rows wins)"
+doc = "a tab of its own in the move filter window, after the game's tabs; one tab per kind of rows, in load order (a later mod's declaration of the same rows wins)"
 name = { type = "name", required = true, doc = "the tab's name in its mod (a-z 0-9 _)" }
-rows = { type = "string", required = true, doc = "\"families\": one row per technique family ([[VRFW.TechniqueFamily]] of any active mod)" }
+rows = { type = "string", required = true, doc = "\"families\": one row per technique family ([[VRFW.TechniqueFamily]] of any active mod); \"mods\": one row for the game's techniques and one per mod that holds a technique id, named as in its mod.toml; \"series\": one row per saga that holds a technique: the game's series in table order (a game move: its skill table series cell), then one saga per mod in load order (every move a mod adds; the name: mod.toml [saga] text, else the mod's name)" }
 text = { type = "string", required = true, doc = "text key of the tab's name (shown under the tab icons)" }
+base_text = { type = "string", default = "", doc = "rows = \"mods\": text key of the row of the game's own techniques" }
+none_text = { type = "string", default = "", doc = "rows = \"series\": text key of the row of the game moves no series holds (no text key: no such row)" }
 icon = { type = "string", default = "icon_list_tab_filter09", doc = "tab icon: a sprite of the window's tab icon atlas (icon_list_tab_filter.g4tx); <icon>_off is its unfocused look" }
 symbol = { type = "string", default = "filter_symbol09", doc = "the window's background symbol while the tab is shown (a sprite of win07_01.g4tx)" }

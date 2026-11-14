@@ -7,13 +7,13 @@ id = "inazumafantasy_uni_edwin_style"
 from = 0x252CE113
   [[kit.model]]
   type = 0
-  fielder = "u11010510"
-  keeper = "u11010510"
+  fielder = "inazumafantasy_u11010510"
+  keeper = "inazumafantasy_u11010510"
   shoes = "s11010510"
   [[kit.model]]
   type = 1
-  fielder = "u11010510"
-  keeper = "u11010510"
+  fielder = "inazumafantasy_u11010510"
+  keeper = "inazumafantasy_u11010510"
   shoes = "s11010510"
 
 [[kit]]

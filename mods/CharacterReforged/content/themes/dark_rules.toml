@@ -2,6 +2,15 @@ schema = "VRFW.theme_rules/1"
 theme = "dark"
 # the match HUD's PE / PEG / SP numbers, slash and bars under the portrait: kept as drawn
 exclude = ["dx11/menu/02_btl/character_reforged_points_hud"]
+# the text icon atlas, where the archetype icons inside texts live: only the sprites named below change
+include = ["dx11/font/gaiji_game.g4tx"]
+
+# the archetype icons inside texts (gaiji_cr_tag_<tag>, drawn in the passive text's dark colour): the theme's text
+# colour, as the text around them
+[[sprite]]
+match = "gaiji_cr_tag_*"
+file = "font/gaiji_game.g4tx"
+class = "text"
 
 [[sprite]]
 match = "cr_pp_card_blue"

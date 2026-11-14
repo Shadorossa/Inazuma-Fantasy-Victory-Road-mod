@@ -130,10 +130,14 @@ local function derive()
   return out
 end
 
+-- The kits are derived at script load (off the game thread); the game-thread publish only writes the native table.
+local DERIVED_OK, DERIVED_KITS = pcall(derive)
+
 local function publish()
   if STATE.done then return end
   STATE.done = true
-  local ok, kits = pcall(derive)
+  local ok, kits = DERIVED_OK, DERIVED_KITS
+  DERIVED_KITS = nil
   if not ok then
     warn("not derived (" .. tostring(kits) .. "): the cards keep only their declared moment_kit")
     kits = {}
@@ -150,5 +154,5 @@ function CharacterReforged.EraKitOf(card)
   return STATE.kits[u32(card)] or 0
 end
 
-VRFW.on("slot_load", function() pcall(publish) end)
+VRFW.on("save:slot_load", function() pcall(publish) end)
 VRFW.on("menu:open:post", function() if not STATE.done then pcall(publish) end end)

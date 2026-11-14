@@ -1,0 +1,21 @@
+schema = "VRFW.look/2"
+# Lord Enma's clothes: one full-body clothes model on the retail c000301 (tall) skeleton, with the game's skin part for the
+# bare hands and neck, so it is also the outfit every player of that body group can wear (content/items/enma_outfit.toml).
+
+[[clothes]]
+model = "u90670000_10"
+rows = [
+  ["_uniform/u90670000/u90670000.g4md", "_uniform/u90670000/u90670000_10.g4tx", 4, 0, 0, 0, "_uniform/u90670000/u90670000_skin.g4md", "_uniform/sk000101/sk000101_10.g4tx", 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0],
+]
+
+# The outfit's kit (uniform_config): the same clothes as fielder and keeper, home and away.
+[[kit]]
+id = "inazumafantasy_uni_enma_outfit"
+  [[kit.model]]
+  type = 0
+  fielder = "u90670000_10"
+  keeper = "u90670000_10"
+  [[kit.model]]
+  type = 1
+  fielder = "u90670000_10"
+  keeper = "u90670000_10"

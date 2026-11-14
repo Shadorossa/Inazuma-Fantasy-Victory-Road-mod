@@ -1,7 +1,7 @@
 INCLUDE("LUA_PROG_BASE")
 
-local MENU = 1994548118
-local CMD_VIEW = 2626318594
+local MENU = 1994548118           -- battlebaydeluxe_tn_groups_menu
+local CMD_VIEW = 2626318594       -- CMND_BATTLEBAYDELUXE_TOURNAMENT_VIEW
 local ART = 2658588602
 local NODE_QUAD = 1909474081       -- icon_new01 (the quad node of cmn01_10)
 local MESH_QUAD = 312193881        -- _icon_new01
@@ -21,13 +21,22 @@ for k, l in pairs(L) do
   KEY_OF[l] = k
 end
 
+-- The retail commands this screen calls, as numbers: the framework kit loads after this chunk, so no name lookup at load.
 local C = {
-  VISIBLE = 711242136, POS = 1389957207, SCALE = 3778714801, SPRITE = 558735651, PRIM_COLOR = 855211291,
-  MESH_VISIBLE = 3405944500, TEXT = 1083631230, TEXT_VISIBLE = 1505208242, TEXT_STYLE = 2333948100,
-  TEXT_GET = 4074371074,
-  LAYER_NUM = 1175615627,      -- CMND_GET_CREATE_LAYER_NUM (layer) -> instances created
-  MODEL_ALPHA = 4231609516, TEXT_ALPHA = 1126837159,
-  CROSS_CALL = 830228314,      -- (menu, function name, ...): a function of another menu's Lua
+  VISIBLE = 711242136,            -- CMND_SET_LAYER_VISIBLE
+  POS = 1389957207,               -- CMND_SET_LAYER_LOCAL_POS
+  SCALE = 3778714801,             -- CMND_SET_LAYER_LOCAL_SCALE
+  SPRITE = 558735651,             -- the layer sprite command (retail name unknown)
+  PRIM_COLOR = 855211291,         -- CMND_SET_PRIM_COLOR
+  MESH_VISIBLE = 3405944500,      -- CMND_SET_MESH_VISIBLE
+  TEXT = 1083631230,              -- CMND_SET_MENU_TEXT_STRING
+  TEXT_VISIBLE = 1505208242,      -- CMND_SET_MENU_TEXT_VISIBLE
+  TEXT_STYLE = 2333948100,        -- the menu text style command (retail name unknown)
+  TEXT_GET = 4074371074,          -- CMND_TEXT_GET
+  LAYER_NUM = 1175615627,         -- CMND_GET_CREATE_LAYER_NUM (layer) -> instances created
+  MODEL_ALPHA = 4231609516,       -- CMND_SET_LAYER_MODEL_ALPHA
+  TEXT_ALPHA = 1126837159,        -- CMND_SET_MENU_TEXT_ALPHA
+  CROSS_CALL = 830228314,         -- (menu, function name, ...): a function of another menu's Lua
 }
 local PLATE = { 2022529787, 2334302522, 4215821749, 1697431574 }   -- _list_base_xs01_off / _on / _ok / _ol
 local MESH_EMBLEM = 3281704751     -- _icon_emblem_dmy01 (its crest: VRFW.team.emblem)
@@ -89,13 +98,23 @@ local function Log(...)
   logger(...)
 end
 
-local function Crc(text)
-  return VRFW.ids.crc32(text)
+local function Text(key)
+  local t = VRFW.host.command(C.TEXT_GET, VRFW.ids.crc32("battlebaydeluxe_tn_" .. key))
+  return type(t) == "string" and t or ""
 end
 
-local function Text(key)
-  local t = VRFW.host.command(C.TEXT_GET, Crc("battlebaydeluxe_tn_" .. key))
-  return type(t) == "string" and t or ""
+-- The title of group n (1 = A): the one group text with its <VALUE> tag replaced by the letter; empty outside 1-16.
+local GROUP_LETTERS = "ABCDEFGHIJKLMNOP"
+local function GroupTitle(n)
+  if n < 1 or n > #GROUP_LETTERS then
+    return ""
+  end
+  local t = Text("group")
+  local i, j = string.find(t, "<VALUE>", 1, true)
+  if not i then
+    return t
+  end
+  return string.sub(t, 1, i - 1) .. string.sub(GROUP_LETTERS, n, n) .. string.sub(t, j + 1)
 end
 
 local function SetSprite(l, atlas, spr, node, i)
@@ -232,7 +251,7 @@ local function Card(grp, M, x, y, w, h, pitch)
   local stx = M.labels > 0 and (bx1 - M.head * 2.4) or (num_left - M.head * 1.4)
   Quad("mark", SP.stroke, stx, y + M.head / 2, M.head * 0.5, M.head)
   Quad("mark", SP.stroke2, stx + M.head * 0.55, y + M.head / 2, M.head * 0.3, M.head)
-  TxtLeft(string.upper(Text("group_" .. tostring(grp.n or 0))), lx(y) + 18, y + M.head / 2, M.title_s, G.ST.title)
+  TxtLeft(string.upper(GroupTitle(grp.n or 0)), lx(y) + 18, y + M.head / 2, M.title_s, G.ST.title)
   local xl = lx(y) + 3
   local pos_x = xl + G.QBAR + M.pos_w / 2
   local s = math.min(M.s_max, pitch * G.FILL / G.PLATE_H)
@@ -378,10 +397,10 @@ local LG_SPR = nil
 -- the sprite crcs of the league's pieces (once)
 local function LeagueSprites()
   if LG_SPR == nil then
-    LG_SPR = { strip = {}, frame = Crc("bbd_tn_frame_l"), plate = Crc("list_base_xs01_off"),
-      neutral = Crc("bbd_tn_strip_black"), focus = Crc("bbd_tn_line_me") }
+    LG_SPR = { strip = {}, frame = VRFW.ids.crc32("bbd_tn_frame_l"), plate = VRFW.ids.crc32("list_base_xs01_off"),
+      neutral = VRFW.ids.crc32("bbd_tn_strip_black"), focus = VRFW.ids.crc32("bbd_tn_line_me") }
     for i, n in ipairs(LG.STRIPS) do
-      LG_SPR.strip[i] = Crc("bbd_tn_strip_" .. n)
+      LG_SPR.strip[i] = VRFW.ids.crc32("bbd_tn_strip_" .. n)
     end
   end
   return LG_SPR
@@ -415,9 +434,9 @@ local function BigCard(kind, x, y, w, h)
   local A = LG_ART
   local c = A[kind]
   if A.atlas == nil then
-    A.atlas = Crc(A.ATLAS)
+    A.atlas = VRFW.ids.crc32(A.ATLAS)
   end
-  c.crc = c.crc or Crc(c.spr)
+  c.crc = c.crc or VRFW.ids.crc32(c.spr)
   local sx, sy = w / c.w, h / c.h
   local i = Take("card")
   if i == nil then
@@ -540,9 +559,9 @@ local HUB_NAV = {
   { key = "hub_competition", icon = "vroad01" },
   { key = "hub_roster", icon = "uniform01" },
 }
-local P_NAV = 667806374
-local P_FOCUS = 2824721767
-local P_CAL_MD = 497426575
+local P_NAV = 667806374           -- battlebaydeluxe_lg_nav
+local P_FOCUS = 2824721767        -- battlebaydeluxe_lg_focus
+local P_CAL_MD = 497426575        -- battlebaydeluxe_lg_cal_md
 local SCORERS = { name_w = 460, gap = 24, name_s = 1.25, name_px = 22 }
 local CHARA_OF_CARD = 347353059    -- (card) -> chara id
 local CHARA_NAME = 523676951       -- (chara id) -> name
@@ -569,7 +588,7 @@ local function QuadA(k, atlas, spr, x, y, w, h)
   local l = L[k]
   funcLuaMenuCommand(C.VISIBLE, l, i, true)
   funcLuaMenuCommand(C.SCALE, l, w / Q, h / Q, 1, i)
-  SetSprite(l, Crc(atlas), Crc(spr), NODE_QUAD, i)
+  SetSprite(l, VRFW.ids.crc32(atlas), VRFW.ids.crc32(spr), NODE_QUAD, i)
   funcLuaMenuCommand(C.POS, l, x, -y, 0, i)
   funcLuaMenuCommand(C.PRIM_COLOR, l, i, MESH_QUAD, 1, 1, 1)
 end
@@ -1280,9 +1299,6 @@ function Step()
     if Draw() then
       S.want = false
     end
-  end
-  if VRFW.face_icon ~= nil and VRFW.face_icon.pending() then
-    VRFW.face_icon.settle()
   end
 end
 

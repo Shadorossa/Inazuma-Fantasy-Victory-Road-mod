@@ -2,6 +2,9 @@
 schema = "VRFW.decl_schema/1"
 kind = "CharacterReforged.stat_transfer/1"
 folder = "content/stat_transfer"
+# v2 words, read beside the v1 ones until the switch: the type and its kind folder.
+v2_type = "CharacterReforged.Character.StatTransfer"
+v2_kind_folder = "Characters/StatTransfers"
 label = "Stat transfer"
 label_es = "Transferencia de estadísticas"
 

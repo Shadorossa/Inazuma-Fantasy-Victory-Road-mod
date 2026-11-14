@@ -1,7 +1,8 @@
+-- Small list helpers: contains, index_of, sorted_keys, stable_sort, deep_copy. Call: at load or in a handler.
 -- Table helpers every mod shares (VRFW.lists).
 local Lists = {}
 
---- A copy of `value`: tables are copied at every level, any other value is returned as it is.
+--- VRFW.lists.deep_copy(value): a copy of value with every nested table copied too. Call: at load or in a handler.
 function Lists.deep_copy(value)
   if type(value) ~= "table" then return value end
   local copy = {}
@@ -9,7 +10,7 @@ function Lists.deep_copy(value)
   return copy
 end
 
---- True when the array `list` holds `value`.
+--- VRFW.lists.contains(list, value): whether the list holds value. Returns a boolean. Call: at load or in a handler.
 function Lists.contains(list, value)
   for _, item in ipairs(list) do
     if item == value then return true end
@@ -17,7 +18,7 @@ function Lists.contains(list, value)
   return false
 end
 
---- The first index of `value` in the array `list`; nil when it is not there.
+--- VRFW.lists.index_of(list, value): the first position of value in the list, or nil. Call: at load or in a handler.
 function Lists.index_of(list, value)
   for index, item in ipairs(list) do
     if item == value then return index end
@@ -25,7 +26,7 @@ function Lists.index_of(list, value)
   return nil
 end
 
---- The keys of `set` as a sorted array.
+--- VRFW.lists.sorted_keys(set): the keys of a table, sorted, as a list. Call: at load or in a handler.
 function Lists.sorted_keys(set)
   local keys = {}
   for key in pairs(set) do keys[#keys + 1] = key end
@@ -33,7 +34,7 @@ function Lists.sorted_keys(set)
   return keys
 end
 
---- Sorts the array `list` in place by `key_of(item)`; items with equal keys keep their order.
+--- VRFW.lists.stable_sort(list, key_of): sorts the list in place by key_of(item); equal keys keep their order. Call: at load or in a handler.
 function Lists.stable_sort(list, key_of)
   local decorated = {}
   for index, item in ipairs(list) do

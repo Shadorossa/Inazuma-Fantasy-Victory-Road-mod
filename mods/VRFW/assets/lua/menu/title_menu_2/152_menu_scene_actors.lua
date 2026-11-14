@@ -390,11 +390,12 @@ do
     end
   end
   VRFW.menu_scene = VRFW.menu_scene or {}
+  --- Internal: handle of the actor in slot; answers a handle or nil.
   function VRFW.menu_scene.actor_handle(slot)
     local a = ActorOf(slot)
     return a and a.handle or nil
   end
-  -- the actor's white edge on (the game's character outline: its CCharaEdgeProperty) or back to its own
+  -- Advanced: the actor's white edge on (the game's character outline: its CCharaEdgeProperty) or back to its own
   function VRFW.menu_scene.actor_edge(slot, on)
     local a = ActorOf(slot)
     if not a then return false end
@@ -402,6 +403,7 @@ do
     Log("edge", a.id, on and "on" or "off", tostring(text or why))
     return text ~= nil
   end
+  --- Advanced: Deletes the actor of slot so the next step builds it again (slot); answers true, or false when no such actor.
   function VRFW.menu_scene.actor_rebuild(slot)
     local a = ActorOf(slot)
     if not a then return false end
@@ -410,13 +412,14 @@ do
     st.sig = nil                                             -- the next step makes it again from the same list
     return true
   end
-  -- the actor hidden (on = false) or shown again
+  -- Advanced: the actor hidden (on = false) or shown again
   function VRFW.menu_scene.actor_show(slot, on)
     local a = ActorOf(slot)
     if not a then return false end
     F(A.FADE, a.handle, on and 1 or 0, on and 1 or 0, true)
     return true
   end
+  --- Advanced: Plays a motion on the actor of slot (slot, clip, next_clip, blend); answers true, or false when no such actor.
   function VRFW.menu_scene.actor_motion(slot, clip, next_clip, blend)
     local a = ActorOf(slot)
     if not a then return false end

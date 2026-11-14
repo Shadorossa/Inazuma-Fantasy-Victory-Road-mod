@@ -1,3 +1,4 @@
+--- Advanced: Library: expands and cleans name tags in game texts.
 local M = {}
 
 local GameText = VRFW.names
@@ -63,7 +64,7 @@ local function charas()
   return CHARAS
 end
 
---- True when the original names option is on.
+--- Advanced: True when the original names option is on.
 function M.original_names()
   local okf, at = pcall(VRFW.game.field, ORIGINAL_NAMES_FIELD)
   local settings = VRFW.game.global(SETTINGS_GLOBAL)
@@ -108,7 +109,7 @@ local function tag_name(prefix, key, lang)
   return chara_name(prefix, key, lang)
 end
 
---- Text `s` with its name tags filled in language `lang`: text, whether a tag was left.
+--- Internal: Text `s` with its name tags filled in language `lang`: text, whether a tag was left.
 function M.expand(s, lang)
   if type(s) ~= "string" or not s:find("<", 1, true) then return s, false end
   local left = false
@@ -123,7 +124,7 @@ function M.expand(s, lang)
   return out, left
 end
 
---- Text `s` with its name tags filled and any left tag removed.
+--- Advanced: Text `s` with its name tags filled and any left tag removed.
 function M.clean(s, lang)
   local out, left = M.expand(s, lang)
   if type(out) ~= "string" then return "" end

@@ -136,22 +136,20 @@ function CharacterReforged.hyper_card.partner(A, face, ctx, inst)
     funcLuaMenuCommand(@crc:CMND_SET_MESH_VISIBLE@, A, CharacterReforged.hyper_card.CHR_MESH, false, inst)
     return false
   end
-  funcLuaMenuCommand(@crc:CMND_SET_MESH_VISIBLE@, A, CharacterReforged.hyper_card.CHR_MESH, true, inst)
   pcall(funcLuaCommand, @crc:CMND_VRFW_APPEARANCE@, ctx or "plate_page", face)
   local has = funcLuaMenuCommand(2208175668 --[[has a miximax face icon]], face)
-  if has then
-    funcLuaMenuCommand(346643487 --[[SwapLayerFaceIconTex]], A, inst, CharacterReforged.hyper_card.CHR_MESH, CharacterReforged.hyper_card.CHR_SLOT, face, 0, 12, true,
-      true, true, 5)
-  else
-    VRFW.face_icon.request(A, inst, face, CharacterReforged.hyper_card.CHR_MESH, CharacterReforged.hyper_card.CHR_SLOT)
-  end
+  -- VRFW.face_icon shows the mesh once the texture has loaded, so the cleared slot's white fill never shows.
+  VRFW.face_icon.forget(A, inst, CharacterReforged.hyper_card.CHR_MESH)
+  VRFW.face_icon.face(A, inst, face, CharacterReforged.hyper_card.CHR_MESH, CharacterReforged.hyper_card.CHR_SLOT,
+    has and {art = 12} or nil)
   CharacterReforged.hyper_card.log("partner", tostring(A), tostring(face), tostring(has))
   return true
 end
 
 CharacterReforged.hyper_card.FACE_BY_TYPE = {[0] = {2449339029, 1051570875, 8}, [1] = {2449339029, 1051570875, 8},
   [2] = {478320441, 3237726902, 12}, [3] = {2449339029, 1051570875, 14}}
-function CharacterReforged.hyper_card.portrait(A, skill, fusion, mc, ctx, inst)
+-- Draws the portrait of an aura card; with `rules.partner_frame` an aura's own face takes the partner's frame (mesh, size, crop).
+function CharacterReforged.hyper_card.portrait(A, skill, fusion, mc, ctx, inst, rules)
   inst = inst or 0
   funcLuaMenuCommand(@crc:CMND_SET_MESH_VISIBLE@, A, CharacterReforged.hyper_card.FS_MESH, false, inst)
   funcLuaMenuCommand(@crc:CMND_SET_MESH_VISIBLE@, A, CharacterReforged.hyper_card.CHR_MESH, false, inst)
@@ -166,8 +164,13 @@ function CharacterReforged.hyper_card.portrait(A, skill, fusion, mc, ctx, inst)
   local face = t ~= nil and CharacterReforged.hyper_card.FACE_BY_TYPE[t] or nil
   local okc, cid = funcLuaCommand(CharacterReforged.hyper_card.SKILL_INFO, skill, 17)
   if okc and cid ~= nil and cid ~= 0 and face ~= nil then
-    funcLuaMenuCommand(@crc:CMND_SET_MESH_VISIBLE@, A, face[1], true, inst)
-    funcLuaMenuCommand(346643487 --[[SwapLayerFaceIconTex]], A, inst, face[1], face[2], cid, 0, face[3], true, true, true, 5)
+    local mesh, slot = face[1], face[2]
+    if rules ~= nil and rules.partner_frame then
+      mesh, slot = CharacterReforged.hyper_card.CHR_MESH, CharacterReforged.hyper_card.CHR_SLOT
+    end
+    -- VRFW.face_icon shows the mesh once the texture has loaded.
+    VRFW.face_icon.forget(A, inst, mesh)
+    VRFW.face_icon.face(A, inst, cid, mesh, slot, {art = face[3]})
     return cid
   end
   return nil
@@ -240,5 +243,53 @@ function CharacterReforged.hyper_card.steps(cost, scale)
     return 0
   end
   return math.min(10, math.max(1, math.floor(cost / scale * 10 + 0.5)))
+end
+-- The «Armadura» badge of a keshin card: the retail framed badge _gtxt_cmd_armed01 on its own layer, centred on the
+-- bottom edge of the card's band.
+CharacterReforged.hyper_card.ARMOUR_BADGE = 1206374040              -- _gtxt_cmd_armed01
+CharacterReforged.hyper_card.ARMOUR_BADGE_K = 0.8                   -- size factor on the retail 120 x 48 badge
+CharacterReforged.hyper_card.EXIST_LAYER = 262659071                -- (layer) -> layer declared on this menu
+
+-- Returns the armour `chara` can wear with keshin `skill` (0 = none or not a keshin), from the mod's armour data.
+function CharacterReforged.hyper_card.keshin_armour(skill, chara)
+  if CharacterReforged.hyper_card.aura_type(skill) ~= 0 or chara == nil or chara == 0 then
+    return 0
+  end
+  local ok, armour = pcall(funcLuaCommand, CALC_CRC("CMND_CHARACTERREFORGED_KESHIN_HYPER_ARMOUR"), chara, skill)
+  return (ok and type(armour) == "number") and armour or 0
+end
+
+-- Shows the badge on rules.layer when `chara` can wear an armour with keshin `skill`, else hides it.
+-- rules.band = {x, top, w, h} of the card's band in the badge layer's frame; rules.scale (default 1) and rules.prio
+-- (draw priority, optional). Returns the badge point {x, y} when shown, else nil.
+function CharacterReforged.hyper_card.armour_mark(skill, chara, rules)
+  local T = rules.layer
+  if T == nil or funcLuaMenuCommand(CharacterReforged.hyper_card.EXIST_LAYER, T) ~= true then
+    return nil
+  end
+  local armour = CharacterReforged.hyper_card.keshin_armour(skill, chara)
+  local open = funcLuaMenuCommand(@crc:CMND_IS_OPEN_LAYER@, T, 0)
+  if armour == 0 then
+    if open then
+      funcLuaMenuCommand(@crc:CMND_SET_LAYER_VISIBLE@, T, 0, false)
+    end
+    return nil
+  end
+  if not open then
+    funcLuaMenuCommand(@crc:CMND_OPEN_LAYER@, T, 0)
+  end
+  local b, s = rules.band, rules.scale or 1
+  local at = {b[1] + b[3] * s / 2, b[2] - b[4] * s}
+  local k = s * CharacterReforged.hyper_card.ARMOUR_BADGE_K
+  funcLuaMenuCommand(@crc:CMND_SET_MESH_VISIBLE@, T, CharacterReforged.hyper_card.ARMOUR_BADGE, true, 0)
+  funcLuaMenuCommand(@crc:CMND_SET_LAYER_LOCAL_SCALE@, T, k, k, 1, 0)
+  funcLuaMenuCommand(@crc:CMND_SET_LAYER_LOCAL_POS@, T, at[1], at[2], 0, 0)
+  if rules.prio ~= nil then
+    pcall(funcLuaMenuCommand, @crc:CMND_SET_DRAW_PRIORITY@, T, 0, rules.prio, true)
+  end
+  funcLuaMenuCommand(@crc:CMND_SET_LAYER_VISIBLE@, T, 0, true)
+  CharacterReforged.hyper_card.log("armour badge", string.format("%08X", skill or 0), tostring(armour),
+    string.format("%.1f", at[1]), string.format("%.1f", at[2]))
+  return at
 end
 -- ===== EVT hiper_card END =====

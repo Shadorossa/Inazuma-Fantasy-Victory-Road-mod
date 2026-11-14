@@ -23,3 +23,11 @@ handler = "CharacterReforged.PageCapture.Bind"
 [[VRFW.Command]]
 name = "CMND_CHARACTERREFORGED_PAGE_CAPTURE_BOUND"
 handler = "CharacterReforged.PageCapture.Bound"
+
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_PAGE_ZOOM_CONFIG"
+handler = "CharacterReforged.PageCapture.ZoomConfig"
+
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_TYPE_TAG_SCALE"
+handler = "CharacterReforged.PageCapture.TypeTagScale"

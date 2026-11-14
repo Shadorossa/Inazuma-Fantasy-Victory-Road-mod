@@ -7,20 +7,20 @@ BetterUI.retire_guide.HALF_W = 960        -- layout units from the bottom centre
 BetterUI.retire_guide.RIGHT_GAP = 130     -- room for the pause icon at the right edge
 BetterUI.retire_guide.DY = 0              -- layout units up (+) / down (-) from the retail height
 
-local retire_guide_layer = 4265276480 --[[soccer01_33_game_retire_guide]]
-local retire_guide_afk = 4270197957 --[[soccer01_33_game_afk_kick_guide]]
+local retire_guide_layer = 4265276480
+local retire_guide_afk = 4270197957
 local better_ui_rg_last = nil
 
 local function retire_guide_place()
-  if BetterUI.preset == "off" or type(funcLuaMenuCommand) ~= "function" then
+  if type(funcLuaMenuCommand) ~= "function" then
     return
   end
-  local okOpen, open = pcall(funcLuaMenuCommand, 2640875187 --[[CMND_IS_OPEN_LAYER]], retire_guide_layer, 0)
+  local okOpen, open = pcall(funcLuaMenuCommand, 2640875187, retire_guide_layer, 0)
   if not okOpen or open ~= true then
     better_ui_rg_last = nil
     return
   end
-  local okAfk, afk = pcall(funcLuaMenuCommand, 2640875187 --[[CMND_IS_OPEN_LAYER]], retire_guide_afk, 0)
+  local okAfk, afk = pcall(funcLuaMenuCommand, 2640875187, retire_guide_afk, 0)
   if okAfk and afk == true then
     return
   end
@@ -30,11 +30,11 @@ local function retire_guide_place()
   end
   local x = math.floor(BetterUI.retire_guide.HALF_W - BetterUI.retire_guide.RIGHT_GAP - w + 0.5)
   -- Writes the position on every call.
-  pcall(funcLuaMenuCommand, 1389957207 --[[CMND_SET_LAYER_LOCAL_POS]], retire_guide_layer, x, BetterUI.retire_guide.DY, 0, 0)
+  pcall(funcLuaMenuCommand, 1389957207, retire_guide_layer, x, BetterUI.retire_guide.DY, 0, 0)
   local key = x .. "," .. BetterUI.retire_guide.DY
   if key ~= better_ui_rg_last then
     better_ui_rg_last = key
-    pcall(funcLuaCommand, 519897777 --[[CMND_VRFW_LOG]], "BetterUI retire guide", "width " .. tostring(w), "x " .. tostring(x))
+    pcall(funcLuaCommand, 519897777, "BetterUI retire guide", "width " .. tostring(w), "x " .. tostring(x))
   end
 end
 
@@ -51,31 +51,31 @@ BetterUI.retire_guide.GUIDE_CENTRE_Y = 150      -- plate centre height above the
 BetterUI.retire_guide.GUIDE_NODE_Y = 92
 BetterUI.retire_guide.GUIDE_PLATE_H = 52        -- soccer01_33 plate height (layout units, scale 1)
 
-local retire_guide_layer = 902585941 --[[soccer01_33_gameend_guide]]
+local retire_guide_layer = 902585941
 local better_ui_ge_last = nil
 
 local function retire_guide_place()
-  if BetterUI.preset == "off" or type(funcLuaMenuCommand) ~= "function" then
+  if type(funcLuaMenuCommand) ~= "function" then
     return
   end
-  local okOpen, open = pcall(funcLuaMenuCommand, 2640875187 --[[CMND_IS_OPEN_LAYER]], retire_guide_layer, 0)
+  local okOpen, open = pcall(funcLuaMenuCommand, 2640875187, retire_guide_layer, 0)
   if not okOpen or open ~= true then
     better_ui_ge_last = nil
     return
   end
   local dy = math.floor(BetterUI.retire_guide.GUIDE_CENTRE_Y + BetterUI.retire_guide.GUIDE_PLATE_H / 2 - BetterUI.retire_guide.GUIDE_NODE_Y + 0.5)
-  local okP, x, y = pcall(funcLuaMenuCommand, 2834507455 --[[CMND_GET_LAYER_LOCAL_POS]], retire_guide_layer, 0)
+  local okP, x, y = pcall(funcLuaMenuCommand, 2834507455, retire_guide_layer, 0)
   if not okP or type(x) ~= "number" then
     return
   end
   if type(y) == "number" and math.abs(y - dy) < 0.5 then
     return
   end
-  pcall(funcLuaMenuCommand, 1389957207 --[[CMND_SET_LAYER_LOCAL_POS]], retire_guide_layer, x, dy, 0, 0)
+  pcall(funcLuaMenuCommand, 1389957207, retire_guide_layer, x, dy, 0, 0)
   local key = x .. "," .. dy
   if key ~= better_ui_ge_last then
     better_ui_ge_last = key
-    pcall(funcLuaCommand, 519897777 --[[CMND_VRFW_LOG]], "BetterUI game end guide", "x " .. tostring(x), "dy " .. tostring(dy))
+    pcall(funcLuaCommand, 519897777, "BetterUI game end guide", "x " .. tostring(x), "dy " .. tostring(dy))
   end
 end
 

@@ -1,7 +1,7 @@
 schema = "VRFW.menu/2"
 
 # Team emblem picker as a full-width honeycomb (research/grafts/better_ui_emblem_grid): the retail list stays, its layers get new objects.
-# The grid layout is built by research/mods/BetterUI/_tools/emblem_grid_build.py from [emblem_grid] of _menu_build.toml.
+# The grid layout is built by research/mods/BetterUI/_tools/betterui_emblem_grid_build.py from [emblem_grid] of _menu_build.toml.
 # Screen rows under BetterUI's short header, top to bottom: series tab bar centred (84-160), grid (167 to the screen's bottom, 7 rows to 987); the footer prompts draw over the grid's bottom fade (the retail help line is hidden by the graft).
 
 # The tile: the retail team select emblem tile at 0.85; its touch zone at 105 px (89 px after the 0.85) stays inside one column pitch.

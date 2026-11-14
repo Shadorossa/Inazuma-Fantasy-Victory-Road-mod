@@ -47,14 +47,29 @@ local character_reforged_fold = {
   },
   progress = 0, input_shift = 0, width = nil, band = {}, shift = {}, icon = {}, logo = {},
 }
+-- The plates in the retail super-tactics look (content\menus\hyper_plates.toml: layer cr_transform_tactics_plate, a copy of
+-- soccer08_12_tactics_cmd hung on the ring's rows cr_transform_tactics01..04), drawn while a mod declares that look for the
+-- command plates (CMND_VRFW_HUD_SKIN); `on` is read when the menu starts. The band is the painted part of the plate sprite in
+-- its layout (x right, y up, origin at the plate's centre).
+local TacticsPlate = {
+  on = false,
+  layer = 2958247108,
+  attach = {2841443714, 810921016, 1196596398, 3644197133},
+  name = 625330766 --[[_text_cmd01]],
+  icon = 2424767532 --[[_icon_tactics_dmy01]],
+  icon_slot = 809583586 --[[icon_tactics_dmy01]],
+  grayout = 3412960572 --[[_cmd_base_t_grayout01]],
+  special_marks = 3028221246 --[[_pos_base03: the retail special tactic's marks]],
+  band_left = -220, band_right = 220, band_half_height = 26,
+}
 
--- The transformation cross at the bottom left of the match HUD: a ring like the super-tactics widget beside it, with the
--- modifier's glyph in the centre and the type icon of each entry at its arrow's place, and one plate per existing entry
--- while the modifier is held.
+-- The aura menu at the bottom left of the match HUD, open only while the modifier is held: a ring like the super-tactics widget
+-- beside it, with the modifier's glyph in the centre and the type icon of each entry at its arrow's place, and one plate per
+-- existing entry. A closed menu draws nothing, so the HUD shows only the retail widgets.
 -- Its places are the mod's config.toml [transform_cross], read through CMND_CHARACTERREFORGED_TRANSFORM_CROSS (nil until then).
 CharacterReforged.TRANSFORM_CROSS = nil
 local CROSS_DIRECTION_NAME = {[1] = "up", [2] = "left", [3] = "right", [4] = "down"}
-local character_reforged_cross = {held = false, reasons = nil, labels = nil, logged = {}, ring = {}, fit = {}, rows = {}, row_count = 0, config_failed = false, rects_logged = false, measure_logged = false}
+local character_reforged_cross = {held = false, tactics_ring_hidden = false, reasons = nil, logged = {}, ring = {}, fit = {}, pill = {}, rows = {}, row_count = 0, config_failed = false, rects_logged = false, measure_logged = false}
 -- The ring, a copy of the retail super-tactics widget (content\menus\hyper_plates.toml).
 local RingLayer = 334757758
 local RING_NATIVE_SIZE = 144
@@ -72,41 +87,17 @@ local RING_ICONS = {
   [3] = {2487205043 --[[_icon_sp_tactics_dmy01]], 3258038558 --[[icon_sp_tactics_dmy01]], 2122984149},
   [4] = {3101138469 --[[_icon_tactics_g_dmy03]], 85331984 --[[icon_tactics_g_dmy03]], 3773742966 --[[tactics_dmy03]]},
 }
--- The three text layers of a plate (_tools\transform_cross_build.py): layer, attach row on the plate, the text node it shows.
+-- The two text layers of a plate (_tools\transform_cross_build.py): layer, attach row on the plate, the text node it shows.
 local CAPTION_LEFT_TEXT, CAPTION_PILL_TEXT = 950238781 --[[_text_btn01]], 2712285063 --[[_text_btn02]]
 local CAPTION_PILL_BAND = 2605774483 --[[_pw_guide01]]
 local CAPTION_TEXTS = {CAPTION_LEFT_TEXT, CAPTION_PILL_TEXT}
-local TypeLayer, PillLayer, NameLayer = 284253473, 471764223, 3255596046
+local PillLayer, NameLayer = 471764223, 3255596046
+local CAPTION_PILL, CAPTION_NAME = 1, 2
 local CAPTION_LAYERS = {
-  {layer = TypeLayer, attach = 1443105901, text = CAPTION_LEFT_TEXT},
-  {layer = PillLayer, attach = 3094022737, text = CAPTION_PILL_TEXT},
-  {layer = NameLayer, attach = 111836817, text = CAPTION_LEFT_TEXT},
+  [CAPTION_PILL] = {layer = PillLayer, attach = 3094022737, text = CAPTION_PILL_TEXT},
+  [CAPTION_NAME] = {layer = NameLayer, attach = 111836817, text = CAPTION_LEFT_TEXT},
 }
 local COMMAND_TEXT_SIZE = 3549540977 --[[CMND_GET_MENU_TEXT_RECT_SIZE(layer, instance, text node) -> width, height of the node's text]]
--- The type label over the name: the menu_text row by the entry's page (0 aura, 1 armour, 2 mix, 3 group, 4 inherited).
-local CROSS_TYPE_ROWS = {[0] = 3661789771, [1] = 2048185767,
-  [2] = 2350099683, [3] = 1030115397, [4] = 2451114934}
-local CROSS_TYPE_TECHNIQUE_ROWS = {mix = 4183836824, spirit = 4252702171}
--- Returns the type label of an entry on page `page` that shows the form's technique (`technique`) or its transformation.
-local function HyperButtonTypeLabel(page, technique)
-  local row = CROSS_TYPE_ROWS[page]
-  if technique then
-    row = page == 2 and CROSS_TYPE_TECHNIQUE_ROWS.mix or CROSS_TYPE_TECHNIQUE_ROWS.spirit
-  end
-  if row == nil then
-    return ""
-  end
-  if character_reforged_cross.labels == nil then
-    character_reforged_cross.labels = {}
-  end
-  local label = character_reforged_cross.labels[row]
-  if label == nil then
-    local ok, text = pcall(funcLuaCommand, 4074371074, row)
-    label = (ok and type(text) == "string") and text or ""
-    character_reforged_cross.labels[row] = label
-  end
-  return label
-end
 -- The one-word reason of a greyed entry: the reason code of the entries command, then the menu_text row.
 local CROSS_REASON_ROWS = {
   [2] = "character_reforged_cross_why_not_now", [3] = "character_reforged_cross_why_not_now", [4] = "character_reforged_cross_why_tension",
@@ -149,7 +140,7 @@ end
 local function HyperButtonReset()
   hyperButtonLast = {}
   for entry = 1, ENTRY_COUNT do
-    hyperButtonLast[entry] = {st = -1, skill = 0, ring = false, glyph = ""}
+    hyperButtonLast[entry] = {st = -1, skill = 0, glyph = ""}
   end
   hyperButtonPos = -1
   character_reforged_ho_set = {}
@@ -160,9 +151,14 @@ HyperButtonReset()
 function CharacterReforged.hyper_button_init()
   HyperButtonReset()
   character_reforged_cross.held = false
+  -- A new menu has its own tactics ring layer, whose root group starts shown.
+  character_reforged_cross.tactics_ring_hidden = false
   character_reforged_cross.ring, character_reforged_cross.rows, character_reforged_cross.row_count = {}, {}, 0
   character_reforged_cross.fit = {}
   character_reforged_cross.rects_logged = false
+  -- The look of the plates: the retail super-tactics plate when a mod declares it for the command plates, else the move-row plate.
+  local okl, look = pcall(funcLuaCommand, 1179286550, "command_plates")
+  TacticsPlate.on = okl and look == "tactics_plate"
 end
 
 function CharacterReforged.hyper_button_setup_layer(a1, a2)
@@ -179,10 +175,17 @@ function CharacterReforged.hyper_button_setup_layer(a1, a2)
   elseif a1 == 1501547018 --[[cr_hiper_chr_icon: the plate portrait, shown by CharacterReforged.HyperButtonPlateFace]]
     or a1 == 2183681184 --[[cr_hiper_input: the input column, shown by CharacterReforged.HyperButtonInputDraw]] then
     pcall(funcLuaMenuCommand, 711242136, a1, a2, false)
-  elseif a1 == TypeLayer or a1 == PillLayer or a1 == NameLayer then
+  elseif a1 == TacticsPlate.layer then
+    pcall(funcLuaMenuCommand, 711242136, a1, a2, false)
+    if TacticsPlate.on and hyperButtonLast[a2 + 1] ~= nil then
+      hyperButtonLast[a2 + 1].st = -1
+      hyperButtonLast[a2 + 1].shown = false
+      character_reforged_ho_set[a2 + 1] = nil
+    end
+  elseif a1 == PillLayer or a1 == NameLayer then
     pcall(funcLuaMenuCommand, 711242136, a1, a2, false)
   elseif a1 == RingLayer then
-    -- The ring starts like the retail widget (its «active» animation), hidden until the first entry is known.
+    -- The ring starts like the retail widget (its «active» animation), hidden until the aura menu opens.
     pcall(funcLuaMenuCommand, 3781155141, a1, a2, 1260321794 --[[active]], 0, 365840886)
     pcall(funcLuaMenuCommand, 711242136, a1, a2, false)
     character_reforged_cross.ring = {}
@@ -194,6 +197,9 @@ end
 local function HyperButtonSetPos()
   for i = 1, #PLATE_ATTACH do
     pcall(funcLuaMenuCommand, 1774843228, RingLayer, 0, PLATE_ATTACH[i], true)
+  end
+  for i = 1, #TacticsPlate.attach do
+    pcall(funcLuaMenuCommand, 1774843228, RingLayer, 0, TacticsPlate.attach[i], true)
   end
 end
 
@@ -229,7 +235,13 @@ local character_reforged_chr_logs = 0
 local PLATE_BASE, PLATE_BASE_Y, PLATE_BAND = 4282364172 --[[_cmd_base_sp01]], 28, 26
 local HYPER_CHARA_BASE = 734954092 --[[_fs_base01]]
 local POSITION_BASE = 1517329426 --[[_pos_base01]]
-local character_reforged_face = {{fix = 1, dy = 0}, {fix = 1, dy = 0}}
+-- The portrait fit of each plate instance.
+local character_reforged_face = {}
+for entry = 1, ENTRY_COUNT do
+  character_reforged_face[entry] = {fix = 1, dy = 0}
+end
+-- A spirit's own face sits in the frame of the Mix-Max partner's face.
+local PLATE_PORTRAIT_RULES = {partner_frame = true}
 
 function CharacterReforged.hyper_button_plate_face_hide(inst)
   pcall(funcLuaMenuCommand, 711242136, HyperChara, inst, false)
@@ -339,7 +351,7 @@ function CharacterReforged.hyper_button_plate_face(L, inst, hdl, retry, pover, s
     return true
   end
   HyperButtonPlateFacePlace(inst)
-  local okp, shown = pcall(CharacterReforged.hyper_card.portrait, HyperChara, own or 0, fusion, mc, "hiper_plates", inst)
+  local okp, shown = pcall(CharacterReforged.hyper_card.portrait, HyperChara, own or 0, fusion, mc, "hiper_plates", inst, PLATE_PORTRAIT_RULES)
   local ok = okp and shown ~= nil and shown ~= 0
   fc.key, fc.ok = key, ok
   funcLuaMenuCommand(711242136, HyperChara, inst, ok)
@@ -437,27 +449,35 @@ local function HyperButtonCaptionLayer(index, inst, text, scale, dx, dy, red, gr
   funcLuaMenuCommand(711242136, layer, inst, text ~= "")
 end
 
--- Draws the texts of plate `inst`: the type label over the name, the name shrunk to its room, the cost or reason pill.
-function CharacterReforged.hyper_button_caption_draw(inst, name, caption, usable)
+-- Draws the one text line of plate `inst`, centred on the plate: the name, then the cost or reason pill at the end of its room.
+function CharacterReforged.hyper_button_caption_draw(inst, name, caption, usable, face)
   local place = CharacterReforged.TRANSFORM_CROSS
   local shade = usable and 1 or 0.5
-  HyperButtonCaptionLayer(1, inst, caption.label, place.text_scale, place.type_offset_x, place.type_offset_y, shade, shade, shade)
+  local pill_right = place.name_offset_x + (face and place.name_room_face or place.name_room)
   if caption.reason then
-    HyperButtonCaptionLayer(2, inst, caption.pill, place.text_scale, place.pill_offset_x, place.pill_offset_y, 1, 0.5, 0.45)
+    HyperButtonCaptionLayer(CAPTION_PILL, inst, caption.pill, place.text_scale, pill_right, 0, 1, 0.5, 0.45)
   else
-    HyperButtonCaptionLayer(2, inst, caption.pill, place.text_scale, place.pill_offset_x, place.pill_offset_y, 1, 1, 1)
+    HyperButtonCaptionLayer(CAPTION_PILL, inst, caption.pill, place.text_scale, pill_right, 0, 1, 1, 1)
   end
   -- The name is drawn at its full size; the next step measures it and shrinks it to its room.
-  HyperButtonCaptionLayer(3, inst, name, place.name_scale, place.name_offset_x, place.name_offset_y, shade, shade, shade)
+  HyperButtonCaptionLayer(CAPTION_NAME, inst, name, place.name_scale, place.name_offset_x, 0, shade, shade, shade)
   character_reforged_cross.fit[inst + 1] = name
+  character_reforged_cross.pill[inst + 1] = caption.pill
 end
 
--- Shrinks the name layer of plate `inst` as a whole until the drawn name fits its room: a name is never cut.
+-- Shrinks the name layer of plate `inst` as a whole until the drawn name fits its room left of the pill: a name is never cut.
 local function HyperButtonNameFit(inst, face)
   local name = character_reforged_cross.fit[inst + 1]
+  local pill = character_reforged_cross.pill[inst + 1]
   character_reforged_cross.fit[inst + 1] = nil
   local place = CharacterReforged.TRANSFORM_CROSS
   local room = face and place.name_room_face or place.name_room
+  if pill ~= nil and pill ~= "" then
+    local okp, pill_width = pcall(funcLuaMenuCommand, COMMAND_TEXT_SIZE, PillLayer, inst, CAPTION_PILL_TEXT)
+    if okp and type(pill_width) == "number" and pill_width > 0 then
+      room = room - pill_width * place.text_scale - place.pill_gap
+    end
+  end
   local ok, width = pcall(funcLuaMenuCommand, COMMAND_TEXT_SIZE, NameLayer, inst, CAPTION_LEFT_TEXT)
   if not ok or type(width) ~= "number" or width <= 0 then
     if not character_reforged_cross.measure_logged then
@@ -478,10 +498,51 @@ local function HyperButtonNameFit(inst, face)
   end
 end
 
-function CharacterReforged.hyper_button_draw(slot, st, hdl, skill, ring, appear, glyph, armour, caption, pover)
+-- Returns the shown name of move `skill` (name id `nameId`): an aura's name as the aura plates write it.
+function CharacterReforged.hyper_button_plate_name(skill, nameId, isAura, auraType)
+  local name = funcLuaCommand(720417636, nameId)
+  if isAura and type(name) == "string" then
+    local okn, conv = pcall(CharacterReforged.hyper_button_aura_name, skill, name, auraType)
+    if okn and type(conv) == "string" then
+      name = conv
+    end
+  end
+  return name
+end
+
+-- Draws plate `inst` in the retail super-tactics look as retail SetupTacticsCmdInfo / UpdateTacticsCmdGrayout draw a tactics
+-- plate: the icon of the move's kind at its left end, its name, lit or greyed.
+function TacticsPlate.draw(inst, usable, appear, skill, nameId, isAura, auraType, category)
+  local T = TacticsPlate
+  local L = T.layer
+  local name = nameId ~= 0 and CharacterReforged.hyper_button_plate_name(skill, nameId, isAura, auraType) or ""
+  if type(name) ~= "string" then
+    name = ""
+  end
+  local sprite = GetSkillCategoryIcon(category, skill, 0)
+  if appear then
+    funcLuaMenuCommand(3781155141, L, inst, 71445658 --[[Open]], 0)
+  end
+  funcLuaMenuCommand(711242136, L, inst, true)
+  funcLuaMenuCommand(1083631230, L, T.name, name, inst)
+  funcLuaMenuCommand(1505208242, L, T.name, name ~= "", inst)
+  funcLuaMenuCommand(1284929827, L, inst, usable)
+  funcLuaMenuCommand(2158717427 --[[node group visible]], L, T.special_marks, false, inst)
+  funcLuaMenuCommand(3405944500, L, T.icon, sprite ~= 0, inst)
+  if sprite ~= 0 then
+    funcLuaMenuCommand(558735651 --[[swap texture]], L, RING_ICON_ATLAS, sprite, T.icon_slot, 0, inst)
+  end
+  funcLuaMenuCommand(3405944500, L, T.grayout, not usable, inst)
+  funcLuaMenuCommand(2484004035 --[[text grey-out rate]], L, inst, T.name, usable and 0 or 0.5)
+  funcLuaMenuCommand(3781155141, L, inst, 1633223871, usable and 2 or 0)
+  return false
+end
+
+function CharacterReforged.hyper_button_draw(slot, st, hdl, skill, appear, glyph, armour, caption, pover)
   local L, inst = HyperButtonLayer, slot
   if st == 0 or skill == 0 then
     funcLuaMenuCommand(711242136, L, inst, false)
+    funcLuaMenuCommand(711242136, TacticsPlate.layer, inst, false)
     CharacterReforged.hyper_button_plate_face_hide(inst)
     CharacterReforged.hyper_button_input_hide(inst)
     CharacterReforged.hyper_button_caption_hide(inst)
@@ -494,6 +555,9 @@ function CharacterReforged.hyper_button_draw(slot, st, hdl, skill, ring, appear,
   local isAura = auraType ~= nil and auraType ~= 255
   local category = isAura and 8 or (HyperButtonInfo(skill, 9) or 1)
   local armed = isAura and IsAuraSkillKeshinArmed(auraType) or false
+  if TacticsPlate.on then
+    return TacticsPlate.draw(inst, usable, appear, skill, nameId, isAura, auraType, category)
+  end
   funcLuaMenuCommand(711242136, L, inst, true)
   -- plate, name (same calls as a move row of SetupSkillCmdInfo)
   local tex = GetSkillElementBaseTextureName(inst, hdl, skill, element, category)
@@ -527,19 +591,13 @@ function CharacterReforged.hyper_button_draw(slot, st, hdl, skill, ring, appear,
   local okf, drawn = pcall(CharacterReforged.hyper_button_plate_face, L, inst, hdl, false, pover, skill)
   local face = okf and drawn == true
   if glyph ~= "" and nameId ~= 0 then
-    local name = funcLuaCommand(720417636, nameId)
-    if isAura and type(name) == "string" then
-      local okn, conv = pcall(CharacterReforged.hyper_button_aura_name, skill, name, auraType)
-      if okn and type(conv) == "string" then
-        name = conv
-      end
-    end
+    local name = CharacterReforged.hyper_button_plate_name(skill, nameId, isAura, auraType)
     if armour then
       -- Handles the armour plate.
       name = ""
     end
     if type(name) == "string" then
-      local okc, errc = pcall(CharacterReforged.hyper_button_caption_draw, inst, name, caption, usable)
+      local okc, errc = pcall(CharacterReforged.hyper_button_caption_draw, inst, name, caption, usable, face)
       if not okc and character_reforged_cross.logged["caption"] ~= tostring(errc) then
         character_reforged_cross.logged["caption"] = tostring(errc)
         pcall(funcLuaCommand, COMMAND_LOG, "hiper_btn", "cross texts error", tostring(errc))
@@ -560,22 +618,16 @@ function CharacterReforged.hyper_button_draw(slot, st, hdl, skill, ring, appear,
   funcLuaMenuCommand(1233047821, L, inst, 875648615, false)
   -- lit / greyed (as SetSkillCmdGrayout)
   local gray = 2300007848 --[[cmd_base_sp_grayout01]]
-  local ringTex = 97673312 --[[sp_ring02]]
   if isAura then
     gray = armed and 1729705092 --[[cmd_base_sp_grayout03]] or 270402578 --[[cmd_base_sp_grayout02]]
-    ringTex = armed and 3183539200 --[[sp_ring02_03]] or 3402089622 --[[sp_ring02_02]]
   end
   funcLuaMenuCommand(3405944500, L, 3742978053 --[[_cmd_base_sp_grayout01]], not usable, inst)
   funcLuaMenuCommand(558735651, L, 2804251149 --[[soccer08_10.g4tx]], gray, 2300007848 --[[cmd_base_sp_grayout01]], 0, inst)
-  funcLuaMenuCommand(558735651, L, 2804251149 --[[soccer08_10.g4tx]], ringTex, 97673312 --[[sp_ring02]], 0, inst)
-  funcLuaMenuCommand(3405944500, L, 1213120893 --[[_sp_ring02]], ring, inst)
+  -- The plates exist only while the modifier is held, so the move row's «modifier held» frame (_sp_ring02) and its pulse stay off.
+  funcLuaMenuCommand(3405944500, L, 1213120893 --[[_sp_ring02]], false, inst)
   funcLuaMenuCommand(3781155141, L, inst, 1633223871, usable and 2 or 0)
   funcLuaMenuCommand(3781155141, L, inst, 846750395, 2)
-  if ring and usable then
-    funcLuaMenuCommand(3781155141, L, inst, 1286797620 --[[Active]], 0, 4054903817)
-  else
-    funcLuaMenuCommand(1380315136, L, inst, 1286797620 --[[Active]], 2, 4054903817)
-  end
+  funcLuaMenuCommand(1380315136, L, inst, 1286797620 --[[Active]], 2, 4054903817)
   if appear then
     funcLuaMenuCommand(3781155141, L, inst, 71445658 --[[Open]], 0, 2181236453)
   end
@@ -661,34 +713,34 @@ local function HyperButtonChargeBar(frac)
   HyperButtonChargeShow(true)
 end
 
-local function HyperButtonUpdate(inst, st, hdl, skill, ring, glyph, armour, caption, pover)
+local function HyperButtonUpdate(inst, st, hdl, skill, glyph, armour, caption, pover)
   local last = hyperButtonLast[inst + 1]
-  local caption_key = caption.label .. "|" .. caption.pill .. "|" .. tostring(caption.reason)
+  local caption_key = caption.pill .. "|" .. tostring(caption.reason)
   pover = pover or 0
   if pover == 0 and (last.pover or 0) ~= 0 and skill == last.skill and hdl == last.hdl and st == last.st then
     pover = last.pover
   end
-  if st == last.st and skill == last.skill and ring == last.ring and glyph == last.glyph and hdl == last.hdl and armour == last.armour
+  if st == last.st and skill == last.skill and glyph == last.glyph and hdl == last.hdl and armour == last.armour
     and caption_key == (last.caption_key or "") and pover == (last.pover or 0) then
     return
   end
   local appear = last.st ~= 1 and last.st ~= 2
   last.st = st
   last.skill = skill
-  last.ring = ring
   last.glyph = glyph
   last.hdl = hdl
   last.armour = armour
   last.caption_key = caption_key
   last.pover = pover
-  local ok, face = pcall(CharacterReforged.hyper_button_draw, inst, st, hdl, skill, ring, appear, glyph, armour, caption, pover)
+  local ok, face = pcall(CharacterReforged.hyper_button_draw, inst, st, hdl, skill, appear, glyph, armour, caption, pover)
   last.face = ok and face == true
   if inst == character_reforged_cd.inst then
     character_reforged_cd.shown = nil
   end
   last.drawTick = hyperButtonTick
   last.hasFace = false
-  if ok and st ~= 0 and skill ~= 0 then
+  -- The tactics look has no portrait, so no face is issued again.
+  if ok and st ~= 0 and skill ~= 0 and not TacticsPlate.on then
     local okp, partner, spirit = pcall(funcLuaCommand, COMMAND_MXP, hdl, skill)
     last.hasFace = (okp and ((type(partner) == "number" and partner ~= 0) or (type(spirit) == "number" and spirit ~= 0)))
       or pover ~= 0
@@ -699,6 +751,7 @@ local function HyperButtonUpdate(inst, st, hdl, skill, ring, glyph, armour, capt
   end
   if not ok then
     pcall(funcLuaMenuCommand, 711242136, HyperButtonLayer, inst, false)
+    pcall(funcLuaMenuCommand, 711242136, TacticsPlate.layer, inst, false)
     CharacterReforged.hyper_button_plate_face_hide(inst)
     CharacterReforged.hyper_button_input_hide(inst)
     CharacterReforged.hyper_button_caption_hide(inst)
@@ -746,8 +799,8 @@ end
 
 -- The numbers of the config command, in the order scripts\transform_cross.lua returns them.
 local CROSS_CONFIG_KEYS = {
-  "centre_x", "centre_y", "ring_size", "dim_brightness", "plate_left", "plate_scale", "row_pitch", "text_scale", "name_scale", "name_room",
-  "name_room_face", "type_offset_x", "type_offset_y", "name_offset_x", "name_offset_y", "pill_offset_x", "pill_offset_y",
+  "centre_x", "centre_y", "ring_size", "dim_brightness", "side_gap", "plate_scale", "plate_height_scale", "vertical_gap", "text_scale",
+  "name_scale", "name_room", "name_room_face", "name_offset_x", "pill_gap", "tactics_plate_scale",
 }
 -- Reads the cross's places from the mod's config once; answers whether they are known.
 local function HyperButtonCrossConfig()
@@ -782,7 +835,8 @@ local function HyperButtonRingShow(visible, modifier_tag)
   if ring.shown == seen then
     return
   end
-  ring.shown = seen
+  local opening = visible and ring.open ~= true
+  ring.shown, ring.open = seen, visible
   if visible then
     local place = CharacterReforged.TRANSFORM_CROSS
     local scale = place.ring_size / RING_NATIVE_SIZE
@@ -792,6 +846,10 @@ local function HyperButtonRingShow(visible, modifier_tag)
     funcLuaMenuCommand(2158717427 --[[node group visible]], RingLayer, RING_PULSE_GROUP, false)
     funcLuaMenuCommand(1083631230, RingLayer, RING_GLYPH, modifier_tag, 0)
     funcLuaMenuCommand(2735666188 --[[CMND_SET_MENU_TEXT_VISIBLE]], RingLayer, RING_GLYPH, modifier_tag ~= "", 0)
+  end
+  -- The menu opens with the widget's own «Open» animation, played before the layer is shown as retail SetupTacticsCmdInfo does.
+  if opening then
+    funcLuaMenuCommand(3781155141, RingLayer, 0, 71445658 --[[Open]], 0)
   end
   funcLuaMenuCommand(711242136, RingLayer, 0, visible)
 end
@@ -820,35 +878,50 @@ local function HyperButtonRingIcon(entry, slot_skill, state)
   funcLuaMenuCommand(3405944500, RingLayer, icon[1], sprite ~= 0)
 end
 
--- Returns the layout y of the row of entry `entry` (the rows of the existing entries, centred on the cross).
-local function HyperButtonRowY(entry)
+-- Returns the screen left end of the visible band and the screen centre y of entry `entry`'s plate: the aura menu puts each plate
+-- at its arrow around the ring, as the tactics menu puts its plates around its cross.
+local function HyperButtonPlatePlace(entry, band_width, band_half_height)
   local place = CharacterReforged.TRANSFORM_CROSS
-  local row = character_reforged_cross.rows[entry + 1] or 0
-  return place.centre_y + (row - (character_reforged_cross.row_count - 1) / 2) * place.row_pitch
+  local half_ring = place.ring_size / 2
+  local direction = place.directions[entry + 1]
+  if direction == 2 then
+    return place.centre_x - half_ring - place.side_gap - band_width, place.centre_y
+  elseif direction == 3 then
+    return place.centre_x + half_ring + place.side_gap, place.centre_y
+  end
+  local dy = half_ring + place.vertical_gap + band_half_height
+  return place.centre_x - band_width / 2, direction == 1 and place.centre_y - dy or place.centre_y + dy
 end
 
--- Places the plates of the existing entries as rows right of the ring: each plate hangs on the ring's centre.
+-- Places the plates of the existing entries at their arrows around the ring: each plate hangs on the ring's centre.
 function CharacterReforged.hyper_button_open_place()
   local place = CharacterReforged.TRANSFORM_CROSS
-  local scale = place.plate_scale
+  local plate_layer = HyperButtonLayer
+  local scale, height_scale = place.plate_scale, place.plate_height_scale
   local unit = 0.72 * scale
   local left_now, right_end = HyperButtonBandEnds(character_reforged_fold.full_width)
-  -- The screen x of the plate's origin, then its place from the ring's centre (layer y grows upwards).
-  local origin_x = place.plate_left - left_now * unit
+  local band_width, band_half_height = (right_end - left_now) * unit, PLATE_BAND * 0.72 * height_scale
+  if TacticsPlate.on then
+    plate_layer = TacticsPlate.layer
+    scale, height_scale = place.tactics_plate_scale, place.tactics_plate_scale
+    unit, left_now = scale, TacticsPlate.band_left
+    band_width, band_half_height = (TacticsPlate.band_right - TacticsPlate.band_left) * scale, TacticsPlate.band_half_height * scale
+  end
   for inst = 0, ENTRY_LAST do
-    local dx = math.floor(origin_x - place.centre_x + 0.5) - HyperButtonSlideDx(inst)
-    local dy = math.floor(place.centre_y - HyperButtonRowY(inst) + 0.5)
-    local key = dx .. "," .. dy .. "," .. scale
+    local band_left, row_y = HyperButtonPlatePlace(inst, band_width, band_half_height)
+    -- The screen x of the plate's origin, then its place from the ring's centre (layer y grows upwards).
+    local dx = math.floor(band_left - left_now * unit - place.centre_x + 0.5) - HyperButtonSlideDx(inst)
+    local dy = math.floor(place.centre_y - row_y + 0.5)
+    local key = dx .. "," .. dy .. "," .. scale .. "," .. height_scale
     if character_reforged_ho_set[inst + 1] ~= key then
-      funcLuaMenuCommand(3778714801, HyperButtonLayer, scale, scale, 1, inst)
-      funcLuaMenuCommand(1389957207, HyperButtonLayer, dx, dy, 0, inst)
+      funcLuaMenuCommand(3778714801, plate_layer, scale, height_scale, 1, inst)
+      funcLuaMenuCommand(1389957207, plate_layer, dx, dy, 0, inst)
       character_reforged_ho_set[inst + 1] = key
     end
   end
   -- One line with the resolved screen places for the first in-game check (layout units, x from the left, y from the top).
   if not character_reforged_cross.rects_logged and character_reforged_cross.row_count > 0 then
     character_reforged_cross.rects_logged = true
-    local band_width, band_half_height = (right_end - left_now) * unit, 26 * unit
     local half = place.ring_size / 2
     local okg, ring_x, ring_y = pcall(funcLuaMenuCommand, 499270986, RingLayer, 0, RING_BAND)
     local parts = {"ring x " .. (place.centre_x - half) .. "-" .. (place.centre_x + half) .. " y " .. (place.centre_y - half) .. "-" .. (place.centre_y + half)
@@ -856,15 +929,26 @@ function CharacterReforged.hyper_button_open_place()
     for entry = 0, ENTRY_LAST do
       local line = "entry " .. entry .. " " .. tostring(CROSS_DIRECTION_NAME[place.directions[entry + 1]])
       if character_reforged_cross.rows[entry + 1] ~= nil then
-        local row_y = HyperButtonRowY(entry)
-        local okp, plate_x, plate_y = pcall(funcLuaMenuCommand, 499270986, HyperButtonLayer, entry, POSITION_BASE)
+        local band_left, row_y = HyperButtonPlatePlace(entry, band_width, band_half_height)
+        local okp, plate_x, plate_y = pcall(funcLuaMenuCommand, 499270986, plate_layer, entry, POSITION_BASE)
         line = line .. " (origin measured at " .. tostring(okp and plate_x) .. "," .. tostring(okp and plate_y) .. ")"
-        line = line .. " plate x " .. place.plate_left .. "-" .. math.floor(place.plate_left + band_width + 0.5) .. " y " .. math.floor(row_y - band_half_height + 0.5) .. "-" .. math.floor(row_y + band_half_height + 0.5)
+        line = line .. " plate x " .. math.floor(band_left + 0.5) .. "-" .. math.floor(band_left + band_width + 0.5) .. " y " .. math.floor(row_y - band_half_height + 0.5) .. "-" .. math.floor(row_y + band_half_height + 0.5)
       end
       parts[#parts + 1] = line
     end
-    pcall(funcLuaCommand, COMMAND_LOG, "hiper_btn", "cross layout (1920 x 1080): " .. table.concat(parts, "; "))
+    pcall(funcLuaCommand, COMMAND_LOG, "hiper_btn", "cross layout (1920 x 1080, " .. (TacticsPlate.on and "tactics_plate" or "move plate") .. " look): " .. table.concat(parts, "; "))
   end
+end
+
+-- The retail tactics ring (BetterUI puts it left of the aura ring) sits under the aura menu's left plate: its root group is hidden
+-- while the aura menu is open and shown again when it closes. The engine never sets that group, so the layer's own visibility
+-- stays the engine's.
+local function HyperButtonTacticsRingYield(menu_open)
+  if character_reforged_cross.tactics_ring_hidden == menu_open then
+    return
+  end
+  character_reforged_cross.tactics_ring_hidden = menu_open
+  funcLuaMenuCommand(2158717427 --[[node group visible]], 96012645 --[[soccer08_14_tactics_screen_guide]], 1517329426 --[[_pos_base01]], not menu_open, 0)
 end
 
 CharacterReforged.HYPER_BUTTON_HIDE_IN_TACTICS = true     -- no Hiper / armour plate while the LB tactics menu is up
@@ -883,13 +967,14 @@ function CharacterReforged.hyper_button_step()
   end
   hyperButtonTick = hyperButtonTick + 1
   local hdl = HyperButtonNum(r[2])
-  -- The keyboard has no modifier to hold: its plates stay open.
-  local held = r[3] == true or (hdl ~= 0 and HyperButtonNum(r[4]) == 1)
+  -- The aura menu is open only while the modifier (RB) is held; the keyboard has no modifier, so its menu stays closed.
+  local held = r[3] == true
   local count = math.min(HyperButtonNum(r[5]), ENTRY_COUNT)
+  -- One menu at a time: the LB tactics menu closes the aura menu and hides its ring.
   if CharacterReforged.HYPER_BUTTON_HIDE_IN_TACTICS then
     local okt, tac = pcall(funcLuaCommand, 1350751656)
     if okt and tac == true then
-      count = 0
+      count, held = 0, false
     end
   end
   if hyperButtonPos ~= 0 then
@@ -918,7 +1003,7 @@ function CharacterReforged.hyper_button_step()
     if rows[entry + 1] == nil then
       state, skill = 0, 0
     end
-    -- The icon of the entry's kind stays on the ring; its plate shows only while the modifier is held.
+    -- The icon of the entry's kind is set on the ring, which shows with the plates only while the modifier is held.
     local okt, errt = pcall(HyperButtonRingIcon, entry, state ~= 0 and HyperButtonNum(r[base + 12]) or 0, state)
     if not okt and character_reforged_cross.logged["ring" .. entry] ~= tostring(errt) then
       character_reforged_cross.logged["ring" .. entry] = tostring(errt)
@@ -931,8 +1016,8 @@ function CharacterReforged.hyper_button_step()
         modifier_tag = first
       end
     end
-    -- The plate's texts: the type label, and in the pill a greyed entry's reason or the technique's cost when the mod declares one.
-    local caption = {label = state ~= 0 and HyperButtonTypeLabel(page, r[base + 5] == true) or "", pill = "", reason = false}
+    -- The plate's pill: a greyed entry's reason or the technique's cost when the mod declares one.
+    local caption = {pill = "", reason = false}
     if state == 2 then
       caption.pill, caption.reason = HyperButtonReasonWord(reason, page), true
     elseif state == 1 and r[base + 5] == true and cost > 0 then
@@ -945,14 +1030,20 @@ function CharacterReforged.hyper_button_step()
         swap_fraction = cooldown_per_mille / 1000
       end
     end
-    HyperButtonUpdate(entry, held and state or 0, hdl, held and skill or 0, held, glyph, false, caption, HyperButtonNum(r[base + 11]))
+    HyperButtonUpdate(entry, held and state or 0, hdl, held and skill or 0, glyph, false, caption, HyperButtonNum(r[base + 11]))
     local seen = state .. ":" .. skill .. ":" .. reason
     if state ~= 0 and character_reforged_cross.logged[entry + 1] ~= seen then
       character_reforged_cross.logged[entry + 1] = seen
       pcall(funcLuaCommand, COMMAND_LOG, "hiper_btn", "cross entry " .. entry, "page " .. page, "move " .. skill, "state " .. state, "reason " .. reason, "glyph " .. glyph)
     end
   end
-  local okr, errr = pcall(HyperButtonRingShow, row_count > 0, modifier_tag)
+  -- The ring is part of the aura menu: it opens and closes with the plates, never shown while the menu is closed.
+  local okr, errr = pcall(HyperButtonRingShow, held and row_count > 0, modifier_tag)
+  local oky, erry = pcall(HyperButtonTacticsRingYield, held and row_count > 0)
+  if not oky and character_reforged_cross.logged["yield"] ~= tostring(erry) then
+    character_reforged_cross.logged["yield"] = tostring(erry)
+    pcall(funcLuaCommand, COMMAND_LOG, "hiper_btn", "tactics ring yield error", tostring(erry))
+  end
   if not okr and character_reforged_cross.logged["ring"] ~= tostring(errr) then
     character_reforged_cross.logged["ring"] = tostring(errr)
     pcall(funcLuaCommand, COMMAND_LOG, "hiper_btn", "cross ring error", tostring(errr))
@@ -1136,22 +1227,20 @@ function CharacterReforged.hyper_card.partner(A, face, ctx, inst)
     funcLuaMenuCommand(3405944500, A, CharacterReforged.hyper_card.CHR_MESH, false, inst)
     return false
   end
-  funcLuaMenuCommand(3405944500, A, CharacterReforged.hyper_card.CHR_MESH, true, inst)
   pcall(funcLuaCommand, 2996279796, ctx or "plate_page", face)
   local has = funcLuaMenuCommand(2208175668 --[[has a miximax face icon]], face)
-  if has then
-    funcLuaMenuCommand(346643487 --[[SwapLayerFaceIconTex]], A, inst, CharacterReforged.hyper_card.CHR_MESH, CharacterReforged.hyper_card.CHR_SLOT, face, 0, 12, true,
-      true, true, 5)
-  else
-    VRFW.face_icon.request(A, inst, face, CharacterReforged.hyper_card.CHR_MESH, CharacterReforged.hyper_card.CHR_SLOT)
-  end
+  -- VRFW.face_icon shows the mesh once the texture has loaded, so the cleared slot's white fill never shows.
+  VRFW.face_icon.forget(A, inst, CharacterReforged.hyper_card.CHR_MESH)
+  VRFW.face_icon.face(A, inst, face, CharacterReforged.hyper_card.CHR_MESH, CharacterReforged.hyper_card.CHR_SLOT,
+    has and {art = 12} or nil)
   CharacterReforged.hyper_card.log("partner", tostring(A), tostring(face), tostring(has))
   return true
 end
 
 CharacterReforged.hyper_card.FACE_BY_TYPE = {[0] = {2449339029, 1051570875, 8}, [1] = {2449339029, 1051570875, 8},
   [2] = {478320441, 3237726902, 12}, [3] = {2449339029, 1051570875, 14}}
-function CharacterReforged.hyper_card.portrait(A, skill, fusion, mc, ctx, inst)
+-- Draws the portrait of an aura card; with `rules.partner_frame` an aura's own face takes the partner's frame (mesh, size, crop).
+function CharacterReforged.hyper_card.portrait(A, skill, fusion, mc, ctx, inst, rules)
   inst = inst or 0
   funcLuaMenuCommand(3405944500, A, CharacterReforged.hyper_card.FS_MESH, false, inst)
   funcLuaMenuCommand(3405944500, A, CharacterReforged.hyper_card.CHR_MESH, false, inst)
@@ -1166,8 +1255,13 @@ function CharacterReforged.hyper_card.portrait(A, skill, fusion, mc, ctx, inst)
   local face = t ~= nil and CharacterReforged.hyper_card.FACE_BY_TYPE[t] or nil
   local okc, cid = funcLuaCommand(CharacterReforged.hyper_card.SKILL_INFO, skill, 17)
   if okc and cid ~= nil and cid ~= 0 and face ~= nil then
-    funcLuaMenuCommand(3405944500, A, face[1], true, inst)
-    funcLuaMenuCommand(346643487 --[[SwapLayerFaceIconTex]], A, inst, face[1], face[2], cid, 0, face[3], true, true, true, 5)
+    local mesh, slot = face[1], face[2]
+    if rules ~= nil and rules.partner_frame then
+      mesh, slot = CharacterReforged.hyper_card.CHR_MESH, CharacterReforged.hyper_card.CHR_SLOT
+    end
+    -- VRFW.face_icon shows the mesh once the texture has loaded.
+    VRFW.face_icon.forget(A, inst, mesh)
+    VRFW.face_icon.face(A, inst, cid, mesh, slot, {art = face[3]})
     return cid
   end
   return nil
@@ -1240,5 +1334,53 @@ function CharacterReforged.hyper_card.steps(cost, scale)
     return 0
   end
   return math.min(10, math.max(1, math.floor(cost / scale * 10 + 0.5)))
+end
+-- The «Armadura» badge of a keshin card: the retail framed badge _gtxt_cmd_armed01 on its own layer, centred on the
+-- bottom edge of the card's band.
+CharacterReforged.hyper_card.ARMOUR_BADGE = 1206374040              -- _gtxt_cmd_armed01
+CharacterReforged.hyper_card.ARMOUR_BADGE_K = 0.8                   -- size factor on the retail 120 x 48 badge
+CharacterReforged.hyper_card.EXIST_LAYER = 262659071                -- (layer) -> layer declared on this menu
+
+-- Returns the armour `chara` can wear with keshin `skill` (0 = none or not a keshin), from the mod's armour data.
+function CharacterReforged.hyper_card.keshin_armour(skill, chara)
+  if CharacterReforged.hyper_card.aura_type(skill) ~= 0 or chara == nil or chara == 0 then
+    return 0
+  end
+  local ok, armour = pcall(funcLuaCommand, CALC_CRC("CMND_CHARACTERREFORGED_KESHIN_HYPER_ARMOUR"), chara, skill)
+  return (ok and type(armour) == "number") and armour or 0
+end
+
+-- Shows the badge on rules.layer when `chara` can wear an armour with keshin `skill`, else hides it.
+-- rules.band = {x, top, w, h} of the card's band in the badge layer's frame; rules.scale (default 1) and rules.prio
+-- (draw priority, optional). Returns the badge point {x, y} when shown, else nil.
+function CharacterReforged.hyper_card.armour_mark(skill, chara, rules)
+  local T = rules.layer
+  if T == nil or funcLuaMenuCommand(CharacterReforged.hyper_card.EXIST_LAYER, T) ~= true then
+    return nil
+  end
+  local armour = CharacterReforged.hyper_card.keshin_armour(skill, chara)
+  local open = funcLuaMenuCommand(2640875187, T, 0)
+  if armour == 0 then
+    if open then
+      funcLuaMenuCommand(711242136, T, 0, false)
+    end
+    return nil
+  end
+  if not open then
+    funcLuaMenuCommand(629267548, T, 0)
+  end
+  local b, s = rules.band, rules.scale or 1
+  local at = {b[1] + b[3] * s / 2, b[2] - b[4] * s}
+  local k = s * CharacterReforged.hyper_card.ARMOUR_BADGE_K
+  funcLuaMenuCommand(3405944500, T, CharacterReforged.hyper_card.ARMOUR_BADGE, true, 0)
+  funcLuaMenuCommand(3778714801, T, k, k, 1, 0)
+  funcLuaMenuCommand(1389957207, T, at[1], at[2], 0, 0)
+  if rules.prio ~= nil then
+    pcall(funcLuaMenuCommand, 1491630496, T, 0, rules.prio, true)
+  end
+  funcLuaMenuCommand(711242136, T, 0, true)
+  CharacterReforged.hyper_card.log("armour badge", string.format("%08X", skill or 0), tostring(armour),
+    string.format("%.1f", at[1]), string.format("%.1f", at[2]))
+  return at
 end
 -- ===== EVT hiper_card END =====

@@ -1,6 +1,6 @@
 schema = "VRFW.team/2"
 default_lang = "en"
-# Source: research/mods/_aside/InazumaFantasy/_tools/wiki_teams_build.py Kyappikyapi A.
+# Source: wiki_teams_build.py (old Inazuma Fantasy tool, removed 2026-11-12) Kyappikyapi A.
 [[team]]
 name = "ct_wk_kyappikyapi_a"
 key = "evt_ct_wk_kyappikyapi_a"

@@ -1,0 +1,22 @@
+# VRFW › pages a mod adds to «Bonificaciones de equipo» (soccer_parameter_menu; docs/framework/team-bonus-pages.md,
+# Lua assets\lua\menu\soccer_parameter_menu\100_team_bonus_pages.lua).
+#   vrfw_team_bonus_page   the frame of an added page: the game's team passive frame (title, L1 / R1, build header,
+#                          scroll bar, arrows) without its native list; a mod adds a layer of it with its input rows
+#   vrfw_team_bonus_dots   the page dots while an added page is valid (the game's frames draw 2 or 3 only): copies of the
+#                          same frame, each showing one dot; not opened with the group (the Lua opens and places them)
+schema = "VRFW.menu/2"
+
+[[object]]
+name = "vrfw_team_bonus_page"
+from = "soccer11_21_formation_team_passive_list_base"
+remove_block = ["CMenuListViewSoccerParameter"]
+
+[[object]]
+name = "vrfw_team_bonus_dots"
+from = "soccer11_21_formation_team_passive_list_base"
+priority = 302                     # over the frames (301)
+remove_block = ["CMenuListViewSoccerParameter", "MenuCollisionSetting"]
+
+[[patch]]
+menu = "soccer_parameter_menu"
+add_layer = { name = "vrfw_team_bonus_dots", object = "vrfw_team_bonus_dots", count = 6, groups = [{ group = "soccer_parameter_menu", flags = [0, 0, 0, 0, 1, 0] }] }

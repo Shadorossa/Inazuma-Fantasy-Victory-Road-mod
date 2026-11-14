@@ -1,3 +1,4 @@
+--- Advanced: Library that answers the match rules, cached per rules table.
 
 local ME = VRFW.match.equipment
 
@@ -5,7 +6,7 @@ local M = {}
 
 local LAST = setmetatable({}, { __mode = "k" })   -- [rules] = { key, answer }
 
---- The `fields` of the first of `rules` matching match info `info` and `side`; nil when none.
+--- Internal: The `fields` of the first of `rules` matching match info `info` and `side`; nil when none.
 function M.answer(rules, info, side, fields)
   if type(rules) ~= "table" or #rules == 0 then return nil end
   local game, diff, mode = ME.match_of(info)

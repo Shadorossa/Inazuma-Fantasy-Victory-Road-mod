@@ -1,0 +1,10 @@
+schema = "VRFW.sprite_redirect/1"
+# The game asks icon_synergy.g4tx for the new synergies' symbols by key; they live in this mod's own atlas.
+
+[[VRFW.SpriteRedirect]]
+name = "synergy_icons"
+atlas = "#/menu/200_icon/30_icon_synergy/icon_synergy.g4tx"
+own_atlas = "#/menu/200_icon/30_icon_synergy/passives_synergies_icons.g4tx"
+sprites = ["sf11001", "sf11002", "sf11003", "sf11004", "sp11001", "sp11002",
+           "sf11005", "sf11006", "sf11008", "sf11009", "sp11003", "sp11004", "sp11005", "sf11007", "sf11010"]
+# Synergies by sprite, in order: Second Phase, The Five Blackley Brothers, The Five Whitely Brothers, Chessboard, Dark Angel, Chaos, The Ogre Vanguard, Chrono Storm, Creatures of the Night, The Professor and His Apprentice, The Bond of the Stars, Thunder and Blaze, Born of the Divine.

@@ -4,6 +4,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.celebration/1"
 folder = "content/celebrations"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Celebration"
+v2_kind_folder = "Celebrations"
+v2_version = 1
 label = "Goal celebrations"
 label_es = "Celebraciones de gol"
 doc = "One goal celebration: the event the scorer plays after a goal."

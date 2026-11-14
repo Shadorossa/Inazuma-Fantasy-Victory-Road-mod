@@ -1,0 +1,98 @@
+schema = "VRFW.synergy/1"
+
+[[VRFW.SynergyPool]]
+name = "big_waves"
+teams = ["0xB3233931"]
+crest_eras = true
+
+[[VRFW.SynergyPool]]
+name = "brocken_brigade"
+teams = ["0x9EB0E9BD"]
+crest_eras = true
+
+[[VRFW.SynergyPool]]
+name = "cape_crusaders"
+teams = ["0x52EAEF0F"]
+crest_eras = true
+
+[[VRFW.SynergyPool]]
+name = "dark_team"
+teams = ["0xC357944D"]
+hint = "CharacterReforged.HintPlayerOfTeam"
+crest_eras = true
+
+[[VRFW.SynergyPool]]
+name = "desert_lions"
+teams = ["0x260DFB82"]
+crest_eras = true
+
+[[VRFW.SynergyPool]]
+name = "fire_dragon"
+teams = ["0x1F3FF22B"]
+crest_eras = true
+
+[[VRFW.SynergyPool]]
+name = "inazuma_national"
+teams = ["0x6E8EFF55"]
+crest_eras = true
+
+[[VRFW.SynergyPool]]
+name = "knights_of_queen"
+teams = ["0x4F4EC669"]
+crest_eras = true
+
+[[VRFW.SynergyPool]]
+name = "little_gigantes"
+teams = ["0x1DC05039"]
+crest_eras = true
+
+[[VRFW.SynergyPool]]
+name = "orpheus"
+teams = ["0x0F3CD0F1"]
+crest_eras = true
+
+[[VRFW.SynergyPool]]
+name = "red_matador"
+teams = ["0x26CDE3DC"]
+crest_eras = true
+
+[[VRFW.SynergyPool]]
+name = "rose_griffons"
+teams = ["0x732C2E69"]
+crest_eras = true
+
+[[VRFW.SynergyPool]]
+name = "sky_team"
+teams = ["0xD630206C"]
+hint = "CharacterReforged.HintPlayerOfTeam"
+crest_eras = true
+
+[[VRFW.SynergyPool]]
+name = "team_garcildo"
+teams = ["0xD32CAC2B"]
+crest_eras = true
+
+[[VRFW.SynergyPool]]
+name = "team_k"
+teams = ["0xB95A1DDD"]
+crest_eras = true
+
+[[VRFW.SynergyPool]]
+name = "team_ogre"
+teams = ["0x447B6344"]
+crest_eras = true
+
+[[VRFW.SynergyPool]]
+name = "the_empire"
+teams = ["0x1EC622CE"]
+crest_eras = true
+
+[[VRFW.SynergyPool]]
+name = "the_kingdom"
+teams = ["0x214DDC31"]
+crest_eras = true
+
+[[VRFW.SynergyPool]]
+name = "unicorn"
+teams = ["0x23A7DCAB"]
+crest_eras = true

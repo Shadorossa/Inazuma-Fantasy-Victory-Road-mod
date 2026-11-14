@@ -1,0 +1,14 @@
+# Komajiro's miximax colours: his own model has no game character to lend him colour keys, so this mod declares them.
+# His whole fur is one orange, so it is his hair colour on the head and on the face patches alike; the black pupil is his iris.
+# The pale eye ring, the nose, the cream muzzle and belly, the swirls and the blue bundle are never recoloured.
+schema = "VRFW.miximax_palette/1"
+
+[[VRFW.MiximaxPalette]]
+character = "c90690000"
+head = "_face/90_FANTASY/c90690000/c90690000.g4tx"
+hair = "#EFC568"
+face = "#EFC568"
+iris = "#000000"
+skin = "#EFC568"
+# The painted zones of his head: the orange fur only, as the hair colour on both textures, so the face patches match the head.
+zones = { face = "assets/images/miximax_zones/c90690000_face.png", hair = "assets/images/miximax_zones/c90690000_hair.png" }

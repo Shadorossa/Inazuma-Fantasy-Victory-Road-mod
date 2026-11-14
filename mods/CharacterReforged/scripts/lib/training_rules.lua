@@ -21,6 +21,14 @@ local PAIRS = {
   [1] = { { KICK, LUCK }, { CONTROL, PRESSURE }, { AGILITY, TECHNIQUE }, { INTELLIGENCE, PHYSICAL } },
 }
 
+-- Returns the positions that have training pairs, in ascending order.
+function R.positions()
+  local out = {}
+  for pos in pairs(PAIRS) do out[#out + 1] = pos end
+  table.sort(out)
+  return out
+end
+
 function R.partners(pos, i)
   local out = {}
   for _, p in ipairs(PAIRS[pos]) do

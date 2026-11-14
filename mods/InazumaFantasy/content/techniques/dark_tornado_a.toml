@@ -1,11 +1,13 @@
 schema = "VRFW.technique/3"
-# Tornado oscuro (A): Tornado de fuego A (whs02750) with Tornado oscuro's element and description, own cut-in.
+# Tornado oscuro (A): Tornado de fuego A (whs02750) with Tornado oscuro's element and description, own cut-in; a counter shot that says Tornado oscuro's name call.
 
 [[technique]]
 name = "dark_tornado_a"
 base = "whs02750"
 manual = true
 element = "forest"
+# counter shot (bit 16, as Tornado oscuro whs00430) on top of the base's flags (8)
+effect_flags = 24
 event = "InazumaFantasy.dark_tornado_a"
 description_text = "0xB29455E7"
   [technique.text.es]

@@ -5,35 +5,35 @@ local P = ChronicleDeluxe.lineup
 
 P.BAND_ID = "ChronicleDeluxe.lineup"
 P.BAND_ORDER = 20                  -- after the match challenge line (10)
-P.LAYER = {PITCH = 3017938276 --[[chronicle_deluxe_lineup_pitch]], CARD = 260350298 --[[chronicle_deluxe_lineup_card]],
-  TEXT = 572235342 --[[chronicle_deluxe_lineup_text]], MARK = 2145700856 --[[chronicle_deluxe_lineup_mark]]}
+P.LAYER = {PITCH = @crc:chronicle_deluxe_lineup_pitch@, CARD = @crc:chronicle_deluxe_lineup_card@,
+  TEXT = @crc:chronicle_deluxe_lineup_text@, MARK = @crc:chronicle_deluxe_lineup_mark@}
 P.TEXT_FORMATION, P.TEXT_BUTTON = 0, 1
 P.STARTERS = 11                    -- formation slots 0..10
 P.MEMBER_SLOTS = 29                -- team set members 0..28 (as the VS screen reads them)
-P.FUNCTION_TEAM_DOCK = 1238658383  -- crc32("chronicle_deluxe_team_dock"): the Y row's function
-P.BUTTON_TEXT = 1601543300
+P.FUNCTION_TEAM_DOCK = @crc:chronicle_deluxe_team_dock@  -- the Y row's function
+P.BUTTON_TEXT = @crc:chronicle_deluxe_team_dock_button@
 P.ITEM_TEAM_DOCK = 0
-P.MENU = 1193383590                -- vs_route_town_command_select_menu
-P.ROWS = 284009563                 -- vsroute01_16_sub_list (the battle rows)
+P.MENU = @crc:vs_route_town_command_select_menu@
+P.ROWS = @crc:vsroute01_16_sub_list@                 -- (the battle rows)
 P.CHRONICLE_DIFFICULTY = 1
 P.RESULT = 2612514222              -- the menu's result parameter (the board reads it)
 P.C = {
-  OPEN = 629267548, VISIBLE = 711242136, SCALE = 3778714801, POS = 1389957207, MESH_VISIBLE = 3405944500,
-  TEXT = 1083631230, LAYER_NUM = 1175615627,
-  DRAW_PRIORITY = 1491630496,      -- (layer, instance, priority, children)
-  FILL_CARD = 2329292196,
-  TEAM_SET = 3713813716,           -- CMND_GET_VS_USE_TEAM_SET
-  TEAM_SET_INFO = 1033065575,      -- (set, 0, what): 4 formation, 7 uniform, 8 (+ member) captain
+  OPEN = @crc:CMND_OPEN_LAYER@, VISIBLE = @crc:CMND_SET_LAYER_VISIBLE@, SCALE = @crc:CMND_SET_LAYER_LOCAL_SCALE@, POS = @crc:CMND_SET_LAYER_LOCAL_POS@, MESH_VISIBLE = @crc:CMND_SET_MESH_VISIBLE@,
+  TEXT = @crc:CMND_SET_MENU_TEXT_STRING@, LAYER_NUM = @crc:CMND_GET_CREATE_LAYER_NUM@,
+  DRAW_PRIORITY = @crc:CMND_SET_DRAW_PRIORITY@,      -- (layer, instance, priority, children)
+  FILL_CARD = @crc:CMND_SPECIFY_CONTENT_BAR@,
+  TEAM_SET = @crc:CMND_GET_VS_USE_TEAM_SET@,
+  TEAM_SET_INFO = @crc:CMND_GET_TEAM_SET_INFO@,      -- (set, 0, what): 4 formation, 7 uniform, 8 (+ member) captain
   TEAM_MEMBER = 1720957768,        -- (set, 0, member, what): 0 player handle, 1 formation slot
   CHARA_INFO = 1131797651,         -- (handle, 0): level
-  FORMATION_INFO = 2649030357,     -- CMND_GET_SOCCER_FORMATION_INFO
-  TEXT_GET = 4074371074,           -- CMND_TEXT_GET (menu_text id)
+  FORMATION_INFO = @crc:CMND_GET_SOCCER_FORMATION_INFO@,
+  TEXT_GET = @crc:CMND_TEXT_GET@,           -- (menu_text id)
   TEXT_OF_ID = 297699480,          -- (text id) -> the string (the formation's name)
-  CHECK_INPUT = 4265778440, MENU_CTRL = 1332654303,
+  CHECK_INPUT = @crc:CMND_CHECK_INPUT_CMD@, MENU_CTRL = 1332654303,
   POINTER = 558229292,             -- the pointer's screen px (y down)
-  ENTER_CLICK = 1651523701,        -- CMD_ENTER_CLICK: mouse, Enter, A
-  ENTER = 1981080283,              -- CMD_ENTER: Enter, A (so a click is ENTER_CLICK without ENTER)
-  SE = 1917805374, SE_DECIDE = 3848881948 --[[sy0000]],
+  ENTER_CLICK = @crc:CMD_ENTER_CLICK@,        -- mouse, Enter, A
+  ENTER = @crc:CMD_ENTER@,              -- Enter, A (so a click is ENTER_CLICK without ENTER)
+  SE = @crc:CMND_SND_PLAY_SE@, SE_DECIDE = @crc:sy0000@,
   FOCUS_GET = 2603265800,          -- (layer) -> the focused row index (0-based)
   CHRONICLE_TEAM = 634509816,
   TEAM_PARAM = 2151743654,         -- (team, what): 3 formation, 4 uniform, 8 member count
@@ -42,8 +42,8 @@ P.C = {
   NODE_VISIBLE = 2158717427,       -- (layer, node, on, instance)
   CHARA_OF_PARAM = 347353059,
   NODE_SCALE = 2885415772,         -- (layer, instance, node, width, height): a text node's box
-  TEXT_SIZE = 3549540977,
-  CLOSE_MENU = 320421347,
+  TEXT_SIZE = @crc:CMND_GET_MENU_TEXT_RECT_SIZE@,
+  CLOSE_MENU = @crc:CMND_CLOSE_MENU_OBJECT@,
 }
 P.PITCH = {CENTRE_X = 1394, CENTRE_Y = -533, TOP_Y = -296, BOTTOM_Y = -856, TOP_WIDTH = 428, BOTTOM_WIDTH = 588,
   FIELD_TOP_Y = -294, FIELD_HEIGHT = 564}
@@ -92,26 +92,26 @@ P.CARD_NAMES = {
   {"hidden_exp_gauge", "true"}, {"material_rarity_color", "rarity_color"},
 }
 -- Text object (the framework's vrfw_mp_label, the retail corner button cmn03_01).
-P.LABEL = {TEXT_NODE = 378327766 --[[_text_cmd_back01]], PLATE = 298211823 --[[_cmd_back_base01]],
-  PLATE_ADD = 2853207670 --[[_cmd_back_base01_add]], TEXT_LEFT = -384, TEXT_MID_Y = 144, CHAR_WIDTH = 12.5,
+P.LABEL = {TEXT_NODE = @crc:_text_cmd_back01@, PLATE = @crc:_cmd_back_base01@,
+  PLATE_ADD = @crc:_cmd_back_base01_add@, TEXT_LEFT = -384, TEXT_MID_Y = 144, CHAR_WIDTH = 12.5,
   PLATE_LEFT = -397, PLATE_WIDTH = 416, PLATE_HEIGHT = 76,
   TEXT_BOX_WIDTH = 1600, TEXT_BOX_HEIGHT = 76}   -- a centred line's box: wide enough that the game never squeezes it
 -- Pieces of the card that the board does not show.
-P.CARD_HIDE = {2635558741 --[[_icon_card01]], 69091055 --[[_icon_card02]], 814224422 --[[_icon_lock01]],
-  2843821468 --[[_icon_lock02]], 3345942320 --[[_icon_chr_focus_l01]], 3491095421 --[[_icon_chr_focus_s01]]}
+P.CARD_HIDE = {@crc:_icon_card01@, @crc:_icon_card02@, @crc:_icon_lock01@,
+  @crc:_icon_lock02@, @crc:_icon_chr_focus_l01@, @crc:_icon_chr_focus_s01@}
 -- Card drawn from its own sprites (a fill the game refused).
 P.SPRITE_CARD = {
   TEXTURE = 4225297828,            -- #/menu/102_team/team00/team00_01/<LG>/team00_01.g4tx
-  PLATE = 3124533534, PLATE_SLOT = 627420056,
-  FACE = 3220507922, FACE_SLOT = 372537510,
-  PLATES = {{16, 570978177 --[[icon_chr_base01_s05]]}, {32, 3161258530 --[[icon_chr_base01_s02]]},
-    {64, 627420056 --[[icon_chr_base01_s01]]}, {128, 3137420859 --[[icon_chr_base01_s06]]}},
-  NODES_OFF = {1517329426 --[[_pos_base01]], 1387831794 --[[_pos_leader01]], 3417436232 --[[_pos_leader02]],
-    3662440288 --[[_pos_gauge_exp_s01]], 1260240154 --[[_pos_ai_role02]], 2423840957 --[[_num_chr_s01]],
-    158445831 --[[_num_chr_s02]]},
-  MESHES_OFF = {2494321055, 775876763, 2197319787, 3491095421, 1910176454, 4283246729, 378264806, 1054577830,
-    430313174, 670064111, 1198450632, 3690620419, 3364549413, 55677738, 1107078292, 3639999790, 3899116140,
-    3397635553, 570644301, 3137996535},
+  PLATE = @crc:_icon_chr_base_s01@, PLATE_SLOT = @crc:icon_chr_base01_s01@,
+  FACE = @crc:_icon_chr_dmy_s01@, FACE_SLOT = 372537510,
+  PLATES = {{16, @crc:icon_chr_base01_s05@}, {32, @crc:icon_chr_base01_s02@},
+    {64, @crc:icon_chr_base01_s01@}, {128, @crc:icon_chr_base01_s06@}},
+  NODES_OFF = {@crc:_pos_base01@, @crc:_pos_leader01@, @crc:_pos_leader02@,
+    @crc:_pos_gauge_exp_s01@, @crc:_pos_ai_role02@, @crc:_num_chr_s01@,
+    @crc:_num_chr_s02@},
+  MESHES_OFF = {@crc:_icon_chr_gradation_s01@, @crc:_seasonal_frame_s01@, @crc:_avatar_frame_s01@, @crc:_icon_chr_focus_s01@, @crc:_icon_chr_position_dmy_s01@, @crc:_icon_base_s01@, @crc:_icon_chr_type_dmy_s01@, @crc:_icon_captain02@,
+    @crc:_icon_teamdock01@, @crc:_icon_ai_role_dmy02@, @crc:_gtxt_lv_s01@, @crc:_icon_chr_def01_s@, @crc:_icon_chr_grayout01_s@, @crc:_basara_avatar_s01@, @crc:_num_chr_dmy_s01@, @crc:_num_chr_dmy_s02@, 3899116140,
+    3397635553, @crc:_icon_synergy_s01@, @crc:_icon_synergy_s02@},
 }
 
 local function reset()
@@ -577,9 +577,6 @@ function P.follow_focus()
 end
 
 function P.step()
-  if VRFW.face_icon.pending() then
-    VRFW.face_icon.settle()
-  end
   if P.pending then
     P.pending = false
     if VRFW.route_board_commands.L.flag then

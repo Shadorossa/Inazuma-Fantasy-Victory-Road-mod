@@ -4,20 +4,15 @@ local child_chunk = function()
 BetterUI = type(BetterUI) == "table" and BetterUI or {}
 local BETTER_UI_SIGNATURE = "BETTER_UI_GRAFT"
 
-if BetterUI.preset == nil then
-  BetterUI.preset = "limpio"
-end
 BetterUI.flags = BetterUI.flags or {}
-for k, v in pairs({ bank_sort_guide = true, buff_icons = true, buff_panel = false, corner_buttons = true, duel_telop = true, enemy_meters = true, esc_guide = true, exec_offset = true, header_short = true, nickname_pill = true, team_param_guide = true, zone_exec = false, zone_hud = true }) do
+for k, v in pairs({ bank_sort_guide = true, buff_icons = true, corner_buttons = true, enemy_meters = true, esc_guide = true, header_short = true, nickname_pill = true, team_param_guide = true, zone_hud = true }) do
   if BetterUI.flags[k] == nil then
     BetterUI.flags[k] = v
   end
 end
 
--- funcLuaMenuCommand filter and the callback wrapper.
-
 local function UiOn(flag)
-  return BetterUI.preset ~= "off" and BetterUI.flags[flag] == true
+  return BetterUI.flags[flag] == true
 end
 
 local function Pack(...)
@@ -40,53 +35,36 @@ local function UiLog(...)
   end
 end
 
--- Per-tag table of funcLuaMenuCommand wrappers.
-BetterUI.menu_wrappers_by_tag = BetterUI.menu_wrappers_by_tag or {}
-BetterUI.menu_wrappers_by_tag["soccer_menu"] = BetterUI.menu_wrappers_by_tag["soccer_menu"] or {}
-local wrapped_functions = BetterUI.menu_wrappers_by_tag["soccer_menu"]
-local function UiInstallMenuWrap(f, filter)
-  if type(f) ~= "function" or wrapped_functions[f] then
-    return f
-  end
-  local w = function(id, ...)
-    if BetterUI.preset ~= "off" then
-      local r = filter(f, id, ...)
+-- Runs filter(call, id, ...) on every funcLuaMenuCommand of this VM as an innermost VRFW.host command hook, so the
+-- other hooks run outside it; call(id, ...) passes the same command on and runs another one on the function under
+-- every hook; a nil answer passes the command on.
+local function UiHookMenuCommand(filter)
+  local function register(host)
+    local real = host.real_menu_command
+    host.hook_command("*", function(nxt, id, ...)
+      local function call(command, ...)
+        if command == id then
+          return nxt(command, ...)
+        end
+        return real(command, ...)
+      end
+      local r = filter(call, id, ...)
       if r ~= nil then
         return table.unpack(r, 1, r.n)
       end
-    end
-    return f(id, ...)
+      return nxt(id, ...)
+    end, "BetterUI.soccer_menu", { menu = true, priority = host.INNERMOST })
   end
-  wrapped_functions[w] = true
-  return w
-end
-
-local function UiHookMenuCommand(filter)
-  if type(rawget(_ENV, "funcLuaMenuCommand")) == "function" then
-    rawset(_ENV, "funcLuaMenuCommand", UiInstallMenuWrap(rawget(_ENV, "funcLuaMenuCommand"), filter))
-    return
-  end
-  local mt = getmetatable(_ENV)
-  if mt == nil then
-    mt = {}
-    setmetatable(_ENV, mt)
-  end
-  local prev = mt.__newindex
-  mt.__newindex = function(t, k, v)
-    if k == "funcLuaMenuCommand" then
-      v = UiInstallMenuWrap(v, filter)
-    end
-    if prev == nil then
-      rawset(t, k, v)
-    elseif type(prev) == "function" then
-      prev(t, k, v)
-    else
-      prev[k] = v
-    end
+  if type(VRFW) == "table" and type(VRFW.host) == "table" and type(VRFW.host.hook_command) == "function" then
+    register(VRFW.host)
+  else
+    -- The menu chunk runs before the Lua patch files: BetterUI's lua/_all/better_ui.lua registers the queue after VRFW's.
+    BetterUI.command_hooks = BetterUI.command_hooks or {}
+    BetterUI.command_hooks[#BetterUI.command_hooks + 1] = register
   end
 end
 
--- Wrap a menu callback (OnSetupLayer, OnOpenLayer, ...) that the chunk already defined
+-- Wraps a menu callback (OnSetupLayer, OnOpenLayer, ...) that the chunk already defined: `after` runs after it.
 local function UiWrapCallback(name, after)
   local orig = rawget(_ENV, name)
   if type(orig) ~= "function" then
@@ -101,6 +79,52 @@ local function UiWrapCallback(name, after)
     return table.unpack(r, 1, r.n)
   end)
   return true
+end
+
+-- The option row that shows the rival's gauges with their real values.
+local UI_RIVAL_GAUGES_OPTION = "BetterUI.rival_gauges"
+local CMND_VRFW_OPTION_GET = 4082322029
+local ui_rival_gauges = nil
+
+-- True when the rival gauges option is on, read once per menu at its first use after VRFW is loaded.
+local function UiRivalGaugesOn()
+  if ui_rival_gauges == nil and type(VRFW) == "table" and type(VRFW.host) == "table" then
+    ui_rival_gauges = VRFW.host.command(CMND_VRFW_OPTION_GET, UI_RIVAL_GAUGES_OPTION) == 1
+    UiLog("rival_gauges", ui_rival_gauges)
+  end
+  return ui_rival_gauges == true
+end
+
+-- The retail IsBlind() blinds the rival's tension, kizuna and hyper gauges offline; the option unblinds them.
+local retail_is_blind = rawget(_ENV, "IsBlind")
+if type(retail_is_blind) == "function" then
+  rawset(_ENV, "IsBlind", function(...)
+    if UiRivalGaugesOn() then
+      return false
+    end
+    return retail_is_blind(...)
+  end)
+end
+
+-- The rival's layers stay hidden only while the rival gauges option is off.
+local function UiHideRivalMeters()
+  return UiOn("enemy_meters") and not UiRivalGaugesOn()
+end
+
+-- Diagnostics: one INFO line per key in loader.log, at most 16 lines per menu.
+local CMND_VRFW_LOG = 519897777
+local ui_diag_seen, ui_diag_count = {}, 0
+local function UiDiag(key, ...)
+  if ui_diag_seen[key] or ui_diag_count >= 16 or type(funcLuaCommand) ~= "function" then
+    return
+  end
+  ui_diag_seen[key] = true
+  ui_diag_count = ui_diag_count + 1
+  local parts = { "BetterUI rival_meters", key }
+  for i = 1, select("#", ...) do
+    parts[#parts + 1] = tostring((select(i, ...)))
+  end
+  funcLuaCommand(CMND_VRFW_LOG, table.concat(parts, " "))
 end
 
 -- Layers of soccer_menu to hide.
@@ -121,7 +145,7 @@ local function UiHideLayer(orig, layer)
 end
 
 local function UiMenuFilter(orig, id, ...)
-  if not UiOn("enemy_meters") then
+  if not UiHideRivalMeters() then
     return nil
   end
   if id == CMND_SET_LAYER_VISIBLE then
@@ -135,7 +159,7 @@ local function UiMenuFilter(orig, id, ...)
     if UI_HIDE_LAYERS[layer] then
       local r = Pack(orig(id, ...))
       UiHideLayer(orig, layer)
-      UiLog("hide", layer)
+      UiDiag("open_" .. tostring(layer), "hidden after open, command", id)
       return r
     end
   end
@@ -146,7 +170,10 @@ UiHookMenuCommand(UiMenuFilter)
 
 -- Layers the engine opens by itself still pass through the menu callbacks.
 local function UiAfterLayer(a1, a2)
-  if UiOn("enemy_meters") and UI_HIDE_LAYERS[a1] and type(funcLuaMenuCommand) == "function" then
+  if UI_HIDE_LAYERS[a1] then
+    UiDiag("setup_" .. tostring(a1), "instance", a2, "hide", UiHideRivalMeters(), "IsBlind", IsBlind())
+  end
+  if UiHideRivalMeters() and UI_HIDE_LAYERS[a1] and type(funcLuaMenuCommand) == "function" then
     funcLuaMenuCommand(CMND_SET_LAYER_VISIBLE, a1, a2 or 0, false)
   end
 end
@@ -155,25 +182,115 @@ UiWrapCallback("OnOpenLayer", UiAfterLayer)
 
 -- The engine opens these layers itself and shows them again after OnOpenLayer
 local CMND_IS_OPEN_LAYER = 2640875187
-local UI_STEP_LOGGED = {}
 local function UiStepHide()
-  if not UiOn("enemy_meters") or type(funcLuaMenuCommand) ~= "function" then
+  UiDiag("step", "enemy_meters", UiOn("enemy_meters"), "rival_gauges", UiRivalGaugesOn(), "host",
+    type(VRFW) == "table" and type(VRFW.host))
+  if not UiHideRivalMeters() or type(funcLuaMenuCommand) ~= "function" then
     return
   end
   for layer, n in pairs(UI_HIDE_LAYERS) do
     local open = VRFW.host.menu_command(CMND_IS_OPEN_LAYER, layer)
+    UiDiag("step_" .. tostring(layer), "open", open, type(open))
     if open == true then
       for i = 0, n - 1 do
         VRFW.host.menu_command(CMND_SET_LAYER_VISIBLE, layer, i, false)
-      end
-      if not UI_STEP_LOGGED[layer] then
-        UI_STEP_LOGGED[layer] = true
-        UiLog("step_hide", layer)
       end
     end
   end
 end
 UiWrapCallback("PostStep", UiStepHide)
+
+-- The kizuna plate moves up under the tension bar on each side whose hyper gauge CharacterReforged hides.
+local CMND_HUD_HIDDEN_LAYERS = 3115737987
+local CMND_GET_MESH_GLOBAL_POSITION = 499270986
+local CMND_GET_LAYER_LOCAL_POS = 2834507455
+local CMND_SET_LAYER_LOCAL_POS = 1389957207
+local MESH_TENSION_BAR = 1344003205
+local MESH_KIZUNA_PLATE = 4111848178
+-- The height of the tension bar mesh _tension_bar_base01 of soccer08_03, in layout units.
+local TENSION_BAR_HEIGHT = 28
+-- The kizuna mesh's left end minus the tension mesh's left end that puts both right ends on one slant (tension_bar_base01 and the slanted kizuna plate art).
+local KIZUNA_SLANT_DX = 99.6
+-- The most corrections per kizuna layer in one menu.
+local KIZUNA_MOVES_MAX = 30
+-- The questions to CharacterReforged before BetterUI stops asking.
+local HIDDEN_ASKS_MAX = 600
+local UI_KIZUNA_SIDES = {
+  { hyper = 3476531443, tension = 1206907856,
+    kizuna = 2914962163, moves = 0 },
+  { hyper = 1442388144, tension = 2546223804,
+    kizuna = 1829362274, moves = 0 },
+}
+local ui_hidden_asks, ui_hidden_layers = 0, nil
+
+-- The layers CharacterReforged hides in this match as a set, or nil until its command answers.
+local function UiHiddenHudLayers()
+  if ui_hidden_layers == nil and ui_hidden_asks < HIDDEN_ASKS_MAX then
+    ui_hidden_asks = ui_hidden_asks + 1
+    local r = Pack(VRFW.host.command(CMND_HUD_HIDDEN_LAYERS))
+    if r[1] ~= nil then
+      ui_hidden_layers = {}
+      if r[1] == true or r[1] == 1 then
+        for i = 2, r.n do
+          if type(r[i]) == "number" then
+            ui_hidden_layers[r[i]] = true
+          end
+        end
+      end
+      UiDiag("hud_hidden", "answer", r[1], "layers", r.n - 1)
+    end
+  end
+  return ui_hidden_layers
+end
+
+local function UiAbs(x)
+  return x < 0 and -x or x
+end
+
+-- Moves one side's kizuna layer so its plate sits right under the tension bar, right ends on one slant.
+local function UiKizunaSide(side)
+  if side.moves >= KIZUNA_MOVES_MAX or VRFW.host.menu_command(CMND_IS_OPEN_LAYER, side.tension) ~= true
+      or VRFW.host.menu_command(CMND_IS_OPEN_LAYER, side.kizuna) ~= true then
+    return
+  end
+  local tx, ty = VRFW.host.menu_command(CMND_GET_MESH_GLOBAL_POSITION, side.tension, 0, MESH_TENSION_BAR)
+  local kx, ky = VRFW.host.menu_command(CMND_GET_MESH_GLOBAL_POSITION, side.kizuna, 0, MESH_KIZUNA_PLATE)
+  if type(tx) ~= "number" or type(ty) ~= "number" or type(kx) ~= "number" or type(ky) ~= "number" then
+    UiDiag("kizuna_pos_" .. tostring(side.kizuna), "no position", tx, ty, kx, ky)
+    return
+  end
+  -- The plate is below the bar, so the distance between their tops does not depend on the axis direction.
+  local up = UiAbs(ty - ky) - TENSION_BAR_HEIGHT
+  local dx = tx + KIZUNA_SLANT_DX - kx
+  if UiAbs(up) <= 0.5 and UiAbs(dx) <= 0.5 then
+    return
+  end
+  local lx, ly, lz = VRFW.host.menu_command(CMND_GET_LAYER_LOCAL_POS, side.kizuna, 0)
+  if type(lx) ~= "number" or type(ly) ~= "number" then
+    UiDiag("kizuna_local_" .. tostring(side.kizuna), "no local position", lx, ly)
+    return
+  end
+  side.moves = side.moves + 1
+  VRFW.host.menu_command(CMND_SET_LAYER_LOCAL_POS, side.kizuna, lx + dx, ly + up, type(lz) == "number" and lz or 0, 0)
+  UiDiag("kizuna_move_" .. tostring(side.kizuna) .. "_" .. tostring(side.moves), "tension", tx, ty, "kizuna", kx, ky,
+    "local", lx, ly, "dx", dx, "up", up)
+end
+
+local function UiKizunaUnderTension()
+  if type(VRFW) ~= "table" or type(VRFW.host) ~= "table" then
+    return
+  end
+  local hidden = UiHiddenHudLayers()
+  if hidden == nil then
+    return
+  end
+  for _, side in ipairs(UI_KIZUNA_SIDES) do
+    if hidden[side.hyper] then
+      UiKizunaSide(side)
+    end
+  end
+end
+UiWrapCallback("PostStep", UiKizunaUnderTension)
 end
 child_chunk()
 end

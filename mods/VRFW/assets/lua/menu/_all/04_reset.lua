@@ -1,3 +1,4 @@
+-- Advanced:
 -- lua_patch.scope: used
 VRFW.reset = VRFW.reset or {}
 do
@@ -14,7 +15,7 @@ do
     TITLE_MODE = 3718253404,     -- the title's mode value
   }
 
-  --- Sets the menu that opens after a reset (`vs` = the VS root) and skips the press-start screen.
+  --- Advanced: Sets the menu that opens after a reset (`vs` = the VS root) and skips the press-start screen.
   function R.next_state(menu, vs, title_mode)
     if type(menu) == "string" then menu = VRFW.crc32(menu) end
     pcall(funcLuaMenuCommand, C.NEXT_MENU, vs and 0 or (menu or 0))
@@ -24,7 +25,7 @@ do
     if title_mode ~= nil then pcall(funcLuaCommand, C.TITLE_MODE, title_mode) end
   end
 
-  --- Waits at most 300 frames for the game to finish saving; answers true when it had to wait.
+  --- Internal: Waits at most 300 frames for the game to finish saving; answers true when it had to wait.
   function R.wait_save()
     local waited = false
     for _ = 1, 300 do
@@ -36,7 +37,7 @@ do
     return waited
   end
 
-  --- Restarts the game into a menu without the title screen; answers "straight", or "title" when it fell back to the title.
+  --- Advanced: Restarts the game into a menu without the title screen; answers "straight", or "title" when it fell back to the title.
   function R.straight(spec)
     spec = spec or {}
     local log = type(spec.log) == "function" and spec.log or function() end
@@ -68,7 +69,7 @@ do
     return "title"
   end
 
-  --- Resets the game to the title screen.
+  --- Advanced: Resets the game to the title screen.
   function R.to_title()
     R.next_state(0, false)
     pcall(funcLuaCommand, C.GAME_RESET)

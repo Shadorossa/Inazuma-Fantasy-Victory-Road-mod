@@ -42,3 +42,8 @@ table = "character/chara_model"
   key = 0xFBB3D2D5                # ev62_92004
   from = 0x7E7ECEF0               # ev62_10110
   cells = { skeleton_path = { text = "_waza/ev62_92004/ev62_92004.objbin" } }
+
+  [[keyed.add]]
+  key = 0x222BCE85                # k902020
+  from = 0x87904B50               # k002020 (the model key of k002020's retail chara_base row)
+  cells = { skeleton_path = { text = "_keshin/k902020/k902020.objbin" } }

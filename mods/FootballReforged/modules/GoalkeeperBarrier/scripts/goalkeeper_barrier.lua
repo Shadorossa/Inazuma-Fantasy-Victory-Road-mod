@@ -179,7 +179,7 @@ local function publish_tension(match)
   end
 end
 
-VRFW.on("tick", function(ev)
+VRFW.on("frame:tick", function(ev)
   local on = Modules.on(MODULE)
   if on ~= State.was_on then
     if State.was_on ~= nil then
@@ -220,7 +220,7 @@ VRFW.on("tick", function(ev)
   return nil
 end)
 
-VRFW.on("keeper_duel", function(ev)
+VRFW.on("match:keeper_duel", function(ev)
   if not Modules.on(MODULE) then return nil end
   local a = ev.actor
   if not a or not a.handle or (a.team ~= 0 and a.team ~= 1) then return nil end
@@ -236,7 +236,7 @@ VRFW.on("keeper_duel", function(ev)
   return { power_mult = 1 / SETTINGS.mitigation }
 end)
 
-VRFW.on("tension_pay:skill", function(ev)
+VRFW.on("match:tension_pay:skill", function(ev)
   if not Modules.on(MODULE) then return nil end
   local a = ev.actor
   if not a or not a.handle or not ev.skill or a.team == nil or a.team > 1 then return nil end

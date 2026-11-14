@@ -11,7 +11,7 @@ if VRFW.text_fold == nil then
 
   local T = {}
 
-  --- The UTF-8 characters of s, as a list.
+  --- VRFW.text_fold.chars(s): the UTF-8 characters of s, as a list. Safe at load.
   function T.chars(s)
     local out = {}
     for ch in tostring(s or ""):gmatch(UTF8_CHAR) do
@@ -39,16 +39,17 @@ if VRFW.text_fold == nil then
     return PLAIN[ch] or string.upper(ch)
   end
 
-  --- s folded to lower case (UTF-8).
+  --- VRFW.text_fold.fold(s): s in lower case, accents included. Safe at load.
   function T.fold(s)
     return (string.gsub(tostring(s or ""), UTF8_CHAR, lower_char))
   end
 
-  --- s folded to upper case (UTF-8).
+  --- VRFW.text_fold.fold_upper(s): s in upper case, accents included. Safe at load.
   function T.fold_upper(s)
     return (string.gsub(tostring(s or ""), UTF8_CHAR, upper_char))
   end
 
+  --- Text of the menu VM: case folding, widths, cutting to fit. Safe at load.
   VRFW.text_fold = T
 end
 
@@ -61,7 +62,7 @@ if VRFW.text_fold.units == nil then
     return (string.byte(ch, 1) or 0) >= WIDE_LEAD and 2 or 1
   end
 
-  --- The display width of s in units.
+  --- VRFW.text_fold.units(s): the display width of s in units. Safe at load.
   function T.units(s)
     local plain = string.gsub(tostring(s or ""), "%[C%u*%]", "")
     plain = string.gsub(plain, "<[%u%d_]+>", "MM")
@@ -72,12 +73,12 @@ if VRFW.text_fold.units == nil then
     return u
   end
 
-  --- The display width of s in pixels, `unit_px` per unit.
+  --- VRFW.text_fold.width(s, unit_px): the display width of s in pixels. Safe at load.
   function T.width(s, unit_px)
     return T.units(s) * (unit_px or 1)
   end
 
-  --- s cut to `units`, with its ellipsis.
+  --- VRFW.text_fold.cut(s, units): s cut to `units` wide, with an ellipsis. Safe at load.
   function T.cut(s, units)
     s = tostring(s or "")
     if units == nil or units <= 1 or T.units(s) <= units then
@@ -95,7 +96,7 @@ if VRFW.text_fold.units == nil then
     return (string.gsub(table.concat(out), "[%s%p]+$", "")) .. "…"
   end
 
-  --- s cut to fit `px` at `size` and glyph width `glyph`.
+  --- VRFW.text_fold.fit(s, px, size, glyph): s cut to fit `px` pixels at font size `size`. Safe at load.
   function T.fit(s, px, size, glyph)
     local unit = (size or 1) * (glyph or 0.5)
     if unit <= 0 then
@@ -104,7 +105,7 @@ if VRFW.text_fold.units == nil then
     return T.cut(s, math.floor((px or 0) / unit))
   end
 
-  --- The drawn width of text s; nil when it cannot be measured.
+  --- VRFW.text_fold.measure(layer, idx, node, s): the drawn width of s in a text node, or nil. Call only from OnInit, Step or another callback.
   function T.measure(layer, idx, node, s)
     local ok, w = pcall(funcLuaMenuCommand, VRFW.commands.GET_MENU_TEXT_RECT_SIZE, layer, idx, node, s)
     w = ok and tonumber(w) or nil
@@ -120,7 +121,7 @@ if VRFW.text_fold.literal == nil then
   local MARKUP_LOOKALIKE = {["<"] = "‹", [">"] = "›", ["["] = "［", ["]"] = "］"}
   local NEWLINE_SEQUENCE, BACKSLASH_N = "\\n", "＼n"
 
-  --- Untrusted text (problem messages, paths, mod names) with its markup characters swapped for look-alikes, so it draws as written.
+  --- Internal: Untrusted text (problem messages, paths, mod names) with its markup characters swapped for look-alikes, so it draws as written.
   function VRFW.text_fold.literal(s)
     local text = string.gsub(tostring(s or ""), "[<>%[%]]", MARKUP_LOOKALIKE)
     return (string.gsub(text, NEWLINE_SEQUENCE, BACKSLASH_N))
@@ -128,7 +129,7 @@ if VRFW.text_fold.literal == nil then
 end
 
 if VRFW.text_fold.fill_template == nil then
-  --- Text with {1}, {2}, ... filled from the arguments.
+  --- VRFW.text_fold.fill_template(text, ...): text with {1}, {2}... replaced by the arguments. Safe at load.
   function VRFW.text_fold.fill_template(text, ...)
     local args = table.pack(...)
     return (string.gsub(tostring(text or ""), "{(%d)}", function(k)

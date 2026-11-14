@@ -1,6 +1,6 @@
 schema = "VRFW.team/2"
 default_lang = "en"
-# Source: research/mods/_aside/InazumaFantasy/_tools/wiki_teams_build.py Mask Man B (IE2, «Oumihara's Coach's route» #2; report status: missing).
+# Source: wiki_teams_build.py (old Inazuma Fantasy tool, removed 2026-11-12) Mask Man B (IE2, «Oumihara's Coach's route» #2; report status: missing).
 [[team]]
 name = "ct_wk_mask_man_b"
 key = "evt_ct_wk_mask_man_b"

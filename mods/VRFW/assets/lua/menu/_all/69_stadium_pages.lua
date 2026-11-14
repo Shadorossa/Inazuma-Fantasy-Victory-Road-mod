@@ -28,9 +28,10 @@ if VRFW.stadium_pages == nil then
     open = nil,                       -- the paged window while it is up
     hooked = false,
   }
+  --- Internal: Namespace: paged stadium lists for sub windows with more rows than the limit.
   VRFW.stadium_pages = P
 
-  --- Logs through the stadium-pages tag.
+  --- Internal: Logs through the stadium-pages tag.
   function P.log(...)
     if P.raw_command ~= nil then
       pcall(P.raw_command, P.LOG, "vrfw.StadiumPages", ...)
@@ -52,7 +53,7 @@ if VRFW.stadium_pages == nil then
     return first, math.min(first + P.PER_PAGE, o.rows) - 1
   end
 
-  --- The window row of a list row on the current page, or nil.
+  --- Internal: The window row of a list row on the current page, or nil.
   function P.slot_of(o, row)
     if type(row) ~= "number" or page_of(row) ~= o.page then
       return nil
@@ -61,7 +62,7 @@ if VRFW.stadium_pages == nil then
     return row - first + (o.page > 1 and 1 or 0)
   end
 
-  --- The list row of a window row: a number, or "previous" / "next" for the page rows.
+  --- Internal: The list row of a window row: a number, or "previous" / "next" for the page rows.
   function P.row_of(o, slot)
     local first, last = page_rows(o, o.page)
     local offset = 0
@@ -78,7 +79,7 @@ if VRFW.stadium_pages == nil then
     return row
   end
 
-  --- The arguments of MENU_DEF.OpenSubWindow for the current page.
+  --- Internal: The arguments of MENU_DEF.OpenSubWindow for the current page.
   function P.page_arguments(o)
     local source = o.arguments
     local out = {n = source.n}
@@ -121,7 +122,7 @@ if VRFW.stadium_pages == nil then
     return out
   end
 
-  --- The window opens paged: the state, then the first page's arguments.
+  --- Internal: The window opens paged: the state, then the first page's arguments.
   function P.begin(callback, focus_callback, arguments)
     local rows = arguments[P.ROWS_ARGUMENT]
     local count = arguments[P.COUNT_ARGUMENT]
@@ -137,12 +138,13 @@ if VRFW.stadium_pages == nil then
       checked_row = type(checked) == "number" and checked or nil,
       names = {}, priorities = {}, text_previous = CRC32(P.TEXT_PREVIOUS), text_next = CRC32(P.TEXT_NEXT),
     }
+    --- Internal: state of the open paged list (rows, pages), or nil.
     P.open = o
     P.log("list of", count, "rows in", o.pages, "pages")
     return P.page_arguments(o)
   end
 
-  --- Page rows: close the window, the page turn ends in Step.
+  --- Internal: Page rows: close the window, the page turn ends in Step.
   function P.turn(o, delta)
     o.page = math.max(1, math.min(o.pages, o.page + delta))
     local first, last = page_rows(o, o.page)
@@ -151,7 +153,7 @@ if VRFW.stadium_pages == nil then
     P.raw_command(P.CMD_CLOSE_OBJECT, P.SUB_WINDOW)
   end
 
-  --- The names of the page rows (their text rows; the sub window would also show them from their ids).
+  --- Internal: The names of the page rows (their text rows; the sub window would also show them from their ids).
   function P.name_page_rows(o)
     local first, last = page_rows(o, o.page)
     local function name(slot, text_id)
@@ -168,7 +170,7 @@ if VRFW.stadium_pages == nil then
     end
   end
 
-  --- a page turn that cannot finish: the menu's own cancel restores its screen.
+  --- Internal: a page turn that cannot finish: the menu's own cancel restores its screen.
   function P.cancel(o)
     P.open = nil
     local callback = _ENV[o.callback]
@@ -177,7 +179,7 @@ if VRFW.stadium_pages == nil then
     end
   end
 
-  --- Open the window on the current page with the names the menu gave its rows.
+  --- Internal: Open the window on the current page with the names the menu gave its rows.
   function P.open_page(o)
     local out = P.page_arguments(o)
     local focus_name = (type(o.focus_callback) == "string" and o.focus_callback ~= "") and P.FOCUS or o.focus_callback
@@ -192,7 +194,7 @@ if VRFW.stadium_pages == nil then
     end
   end
 
-  --- One frame of a page turn (closing -> opening -> ready).
+  --- Internal: One frame of a page turn (closing -> opening -> ready).
   function P.tick()
     local o = P.open
     if o == nil or o.step == nil then
@@ -231,7 +233,7 @@ if VRFW.stadium_pages == nil then
     end
   end
 
-  --- The window's pick: a page row turns the page, a list row goes to the menu's callback as its own row number.
+  --- Internal: The window's pick: a page row turns the page, a list row goes to the menu's callback as its own row number.
   function P.pick(slot, ...)
     local o = P.open
     if o == nil then
@@ -263,7 +265,7 @@ if VRFW.stadium_pages == nil then
     return nil
   end
 
-  --- The window's focus: a list row goes to the menu's callback as its own row number; page rows are not reported.
+  --- Internal: The window's focus: a list row goes to the menu's callback as its own row number; page rows are not reported.
   function P.focus(slot, ...)
     local o = P.open
     local callback = o and _ENV[o.focus_callback]
@@ -281,7 +283,7 @@ if VRFW.stadium_pages == nil then
     return callback(slot, ...)
   end
 
-  --- FuncLuaCommand while a paged window is up: row names, focus and position addressed by the menu's row numbers.
+  --- Internal: FuncLuaCommand while a paged window is up: row names, focus and position addressed by the menu's row numbers.
   function P.command(nxt, ...)
     local o = P.open
     if o ~= nil then
@@ -305,7 +307,7 @@ if VRFW.stadium_pages == nil then
     return nxt(...)
   end
 
-  --- FuncLuaMenuCommand while a paged window is up: the focused row, the check mark and the rows' draw priorities.
+  --- Internal: FuncLuaMenuCommand while a paged window is up: the focused row, the check mark and the rows' draw priorities.
   function P.menu_command(nxt, ...)
     local o = P.open
     if o ~= nil and o.step == nil then
@@ -330,7 +332,7 @@ if VRFW.stadium_pages == nil then
     return nxt(...)
   end
 
-  --- Hooks the window's commands once; answers true, or false when it cannot.
+  --- Internal: Hooks the window's commands once; answers true, or false when it cannot.
   function P.hook()
     if P.hooked then
       return true
@@ -338,6 +340,7 @@ if VRFW.stadium_pages == nil then
     if type(funcLuaCommand) ~= "function" or type(funcLuaMenuCommand) ~= "function" or type(Step) ~= "function" then
       return false
     end
+    --- Internal: true once the stadium pages command and menu hooks are installed.
     P.hooked = true
     -- the window's own calls go past every command handler (VRFW.host)
     P.raw_command, P.raw_menu = VRFW.host.real_command, VRFW.host.real_menu_command
@@ -359,11 +362,12 @@ if VRFW.stadium_pages == nil then
     return true
   end
 
-  --- MENU_DEF.OpenSubWindow of this VM (wrapped once the chunk's includes are loaded).
+  --- Internal: MENU_DEF.OpenSubWindow of this VM (wrapped once the chunk's includes are loaded).
   function P.wrap()
     if MENU_DEF == nil or type(MENU_DEF.OpenSubWindow) ~= "function" or P.inner ~= nil then
       return
     end
+    --- Internal: the previous MENU_DEF.OpenSubWindow saved before the wrap.
     P.inner = MENU_DEF.OpenSubWindow
     MENU_DEF.OpenSubWindow = function(callback, focus_callback, ...)
       local count, kind = (select(P.COUNT_ARGUMENT, ...)), (select(P.KIND_ARGUMENT, ...))

@@ -42,6 +42,7 @@ TemplateGame = "fbtl_cro05_240_010"
 Difficulty = 4
 RivalStats = "normal"
 Rules = "chronicle_deluxe_chain"
+FreeMatchTab = "chain"                 # its beaten teams in the free match tab «Cadena»
   [VRFW.Chain.Title]
   es = "Cadena del Abuelo"
   en = "Grandfather's Chain"
@@ -135,7 +136,7 @@ Rules = "chronicle_deluxe_chain"
   Links = ["c19"]
     [[VRFW.Chain.Tile.Reward]]
     Item = 0x0A5F1FC1
-    if_mod = "Equipment"
+    if_mod = "CharacterReforged"
 
   [[VRFW.Chain.Tile]]
   Id = "c19"

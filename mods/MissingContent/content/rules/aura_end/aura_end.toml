@@ -16,9 +16,11 @@ glb = "assets/anims/aura_end/cs_kka0010.glb"
 name = "miximax_end_arms"
 glb = "assets/anims/aura_end/cs_vxa0011.glb"
 
+# The kneel's last frame held: a looping pose.
 [[field_clip]]
 name = "aura_end_kneel_hold"
-glb = "assets/anims/aura_end/cs_kka0011_hold.glb"
+glb = "assets/anims/aura_end/cs_kka0011.glb"
+hold = "last_frame"
 loop = "stand"
 
 # A keshin or an armour whose time or gauge ran out: the kneel.

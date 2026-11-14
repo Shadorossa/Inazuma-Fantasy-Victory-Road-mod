@@ -1,0 +1,19 @@
+# BetterUI, formation description box (soccer11_13, «4-4-2 F-Fantasma ...»): square flat box, no drop shadow. The box
+# interior is stretched over the old 20 px shadow margin, which turns transparent.
+schema = "VRFW.image/1"
+
+[[recipe]]
+name = "box_flat"
+game = "#/menu/00_soccer/soccer11/soccer11_13/soccer11_13.g4tx"
+sprite = "win_formation01"
+ops = [
+    { op = "crop", box = [32, 32, 888, 288] },
+    { op = "resize", size = [880, 280] },
+    { op = "crop", box = [-20, -20, 900, 300] },
+]
+
+[[sprite]]
+atlas = "#/menu/00_soccer/soccer11/soccer11_13/soccer11_13.g4tx"
+name = "win_formation01"
+recipe = "box_flat"
+size = [920, 320]

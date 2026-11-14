@@ -1,0 +1,31 @@
+# Schema of the card fields: extra stats and extra slots of a card that a mod adds, declared so editors read them like the game's own data.
+# Unknown keys, wrong types or out-of-range values leave the declaration out with a warning.
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.card_field/1"
+folder = "content/card_fields"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Card.Field"
+v2_kind_folder = "Cards/Fields"
+v2_version = 1
+label = "Card fields"
+label_es = "Campos de carta"
+doc = "A mod's own stats and slots of every card: where each value is stored, how a card without one gets it, and which moves a slot takes."
+doc_es = "Las estadísticas y huecos propios de un mod en cada carta: dónde se guarda cada valor, cómo lo obtiene una carta sin él y qué técnicas admite un hueco."
+
+[entry.CardStat]
+doc = "an extra stat of every card: stored under `stat` of the character type's `stats` table (its chara_param column), it follows the growth curve of the stats system like the game's stats"
+name = { type = "name", required = true, doc = "key <mod>.<name> (a-z 0-9 _)" }
+stat = { type = "string", required = true, doc = "the key of the character type's `stats` table that stores the value (the character engine's own stat columns)" }
+label = { type = "table", required = true, doc = "language -> the stat's name in editors ({ en = …, es = … })" }
+help = { type = "table", doc = "language -> what the stat does" }
+derive = { type = "string", values = ["none", "mean"], default = "none", doc = "the value of a card that stores 0: none = 0; mean = the rounded mean of the stored `derive_from` stats" }
+derive_from = { type = "strings", doc = "the stats `derive = \"mean\"` averages (keys of the `stats` table)" }
+
+[entry.CardSlot]
+doc = "an extra slot of every card that holds one aura command: the move of the learn list slot `learn_slot` when its aura type is one of the slot's types, else the card's entry in `card_table`; slots with the same learn_slot share it, the first declared that has a move of its types holds it"
+name = { type = "name", required = true, doc = "key <mod>.<name> (a-z 0-9 _)" }
+label = { type = "table", required = true, doc = "language -> the slot's name in editors" }
+help = { type = "table", doc = "language -> what the slot does" }
+types_from = { type = "string", required = true, doc = "where the aura types the slot takes are declared: \"<content folder>:<dotted key>\" (the list of every enabled mod's files there, the last one wins)" }
+learn_slot = { type = "int", min = 1, max = 9, doc = "the learn list slot (1-based) whose move fills the slot; a move learned above the card's level leaves it empty (VRFW.learn.move_locked)" }
+card_table = { type = "string", doc = "a table of card id -> aura command for the cards whose learn list gives the slot nothing: \"<content folder>:<dotted key>\"" }

@@ -13,7 +13,7 @@ handler = "BattleBayDeluxe.NetPicked"
 [[VRFW.Command]]
 name = "CMND_BATTLEBAYDELUXE_NET_PREPARE"
 handler = "BattleBayDeluxe.NetPrepare"
-needs = ["session"]
+needs = ["session", "Team.FindConfig", "RosterRowsCode", "RosterParamCode", "RosterSlotCode", "TeamRecord", "TeamConfig", "MemberRow", "ActiveTeamRecord"]
 
 [[VRFW.Command]]
 name = "CMND_BATTLEBAYDELUXE_NET_RESTORE"

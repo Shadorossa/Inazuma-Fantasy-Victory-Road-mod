@@ -13,10 +13,10 @@ target = "c07080010"  # Byron Love of Ares and Orion
   growth = "normal"
   stats = { kick = 294, control = 254, technique = 274, pressure = 211, physical = 153, intelligence = 263, agility = 166, luck = 209, freedom = 0 }
   moves = [
-    { move = 0x1C8CE2B8, level = 1 },
-    { move = 0x0D368F6B, level = 13 },
-    { move = 0x7577A26A, level = 20 },
-    { move = 0xDF7E6AE1, level = 30 },
+    { move = "whs00340", level = 1 },
+    { move = "who00200", level = 13 },
+    { move = "whs00900", level = 20 },
+    { move = "whs02900", level = 30 },
     { move = 0x00000000, level = 0 },
     { move = 0x00000000, level = 0 },
     { move = 0x00000000, level = 0 },
@@ -37,10 +37,10 @@ target = "c03033660"  # Mystral Callous
   growth = "normal"
   stats = { kick = 304, control = 234, technique = 311, pressure = 150, physical = 173, intelligence = 162, agility = 159, luck = 339, freedom = 0 }
   moves = [
-    { move = 0xC513565C, level = 1 },
-    { move = 0x119EFB90, level = 41 },
-    { move = 0x71831119, level = 53 },
-    { move = 0x7748D3F2, level = 54 },
+    { move = "whs01400", level = 1 },
+    { move = "whs01390", level = 41 },
+    { move = "who00350", level = 53 },
+    { move = "who00650", level = 54 },
     { move = 0x00000000, level = 0 },
     { move = 0x00000000, level = 0 },
     { move = 0x00000000, level = 0 },
@@ -61,10 +61,10 @@ target = "c04018060"  # Escavan Malice
   growth = "normal"
   stats = { kick = 298, control = 234, technique = 242, pressure = 235, physical = 190, intelligence = 227, agility = 167, luck = 271, freedom = 0 }
   moves = [
-    { move = 0x119EFB90, level = 1 },
-    { move = 0x6E53E2B3, level = 11 },
-    { move = 0x1162A8AF, level = 48 },
-    { move = 0xC513565C, level = 67 },
+    { move = "whs01390", level = 1 },
+    { move = "who00640", level = 11 },
+    { move = "who00510", level = 48 },
+    { move = "whs01400", level = 67 },
     { move = 0x00000000, level = 0 },
     { move = 0x00000000, level = 0 },
     { move = 0x00000000, level = 0 },

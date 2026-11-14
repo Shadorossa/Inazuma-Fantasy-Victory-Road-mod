@@ -1,0 +1,6 @@
+schema = "VRFW.synergy/1"
+
+# The Yo-kai of InazumaFantasy (team group InazumaFantasy.yokai, used by the own passives' Trait blocks).
+[[VRFW.SynergyPool]]
+name = "yokai"
+charas = ["c90620000", "c90640000", "c90650000", "c90660000", "c90670000", "c90680000", "InazumaFantasy.komajiro"]

@@ -1,0 +1,11 @@
+schema = "VRFW.option/2"
+# Chronicle Deluxe's rows on the Mods screen's «Ajustes» and in Options > «Mod options».
+
+# Named by every heroic battle's [[VRFW.MatchChallenge]] TeamRulesOption (content\teams\90_rules\heroic.toml); read at every team check, so a change applies at once.
+[[option]]
+id = "heroic_requirements"                     # row key ChronicleDeluxe.heroic_requirements
+type = "toggle"
+label = "option_heroic_requirements"           # text\keys.toml, 9 languages
+help = "option_heroic_requirements_help"
+default = 1
+order = 180

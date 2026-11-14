@@ -1,0 +1,105 @@
+schema = "VRFW.character/2"
+default_lang = "en"
+
+# Komajiro, Komasan's younger brother: midfielder, wind (his lightning), his own body (model row with force_kit 1: no team kit replaces his own clothes).
+# Stats: Komasan's card with the same total, a little less kick, control, technique, physical and intelligence for more agility and pressure.
+[[character]]
+name = "komajiro"
+based_on = "c05029720"  # template: Luke Triton (own clothes, no kit)
+order = 207
+
+  [character.base]
+  id = 0xE2CB61E2  # crc32("c90690000")
+  name = "c90690000"
+  name_text = 0x233AE20B  # crc32("c90690000_name")
+  short_name_text = 0xF1E4F583  # crc32("c90690000_short")
+  upper_name_text = 0x1093BABD  # crc32("c90690000_upper")
+  description_text = 0x92327A6C  # crc32("c90690000_description")
+  model = 0xA95917F8
+  # album only: not on any team, so Luke's belong team is cleared
+  team_1 = 0
+  team_2 = 0
+  team_3 = 0x5595D5FA  # crc32("evt_belong_team_fantasy"): the bank's Fantasy tab
+
+  [character.new_model]
+  id = 0xA95917F8  # crc32("c90690000_model")
+  from = "c05029720"
+  [character.new_model.cells]
+  skeleton_path = "_face/90_FANTASY/c90690000/c90690000.objbin"
+  body = 0xA6B197BF  # crc32("c90690000_body"), content/tables/common/gamedata/character/chara_model.toml
+  head_mesh_path = "_face/90_FANTASY/c90690000/c90690000.g4md"
+  clothes = 0x41368A6F  # crc32("u90690000_10"), content/looks/komajiro.toml
+  shoes = 0
+  gloves = 0
+  force_kit = 1
+  skin_color = 0xEFC568FF  # his orange fur is the colour the menu tints the neck of the kit bust.
+
+  [character.text.ja]
+  name = "コマじろう"
+  short = "コマじろう"
+  upper = "KOMAJIRO"
+  description = "[都会/とかい]に[憧/あこが]れる\nコマさんの[弟/おとうと]の[狛犬/こまいぬ][妖怪/ようかい]。"
+
+  [character.text.en]
+  name = "Komajiro"
+  short = "Komajiro"
+  upper = "KOMAJIRO"
+  description = "Komasan's little brother, a lion-dog\nYo-kai who longs for the big city."
+
+  [character.text.es]
+  name = "Komajiro"
+  short = "Komajiro"
+  upper = "KOMAJIRO"
+  description = "El hermano pequeño de Komasan, un yo-kai\nperro guardián que sueña con la ciudad."
+
+  [character.text.fr]
+  name = "Komajiro"
+  short = "Komajiro"
+  upper = "KOMAJIRO"
+  description = "Le petit frère de Komasan, un yo-kai\nchien-lion qui rêve de la grande ville."
+
+  [character.text.de]
+  name = "Komajiro"
+  short = "Komajiro"
+  upper = "KOMAJIRO"
+  description = "Komasans kleiner Bruder, ein Löwenhund-\nYo-kai, der von der Großstadt träumt."
+
+  [character.text.it]
+  name = "Komajiro"
+  short = "Komajiro"
+  upper = "KOMAJIRO"
+  description = "Il fratellino di Komasan, uno yo-kai\ncane-leone che sogna la grande città."
+
+  [character.text.pt]
+  name = "Komajiro"
+  short = "Komajiro"
+  upper = "KOMAJIRO"
+  description = "O irmão mais novo de Komasan, um yo-kai\ncão-leão que sonha com a cidade grande."
+
+  [character.text.zh_hans]
+  name = "Komajiro"
+  short = "Komajiro"
+  upper = "KOMAJIRO"
+  description = "向往大城市的\nKomasan的弟弟狛犬妖怪。"
+
+  [character.text.zh_hant]
+  name = "Komajiro"
+  short = "Komajiro"
+  upper = "KOMAJIRO"
+  description = "嚮往大城市的\nKomasan的弟弟狛犬妖怪。"
+
+  [[character.cards]]
+  id = 0x6B0D04DE  # crc32("c90690000_card")
+  from = 0xEDB0B29D  # template: Luke Triton's card
+  order = 207
+  element = "wind"
+  position = "mf"
+  rank = 3
+  growth = "normal"
+  stats = { kick = 330, control = 270, technique = 268, pressure = 160, physical = 196, intelligence = 204, agility = 222, luck = 187, freedom = 0 }
+  moves = [
+    { move = "who00080", level = 1 },                     # Zigzag Spark (dribble, wind, 300)
+    { move = "whd01500", level = 20 },                    # Dynamic Dash (block, wind, 440)
+    { move = "who01450", level = 38 },                    # Starstruck (dribble, wind, 540)
+    { move = "who01260", level = 60 },                    # Jackknife (dribble, wind, 640)
+  ]

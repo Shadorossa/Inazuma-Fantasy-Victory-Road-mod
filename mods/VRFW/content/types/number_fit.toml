@@ -2,6 +2,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.number_fit/1"
 folder = "content/number_fit"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Menu.NumberFit"
+v2_kind_folder = "Menus/NumberFit"
+v2_version = 1
 label = "Number fit"
 label_es = "Ajuste de números"
 doc = "A menu layer whose numbers are squeezed to fit a number of digits when they are longer."

@@ -1,0 +1,297 @@
+do
+  HissatsuReforged = HissatsuReforged or {}
+  local UseBar = HissatsuReforged.use_bar or {}
+  HissatsuReforged.use_bar = UseBar
+
+  local STEM = "vrfw_skill_slot_menu"
+  local crc = VRFW.crc32
+  local menu, command = VRFW.host.menu_command, VRFW.host.command
+  local C = {
+    USES = VRFW.commands.HISSATSUREFORGED_USES,      -- (charaStHdl, skill) -> uses, grade, next threshold (0 = none)
+    GRADE_COLOR = VRFW.commands.HISSATSUREFORGED_GRADE_COLOR, -- (grade) -> r, g, b 0..255 ([ranks] grade_colors)
+    TEXT_GET = VRFW.commands.TEXT_GET,
+    SKILL_INFO = VRFW.commands.GET_SOCCER_SKILL_INFO, -- (skill, 16) -> ok, growth type
+    EXIST = VRFW.commands.IS_EXIST_LAYER,
+    VISIBLE = VRFW.commands.SET_LAYER_VISIBLE,
+    IS_VISIBLE = VRFW.commands.IS_LAYER_VISIBLE,
+    MESH_VISIBLE = VRFW.commands.SET_MESH_VISIBLE,
+    MESH_POS = VRFW.commands.GET_MESH_GLOBAL_POSITION, -- (layer, idx, node) -> x, y (screen px, y up)
+    POS = VRFW.commands.SET_LAYER_LOCAL_POS,
+    SCALE = VRFW.commands.SET_LAYER_LOCAL_SCALE,
+    GET_PRIORITY = VRFW.commands.GET_DRAW_PRIORITY,
+    SET_PRIORITY = VRFW.commands.SET_DRAW_PRIORITY,
+    PRIM_INDEX = VRFW.commands.SEARCH_PRIM_INDEX,
+    PRIM_COLOR = VRFW.commands.SET_PRIM_COLOR,
+    TEXT = VRFW.commands.SET_MENU_TEXT_STRING,
+    NODE_POS = 2575768773,                           -- (layer, idx, node, axis, value)
+    NODE_SCALE = 2885415772,                         -- (layer, idx, node, sx, sy)
+    RATE = 1595998683,                               -- (layer, rate, 0, value, idx, false, group)
+    PRIM_VALUE = 3609943765,                         -- (layer, idx, prim index, value, true)
+    PRIM_VISIBLE = 1233047821,                       -- (layer, idx, prim, visible)
+    SPRITE = 558735651,                              -- (layer, atlas, sprite, node, 0, idx)
+  }
+
+  -- the skill table's move card (cr_ss_hiper_detail) and its TENSIÓN row nodes (retail team02_02 joints)
+  local CARD = crc("cr_ss_hiper_detail")
+  local TENSION_POS, TENSION_NUM = crc("_pos_tension01"), crc("_num_tension01")
+  local TENSION_SPAN = 231                           -- card units from _pos_tension01 to _num_tension01
+  local SQUARE_H = 24                                -- a tension square's height (card units)
+
+  -- this mod's layers (add-on skill_table_use_bar.toml): the retail training gauge, stacked for the colour fade, and
+  -- the text labels (MAX_LABEL «Máx.», GRADE_NOW / GRADE_NEXT the grade marks at the row's ends)
+  local L_BAR, L_LABEL = crc("hissatsu_reforged_use_bar"), crc("hissatsu_reforged_use_label")
+  local SEGMENTS = 8
+  local MAX_LABEL, GRADE_NOW, GRADE_NEXT = 0, 1, 2
+  local COUNT = {[L_BAR] = SEGMENTS, [L_LABEL] = 3}
+  local GAUGE = {
+    BAR_NODE = crc("_pos_bar01"), FILL = crc("_beans_bar01"), TRACK = crc("_beans_bar_base01"),
+    RATE = crc("gauge01"), RATE_RED = crc("gauge01_red"), GROUP = crc("bar"),
+    VALUE_NODE = crc("_pos_num_param01"), MAX_NODE = crc("_pos_num_param02"),
+    HIDE = {crc("_beans_param_base01"), crc("_icon_parameter_dmy01"), crc("_beans_bar_slash01")},
+    P_VALUE = 3484572139, P_VALUE_UP = 1455097937, P_MAX = 1533119290,
+    ATLAS = crc("#/menu/102_team/team13/team13_16/team13_16.g4tx"), FILL_SPRITE = crc("mask0_tx"), -- white, tinted
+    BAR_X = -64, BAR_TOP = -13, BAR_W0 = 176, BAR_H0 = 16, VALUE_H0 = 36, MAX_H0 = 30,
+  }
+  local LABEL = {NODE = crc("_text_cmd_back01"), PLATES = {crc("_cmd_back_base01"), crc("_cmd_back_base01_add")},
+    LEFT = -384, MID_Y = 144, K = 0.6, UNIT_PX = 20}
+  -- row layout in card units: under the TENSIÓN row, bar under the squares, numbers at its ends (NUM_W: 3 digits),
+  -- grade marks beyond them, tension digit height
+  local ROW = {PITCH = 40, BAR_W = 160, BAR_H = 20, GAP = 10, NUM_W = 48, DIGIT_H = 24}
+  local MAX_TEXT = crc("HissatsuReforged.UseBarMax")
+
+  UseBar.ready = UseBar.ready or {}
+
+  local function exists(L)
+    return menu(C.EXIST, L) == true
+  end
+
+  local function is_ready(L, i)
+    return (UseBar.ready[L] or {})[i] == true
+  end
+
+  function UseBar.hide()
+    UseBar.shown = nil
+    for L, n in pairs(COUNT) do
+      if exists(L) then
+        for i = 0, n - 1 do
+          if is_ready(L, i) then
+            menu(C.VISIBLE, L, i, false)
+          end
+        end
+      end
+    end
+  end
+
+  -- uses, grade, threshold of the next level (0 at the last one), or nil when the move has no level (keshin, Hiper, mod off)
+  function UseBar.progress(chara, skill)
+    if chara == nil or chara == 0 or skill == nil or skill == 0 then
+      return nil
+    end
+    local sets = type(CharacterReforged) == "table" and CharacterReforged.player_sets or nil
+    if sets ~= nil and type(sets.is_special) == "function" and sets.is_special(skill) then
+      return nil
+    end
+    local uses, grade, next_at = command(C.USES, chara, skill)
+    uses, grade, next_at = tonumber(uses), tonumber(grade), tonumber(next_at)
+    if uses == nil or grade == nil or next_at == nil or uses < 0 or grade < 0 then
+      return nil
+    end
+    if next_at <= 0 and grade == 0 then
+      return nil
+    end
+    return uses, grade, next_at
+  end
+
+  -- the colour of a grade as 0..1 multipliers; white when the mod declares none
+  function UseBar.color(grade)
+    local r, g, b = command(C.GRADE_COLOR, grade)
+    if type(r) ~= "number" or type(g) ~= "number" or type(b) ~= "number" then
+      return {1, 1, 1}
+    end
+    return {r / 255, g / 255, b / 255}
+  end
+
+  -- the grade's icon as the skill list draws it: the game's evolution gaiji ([$gaiji_wlvNNN] by the move's growth
+  -- type, AppendEvoCodeToSkillName), "" at the base grade or for a move without one
+  function UseBar.grade_text(skill, grade)
+    if grade == nil or grade <= 0 or type(AppendEvoCodeToSkillName) ~= "function" then
+      return ""
+    end
+    local okv, growth = command(C.SKILL_INFO, skill, 16)
+    if okv ~= true or type(growth) ~= "number" then
+      return ""
+    end
+    local ok, s = pcall(AppendEvoCodeToSkillName, "", grade, growth)
+    return ok and type(s) == "string" and s or ""
+  end
+
+  local function set_prim(i, prim, value, visible)
+    if value ~= nil then
+      local p = menu(C.PRIM_INDEX, L_BAR, i, prim)
+      if p ~= nil then
+        menu(C.PRIM_VALUE, L_BAR, i, p, value, true)
+      end
+    end
+    menu(C.PRIM_VISIBLE, L_BAR, i, prim, visible)
+  end
+
+  local function node(L, i, n, x, y)
+    menu(C.NODE_POS, L, i, n, 0, x)
+    menu(C.NODE_POS, L, i, n, 1, y)
+  end
+
+  local function mix(a, b, t)
+    return {a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t, a[3] + (b[3] - a[3]) * t}
+  end
+
+  local function max_text()
+    local s = command(C.TEXT_GET, MAX_TEXT)
+    return type(s) == "string" and s or ""
+  end
+
+  -- label i with `text` anchored at x (align "left" / "right" / "centre"), centred on line cy
+  local function draw_label(i, text, x, cy, k, align, prio)
+    if text == "" then
+      return
+    end
+    local s = k * LABEL.K
+    for _, m in ipairs(LABEL.PLATES) do
+      menu(C.MESH_VISIBLE, L_LABEL, m, false, i)
+    end
+    menu(C.TEXT, L_LABEL, LABEL.NODE, text, i)
+    local w = VRFW.text_fold.measure(L_LABEL, i, LABEL.NODE, text)
+    w = (w or VRFW.text_fold.units(text) * LABEL.UNIT_PX) * s
+    local left = x
+    if align == "right" then
+      left = x - w
+    elseif align == "centre" then
+      left = x - w / 2
+    end
+    if prio > 0 then
+      menu(C.SET_PRIORITY, L_LABEL, i, prio, true)
+    end
+    menu(C.SCALE, L_LABEL, s, s, 1, i)
+    menu(C.POS, L_LABEL, left - LABEL.LEFT * s, cy - LABEL.MID_Y * s, 0, i)
+    menu(C.VISIBLE, L_LABEL, i, true)
+  end
+
+  -- gauge instance i at the row: fill rate r in colour rgb; instance 0 also keeps the track and the two numbers
+  local function draw_segment(i, x0, cy, k, r, rgb, prio, uses, next_at, at_max)
+    local G = GAUGE
+    if prio > 0 then
+      menu(C.SET_PRIORITY, L_BAR, i, prio, true)
+    end
+    for _, m in ipairs(G.HIDE) do
+      menu(C.MESH_VISIBLE, L_BAR, m, false, i)
+    end
+    menu(C.MESH_VISIBLE, L_BAR, G.TRACK, i == 0, i)
+    menu(C.SCALE, L_BAR, k, k, 1, i)
+    menu(C.POS, L_BAR, x0, cy, 0, i)
+    local sx, sy = ROW.BAR_W / G.BAR_W0, ROW.BAR_H / G.BAR_H0
+    node(L_BAR, i, G.BAR_NODE, -G.BAR_X * sx, ROW.BAR_H / 2 - G.BAR_TOP * sy)
+    menu(C.NODE_SCALE, L_BAR, i, G.BAR_NODE, sx, sy)
+    menu(C.SPRITE, L_BAR, G.ATLAS, G.FILL_SPRITE, G.FILL, 0, i)
+    menu(C.PRIM_COLOR, L_BAR, i, G.FILL, rgb[1], rgb[2], rgb[3])
+    menu(C.RATE, L_BAR, G.RATE, 0, r, i, false, G.GROUP)
+    menu(C.RATE, L_BAR, G.RATE_RED, 0, r, i, false, G.GROUP)
+    local numbers = i == 0 and not at_max
+    if numbers then
+      local s1, s2 = ROW.DIGIT_H / G.VALUE_H0, ROW.DIGIT_H / G.MAX_H0
+      node(L_BAR, i, G.VALUE_NODE, -ROW.GAP, G.VALUE_H0 / 2 * s1)
+      menu(C.NODE_SCALE, L_BAR, i, G.VALUE_NODE, s1, s1)
+      node(L_BAR, i, G.MAX_NODE, ROW.BAR_W + ROW.GAP, G.MAX_H0 / 2 * s2)
+      menu(C.NODE_SCALE, L_BAR, i, G.MAX_NODE, s2, s2)
+    end
+    set_prim(i, G.P_VALUE_UP, nil, false)
+    set_prim(i, G.P_VALUE, numbers and uses or nil, numbers)
+    set_prim(i, G.P_MAX, numbers and next_at or nil, numbers)
+    menu(C.VISIBLE, L_BAR, i, true)
+  end
+
+  local function all_ready()
+    for L, n in pairs(COUNT) do
+      if not exists(L) then
+        return false
+      end
+      for i = 0, n - 1 do
+        if not is_ready(L, i) then
+          return false
+        end
+      end
+    end
+    return true
+  end
+
+  -- draws the bar of `skill` under the card's TENSIÓN row; answers whether it is shown
+  function UseBar.show(skill)
+    UseBar.hide()
+    if not (all_ready() and exists(CARD)) then
+      return false
+    end
+    local table_api = type(CharacterReforged) == "table" and CharacterReforged.skill_table or nil
+    local chara = table_api ~= nil and type(table_api.chara) == "function" and table_api.chara() or nil
+    local uses, grade, next_at = UseBar.progress(chara, skill)
+    if uses == nil then
+      return false
+    end
+    local x0, y0 = menu(C.MESH_POS, CARD, 0, TENSION_POS)
+    local x1 = menu(C.MESH_POS, CARD, 0, TENSION_NUM)
+    if type(x0) ~= "number" or type(y0) ~= "number" or type(x1) ~= "number" or x1 <= x0 then
+      return false
+    end
+    local k = (x1 - x0) / TENSION_SPAN                -- screen px per card unit
+    local cy = y0 - (SQUARE_H / 2 + ROW.PITCH) * k     -- the row's centre line
+    local at_max = next_at <= 0
+    local prio = tonumber((menu(C.GET_PRIORITY, CARD, 0))) or 0
+    local function above(n)
+      return prio > 0 and prio + n or 0
+    end
+    local from = UseBar.color(grade)
+    local to = at_max and from or UseBar.color(grade + 1)
+    local r = at_max and 1 or math.max(0, math.min(1, uses / next_at))
+    -- instance i fills up to (SEGMENTS - i) / SEGMENTS in its slice's colour; the shorter ones draw above
+    for i = 0, SEGMENTS - 1 do
+      local stop = (SEGMENTS - i) / SEGMENTS
+      local rgb = mix(from, to, (SEGMENTS - i - 0.5) / SEGMENTS)
+      draw_segment(i, x0, cy, k, math.min(r, stop), rgb, above(1 + i), uses, next_at, at_max)
+    end
+    local label_prio = above(SEGMENTS + 1)
+    if at_max then
+      draw_label(MAX_LABEL, max_text(), x0 + ROW.BAR_W / 2 * k, cy, k, "centre", label_prio)
+    else
+      local edge = (ROW.GAP * 2 + ROW.NUM_W) * k
+      draw_label(GRADE_NOW, UseBar.grade_text(skill, grade), x0 - edge, cy, k, "right", label_prio)
+      draw_label(GRADE_NEXT, UseBar.grade_text(skill, grade + 1), x0 + ROW.BAR_W * k + edge, cy, k, "left", label_prio)
+    end
+    UseBar.shown = skill
+    return true
+  end
+
+  local function after(point, fn)
+    VRFW.host.on(STEM, point, {id = "HissatsuReforged.use_bar_" .. point:gsub("%.", "_"), phase = "after", fn = fn})
+  end
+
+  after("OnSetupLayer", function(_, layer, idx)
+    if COUNT[layer] ~= nil and type(idx) == "number" then
+      UseBar.ready[layer] = UseBar.ready[layer] or {}
+      UseBar.ready[layer][idx] = true
+      menu(C.VISIBLE, layer, idx, false)
+    end
+  end)
+  after("CharacterReforged.skill_table_detail_show", function(results, skill)
+    if results[1] == true then
+      UseBar.show(skill)
+    else
+      UseBar.hide()
+    end
+  end)
+  after("CharacterReforged.skill_table_detail_hide", function()
+    UseBar.hide()
+  end)
+  -- every other path that clears the card (passives, Hiper panel, role, Miximax) ends in this sync
+  after("CharacterReforged.skill_table_detail_graph_sync", function()
+    if UseBar.shown ~= nil and menu(C.IS_VISIBLE, CARD, 0) ~= true then
+      UseBar.hide()
+    end
+  end)
+end

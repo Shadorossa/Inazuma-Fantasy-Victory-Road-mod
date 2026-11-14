@@ -33,7 +33,7 @@ local function load_all()
     return cache
   end
   cache = { list = {}, by_key = {}, of_move = {} }
-  local ok, files = pcall(VRFW.files.declarations, FOLDERS)
+  local ok, files = pcall(VRFW.files.declarations, FOLDERS, "VRFW.TechniqueFamily")
   if not ok or type(files) ~= "table" then
     VRFW.warn("technique families: the technique files could not be read: " .. tostring(files))
     return cache
@@ -75,7 +75,7 @@ local function load_all()
 end
 
 -- the index is built when a slot loads (off the game thread), so the first move card does not build it
-VRFW.on("slot_load", function()
+VRFW.on("save:slot_load", function()
   load_all()
 end)
 

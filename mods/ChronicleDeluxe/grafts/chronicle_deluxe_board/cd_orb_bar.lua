@@ -13,9 +13,9 @@ O.SPRITE_PREFIX = "chronicle_deluxe_orb_bar_"
 O.SPACING = 18                    -- px between two sockets (retail layout)
 -- Layout per eventType of the piece (0 normal, 5 gate).
 O.LAYOUT = {
-  [0] = {context = "route", base = 1003654013 --[[_clear_base01]], sprite = "clear_base01_02", width = 124, height = 32,
+  [0] = {context = "route", base = @crc:_clear_base01@, sprite = "clear_base01_02", width = 124, height = 32,
          base_y = -17, dot_y = -33, slots = 6},
-  [5] = {context = "gate", base = 2732317383 --[[_clear_base02]], sprite = "clear_base02_2", width = 68, height = 32,
+  [5] = {context = "gate", base = @crc:_clear_base02@, sprite = "clear_base02_2", width = 68, height = 32,
          base_y = -40, dot_y = -56, slots = 3},
 }
 

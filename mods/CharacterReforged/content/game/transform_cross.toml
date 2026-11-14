@@ -2,5 +2,5 @@ schema = "VRFW.game/2"
 
 # The places of the transformation cross in the match HUD (config.toml [transform_cross]; scripts\transform_cross.lua; graft hiper_btn).
 [[VRFW.Command]]
-name = "CMND_CHARACTERREFORGED_TRANSFORM_CROSS"     # () -> the layout's seventeen numbers, then the direction code of each entry
+name = "CMND_CHARACTERREFORGED_TRANSFORM_CROSS"     # () -> the layout's fifteen numbers, then the direction code of each entry
 handler = "CharacterReforged.TransformCross.Layout"

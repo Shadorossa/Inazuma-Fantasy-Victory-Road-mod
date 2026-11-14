@@ -1,0 +1,6 @@
+schema = "CharacterReforged.passive_icon/1"
+
+# Hidetoshi Nakata: True Captain
+[[CharacterReforged.PassiveIcon]]
+passive = "c02024760_true_captain"
+icon = "own_passives_icon_shoot_block_team_clock"

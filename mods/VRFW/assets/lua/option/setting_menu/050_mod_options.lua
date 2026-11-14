@@ -1,32 +1,56 @@
 
+--- Internal: Namespace: the mod options tab of the settings menu (declared rows, preview).
 VRFW.mod_options = VRFW.mod_options or {}
+--- Namespace: the legacy mod settings rows of the settings menu.
 VRFW.mod_settings = VRFW.mod_settings or {}
 local mod_options_legacy_rows, mod_options_legacy_order = VRFW.mod_settings.ROWS, VRFW.mod_settings.ORDER
 
+--- Internal: version of the mod options API.
 VRFW.mod_options.VERSION = 1
+--- Internal: option rows by id.
 VRFW.mod_settings.ROWS = {}
+--- Internal: row ids in registration order.
 VRFW.mod_settings.ORDER = {}                     -- row ids in registration order
+--- Internal: pending values by row id while the menu is open.
 VRFW.mod_settings.DRAFT = {}                     -- row id -> pending value while the menu is open
+--- Internal: list cell to label text.
 VRFW.mod_settings.LABELS = {}                    -- list cell -> label text (UpdateListItem)
+--- Internal: true while the last commit succeeded.
 VRFW.mod_settings.LAST_OK = true
+--- Internal: mod tab list cells to row keys.
 VRFW.mod_options.CELLS = {}
+--- Internal: label text to declared row key.
 VRFW.mod_options.LABEL_KEYS = {}                -- label text -> row key (declared rows)
+--- Internal: labels shared by more than one row.
 VRFW.mod_options.LABEL_DUP = {}
+--- Internal: true once the declared rows were fetched from the plugin.
 VRFW.mod_options.LOADED = false                 -- declared rows fetched from the plugin
+--- Internal: rows gated by content, by key.
 VRFW.mod_options.GATED = {}
+--- Internal: gated rows forced to their off value, by id.
 VRFW.mod_options.FIXED = {}
+--- Internal: child row key to parent row key.
 VRFW.mod_options.PARENT = {}
+--- Internal: row keys that have at least one child row.
 VRFW.mod_options.HAS_CHILD = {}                 -- row key -> true: some row names it as its parent
+--- Internal: strip index of the mod tab for this opening.
 VRFW.mod_options.TAB_IDX = nil                  -- strip index of the mod tab for this opening (false = no tab)
+--- Internal: command hashes of the options plugin (TAB, VIEW, CELL, ROWS, GET, SET, STEP, TEXT...).
 VRFW.mod_options.COMMANDS = {
   TAB = VRFW.commands.VRFW_OPTION_TAB, VIEW = 2795212795, CELL = VRFW.commands.VRFW_OPTION_CELL, ROWS = VRFW.commands.VRFW_OPTION_ROWS, ROW = VRFW.commands.VRFW_OPTION_ROW,
   GET = VRFW.commands.VRFW_OPTION_GET, SET = VRFW.commands.VRFW_OPTION_SET, STEP = VRFW.commands.VRFW_OPTION_STEP, TEXT = VRFW.commands.VRFW_OPTION_TEXT
 }
+--- Internal: menu text id of the mod tab title.
 VRFW.mod_options.TITLE_ID = 2653374959
+--- Internal: menu text id of the unavailable row text.
 VRFW.mod_options.UNAVAILABLE_ID = 516770612
+--- Internal: icon index of the mod tab.
 VRFW.mod_options.ICON = 13
+--- Internal: sound preview state (handle, key, paused, frame, key_down, input).
 VRFW.mod_options.PREVIEW = {handle = 0, key = nil, paused = false, frame = 0, key_down = false, input = true}
+--- Internal: option key to whether some value of the row has a preview.
 VRFW.mod_options.PREVIEW_HAS = {}                    -- row key -> true / false: some value of the row has a preview
+--- Internal: command hashes and marks used by the option sound preview.
 VRFW.mod_options.PREVIEW_COMMANDS = {
   PREVIEW = VRFW.commands.VRFW_OPTION_PREVIEW,
   LANG = VRFW.commands.GET_LANGUAGE_CODE,                    -- CMND_GET_LANGUAGE_CODE (retail)
@@ -42,6 +66,7 @@ VRFW.mod_options.PREVIEW_COMMANDS = {
   PLAY_MARK = "  ▶", STOP_MARK = "  ■"     -- UTF-8 literals (Lua 5.2 has no \u escape)
 }
 
+--- Internal: menu text of row id in the game language; answers the text, or fallback.
 function VRFW.mod_options.text(id, fallback)    -- menu_text row in the game's language, else the fallback
   if type(id) == "number" and id ~= 0 then
     local s = VRFW.host.command(VRFW.commands.TEXT_GET, id)
@@ -51,15 +76,18 @@ function VRFW.mod_options.text(id, fallback)    -- menu_text row in the game's l
   end
   return fallback
 end
+--- Internal: registers an options row under key (key, row); answers nothing.
 function VRFW.mod_options.register(key, row)
   if VRFW.mod_settings.ROWS[key] == nil then
     VRFW.mod_settings.ORDER[#VRFW.mod_settings.ORDER + 1] = key
   end
   VRFW.mod_settings.ROWS[key] = row
 end
+--- Internal: legacy form of register that registers a row by its label (label, row).
 function VRFW.mod_settings.register(label, row)
   VRFW.mod_options.register(label, row)
 end
+--- Internal: builds a toggle, list or number row from an options.toml declaration; answers the row table.
 function VRFW.mod_options.declared(key, storage, get_cmd, set_cmd) -- a toggle / list / number row of an options.toml
   local row = {}
   function row.get()
@@ -108,6 +136,7 @@ function VRFW.mod_options.declared(key, storage, get_cmd, set_cmd) -- a toggle /
   end
   return row
 end
+--- Internal: loads the declared rows from the plugin once; answers nothing.
 function VRFW.mod_options.load()                -- the declared rows (once, from the plugin; inside a callback)
   if VRFW.mod_options.LOADED then
     return
@@ -143,6 +172,7 @@ function VRFW.mod_options.load()                -- the declared rows (once, from
     end
   end
 end
+--- Internal: row key of a label text (label); answers the key, or nil when unknown or duplicated.
 function VRFW.mod_options.key_of_label(label)
   if type(label) ~= "string" then
     return nil
@@ -153,6 +183,7 @@ function VRFW.mod_options.key_of_label(label)
   end
   return VRFW.mod_options.LABEL_KEYS[label]
 end
+--- Internal: strip index of the mod tab; answers the index, or false when there is no tab.
 function VRFW.mod_options.tab()
   if VRFW.mod_options.TAB_IDX == nil then
     local n = 4
@@ -168,9 +199,11 @@ function VRFW.mod_options.tab()
   end
   return VRFW.mod_options.TAB_IDX
 end
+--- Internal: asks whether the mod tab is the shown one; answers true or false.
 function VRFW.mod_options.in_view()              -- the mod tab is the one shown
   return VRFW.host.command(VRFW.mod_options.COMMANDS.VIEW) == true
 end
+--- Internal: row key of list cell a1; answers the key, or the label of the cell.
 function VRFW.mod_settings.label(a1)
   local key = VRFW.mod_options.CELLS[a1]
   if key ~= nil and VRFW.mod_settings.ROWS[key] ~= nil then
@@ -193,6 +226,7 @@ function VRFW.mod_settings.label(a1)
   end
   return nil
 end
+--- Internal: row id under the list cursor; answers the id (or nil) and the cell index.
 function VRFW.mod_settings.focused()             -- row id under the list cursor (or nil), cell index
   local idx = VRFW.host.menu_command(1727549139, 2081113831)
   if type(idx) ~= "number" then
@@ -200,9 +234,11 @@ function VRFW.mod_settings.focused()             -- row id under the list cursor
   end
   return VRFW.mod_settings.label(idx), idx
 end
+--- Internal: asks whether cell a1 belongs to the mod tab; answers true or false.
 function VRFW.mod_options.is_mod_cell(a1)         -- a cell of the mod tab (driven or not)
   return VRFW.mod_options.CELLS[a1] ~= nil
 end
+--- Internal: asks whether row id is a child whose parent value is 0; answers true or false.
 function VRFW.mod_options.parent_off(id)         -- a child row whose parent's value (draft, else stored) is 0
   local p = VRFW.mod_options.PARENT[id]
   if p == nil or VRFW.mod_settings.ROWS[p] == nil then
@@ -211,6 +247,7 @@ function VRFW.mod_options.parent_off(id)         -- a child row whose parent's v
   local v = VRFW.mod_options.current(p)
   return type(v) == "number" and v == 0
 end
+--- Internal: display text of row id; answers the text and true when it is greyed.
 function VRFW.mod_settings.text(id)
   local row = VRFW.mod_settings.ROWS[id]
   VRFW.mod_options.load()
@@ -241,6 +278,7 @@ function VRFW.mod_settings.text(id)
   end
   return row.fmt(v)
 end
+--- Internal: steps the draft value of row id in direction dir; answers true when it changed.
 function VRFW.mod_settings.toggle(id, dir)
   local row = VRFW.mod_settings.ROWS[id]
   VRFW.mod_options.load()
@@ -269,6 +307,7 @@ function VRFW.mod_settings.toggle(id, dir)
   end
   return true
 end
+--- Internal: asks whether any draft differs from the stored value; answers true or false.
 function VRFW.mod_settings.dirty()               -- a draft differs from its stored value
   for _, id in ipairs(VRFW.mod_settings.ORDER) do
     local v = VRFW.mod_settings.DRAFT[id]
@@ -281,6 +320,7 @@ function VRFW.mod_settings.dirty()               -- a draft differs from its sto
   end
   return false
 end
+--- Internal: writes every draft value to its row; answers nothing.
 function VRFW.mod_settings.commit()
   for _, id in ipairs(VRFW.mod_settings.ORDER) do
     local v = VRFW.mod_settings.DRAFT[id]
@@ -290,6 +330,7 @@ function VRFW.mod_settings.commit()
   end
   VRFW.mod_settings.DRAFT = {}
 end
+--- Internal: shows the row text s on list cell a1 and sets its layer positions.
 function VRFW.mod_options.show_text(a1, s, a3, a4)
   funcLuaMenuCommand(2158717427, 3344436024, 644932521, false, a1)
   funcLuaMenuCommand(2158717427, 3344436024, 1948393973, false, a1)
@@ -307,12 +348,14 @@ function VRFW.mod_options.show_text(a1, s, a3, a4)
   funcLuaMenuCommand(VRFW.commands.SET_MESH_VISIBLE, 3344436024, 2475420648, true, a1)
   funcLuaMenuCommand(VRFW.commands.SET_MESH_VISIBLE, 3344436024, 2234738066, true, a1)
 end
+--- Internal: sets the model and text alpha of list cell a1 to alpha.
 function VRFW.mod_options.dim(a1, alpha)
   funcLuaMenuCommand(VRFW.commands.SET_LAYER_MODEL_ALPHA, 3344436024, a1, 0, alpha)
   for _, t in ipairs({861591609, 3778835256, 569341911, 2795244008, 75769867, 702348360}) do
     funcLuaMenuCommand(VRFW.commands.SET_MENU_TEXT_ALPHA, 3344436024, a1, t, alpha)
   end
 end
+--- Internal: gives list cell a1 the child row look with label.
 function VRFW.mod_options.child_look(a1, label)
   funcLuaMenuCommand(2158717427, 3344436024, 2894095071 --[[_pos_summary01]], false, a1)
   funcLuaMenuCommand(2158717427, 3344436024, 898184037 --[[_pos_summary02]], true, a1)
@@ -321,10 +364,12 @@ function VRFW.mod_options.child_look(a1, label)
   funcLuaMenuCommand(VRFW.commands.SET_MENU_TEXT_STRING, 3344436024, 75769867 --[[`_text_option_list04_on`]], label, a1)
   funcLuaMenuCommand(VRFW.commands.SET_MENU_TEXT_STRING, 3344436024, 702348360 --[[_text_option_list04_off]], label, a1)
 end
+--- Internal: asks whether row id is a child of a row on the tab; answers true or false.
 function VRFW.mod_options.is_child(id)           -- a child row whose parent is on the tab
   local p = VRFW.mod_options.PARENT[id]
   return p ~= nil and VRFW.mod_settings.ROWS[p] ~= nil
 end
+--- Internal: draws the row id on list cell a1, with the child and dim looks.
 function VRFW.mod_settings.show(a1, id, a3, a4)
   local s, dim = VRFW.mod_settings.text(id)
   VRFW.mod_options.show_text(a1, s, a3, a4)
@@ -344,6 +389,7 @@ function VRFW.mod_settings.show(a1, id, a3, a4)
     VRFW.mod_options.refresh_children(id)
   end
 end
+--- Internal: redraws the cells showing a child of row parent.
 function VRFW.mod_options.refresh_children(parent) -- redraw the cells showing a child of `parent`
   for cell, _ in pairs(VRFW.mod_settings.LABELS) do
     local ok, k = pcall(VRFW.mod_settings.label, cell)
@@ -352,6 +398,7 @@ function VRFW.mod_options.refresh_children(parent) -- redraw the cells showing a
     end
   end
 end
+--- Internal: redraws the cells of gated rows.
 function VRFW.mod_options.refresh_gated()
   if next(VRFW.mod_options.GATED) == nil then
     return
@@ -364,6 +411,7 @@ function VRFW.mod_options.refresh_gated()
   end
 end
 
+--- Internal: language code of the game; answers a number, or nil.
 function VRFW.mod_options.lang()
   local l = VRFW.host.command(VRFW.mod_options.PREVIEW_COMMANDS.LANG)
   if type(l) == "number" then
@@ -371,6 +419,7 @@ function VRFW.mod_options.lang()
   end
   return nil
 end
+--- Internal: asks whether some value of row key has a sound preview; answers true or false, cached.
 function VRFW.mod_options.has_preview(key)
   local h = VRFW.mod_options.PREVIEW_HAS[key]
   if h == nil then
@@ -379,6 +428,7 @@ function VRFW.mod_options.has_preview(key)
   end
   return h
 end
+--- Internal: current value of row key, draft first then stored; answers the value, or nil.
 function VRFW.mod_options.current(key)
   local row = VRFW.mod_settings.ROWS[key]
   if row == nil then
@@ -393,6 +443,7 @@ function VRFW.mod_options.current(key)
   end
   return v
 end
+--- Internal: preview sound id of the current value of row key; answers the id, or nil.
 function VRFW.mod_options.preview_id(key)
   if type(key) ~= "string" or not VRFW.mod_options.has_preview(key) then
     return nil
@@ -407,6 +458,7 @@ function VRFW.mod_options.preview_id(key)
   end
   return nil
 end
+--- Internal: draws the play or stop mark on list cell a1 for row key.
 function VRFW.mod_options.mark(a1, key)
   local label = VRFW.mod_settings.LABELS[a1]
   if type(label) ~= "string" or type(key) ~= "string" or not VRFW.mod_options.has_preview(key) then
@@ -426,6 +478,7 @@ function VRFW.mod_options.mark(a1, key)
   funcLuaMenuCommand(VRFW.commands.SET_MENU_TEXT_STRING, 3344436024, 861591609 --[[`_text_option_list01_on`]], s, a1)
   funcLuaMenuCommand(VRFW.commands.SET_MENU_TEXT_STRING, 3344436024, 3778835256 --[[_text_option_list01_off]], s, a1)
 end
+--- Internal: redraws the preview mark of the cells showing row key.
 function VRFW.mod_options.remark(key)           -- redraw the mark of the cells showing row `key`
   for cell, _ in pairs(VRFW.mod_settings.LABELS) do
     local ok, k = pcall(VRFW.mod_settings.label, cell)
@@ -434,21 +487,26 @@ function VRFW.mod_options.remark(key)           -- redraw the mark of the cells 
     end
   end
 end
+--- Internal: stops the sound preview and resumes the music (why: reason text).
 function VRFW.mod_options.preview_stop(why)      -- stop the preview; the menu's own music comes back
   local key = VRFW.mod_options.PREVIEW.key
   if VRFW.mod_options.PREVIEW.handle ~= 0 then
     VRFW.host.command(VRFW.mod_options.PREVIEW_COMMANDS.SND_STOP, VRFW.mod_options.PREVIEW.handle)
   end
+  --- Internal: sound handle of the running preview, 0 when none.
   VRFW.mod_options.PREVIEW.handle = 0
+  --- Internal: row key of the running preview, or nil.
   VRFW.mod_options.PREVIEW.key = nil
   if VRFW.mod_options.PREVIEW.paused then
     VRFW.host.command(VRFW.mod_options.PREVIEW_COMMANDS.BGM_RESUME)
+    --- Internal: true while the menu music is paused for the preview.
     VRFW.mod_options.PREVIEW.paused = false
   end
   if key ~= nil then
     VRFW.mod_options.remark(key)
   end
 end
+--- Internal: plays or stops the preview of row key; answers true when handled.
 function VRFW.mod_options.preview_play(key)
   if VRFW.mod_options.PREVIEW.handle ~= 0 and VRFW.mod_options.PREVIEW.key == key then
     VRFW.mod_options.preview_stop("again")
@@ -478,10 +536,12 @@ function VRFW.mod_options.preview_play(key)
   end
   VRFW.mod_options.PREVIEW.handle = h
   VRFW.mod_options.PREVIEW.key = key
+  --- Internal: frames elapsed since the preview started.
   VRFW.mod_options.PREVIEW.frame = 0
   VRFW.mod_options.remark(key)
   return true
 end
+--- Internal: handles a click on the preview mark of cell a1 for row key; answers true when used.
 function VRFW.mod_options.click_on_mark(a1, key)
   if VRFW.mod_options.preview_id(key) == nil and VRFW.mod_options.PREVIEW.key ~= key then
     return false
@@ -500,6 +560,7 @@ function VRFW.mod_options.click_on_mark(a1, key)
   end
   return px < ax
 end
+--- Internal: per-frame update of the sound preview and its key input.
 function VRFW.mod_options.preview_step()
   if VRFW.mod_options.PREVIEW.handle ~= 0 then
     VRFW.mod_options.PREVIEW.frame = VRFW.mod_options.PREVIEW.frame + 1
@@ -513,6 +574,7 @@ function VRFW.mod_options.preview_step()
     end
   end
   if not VRFW.mod_options.TAB_IDX or VRFW.mod_options.PREVIEW.input == false then
+    --- Internal: true while the preview key was held on the last frame.
     VRFW.mod_options.PREVIEW.key_down = false
     return
   end
@@ -546,6 +608,7 @@ if VRFW.host ~= nil then
     if VRFW.mod_options.PREVIEW.handle ~= 0 or VRFW.mod_options.PREVIEW.paused then
       VRFW.mod_options.preview_stop("menu opened")
     end
+    --- Internal: true when the preview input is accepted.
     VRFW.mod_options.PREVIEW.input = true
     VRFW.mod_settings.DRAFT = {}
     VRFW.mod_settings.LABELS = {}
@@ -724,5 +787,6 @@ if type(VRFW.mod_options_queue) == "table" then
     end
   end
 end
+--- Internal: queue of options pending when the menu closes, cleared at load.
 VRFW.mod_options_queue = nil
 

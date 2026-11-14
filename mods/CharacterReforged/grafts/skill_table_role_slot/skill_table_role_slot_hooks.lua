@@ -5,7 +5,6 @@ do
   Slot.LAYER = 3924714337                           -- team13_05c_effect_grid_director_manager_slot
   Slot.CARD = 1774956026                            -- team00_01_chara_card (the shown player's card)
   Slot.BUTTON_ROLE = 2399949423                     -- character_reforged_cmn03_07_btn_role (role button, hidden)
-  Slot.BUTTON_PASSIVES = 1221220500                 -- cr_cmn03_07_btn_icon (removed branch passives button, hidden)
   Slot.GET_ROLE = 1327558109
   Slot.LAYER_VISIBLE = 711242136                    -- CMND_SET_LAYER_VISIBLE (layer, idx, visible)
   Slot.LAYER_POS = 4002164178                       -- (layer) -> x, y of the layer
@@ -212,11 +211,10 @@ do
     funcLuaMenuCommand(Slot.LOCATOR_VISIBLE, layer, 239073744 --[[_pos_orb_base02]], false, 0)
   end
 
-  -- Hides the removed buttons and the role icon.
+  -- Hides the removed role button and its icon.
   function Slot.hide_removed()
     local L = Slot.table()
     funcLuaMenuCommand(Slot.LAYER_VISIBLE, Slot.BUTTON_ROLE, 0, false)
-    funcLuaMenuCommand(Slot.LAYER_VISIBLE, Slot.BUTTON_PASSIVES, 0, false)
     if L ~= nil and L.L_PV_ROW ~= nil then
       local k = L.PL and L.PL.ROW_ICON_ROLE or nil
       if type(k) == "number" then
@@ -245,7 +243,7 @@ do
         Slot.show(false)
         pcall(Slot.place)
         pcall(Slot.draw)
-      elseif a1 == Slot.BUTTON_ROLE or a1 == Slot.BUTTON_PASSIVES then
+      elseif a1 == Slot.BUTTON_ROLE then
         funcLuaMenuCommand(Slot.LAYER_VISIBLE, a1, a2, false)
       end
       return table.unpack(result, 1, result.n)
@@ -261,7 +259,7 @@ do
         Slot.show(false)
         pcall(Slot.place)
         pcall(Slot.draw)
-      elseif a1 == Slot.BUTTON_ROLE or a1 == Slot.BUTTON_PASSIVES then
+      elseif a1 == Slot.BUTTON_ROLE then
         funcLuaMenuCommand(Slot.LAYER_VISIBLE, a1, a2, false)
       end
       return table.unpack(result, 1, result.n)

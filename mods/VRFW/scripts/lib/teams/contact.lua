@@ -1,3 +1,4 @@
+--- Advanced: Library that builds the contact map data and tabs.
 
 local M = {}
 
@@ -626,7 +627,7 @@ local function place_pages(D, maps, R, set, warn)
   end
 end
 
---- Builds the derived maps of one set.
+--- Internal: Builds the derived maps of one set.
 function M.build(set, decls, ctx)
   local warn = ctx.warn
   local D = data(warn)
@@ -896,13 +897,13 @@ function M.build(set, decls, ctx)
   return out
 end
 
---- The contact map data of the game: { games, teams, list_row }.
+--- Internal: The contact map data of the game: { games, teams, list_row }.
 function M.game_data(warn)
   local d = data(warn or function() end)
   return { games = d.games, teams = d.teams, list_row = d.list_row }
 end
 
---- the free-match tab of every game a piece holds (game -> routeType of its first piece); the game data read once
+--- Internal: the free-match tab of every game a piece holds (game -> routeType of its first piece); the game data read once
 function M.game_tabs(warn)
   return data(warn or function() end).routes.tab_of or {}
 end

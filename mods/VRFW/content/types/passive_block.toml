@@ -2,6 +2,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.passive_block/1"
 folder = "content/passive_blocks"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Passive.Block"
+v2_kind_folder = "Passives/Blocks"
+v2_version = 1
 former_kinds = ["SignaturePassives.passive_block/1"]
 
 # ------------------------------------------------------------------------------------------------ when / stacks / reset
@@ -12,7 +16,7 @@ role = "trigger"
 text = "ev_default"
 doc = "the event that turns the passive on: a behaviour-rule trigger (VRFW content\\rules\\catalog\\triggers.toml) whose player is `by`, seen from the carrier"
 name = { type = "name", required = true, doc = "the block's name (a-z 0-9 _), unique in its mod" }
-on = { type = "string", required = true, ref = "rule_trigger", doc = "the event (goal, keeper_save, ball_stopped, block_won, duel_won, possession, foul…), or one of the engine's own events: `carried` (the carrier starts carrying the passive: his spirit is summoned, a grant is given), `half_start` (a half starts: its clock runs again), `interval` (every `arg` seconds of play while he is on the pitch); tension_gain (his team earns tension from play: duels, scrambles, keeper battles, set plays; `by` = the player who earned it) and foul_suffered (`by` = the fouled player) are behaviour-rule triggers too" }
+on = { type = "string", required = true, ref = "rule_trigger", doc = "the event (match:goal, match:keeper_save, match:ball_stopped, match:block_won, match:duel_won, match:possession, match:foul…), or one of the engine's own events: `carried` (the carrier starts carrying the passive: his spirit is summoned, a grant is given), `half_start` (a half starts: its clock runs again), `interval` (every `arg` seconds of play while he is on the pitch); match:tension_gain (his team earns tension from play: duels, scrambles, keeper battles, set plays; `by` = the player who earned it) and match:foul_suffered (`by` = the fouled player) are behaviour-rule triggers too" }
 arg = { type = "string", default = "", ref = "rule_trigger_arg", doc = "only this argument of the event (goal:user, duel_won:move…); empty = any" }
 by = { type = "string", default = "self", values = ["self", "teammate", "team", "opponent", "anyone"], words = "by", doc = "whose event: the carrier, a teammate, anyone of his team, an opponent, anyone" }
 wording = { type = "string", default = "", values = ["when", "each_time"], words = "wording", doc = "the description says «when» or «each time» (empty: «each time» with a Stack block, else «when»)" }
@@ -309,7 +313,7 @@ provides = "block"
 role = "condition"
 text = "block_set_piece"
 needs = "actor"
-doc = "the carrier took the last restart of these kinds (behaviour-rule trigger set_piece) and no other player has had the ball since (possession): his own set piece's play (a direct free kick, a corner kicked into the box…)"
+doc = "the carrier took the last restart of these kinds (behaviour-rule trigger match:set_piece) and no other player has had the ball since (match:possession): his own set piece's play (a direct free kick, a corner kicked into the box…)"
 name = { type = "name", required = true, doc = "the block's name (a-z 0-9 _), unique in its mod" }
 kinds = { type = "strings", default = ["free_kick", "corner", "penalty"], values = ["throw_in", "corner", "goal_kick", "free_kick", "offside", "penalty"], words = "set_piece", doc = "the restart kinds (the set_piece trigger's words)" }
 
@@ -462,7 +466,7 @@ label = "label_rival"
 help = "help_rival"
 group = "event"
 needs = "event"
-doc = "the other side of the event: the opponent of the battle (block_battle, keeper_duel, shot_through, move_power). Without a trigger it filters the move where the effect applies"
+doc = "the other side of the event: the opponent of the battle (match:block_battle, match:keeper_duel, match:shot_through, match:move_power, match:duel_power: the other focus duel player). Without a trigger it filters the move where the effect applies"
 name = { type = "name", required = true, doc = "the block's name (a-z 0-9 _), unique in its mod" }
 trait = { type = "string", default = "", ref = "block", doc = "the opponent belongs to this Trait (empty = any)" }
 kinds = { type = "strings", default = [], values = ["shoot", "long_shoot", "chain_shoot", "dribble", "block", "shoot_block", "catch", "punch"], words = "move_kind", doc = "the opponent's move is of these kinds (empty = any)" }
@@ -543,15 +547,32 @@ provides = "block"
 role = "effect"
 text = "obj_power"
 apply = "power"
-hooks = "move_power"
+hooks = "match:move_power"
 amount_key = "value"
-doc = "the power of the targets' special moves of these kinds (move_power), × the stacks"
+doc = "the power of the targets' special moves of these kinds (match:move_power), × the stacks"
 name = { type = "name", required = true, doc = "the block's name (a-z 0-9 _), unique in its mod" }
 kinds = { type = "strings", default = [], values = ["shoot", "long_shoot", "chain_shoot", "dribble", "block", "shoot_block", "catch", "punch"], words = "move_kind", doc = "the move kinds (empty = every move); see [move_kinds]" }
 mode = { type = "string", default = "percent", values = ["percent", "flat"], words = "mode", doc = "percent of the power, or power points" }
 value = { type = "number", required = true, min = -1000, max = 1000, doc = "per stack" }
 value_by_level = { type = "numbers", default = [], doc = "per passive level (1, 2…: [levels]); empty = the one value" }
 target = { type = "string", default = "self", values = ["self", "teammates", "team", "opponents", "all"], words = "target", doc = "whose moves" }
+positions = { type = "strings", default = [], values = ["gk", "fw", "mf", "df"], words = "position", doc = "only targets of these positions (empty = any)" }
+elements = { type = "strings", default = [], values = ["wind", "forest", "fire", "mountain", "void"], words = "element", doc = "only targets of these elements (empty = any)" }
+trait = { type = "string", default = "", ref = "block", doc = "only targets of this Trait block (empty = any)" }
+
+[entry.DuelPower]
+provides = "block"
+role = "effect"
+text = "obj_duel_power"
+apply = "rate"
+answer = "power_mult"
+hooks = "match:duel_power"
+amount_key = "percent"
+doc = "the targets' basic focus duel value (match:duel_power: AT when attacking, DF when defending), in %, × the stacks"
+name = { type = "name", required = true, doc = "the block's name (a-z 0-9 _), unique in its mod" }
+percent = { type = "number", required = true, min = -100, max = 1000, doc = "per stack (10 = 10 % more)" }
+value_by_level = { type = "numbers", default = [], doc = "per passive level (1, 2…: [levels]); empty = the one value" }
+target = { type = "string", default = "self", values = ["self", "teammates", "team", "opponents", "all"], words = "target", doc = "whose duel value" }
 positions = { type = "strings", default = [], values = ["gk", "fw", "mf", "df"], words = "position", doc = "only targets of these positions (empty = any)" }
 elements = { type = "strings", default = [], values = ["wind", "forest", "fire", "mountain", "void"], words = "element", doc = "only targets of these elements (empty = any)" }
 trait = { type = "string", default = "", ref = "block", doc = "only targets of this Trait block (empty = any)" }
@@ -579,9 +600,9 @@ role = "effect"
 text = "obj_tension_cost"
 apply = "rate"
 answer = "cost_mult"
-hooks = "tension_pay"
+hooks = "match:tension_pay"
 amount_key = "percent"
-doc = "the tension cost the targets pay (tension_pay), in %, × the stacks"
+doc = "the tension cost the targets pay (match:tension_pay), in %, × the stacks"
 name = { type = "name", required = true, doc = "the block's name (a-z 0-9 _), unique in its mod" }
 percent = { type = "number", required = true, min = -100, max = 1000, doc = "per stack (-20 = 20 % cheaper)" }
 kinds = { type = "strings", default = [], values = ["shoot", "long_shoot", "chain_shoot", "dribble", "block", "shoot_block", "catch", "punch"], words = "move_kind", doc = "only moves of these kinds (empty = every move); see [move_kinds]" }
@@ -597,7 +618,7 @@ role = "effect"
 text = "obj_move_speed"
 apply = "rate"
 answer = "speed_mult"
-hooks = "move_speed"
+hooks = "match:move_speed"
 amount_key = "percent"
 doc = "the targets' move speed rate (move_speed), in %, × the stacks"
 name = { type = "name", required = true, doc = "the block's name (a-z 0-9 _), unique in its mod" }
@@ -614,7 +635,7 @@ role = "effect"
 text = "obj_recast_time"
 apply = "rate"
 answer = "recast_mult"
-hooks = "recast"
+hooks = "match:recast"
 amount_key = "percent"
 doc = "the recast time of the targets' moves (recast), in %, × the stacks"
 name = { type = "name", required = true, doc = "the block's name (a-z 0-9 _), unique in its mod" }
@@ -632,7 +653,7 @@ role = "effect"
 text = "obj_crit_chance"
 apply = "chance_add"
 answer = "crit_chance"
-hooks = "crit_check"
+hooks = "match:crit_check"
 amount_key = "percent"
 doc = "the critical chance of the targets' special moves of these kinds (crit_check: once per execution), in percentage points, × the stacks"
 name = { type = "name", required = true, doc = "the block's name (a-z 0-9 _), unique in its mod" }
@@ -650,7 +671,7 @@ role = "effect"
 text = "obj_crit_rate"
 apply = "rate"
 answer = "crit_chance_mult"
-hooks = "crit_check"
+hooks = "match:crit_check"
 amount_key = "percent"
 doc = "the critical chance of the targets' special moves of these kinds as a factor (crit_check: once per execution), in %, × the stacks: the summed chance × (1 + percent / 100), before the cap"
 name = { type = "name", required = true, doc = "the block's name (a-z 0-9 _), unique in its mod" }
@@ -662,13 +683,30 @@ positions = { type = "strings", default = [], values = ["gk", "fw", "mf", "df"],
 elements = { type = "strings", default = [], values = ["wind", "forest", "fire", "mountain", "void"], words = "element", doc = "only targets of these elements (empty = any)" }
 trait = { type = "string", default = "", ref = "block", doc = "only targets of this Trait block (empty = any)" }
 
+[entry.CatchRate]
+provides = "block"
+role = "effect"
+text = "obj_catch_rate"
+apply = "rate"
+answer = "catch_mult"
+hooks = "match:catch_check"
+amount_key = "percent"
+doc = "the targets' «Tasa de Parada» (the keeper's critical catch chance, catch_check: effect 39429CCB's multiplier), in %, × the stacks: criticalCatchPercentage × (1 + percent / 100 + the game's own multipliers)"
+name = { type = "name", required = true, doc = "the block's name (a-z 0-9 _), unique in its mod" }
+percent = { type = "number", required = true, min = -100, max = 1000, doc = "per stack, in % (5 = the rate × 1.05)" }
+value_by_level = { type = "numbers", default = [], doc = "per passive level (1, 2…: [levels]); empty = the one value" }
+target = { type = "string", default = "self", values = ["self", "teammates", "team", "opponents", "all"], words = "target", doc = "whose rate" }
+positions = { type = "strings", default = [], values = ["gk", "fw", "mf", "df"], words = "position", doc = "only targets of these positions (empty = any)" }
+elements = { type = "strings", default = [], values = ["wind", "forest", "fire", "mountain", "void"], words = "element", doc = "only targets of these elements (empty = any)" }
+trait = { type = "string", default = "", ref = "block", doc = "only targets of this Trait block (empty = any)" }
+
 [entry.CriticalPower]
 provides = "block"
 role = "effect"
 text = "obj_crit_power"
 apply = "rate"
 answer = "crit_mult"
-hooks = "crit_check"
+hooks = "match:crit_check"
 amount_key = "percent"
 doc = "the power of the critical hits of the targets' special moves of these kinds (crit_check: once per execution), in %, × the stacks: the hit's multiplier × (1 + percent / 100)"
 name = { type = "name", required = true, doc = "the block's name (a-z 0-9 _), unique in its mod" }
@@ -686,7 +724,7 @@ role = "effect"
 text = "obj_crit_miss_power"
 apply = "rate"
 answer = "crit_miss_mult"
-hooks = "crit_check"
+hooks = "match:crit_check"
 amount_key = "percent"
 doc = "the power of the targets' special moves of these kinds when their critical roll misses (crit_check: once per execution), in %, × the stacks"
 name = { type = "name", required = true, doc = "the block's name (a-z 0-9 _), unique in its mod" }
@@ -704,7 +742,7 @@ role = "effect"
 text = "obj_shot_through"
 apply = "rate"
 answer = "power_mult"
-hooks = "shot_through"
+hooks = "match:shot_through"
 amount_key = "percent"
 doc = "the power a shot keeps after it beats a field player's block (shot_through), in %, × the stacks; the targets are the beaten blockers"
 name = { type = "name", required = true, doc = "the block's name (a-z 0-9 _), unique in its mod" }
@@ -721,7 +759,7 @@ role = "effect"
 text = "obj_tension_gain"
 apply = "rate"
 answer = "gain_mult"
-hooks = "tension_gain"
+hooks = "match:tension_gain"
 amount_key = "percent"
 doc = "the tension the targets earn for their team from play (tension_gain: duels, scrambles, keeper battles, set plays), in %, × the stacks; target team / opponents also scale a team's gains that no player earned"
 name = { type = "name", required = true, doc = "the block's name (a-z 0-9 _), unique in its mod" }
@@ -785,7 +823,7 @@ provides = "block"
 role = "effect"
 text = "obj_keeper_shot"
 apply = "keeper"
-hooks = "keeper_duel"
+hooks = "match:keeper_duel"
 amount_key = "percent"
 doc = "the power of a shot in the keeper battle (keeper_duel), in %, × the stacks: the shots of the targets (side shooter) or the shots that reach the targets (side keeper)"
 name = { type = "name", required = true, doc = "the block's name (a-z 0-9 _), unique in its mod" }
@@ -803,7 +841,7 @@ role = "effect"
 text = "obj_pool_cost"
 apply = "pool_cost"
 answer = "cost_mult"
-hooks = "tension_pay"
+hooks = "match:tension_pay"
 amount_key = "percent"
 doc = "the costs the targets pay from their running spirit's pool ([points] cost_flag), in %; without a pool their tension cost instead"
 name = { type = "name", required = true, doc = "the block's name (a-z 0-9 _), unique in its mod" }

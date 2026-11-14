@@ -3,6 +3,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.shop_tab/1"
 folder = "content/shop_tabs"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Shop.Tab"
+v2_kind_folder = "Shop/Tabs"
+v2_version = 1
 label = "Shop tabs"
 label_es = "Pestañas de tienda"
 doc = "One of the tabs a shop's game tab is split into, listing the rows of the given item sub-kinds."

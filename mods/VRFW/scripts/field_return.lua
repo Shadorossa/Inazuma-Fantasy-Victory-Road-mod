@@ -80,7 +80,7 @@ VRFW.on("hook:FieldReturnSite", function(ev)
 end)
 
 -- Any title return: nothing may stay armed.
-VRFW.on("game_reset", function(ev)
+VRFW.on("game:reset", function(ev)
   if armed then
     armed = false
     info("game reset: disarmed")

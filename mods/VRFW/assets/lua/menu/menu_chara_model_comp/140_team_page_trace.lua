@@ -1,8 +1,10 @@
 if VRFW.team_page_model_trace == nil and type(Setup) == "function" and type(End) == "function" then
   local T = { id = tostring({}):match("%x+$") or "?" }
+  --- Internal: Namespace: traces the model calls of the team editor page.
   VRFW.team_page_model_trace = T
 
   local function team_page()
+    --- Internal: hash of the foreign team editor parameter.
     T.foreign = T.foreign or VRFW.crc32("VRFW_team_editor_foreign")
     return VRFW.param.has(T.foreign)
   end

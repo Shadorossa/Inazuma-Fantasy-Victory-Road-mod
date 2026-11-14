@@ -113,14 +113,14 @@ local function end_duel()
   return nil
 end
 
-VRFW.on("cutin_start", on_cutin_start)
+VRFW.on("match:cutin_start", on_cutin_start)
 
-VRFW.on("cutin_end", function()
+VRFW.on("match:cutin_end", function()
   close_next_tick = screen_open
   return nil
 end)
 
-VRFW.on("tick", function()
+VRFW.on("frame:tick", function()
   if close_next_tick then
     close_screen()
   end
@@ -128,13 +128,13 @@ VRFW.on("tick", function()
 end)
 
 -- the result is applied (after the cut-ins) or the match is over
-VRFW.on("duel_won", end_duel)
-VRFW.on("match_end", end_duel)
+VRFW.on("match:duel_won", end_duel)
+VRFW.on("match:end", end_duel)
 
 -- the last keeper battle: the keeper, his move, the shooter and the shot (the shot readout's critical tags)
 local keeper_battle = nil
 
-VRFW.on("keeper_duel", function(ev)
+VRFW.on("match:keeper_duel", function(ev)
   local keeper, shooter = ev.actor and ev.actor.handle, ev.rival and ev.rival.handle
   if keeper == nil or shooter == nil then
     return nil

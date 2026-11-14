@@ -1,0 +1,104 @@
+schema = "VRFW.character/2"
+default_lang = "en"
+
+# Komasan: midfielder, fire, his own body (model row with force_kit 1: no team kit replaces his own clothes).
+# Stats rolled once (seed 20261111) inside the range of the 22 kick-led idol cards of this mod: kick in its lower half, control and technique in their upper half.
+[[character]]
+name = "komasan"
+based_on = "c05029720"  # template: Luke Triton (own clothes, no kit)
+order = 202
+
+  [character.base]
+  id = 0x1A5BA553  # crc32("c90640000")
+  name = "c90640000"
+  name_text = 0xD6C469BB  # crc32("c90640000_name")
+  short_name_text = 0x3A70B884  # crc32("c90640000_short")
+  upper_name_text = 0xDB07F7BA  # crc32("c90640000_upper")
+  description_text = 0x808CD97E  # crc32("c90640000_description")
+  model = 0x62CD5AFF
+  # album only: not on any team, so Luke's belong team is cleared
+  team_1 = 0
+  team_2 = 0
+  team_3 = 0x5595D5FA  # crc32("evt_belong_team_fantasy"): the bank's Fantasy tab
+
+  [character.new_model]
+  id = 0x62CD5AFF  # crc32("c90640000_model")
+  from = "c05029720"
+  [character.new_model.cells]
+  skeleton_path = "_face/90_FANTASY/c90640000/c90640000.objbin"
+  body = 0x534F1C0F  # crc32("c90640000_body"), content/tables/common/gamedata/character/chara_model.toml
+  head_mesh_path = "_face/90_FANTASY/c90640000/c90640000.g4md"
+  clothes = 0xDA339FBE  # crc32("u90640000_10"), content/looks/komasan.toml
+  shoes = 0
+  gloves = 0
+  force_kit = 1
+
+  [character.text.ja]
+  name = "コマさん"
+  short = "コマさん"
+  upper = "KOMASAN"
+  description = "[頭/あたま]に[人魂/ひとだま]を[灯/とも]した\n[田舎/いなか][育/そだ]ちの[狛犬/こまいぬ][妖怪/ようかい]。"
+
+  [character.text.en]
+  name = "Komasan"
+  short = "Komasan"
+  upper = "KOMASAN"
+  description = "A country-born lion-dog Yo-kai\nwith spirit flames on his head."
+
+  [character.text.es]
+  name = "Komasan"
+  short = "Komasan"
+  upper = "KOMASAN"
+  description = "Un yo-kai perro guardián de pueblo\ncon llamas espirituales en la cabeza."
+
+  [character.text.fr]
+  name = "Komasan"
+  short = "Komasan"
+  upper = "KOMASAN"
+  description = "Un yo-kai chien-lion de la campagne\navec des flammes spirituelles sur la tête."
+
+  [character.text.de]
+  name = "Komasan"
+  short = "Komasan"
+  upper = "KOMASAN"
+  description = "Ein Löwenhund-Yo-kai vom Land\nmit Geisterflammen auf dem Kopf."
+
+  [character.text.it]
+  name = "Komasan"
+  short = "Komasan"
+  upper = "KOMASAN"
+  description = "Uno yo-kai cane-leone di campagna\ncon fiamme spirituali sulla testa."
+
+  [character.text.pt]
+  name = "Komasan"
+  short = "Komasan"
+  upper = "KOMASAN"
+  description = "Um yo-kai cão-leão do interior\ncom chamas espirituais na cabeça."
+
+  [character.text.zh_hans]
+  name = "Komasan"
+  short = "Komasan"
+  upper = "KOMASAN"
+  description = "头上燃着鬼火的\n乡下狛犬妖怪。"
+
+  [character.text.zh_hant]
+  name = "Komasan"
+  short = "Komasan"
+  upper = "KOMASAN"
+  description = "頭上燃著鬼火的\n鄉下狛犬妖怪。"
+
+  [[character.cards]]
+  id = 0x9EF38F6E  # crc32("c90640000_card")
+  from = 0xEDB0B29D  # template: Luke Triton's card
+  order = 202
+  element = "fire"
+  position = "mf"
+  rank = 3
+  growth = "normal"
+  stats = { kick = 333, control = 275, technique = 276, pressure = 155, physical = 208, intelligence = 216, agility = 187, luck = 187, freedom = 0 }
+  moves = [
+    { move = "who00610", level = 1 },                     # Dog Run (dribble, fire, 300)
+    { move = "whd00410", level = 20 },                    # Flame Dance (block, fire, 440)
+    { move = "who01230", level = 38 },                    # Magmire (dribble, fire, 540)
+    { move = "who01310", level = 60 },                    # Diffusal Chord (dribble, fire, 640)
+  ]

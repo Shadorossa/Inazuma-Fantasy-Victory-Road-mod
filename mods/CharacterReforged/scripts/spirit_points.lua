@@ -665,7 +665,7 @@ local IDLE_STEP_MS = 100
 local IDLE_STEP_MAX_FRAMES = 12
 local tick_no = 0
 
-VRFW.on("tick", function(ev)
+VRFW.on("frame:tick", function(ev)
   if not P.any() then return nil end
   local m = ev.match or NO_MATCH
   frame.state = m.soccer_state or 0

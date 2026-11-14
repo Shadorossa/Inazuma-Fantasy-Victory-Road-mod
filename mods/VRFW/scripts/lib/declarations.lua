@@ -1,14 +1,15 @@
+--- Advanced: Library: reads and validates mod declaration files against their schemas.
 
 local M = {}
 
 local Id = VRFW.ids
 
---- "0x…" / decimal text / a number -> the id; any other text -> its crc32 (a game key name); rules: Id.parse
+--- Internal: "0x…" / decimal text / a number -> the id; any other text -> its crc32 (a game key name); rules: Id.parse
 function M.id_of(v)
   return Id.parse(v, { hash_names = true })
 end
 
---- the schema file of a service type (content\types\<type>.toml of the framework mod)
+--- Internal: the schema file of a service type (content\types\<type>.toml of the framework mod)
 function M.schema(type_name)
   local t, err = VRFW.files.toml("content/types/" .. type_name .. ".toml")
   if type(t) ~= "table" then
@@ -24,7 +25,7 @@ local function is_int(v) return type(v) == "number" and v == math.floor(v) end
 
 local FILE_GATE_KEYS = { if_mod = true, if_not_mod = true }
 
---- where an entry is written: { table = "VRFW.X" / "talent" (nil for file_root), single, file_root }
+--- Internal: where an entry is written: { table = "VRFW.X" / "talent" (nil for file_root), single, file_root }
 function M.place(schema, entry)
   local spec = schema.entry[entry] or {}
   if spec.file_root == true then return { file_root = true, single = true } end
@@ -188,7 +189,7 @@ local function option_value(key, mod)
   return v
 end
 
---- True when `mod` meets `conds`.
+--- Internal: True when `mod` meets `conds`.
 function M.holds(mod, conds)
   for _, c in ipairs(conds or {}) do
     local v
@@ -215,7 +216,7 @@ function M.holds(mod, conds)
   return true
 end
 
---- Every declaration of `schema` from the active mods.
+--- Internal: Every declaration of `schema` from the active mods.
 function M.load(schema, warn)
   local out, skipped = {}, 0
   local ok, files = pcall(VRFW.files.declarations, schema.folder)
@@ -312,6 +313,7 @@ function M.load(schema, warn)
   return out, skipped
 end
 
+--- Advanced: Checks one value against a field spec; answers the value to keep, or nil and the reason.
 M.check_value = check_value
 
 return M

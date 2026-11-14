@@ -1,12 +1,12 @@
 schema = "VRFW.game/2"
 # The skill set's mix slot store and slot questions (graft ss2_menus).
 
-# (move) -> kind (0 aura slot, 1 mix slot, 2 an armour: the aura slot through its keshin, -1 none), keshin
+# (move) -> kind (0 aura slot, 1 mix slot, 2 an armour: the aura slot through its keshin, 3 a picker create entry, never stored, -1 none), keshin, carrier (1 fusion, 2 mode change, 0 none)
 [[VRFW.Command]]
 name = "CMND_CHARACTERREFORGED_SLOT_OF"
 handler = "CharacterReforged.SlotOfCmd"
 
-# (saved card) -> his mix-slot move (0 = empty)
+# (saved card) -> his mix-slot move (0 = empty, or a stored kind the mix slot does not take: shown empty, the save keeps it)
 [[VRFW.Command]]
 name = "CMND_CHARACTERREFORGED_MIX_GET"
 handler = "CharacterReforged.MixGet"

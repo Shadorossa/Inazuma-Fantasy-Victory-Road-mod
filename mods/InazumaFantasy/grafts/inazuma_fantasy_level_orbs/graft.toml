@@ -24,7 +24,7 @@ stem = "item_use_menu"
     n8 = funcLuaCommand(2011560392 --[[CMND_GET_ITEM_NUM]], l2)
 '''
   text = '''
-    InazumaFantasyLevelOrb.levels = funcLuaCommand(@crc:CMND_INAZUMAFANTASY_LEVEL_ORB_LEVELS@, l2) or 0
+    InazumaFantasy.LevelOrb.levels = funcLuaCommand(@crc:CMND_INAZUMAFANTASY_LEVEL_ORB_LEVELS@, l2) or 0
 '''
 
   [[files.ops]]
@@ -34,8 +34,8 @@ stem = "item_use_menu"
     n9 = n9 + 1
 '''
   text = '''
-    if InazumaFantasyLevelOrb.levels > 0 then
-      InazumaFantasyLevelOrb.open_amount_window()
+    if InazumaFantasy.LevelOrb.levels > 0 then
+      InazumaFantasy.LevelOrb.open_amount_window()
       return
     end
 '''
@@ -46,8 +46,8 @@ stem = "item_use_menu"
 function CalcNextLevelAndNextExp(a1)
 '''
   text = '''
-  if InazumaFantasyLevelOrb.levels > 0 then
-    return InazumaFantasyLevelOrb.preview_one_orb(a1)
+  if InazumaFantasy.LevelOrb.levels > 0 then
+    return InazumaFantasy.LevelOrb.preview_one_orb(a1)
   end
 '''
 

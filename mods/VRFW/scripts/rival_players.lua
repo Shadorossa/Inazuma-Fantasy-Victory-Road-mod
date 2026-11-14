@@ -92,20 +92,33 @@ end
 local SPECIALS = nil
 local COL_SPECIAL = 61
 
-local function special_of(card)
-  if not SPECIALS then
-    SPECIALS = {}
-    local ok, rows = pcall(VRFW.table.raw, Rows.file_name("data/common/gamedata/character/chara_param"), "CHARA_PARAM_INFO", { 1, COL_SPECIAL + 1 })
-    if ok and type(rows) == "table" then
-      for _, r in ipairs(rows) do
-        local id, own = r[1], r[COL_SPECIAL + 1]
-        if type(id) == "number" and type(own) == "number" and own ~= 0 then SPECIALS[u32(id)] = u32(own) end
-      end
-    else
-      warn("chara_param not readable: the rival players' specials are not kept")
-    end
+-- [card] = special of every chara_param row that has one
+local function read_specials()
+  local out = {}
+  local rows = VRFW.table.raw(Rows.file_name("data/common/gamedata/character/chara_param"), "CHARA_PARAM_INFO", { 1, COL_SPECIAL + 1 })
+  if type(rows) ~= "table" then error("CHARA_PARAM_INFO not a table") end
+  for _, r in ipairs(rows) do
+    local id, own = r[1], r[COL_SPECIAL + 1]
+    if type(id) == "number" and type(own) == "number" and own ~= 0 then out[u32(id)] = u32(own) end
   end
-  return SPECIALS[card]
+  return out
+end
+
+-- the specials, built once per VM and kept between starts (game data only)
+local function prepare_specials()
+  if SPECIALS then return SPECIALS end
+  local ok, t = pcall(VRFW.derived, "rival_specials", nil, read_specials)
+  if ok and type(t) == "table" then
+    SPECIALS = t
+  else
+    SPECIALS = {}
+    warn("chara_param not readable: the rival players' specials are not kept (" .. tostring(t) .. ")")
+  end
+  return SPECIALS
+end
+
+local function special_of(card)
+  return prepare_specials()[card]
 end
 
 -- the position whose list fills a player's slots: his place in the formation, else his card's
@@ -218,10 +231,12 @@ local function apply(request)
   local at = (type(off) == "number" and request and request >= 0x10000) and (request + off) or nil
   local game, diff, mode = ME.match_of(at)
   local rule = game and RP.rule(game, diff, mode, "rival") or nil
+  VRFW.time.mark_step("rule")
   clear()
   if not rule then return end
   local team, from = rival_team(request, game, diff)
   local cards, why, slot_of, formation = live_cards(team)
+  VRFW.time.mark_step("rival team")
   if not cards or #cards == 0 then
     warn(string.format("rule %s/%s: the rival team 0x%08X (%s) of game 0x%08X gives no players (%s): nothing applied",
       rule.source, rule.name, team, from, u32(game), tostring(why or "no member rows")))
@@ -240,6 +255,7 @@ local function apply(request)
     end
   end
   write_stats()
+  VRFW.time.mark_step("stats")
   local level = rule.training and (rule.training.level or Rows.level(game, diff)) or nil
   info(string.format("rule %s/%s applied: game 0x%08X, rival team 0x%08X (%s), %d rival player(s), passive set %s%s",
     rule.source, rule.name, u32(game), team, from, #cards,
@@ -257,6 +273,7 @@ local function apply(request)
     pcall(VRFW.set_flag, FLAG .. ".level", level)
     CUR.flagged = #cards
     pcall(VRFW.signal, "vrfw.rival_players.training")
+    VRFW.time.mark_step("training")
   elseif rule.training then
     warn(string.format("rule %s/%s: game 0x%08X has no class level for difficulty %d: no training", rule.source, rule.name, u32(game), diff))
   end
@@ -465,6 +482,12 @@ function RivalPlayers.StatusStat(args, results)
   return RivalPlayers.CharaInfo(args, results)
 end
 
+-- the tables a start_request reads that do not depend on the request: built (or read from the start cache) at load
+RP.prepare()
+Rows.prepare_games()
+Places.prepare()
+prepare_specials()
+
 VRFW.on("match:start_request", function(ev)
   pcall(VRFW.native.match_copies_clear)
   COPY = {}
@@ -472,7 +495,7 @@ VRFW.on("match:start_request", function(ev)
   if not ok then warn(tostring(e)) end
 end)
 
-VRFW.on("signal:vrfw.rival_players.trained", function()
+VRFW.on("script:signal:vrfw.rival_players.trained", function()
   local ok, e = pcall(take_training)
   if not ok then warn(tostring(e)) end
 end)
@@ -483,5 +506,5 @@ local function forget_match()
   clear()
 end
 
-VRFW.on("match_end", forget_match)
-VRFW.on("game_reset", forget_match)
+VRFW.on("match:end", forget_match)
+VRFW.on("game:reset", forget_match)

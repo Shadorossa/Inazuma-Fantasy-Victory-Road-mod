@@ -1,0 +1,70 @@
+schema = "VRFW.migration/1"
+id = "MissingContent.former_ids"
+description = "The chosen DS opening and menu theme keep their choice after their ids moved from the Inazuma Fantasy / Extra Openings names to MissingContent_"
+phase = "data"
+after = ["VRFW.no_compat_names"]
+
+# The «Opening» row stores the movie id of the chosen opening row (<key>_<lang>).
+[[step]]
+kind = "rehash_name"
+files = ["{data}/mod_options/mod_options.json"]
+key = "values.opening"
+from = "if_op_ie1_ja"
+to = "MissingContent_op_ie1_ja"
+
+[[step]]
+kind = "rehash_name"
+files = ["{data}/mod_options/mod_options.json"]
+key = "values.opening"
+from = "if_op_ie2_ja"
+to = "MissingContent_op_ie2_ja"
+
+[[step]]
+kind = "rehash_name"
+files = ["{data}/mod_options/mod_options.json"]
+key = "values.opening"
+from = "if_op_ie2_es"
+to = "MissingContent_op_ie2_es"
+
+[[step]]
+kind = "rehash_name"
+files = ["{data}/mod_options/mod_options.json"]
+key = "values.opening"
+from = "if_op_ie3_ja"
+to = "MissingContent_op_ie3_ja"
+
+[[step]]
+kind = "rehash_name"
+files = ["{data}/mod_options/mod_options.json"]
+key = "values.opening"
+from = "if_op_ie3_es"
+to = "MissingContent_op_ie3_es"
+
+[[step]]
+kind = "rehash_name"
+files = ["{data}/mod_options/mod_options.json"]
+key = "values.opening"
+from = "if_op_ie3_en"
+to = "MissingContent_op_ie3_en"
+
+[[step]]
+kind = "rehash_name"
+files = ["{data}/mod_options/mod_options.json"]
+key = "values.opening"
+from = "if_op_ie3_it"
+to = "MissingContent_op_ie3_it"
+
+# The «Menu music» row stores the BGM id of the chosen theme's track.
+[[step]]
+kind = "rehash_name"
+files = ["{data}/mod_options/audio_engine.json"]
+key = "values.menu_music"
+from = "exop_menu_ie23"
+to = "MissingContent_menu_ie23"
+
+[[step]]
+kind = "rehash_name"
+files = ["{data}/mod_options/audio_engine.json"]
+key = "values.menu_music"
+from = "exop_menu_tm_bus"
+to = "MissingContent_menu_tm_bus"

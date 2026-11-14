@@ -1,3 +1,4 @@
+--- Advanced: Library: equipment of the running match; matches a match info to its rules.
 
 local Id = VRFW.ids
 local Memory = VRFW.memory
@@ -25,11 +26,11 @@ local function difficulty_numbers()
   return out
 end
 
-local function load()
-  if RULES then return RULES end
-  RULES = {}
+-- the rules of every active mod's content\match_equipment, read from the declarations (mod files only)
+local function read_rules()
+  local rules = {}
   local ok, files = pcall(VRFW.files.declarations, "content/match_equipment")
-  if not ok or type(files) ~= "table" or #files == 0 then return RULES end
+  if not ok or type(files) ~= "table" or #files == 0 then return rules end
   local numbers = difficulty_numbers()
   for _, f in ipairs(files) do
     local d = f.data or {}
@@ -43,14 +44,30 @@ local function load()
         end
       end
       if diff then
-        RULES[#RULES + 1] = rule
+        rules[#rules + 1] = rule
       else
         warn(tostring(f.mod) .. ": unknown difficulty " .. tostring(m.difficulty) .. " (rule off)")
       end
     end
   end
+  return rules
+end
+
+-- the rules, built once per VM and kept between starts, so a match request does not convert the declarations
+local function load()
+  if RULES then return RULES end
+  local ok, t = pcall(VRFW.derived, "match_equipment_rules", nil, read_rules)
+  if ok and type(t) == "table" then
+    RULES = t
+  else
+    RULES = {}
+    warn("content/match_equipment not read (" .. tostring(t) .. ")")
+  end
   return RULES
 end
+
+--- Advanced: Builds (or reads from the start cache) the rules; a script calls it at load so a match call stays short.
+M.prepare = load
 
 local function field(name)
   local ok, v = pcall(VRFW.game.field, name)
@@ -67,14 +84,14 @@ end
 
 local NUMBERS = nil
 
---- Difficulty `v` (a number or a name) as its number.
+--- Internal: Difficulty `v` (a number or a name) as its number.
 function M.difficulty(v)
   if tonumber(v) then return tonumber(v) end
   NUMBERS = NUMBERS or difficulty_numbers()
   return NUMBERS[tostring(v)]
 end
 
---- The game, difficulty and play mode of match info `info`; nil when not an address.
+--- Advanced: The game, difficulty and play mode of match info `info`; nil when not an address.
 function M.match_of(info)
   if not info or info < 0x10000 then return nil end
   local og, od = field("MatchInfo.Game"), field("MatchInfo.Difficulty")
@@ -84,7 +101,7 @@ function M.match_of(info)
   return Id.unsigned(game), diff, play_mode()
 end
 
---- The equipment rule answer for match info `info`; nil when none.
+--- Advanced: The equipment rule answer for match info `info`; nil when none.
 function M.for_match_info(info)
   local rules = load()
   if #rules == 0 then return nil end
@@ -114,7 +131,7 @@ function M.for_match_info(info)
   return answer
 end
 
---- The equipment rule answer for the running match.
+--- Internal: The equipment rule answer for the running match.
 function M.running()
   return M.for_match_info(global("match_equipment_info"))
 end

@@ -5,6 +5,7 @@ if VRFW.team_beaten == nil then
     GET = VRFW.commands.VRFW_TEAM_BEATEN,   -- CMND_VRFW_TEAM_BEATEN (team) -> rival, chain tiles, chain won, pieces, story wins
     cache = {},                             -- team -> {rival, beaten, chronicle, story}
   }
+  --- Advanced: Namespace of the beaten-team records: which teams the player has beaten.
   VRFW.team_beaten = M
 
   -- "a:b:c,d:e:f" -> {{"a", "b", "c"}, {"d", "e", "f"}}
@@ -43,13 +44,14 @@ if VRFW.team_beaten == nil then
     return c
   end
 
-  --- Forgets the cached answers (a screen asks again when it opens).
+  --- Advanced: Forgets the cached answers (a screen asks again when it opens).
   function M.reset()
+    --- Internal: cache of the parsed beaten-team lists, cleared on refresh.
     M.cache = {}
     VRFW.recruit.refresh()
   end
 
-  --- Team `team` against the player: nil when no Chronicle or story match is against it; else beaten, then whether
+  --- Advanced: Team `team` against the player: nil when no Chronicle or story match is against it; else beaten, then whether
   --- a Chronicle match (pieces, route nodes, chain tiles) and a story match are against it.
   function M.state(team)
     team = VRFW.ids.unsigned(tonumber(team) or 0)

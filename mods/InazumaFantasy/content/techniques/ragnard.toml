@@ -1,0 +1,40 @@
+schema = "VRFW.technique/3"
+
+[[technique]]
+base = "whs10120"
+name = "ragnard"
+
+[technique.text.de]
+name = "Bahamut-Wut"
+
+[technique.text.en]
+name = "Bahamut Crash"
+
+[technique.text.es]
+name = "Remate Ragnard"
+
+[technique.text.fr]
+name = "Choc de Bahamut"
+
+[technique.text.it]
+name = "Bahamut Crash"
+
+[technique.text.ja]
+name = "バハムートクラッシュ"
+
+[technique.text.pt]
+name = "Impacto Bahamut"
+
+[technique.text.zh_hans]
+name = "巴哈姆特冲击"
+
+[technique.text.zh_hant]
+name = "巴哈姆特咆哮"
+
+[technique.animation]
+cuts = [
+  { camera = { ahead = 0.0, distance = -6.1, height = 0.0, lift = 4.0, pan = -3.0, pitch = -3.5, preset = "offset", ramp = 0.0, roll = 0.0, side = -5.0, tilt = 1.0, yaw = -25.0, zoom = 1.0 }, cut = "c0100" },
+  { camera = { ahead = 0.0, distance = 7.0, height = 0.0, lift = 0.0, pan = 2.0, pitch = 2.0, preset = "offset", ramp = 1.0, side = 0.0, tilt = 0.0, yaw = 35.0, zoom = 0.72 }, cut = "c0200" },
+]
+from = "ev60_10120"
+id = "ev60_70076"

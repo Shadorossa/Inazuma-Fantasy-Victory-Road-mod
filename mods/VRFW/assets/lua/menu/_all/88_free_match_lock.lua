@@ -3,7 +3,7 @@
 if VRFW.free_match_lock == nil then
   local L = {}
 
-  --- True when class index c (0..3) of opponent `game` is locked by the retail rule.
+  --- Internal: True when class index c (0..3) of opponent `game` is locked by the retail rule.
   function L.retail_locked(game, story, c)
     local flag = true
     local ret, ret2 = funcLuaMenuCommand(1984141647, game, c + 6)
@@ -33,5 +33,6 @@ if VRFW.free_match_lock == nil then
     return flag
   end
 
+  --- Internal: Namespace of the free match lock helpers.
   VRFW.free_match_lock = L
 end

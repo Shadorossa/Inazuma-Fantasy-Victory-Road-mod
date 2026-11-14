@@ -53,10 +53,10 @@ order = 48
   growth = "normal"
   stats = { kick = 358, control = 244, technique = 228, pressure = 184, physical = 228, intelligence = 185, agility = 185, luck = 189, freedom = 0 }
   moves = [
-    { move = 0x518BCA26, level = 1 },                     # Fire Tornado
-    { move = 0x41F3CDC2, level = 17 },                    # Scorching Tackle
+    { move = "whs00030", level = 1 },                     # Fire Tornado
+    { move = "who00070", level = 17 },                    # Scorching Tackle
     { move = 0xDC0B2991, level = 25 },                    # Inazuma Drop
-    { move = 0x00D8C57C, level = 35 },                    # Fireball Storm
+    { move = "whs00450", level = 35 },                    # Fireball Storm
   ]
   moment_kit = 0x252CE113
   own_passives = [0x09865884]
@@ -114,10 +114,10 @@ order = 50
   growth = "normal"
   stats = { kick = 344, control = 254, technique = 281, pressure = 201, physical = 186, intelligence = 228, agility = 193, luck = 104, freedom = 0 }
   moves = [
-    { move = 0x1A868BED, level = 15 },                    # Clone Defence
-    { move = 0x17A96A44, level = 28 },                    # Clone Faker
-    { move = 0x3BF45E9A, level = 38 },                    # Triple Boost
-    { move = 0x22EF6FDB, level = 55 },                    # Dark Phoenix
+    { move = "whd00250", level = 15 },                    # Clone Defence
+    { move = "who00010", level = 28 },                    # Clone Faker
+    { move = "whs00870", level = 38 },                    # Triple Boost
+    { move = "whs00860", level = 55 },                    # Dark Phoenix
   ]
   moment_kit = 0x95BBF710
   cells = { c6 = 6, performance_genre = 0xE5FB31A6 }
@@ -174,15 +174,15 @@ order = 51
   growth = "normal"
   stats = { kick = 248, control = 198, technique = 327, pressure = 200, physical = 197, intelligence = 219, agility = 192, luck = 220, freedom = 0 }
   moves = [
-    { move = 0x9D236FA3, level = 1 },                     # Sword of the King
-    { move = 0xA37D1A41, level = 12 },                    # Hyper-Swiper
-    { move = 0x7C1494CF, level = 35 },                    # Tornado Tunnel
-    { move = 0xAF9E1B72, level = 70 },                    # Ultimate Eleven Assault
+    { move = "who01030", level = 1 },                     # Sword of the King
+    { move = "whd00980", level = 12 },                    # Hyper-Swiper
+    { move = "who00950", level = 35 },                    # Tornado Tunnel
+    { move = "whs02350", level = 70 },                    # Ultimate Eleven Assault
     { move = 0, level = 0 },                              # (empty)
     { move = 0, level = 0 },                              # (empty)
     { move = 0, level = 0 },                              # (empty)
     { move = 0, level = 0 },                              # (empty)
-    { move = 0x62256EE2, level = 1 },                     # Arch Pegasus [aura]
+    { move = "wks00330", level = 1 },                     # Arch Pegasus [aura]
   ]
   moment_kit = 0xAECB5B3E
   cells = { c6 = 12, performance_genre = 0x0BF5508A }
@@ -243,15 +243,15 @@ order = 52
   growth = "normal"
   stats = { kick = 385, control = 261, technique = 207, pressure = 189, physical = 182, intelligence = 225, agility = 185, luck = 180, freedom = 0 }
   moves = [
-    { move = 0x1F7F73BA, level = 13 },                    # Bicycle Slash
-    { move = 0x90CD25B4, level = 20 },                    # Supernatural Strike
-    { move = 0x910F4F83, level = 47 },                    # Fire Tornado DD
-    { move = 0xA955D999, level = 85 },                    # The Earth: Infinity
+    { move = "whs02480", level = 13 },                    # Bicycle Slash
+    { move = "whs01660", level = 20 },                    # Supernatural Strike
+    { move = "whs01760", level = 47 },                    # Fire Tornado DD
+    { move = "whs02650", level = 85 },                    # The Earth: Infinity
     { move = 0, level = 0 },                              # (empty)
     { move = 0, level = 0 },                              # (empty)
     { move = 0, level = 0 },                              # (empty)
     { move = 0, level = 0 },                              # (empty)
-    { move = 0x372620B0, level = 1 },                     # Wolf Totem [aura]
+    { move = "wss000020", level = 70 },                     # Wolf Totem [aura]
   ]
   moment_kit = 0x38766052
   cells = { c6 = 11 }
@@ -303,10 +303,10 @@ order = 53
   growth = "normal"
   stats = { kick = 189, control = 204, technique = 181, pressure = 235, physical = 232, intelligence = 240, agility = 297, luck = 223, freedom = 0 }
   moves = [
-    { move = 0xA1DEB97A, level = 1 },                     # Soul Hand
-    { move = 0xEB71131A, level = 12 },                    # X Blast
-    { move = 0xB8C5883B, level = 25 },                    # God Hand X
-    { move = 0x7EEA4EE9, level = 55 },                    # Blade Attack
+    { move = "whk00520", level = 1 },                     # Soul Hand
+    { move = "whs01330", level = 12 },                    # X Blast
+    { move = "whk00530", level = 25 },                    # God Hand X
+    { move = "whd00210", level = 55 },                    # Blade Attack
   ]
   moment_kit = 0xA8764C5A
   cells = { c6 = 3 }
@@ -369,9 +369,9 @@ order = 54
   growth = "normal"
   stats = { kick = 317, control = 227, technique = 301, pressure = 211, physical = 153, intelligence = 263, agility = 143, luck = 211, freedom = 0 }
   moves = [
-    { move = 0x1C8CE2B8, level = 1 },                     # God Knows
-    { move = 0x0D368F6B, level = 5 },                     # Heaven's Time
-    { move = 0xBCE9DEAB, level = 30 },                    # Chaos Break
+    { move = "whs00340", level = 1 },                     # God Knows
+    { move = "who00200", level = 5 },                     # Heaven's Time
+    { move = "whs01250", level = 30 },                    # Chaos Break
   ]
   moment_kit = 0x1813F4FF
   cells = { flag_36 = 0, c6 = 6 }
@@ -428,10 +428,10 @@ order = 55
   growth = "normal"
   stats = { kick = 247, control = 216, technique = 142, pressure = 201, physical = 282, intelligence = 204, agility = 290, luck = 236, freedom = 0 }
   moves = [
-    { move = 0xF64674CB, level = 1 },                     # Fist of Justice
-    { move = 0x8AF3EAB9, level = 19 },                    # Hammer of Fury
-    { move = 0x93E8DBF8, level = 35 },                    # Dimensional Hand
-    { move = 0xEE9F2FBD, level = 54 },                    # God Catch
+    { move = "whk00440", level = 1 },                     # Fist of Justice
+    { move = "whk00510", level = 19 },                    # Hammer of Fury
+    { move = "whk00500", level = 35 },                    # Dimensional Hand
+    { move = "whk00550", level = 54 },                    # God Catch
   ]
   moment_kit = 0xC68FF352
   cells = { flag_36 = 0, c6 = 8 }
@@ -484,9 +484,9 @@ order = 57
   growth = "normal"
   stats = { kick = 177, control = 173, technique = 170, pressure = 261, physical = 252, intelligence = 212, agility = 284, luck = 196, freedom = 0 }
   moves = [
-    { move = 0xA7157B91, level = 1 },                     # Power Shield
-    { move = 0xA6D711A6, level = 32 },                    # Full Power Shield
-    { move = 0x9765A74A, level = 55 },                    # Beast Fang
+    { move = "whk00020", level = 1 },                     # Power Shield
+    { move = "whk00120", level = 32 },                    # Full Power Shield
+    { move = "whk00300", level = 55 },                    # Beast Fang
   ]
   moment_kit = 0xCA2D2A5D
   cells = { flag_39 = 0 }
@@ -540,15 +540,15 @@ order = 58
   growth = "normal"
   stats = { kick = 367, control = 273, technique = 215, pressure = 135, physical = 251, intelligence = 176, agility = 174, luck = 209, freedom = 0 }
   moves = [
-    { move = 0x1876DB66, level = 15 },                    # Disaster Strike
-    { move = 0xD0A1DBC3, level = 28 },                    # Bungee Ball Burst
-    { move = 0x93885A64, level = 47 },                    # Fire Drill
+    { move = "whs02080", level = 15 },                    # Disaster Strike
+    { move = "who00990", level = 28 },                    # Bungee Ball Burst
+    { move = "whd01070", level = 47 },                    # Fire Drill
     { move = 0, level = 0 },                              # (empty)
     { move = 0, level = 0 },                              # (empty)
     { move = 0, level = 0 },                              # (empty)
     { move = 0, level = 0 },                              # (empty)
     { move = 0, level = 0 },                              # (empty)
-    { move = 0xD99B5FA1, level = 1 },                     # Mix 'n' Match: Zeta [aura]
+    { move = "wmm00080", level = 80 },                     # Mix 'n' Match: Zeta [aura]
   ]
   moment_kit = 0x9EE88F14
   cells = { flag_36 = 0, c6 = 12 }
@@ -627,10 +627,10 @@ order = 49
   growth = "normal"
   stats = { kick = 282, control = 227, technique = 294, pressure = 186, physical = 189, intelligence = 262, agility = 190, luck = 212, freedom = 0 }
   moves = [
-    { move = 0xA5F2EFEA, level = 1 },                     # Brave Shot
-    { move = 0x31ABD82E, level = 20 },                    # Circus Block
-    { move = 0x15EFD41D, level = 48 },                    # Dual Pass
-    { move = 0x5E233E68, level = 60 },                    # Super Elastico
+    { move = "whs01240", level = 1 },                     # Brave Shot
+    { move = "whd00260", level = 20 },                    # Circus Block
+    { move = "who00310", level = 48 },                    # Dual Pass
+    { move = "who00560", level = 60 },                    # Super Elastico
   ]
   moment_kit = 0xCCA74C04  # Orpheus kit
 
@@ -656,10 +656,10 @@ icon = "c05024610"
   growth = "normal"
   stats = { kick = 221, control = 225, technique = 167, pressure = 259, physical = 225, intelligence = 258, agility = 280, luck = 185, freedom = 0 }
   moves = [
-    { move = 0x8C382852, level = 1 },                     # God Hand
-    { move = 0x9FEEC7A9, level = 18 },                    # Gigaton Head
-    { move = 0xE647BCEE, level = 55 },                    # God Hand V
-    { move = 0xFC5DC53F, level = 64 },                    # Double God Hand
+    { move = "whk00010", level = 1 },                     # God Hand
+    { move = "whs02070", level = 18 },                    # Gigaton Head
+    { move = "whk00850", level = 55 },                    # God Hand V
+    { move = "whk01090", level = 64 },                    # Double God Hand
   ]
   moment_kit = 0xD5D90E67
 
@@ -685,10 +685,10 @@ icon = "c05024710"
   growth = "normal"
   stats = { kick = 366, control = 277, technique = 284, pressure = 181, physical = 193, intelligence = 244, agility = 136, freedom = 0 }
   moves = [
-    { move = 0x0B011EBF, level = 1 },                     # Fireball Screw
-    { move = 0x93885A64, level = 17 },                    # Fire Drill
-    { move = 0xB60E3C60, level = 38 },                    # Plasma Cut
-    { move = 0x910F4F83, level = 55 },                    # Fire Tornado DD
+    { move = "whs01180", level = 1 },                     # Fireball Screw
+    { move = "whd01070", level = 17 },                    # Fire Drill
+    { move = "who01000", level = 38 },                    # Plasma Cut
+    { move = "whs01760", level = 55 },                    # Fire Tornado DD
   ]
   moment_kit = 0xD5D90E67
 
@@ -718,10 +718,10 @@ icon = "c02029290"
   growth = "normal"
   stats = { kick = 331, control = 265, technique = 259, pressure = 147, physical = 197, intelligence = 196, agility = 169, freedom = 0 }
   moves = [
-    { move = 0x7DAF3139, level = 1 },                     # Emperor Penguin No. 2
-    { move = 0x96A7CD7D, level = 1 },                     # Tsunami Wall
-    { move = 0xD9477198, level = 30 },                    # Emperor Penguin X
-    { move = 0xB576BB31, level = 70 },                    # The Earth
+    { move = "whs00400", level = 1 },                     # Emperor Penguin No. 2
+    { move = "whk00200", level = 1 },                     # Tsunami Wall
+    { move = "whs01310", level = 30 },                    # Emperor Penguin X
+    { move = "whs00480", level = 70 },                    # The Earth
   ]
   moment_kit = 0
 
@@ -748,10 +748,10 @@ icon = "c08110110"
   growth = "normal"
   stats = { kick = 255, control = 189, technique = 169, pressure = 242, physical = 215, intelligence = 221, agility = 250, freedom = 0 }
   moves = [
-    { move = 0xC5B27C7E, level = 2 },                     # Storm Rider
-    { move = 0x4D7EC7C0, level = 7 },                     # Maw-Ment of Truth
-    { move = 0xF08DB620, level = 28 },                    # Whirlwind
-    { move = 0xA6D711A6, level = 52 },                    # Full Power Shield
+    { move = "whk00560", level = 2 },                     # Storm Rider
+    { move = "whk01640", level = 7 },                     # Maw-Ment of Truth
+    { move = "whk00140", level = 28 },                    # Whirlwind
+    { move = "whk00120", level = 52 },                    # Full Power Shield
   ]
   moment_kit = 0xC6DF30D4
 
@@ -778,10 +778,10 @@ icon = "c08110120"
   growth = "normal"
   stats = { kick = 223, control = 190, technique = 153, pressure = 230, physical = 192, intelligence = 203, agility = 261, freedom = 0 }
   moves = [
-    { move = 0x316A7390, level = 2 },                     # Land Dragon
-    { move = 0xE38D3695, level = 16 },                    # Tricera Stops
-    { move = 0x04F493EC, level = 22 },                    # Dragon Rage Dunk
-    { move = 0xA6D711A6, level = 31 },                    # Full Power Shield
+    { move = "whs00670", level = 2 },                     # Land Dragon
+    { move = "whk01580", level = 16 },                    # Tricera Stops
+    { move = "whk01330", level = 22 },                    # Dragon Rage Dunk
+    { move = "whk00120", level = 31 },                    # Full Power Shield
   ]
   moment_kit = 0xC6DF30D4
 
@@ -839,10 +839,10 @@ icon = "c02023710"
   growth = "normal"
   stats = { kick = 340, control = 258, technique = 262, pressure = 205, physical = 150, intelligence = 225, agility = 180, luck = 180, freedom = 0 }
   moves = [
-    { move = 0x7DAF3139, level = 1 },                     # Emperor Penguin No. 2
-    { move = 0x427719AC, level = 20 },                    # Gale Dash
-    { move = 0xB27F13ED, level = 32 },                    # Death Zone
-    { move = 0x6730D416, level = 55 },                    # Emperor Penguin No. 1
+    { move = "whs00400", level = 1 },                     # Emperor Penguin No. 2
+    { move = "who00270", level = 20 },                    # Gale Dash
+    { move = "whs00080", level = 32 },                    # Death Zone
+    { move = "whs00610", level = 55 },                    # Emperor Penguin No. 1
   ]
   moment_kit = 0xCA2D2A5D  # Royal Academy Redux kit
 

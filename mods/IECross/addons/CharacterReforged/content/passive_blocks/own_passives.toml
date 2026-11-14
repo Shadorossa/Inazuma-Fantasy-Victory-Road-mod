@@ -1,0 +1,193 @@
+schema = "VRFW.passive_block/1"
+# The blocks of the IECross players' own passives.
+
+# Axel Blaze (Cross): Crossed Flame
+[[VRFW.Trait]]
+name = "iecross_trait_fire"
+elements = ["fire"]
+
+[[VRFW.Count]]
+name = "iecross_count_fire_team_max3"
+trait = "iecross_trait_fire"
+side = "team"
+max = 3
+others = true
+
+[[VRFW.TechniquePower]]
+name = "iecross_techniquepower_self_shoot_4"
+value = 4
+kinds = ["shoot"]
+target = "self"
+mode = "percent"
+
+[[VRFW.GamePassive]]
+name = "iecross_card_c90000170"
+passive = "own_c90000170"
+unlock = "always"
+
+# David Samford (Pumpkin Devil): Trick or Treat
+[[VRFW.Trigger]]
+name = "iecross_when_duel_won_by_self"
+on = "match:duel_won"
+by = "self"
+
+[[VRFW.Stack]]
+name = "iecross_stack_max3_per_half"
+max = 3
+per_half = true
+
+[[VRFW.Tension]]
+name = "iecross_tension_minus2_carrier_opponent"
+units = -2
+team = "carrier_opponent"
+
+[[VRFW.GamePassive]]
+name = "iecross_card_c90000180"
+passive = "own_c90000180"
+unlock = "always"
+
+# Nathan Swift (Pumpkin Devil): Midnight Shadow
+[[VRFW.Clock]]
+name = "iecross_clock_last_third"
+half_fraction_from = "2/3"
+
+[[VRFW.MoveSpeed]]
+name = "iecross_movespeed_self_6"
+percent = 6
+target = "self"
+
+[[VRFW.GamePassive]]
+name = "iecross_card_c90000190"
+passive = "own_c90000190"
+unlock = "always"
+
+# Celia Hills: Live Report
+[[VRFW.Trigger]]
+name = "iecross_when_block_won_by_teammate"
+on = "match:block_won"
+by = "teammate"
+
+[[VRFW.Tension]]
+name = "iecross_tension_2_carrier"
+units = 2
+team = "carrier"
+
+[[VRFW.GamePassive]]
+name = "iecross_card_c90000071"
+passive = "own_c90000071"
+unlock = "always"
+
+# Axel Blaze (Royal Academy): Inferno Penguin
+[[VRFW.MoveFamily]]
+name = "iecross_family_penguin"
+families = ["HissatsuReforged.Penguin"]
+
+[[VRFW.Trait]]
+name = "iecross_trait_royal_academy"
+team_groups = ["CharacterReforged.royal_academy"]
+
+[[VRFW.TechniquePower]]
+name = "iecross_techniquepower_team_6_royal_academy"
+value = 6
+target = "team"
+trait = "iecross_trait_royal_academy"
+mode = "percent"
+
+[[VRFW.GamePassive]]
+name = "iecross_card_c90000130"
+passive = "own_c90000130"
+unlock = "always"
+
+# Byron Love (Zeus): Heaven's Time
+[[VRFW.Half]]
+name = "iecross_half_2"
+halves = [2]
+
+[[VRFW.MoveSpeed]]
+name = "iecross_movespeed_opponents_minus3"
+percent = -3
+target = "opponents"
+
+[[VRFW.GamePassive]]
+name = "iecross_card_c90000120"
+passive = "own_c90000120"
+unlock = "always"
+
+# Gazelle: Fire Blizzard
+[[VRFW.Trait]]
+name = "iecross_trait_alius_prominence"
+team_groups = ["CharacterReforged.alius_prominence"]
+
+[[VRFW.Present]]
+name = "iecross_present_alius_prominence_team"
+trait = "iecross_trait_alius_prominence"
+side = "team"
+min = 1
+others = true
+
+[[VRFW.TechniquePower]]
+name = "iecross_techniquepower_self_shoot_6"
+value = 6
+kinds = ["shoot"]
+target = "self"
+mode = "percent"
+
+[[VRFW.GamePassive]]
+name = "iecross_card_c91022030"
+passive = "own_c91022030"
+unlock = "always"
+
+# Torch: Frozen Flame
+[[VRFW.Trait]]
+name = "iecross_trait_alius_diamond_dust"
+team_groups = ["CharacterReforged.alius_diamond_dust"]
+
+[[VRFW.Present]]
+name = "iecross_present_alius_diamond_dust_team"
+trait = "iecross_trait_alius_diamond_dust"
+side = "team"
+min = 1
+others = true
+
+[[VRFW.TensionCost]]
+name = "iecross_tensioncost_self_minus6"
+percent = -6
+target = "self"
+
+[[VRFW.GamePassive]]
+name = "iecross_card_c91022031"
+passive = "own_c91022031"
+unlock = "always"
+
+# Shawn Froste (Pirates' Cove): Attacking Aurora
+[[VRFW.Zone]]
+name = "iecross_zone_opponent_half"
+z = [0.0, 200.0]
+frame = "team"
+
+[[VRFW.TechniquePower]]
+name = "iecross_techniquepower_self_dribble_6"
+value = 6
+kinds = ["dribble"]
+target = "self"
+mode = "percent"
+
+[[VRFW.GamePassive]]
+name = "iecross_card_c90000050"
+passive = "own_c90000050"
+unlock = "always"
+
+# Xavier Foster (Pirates' Cove): The Dawn
+[[VRFW.Clock]]
+name = "iecross_clock_first_third"
+half_fraction_to = "1/3"
+
+[[VRFW.TensionGain]]
+name = "iecross_tensiongain_team_3"
+percent = 3
+target = "team"
+
+[[VRFW.GamePassive]]
+name = "iecross_card_c90000040"
+passive = "own_c90000040"
+unlock = "always"

@@ -1,8 +1,8 @@
 BetterUI = type(BetterUI) == "table" and BetterUI or {}
 do
   local BB_TITLE = {
-    HEADER = 575058101,                         -- mainmenu90_01_header
-    TITLE = 1220590795,
+    HEADER = @crc:mainmenu90_01_header@,                         -- mainmenu90_01_header
+    TITLE = @crc:_text_sub_title02@,
     CMD_TEXT = @crc:CMND_SET_MENU_TEXT_STRING@, -- (layer, text, string, idx)
   }
 

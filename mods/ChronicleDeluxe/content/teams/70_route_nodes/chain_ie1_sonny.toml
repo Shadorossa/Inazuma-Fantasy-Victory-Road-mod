@@ -31,6 +31,7 @@ TemplateGame = "fbtl_cro01_120_010"
 Difficulty = 4
 RivalStats = "normal"
 Rules = "chronicle_deluxe_chain"
+FreeMatchTab = "chain"                 # its beaten teams in the free match tab «Cadena»
   [VRFW.Chain.Title]
   es = "Ruta prémium de Sonny"
   en = "Sonny's Premium Route"

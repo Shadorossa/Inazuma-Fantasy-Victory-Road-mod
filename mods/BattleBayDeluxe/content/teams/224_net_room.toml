@@ -1,0 +1,38 @@
+# The two room teams of «Sala privada»: on both PCs side 0 plays the host's team payload and side 1 the guest's
+# (the script net_match.lua writes each payload onto these rows before the match); no grid row, placeholders as the Active team tile.
+schema = "VRFW.team/2"
+
+[[team]]
+name = "net_side_0"
+key = "battlebaydeluxe_net_side_0"
+description = "battlebaydeluxe_personal_team_description"
+level = 40
+emblem = 0xCFC49988
+same_as = ["bb_01_team_raimon"]
+roster = "exact"
+members_of = "active_team"
+name_text = "battlebaydeluxe_personal_team_name"
+formation = 0x94116F1A
+kit = 0x252CE113
+tactics = [0x43D8B1AC, 0x71EED32E, 0x921A0AE5]
+skills = []
+stadium = 0x22E965A5
+stadium_image = "ev_chronicle_img/ev_bb_s10g001_01.g4tx"
+
+[[team]]
+name = "net_side_1"
+key = "battlebaydeluxe_net_side_1"
+description = "battlebaydeluxe_personal_team_description"
+level = 40
+emblem = 0xCFC49988
+same_as = ["bb_01_team_raimon"]
+roster = "exact"
+members_of = "active_team"
+name_text = "battlebaydeluxe_personal_team_name"
+formation = 0x94116F1A
+kit = 0x252CE113
+tactics = [0x43D8B1AC, 0x71EED32E, 0x921A0AE5]
+skills = []
+stadium = 0x22E965A5
+stadium_image = "ev_chronicle_img/ev_bb_s10g001_01.g4tx"
+

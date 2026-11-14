@@ -2,10 +2,11 @@ id = "MissingContent"
 # name / description: English fallback; the Mods screen shows text keys mod_name / mod_description (text\keys.toml)
 name = "Missing Content"
 icon = "#/menu/200_icon/16_icon_list_tab/icon_list_tab.g4tx:icon_list_tab_present01"
-version = "0.3.0"
+version = "0.3.1"
 author = "Fantasy Team"
-description = "Content the game ships without or never uses: lost keeper scenes and duel cut-ins, Chrono Stone end poses, Japanese call-outs from GO Strikers 2013 for silent special moves, and the Nintendo DS openings of Inazuma Eleven 1, 2 and 3 and the menu music of 2 and 3. Japanese technique voices from Voice Plus (Voci Editor) by Andrea Calvaruso — ko-fi.com/andreacalvaruso."
+description = "Content the game ships without or never uses: lost keeper scenes, the effortless one-hand save, the hand-off scenes of the override chains and duel cut-ins, Chrono Stone end poses, 3DS supertactics, goal celebrations from GO Strikers 2013 and Chrono Stone, Harper's scarf, Japanese call-outs for silent special moves, and the Nintendo DS openings of Inazuma Eleven 1, 2 and 3 and the menu music of 2 and 3. Japanese technique voices from Voice Plus (Voci Editor) by Andrea Calvaruso — ko-fi.com/andreacalvaruso."
 priority = 0
+type = "media"
 tags = ["Visual", "Audio"]
 updated = "2026-11-09"
 # Own names: TOML keys [MissingContent.X], entity and text keys MissingContent.X; never VRFW.

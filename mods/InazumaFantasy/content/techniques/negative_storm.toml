@@ -1,4 +1,6 @@
 schema = "VRFW.technique/3"
+# Tormenta oscura (Dark Storm): the download's move whs90007, a clone of whs02140 with its numbers; its event ev60_90007 is the download's
+# (assets\event\, assets\event_cfg\). research/mods/InazumaFantasy/_tools/fantasy_hissatsu_build.py.
 
 [[technique]]
 name = "negative_storm"
@@ -11,29 +13,29 @@ power_max = 540
 tp = 80
 color = 3
   [technique.text.es]
-  name = "Tormenta negativa"
+  name = "Tormenta oscura"
   description = "Desata una tormenta de viento negro\nque arrastra el balón a la portería."
   [technique.text.en]
-  name = "Negative Storm"
+  name = "Dark Storm"
   description = "Unleashes a storm of black wind\nthat drags the ball into the goal."
   [technique.text.fr]
-  name = "Tempête négative"
+  name = "Tempête sombre"
   description = "Déchaîne une tempête de vent noir\nqui emporte le ballon au but."
   [technique.text.de]
-  name = "Negativsturm"
+  name = "Dunkler Sturm"
   description = "Entfesselt einen Sturm aus schwarzem Wind,\nder den Ball ins Tor reißt."
   [technique.text.it]
-  name = "Tempesta negativa"
+  name = "Tempesta oscura"
   description = "Scatena una tempesta di vento nero\nche trascina la palla in porta."
   [technique.text.pt]
-  name = "Tempestade negativa"
+  name = "Tempestade escura"
   description = "Desata uma tempestade de vento negro\nque arrasta a bola para a baliza."
   [technique.text.ja]
-  name = "ネガティブストーム"
+  name = "ダークストーム"
   description = "黒い風の嵐を巻き起こし\nボールをゴールへ運ぶ！"
   [technique.text.zh_hans]
-  name = "负能风暴"
+  name = "暗黑风暴"
   description = "掀起黑色狂风，\n把足球卷进球门。"
   [technique.text.zh_hant]
-  name = "負能風暴"
+  name = "暗黑風暴"
   description = "掀起黑色狂風，\n把足球捲進球門。"

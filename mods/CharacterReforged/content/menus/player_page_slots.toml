@@ -1,0 +1,11 @@
+schema = "VRFW.menu/2"
+
+[[entry]]
+host = "CharacterReforged.page_luck_bonus"
+id = "equipment_luck"
+action = { command = "CMND_CHARACTERREFORGED_EQUIPMENT_LUCK" }   # (charaStHdl) -> the worn classic items' Suerte
+
+[[entry]]
+host = "CharacterReforged.page_stat_bonus"
+id = "equipment_stat_bonus"
+action = { command = "CMND_CHARACTERREFORGED_EQUIPMENT_STAT_BONUS" }   # (charaStHdl, item, slot) -> the 8 affinity and set points

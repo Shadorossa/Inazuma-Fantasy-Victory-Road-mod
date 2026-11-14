@@ -31,6 +31,9 @@ do
   B.TEXT_GET = 4074371074                            -- CMND_TEXT_GET (text id)
   B.REFUSED = {none = 1158902640, known = 555889516}
   B.REFUSAL = 3947752921
+  B.PAIR_OF = 2408066170                             -- CMND_CHARACTERREFORGED_CREATE_PAIR_OF (card) -> base, partner, glyph, preview
+  -- Rules of the pair panel the window draws: the confirmation (cards, move and stats) or the stored pair alone.
+  B.PANEL = {confirmation = 1, pair_only = 2}
   -- the partner refusals that are not a check code (scripts\lib\create.lua names their texts)
   B.REASON = {no_learned_move = -5, only_grey = -6, in_use = -7, no_move_for_base = -8, himself = -9, other = -10, in_team = -11}
   B.BANK = 1981996040                                -- chara_bank_menu_for_search
@@ -242,8 +245,13 @@ do
     local text = B.text(reason_id, type(reason_text) == "string" and reason_text or "")
     B.log("partner press refused", "card", hdl, "code", code, text)
     funcLuaCommand(B.SOUND, B.SE_REFUSED)
+    -- Every refusal of a card that is in a stored pair shows that pair above the text.
+    local base = B.used_pair_cards(hdl)
     B.co = coroutine.create(function()
-      B.message(text, false)
+      B.message(text, false, base)
+      if base ~= nil then
+        B.pair_cards_clear()
+      end
     end)
   end
 
@@ -454,18 +462,19 @@ do
     VRFW.param.set(key, value)
   end
 
-  function B.base_stat(i)
-    local ok, v = pcall(funcLuaCommand, B.CHARA_STAT, B.base, i)
+  function B.base_stat(i, base)
+    local ok, v = pcall(funcLuaCommand, B.CHARA_STAT, base or B.base, i)
     v = ok and tonumber(v) or 0
     return v > 0 and v or 0
   end
 
-  -- Returns what the pair adds with `move`.
-  function B.pair_preview(partner, move)
-    if B.preview == 0 then
+  -- Returns what the pair adds with `move` (base and preview command default to the bank's base and its system's).
+  function B.pair_preview(partner, move, base, preview)
+    base, preview = base or B.base, preview or B.preview
+    if preview == 0 then
       return nil
     end
-    local r = {pcall(funcLuaCommand, B.preview, B.base, partner, move or 0)}
+    local r = {pcall(funcLuaCommand, preview, base, partner, move or 0)}
     if not (r[1] and r[2] == true and type(r[3]) == "number") then
       B.log("preview", "partner", partner, "move", move or 0, "no answer")
       return nil
@@ -480,25 +489,42 @@ do
     return p
   end
 
-  -- Sets the confirmation panel keys.
-  function B.pair_cards(partner, picked)
+  -- Sets the pair panel keys for panel rule `panel` (B.PANEL), the pair `base` + `partner`, its move, glyph and preview.
+  function B.pair_keys(panel, base, partner, move, icon, p)
     local K = B.PAIR
-    local move = picked ~= nil and picked[1] or 0
-    local p = B.pair_preview(partner, move)
-    B.param(K.BASE, B.base)
+    B.param(K.BASE, base)
     B.param(K.PARTNER, partner)
     B.param(K.MOVE, move or 0)
-    B.param(K.ICON, B.confirm_icon or 0)
+    B.param(K.ICON, icon or 0)
     B.param(K.KIND, p ~= nil and (p.ideal and 2 or 1) or 0)
     B.param(K.MASK, p ~= nil and p.mask or 0)
     for i = 0, B.STAT_COUNT - 1 do
-      B.param(K.S[i], p ~= nil and B.base_stat(i) or 0)
+      B.param(K.S[i], p ~= nil and B.base_stat(i, base) or 0)
       B.param(K.G[i], p ~= nil and p.g[i] or 0)
     end
     B.param(K.PE_S, p ~= nil and p.pe_s or 0)
     B.param(K.PE_G, p ~= nil and p.pe_g or 0)
     B.param(K.PE_F, p ~= nil and p.pe_f or 0)
-    B.param(K.N, 1)
+    B.param(K.N, panel)
+  end
+
+  -- Sets the confirmation panel keys.
+  function B.pair_cards(partner, picked)
+    local move = picked ~= nil and picked[1] or 0
+    B.pair_keys(B.PANEL.confirmation, B.base, partner, move, B.confirm_icon, B.pair_preview(partner, move))
+  end
+
+  -- Sets the panel keys of the stored pair card `hdl` is in; returns that pair's base (nil = no stored pair).
+  function B.used_pair_cards(hdl)
+    local ok, base, partner, icon, preview = pcall(funcLuaCommand, B.PAIR_OF, hdl)
+    if not ok or type(base) ~= "number" or base == 0 or type(partner) ~= "number" or partner == 0 then
+      B.log("refused card in no stored pair", "card", hdl)
+      return nil
+    end
+    local p = B.pair_preview(partner, 0, base, type(preview) == "number" and preview or 0)
+    B.pair_keys(B.PANEL.pair_only, base, partner, 0, type(icon) == "number" and icon or 0, p)
+    B.log("stored pair shown", "card", hdl, "base", base, "partner", partner)
+    return base
   end
 
   -- Clears the keys the window did not take (its hook is missing).

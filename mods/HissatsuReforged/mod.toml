@@ -3,10 +3,11 @@ name = "Hissatsu Reforged"
 icon = "#/menu/200_icon/16_icon_list_tab/icon_list_tab.g4tx:icon_list_tab_sp_area01"
 prefix = "HissatsuReforged"
 folder = "HissatsuReforged"
-version = "0.3.0"
+version = "0.3.1"
 author = "Fantasy Team"
 description = "Rebalances 683 special moves with new power, tension cost and recast time. Moves with two properties show both icons in every list, and special moves can now land critical hits. Each move also levels up with the times a player uses it in matches, and a banner says when it levels up. The last level needs the Ultimate Evolution Manual from the general shop, and a player can no longer carry the same special move twice."
 priority = 0
+type = "gameplay"
 tags = ["Gameplay", "Techniques"]
 updated = "2026-11-09"
 requires = ["VRFW>=0.3.0"]

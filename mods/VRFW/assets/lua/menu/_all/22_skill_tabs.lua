@@ -26,11 +26,12 @@ if VRFW.skill_tabs == nil then
   }
 
   local logger
-  --- Logs through the skill-tabs logger, at most 20 lines.
+  --- Internal: Logs through the skill-tabs logger, at most 20 lines.
   function ST.log(...)
     if ST.logs >= 20 then
       return
     end
+    --- Internal: count of log lines written by the skill tabs.
     ST.logs = ST.logs + 1
     logger = logger or VRFW.logger.new("VRFW skill_tabs")
     logger(...)
@@ -43,7 +44,7 @@ if VRFW.skill_tabs == nil then
     return default
   end
 
-  --- The engine's skill tabs, or nil when it has none.
+  --- Internal: The engine's skill tabs, or nil when it has none.
   function ST.native_tabs()
     local r = table.pack(pcall(funcLuaCommand, ST.CMD_TABS))
     if not r[1] or type(r[2]) ~= "number" or r[2] <= 0 then
@@ -64,7 +65,7 @@ if VRFW.skill_tabs == nil then
     return out
   end
 
-  --- Rebuild the screen's three tab tables in place (the functions of the script hold them as upvalues).
+  --- Internal: Rebuild the screen's three tab tables in place (the functions of the script hold them as upvalues).
   function ST.apply(t, t4, t5)
     if ST.on or type(t) ~= "table" or type(t4) ~= "table" or type(t5) ~= "table" then
       return
@@ -115,11 +116,12 @@ if VRFW.skill_tabs == nil then
     ST.log("tabs", #nt, table.concat(shown, " "))
   end
 
-  --- Wraps the retail list-view icons for the skill tabs, once.
+  --- Internal: Wraps the retail list-view icons for the skill tabs, once.
   function ST.wrap()
     if ST.wrapped or type(LISTVIEW) ~= "table" then
       return
     end
+    --- Internal: true once LISTVIEW.SetupTabIcon is wrapped for the skill tabs.
     ST.wrapped = true
     local setup_icon = LISTVIEW.SetupTabIcon
     if type(setup_icon) == "function" then
@@ -163,7 +165,7 @@ if VRFW.skill_tabs == nil then
     end
   end
 
-  --- Hides a spare tab instance of the skill bar; answers true when it did.
+  --- Internal: Hides a spare tab instance of the skill bar; answers true when it did.
   function ST.hide_spare(layer, instance)
     if not ST.on or (layer ~= ST.TAB_ITEM and layer ~= ST.TAB_NEW) or type(instance) ~= "number"
         or instance < ST.count then
@@ -177,7 +179,7 @@ if VRFW.skill_tabs == nil then
     return true
   end
 
-  --- Installs the skill tabs on menu `stem` through VRFW.host.
+  --- Internal: Installs the skill tabs on menu `stem` through VRFW.host.
   function ST.attach(stem)
     if VRFW.host == nil then
       return
@@ -223,5 +225,6 @@ if VRFW.skill_tabs == nil then
     })
   end
 
+  --- Internal: Namespace of the skill tabs: extra tab icons and labels added to the skill list views.
   VRFW.skill_tabs = ST
 end

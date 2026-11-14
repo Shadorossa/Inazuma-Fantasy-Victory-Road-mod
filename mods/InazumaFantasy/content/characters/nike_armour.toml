@@ -1,5 +1,5 @@
 schema = "VRFW.character/2"
-# The armed form of the keshin Niké (k002060), head and back pieces as extra meshes over the team kit.
+# The armed form of the keshin Niké (k002060), every body group through its look rows.
 default_lang = "en"
 
 [[character]]
@@ -8,18 +8,17 @@ based_on = "c11600010"
 battle = false
 
   [character.base]
-  id = 0x627F871D
-  name = "evt_knik01"
+  id = 0xFB76D6A7
+  name = "evt_knik02"
 
   [character.new_model]
   id = 0xB4C541E9
   from = "c11600010"
   [character.new_model.cells]
-  clothes = 0
+  clothes = 0xE0CE6C2D                                     # knik02
   shoes = 0
   gloves = 0
-  force_kit = 0
-  exmesh_1 = 0x79C73D97                                    # knik01
+  force_kit = 1
 
   [[character.cards]]
   id = 0x404B71CE

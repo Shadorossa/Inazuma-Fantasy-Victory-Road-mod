@@ -234,8 +234,10 @@ local function begin(why)
   t.excluded = S.exclusion(typ, half, t.user, is_reserved(slot))
   -- the rival team: the team of the match's game row at its difficulty (0 when the game has none)
   local game, diff = read_memory("u32", mi + P.info_game), read_memory("u8", mi + P.info_difficulty)
+  VRFW.time.mark_step("career begin: match info")
   local ok_team, team = pcall(VRFW.table_files.team, game, diff)
   t.rival = (ok_team and type(team) == "number") and team or 0
+  VRFW.time.mark_step("career begin: rival team")
   local pd = game_global("play_data")
   local play_mode = (pd and read_memory("u8", pd + P.play_mode)) or 0xFF
   t.mode = S.mode_index(play_mode)
@@ -378,8 +380,11 @@ local function tick()
   end
   poll_owner()
   if t.ticks <= 3 or t.ticks % PITCH_EVERY == 0 then
+    VRFW.time.mark_step("career tick: goals and owner")
     sample_pitch()
+    VRFW.time.mark_step("career tick: pitch")
     sample_records()
+    VRFW.time.mark_step("career tick: records")
   end
   return result_state()
 end
@@ -703,5 +708,8 @@ function BetterQoL.Career.ClubRow(i)
   local s = r.s
   return r.base, r.name, s.matches, s.wins, s.draws, s.losses, s.goals, s.assists, s.mvp, s.signed
 end
+
+-- the game rows of soccer_game_info are read once at the script load (off the game thread), so a kick-off only looks one up
+pcall(VRFW.table_files.team, 0, 0)
 
 info("active; store blob " .. S.BLOB .. " per slot")

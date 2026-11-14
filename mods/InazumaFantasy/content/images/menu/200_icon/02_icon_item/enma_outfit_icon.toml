@@ -1,0 +1,13 @@
+# The icon of Lord Enma's outfit: his clothes on the shop's white mannequin, rendered from the outfit model like the other
+# outfit icons, in its own icon atlas (content/sprite_redirects/enma_outfit_icon.toml).
+schema = "VRFW.image/1"
+
+[[recipe]]
+name = "cos_if_enma_outfit"
+png = "enma_outfit_icon.png"
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_enma_outfit_icon.g4tx"
+name = "cos_if_enma_outfit"
+recipe = "cos_if_enma_outfit"
+size = [256, 256]

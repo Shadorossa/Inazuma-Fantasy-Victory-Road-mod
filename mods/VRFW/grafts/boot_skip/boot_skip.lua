@@ -2,7 +2,7 @@
 
 VRFW.boot_skip = VRFW.boot_skip or {}
 VRFW.boot_skip.OPTION_GET = @crc:CMND_VRFW_OPTION_GET@
-VRFW.boot_skip.KEY = "mods_menu.skip_boot_screens"
+VRFW.boot_skip.KEY = "mods_menu.boot_screens"
 
 function VRFW.boot_skip.on(override)
   if override ~= nil then
@@ -10,7 +10,7 @@ function VRFW.boot_skip.on(override)
   end
   local ok, v = pcall(funcLuaCommand, VRFW.boot_skip.OPTION_GET, VRFW.boot_skip.KEY)
   if ok and type(v) == "number" then
-    return v ~= 0, "option"
+    return v == 0, "option"
   end
   return true, "default"
 end

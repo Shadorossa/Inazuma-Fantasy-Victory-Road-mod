@@ -2,6 +2,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.game_modes/1"
 folder = "content/game_modes"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Framework.GameMode"
+v2_kind_folder = "Framework/GameModes"
+v2_version = 1
 label = "Game modes"
 label_es = "Modos de juego"
 

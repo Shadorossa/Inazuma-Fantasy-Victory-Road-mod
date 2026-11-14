@@ -1,0 +1,10 @@
+schema = "VRFW.technique_filter_tab/1"
+
+# The move filter window gets a Mods tab: one row for the game's techniques and one per mod that adds techniques.
+[[VRFW.TechniqueFilterTab]]
+name = "mods"
+rows = "mods"
+text = "BetterQoL.filter_tab_mods"
+base_text = "BetterQoL.filter_row_base_game"
+icon = "icon_list_tab_activity04"
+symbol = "filter_symbol06"

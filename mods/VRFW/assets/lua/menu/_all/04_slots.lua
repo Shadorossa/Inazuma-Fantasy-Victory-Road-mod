@@ -1,3 +1,4 @@
+--- Advanced: Namespace of the slot helpers shared by menu screens.
 VRFW.slots = VRFW.slots or {}
 do
   local S = VRFW.slots
@@ -44,7 +45,7 @@ do
     VRFW.host.command(C.LOG, "save_slots", ...)
   end
 
-  --- Slot-screen text `key` for slot k; "" when unknown.
+  --- Advanced: Slot-screen text `key` for slot k; "" when unknown.
   function S.text(key, k)
     local t = TXT[key]
     if t == nil then
@@ -60,13 +61,13 @@ do
     return s
   end
 
-  --- True when the framework's save slots are active.
+  --- Advanced: True when the framework's save slots are active.
   function S.available()
     local api, mods = VRFW.host.command(C.VERSION)
     return type(api) == "number" and api >= 1 and type(mods) == "number" and math.floor(mods / 2) % 2 == 1
   end
 
-  --- Whether slot k is a player slot, then the locked slot number.
+  --- Advanced: Whether slot k is a player slot, then the locked slot number.
   function S.layout(k)
     local t = table.pack(VRFW.host.command(C.LAYOUT))
     if type(t[1]) ~= "number" or t[1] < 1 then
@@ -81,7 +82,7 @@ do
     return player, type(t[2]) == "number" and math.floor(t[2]) or LOCKED_SLOT
   end
 
-  --- The mod reserving slot k: owner, enterable, root menu; nil, false, nil when it is not reserved.
+  --- Advanced: The mod reserving slot k: owner, enterable, root menu; nil, false, nil when it is not reserved.
   function S.reserved(k)
     local r, owner, enterable, root = VRFW.host.command(C.RESERVED, k)
     if r ~= true or type(owner) ~= "string" or owner == "" then
@@ -136,7 +137,7 @@ do
     end
   end
 
-  --- Loads slot k and restarts into its save; answers false, why when it cannot.
+  --- Advanced: Loads slot k and restarts into its save; answers false, why when it cannot.
   function S.load(k, spec)
     spec = spec or {}
     local log = type(spec.log) == "function" and spec.log or Log
@@ -207,7 +208,7 @@ do
     Forever()
   end
 
-  --- True when the active slot is the locked slot, or no slot is active.
+  --- Internal: True when the active slot is the locked slot, or no slot is active.
   function S.on_locked()
     local active = VRFW.host.command(C.ACTIVE)
     if type(active) ~= "number" then
@@ -217,7 +218,7 @@ do
     return active < 1 or active == locked
   end
 
-  --- Fades out and returns to the title screen.
+  --- Internal: Fades out and returns to the title screen.
   function S.to_title(close_menu, log)
     log = type(log) == "function" and log or Log
     FadeOut()
@@ -252,7 +253,7 @@ do
     log("ERROR locked slot: no writable slot could be entered; the title stays on the locked slot and nothing it writes is kept")
   end
 
-  --- With the locked slot active at the title: leaves it when there is no avatar, otherwise cancels a pending press-start skip.
+  --- Internal: With the locked slot active at the title: leaves it when there is no avatar, otherwise cancels a pending press-start skip.
   function S.title_guard(log)
     log = type(log) == "function" and log or Log
     if not S.available() or not S.on_locked() then
@@ -267,7 +268,7 @@ do
     end
   end
 
-  --- Opens the slot screen; answers "same", "cancel", the result of S.load, or false, why.
+  --- Advanced: Opens the slot screen; answers "same", "cancel", the result of S.load, or false, why.
   function S.screen(spec)
     spec = spec or {}
     local log = type(spec.log) == "function" and spec.log or Log
@@ -310,7 +311,7 @@ do
     return S.load(r, { log = log })
   end
 
-  --- Restarts straight into the root menu of the active slot's owner; nil when no slot is active.
+  --- Advanced: Restarts straight into the root menu of the active slot's owner; nil when no slot is active.
   function S.forward(log)
     log = type(log) == "function" and log or Log
     local active = VRFW.host.command(C.ACTIVE)

@@ -13,6 +13,8 @@ notes = [
     "Miximax y armaduras para todos",
     "Modo cambio propio",
     "Keshin invocados por varios jugadores",
+    "Pasiva propia y sinergias revisadas",
+    "Equipamiento unificado y conjuntos",
 ]
 
 [release.en]
@@ -27,6 +29,8 @@ notes = [
     "Miximax and armours for everyone",
     "Own change mode",
     "Keshin summoned by several players",
+    "Own passives and reworked synergies",
+    "Unified equipment and sets",
 ]
 
 [release.fr]
@@ -41,6 +45,8 @@ notes = [
     "Miximax et armures pour tous",
     "Mode Change propre",
     "Keshin invoqués à plusieurs",
+    "Passifs propres et synergies revues",
+    "Équipement unifié et ensembles",
 ]
 
 [release.de]
@@ -55,6 +61,8 @@ notes = [
     "Miximax und Rüstungen für alle",
     "Eigener Wechselmodus",
     "Keshin von mehreren Spielern",
+    "Eigene Passive und neue Synergien",
+    "Einheitliche Ausrüstung und Sets",
 ]
 
 [release.it]
@@ -69,6 +77,8 @@ notes = [
     "Miximax e armature per tutti",
     "Modalità cambio propria",
     "Keshin evocati da più giocatori",
+    "Passive proprie e sinergie riviste",
+    "Equipaggiamento unificato e set",
 ]
 
 [release.pt]
@@ -83,6 +93,8 @@ notes = [
     "Miximax e armaduras para todos",
     "Modo de troca próprio",
     "Keshin invocados por vários jogadores",
+    "Passivas próprias e sinergias revistas",
+    "Equipamento unificado e conjuntos",
 ]
 
 [release.ja]
@@ -97,6 +109,8 @@ notes = [
     "全員にミキシマックスとアームド",
     "独自のチェンジモード",
     "複数人で呼び出す化身",
+    "固有パッシブとシナジー刷新",
+    "装備の統一とセット",
 ]
 
 [release.zh_hans]
@@ -111,6 +125,8 @@ notes = [
     "人人可用的融合与武装",
     "专属换装模式",
     "多名球员合力召唤化身",
+    "专属被动与重做羁绊",
+    "统一装备与套装",
 ]
 
 [release.zh_hant]
@@ -125,4 +141,6 @@ notes = [
     "人人可用的融合與武裝",
     "專屬換裝模式",
     "多名球員合力召喚化身",
+    "專屬被動與重做羈絆",
+    "統一裝備與套裝",
 ]

@@ -1,0 +1,39 @@
+schema = "VRFW.item/2"
+default_lang = "en"
+
+# Yasha Enma's own clothes sold as an outfit: built on the retail c000301 skeleton, so the players of that body group wear it.
+
+[[VRFW.Outfit]]
+Name = "yasha_enma_outfit"
+Kit = { Uniform = "0x44676621" }  # crc32("inazumafantasy_uni_yasha_enma_outfit"), content/looks/yasha_enma.toml
+IconKey = "cos_if_yasha_enma_outfit"
+Who = { Body = [4] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Ropa de Yasha Enma"
+  Description = "La ropa de Yasha Enma.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Yasha Enma's outfit"
+  Description = "Yasha Enma's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Yasha Enma"
+  Description = "Les vêtements de Yasha Enma.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Yasha Enma"
+  Description = "Die Kleidung von Yasha Enma.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Yasha Enma"
+  Description = "Gli abiti di Yasha Enma.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Yasha Enma"
+  Description = "A roupa de Yasha Enma.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "[夜叉/やしゃ]エンマの[衣装/いしょう]"
+  Description = "[夜叉/やしゃ]エンマの[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "Yasha Enma的服装"
+  Description = "Yasha Enma的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "Yasha Enma的服裝"
+  Description = "Yasha Enma的衣服。\n只有體型相同的球員可以穿。"

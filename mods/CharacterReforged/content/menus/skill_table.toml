@@ -128,7 +128,7 @@ layout = [
     { file = "common/menu/102_team/team13/character_reforged_role_medal_slot/character_reforged_role_medal_slot.g4pkm", joint = "_pos_atc_cur01", parent = "_pos_base01", translate = [-56.0, 0.0, 0.0] },
 ]
 
-# vrfw_skill_slot_menu (ss2_build.py): 61 layers; base equip_menu
+# vrfw_skill_slot_menu (ss2_build.py): 63 layers; base equip_menu
 [[screen]]
 name = "vrfw_skill_slot_menu"
 like = "network_room_match_offer"
@@ -154,10 +154,10 @@ layer = [
     { layer = "mainmenu01_08_chara_3d_shadow" },
     { layer = "cmn03_07_cmn_button_equip", object = "character_reforged_cmn03_07_btn_sets" },
     { layer = "character_reforged_cmn03_07_btn_ss", object = "character_reforged_cmn03_07_btn_ss", align = [1, 8], scale = 0.20000000298023224 },
-    { layer = "cr_cmn03_07_btn_icon", object = "cr_cmn03_07_btn_icon", align = [1, 8], scale = 0.20000000298023224 },
+    { layer = "cr_cmn03_07_btn_icon", object = "cr_cmn03_07_btn_icon", count = 7, align = [1, 8], scale = 0.20000000298023224 },  # 0 the element cell (or the idol button), 1 the idol button beside the cell, 2-6 the element row (character_reforged_element_cell.lua)
     { layer = "cmn02_01_blackbg", from = "bb_stadium_campaign_end_window", count = 4, align = [1, 8], scale = 0.20000000298023224 },
     { layer = "character_reforged_passive_panel", object = "character_reforged_passive_panel", align = [1, 8], scale = 0.20000000298023224 },
-    { layer = "soccer11_20_formation_team_passive", from = "personal_plate_menu", object = "cr_soccer11_20_pvrow", count = 12, align = [1, 8] },
+    { layer = "soccer11_20_formation_team_passive", from = "personal_plate_menu", object = "cr_soccer11_20_pvrow", count = 19, align = [1, 8] },  # 9 panel rows + the icons of the save, custom passive, role and idol buttons + the icons of cr_cmn03_07_btn_icon 1-6
     { layer = "character_reforged_cmn03_07_role_opt", object = "character_reforged_cmn03_07_role_opt", align = [1, 8], scale = 0.20000000298023224 },
     { layer = "character_reforged_role_badge", object = "character_reforged_role_badge", count = 3, align = [1, 8], scale = 0.20000000298023224 },
     { layer = "character_reforged_ss_list", object = "character_reforged_pc_list", align = [1, 8], scale = 0.20000000298023224 },
@@ -177,6 +177,7 @@ layer = [
     { layer = "team00_30_aura_kizuna_trans_detail_info", from = "ability_learning_board_menu", object = "character_reforged_team00_30_aura_kizuna_trans_detail_info" },
     { layer = "team00_30_aura_awakening_power_detail_info", from = "ability_learning_board_menu", object = "character_reforged_team00_30_aura_awakening_power_detail_info" },
     { layer = "team00_30_aura_mode_change_detail_info", from = "ability_learning_board_menu", object = "character_reforged_team00_30_aura_mode_change_detail_info" },
+    { layer = "cr_ph_armour_tag", object = "cr_ph_armour_tag", align = [3, 8], scale = 0.20000000298023224 },
     { layer = "character_reforged_ss_aura2", object = "character_reforged_ss_aura2" },
     { layer = "cr_psp_base", object = "cr_psp_base" },
     { layer = "character_reforged_psp_move", object = "character_reforged_psp_move", count = 7, align = [3, 8], scale = 0.20000000298023224 },
@@ -192,6 +193,7 @@ layer = [
     { layer = "cr_trn_pebar", object = "cr_trn_pebar", align = [3, 8], scale = 0.20000000298023224 },
     { layer = "cr_trn_arrow", object = "soccer11_06_p1_formation_status_graph_param_num", count = 18, align = [3, 8], scale = 0.20000000298023224 },
     { layer = "character_reforged_ss_row_plate", object = "character_reforged_ss_row_plate", count = 7, align = [1, 8], scale = 0.20000000298023224 },
+    { layer = "character_reforged_ss_mix_lock", object = "character_reforged_ss_row_plate", count = 7, align = [1, 8], scale = 0.20000000298023224 },  # the mix half's lock of the Hiper row (instance 0)
     { layer = "character_reforged_cpk_list", object = "character_reforged_cpk_list", align = [1, 8], scale = 0.20000000298023224 },  # the combo partner picker's own list frame (step 76)
     { layer = "character_reforged_cpk_row", object = "character_reforged_cpk_row", count = 9, align = [1, 8], scale = 0.20000000298023224 },  # its rows (75 high, step 68, 9 visible)
     { layer = "character_reforged_cpk_arrow", object = "character_reforged_cpk_arrow", align = [1, 8], scale = 0.20000000298023224 },  # the picker list's scroll arrows (retail item list arrows)
@@ -322,6 +324,7 @@ group_base = [
     { layer = "team00_30_aura_kizuna_trans_detail_info", flags = [0, 0, 1, 0, 1, 0] },
     { layer = "team00_30_aura_awakening_power_detail_info", flags = [0, 0, 1, 0, 1, 0] },
     { layer = "team00_30_aura_mode_change_detail_info", flags = [0, 0, 1, 0, 1, 0] },
+    { layer = "cr_ph_armour_tag", flags = [0, 0, 1, 0, 1, 0] },
     { layer = "character_reforged_ss_aura2", flags = [0, 0, 1, 0, 1, 0] },
     { layer = "cr_psp_base", flags = [0, 0, 1, 0, 1, 0] },
     { layer = "character_reforged_psp_move", flags = [0, 0, 1, 0, 1, 0] },
@@ -337,6 +340,7 @@ group_base = [
     { layer = "cr_trn_pebar", flags = [0, 0, 1, 0, 1, 0] },
     { layer = "cr_trn_arrow", flags = [0, 0, 1, 0, 1, 0] },
     { layer = "character_reforged_ss_row_plate", flags = [0, 0, 1, 0, 1, 0] },
+    { layer = "character_reforged_ss_mix_lock", flags = [0, 0, 1, 0, 1, 0] },
     { layer = "character_reforged_cpk_list", flags = [0, 1, 1, 0, 1, 0] },
     { layer = "character_reforged_cpk_row", flags = [0, 1, 1, 0, 1, 0] },
     { layer = "character_reforged_cpk_arrow", flags = [0, 1, 1, 0, 1, 0] },
@@ -345,7 +349,7 @@ group_base = [
 ]
 group = [
     { group = "common", flags = [0, 0], slice = [0, 11] },
-    { group = "vrfw_skill_slot_menu", flags = [1, 0], slice = [11, 50] },
+    { group = "vrfw_skill_slot_menu", flags = [1, 0], slice = [11, 52] },
 ]
 focus_base = [
     [0x3A06AC3D, 0, 0],  # button
@@ -373,13 +377,13 @@ shift_base = [
     ["CMD_FCS_BACK", 0, 0x1E057607, 0],  # custom passive button, Left: the save button
     ["CMD_FCS_NEXT", -1, 0xBA28E6D3, 0],  # custom passive button, Right: cr_cmn03_07_btn_train
     ["CMD_FCS_MTX_UP", 0, 0xFD6BC152, -1],  # soccer11_08_equip_list_item
-    ["CMD_FCS_BACK", 0, 0xA2AB489E, 0],
-    ["CMD_FCS_NEXT", -1, 0x8F0C526F, 0],
+    ["CMD_FCS_BACK", 0, 0xBA28E6D3, 0],  # idol button, Left: Entrenar
+    ["CMD_FCS_NEXT", -1, 0x48CA5894, 0],  # idol button, Right: stays (last of the row)
     ["CMD_FCS_MTX_UP", 0, 0xFD6BC152, -1],  # soccer11_08_equip_list_item
     ["CMD_FCS_BACK", 0, 0xA2AB489E, 0],  # character_reforged_cmn03_07_btn_ss
     ["CMD_FCS_MTX_UP", 0, 0xFD6BC152, -1],  # soccer11_08_equip_list_item
     ["CMD_FCS_BACK", 0, 0xA2AB489E, 0],  # Entrenar, Left: the custom passive button
-    ["CMD_FCS_NEXT", -1, 0xBA28E6D3, 0],
+    ["CMD_FCS_NEXT", -1, 0x48CA5894, 0],  # Entrenar, Right: the idol button (enabled only for an idol card)
     ["CMD_FCS_MTX_UP", 0, 0xFD6BC152, -1],  # soccer11_08_equip_list_item
     ["CMD_FCS_NEXT", -1, 0xFD6BC152, 0],  # role medal slot, Down: the first row
     ["CMD_FCS_BACK", 0, 0x1E057607, -1],  # role medal slot, Up: the bottom buttons
@@ -728,11 +732,12 @@ set = [
 ]
 
 [[object]]
-# the list row of the skill table: instance i carries instance i of layer character_reforged_ss_row_plate on _pos_base01
+# the list row of the skill table: instance i carries instance i of layers character_reforged_ss_row_plate and character_reforged_ss_mix_lock on _pos_base01
 name = "character_reforged_ss_equip_row"
 from = "soccer11_08_equip_list_item"
 add = [
     { block = "CMenuAttachLocator", parameter = "NullLayerIndexName", values = [0x5A709C12, 0x5A709C12, 0x6FD1BC85], after = { parameter = "NullLayerName", match = { 1 = 0xC57F6A8E, 2 = 0x10D35175, 3 = 0x88DFC83C, 4 = 0 } } },
+    { block = "CMenuAttachLocator", parameter = "NullLayerIndexName", values = [0x5A709C12, 0x5A709C12, 0xFE0B89F4], after = { parameter = "NullLayerName", match = { 1 = 0xC57F6A8E, 2 = 0x10D35175, 3 = 0x88DFC83C, 4 = 0 } } },
 ]
 
 [[object]]
@@ -889,14 +894,29 @@ set = [
     { parameter = "NullLayerName", match = { 1 = 0x2D1E4A9D, 2 = 0x664BEBC8, 3 = 0xFD6BC152, 4 = 1 }, values = { 1 = 0x5B4F7AB9, 2 = 0x93CB4D08, 4 = 6 } },
 ]
 add = [
-    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0xEF1E91AE, 0x0E18A088, 0x48CA5894, 0], after = { parameter = "NullLayerName", match = { 1 = 0x3928F14D, 2 = 0x9711F132, 3 = 0x1E057607, 4 = 0 } } },
-    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x9819A138, 0x791F901E, 0xA2AB489E, 0], after = { parameter = "NullLayerName", match = { 1 = 0xEF1E91AE, 2 = 0x0E18A088, 3 = 0x48CA5894, 4 = 0 } } },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0xEF1E91AE, 0xE77B05BD, 0x48CA5894, 0], after = { parameter = "NullLayerName", match = { 1 = 0x3928F14D, 2 = 0x9711F132, 3 = 0x1E057607, 4 = 0 } } },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x9819A138, 0x791F901E, 0xA2AB489E, 0], after = { parameter = "NullLayerName", match = { 1 = 0xEF1E91AE, 2 = 0xE77B05BD, 3 = 0x48CA5894, 4 = 0 } } },
     { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0xB32E0154, 0x907C352B, 0xBA28E6D3, 0], after = { parameter = "NullLayerName", match = { 1 = 0x9819A138, 2 = 0x791F901E, 3 = 0xA2AB489E, 4 = 0 } } },
     { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x54C2A5AE, 0xFABC7D0B, 0x30616EF1, 10], after = { parameter = "NullLayerName", match = { 1 = 0xB32E0154, 2 = 0x907C352B, 3 = 0xBA28E6D3, 4 = 0 } } },
     { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x23C59538, 0x8DBB4D9D, 0x30616EF1, 9], after = { parameter = "NullLayerName", match = { 1 = 0x54C2A5AE, 2 = 0xFABC7D0B, 3 = 0x30616EF1, 4 = 10 } } },
     { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x067D349B, 0xE77B05BD, 0x8F0C526F, 0], after = { parameter = "NullLayerName", match = { 1 = 0x23C59538, 2 = 0x8DBB4D9D, 3 = 0x30616EF1, 4 = 9 } } },
     { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0xBDA1009B, 0x13DFD83E, 0x30616EF1, 11], after = { parameter = "NullLayerName", match = { 1 = 0x067D349B, 2 = 0xE77B05BD, 3 = 0x8F0C526F, 4 = 0 } } },
-    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0xCAD1ED49, 0x90FC723B, 0xEEA8A010, 0], after = { parameter = "NullLayerName", match = { 1 = 0xBDA1009B, 2 = 0x13DFD83E, 3 = 0x30616EF1, 4 = 11 } } },
+    # the idol button (cr_cmn03_07_btn_icon, above on _pos_btn_atc04) and its icon, row-layer instance 12 on _pos_btn_ico04
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0xAF6EC584, 0x13DFD83E, 0x30616EF1, 12], after = { parameter = "NullLayerName", match = { 1 = 0xBDA1009B, 2 = 0x13DFD83E, 3 = 0x30616EF1, 4 = 11 } } },
+    # cr_cmn03_07_btn_icon instances 1-6 and their icons 13-18 on the idol button's locators (the Lua moves them: element cell and row)
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0xE57D6075, 0xE77B05BD, 0x48CA5894, 1], after = { parameter = "NullLayerName", match = { 1 = 0xAF6EC584, 2 = 0x13DFD83E, 3 = 0x30616EF1, 4 = 12 } } },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x5EA15475, 0x13DFD83E, 0x30616EF1, 13], after = { parameter = "NullLayerName", match = { 1 = 0xE57D6075, 2 = 0xE77B05BD, 3 = 0x48CA5894, 4 = 1 } } },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x7C7431CF, 0xE77B05BD, 0x48CA5894, 2], after = { parameter = "NullLayerName", match = { 1 = 0x5EA15475, 2 = 0x13DFD83E, 3 = 0x30616EF1, 4 = 13 } } },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0xC7A805CF, 0x13DFD83E, 0x30616EF1, 14], after = { parameter = "NullLayerName", match = { 1 = 0x7C7431CF, 2 = 0xE77B05BD, 3 = 0x48CA5894, 4 = 2 } } },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x0B730159, 0xE77B05BD, 0x48CA5894, 3], after = { parameter = "NullLayerName", match = { 1 = 0xC7A805CF, 2 = 0x13DFD83E, 3 = 0x30616EF1, 4 = 14 } } },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0xB0AF3559, 0x13DFD83E, 0x30616EF1, 15], after = { parameter = "NullLayerName", match = { 1 = 0x0B730159, 2 = 0xE77B05BD, 3 = 0x48CA5894, 4 = 3 } } },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x951794FA, 0xE77B05BD, 0x48CA5894, 4], after = { parameter = "NullLayerName", match = { 1 = 0xB0AF3559, 2 = 0x13DFD83E, 3 = 0x30616EF1, 4 = 15 } } },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x2ECBA0FA, 0x13DFD83E, 0x30616EF1, 16], after = { parameter = "NullLayerName", match = { 1 = 0x951794FA, 2 = 0xE77B05BD, 3 = 0x48CA5894, 4 = 4 } } },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0xE210A46C, 0xE77B05BD, 0x48CA5894, 5], after = { parameter = "NullLayerName", match = { 1 = 0x2ECBA0FA, 2 = 0x13DFD83E, 3 = 0x30616EF1, 4 = 16 } } },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x59CC906C, 0x13DFD83E, 0x30616EF1, 17], after = { parameter = "NullLayerName", match = { 1 = 0xE210A46C, 2 = 0xE77B05BD, 3 = 0x48CA5894, 4 = 5 } } },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x7B19F5D6, 0xE77B05BD, 0x48CA5894, 6], after = { parameter = "NullLayerName", match = { 1 = 0x59CC906C, 2 = 0x13DFD83E, 3 = 0x30616EF1, 4 = 17 } } },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0xC0C5C1D6, 0x13DFD83E, 0x30616EF1, 18], after = { parameter = "NullLayerName", match = { 1 = 0x7B19F5D6, 2 = 0xE77B05BD, 3 = 0x48CA5894, 4 = 6 } } },
+    { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0xCAD1ED49, 0x90FC723B, 0xEEA8A010, 0], after = { parameter = "NullLayerName", match = { 1 = 0xC0C5C1D6, 2 = 0x13DFD83E, 3 = 0x30616EF1, 4 = 18 } } },
     { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0xC6D5AC3C, 0x09F52381, 0x8A4DA8F3, 0], after = { parameter = "NullLayerName", match = { 1 = 0xCAD1ED49, 2 = 0x90FC723B, 3 = 0xEEA8A010, 4 = 0 } } },
     { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x5FDCFD86, 0x90FC723B, 0x8A4DA8F3, 1], after = { parameter = "NullLayerName", match = { 1 = 0xC6D5AC3C, 2 = 0x09F52381, 3 = 0x8A4DA8F3, 4 = 0 } } },
     { block = "CMenuAttachLocator", parameter = "NullLayerName", values = [0x28DBCD10, 0xE7FB42AD, 0x8A4DA8F3, 2], after = { parameter = "NullLayerName", match = { 1 = 0x5FDCFD86, 2 = 0x90FC723B, 3 = 0x8A4DA8F3, 4 = 1 } } },

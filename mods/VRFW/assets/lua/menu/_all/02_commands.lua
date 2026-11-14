@@ -2,7 +2,7 @@ if VRFW.crc32 == nil then
   local band, bxor, rshift = bit32.band, bit32.bxor, bit32.rshift
   local byte = string.byte
 
-  --- CRC-32 of text as an unsigned 32-bit number.
+  --- VRFW.crc32(text): the crc32 of a text as an unsigned 32-bit number (command, parameter and name keys). Safe at load.
   function VRFW.crc32(text)
     local crc = 0xFFFFFFFF
     for i = 1, #text do
@@ -22,6 +22,7 @@ end
 if VRFW.commands == nil then
   local Crc32 = VRFW.crc32
 
+  --- VRFW.commands.NAME: the hash of command NAME, for funcLuaCommand. Safe at load.
   VRFW.commands = setmetatable({}, {
     __index = function(ids, name)
       if type(name) ~= "string" then

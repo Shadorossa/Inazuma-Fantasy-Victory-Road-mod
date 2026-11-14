@@ -1,4 +1,5 @@
 schema = "VRFW.technique/3"
+if_mod = "HissatsuEffects.technique_passives"   # options.toml row «technique_passives»: off = not read
 # Shot / keeper mini-effects of retail moves, mod Hissatsu Effects.
 
 [[edit]]

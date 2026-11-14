@@ -9,9 +9,10 @@ if VRFW.pick_cards == nil then
     IS_MENU = VRFW.commands.IS_EXIST_MENU_OBJECT,        -- CMND_IS_EXIST_MENU_OBJECT (funcLuaMenuCommand)
     START_WAIT = 60,             -- frames the screen may take to appear
   }
+  --- Advanced: State of the card picker helpers.
   VRFW.pick_cards = K
 
-  --- Logs through the pick-cards tag.
+  --- Advanced: Logs through the pick-cards tag.
   function K.log(...)
     if PRINT ~= nil then pcall(PRINT, "VRFW.pick_cards", ...) end
   end
@@ -33,7 +34,7 @@ if VRFW.pick_cards == nil then
     return math.max(v, 0)
   end
 
-  --- Opens the card picker in a coroutine; answers the pick, nil on a cancel.
+  --- Advanced: Opens the card picker in a coroutine; answers the pick, nil on a cancel.
   function K.show(opts)
     opts = opts or {}
     if coroutine.running() == nil then

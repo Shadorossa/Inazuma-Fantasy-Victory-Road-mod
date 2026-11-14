@@ -73,14 +73,18 @@ if VRFW.host ~= nil then
     return false
   end
 
-  -- the game's preview model of the first listed body type the condition allows (its costume rule), 0 none
+  -- the game's preview model of the first listed body type the condition allows (its costume rule) whose own body type
+  -- is in the list, 0 none (the game has preview models for some body types only)
   local function body_model(list, cond)
     local h = L()
     local models, male = h.t14, h.t15
     if type(models) ~= "table" or type(male) ~= "table" then return 0 end
     for _, b in ipairs(list) do
       local k = b + 1
-      if (cond ~= COND_MALE or male[k] == true) and (cond ~= COND_FEMALE or male[k] == false) then return models[k] or 0 end
+      if (cond ~= COND_MALE or male[k] == true) and (cond ~= COND_FEMALE or male[k] == false) then
+        local model = models[k] or 0
+        if model ~= 0 and fits(model, list) then return model end
+      end
     end
     return 0
   end
@@ -104,6 +108,8 @@ if VRFW.host ~= nil then
     local list = bodies(uniform)
     if who ~= 0 and list ~= nil and not fits(who, list) then who = 0 end
     local model = (who == 0 and list ~= nil) and body_model(list, cond) or 0
+    -- No preview model of those body types: the condition's first character (one of them) wears it, never a body without its mesh.
+    if who == 0 and model == 0 and list ~= nil and first ~= 0 and fits(first, list) then who = first end
     local own_view = VRFW.host.command(CMD.VIEW_CHARA, a1)
     local poses = POSES[count] or {}
     for i = 0, count - 1 do

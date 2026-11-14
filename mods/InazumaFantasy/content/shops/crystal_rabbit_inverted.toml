@@ -1,0 +1,12 @@
+schema = "VRFW.shop/2"
+
+# The colour-inverted Crystal Rabbit (content/techniques/crystal_rabbit_inverted.toml) goes after Victoria in the Training Shop, at the price of the other warrior spirits, and unlocks like Victoria.
+[[edit]]
+target = "InazumaFantasy.training_shop"
+
+  [[edit.entry]]
+  item = "wks_fantasy_k902020"
+  after = "wks_fantasy_k002011"
+  price = 30
+  currency = "tk_bb000001"
+  unlock = [{ chronicle = 0x90185427, difficulty = 2 }]

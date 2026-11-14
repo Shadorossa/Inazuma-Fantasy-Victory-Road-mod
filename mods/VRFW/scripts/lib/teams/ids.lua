@@ -1,4 +1,4 @@
--- Team ids at run time: the team_config id of a mod's new team named `<mod>.<name>` (content\teams, [[team]]).
+-- Advanced: Team ids at run time: the team_config id of a mod's new team named `<mod>.<name>` (content\teams, [[team]]).
 
 local M = {}
 
@@ -31,7 +31,7 @@ local function load()
   end
 end
 
---- the team id of `<mod>.<name>`; nil when no active mod declares it or its number is not pinned yet
+--- Advanced: the team id of `<mod>.<name>`; nil when no active mod declares it or its number is not pinned yet
 function M.of(full)
   if type(full) ~= "string" then return nil end
   if not by_key then load() end

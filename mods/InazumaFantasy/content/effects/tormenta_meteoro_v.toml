@@ -1,0 +1,11 @@
+schema = "VRFW.effect/1"
+# Tormenta meteoro V (content/techniques/tormenta_meteoro_v.toml): in the launch cut (c0030) the fire tornado of
+# Meteoric Fire Tornado V (ev60101600, its clip c0300) rides the shooter's hips in place of Fireball Storm's fireball;
+# the offset brings the object's own placement (authored around ev60_10160's shooter) onto the hips.
+
+[[event_effect]]
+event = "ev60_81770"
+object = "ev60101600"
+cut = "c0030"
+clips = { c0030 = "c0300" }
+attach = { point = "c00<TYPE><NO>_s00_p<VARIATION>", locator = "c_c_1_0", offset = [0.75, -22.3, -21.8] }

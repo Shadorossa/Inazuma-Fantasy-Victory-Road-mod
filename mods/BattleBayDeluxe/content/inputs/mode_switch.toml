@@ -8,4 +8,4 @@ category = "basic"
 label = "battlebaydeluxe_mode_switch_action"
 pad = "RS"
 keyboard = "B"
-screens = ["bb_stadium_top_menu", "enjoy_team_select_menu_campaign"]   # graft bb_tournament (bbt_mode.lua)
+screens = ["bb_stadium_top_menu", "enjoy_team_select_menu_campaign"]   # graft battlebaydeluxe_tournament (tournament_mode.lua)

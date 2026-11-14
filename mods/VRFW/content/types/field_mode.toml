@@ -2,6 +2,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.field_mode/1"
 folder = "content/field_modes"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Match.FieldMode"
+v2_kind_folder = "Match/FieldModes"
+v2_version = 1
 label = "Field modes"
 label_es = "Modos de campo"
 doc = "A field setup a mod switches on: the map kept, the play mode, the walker, the autosaves and the input menus."

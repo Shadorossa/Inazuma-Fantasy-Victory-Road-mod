@@ -1,11 +1,13 @@
+-- Advanced:
 -- lua_patch.scope: used
 -- Defines functions only: no engine call at load time.
 VRFW.home_stadium = VRFW.home_stadium or { providers = {} }
 do
   local M = VRFW.home_stadium
+  --- Internal: registered home-stadium providers.
   M.providers = type(M.providers) == "table" and M.providers or {}
 
-  --- Registers a home-stadium provider; answers true, or false, why.
+  --- Advanced: Registers a home-stadium provider; answers true, or false, why.
   function M.register(id, fn)
     if type(id) ~= "string" or type(fn) ~= "function" then
       return false, "an id and a function expected"
@@ -20,7 +22,7 @@ do
     return true
   end
 
-  --- The home stadium of dock `set`: map, provider id; 0 when there is none.
+  --- Advanced: The home stadium of dock `set`: map, provider id; 0 when there is none.
   function M.of(set)
     if type(set) ~= "number" or set < 0 then
       return 0

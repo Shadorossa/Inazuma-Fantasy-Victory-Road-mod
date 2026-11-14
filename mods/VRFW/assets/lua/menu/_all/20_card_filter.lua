@@ -25,6 +25,7 @@ if VRFW.card_filter == nil then
     SE_MOVE = 2500047763,     -- sy0005
     S = {},
   }
+  --- Internal: State of the card filter extension.
   VRFW.card_filter = CF
 
   local function call(f, ...)
@@ -43,7 +44,7 @@ if VRFW.card_filter == nil then
     return fallback
   end
 
-  --- The text of filter i; the "all" text for filter 0.
+  --- Internal: The text of filter i; the "all" text for filter 0.
   function CF.name(i)
     local name, kind, sid, tier = call(funcLuaCommand, CF.CMD_LABEL, i)
     if kind == nil or kind == "all" or i == 0 then
@@ -66,7 +67,7 @@ if VRFW.card_filter == nil then
     return name
   end
 
-  --- True when the filter plate of `stem` is open.
+  --- Internal: True when the filter plate of `stem` is open.
   function CF.plate_open(stem)
     local h = VRFW.host ~= nil and VRFW.host.hosts ~= nil and VRFW.host.hosts[stem] or nil
     if h ~= nil and h.L ~= nil then
@@ -78,7 +79,7 @@ if VRFW.card_filter == nil then
     return CF.S[stem] ~= nil and CF.S[stem].plate == true
   end
 
-  --- True when the screen's idle check allows the filter on `stem`.
+  --- Internal: True when the screen's idle check allows the filter on `stem`.
   function CF.idle(stem)
     local S = CF.S[stem]
     if S == nil or S.idle == nil or S.idle == "" then
@@ -92,7 +93,7 @@ if VRFW.card_filter == nil then
     return not ok or type(v) ~= "number" or v == 0
   end
 
-  --- Draws the filter plate of `stem` with its current value.
+  --- Internal: Draws the filter plate of `stem` with its current value.
   function CF.draw(stem)
     local S = CF.S[stem]
     if S == nil then
@@ -117,7 +118,7 @@ if VRFW.card_filter == nil then
     call(funcLuaMenuCommand, CF.VISIBLE, L, k, true)
   end
 
-  --- Reads the filter state of `stem` from the engine.
+  --- Internal: Reads the filter state of `stem` from the engine.
   function CF.enter(stem)
     local on, v, dx, dy, fn, prev, nxt, idle = call(funcLuaCommand, CF.CMD_ENTER, stem)
     CF.S[stem] = {
@@ -127,13 +128,13 @@ if VRFW.card_filter == nil then
     }
   end
 
-  --- Ends the filter on `stem` and forgets its state.
+  --- Internal: Ends the filter on `stem` and forgets its state.
   function CF.leave(stem)
     call(funcLuaCommand, CF.CMD_LEAVE, stem)
     CF.S[stem] = nil
   end
 
-  --- Asks the screen to redo its list, then redraws the plate.
+  --- Internal: Asks the screen to redo its list, then redraws the plate.
   function CF.rebuild(stem)
     if type(OnListTabChanged) == "function" then
       pcall(OnListTabChanged)
@@ -141,7 +142,7 @@ if VRFW.card_filter == nil then
     CF.draw(stem)
   end
 
-  --- Installs the card filter on menu `stem` through VRFW.host.
+  --- Internal: Installs the card filter on menu `stem` through VRFW.host.
   function CF.attach(stem)
     if VRFW.host == nil then
       return

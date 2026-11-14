@@ -20,3 +20,4 @@ mods = [
     "IECross",
     "MissingContent",
 ]
+logo = 'content\images\menu\50_title\title_art\logo_{lang}.png'

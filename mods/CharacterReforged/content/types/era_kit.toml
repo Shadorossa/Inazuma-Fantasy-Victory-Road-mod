@@ -2,6 +2,9 @@
 schema = "VRFW.decl_schema/1"
 kind = "CharacterReforged.era_kit/1"
 folder = "content/era_kits"
+# v2 words, read beside the v1 ones until the switch: the type and its kind folder.
+v2_type = "CharacterReforged.Team.EraKit"
+v2_kind_folder = "Teams/EraKits"
 label = "Era kits"
 label_es = "Equipaciones por época"
 doc = "The kit each team wears in each era, and which card rarities use them."

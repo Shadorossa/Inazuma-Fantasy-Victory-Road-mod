@@ -557,7 +557,7 @@ CharacterReforged.page_model = CharacterReforged.page_model or {}
     return 0
   end
 
-  -- the form key on PERFIL cycles the player's forms: CMND_VRFW_FORM_LIST(hdl) -> n, forms (0 Normal, 1 Miximax,
+  -- the form key on the player page cycles the player's forms: CMND_VRFW_FORM_LIST(hdl) -> n, forms (0 Normal, 1 Miximax,
   -- 2 Armadura, 3 Armadura Miximax, 4 the aura slot's armour + the miximax); CMND_VRFW_FORM_MODEL(hdl, form) -> model id
   M.ARMOUR_FORMS = {[2] = true, [3] = true, [4] = true}
   M.FUSED_FORMS = {[1] = true, [3] = true, [4] = true}
@@ -567,11 +567,36 @@ CharacterReforged.page_model = CharacterReforged.page_model or {}
   M.fhdl = M.fhdl or nil
   M.entryModel = false
   M.tick, M.last = 0, -100
+  -- The Hiper slots each form needs: 1 Miximax and 3 Armadura Miximax the mix slot, 2 Armadura the aura slot, 4 both.
+  M.FORM_SLOTS = {[1] = {"mix"}, [2] = {"aura"}, [3] = {"mix"}, [4] = {"aura", "mix"}}
+  M.CANNOT_SOUND = 2086672038                -- sy0003, the retail cannot sound
+  M.locked_forms = 0
+  -- Returns the learn level card `hdl` still needs for his Hiper `slot` ("aura" or "mix"; 0 = open), from the page projection's aura_need / mix_need.
+  function M.slot_need(hdl, slot)
+    local page = CharacterReforged.page
+    if type(page) ~= "table" or type(page.projection) ~= "function" then
+      return 0
+    end
+    local ok, proj = pcall(page.projection, hdl)
+    if not ok or type(proj) ~= "table" then
+      return 0
+    end
+    return tonumber(proj[slot .. "_need"]) or 0
+  end
+  -- Returns true when form `f` of card `hdl` needs a Hiper slot whose learn level he has not reached.
+  function M.form_locked(hdl, f)
+    for _, slot in ipairs(M.FORM_SLOTS[f] or {}) do
+      if M.slot_need(hdl, slot) > 0 then
+        return true
+      end
+    end
+    return false
+  end
 
   -- CharacterReforged.PAGE_MODEL_FORM_SKIP = {[form] = true} leaves a form out of the cycle (logged); CharacterReforged.PAGE_MODEL_FUSED_FORMS = false leaves the
   -- fused forms 1 and 3 out
   function M.load_forms(hdl)
-    M.fhdl, M.forms, M.fidx = hdl, {0}, 1
+    M.fhdl, M.forms, M.fidx, M.locked_forms = hdl, {0}, 1, 0
     local function Skip(f)
       return f ~= 0 and ((type(CharacterReforged.PAGE_MODEL_FORM_SKIP) == "table" and CharacterReforged.PAGE_MODEL_FORM_SKIP[f] == true)
         or (CharacterReforged.PAGE_MODEL_FUSED_FORMS == false and M.FUSED_FORMS[f] == true))
@@ -582,7 +607,11 @@ CharacterReforged.page_model = CharacterReforged.page_model or {}
       for i = 1, r[2] do
         local f = r[i + 2]
         if type(f) == "number" and not Skip(f) then
-          t[#t + 1] = f
+          if f ~= 0 and M.form_locked(hdl, f) then
+            M.locked_forms = M.locked_forms + 1
+          else
+            t[#t + 1] = f
+          end
         end
       end
       if #t >= 1 then
@@ -600,7 +629,15 @@ CharacterReforged.page_model = CharacterReforged.page_model or {}
       end
     end
     pcall(funcLuaCommand, LOG, "PageModel form list", tostring(hdl), table.concat(M.forms, ","), "left out (PAGE_MODEL_FORM_SKIP)",
-      table.concat(out, ","))
+      table.concat(out, ","), "level-locked", M.locked_forms)
+    M.form_changed("forms")
+  end
+  -- Tells the page that hosts the model (CharacterReforged.page_form_changed, plate_pages) the chosen form changed:
+  -- another form, back to Normal, or the list of a new player.
+  function M.form_changed(why)
+    if type(CharacterReforged.page_form_changed) == "function" then
+      pcall(CharacterReforged.page_form_changed, M.forms[M.fidx or 1] or 0, why)
+    end
   end
 
   -- the fit scale of a model h metres tall (see CharacterReforged.PAGE_MODEL_FIT_H at the top); 1 = off
@@ -637,7 +674,7 @@ CharacterReforged.page_model = CharacterReforged.page_model or {}
       bz = type(bz) == "number" and bz > 0 and bz or bx
       local h, src = M.height()
       local s = M.fit_scale(h)
-      F = {h = mh, bx = bx, by = by, bz = bz, s = s}
+      F = {h = mh, bx = bx, by = by, bz = bz, s = s, shown = h * s}
       M.fit = F
       M.fitLog = string.format("%.3f %s base %.3f -> scale %.3f = %.2f m", h, tostring(src), by, s, h * s)
     end
@@ -707,6 +744,7 @@ CharacterReforged.page_model = CharacterReforged.page_model or {}
   -- the retail "View appearance" framing (shared ModelView): the menu camera offset at (0, 0, 0) (saved first, given back
   -- on release: M.set_cam), the turn, stand motion and pose. CharacterReforged.PAGE_MODEL_CAMERA_OFFSET = {x, y, z} overrides the offset.
   function M.framing()
+    M.zoom, M.zoomPath = 0, nil            -- every build starts at the page framing
     if M.capture() then                    -- own camera: the retail turn, stand motion and pose only
       Cmd(MV.ROT, M.LAYER, 0, 0, MV.RETAIL.rot_y, 0)
       Cmd(MV.MOTION, M.LAYER, 0, MV.STAND, 0, 0, 0, 0, 0)
@@ -758,7 +796,7 @@ CharacterReforged.page_model = CharacterReforged.page_model or {}
       pcall(funcLuaCommand, LOG, "PageModel rules offer", tostring(M.appearance))
     end
     if h ~= nil or M.appearance ~= nil then
-      M.forms, M.fidx, M.fhdl = {0}, 1, nil
+      M.forms, M.fidx, M.fhdl, M.locked_forms = {0}, 1, nil, 0
     end
     return h ~= nil
   end
@@ -820,7 +858,8 @@ CharacterReforged.page_model = CharacterReforged.page_model or {}
     if M.appearance ~= nil then             -- the key opens the retail view there (M.view_key / M.view_press)
       return
     end
-    if M.phase ~= "ready" or CharacterReforged.PAGE_MODEL_PAGE_FORMS ~= true or #M.forms <= 1 or M.tick - M.last < 8 then
+    if M.phase ~= "ready" or CharacterReforged.PAGE_MODEL_FORM_KEY ~= true or (#M.forms <= 1 and M.locked_forms == 0)
+        or M.tick - M.last < 8 then
       return
     end
     if R3Down() then
@@ -835,7 +874,15 @@ CharacterReforged.page_model = CharacterReforged.page_model or {}
     return M.form_press()
   end
   function M.form_press()
-    if M.appearance ~= nil or M.phase ~= "ready" or CharacterReforged.PAGE_MODEL_PAGE_FORMS ~= true or #M.forms <= 1 or M.tick - M.last < 8 then
+    if M.appearance ~= nil or M.phase ~= "ready" or CharacterReforged.PAGE_MODEL_FORM_KEY ~= true or M.tick - M.last < 8 then
+      return false
+    end
+    if #M.forms <= 1 then
+      -- Only level-locked forms besides Normal: the press is refused with the cannot sound.
+      if M.locked_forms > 0 then
+        M.last = M.tick
+        Lc(1917805374, M.CANNOT_SOUND)
+      end
       return false
     end
     M.last = M.tick
@@ -843,6 +890,7 @@ CharacterReforged.page_model = CharacterReforged.page_model or {}
     Lc(1917805374, 2629173176)            -- sy0009, the viewer's switch sound
     Lc(LOG, "PageModel form", tostring(M.fhdl), tostring(M.forms[M.fidx]))
     M.mark_fresh()                              -- rebuilt on a fresh model layer with the new form
+    M.form_changed("key")
     return true
   end
 
@@ -861,6 +909,7 @@ CharacterReforged.page_model = CharacterReforged.page_model or {}
         M.last = M.tick
         Lc(LOG, "PageModel form (page)", tostring(M.fhdl), tostring(f))
         M.mark_fresh()
+        M.form_changed("page")
         return true
       end
     end
@@ -886,6 +935,7 @@ CharacterReforged.page_model = CharacterReforged.page_model or {}
     end
     M.fidx = normal
     Lc(LOG, "PageModel form reset", tostring(why), tostring(M.fhdl))
+    M.form_changed("reset")
     if rebuild then
       if M.shown then
         Vis(false)
@@ -939,6 +989,7 @@ CharacterReforged.page_model = CharacterReforged.page_model or {}
   M.closing, M.upRun = false, 0
   function M.release(why)
     local did = false
+    M.zoom, M.zoomPath = 0, nil            -- the next model starts at the page framing
     if M.built ~= nil or M.shown then
       Clear()
       did = true
@@ -1092,6 +1143,7 @@ CharacterReforged.page_model = CharacterReforged.page_model or {}
         Vis(true)
       end
       pcall(M.stick_turn)
+      pcall(M.stick_zoom)
       pcall(M.keep_cam)
       pcall(M.quad_gate)
       if M.reportIn then
@@ -1110,7 +1162,7 @@ CharacterReforged.page_model = CharacterReforged.page_model or {}
     if CharacterReforged.PAGE_MODEL_KEEP_CAMERA == false or M.capture() then
       return
     end
-    local c = type(CharacterReforged.PAGE_MODEL_CAMERA_OFFSET) == "table" and CharacterReforged.PAGE_MODEL_CAMERA_OFFSET or MV.RETAIL.cam
+    local c = M.zoom_cam()
     local ok, has, x, y, z = pcall(funcLuaCommand, CAM_GET, CAM)
     if not ok or has ~= true or type(x) ~= "number" then
       return
@@ -1151,6 +1203,107 @@ CharacterReforged.page_model = CharacterReforged.page_model or {}
     M.yaw = M.yaw + d
     M.turning = true
     Cmd(4073274559, M.LAYER, 0, d, 0, M.MENU)
+  end
+
+  -- On PERFIL the right stick's vertical axis (CMND_GET_ANALOG_VALUE index 3, above 0 = up) moves the menu camera along
+  -- the camera-to-head line: up = closer, down = farther, the way the retail visual check's __UpdateMenuCharaCamera does.
+  -- The menu camera offset (CMND 284729675) is subtracted from the eye: retail zooms in by adding minus the
+  -- camera-to-model direction and clamps the offset's z to -1 .. 6.5, so the offset path is the negated world move.
+  -- M.zoom is the metres moved toward the head from the page framing (below 0 = back); it is kept while the same player
+  -- / form stays built. Limits and speed: config.toml [player_page] zoom_near, zoom_far, zoom_speed, zoom_head.
+  -- CharacterReforged.PAGE_MODEL_STICK_ZOOM = false turns the zoom off. loader.log "PageModel zoom <metres>".
+  M.zoom = 0
+  -- The zoom limits from config.toml [player_page] through CMND_CHARACTERREFORGED_PAGE_ZOOM_CONFIG, kept once answered;
+  -- nil while the command does not answer.
+  function M.zoom_settings()
+    if M.zoomCfg == nil then
+      local ok, near, far, speed, head = pcall(funcLuaCommand, 2412352735)
+      if ok and type(near) == "number" and type(far) == "number" and type(speed) == "number" and type(head) == "number" then
+        M.zoomCfg = {near = near, far = far, speed = speed, head = head}
+        M.line("PageModel zoom config", "near", near, "far", far, "speed", speed, "head", head)
+      end
+    end
+    return M.zoomCfg
+  end
+  -- The camera offset the page wants now: the page framing's offset plus the zoom metres along the offset path.
+  function M.zoom_cam()
+    local c = type(CharacterReforged.PAGE_MODEL_CAMERA_OFFSET) == "table" and CharacterReforged.PAGE_MODEL_CAMERA_OFFSET or MV.RETAIL.cam
+    local p, z = M.zoomPath, M.zoom or 0
+    if p == nil or z == 0 then
+      return c
+    end
+    return {(c[1] or 0) + p[1] * z, (c[2] or 0) + p[2] * z, (c[3] or 0) + p[3] * z}
+  end
+  -- The zoom path from the page framing: the unit offset step that moves the eye toward the head (camera eye 2225733338
+  -- and model place 798245126, as the retail visual check reads them) and the zoom range in metres; nil while the
+  -- model or the camera does not answer.
+  function M.zoom_path()
+    local mh = Cmd(GET_MODEL, M.LAYER, 0, 0)
+    if type(mh) ~= "number" or mh == 0 then
+      return nil
+    end
+    local okm, mx, my, mz = Lc(798245126, mh)
+    local has, ex, ey, ez = Lc(2225733338, CAM)
+    if okm == false or type(mx) ~= "number" or has == false or type(ex) ~= "number" then
+      return nil
+    end
+    local cfg = M.zoom_settings()
+    if cfg == nil then
+      return nil
+    end
+    local h = type(M.fit) == "table" and M.fit.shown or M.height()
+    local fx, fy, fz = mx, (my or 0) + h * cfg.head, mz or 0
+    local dx, dy, dz = fx - ex, fy - (ey or 0), fz - (ez or 0)
+    local len = math.sqrt(dx * dx + dy * dy + dz * dz)
+    if len <= 0 then
+      return nil
+    end
+    local closer, far = math.max(0, len - cfg.near), cfg.far
+    M.line("PageModel zoom path", M.chara, "eye", ex, ey, ez, "head", fx, fy, fz, "in", closer, "out", far)
+    return {-dx / len, -dy / len, -dz / len, closer = closer, far = far, speed = cfg.speed}
+  end
+  -- Writes the zoomed camera offset and keeps it as this script's last write.
+  function M.zoom_write()
+    local c = M.zoom_cam()
+    Lc(CAM_OFS, CAM, c[1] or 0, c[2] or 0, c[3] or 0)
+    M.camMine = {c[1] or 0, c[2] or 0, c[3] or 0}
+  end
+  function M.stick_zoom()
+    if M.capture() or CharacterReforged.PAGE_MODEL_STICK_ZOOM == false then
+      return
+    end
+    if CharacterReforged.PAGE_MODEL_PAGE_FORMS ~= true then
+      if (M.zoom or 0) ~= 0 then           -- another page: the page framing again
+        M.zoom = 0
+        M.zoom_write()
+      end
+      return
+    end
+    local ok, y = pcall(funcLuaCommand, 1440697067, 3)
+    local dead = CharacterReforged.PAGE_MODEL_STICK_DEAD or 0.2
+    if not ok or type(y) ~= "number" or math.abs(y) <= dead then
+      if M.zooming then
+        M.zooming = false
+        pcall(funcLuaCommand, LOG, "PageModel zoom", string.format("%.2f", M.zoom))
+      end
+      return
+    end
+    if M.zoomPath == nil then
+      M.zoomPath = M.zoom_path()
+      if M.zoomPath == nil then
+        return
+      end
+    end
+    local p = M.zoomPath
+    local t = (math.abs(y) - dead) / (1 - dead)
+    local z = M.zoom + p.speed * t * t * (y > 0 and 1 or -1)
+    M.zoom = math.max(-p.far, math.min(p.closer, z))
+    M.zooming = true
+    M.zoom_write()
+  end
+  -- True while the camera is off the page framing, closer or farther (plate_pages hides the description box then).
+  function M.zoomed()
+    return M.shown == true and math.abs(M.zoom or 0) > (CharacterReforged.PAGE_MODEL_ZOOM_HIDE or 0.05)
   end
 
   -- every plate refresh: the player it shows (this screen's plate only)

@@ -3,6 +3,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.sprite_redirect/1"
 folder = "content/sprite_redirects"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Game.SpriteRedirect"
+v2_kind_folder = "Game/SpriteRedirects"
+v2_version = 1
 label = "Sprite redirects"
 label_es = "Redirecciones de sprites"
 doc = "Requests of given sprites in a game atlas are served from a mod's own atlas."

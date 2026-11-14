@@ -1,4 +1,5 @@
 -- Written by research/scripts/framework_pack.py from research/grafts/_lib/vrfw_menu_kit.lua section Keys.
+--- Advanced: Constants: command hashes of the menu keys, plus held(cmd, ctrl) and new_press().
 VRFW.keys = VRFW.keys or (function()
   local K = {
     UP = 1197218715, DOWN = 3259546669, LEFT = 2765147006, RIGHT = 2075023265,   -- CMD_UP / DOWN / LEFT / RIGHT

@@ -38,13 +38,13 @@ if VRFW.equip_grid == nil then
     FADE_TOP = { mesh = 3350943237, slot = 1736249803 },      -- _spirit_list_base01
     FADE_BOTTOM = { mesh = 458268027, slot = 3019955541 },    -- _gtxt_spirit01
   }
-  --- The equip picker grid: `new(rules)` gives the picker a screen's retail callbacks are handed to (docs/framework/emblem-grid.md).
+  --- Advanced: The equip picker grid: `new(rules)` gives the picker a screen's retail callbacks are handed to (docs/framework/emblem-grid.md).
   VRFW.equip_grid = Grid
 
   local Picker = {}
   Picker.__index = Picker
 
-  --- A picker for `rules`; nil when the series of its tabs cannot be read (the caller then leaves the screen retail).
+  --- Advanced: A picker for `rules`; nil when the series of its tabs cannot be read (the caller then leaves the screen retail).
   --- rules: log_tag, stem (the menu script), menu, list, item (layer ids), tabs_command (-> array of { id, ty }),
   --- item_word (for the log), art (atlas id), fade_top, fade_bottom, plate_other (sprite ids), fade_colour (colour
   --- preset of the list object), hidden_layers (array of layer ids hidden when they open), draw_icon(layer, instance,

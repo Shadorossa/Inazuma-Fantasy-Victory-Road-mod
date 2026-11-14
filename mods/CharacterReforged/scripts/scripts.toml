@@ -1,6 +1,6 @@
 schema = "VRFW.script/1"
 
-# Caps for the duplicate-players hook, which holds a whole save and walks every player in one call.
+# Caps for the duplicate-players hook (a whole save in one call) and own_passives.lua (every mod's passive blocks and passives).
 [settings]
 budget = 5000000
 memory_kb = 65536

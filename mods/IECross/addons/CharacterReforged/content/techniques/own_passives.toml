@@ -1,0 +1,72 @@
+schema = "VRFW.technique/3"
+default_lang = "none"
+
+[[passive]]
+key = "own_c90000170"
+from = "ps10020"
+cells = { desc_text = 3282966103 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "own_c90000180"
+from = "ps10020"
+cells = { desc_text = 1144392344 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "own_c90000190"
+from = "ps10020"
+cells = { desc_text = 1563245529 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "own_c90000071"
+from = "ps10020"
+cells = { desc_text = 3043708150 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "own_c90000130"
+from = "ps10020"
+cells = { desc_text = 2814563155 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "own_c90000120"
+from = "ps10020"
+cells = { desc_text = 3201950226 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "own_c91022030"
+from = "ps10020"
+cells = { desc_text = 3502123323 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "own_c91022031"
+from = "ps10020"
+cells = { desc_text = 2813925805 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "own_c90000050"
+from = "ps10020"
+cells = { desc_text = 4032437986 }
+effects = []
+buff_icons = []
+
+[[passive]]
+key = "own_c90000040"
+from = "ps10020"
+cells = { desc_text = 3913363363 }
+effects = []
+buff_icons = []

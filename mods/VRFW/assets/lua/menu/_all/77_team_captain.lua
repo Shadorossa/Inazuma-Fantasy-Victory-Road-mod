@@ -18,6 +18,7 @@ if VRFW.team == nil then
     EMBLEM_MESH = 3281704751,   -- _icon_emblem_dmy01: the crest quad of the list plates
     EMBLEM_TEXTURE = 255812047, -- icon_emblem_dmy01
   }
+  --- Advanced: Namespace of the team helpers (captain and team member lookups).
   VRFW.team = T
 
   local function card_of(h)
@@ -27,7 +28,7 @@ if VRFW.team == nil then
     return nil
   end
 
-  --- The captain of `team` in the active set; nil when there is none.
+  --- Advanced: The captain of `team` in the active set; nil when there is none.
   function T.captain(team)
     team = math.floor(tonumber(team) or 0)
     local set = VRFW.host.command(T.VS_SET)
@@ -48,7 +49,7 @@ if VRFW.team == nil then
     return nil
   end
 
-  --- The manager of `team` in the active set; nil when there is none.
+  --- Internal: The manager of `team` in the active set; nil when there is none.
   function T.manager(team)
     team = math.floor(tonumber(team) or 0)
     local set = VRFW.host.command(T.VS_SET)
@@ -76,7 +77,7 @@ if VRFW.team == nil then
     return (text:gsub("%s*<%u%u%u:[^>]*>%s*", " "):gsub("^%s+", ""):gsub("%s+$", ""))
   end
 
-  --- The name of `team`; "" when unknown.
+  --- Advanced: The name of `team`; "" when unknown.
   function T.name(team)
     if team == nil or team == 0 then return "" end
     local _, name = VRFW.host.command(T.TEAM_INFO, team, 2)
@@ -88,7 +89,7 @@ if VRFW.team == nil then
     return tostring(layer) .. ":" .. tostring(idx)
   end
 
-  --- Shows the emblem of `team` on (layer, idx), once while it stays in `shown`.
+  --- Advanced: Shows the emblem of `team` on (layer, idx), once while it stays in `shown`.
   function T.emblem(layer, idx, team, shown)
     local key = emblem_key(layer, idx)
     if shown ~= nil then
@@ -100,7 +101,7 @@ if VRFW.team == nil then
     if ok and has then pcall(funcLuaMenuCommand, T.ICON_REQUEST, layer, idx, T.EMBLEM_MESH, T.EMBLEM_TEXTURE, icon) end
   end
 
-  --- Shows crest `emblem` on (layer, idx), once while it stays in `shown`.
+  --- Advanced: Shows crest `emblem` on (layer, idx), once while it stays in `shown`.
   function T.crest(layer, idx, emblem, shown, mesh, texture)
     local key = emblem_key(layer, idx)
     texture = texture or T.EMBLEM_TEXTURE
@@ -112,7 +113,7 @@ if VRFW.team == nil then
     if (emblem or 0) ~= 0 then pcall(funcLuaMenuCommand, T.ICON_REQUEST, layer, idx, mesh or T.EMBLEM_MESH, texture, emblem, 0) end
   end
 
-  --- Resets the emblem of (layer, idx) and clears it from `shown`.
+  --- Advanced: Resets the emblem of (layer, idx) and clears it from `shown`.
   function T.emblem_reset(layer, idx, shown)
     local key = emblem_key(layer, idx)
     if shown ~= nil and shown[key] ~= nil then
@@ -121,7 +122,7 @@ if VRFW.team == nil then
     end
   end
 
-  --- Clears (layer, idx) from `shown`.
+  --- Advanced: Clears (layer, idx) from `shown`.
   function T.emblem_forget(layer, idx, shown)
     if shown ~= nil then shown[emblem_key(layer, idx)] = nil end
   end

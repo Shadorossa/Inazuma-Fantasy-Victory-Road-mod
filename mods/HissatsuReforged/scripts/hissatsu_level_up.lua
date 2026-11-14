@@ -21,7 +21,7 @@ local FILE_VERSION = 2
 local MAX_GRADE = 5
 local UNIT_STRIDE, UNIT_MAX, UNIT_HDL, UNIT_CHARA = 0x380, 0x60, 0x368, 0x370
 local UNIT_SKILLS, UNIT_SKILL_STRIDE, UNIT_SKILL_RANK, UNIT_SKILL_RECAST = 0x30, 0x1C, 0x15, 0x04
-local MATCH_USER_TEAM = 0x2C29
+local MATCH_USER_TEAM = VRFW.game.field("MatchInfo.UserTeam")
 local INFO_RECAST = 0x34
 local REC_SKILL_LIST, SKILL_ENTRY, SKILL_SLOTS = 0x50, 8, 6
 local REC_HEAD_WORDS = 2
@@ -43,6 +43,7 @@ local K = 0.025          -- recast_per_grade (as f32)
 local POPUP = true
 local USE_CAP = MAX_GRADE - 1
 local ITEM_RAISE, ITEM_LAST = 0, 0
+local GRADE_COLORS = {}                 -- [ranks] grade_colors: "#RRGGBB" per grade 0..5
 local BLOCK_DUP = true               -- [duplicates] block
 
 local function now_ms() return VRFW.now_ms() end
@@ -182,7 +183,8 @@ local function mode_rank(dup, grade)
 end
 
 -- { slot, map = { [chara key] = { [skill key] = { uses, grade } } }, n, dirty }; the keys are 8-digit hex texts, the file's own object keys
-local function new_store(slot) return { slot = slot, map = {}, n = 0, dirty = false } end
+-- dirty: the store differs from its slot's file; earned: player changes (uses, grades) in it since that write, seeds excluded.
+local function new_store(slot) return { slot = slot, map = {}, n = 0, dirty = false, earned = 0 } end
 
 local function key(x) return string.format("%08X", x) end
 
@@ -223,11 +225,13 @@ local function add_use(st, c, s)
   uses = math.min(uses + 1, 4294967295)
   local g = math.min(math.max(old, math.min(grade_for(uses), use_cap())), MAX_GRADE)
   put(st, c, s, uses, g)
+  st.earned = st.earned + 1
   return uses, old, g
 end
 
 local function set_grade(st, c, s, grade)
   local g = math.min(grade, max_grade(), MAX_GRADE)
+  st.earned = st.earned + 1
   if g == 0 then
     remove(st, c, s)
     return 0, 0
@@ -298,6 +302,14 @@ local function commit_on_save()
   return ok and ready == true
 end
 
+-- A store left without a game save is discarded, as the game discards its own progress; seeded starting grades come back from the cards.
+local function drop_unsaved(st, to)
+  if st.earned > 0 and st.slot ~= 0 then
+    info(string.format("slot %d -> %d: slot %d's %d move use(s) / grade change(s) since its last game save are discarded, as the game discards its own unsaved progress",
+      st.slot, to, st.slot, st.earned))
+  end
+end
+
 local function cur()
   local slot = VRFW.slots.active()
   if store.slot == slot then return store end
@@ -310,7 +322,7 @@ local function cur()
     parked = store
     store = load_store(slot)
   elseif parked and parked.slot == slot then
-    if store.dirty then warn(string.format("slot %d -> %d: dropping uses not saved by the game", from, slot)) end
+    drop_unsaved(store, slot)
     store = parked
     parked = nil
     info(string.format("slot %d is back after the overlay session: its parked store is used again (%d entries)", slot, store.n))
@@ -318,7 +330,7 @@ local function cur()
       DOC:write(to_doc(store), slot)
     end
   else
-    if store.dirty and from ~= 0 then warn(string.format("slot %d -> %d: dropping uses not saved by the game", from, slot)) end
+    drop_unsaved(store, slot)
     parked = nil
     store = load_store(slot)
   end
@@ -331,6 +343,7 @@ local function commit(st, why)
   local ok, where = DOC:write(to_doc(st), st.slot)
   if ok then
     st.dirty = false
+    st.earned = 0
   else
     err(string.format("cannot write slot %d (%s): %s", st.slot, why, tostring(where)))
   end
@@ -583,9 +596,9 @@ local swept_slot, swept_at = nil, 0
 local build_kinds = {}
 local SWEEP_STEP = 200
 local sweep_list, sweep_pos = nil, 1
-local sweep_seeded, sweep_charas, sweep_raised = 0, 0, 0
+local sweep_seeded, sweep_charas = 0, 0
 
--- Seeds the declared grades of one saved record's moves at once: the walk keeps no list that grows with the save.
+-- Seeds this mod's store with the declared grades of one saved record's moves (VRFW raises the saved ranks: scripts/move_grades.lua).
 local function sweep_record(st, handle, param, declared)
   local r = record(handle)
   if not r or not r.addr then return end
@@ -598,11 +611,8 @@ local function sweep_record(st, handle, param, declared)
     if g then
       any = true
       sweep_seeded = sweep_seeded + 1
-      local li, o, nr = write_saved_rank(handle, id, function(c) if g > c then return g end return nil end)
-      if li and nr > o then sweep_raised = sweep_raised + 1 end
       if sweep_seeded <= SEED_LOG_MAX then
-        info(string.format("recruit grade: chara %s (card %s) skill %s starts at grade %d (uses %d), saved list %s [sweep]",
-          hex(handle), hex(param), hex(id), g, u, li and string.format("[%d] %d->%d", li, o, nr) or "none"))
+        info(string.format("recruit grade: chara %s (card %s) skill %s starts at grade %d (uses %d) [sweep]", hex(handle), hex(param), hex(id), g, u))
       end
     end
   end
@@ -618,7 +628,7 @@ local function sweep(st)
     local ok, columns = pcall(VRFW.character.saved_columns, { "handle", "param" })
     if not ok or type(columns) ~= "table" then return end
     sweep_list, sweep_pos = columns, 1
-    sweep_seeded, sweep_charas, sweep_raised = 0, 0, 0
+    sweep_seeded, sweep_charas = 0, 0
   elseif swept_slot ~= slot then
     sweep_list, sweep_pos = nil, 1   -- the slot changed mid-walk: start again on the next build
     return
@@ -634,8 +644,8 @@ local function sweep(st)
   if sweep_pos <= #handles then return end
   sweep_list, sweep_pos = nil, 1
   if sweep_seeded > 0 then
-    info(string.format("recruit grades sweep (slot %d): %d move(s) seeded on %d saved character(s), %d saved rank(s) raised (%d saved records scanned)",
-      slot, sweep_seeded, sweep_charas, sweep_raised, #handles))
+    info(string.format("recruit grades sweep (slot %d): %d move(s) seeded on %d saved character(s) (%d saved records scanned)",
+      slot, sweep_seeded, sweep_charas, #handles))
   end
 end
 
@@ -1087,6 +1097,66 @@ end
 
 function HissatsuReforged.Cmd.Items() return TH.Items() end
 
+-- a move named in a declaration (key or id) -> its id, 0 = unknown
+local function move_ref_id(ref)
+  if type(ref) == "number" then return u32(ref) end
+  local ok, id = pcall(VRFW.technique, ref)
+  return ok and type(id) == "number" and u32(id) or 0
+end
+
+local LEVEL_CUTINS = nil
+
+-- the sentence of text key `key` with {v} = v ("" when the key has no text)
+local function level_text(key, v)
+  local ok, s = pcall(VRFW.text, key)
+  if not ok or type(s) ~= "string" then return "" end
+  local shown = type(v) == "number" and string.format("%g", v) or tostring(v)
+  return (s:gsub("{v}", function() return shown end))
+end
+
+-- CMND_HISSATSUREFORGED_MOVE_LEVEL_EFFECTS(move) -> { count, [i] = { level, kind, value, text, shown } } (shown: the
+-- value as the card shows it next to the text, nil for none): what each move level
+-- changes, in level order. kind "recast": the recast multiplier of that level in percent over level 1 (the K of
+-- recast_value); kind "cutin": from that level on the move plays the cut-in of move `value` (grade animations).
+function HissatsuReforged.LevelEffects(move)
+  move = u32(tonumber(move) or 0)
+  local out = { count = 0 }
+  if move == 0 then return out end
+  if LEVEL_CUTINS == nil then
+    LEVEL_CUTINS = {}
+    for _, e in ipairs(grade_animations()) do
+      LEVEL_CUTINS[#LEVEL_CUTINS + 1] = { move = move_ref_id(e.technique), level = e.grade, of = move_ref_id(e.cutin_of) }
+    end
+  end
+  local cutins = {}
+  for _, e in ipairs(LEVEL_CUTINS) do
+    if e.move == move and e.of ~= 0 then cutins[e.level] = e.of end
+  end
+  for grade = 1, use_cap() do
+    local level = grade + 1
+    out.count = out.count + 1
+    local pct = math.floor(K * grade * 1000 + 0.5) / 10
+    out[out.count] = { level = level, kind = "recast", value = pct, text = level_text("HissatsuReforged.level_effect_recast", pct),
+      shown = string.format("+%g %%", pct) }
+    if cutins[level] ~= nil then
+      out.count = out.count + 1
+      out[out.count] = { level = level, kind = "cutin", value = cutins[level], text = level_text("HissatsuReforged.level_effect_cutin", "") }
+    end
+  end
+  return out
+end
+
+-- the colour of grade `grade` ([ranks] grade_colors, 0..255 each), or nil when none is declared
+function HissatsuReforged.GradeColor(grade)
+  local c = GRADE_COLORS[(tonumber(grade) or -1) + 1]
+  if type(c) ~= "string" then return nil end
+  local r, g, b = c:match("^#(%x%x)(%x%x)(%x%x)$")
+  if r == nil then return nil end
+  return tonumber(r, 16), tonumber(g, 16), tonumber(b, 16)
+end
+
+function HissatsuReforged.Cmd.GradeColor(grade) return TH.GradeColor(grade) end
+
 function HissatsuReforged.Cmd.Item(hdl, skill, item, apply)
   hdl, skill, item = u32(tonumber(hdl) or 0), u32(tonumber(skill) or 0), u32(tonumber(item) or 0)
   apply = apply == true or apply == 1
@@ -1116,6 +1186,7 @@ function HissatsuReforged.Cmd.Item(hdl, skill, item, apply)
   end
   if not apply then return IT_OK, old, want end
   put(st, hdl, skill, math.max(uses, uses_for(want)), want)
+  st.earned = st.earned + 1
   local saved, live = apply_grade(hdl, skill, want)
   info(string.format("rank item %s: chara %s (card %s) skill %s (from the %s) grade %d -> %d (slot %d store), saved %s, live units %d",
     hex(item), hex(hdl), hex(param), hex(skill), where, old, want, st.slot, saved, live))
@@ -1198,6 +1269,8 @@ local function start()
     warn("mode " .. mode .. " unknown (uses | max), using \"uses\"")
     MODE = "uses"
   end
+  local colors = cfg("ranks.grade_colors", {})
+  GRADE_COLORS = type(colors) == "table" and colors or {}
   LOG_USES = cfg("ranks.log_uses", true)
   POPUP = cfg("ranks.popup", true)
   USE_CAP = cfg("ranks.last_grade_item_only", true) == false and MAX_GRADE or MAX_GRADE - 1
@@ -1241,14 +1314,14 @@ VRFW.on("match:start_request", function(ev)
       tostring(rule.source)))
   end
 end)
-VRFW.on("match_end", function() REQUEST_GRADE = nil end)
+VRFW.on("match:end", function() REQUEST_GRADE = nil end)
 VRFW.on("menu:open:post", drop_caches)
 -- The store of the loaded slot is read here, so no game hook pays for a load.
-VRFW.on("slot_load", function(ev)
+VRFW.on("save:slot_load", function(ev)
   drop_caches()
   local slot = ev and tonumber(ev.slot) or 0
   if slot >= 1 and not (parked and parked.slot == slot) then
-    if store.dirty and store.slot ~= 0 then warn(string.format("slot %d -> %d: dropping uses not saved by the game", store.slot, slot)) end
+    drop_unsaved(store, slot)
     store = load_store(slot)
   end
   return nil
@@ -1258,4 +1331,4 @@ VRFW.on("save:before", function()
   commit(store, "game save")
   return nil
 end)
-VRFW.on("game_reset", drop_caches)
+VRFW.on("game:reset", drop_caches)

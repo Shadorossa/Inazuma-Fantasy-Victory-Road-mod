@@ -225,7 +225,6 @@ local function FaceStep()
     S.face_sig[e.i], S.face_key[e.i] = e.sig, e.r.base
   end
   S.face_next = math.max(S.face_next, last + 1)
-  if VRFW.face_icon.pending() then VRFW.face_icon.settle() end
 end
 
 local function BeginFrame()

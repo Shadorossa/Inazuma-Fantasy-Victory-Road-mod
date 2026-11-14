@@ -1,0 +1,55 @@
+schema = "VRFW.technique/3"
+# Golpe del olvido: the keshin shot of Devoramentes (wks_fantasy_me000010, model me000010). Its cut-in ev60_81820 is
+# Golpe justiciero's (whs01820, ev60_01820) with Devoramentes in Archipegaso's (k000330) place, moving as Archipegaso
+# moves, and a dark copy of its effect object (content/effects/oblivion_strike.toml). Power and TP: whs01820's. Golpe
+# justiciero and Archipegaso stay the game's. Devoramentes' packs: _tools/oblivion_strike_build.py.
+
+[[technique]]
+name = "oblivion_strike"
+base = "whs01820"
+manual = true
+users = 1
+element = "none"                  # Neutral («Neutro»), element 0.
+  [technique.text.es]
+  name = "Golpe del olvido"
+  description = "Devoramentes descarga un golpe de\noscuridad que borra el balón de la mente."
+  [technique.text.en]
+  name = "Oblivion Strike"
+  description = "Mindeater lands a blow of darkness\nthat wipes the ball from every mind."
+  [technique.text.fr]
+  name = "Frappe de l'oubli"
+  description = "Le Dévoreur d'esprits frappe de ténèbres\net efface le ballon des mémoires."
+  [technique.text.de]
+  name = "Schlag des Vergessens"
+  description = "Der Geistfresser schlägt mit Finsternis zu\nund löscht den Ball aus jedem Gedächtnis."
+  [technique.text.it]
+  name = "Colpo dell'oblio"
+  description = "Divoramenti sferra un colpo di tenebra\nche cancella il pallone dalla mente."
+  [technique.text.pt]
+  name = "Golpe do esquecimento"
+  description = "Devoramentes desfere um golpe de\nescuridão que apaga a bola da mente."
+  [technique.text.ja]
+  name = "オブリビオンストライク"
+  description = "マインドイーターが闇の一撃を放ち\nボールを記憶から消し去る！"
+  [technique.text.zh_hans]
+  name = "遗忘之击"
+  description = "噬心者挥出黑暗一击，\n将足球从记忆中抹去。"
+  [technique.text.zh_hant]
+  name = "遺忘之擊"
+  description = "噬心者揮出黑暗一擊，\n將足球從記憶中抹去。"
+  # Golpe justiciero's own cuts with Devoramentes' packs (`assigned`); its banner is Golpe justiciero's, so none.
+  [technique.animation]
+  from = "ev60_01820"
+  id = "ev60_81820"
+  telop = "none"
+  assigned = ["me000010"]
+
+# Devoramentes' keshin shot.
+[[aura]]
+aura = "wks_fantasy_me000010"
+technique = "oblivion_strike"
+
+# The cut-in's spirit is the performer's own Devoramentes, whose packs the event ships.
+[[event_env]]
+event = "ev60_81820"
+tag_words = { set = { me000010 = "me000010" } }

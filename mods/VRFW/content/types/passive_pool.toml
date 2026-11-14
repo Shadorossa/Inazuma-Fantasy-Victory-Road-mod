@@ -1,6 +1,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.passive_pool/1"
 folder = "content/passive_pools"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Passive.Pool"
+v2_kind_folder = "Passives/Pools"
+v2_version = 1
 label = "Passive pools"
 label_es = "Reservas de pasivas"
 doc = "A match resource the special passives use as a spirit pool."

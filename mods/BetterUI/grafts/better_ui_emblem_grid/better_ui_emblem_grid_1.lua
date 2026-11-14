@@ -8,7 +8,7 @@ do
 
   Screen.INFO = @crc:team06_03_emblem_info@
   Screen.DOCK_KEY = 3357163798
-  Screen.C = { EXISTS = 2947612279, GET = 3522198769, LAYER_VISIBLE = 711242136, EMBLEM = 3190452549 }
+  Screen.C = { EXISTS = 2947612279, GET = 3522198769, LAYER_VISIBLE = @crc:CMND_SET_LAYER_VISIBLE@, EMBLEM = 3190452549 }
 
   -- The rules of the shared picker grid (VRFW.equip_grid): this screen's layers, art, tabs and what a tile shows.
   Screen.RULES = {

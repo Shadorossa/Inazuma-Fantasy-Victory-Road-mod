@@ -1,0 +1,12 @@
+# Owner-drawn icons of the unused-kit items with no game icon (content/items/unused_kits.toml), in this mod's own atlas.
+schema = "VRFW.image/1"
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/chronicle_deluxe_unused_kit_icons.g4tx"
+name = "uni_cd_naiadi_alt"
+png = "unused_kit_icons/uni_cd_naiadi_alt.png"
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/chronicle_deluxe_unused_kit_icons.g4tx"
+name = "uni_cd_silica_alt"
+png = "unused_kit_icons/uni_cd_silica_alt.png"

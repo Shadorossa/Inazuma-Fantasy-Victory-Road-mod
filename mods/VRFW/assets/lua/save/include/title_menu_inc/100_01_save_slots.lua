@@ -599,7 +599,7 @@ function SetOverwriteIsVisibleMenuItemLockIconArray(a1)
 end
 
 -- ===== EVT save_slots BEGIN =====
--- EVT save slots (appended to title_menu_inc_1.04.32.00 by research/mods/_aside/InazumaFantasy/_tools/slot_build.py).
+-- EVT save slots (appended to title_menu_inc_1.04.32.00 by slot_build.py (old Inazuma Fantasy tool, removed 2026-11-12)).
 
 VRFW.save_slots = VRFW.save_slots or {}
 local save_slots_loader = {

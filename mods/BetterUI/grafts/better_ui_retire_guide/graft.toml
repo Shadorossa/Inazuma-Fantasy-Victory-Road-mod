@@ -15,7 +15,6 @@ stem = "soccer_constant_menu"
   type = "append_block"
   source = "retire_guide_right.lua"
   marker = "better_ui retire guide"
-  crc = "none"
 
 [[files]]
 stem = "soccer_battle_constant_menu"
@@ -24,4 +23,3 @@ stem = "soccer_battle_constant_menu"
   type = "append_block"
   source = "retire_guide_right.lua"
   marker = "better_ui retire guide"
-  crc = "none"

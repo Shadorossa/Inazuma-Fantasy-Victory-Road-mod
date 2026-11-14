@@ -1,10 +1,11 @@
 id = "Furor"
 # name / description: the English fallback; the card shows the text keys mod_name / mod_description (text\keys.toml)
 name = "Furor gauge"
-version = "0.3.0"
+version = "0.3.1"
 author = "Fantasy Team"
 description = "GO Strikers' furor gauge: a fire bar beside each crest fills as the match goes on, and when it is full, L3 / R starts a 24-second Fired up phase. Every player awakens to his position's look, moves hit harder and players run faster; the CPU uses it too."
 priority = 0
+type = "gameplay"
 tags = ["Gameplay"]
 updated = "2026-11-09"
 prefix = "Furor"

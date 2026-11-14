@@ -1,0 +1,21 @@
+schema = "CharacterReforged.passive_icon/1"
+
+[[CharacterReforged.ElementIcon]]
+element = "wind"
+icon = "own_passives_icon_wind_self"
+
+[[CharacterReforged.ElementIcon]]
+element = "forest"
+icon = "own_passives_icon_forest_self"
+
+[[CharacterReforged.ElementIcon]]
+element = "fire"
+icon = "own_passives_icon_fire_self"
+
+[[CharacterReforged.ElementIcon]]
+element = "mountain"
+icon = "own_passives_icon_mountain_self"
+
+[[CharacterReforged.ElementIcon]]
+element = "void"
+icon = "own_passives_icon_void_self"

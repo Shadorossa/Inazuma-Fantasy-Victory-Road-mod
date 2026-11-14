@@ -1,23 +1,14 @@
-# BetterUI: the help row (kind 0) always last in the play guide list; order 50 = innermost wrapper of this script.
-# The list is reached as an upvalue (VRFW.upvalues.find), so the block names no retail local and nothing is promoted.
+# BetterUI: the help row (kind 0) last in the play guide list through the list-rows service (VRFW.list_rows,
+# docs/framework/list-rows.md).
 name = "better_ui_guide_rows"
 order = 50
 module = "lua_bridge"
 mod = "BetterUI"
 requires = []
 conflicts = []
-wraps = ["OnInit", "OnSetupLayer"]
+wraps = []
 description = "BetterUI: the help row always last in the play guide list"
 
-[[files]]
+[[hooks]]
 stem = "play_guide_top_menu"
-expect = [
-  '^local t = \{0, 1, 2, 3\}$',
-]
-
-  [[files.ops]]
-  type = "append_block"
-  source = "guide_rows.lua"
-  marker = "better_ui_guide_rows"
-  crc = "none"
-  include = { "@UPV@" = "../_lib/vrfw_upvalues.lua" }
+source = "guide_rows.lua"

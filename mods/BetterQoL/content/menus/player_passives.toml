@@ -1,0 +1,29 @@
+# BetterQoL › «Pasivas de jugador»: a page of «Bonificaciones de equipo» (soccer_parameter_menu) after «Pasivas de
+# equipo», added through VRFW.team_bonus_pages (Lua assets\lua\soccer_parameter_menu\300_player_passives.lua).
+#   betterqol_pp_page   the page's frame (VRFW object vrfw_team_bonus_page), opened with the screen like the game's
+#                       frames, with the input rows and focus of the game's aura passive frame
+#   betterqol_pp_head   a player card's head: the game's synergy row (face plate, miniface, name, line)
+#   betterqol_pp_row    a passive row: the game's team passive row, filled by the game's UpdateListItem
+# The heads and rows are not opened with the group: the Lua opens, places (screen px, y up) and hides them.
+schema = "VRFW.menu/2"
+
+[[patch]]
+menu = "soccer_parameter_menu"
+add_layer = { name = "betterqol_pp_page", object = "vrfw_team_bonus_page", count = 1, groups = [{ group = "soccer_parameter_menu", flags = [0, 1, 2, 0, 1, 0] }], focus = {} }
+add_commands = [
+    { layer = "betterqol_pp_page", input = "0xB379ED21", command = "CMD_BACK" },
+    { layer = "betterqol_pp_page", input = "0x475C1B9B", command = "CMD_FCS_BACK" },
+    { layer = "betterqol_pp_page", input = "0xC248BC2D", command = "CMD_FCS_NEXT" },
+    { layer = "betterqol_pp_page", input = "CMD_FUNCL1", command = "CMD_FUNCTION", arg = "0x8E22C98B", arg2 = "left" },
+    { layer = "betterqol_pp_page", input = "CMD_FUNCR1", command = "CMD_FUNCTION", arg = "0x8E22C98B", arg2 = "right" },
+    { layer = "betterqol_pp_page", input = "0xCF02BEF6", command = "CMD_BACK" },
+    { layer = "betterqol_pp_page", input = "CMD_FUNC3", command = "CMD_FUNCTION", arg = "0xA96F9398" },
+]
+
+[[patch]]
+menu = "soccer_parameter_menu"
+add_layer = { name = "betterqol_pp_row", object = "soccer11_20_formation_team_passive", count = 20, groups = [{ group = "soccer_parameter_menu", flags = [0, 0, 0, 0, 1, 0] }] }
+
+[[patch]]
+menu = "soccer_parameter_menu"
+add_layer = { name = "betterqol_pp_head", object = "team16_03_synergy_chara_condition_list", count = 8, groups = [{ group = "soccer_parameter_menu", flags = [0, 0, 0, 0, 1, 0] }] }

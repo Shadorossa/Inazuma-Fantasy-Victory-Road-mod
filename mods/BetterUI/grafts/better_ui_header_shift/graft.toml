@@ -43,6 +43,6 @@ stem = "ability_learning_board_menu"
   type = "bytecode_child"
   source = "hs_bar_dock.lua"
   marker = "better_ui header_dock"
-  crc = "none"
-  include = { "@UI_WRAP@" = "../_src/better_ui/better_ui_wrap.lua" }
+  generator = "research/mods/BetterUI/_tools/betterui_generators.py:better_ui_snippet"
+  generator_arguments = { part = "better_ui_hs_bar_dock.lua", scope = "BetterUI" }
   vars = { "@TAG@" = "hs_skill_board", "@HD_LAYERS@" = "[4185841799] = { 346.8, 0.0, 0.55 }, [1070900890] = { 194.84, 19.57, 0.64 }", "@HD_CHECK@" = "91676902" }

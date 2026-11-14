@@ -3,6 +3,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.skill_tab/1"
 folder = "content/skill_tabs"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Menu.SkillTab"
+v2_kind_folder = "Menus/SkillTabs"
+v2_version = 1
 label = "Skill tabs"
 label_es = "Pestañas de habilidades"
 doc = "A tab of the move list: a game tab changed or removed, or a new one."

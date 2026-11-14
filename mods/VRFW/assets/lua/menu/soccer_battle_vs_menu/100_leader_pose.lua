@@ -1,8 +1,10 @@
+--- Internal: table of the versus leader pose hooks.
 VRFW.vs_leader_pose = type(VRFW.vs_leader_pose) == "table" and VRFW.vs_leader_pose or {}
 do
   local P = VRFW.vs_leader_pose
   local setup = rawget(_ENV, "OnSetupCaptainCharaModel")
   if not P.wrapped and type(setup) == "function" then
+    --- Internal: true once the leader pose functions are wrapped.
     P.wrapped = true
     local C = {
       MOTION_SET = VRFW.commands.VRFW_CHARA_MOTION_SET,   -- CMND_VRFW_CHARA_MOTION_SET

@@ -4,6 +4,7 @@ if VRFW.host.hook_command == nil then
   local H = VRFW.host
   local LOG = VRFW.commands.VRFW_LOG
   local PRIORITY_TEMPORARY = -1000000000
+  --- Priority value that puts a command hook closest to the game's own command. Safe at load.
   H.INNERMOST = 1000000000
   local pack, unpack = table.pack, table.unpack
 
@@ -266,7 +267,7 @@ if VRFW.host.hook_command == nil then
 
   local LOGGED = {}
 
-  --- Adds a command hook for `owner`; answers true, or false, why.
+  --- VRFW.host.hook_command(id, fn, owner[, opts]): runs fn when the menu calls command `id`; return VRFW.host.HALT to stop the call. Safe at load.
   function H.hook_command(id, fn, owner, opts)
     opts = opts or {}
     if type(fn) ~= "function" or type(owner) ~= "string" or owner == "" then
@@ -306,17 +307,17 @@ if VRFW.host.hook_command == nil then
     return run(s, NO_HANDLERS, 1, base, ...)
   end
 
-  --- Calls funcLuaCommand underneath every hook.
+  --- Advanced: Calls funcLuaCommand underneath every hook.
   function H.real_command(...)
     return real_call(slot_of(false), ...)
   end
 
-  --- Calls funcLuaMenuCommand underneath every hook.
+  --- Advanced: Calls funcLuaMenuCommand underneath every hook.
   function H.real_menu_command(...)
     return real_call(slot_of(true), ...)
   end
 
-  --- Removes the hooks of `owner`.
+  --- VRFW.host.unhook_command(owner[, opts]): removes the command hooks of owner. Safe at load.
   function H.unhook_command(owner, opts)
     remove(slot_of(opts and (opts.post and "post" or opts.menu)), owner)
   end
@@ -330,7 +331,7 @@ if VRFW.host.hook_command == nil then
     end
   end
 
-  --- Runs fn(...) with command overrides; answers fn's results.
+  --- Advanced: Runs fn(...) with command overrides; answers fn's results.
   function H.with_commands(overrides, fn, ...)
     with_depth = with_depth + 1
     seq = seq + 1
@@ -369,7 +370,7 @@ if VRFW.host.hook_command == nil then
     return unpack(r, 2, r.n)
   end
 
-  --- Runs funcLuaCommand under pcall; answers its results, or nil when it failed.
+  --- VRFW.host.command(id, ...): calls funcLuaCommand safely. Returns its results, or nil when it failed. Call only from OnInit, Step or another callback.
   function H.command(id, ...)
     local r = pack(pcall(_ENV.funcLuaCommand, id, ...))
     if not r[1] then
@@ -378,7 +379,7 @@ if VRFW.host.hook_command == nil then
     return unpack(r, 2, r.n)
   end
 
-  --- Runs funcLuaMenuCommand under pcall; answers its results, or nil when it failed.
+  --- VRFW.host.menu_command(id, ...): calls funcLuaMenuCommand safely. Returns its results, or nil when it failed. Call only from OnInit, Step or another callback.
   function H.menu_command(id, ...)
     local r = pack(pcall(_ENV.funcLuaMenuCommand, id, ...))
     if not r[1] then

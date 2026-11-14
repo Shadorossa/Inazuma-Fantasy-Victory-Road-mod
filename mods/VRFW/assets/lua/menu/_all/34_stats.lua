@@ -7,6 +7,7 @@ if VRFW.stats == nil then
     OWNER = "VRFW",
     floors = {},
   }
+  --- Internal: Namespace of the stats helpers for a team's match statistics.
   VRFW.stats = ST
 
   local function key(team)
@@ -24,7 +25,7 @@ if VRFW.stats == nil then
     return nil
   end
 
-  --- Adds a function that answers a floor for the win counts.
+  --- Internal: Adds a function that answers a floor for the win counts.
   function ST.add_floor(fn)
     if type(fn) == "function" then
       ST.floors[#ST.floors + 1] = fn
@@ -42,7 +43,7 @@ if VRFW.stats == nil then
     return n
   end
 
-  --- The wins against a team in this save slot (0 = never beaten, or not tracked yet).
+  --- Internal: The wins against a team in this save slot (0 = never beaten, or not tracked yet).
   function ST.wins_against(team)
     local k = key(team)
     if k == nil then
@@ -53,7 +54,7 @@ if VRFW.stats == nil then
     return f > n and f or n
   end
 
-  --- Adds one win against `team`; answers the new count, 0 when the team has no key.
+  --- Internal: Adds one win against `team`; answers the new count, 0 when the team has no key.
   function ST.add_win(team)
     local k = key(team)
     if k == nil then

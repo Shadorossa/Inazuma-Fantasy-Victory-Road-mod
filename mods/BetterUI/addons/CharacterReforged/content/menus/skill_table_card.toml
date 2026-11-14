@@ -1,0 +1,7 @@
+schema = "VRFW.menu/2"
+
+# Character Reforged's skill table keeps the base equip_menu's retail card; this mod gives its player card the compact formation card.
+[[patch]]
+menu = "vrfw_skill_slot_menu"
+layer = "team00_01_chara_card"
+object = "team00_01_chara_card_for_formation_evt"

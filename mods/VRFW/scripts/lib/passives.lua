@@ -1,3 +1,4 @@
+--- Advanced: Library: passive declarations, pools, events and card passives.
 
 local M = {}
 
@@ -9,13 +10,15 @@ local FORMER_KIND = {}
 local Id = VRFW.ids
 local Decl = VRFW.declarations
 local u32 = Id.unsigned
+--- Advanced: Normalises an id to an unsigned 32-bit number.
 M.u32 = u32
 
---- a number, "0x…", decimal text, or a key (its crc32) -> id; nil for nothing usable
+--- Advanced: a number, "0x…", decimal text, or a key (its crc32) -> id; nil for nothing usable
 function M.id_of(v)
   return Id.parse(v, { hash_names = true })
 end
 
+--- Advanced: Formats an id as hex text.
 M.hex = Id.hex_text
 
 -- the key specs of an entry type (its table keys) and its plain keys (role, text, apply…)
@@ -126,7 +129,7 @@ local function add_to(map, key, p)
   table.insert(map[key], p)
 end
 
---- a passive's condition blocks with the parts of its AnyOf / NoneOf blocks (one level: a bounded walk)
+--- Internal: a passive's condition blocks with the parts of its AnyOf / NoneOf blocks (one level: a bounded walk)
 function M.conditions_of(p)
   local out = {}
   for _, b in ipairs(p.conditions) do
@@ -143,9 +146,10 @@ end
 local DATA = nil
 -- the events the interpreter makes itself (no behaviour-rule trigger): `carried`, `half_start`, `interval:<seconds>`
 local ENGINE_EVENTS = { carried = true, half_start = true, interval = true }
+--- Internal: Set of the events the passive interpreter raises itself (carried, half_start, interval).
 M.ENGINE_EVENTS = ENGINE_EVENTS
 
---- The passive pools from `points`.
+--- Internal: The passive pools from `points`.
 function M.pools(points, warn)
   local out, seen = {}, {}
   local function add(resource, cost_flag)
@@ -275,7 +279,8 @@ local function build_data(warn)
       d.caps[key] = { key = key, max = e.v.max_percent }
     elseif e.type.name == "Tag" then
       local before = d.tags[e.v.name]
-      d.tags[e.v.name] = { name = e.v.name, text = (e.v.text ~= "" or not before) and e.v.text or before.text, mod = e.mod }
+      d.tags[e.v.name] = { name = e.v.name, text = (e.v.text ~= "" or not before) and e.v.text or before.text, mod = e.mod,
+                           icon = ((e.v.icon or "") ~= "" or not before) and (e.v.icon or "") or before.icon }
     elseif e.type.name == "CharacterTags" then
       d.character_tags[#d.character_tags + 1] = { character = e.v.character, tags = e.v.tags, where = e.where }
     elseif e.type.name == "SpiritFamily" then
@@ -371,7 +376,7 @@ local function build_data(warn)
       if b.meta.apply == "pool_cost" then d.has_pool_cost = true end
       if b.meta.apply == "stamina_recovery" then d.has_stamina = true end
       if b.meta.apply == "ball_walls" then d.has_ball_walls = true end
-      for h in tostring(b.meta.hooks or ""):gmatch("[%w_]+") do add_to(d.hooks, h, p) end
+      for h in tostring(b.meta.hooks or ""):gmatch("[%w_:]+") do add_to(d.hooks, h, p) end
     end
   end
   for _, map in ipairs({ d.listen, d.hooks }) do
@@ -389,7 +394,7 @@ local function build_data(warn)
   return d
 end
 
---- the data above, built once per VM and kept between starts while the mods' files and the game's data are the same
+--- Advanced: the data above, built once per VM and kept between starts while the mods' files and the game's data are the same
 function M.data(warn)
   if DATA then return DATA end
   if type(VRFW.derived) == "function" then
@@ -400,10 +405,17 @@ function M.data(warn)
   return DATA
 end
 
+--- Advanced: drops this VM's copy of the data; a script that only reads it at load calls this at the end of its top-level run, so the collector frees it before the first command and every later collection cycle stays small.
+function M.release_data()
+  DATA = nil
+end
+
+--- Internal: Event key of a behaviour: its trigger, plus ":arg" when it has an argument.
 M.event_key = event_key
+--- Advanced: Reads map[mod.name], else map[name]; answers the value, or nil when name is not text.
 M.lookup = lookup
 
---- a character entry's chara_base id (a key / id resolved by the framework)
+--- Internal: a character entry's chara_base id (a key / id resolved by the framework)
 function M.character_id(value)
   if type(value) ~= "number" and (type(value) ~= "string" or value == "") then return nil end
   return Id.character(value, { hash_names = true })
@@ -433,7 +445,7 @@ local function cards_of_character(value)
   return out
 end
 
---- the cards of a character entry ({ character } or { card })
+--- Advanced: the cards of a character entry ({ character } or { card })
 function M.cards_of(e)
   if e.card ~= nil and e.card ~= "" then
     local c = Id.parse(e.card, { hash_names = true })
@@ -461,7 +473,7 @@ local function truthy(v)
   return v == true or (type(v) == "number" and v ~= 0)
 end
 
---- The passive of character `hdl` in slot `k`; nil when none.
+--- Advanced: The passive of character `hdl` in slot `k`; nil when none.
 function M.slot_passive(hdl, k, copy)
   local id_buf = buffers()
   local oku, unlocked = pcall(VRFW.call, TEAM_PASSIVE_UNLOCKED, hdl, k, copy)
@@ -473,8 +485,8 @@ function M.slot_passive(hdl, k, copy)
   return VRFW.memory.read("u32", id_buf) or 0, truthy(unlocked)
 end
 
---- The signature passive of character `hdl`; nil when none.
-function M.signature_passive(hdl, opts)
+--- Advanced: The own passive of character `hdl`; nil when none.
+function M.own_passive(hdl, opts)
   opts = opts or {}
   local id_buf, hdl_buf = buffers()
   VRFW.memory.write("u32", id_buf, 0)

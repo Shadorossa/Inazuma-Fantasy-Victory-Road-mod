@@ -26,5 +26,10 @@ order = 55
 group = "aura"
 
 [[VRFW.SkillTab]]
+category = 105    # awakening
+order = 56
+group = "aura"
+
+[[VRFW.SkillTab]]
 category = 102    # Mix-Max
 group = "mix"

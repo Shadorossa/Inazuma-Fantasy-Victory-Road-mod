@@ -83,10 +83,30 @@ local function pairs_list()
   return v
 end
 
--- the base whose equipped change uses card `partner` (nil = none)
+-- The pairing system of the stored fusions (content\pairing\miximax.toml).
+local FUSION_SYSTEM = "miximax"
+
+-- Returns true while base card `base`'s mix half holds `system`'s carrier (Character Reforged's partner locks own the rule).
+local function held(system, base)
+  local base_api = rawget(_G, "CharacterReforged")
+  if type(base_api) ~= "table" or type(base_api.PartnerHeld) ~= "function" then return true end
+  local ok, on = pcall(base_api.PartnerHeld, system, base)
+  return not ok or on == true
+end
+
+-- every (partner, base) of the equipped changes whose base's mix half holds the change
+local function held_pairs()
+  local v = {}
+  for _, p in ipairs(pairs_list()) do
+    if held("change", p[2]) then v[#v + 1] = p end
+  end
+  return v
+end
+
+-- the base whose held change uses card `partner` (nil = none)
 local function reserved_by(partner)
   if partner == 0 then return nil end
-  for _, p in ipairs(pairs_list()) do
+  for _, p in ipairs(held_pairs()) do
     if p[1] == partner then return p[2] end
   end
   return nil
@@ -131,7 +151,8 @@ local function stored_pairs()
   local out = {}
   for k, b in pairs(load().bases) do
     local ch = b.equipped ~= nil and b.changes[b.equipped + 1]
-    if ch then out[#out + 1] = { base = u32(tonumber(k, 16) or 0), partner = u32(ch.partner_hdl), partner_chara = u32(ch.partner_chara) } end
+    local base = u32(tonumber(k, 16) or 0)
+    if ch and held("change", base) then out[#out + 1] = { base = base, partner = u32(ch.partner_hdl), partner_chara = u32(ch.partner_chara) } end
   end
   return out
 end
@@ -146,7 +167,7 @@ local function refusal(base, partner)
     if code ~= 0 then return PAIR_CODE[code] or 5 end
   end
   local fp = C.fusion_partners()
-  if fp[base] or fp[partner] then return 5 end
+  if (fp[base] and held(FUSION_SYSTEM, fp[base])) or (fp[partner] and held(FUSION_SYSTEM, fp[partner])) then return 5 end
   return 0
 end
 
@@ -391,13 +412,13 @@ local function swap_slot_keys()
 end
 
 for _, k in ipairs(swap_slot_keys()) do
-  VRFW.on("extra_slot:" .. k .. ":swap_on", function(ev)
+  VRFW.on("match:extra_slot:" .. k .. ":swap_on", function(ev)
     if ev.actor then
       VRFW.character_effect{ trigger = AURA_TRIGGER }
       info(string.format("custom change aura on for actor %s (%s)", hex(ev.actor.handle), k))
     end
   end)
-  VRFW.on("extra_slot:" .. k .. ":swap_off", function(ev)
+  VRFW.on("match:extra_slot:" .. k .. ":swap_off", function(ev)
     if ev.actor then
       VRFW.character_effect{ clear = true, trigger = AURA_TRIGGER }
       info(string.format("custom change aura off for actor %s", hex(ev.actor.handle)))
@@ -405,11 +426,11 @@ for _, k in ipairs(swap_slot_keys()) do
   end)
 end
 
-VRFW.on("slot_load", function()
+VRFW.on("save:slot_load", function()
   ST.slot, ST.st, CAND.rows = -1, nil, nil
   M.publish()
 end)
-VRFW.on("game_reset", function()
+VRFW.on("game:reset", function()
   ST.slot, ST.st, CAND.rows = -1, nil, nil
 end)
 

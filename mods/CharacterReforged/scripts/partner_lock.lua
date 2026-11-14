@@ -32,8 +32,13 @@ end
 
 local function read_systems()
   local merged = {}
+  local carriers = {}
   for _, f in ipairs(declarations()) do
     local d = type(f) == "table" and f.data or nil
+    local create = type(d) == "table" and type(d.CharacterReforged) == "table" and d.CharacterReforged.Create or nil
+    for system, keys in pairs(type(create) == "table" and create or {}) do
+      if type(system) == "string" and type(keys) == "table" and type(keys.carrier) == "string" then carriers[system] = keys.carrier end
+    end
     local root = type(d) == "table" and type(d.CharacterReforged) == "table" and d.CharacterReforged.PartnerLock or nil
     if type(root) == "table" then
       for system, keys in pairs(root) do
@@ -54,6 +59,7 @@ local function read_systems()
       status_name = s.status_badge and tostring(s.status_badge) or nil,
       status_team_name = s.status_badge_in_team and tostring(s.status_badge_in_team) or nil,
       status_aura_type = tonumber(s.status_aura_type),
+      carrier = carriers[system],
     }
     e.sprite, e.text_id, e.status = id_of(e.sprite_name), id_of(e.text_key), id_of(e.status_name)
     e.status_team = id_of(e.status_team_name)
@@ -83,25 +89,49 @@ local function system_of(name)
 end
 
 local PAIRS = {}      -- system -> { [partner] = base }
-local LOCKED = nil
 
-local function rebuild()
-  LOCKED = {}
+-- The carrier kind of a system's declared carrier (CharacterReforged.SlotOf's third value: 1 fusion, 2 mode change; 0 = none declared).
+local function carrier_kind(s)
+  if s.carrier_kind == nil then
+    s.carrier_kind = 0
+    if type(s.carrier) == "string" then
+      local ok, r = pcall(CharacterReforged.SlotOf, id_of((s.carrier:gsub("{k}", "0"))))
+      s.carrier_kind = ok and type(r) == "table" and tonumber(r[3]) or 0
+    end
+  end
+  return s.carrier_kind
+end
+
+-- Exported because other scripts run in their own VM: true while base card `base`'s mix half holds a carrier of `system` (a system without a declared carrier always holds its pairs).
+function CharacterReforged.PartnerHeld(system, base)
+  local s = system_of(tostring(system or ""))
+  local kind = carrier_kind(s)
+  if kind == 0 then return true end
+  local okm, mix = pcall(CharacterReforged.MixGet, u32(base))
+  mix = okm and u32(mix or 0) or 0
+  if mix == 0 then return false end
+  local ok, r = pcall(CharacterReforged.SlotOf, mix)
+  return ok and type(r) == "table" and tonumber(r[3]) == kind
+end
+
+-- Returns partner -> { base, system entry } of every pair whose base's mix half holds it (read on each ask: the mix halves change in other scripts).
+local function locked()
+  local out = {}
   for name, map in pairs(PAIRS) do
     local s = system_of(name)
     if not s.off then
       for partner, base in pairs(map) do
-        local cur = LOCKED[partner]
-        if not cur or s.order < cur.s.order or (s.order == cur.s.order and s.system < cur.s.system) then
-          LOCKED[partner] = { base = base, s = s }
+        if CharacterReforged.PartnerHeld(name, base) then
+          local cur = out[partner]
+          if not cur or s.order < cur.s.order or (s.order == cur.s.order and s.system < cur.s.system) then
+            out[partner] = { base = base, s = s }
+          end
         end
       end
     end
   end
-  return LOCKED
+  return out
 end
-
-local function locked() return LOCKED or rebuild() end
 
 function CharacterReforged.PartnerLockSet(system, list)
   system = tostring(system or "")
@@ -121,7 +151,6 @@ function CharacterReforged.PartnerLockSet(system, list)
   for k in pairs(old) do if map[k] == nil then changed = true end end
   if not changed and PAIRS[system] then return true end
   PAIRS[system] = map
-  LOCKED = nil
   local shown = {}
   for partner, base in pairs(map) do
     if #shown < 8 then shown[#shown + 1] = hex(partner) .. " (of " .. hex(base) .. ")" end
@@ -156,27 +185,41 @@ function CharacterReforged.PartnerLock.List()
   return out
 end
 
--- CMND_CHARACTERREFORGED_PARTNER_USES() -> { { card, statusSprite, order, isPartner, system }, … } of every paired card
-function CharacterReforged.PartnerLock.Uses()
+-- Returns card -> { s, partner, base_card, partner_card }: the pair of the lowest system order of every paired card whose base's mix half holds it.
+local function pair_uses()
   local best = {}
-  local function put(card, s, partner)
+  local function put(card, s, partner, base_card, partner_card)
     if card == 0 then return end
     local cur = best[card]
     if not cur or s.order < cur.s.order or (s.order == cur.s.order and partner and not cur.partner) then
-      best[card] = { s = s, partner = partner }
+      best[card] = { s = s, partner = partner, base_card = base_card, partner_card = partner_card }
     end
   end
   for name, map in pairs(PAIRS) do
     local s = system_of(name)
     if not s.off then
       for partner, base in pairs(map) do
-        put(partner, s, true)
-        put(base, s, false)
+        if CharacterReforged.PartnerHeld(name, base) then
+          put(partner, s, true, base, partner)
+          put(base, s, false, base, partner)
+        end
       end
     end
   end
+  return best
+end
+
+-- Exported because other scripts run in their own VM: (card) -> base, partner, system of the stored pair that card is in (base 0 = in no pair).
+function CharacterReforged.PartnerPairOf(card)
+  local e = pair_uses()[u32(card)]
+  if not e then return 0, 0, "" end
+  return e.base_card, e.partner_card, e.s.system
+end
+
+-- CMND_CHARACTERREFORGED_PARTNER_USES() -> { { card, statusSprite, order, isPartner, system }, … } of every paired card
+function CharacterReforged.PartnerLock.Uses()
   local out = {}
-  for card, e in pairs(best) do
+  for card, e in pairs(pair_uses()) do
     out[#out + 1] = { card, e.s.status or 0, e.s.order, e.partner, e.s.system, e.s.status_team or 0 }
   end
   return out
@@ -217,8 +260,8 @@ function CharacterReforged.PartnerLock.MoveChara(to_set, pos, from_set, hdl)
   return true, false
 end
 
-VRFW.on("game_reset", function()
-  PAIRS, LOCKED = {}, nil
+VRFW.on("game:reset", function()
+  PAIRS = {}
 end)
 
 do

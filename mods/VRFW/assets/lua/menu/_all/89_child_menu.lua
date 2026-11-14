@@ -60,7 +60,7 @@ if VRFW.child_menu == nil then
     end
   end
 
-  --- Hosts child menu `menu_name` in this menu; answers its handle table.
+  --- VRFW.child_menu.host(menu_name, spec): opens child menu `menu_name` inside this menu. Returns its handle table. Call only from OnInit, Step or another callback.
   function ChildMenu.host(menu_name, spec)
     spec = type(spec) == "table" and spec or {}
     local menu = crc(menu_name)
@@ -198,7 +198,7 @@ if VRFW.child_menu == nil then
     return h
   end
 
-  --- Closes the child menu `menu_name`; answers true when it existed.
+  --- VRFW.child_menu.close(menu_name[, why]): closes a child menu. Returns true when it was open. Call only from OnInit, Step or another callback.
   function ChildMenu.close(menu_name, why)
     local menu = crc(menu_name)
     if not exists(menu) then
@@ -209,7 +209,7 @@ if VRFW.child_menu == nil then
     return true
   end
 
-  --- Makes this script a child menu; answers its handle table.
+  --- VRFW.child_menu.child(menu_name, spec): makes this script a child menu. Returns its handle table. Call only from OnInit, Step or another callback.
   function ChildMenu.child(menu_name, spec)
     spec = type(spec) == "table" and spec or {}
     local menu = crc(menu_name)
@@ -327,5 +327,6 @@ if VRFW.child_menu == nil then
     return c
   end
 
+  --- Child menus opened inside a menu: host, child, close. Call only from OnInit, Step or another callback.
   VRFW.child_menu = ChildMenu
 end

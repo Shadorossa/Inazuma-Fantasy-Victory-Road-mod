@@ -1,12 +1,17 @@
 
+--- Advanced: Namespace of the archetype menu hooks: command hashes and the first mod archetype number.
 VRFW.archetype = VRFW.archetype or {}
 local A = VRFW.archetype
+--- Internal: command hash of CMND_VRFW_ARCHETYPE_TEAM.
 A.CMD_TEAM = 3704961242   -- CMND_VRFW_ARCHETYPE_TEAM
+--- Internal: command hash of CMND_VRFW_ARCHETYPE_MATCH.
 A.CMD_MATCH = 2854479468  -- CMND_VRFW_ARCHETYPE_MATCH
+--- Internal: command hash of CMND_VRFW_ARCHETYPE_INFO.
 A.CMD_INFO = 3552358290   -- CMND_VRFW_ARCHETYPE_INFO
+--- Internal: first archetype number that belongs to mods (the game's builds come before it).
 A.FIRST = 7
 
--- { name, desc, icon, large, gauge } of a declared archetype's number, nil for the game's builds / no answer
+-- Internal: { name, desc, icon, large, gauge } of a declared archetype's number, nil for the game's builds / no answer
 function A.info(n)
   if type(n) ~= "number" or n < A.FIRST then return nil end
   local has, name, desc, icon, large, gauge = VRFW.host.command(A.CMD_INFO, n)
@@ -14,14 +19,14 @@ function A.info(n)
   return nil
 end
 
--- the declared archetype a team set (dock, party) got at its last pick, nil when it is one of the game's builds
+-- Advanced: the declared archetype a team set (dock, party) got at its last pick, nil when it is one of the game's builds
 function A.team(dock, party)
   local b = VRFW.host.command(A.CMD_TEAM, dock or 0, party or 0)
   if type(b) == "number" and b >= A.FIRST then return b end
   return nil
 end
 
--- the declared archetype of a match side (0 / 1) and its rank, nil when none
+-- Internal: the declared archetype of a match side (0 / 1) and its rank, nil when none
 function A.match(side)
   if side ~= 0 and side ~= 1 then return nil end
   local b, rank = VRFW.host.command(A.CMD_MATCH, side)
@@ -30,6 +35,7 @@ function A.match(side)
 end
 
 if MENU_DEF ~= nil then
+  --- Internal: table holding the wrappers installed on the menu_def VM for archetype display.
   A.menu_def = A.menu_def or {}
   local W = A.menu_def
   local function wrap(name, field)

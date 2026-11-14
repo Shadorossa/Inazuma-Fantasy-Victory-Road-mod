@@ -83,3 +83,7 @@ from = "whs02360"
 [[telop]]
 id = "whs90680"                 # El Apocalipsis (the download's picture)
 from = "whs00680"
+
+[[telop]]
+id = "whs91016"                 # Meteor Storm Victory (Tormenta meteoro V: the owner's English picture, every language but Spanish)
+from = "whs10160"

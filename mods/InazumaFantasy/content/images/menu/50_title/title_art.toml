@@ -1,4 +1,5 @@
-# The title logo per language and the press-start key art (title_art\); on while config.toml [VRFW.TitleArt] own = true.
+# The title logo per language and the ending logo (title_art\); the framework's own logo is off while config.toml
+# [VRFW.TitleArt] own = true. The press-start key art is title_background.toml.
 schema = "VRFW.image/1"
 
 # ---- the logo: press-start logo (title00_03_02) and mode-menu logo (title02_01) --------------------------------------
@@ -64,64 +65,3 @@ atlas = "#/menu/220_img/ed_logo/<LG>/ed_logo01.g4tx"
 name = "ed_logo01"
 png = "title_art/ending_logo.png"
 lang = ["", "de", "en", "fr", "it", "pt", "zh_hans", "zh_hant"]
-
-# ---- the press-start key art (title_menu layer title00_01_title_top_st) ---------------------------------------------
-
-# the whole picture is the background; the two character sprites, the green light and the sun flare are emptied
-[[sprite]]
-atlas = "#/menu/50_title/title00/title00_01_st/title00_01_st.g4tx"
-name = "bg_sky01_st"
-recipe = "key_art"
-
-[[sprite]]
-atlas = "#/menu/50_title/title00/title00_01_st/title00_01_st.g4tx"
-name = "bg_chr02_st"
-recipe = "no_left_character"
-
-[[sprite]]
-atlas = "#/menu/50_title/title00/title00_01_st/title00_01_st.g4tx"
-name = "bg_chr01_st"
-recipe = "no_right_character"
-
-[[sprite]]
-atlas = "#/menu/50_title/title00/title00_01_st/title00_01_st.g4tx"
-name = "bg_green_eff01_st"
-recipe = "no_green_light"
-
-[[sprite]]
-atlas = "#/menu/50_title/title00/title00_01_st/title00_01_st.g4tx"
-name = "bg_lens_flare01_st"
-recipe = "no_flare"
-
-[[texture]]
-atlas = "#/menu/50_title/title00/title00_01_st/title00_01_st.g4tx"
-name = "bg_cloud01_st"
-png = "title_art/star_ring.png"
-
-[[texture]]
-atlas = "#/menu/50_title/title00/title00_01_st/title00_01_st.g4tx"
-name = "bg_cloud02_st"
-png = "title_art/star_frame.png"
-
-# ---- recipes ---------------------------------------------------------------------------------------------------------
-
-[[recipe]]
-name = "key_art"
-png = "title_art/key_art.png"
-ops = [{ op = "resize", size = [5280, 2400] }, { op = "opaque" }]
-
-[[recipe]]
-name = "no_left_character"
-canvas = [2008, 2384]
-
-[[recipe]]
-name = "no_right_character"
-canvas = [1760, 1992]
-
-[[recipe]]
-name = "no_green_light"
-canvas = [2640, 1200]
-
-[[recipe]]
-name = "no_flare"
-canvas = [2356, 1200]

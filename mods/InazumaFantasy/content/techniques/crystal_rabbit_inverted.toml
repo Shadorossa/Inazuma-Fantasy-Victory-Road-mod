@@ -1,0 +1,18 @@
+schema = "VRFW.technique/3"
+# Crystal Rabbit with its colours inverted: a copy of wks02020 (same power, own keshin shot content/techniques/shadow_empress_inverted.toml, own name text/rows/crystal_rabbit_inverted.toml) on the model k902020, no owner; sold in content/shops/crystal_rabbit_inverted.toml.
+# Its summon ev80_90040 is the retail summon ev80_00040 mirrored left to right; _tools/crystal_rabbit_inverted_build.py builds the model and the event.
+# The build also ships its mirrored packs of every cut-in that ships Crystal Rabbit's (Shadow Empress ev60_10090) and that cut-in mirrored,
+# ev60_90090, the cut-in of its own keshin shot Emperatriz oscura inversa (content/techniques/shadow_empress_inverted.toml).
+
+[[aura_command]]
+key = "wks_fantasy_k902020"
+from = "wks02020"
+manual = true
+cells = { name_text = 0x6DFE703E, desc_text = 0x3868A26C, aura_chara = 0x236998E5, event = 0xB1EC4E38, order = 118 }
+charas = []
+
+# The mirrored summon takes the retail summon's environment row; its sound cues stay Crystal Rabbit's.
+[[event_env]]
+event = "ev80_90040"
+from = "ev80_00040"
+snd_tag_words = { set = { k902020 = "k002020" } }

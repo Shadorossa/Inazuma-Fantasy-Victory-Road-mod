@@ -1,0 +1,6 @@
+schema = "VRFW.game/2"
+
+# A voice cue of a speaker with no voice selector gets an empty selector and label instead of the game's "(null)" text, so CRI is not asked for a selector that does not exist.
+[[VRFW.Patch]]
+name = "VoiceSelector.EmptyWhenUnset"
+edit = "Audio.VoiceSelectorCopy.EmptyWhenUnset"

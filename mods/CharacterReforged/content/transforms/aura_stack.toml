@@ -1,6 +1,4 @@
 schema = "VRFW.transform/2"
 
 [rules]
-stack = ["keshin", "aura", "miximax", "armour"]
-stack_ends_alone = true
 portrait_base_icon_types = [9]

@@ -11,12 +11,13 @@ if VRFW.chronicle == nil then
     cache = {},                -- d -> {done, cleared, total, missing}
     slot_of = nil,             -- pieceId -> the slot its clear bits use (per VM)
   }
+  --- Internal: Namespace: the chronicle pieces and completion helpers of the menu VM.
   VRFW.chronicle = M
 
   local function u32(v) return VRFW.ids.unsigned(v) end
 
   local logger
-  --- Logs through the chronicle logger.
+  --- Internal: Logs through the chronicle logger.
   function M.log(...)
     logger = logger or VRFW.logger.new("chronicle")
     logger(...)
@@ -52,6 +53,7 @@ if VRFW.chronicle == nil then
         list[#list + 1] = {id, tonumber(nd.slot) or sfi, nd.d}
       end
     end
+    --- Internal: the list of chronicle pieces built from the route nodes.
     M.list = list
     M.log("pieces", #list, "of", #got, "(route nodes", n or 0, ")")
     return list
@@ -65,12 +67,13 @@ if VRFW.chronicle == nil then
     return v == true
   end
 
-  --- Forgets the cached completion.
+  --- Internal: Forgets the cached completion.
   function M.reset()
+    --- Internal: cache of chronicle completion per difficulty.
     M.cache = {}
   end
 
-  --- Chronicle completion of difficulty d: done, have, total, missing.
+  --- Internal: Chronicle completion of difficulty d: done, have, total, missing.
   function M.complete(d)
     d = tonumber(d) or 2
     local c = M.cache[d]
@@ -108,7 +111,7 @@ if VRFW.chronicle == nil then
     return done, have, total, missing
   end
 
-  --- Whether piece `piece` (a board piece or a route node) was cleared at difficulty d; false when the board does not list it.
+  --- Internal: Whether piece `piece` (a board piece or a route node) was cleared at difficulty d; false when the board does not list it.
   function M.piece_cleared(piece, d)
     if M.slot_of == nil then
       local list = pieces()

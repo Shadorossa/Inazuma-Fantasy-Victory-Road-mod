@@ -1,0 +1,15 @@
+schema = "VRFW.text/2"
+table = "skill_text"
+
+[[row]]
+id = 1984656637  # ChronicleDeluxe own_c02024760
+kind = "noun"
+es = "[CPASSIVE01]Verdadero capitán[C]\\nEn la 2.ª parte:\\n[CPASSIVE01]AT[C] y [CPASSIVE01]DF[C] [CPASSIVE01]+5 %[C] a los jugadores de [CPASSIVE01]Orfeo[C]"
+en = "[CPASSIVE01]True Captain[C]\\nIn the 2nd half:\\n[CPASSIVE01]AT[C] and [CPASSIVE01]DF[C] [CPASSIVE01]+5%[C] for [CPASSIVE01]Orpheus[C] players"
+fr = "[CPASSIVE01]Vrai capitaine[C]\\nEn 2e mi-temps :\\n[CPASSIVE01]AT[C] et [CPASSIVE01]DF[C] [CPASSIVE01]+5 %[C] pour les joueurs d'[CPASSIVE01]Orphée[C]"
+de = "[CPASSIVE01]Wahrer Kapitän[C]\\nIn der 2. Halbzeit:\\n[CPASSIVE01]AT[C] und [CPASSIVE01]DF[C] [CPASSIVE01]+5 %[C] für die Spieler von [CPASSIVE01]Orpheus[C]"
+it = "[CPASSIVE01]Vero capitano[C]\\nNel 2º tempo:\\n[CPASSIVE01]AT[C] e [CPASSIVE01]DF[C] [CPASSIVE01]+5%[C] ai giocatori dell'[CPASSIVE01]Orfeo[C]"
+pt = "[CPASSIVE01]Verdadeiro capitão[C]\\nNa 2.ª parte:\\n[CPASSIVE01]AT[C] e [CPASSIVE01]DF[C] [CPASSIVE01]+5%[C] para os jogadores do [CPASSIVE01]Orfeu[C]"
+ja = "[CPASSIVE01]真のキャプテン[C]\\n後半：\\n[CPASSIVE01]オルフェウス[C]の選手の[CPASSIVE01]AT[C]・[CPASSIVE01]DF[C][CPASSIVE01]+5％[C]"
+zh_hans = "[CPASSIVE01]真正的队长[C]\\n下半场：\\n[CPASSIVE01]吟游诗人[C]球员的[CPASSIVE01]AT[C]和[CPASSIVE01]DF[C][CPASSIVE01]+5%[C]"
+zh_hant = "[CPASSIVE01]真正的隊長[C]\\n下半場：\\n[CPASSIVE01]吟遊詩人[C]球員的[CPASSIVE01]AT[C]和[CPASSIVE01]DF[C][CPASSIVE01]+5%[C]"

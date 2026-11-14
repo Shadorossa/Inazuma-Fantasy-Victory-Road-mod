@@ -72,18 +72,18 @@ local function note_half(m)
   return half
 end
 
-VRFW.on("match_start", function(ev)
+VRFW.on("match:start", function(ev)
   new_match(ev)
   return nil
 end)
 
-VRFW.on("game_reset", function()
+VRFW.on("game:reset", function()
   LIVE = nil
   return nil
 end)
 
 -- every goal: the score of the match, a shoot-out goal apart (the score never goes down inside a match)
-VRFW.on("goal", function(ev)
+VRFW.on("match:goal", function(ev)
   local m = type(ev) == "table" and ev.match or nil
   if not LIVE or type(m) ~= "table" or type(m.score) ~= "table" then return nil end
   local now = { int(m.score[1]), int(m.score[2]) }
@@ -107,13 +107,13 @@ VRFW.on("goal", function(ev)
 end)
 
 -- each kick-off: the half being played (extra time with no goal is seen here)
-VRFW.on("state_enter:" .. IN_PLAY_STATE, function(ev)
+VRFW.on("match:state_enter:" .. IN_PLAY_STATE, function(ev)
   note_half(type(ev) == "table" and ev.match or nil)
   return nil
 end)
 
 -- the full-time state: the match reached its end (a match left from the pause menu never does)
-VRFW.on("state_enter:" .. FULL_TIME_STATE, function(ev)
+VRFW.on("match:state_enter:" .. FULL_TIME_STATE, function(ev)
   if LIVE then LIVE.full_time = true end
   note_side(type(ev) == "table" and ev.match or nil)
   return nil
@@ -188,7 +188,7 @@ VRFW.on("hook:" .. HOOK .. ":post", function()
 end)
 
 -- the match is over: a match that reached its full time without the result builder is sent from the kept score
-VRFW.on("match_end", function()
+VRFW.on("match:end", function()
   if LIVE and LIVE.full_time and not LIVE.sent then
     local ok, e = pcall(send, "full_time", nil)
     if not ok then warn("result not sent (" .. tostring(e) .. ")") end

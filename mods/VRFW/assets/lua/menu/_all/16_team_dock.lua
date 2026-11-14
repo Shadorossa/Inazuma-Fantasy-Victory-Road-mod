@@ -1,19 +1,20 @@
 -- lua_patch.scope: used
 if VRFW.team_dock == nil then
   local TD = { owners = {}, listeners = {} }
+  --- Advanced: Namespace of the team dock claim helpers (owner claims, rules and releases).
   VRFW.team_dock = TD
 
-  --- Claims the team dock for `owner`; `rule` (optional function) decides when the claim applies.
+  --- Advanced: Claims the team dock for `owner`; `rule` (optional function) decides when the claim applies.
   function TD.claim(owner, rule)
     TD.owners[owner] = type(rule) == "function" and rule or true
   end
 
-  --- Drops the claim of `owner`.
+  --- Internal: Drops the claim of `owner`.
   function TD.release(owner)
     TD.owners[owner] = nil
   end
 
-  --- The first owner whose claim applies; nil when there is none.
+  --- Internal: The first owner whose claim applies; nil when there is none.
   function TD.owner()
     for owner, rule in pairs(TD.owners) do
       if rule == true then
@@ -28,12 +29,12 @@ if VRFW.team_dock == nil then
     return nil
   end
 
-  --- True when some owner's claim applies.
+  --- Advanced: True when some owner's claim applies.
   function TD.is_owned()
     return TD.owner() ~= nil
   end
 
-  --- The dock shows the online squad (online friendly lobby).
+  --- Advanced: The dock shows the online squad (online friendly lobby).
   function TD.online()
     if (VRFW.prematch ~= nil and VRFW.prematch.online ~= nil) then
       local ok, r = pcall(VRFW.prematch.online)
@@ -42,7 +43,7 @@ if VRFW.team_dock == nil then
     return funcLuaCommand(3959907440) == true or funcLuaCommand(1191545622) == true
   end
 
-  --- Adds fn as listener `name` of `event`; a second one with the same name replaces it.
+  --- Advanced: Adds fn as listener `name` of `event`; a second one with the same name replaces it.
   function TD.on(event, name, fn)
     local list = TD.listeners[event] or {}
     TD.listeners[event] = list
@@ -61,7 +62,7 @@ if VRFW.team_dock == nil then
     logger(event .. " listener " .. tostring(name) .. " failed: " .. tostring(err))
   end
 
-  --- Calls every listener of `event` under pcall.
+  --- Advanced: Calls every listener of `event` under pcall.
   function TD.emit(event, ...)
     for _, l in ipairs(TD.listeners[event] or {}) do
       local ok, err = pcall(l.fn, ...)
@@ -71,7 +72,7 @@ if VRFW.team_dock == nil then
     end
   end
 
-  --- The first non-nil answer of the event's listeners.
+  --- Advanced: The first non-nil answer of the event's listeners.
   function TD.ask(event, ...)
     for _, l in ipairs(TD.listeners[event] or {}) do
       local ok, answer = pcall(l.fn, ...)

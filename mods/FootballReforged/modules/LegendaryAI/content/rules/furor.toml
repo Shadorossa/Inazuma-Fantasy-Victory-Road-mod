@@ -5,13 +5,13 @@ schema = "VRFW.behaviour/1"
 
 [[rule]]
 id = "furor_cpu_driven_on"
-on = "match_start"
+on = "match:start"
 [rule.do]
 set_flag = "Furor.cpu_driven"
 
 [[rule]]
 id = "furor_cpu_driven_off"
-on = "match_end"
+on = "match:end"
 [rule.do]
 clear_flag = "Furor.cpu_driven"
 
@@ -19,7 +19,7 @@ clear_flag = "Furor.cpu_driven"
 
 [[rule]]
 id = "furor_attack"
-on = "possession"
+on = "match:possession"
 [rule.when]
 team = "rival"
 flag = "Furor.gauge.rival.full"
@@ -30,19 +30,19 @@ log = "legendary furor: attack (shooting range)"
 
 [[rule]]
 id = "furor_zone_running_on"
-on = "state_enter:16"
+on = "match:state_enter:16"
 [rule.do]
 set_flag = "LegendaryAI.zone_running"
 
 [[rule]]
 id = "furor_zone_running_off"
-on = "state_leave:16"
+on = "match:state_leave:16"
 [rule.do]
 clear_flag = "LegendaryAI.zone_running"
 
 [[rule]]
 id = "furor_zone"
-on = "state_enter:16"
+on = "match:state_enter:16"
 [rule.when]
 flag = "Furor.gauge.rival.full"
 [rule.do]
@@ -51,7 +51,7 @@ log = "legendary furor: its shoot zone starts"
 
 [[rule]]
 id = "furor_zone_gauge_full"
-on = "signal:Furor.gauge.full"
+on = "script:signal:Furor.gauge.full"
 [rule.when]
 team = "rival"
 flag = "LegendaryAI.zone_running"
@@ -62,7 +62,7 @@ log = "legendary furor: gauge full during a shoot zone"
 # Behind late: from the second half's middle on, while trailing, at its next ball anywhere on the pitch.
 [[rule]]
 id = "furor_comeback"
-on = "possession"
+on = "match:possession"
 [rule.when]
 team = "rival"
 flag = "Furor.gauge.rival.full"
@@ -76,7 +76,7 @@ log = "legendary furor: comeback (trailing late)"
 # The gauge fills while it is behind late: at once, not at its next ball (actor = one of its players).
 [[rule]]
 id = "furor_comeback_gauge_full"
-on = "signal:Furor.gauge.full"
+on = "script:signal:Furor.gauge.full"
 [rule.when]
 team = "rival"
 score = "trailing"
@@ -88,7 +88,7 @@ log = "legendary furor: comeback (gauge full while trailing late)"
 
 [[rule]]
 id = "furor_defend"
-on = "possession"
+on = "match:possession"
 [rule.when]
 team = "user"
 flag = "Furor.gauge.rival.full"
@@ -99,7 +99,7 @@ log = "legendary furor: defence (your carrier near its goal)"
 
 [[rule]]
 id = "furor_no_waste"
-on = "possession"
+on = "match:possession"
 [rule.when]
 team = "rival"
 flag = "Furor.gauge.rival.full"
@@ -112,7 +112,7 @@ log = "legendary furor: end of half (no waste)"
 # The gauge fills in the last part of a half: used at once.
 [[rule]]
 id = "furor_no_waste_gauge_full"
-on = "signal:Furor.gauge.full"
+on = "script:signal:Furor.gauge.full"
 [rule.when]
 team = "rival"
 half = { max = "${config.furor.no_waste_half_max}" }

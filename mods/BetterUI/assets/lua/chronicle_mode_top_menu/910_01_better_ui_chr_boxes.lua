@@ -5,20 +5,20 @@ local CHR_LAYER = 3085812933 --[[crc32("better_ui_chr_box")]]
 local CHR_NOTICE = 4119018370 --[[crc32("better_ui_chr_box_notice")]]
 local CHR_TEX = 3558185727 --[[crc32("#/menu/100_mainmenu/mainmenu90/better_ui_chr_box/better_ui_chr_box.g4tx")]]
 local CHR_FN_UP = 2091226243 --[[crc32("better_ui_chr_box_up")]]
-local CHR_SMALL = 530619243 --[[mainmenu90_12_list_item_small]]
-local CHR_MIDDLE = 4042532538 --[[mainmenu90_11_chronicle_top_list_item_middle]]
-local CHR_GUIDE = 3078308064 --[[mainmenu90_05_content_guide_line01]]
-local CHR_CURSOR = 3313461902 --[[cursor]]
+local CHR_SMALL = 530619243
+local CHR_MIDDLE = 4042532538
+local CHR_GUIDE = 3078308064
+local CHR_CURSOR = 3313461902
 local CHR_NEWICON = 1108398278 --[[attach name of the "!" in the small row objbin]]
-local CHR_ACTIVE = 1286797620 --[[Active]]
-local CHR_BUTTON = 973515837 --[[button]]
+local CHR_ACTIVE = 1286797620
+local CHR_BUTTON = 973515837
 local CHR_N = 4
 -- Menus of the 4 boxes, in box order.
 local CHR_BOX_OBJ = {
-  937147172 --[[soccer_team_dock_menu]],
-  3518667992 --[[item_menu_soccer]],
-  3170360552 --[[shop_menu]],
-  1936716961 --[[setting_top_menu]]
+  937147172,
+  3518667992,
+  3170360552,
+  1936716961
 }
 -- the retail texts the "!" of a box depends on (buttonTextName of Plantilla de equipo / Objetos / Tienda)
 local CHR_TXT_TEAM = 2074787642
@@ -132,7 +132,7 @@ local function ChrGuide(k)
   if CHR_LABEL_COLOR ~= "" then
     text = CHR_LABEL_COLOR .. label .. ":[C] " .. desc
   end
-  funcLuaMenuCommand(1083631230, CHR_GUIDE, 378156699 --[[_text_guide01]], text, 0)
+  funcLuaMenuCommand(1083631230, CHR_GUIDE, 378156699, text, 0)
 end
 
 local function ChrSetup(a1, a2)
@@ -147,11 +147,11 @@ local function ChrSetup(a1, a2)
     return 1
   end
   -- Clears the caption on the box.
-  funcLuaMenuCommand(1083631230, a1, 931545948 --[[_text_list01_on]], "", a2)
-  funcLuaMenuCommand(1083631230, a1, 3705682548 --[[_text_list01_off]], "", a2)
+  funcLuaMenuCommand(1083631230, a1, 931545948, "", a2)
+  funcLuaMenuCommand(1083631230, a1, 3705682548, "", a2)
   funcLuaMenuCommand(558735651, a1, CHR_TEX, info.listItemOnTextureName, 2880627768 --[[`list_icon_dmy_s01_on`]], 0, a2)
-  funcLuaMenuCommand(558735651, a1, CHR_TEX, info.listItemOnTextureName, 3688370359 --[[list_icon_dmy_s01_ok]], 0, a2)
-  funcLuaMenuCommand(558735651, a1, CHR_TEX, info.listItemOffTextureName, 2527308690 --[[list_icon_dmy_s01_off]], 0, a2)
+  funcLuaMenuCommand(558735651, a1, CHR_TEX, info.listItemOnTextureName, 3688370359, 0, a2)
+  funcLuaMenuCommand(558735651, a1, CHR_TEX, info.listItemOffTextureName, 2527308690, 0, a2)
   funcLuaMenuCommand(1774843228, a1, a2, CHR_CURSOR, false)
   funcLuaMenuCommand(1774843228, a1, a2, CHR_NEWICON, true)
 end
@@ -202,7 +202,7 @@ local function ChrLeave(target, idx)
   end
   chr_focus = i
   ChangeFocusToNextLayer(CHR_LAYER, i, target, idx)
-  funcLuaCommand(1917805374, 2500047763 --[[sy0005]])
+  funcLuaCommand(1917805374, 2500047763)
   ChrLog("leave box", i, "->", target, idx)
 end
 

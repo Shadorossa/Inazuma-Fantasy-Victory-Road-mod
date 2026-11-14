@@ -83,6 +83,7 @@ do
     PILL = {520, 398},                               -- the Ideal / Normal word, centred under the glyph (y 292..380)
     PLATE_DX = 9, PLATE_SCALE = 1.15,                -- the retail plate (-266..247 around its origin) centred, ~590 wide
     BAND = {1350, 400, 980, 296},
+    PAIR_ONLY_DX = 440,                              -- the cards, glyph and word moved to the window centre without stats
     -- Layout of the stats.
     COL_X = {900, 1350}, ROW_Y = {290, 345, 400, 455}, PE_Y = 510, NAME_X = 0, NAME_W = 112, TRACK_X = 118, TRACK_W = 160,
     TRACK_H = 18, FILL_X = 5, FILL_W = 151, RULE_W = 3, TOTAL_X = 330, GAIN_X = 394,
@@ -92,6 +93,9 @@ do
   -- Priorities of the panel.
   M.WINDOW_PRIO = 880
   M.PRIO_OVER_WINDOW = {BAND = 1, BACK = 3, FRONT = 4, CARD = 5, TEXT = 6, BTN = 10}
+
+  -- Rules of the panel by the handoff's N key: the confirmation (cards, move and stats) or the stored pair alone.
+  M.PANEL = {[1] = {stats = true}, [2] = {stats = false}}
 
   M.YN = {L = 1465363740 --[[general_win_yn_btn]], CURSOR = 1319214747 --[[general_win_btn_cursor]],
     TEXT = 2921358143 --[[_text_cmd_btn01]], DX = 300, DY = 150}
@@ -131,7 +135,8 @@ do
   function M.read()
     local n = M.take(M.KEY.N)
     local d = {base = U32(M.take(M.KEY.BASE)), partner = U32(M.take(M.KEY.PARTNER)), move = U32(M.take(M.KEY.MOVE)),
-      kind = tonumber(M.take(M.KEY.KIND)) or 0, mask = tonumber(M.take(M.KEY.MASK)) or 0, s = {}, g = {}}
+      kind = tonumber(M.take(M.KEY.KIND)) or 0, mask = tonumber(M.take(M.KEY.MASK)) or 0, s = {}, g = {},
+      panel = M.PANEL[n]}
     for i = 0, 8 do
       d.s[i] = tonumber(M.take(M.KEY.S[i])) or 0
       d.g[i] = tonumber(M.take(M.KEY.G[i])) or 0
@@ -140,7 +145,7 @@ do
     d.pe_g = tonumber(M.take(M.KEY.PE_G)) or 0
     d.pe_f = (tonumber(M.take(M.KEY.PE_F)) or 0) == 1
     d.icon = U32(M.take(M.KEY.ICON))
-    if n ~= 1 or d.base == 0 or d.partner == 0 then
+    if d.panel == nil or d.base == 0 or d.partner == 0 then
       return nil
     end
     return d
@@ -232,6 +237,11 @@ do
     return not (ok and loading == true)
   end
 
+  -- Returns the x shift of the cards, glyph and word: centred in the window when the panel has no stats.
+  function M.pair_dx()
+    return M.data.panel.stats and 0 or M.UI.PAIR_ONLY_DX
+  end
+
   function M.draw_card(i)
     local d = M.data
     local h = i == 0 and d.base or d.partner
@@ -250,7 +260,7 @@ do
     end
     local o = M.UI.CARD[i + 1]
     VRFW.host.menu_command(M.C.SCALE, M.L_CARD, 1, 1, 1, i)
-    Place(M.L_CARD, i, o[1], o[2], M.PRIO.CARD)
+    Place(M.L_CARD, i, o[1] + M.pair_dx(), o[2], M.PRIO.CARD)
     VRFW.host.menu_command(M.C.VIS, M.L_CARD, i, M.shown == true)
   end
 
@@ -397,19 +407,24 @@ do
     return false
   end
 
-  -- Places the buttons under the question at the measured centre (YN_DX, YN_DY).
+  -- Places the yes / no buttons of a question under it at the measured centre (YN_DX, YN_DY).
   function M.buttons()
     local B = M.YN
     if M.anchor == nil then                          -- the window not measured: the retail buttons are left alone
       return
     end
+    -- A notice (one button) shows its accept prompt only in the retail prompt bar, so its unplaced button stays as the retail window leaves it.
+    if funcLuaMenuCommand(M.C.IS_OPEN, B.L, 1) ~= true then
+      return
+    end
     local wx, wy = M.anchor[1], M.anchor[2]
+    local dx = B.DX
     for i = 0, 1 do
       if funcLuaMenuCommand(M.C.IS_OPEN, B.L, i) == true then
         VRFW.host.menu_command(M.C.PRIO, B.L, i, M.PRIO.BTN, true)
         VRFW.host.menu_command(M.C.TEXT_PRIO, B.L, i, B.TEXT, M.PRIO.BTN + 1)
         VRFW.host.menu_command(M.C.VIS, B.L, i, true)
-        local tx, ty = wx + (i == 0 and -B.DX or B.DX), wy + B.DY
+        local tx, ty = wx + (i == 0 and -dx or dx), wy + B.DY
         if not M.settle(i == 0 and "yes button" or "no button", B.L, i, tx, ty) then
           local fix = M.fix[B.L .. ":" .. i]
           if fix ~= nil then
@@ -428,7 +443,7 @@ do
   function M.draw_move()
     local d, U, Q = M.data, M.UI, M.QI
     local g = U.GLYPH
-    Quad(Q.GLYPH, M.TX_COMMON, (d.icon ~= nil and d.icon ~= 0) and d.icon or M.SPR.GLYPH, g[1], g[2], g[3], g[3],
+    Quad(Q.GLYPH, M.TX_COMMON, (d.icon ~= nil and d.icon ~= 0) and d.icon or M.SPR.GLYPH, g[1] + M.pair_dx(), g[2], g[3], g[3],
       M.PRIO.FRONT)
     local okp, plate = pcall(M.draw_plate)
     if not okp then
@@ -485,7 +500,7 @@ do
     Park(M.L_QUAD, Q.PILL)                           -- no tag sprite: plain small grey text under the glyph
     local word = (d.kind == 1 or d.kind == 2) and Text(d.kind == 2 and M.TX.IDEAL or M.TX.NORMAL) or nil
     if word ~= nil then
-      TextAt(M.L_TEXT, M.TI.PILL, M.MUTED .. word .. "[C]", M.STYLE.TAG, pl[1], pl[2])
+      TextAt(M.L_TEXT, M.TI.PILL, M.MUTED .. word .. "[C]", M.STYLE.TAG, pl[1] + M.pair_dx(), pl[2])
     else
       Park(M.L_QUAD, Q.PILL)
       Park(M.L_TEXT, M.TI.PILL)
@@ -495,7 +510,7 @@ do
   function M.draw_stats()
     local d, U, Q, T = M.data, M.UI, M.QI, M.TI
     local b = U.BAND
-    if d.kind == 0 then                              -- no preview: no stats
+    if d.kind == 0 or not d.panel.stats then         -- no preview or a panel without stats: no stats
       Park(M.L_QUAD, Q.BAND)
       for i = Q.TRACK, M.NQ - 1 do Park(M.L_QUAD, i) end
       for i = T.LABEL, M.NT - 1 do Park(M.L_TEXT, i) end

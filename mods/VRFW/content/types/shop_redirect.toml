@@ -3,6 +3,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.shop_redirect/1"
 folder = "content/shop_redirects"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Shop.Redirect"
+v2_kind_folder = "Shop/Redirects"
+v2_version = 1
 label = "Shop redirects"
 label_es = "Redirecciones de tienda"
 doc = "Every menu that opens one of the listed shops opens another shop instead."

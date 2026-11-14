@@ -1,0 +1,107 @@
+schema = "VRFW.technique/3"
+default_lang = "none"
+
+# The game passives of the gender focus passives: display only (event 951), the framework applies them (content\special_passives\gender_focus.toml).
+# Buff icon 16 is the retail icon of the focus value passives (passive_skill_effect_config, «Valor propio de foco»).
+
+[[passive_effect_def]]
+key = "character_reforged_focus_vs_female_effect"
+info = [5, 0, 0]
+entries = [
+  ["EXEC_TIMING_DATA", 951],
+  ["TARGET_DATA", 2],
+  ["EXEC_DATA", 1, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A],
+  ["EFFECT_DATA_LIST_BEG", 1],
+  ["EFFECT_DATA", 0x713C7D84, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A],
+  ["EFFECT_DATA_LIST_END"],
+  ["GRAND_TOTAL_INFO", 0x44A2B6B7, 102, 0],
+  ["GRAND_TOTAL_INFO_BUFF_ICON_DATA_LIST_BEG", 1],
+  ["GRAND_TOTAL_INFO_BUFF_ICON_DATA", 16],
+  ["GRAND_TOTAL_INFO_BUFF_ICON_DATA_LIST_END"],
+]
+
+[[passive]]
+key = "character_reforged_focus_vs_female"
+from = "ps10020"
+cells = { desc_text = 0x55309184 }
+effects = [[0x6F304679, 10, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A]]
+
+[[text]]
+id = 0x55309184
+kind = "noun"
+add = true
+es = "Valor propio de foco [CPASSIVE01]+10 %[C] al enfrentarse en foco a una chica"
+en = "Own Focus AT & DF [CPASSIVE01]+10%[C] in a focus battle against a girl"
+fr = "ATT & DÉF affrontement (perso) [CPASSIVE01]+10 %[C] face à une fille"
+de = "Eigene Fokus-AT & -VT [CPASSIVE01]+10 %[C] im Fokus-Duell gegen ein Mädchen"
+it = "ATT e DIF Scontro mirato personale [CPASSIVE01]+10%[C] contro una ragazza"
+pt = "Aumenta o próprio AT/DF de Choque em [CPASSIVE01]+10%[C] contra uma menina"
+ja = "女の子とのフォーカスで[自身/じしん]のフォーカスＡＴＤＦ[CPASSIVE01]＋10％[C]"
+zh_hans = "与女生集中对决时自身的集中AT和DF[CPASSIVE01]+10%[C]"
+zh_hant = "與女生集中對決時自身的集中AT/DF[CPASSIVE01]+10%[C]"
+
+# the effect's name in the «Habilidades pasivas» filter and the team passive summary (GRAND_TOTAL_INFO text)
+[[text]]
+id = 0x44A2B6B7
+kind = "noun"
+add = true
+es = "Valor propio de foco <PASSIVE_COLOR>+<VALUE> %[C] <OVER_PASSIVE_INFO> contra una chica"
+en = "Own Focus AT & DF <PASSIVE_COLOR>+<VALUE>%[C] <OVER_PASSIVE_INFO> against a girl"
+fr = "ATT & DÉF affrontement (perso) <PASSIVE_COLOR>+<VALUE> %[C] <OVER_PASSIVE_INFO> face à une fille"
+de = "Eigene Fokus-AT & -VT <PASSIVE_COLOR>+<VALUE> %[C] <OVER_PASSIVE_INFO> gegen ein Mädchen"
+it = "ATT e DIF Scontro mirato personale <PASSIVE_COLOR>+<VALUE>%[C] <OVER_PASSIVE_INFO> contro una ragazza"
+pt = "Aumenta o próprio AT/DF de Choque em <PASSIVE_COLOR>+<VALUE>%[C] <OVER_PASSIVE_INFO> contra uma menina"
+ja = "女の子とのフォーカスで[自身/じしん]のフォーカスＡＴＤＦ<PASSIVE_COLOR>＋<VALUE>％[C]<OVER_PASSIVE_INFO>"
+zh_hans = "与女生集中对决时自身的集中AT和DF<PASSIVE_COLOR>+<VALUE>%[C]<OVER_PASSIVE_INFO>"
+zh_hant = "與女生集中對決時自身的集中AT/DF<PASSIVE_COLOR>+<VALUE>%[C]<OVER_PASSIVE_INFO>"
+
+[[passive_effect_def]]
+key = "character_reforged_focus_vs_male_effect"
+info = [5, 0, 0]
+entries = [
+  ["EXEC_TIMING_DATA", 951],
+  ["TARGET_DATA", 2],
+  ["EXEC_DATA", 1, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A],
+  ["EFFECT_DATA_LIST_BEG", 1],
+  ["EFFECT_DATA", 0x713C7D84, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A],
+  ["EFFECT_DATA_LIST_END"],
+  ["GRAND_TOTAL_INFO", 0x7D330D95, 103, 0],
+  ["GRAND_TOTAL_INFO_BUFF_ICON_DATA_LIST_BEG", 1],
+  ["GRAND_TOTAL_INFO_BUFF_ICON_DATA", 16],
+  ["GRAND_TOTAL_INFO_BUFF_ICON_DATA_LIST_END"],
+]
+
+[[passive]]
+key = "character_reforged_focus_vs_male"
+from = "ps10020"
+cells = { desc_text = 0xC7387167 }
+effects = [[0xBA699626, 10, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A, 0xC4DC849A]]
+
+[[text]]
+id = 0xC7387167
+kind = "noun"
+add = true
+es = "Valor propio de foco [CPASSIVE01]+10 %[C] al enfrentarse en foco a un chico"
+en = "Own Focus AT & DF [CPASSIVE01]+10%[C] in a focus battle against a boy"
+fr = "ATT & DÉF affrontement (perso) [CPASSIVE01]+10 %[C] face à un garçon"
+de = "Eigene Fokus-AT & -VT [CPASSIVE01]+10 %[C] im Fokus-Duell gegen einen Jungen"
+it = "ATT e DIF Scontro mirato personale [CPASSIVE01]+10%[C] contro un ragazzo"
+pt = "Aumenta o próprio AT/DF de Choque em [CPASSIVE01]+10%[C] contra um menino"
+ja = "男の子とのフォーカスで[自身/じしん]のフォーカスＡＴＤＦ[CPASSIVE01]＋10％[C]"
+zh_hans = "与男生集中对决时自身的集中AT和DF[CPASSIVE01]+10%[C]"
+zh_hant = "與男生集中對決時自身的集中AT/DF[CPASSIVE01]+10%[C]"
+
+# the effect's name in the «Habilidades pasivas» filter and the team passive summary (GRAND_TOTAL_INFO text)
+[[text]]
+id = 0x7D330D95
+kind = "noun"
+add = true
+es = "Valor propio de foco <PASSIVE_COLOR>+<VALUE> %[C] <OVER_PASSIVE_INFO> contra un chico"
+en = "Own Focus AT & DF <PASSIVE_COLOR>+<VALUE>%[C] <OVER_PASSIVE_INFO> against a boy"
+fr = "ATT & DÉF affrontement (perso) <PASSIVE_COLOR>+<VALUE> %[C] <OVER_PASSIVE_INFO> face à un garçon"
+de = "Eigene Fokus-AT & -VT <PASSIVE_COLOR>+<VALUE> %[C] <OVER_PASSIVE_INFO> gegen einen Jungen"
+it = "ATT e DIF Scontro mirato personale <PASSIVE_COLOR>+<VALUE>%[C] <OVER_PASSIVE_INFO> contro un ragazzo"
+pt = "Aumenta o próprio AT/DF de Choque em <PASSIVE_COLOR>+<VALUE>%[C] <OVER_PASSIVE_INFO> contra um menino"
+ja = "男の子とのフォーカスで[自身/じしん]のフォーカスＡＴＤＦ<PASSIVE_COLOR>＋<VALUE>％[C]<OVER_PASSIVE_INFO>"
+zh_hans = "与男生集中对决时自身的集中AT和DF<PASSIVE_COLOR>+<VALUE>%[C]<OVER_PASSIVE_INFO>"
+zh_hant = "與男生集中對決時自身的集中AT/DF<PASSIVE_COLOR>+<VALUE>%[C]<OVER_PASSIVE_INFO>"

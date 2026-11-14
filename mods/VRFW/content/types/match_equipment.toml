@@ -3,6 +3,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.match_equipment/1"
 folder = "content/match_equipment"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Match.Equipment"
+v2_kind_folder = "Match/Equipments"
+v2_version = 1
 label = "Match equipment"
 label_es = "Equipamiento en partido"
 doc = "The equipment items a side wears in the matches that fit the rule."

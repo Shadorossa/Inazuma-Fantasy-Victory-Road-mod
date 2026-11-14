@@ -88,11 +88,11 @@ function PassiveSlots.CmdOff()
   return running() ~= nil
 end
 
-function PassiveSlots.CmdSignature(hdl)
+function PassiveSlots.CmdOwnPassive(hdl)
   hdl = u32(hdl)
   local on = running() ~= nil
   if not hdl or hdl == 0 then return 0, false, on end
-  local id, open = Passives.signature_passive(hdl, LIVE_READERS)
+  local id, open = Passives.own_passive(hdl, LIVE_READERS)
   return id, open, on
 end
 
@@ -102,7 +102,7 @@ do
 end
 if #MODES > 0 or #NO_PASSIVE_MODES > 0 then
   publish("start")
-  for _, ev in ipairs({ "slot_load", "game_reset", "mode_enter", "mode_leave", "match_start" }) do
+  for _, ev in ipairs({ "save:slot_load", "game:reset", "mode:enter", "mode:leave", "match:start" }) do
     VRFW.on(ev, function() publish(ev) end)
   end
 end

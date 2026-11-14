@@ -15,6 +15,16 @@
   "forbid": [],
   "ambiguous": []
  },
+ "ability_list_menu": {
+  "script": "ability_list_menu_5.00.29.00",
+  "require": [
+   "UpdateSkillDetailWindow"
+  ],
+  "forbid": [
+   "OnCloseLayer"
+  ],
+  "ambiguous": []
+ },
  "bb_stadium_top_menu": {
   "script": "bb_stadium_top_menu_1.03.98.00",
   "require": [
@@ -59,14 +69,6 @@
   "script": "market_menu_4.00.05.00",
   "require": [
    "IsCheckNoTokenShopIdx"
-  ],
-  "forbid": [],
-  "ambiguous": []
- },
- "play_guide_top_menu": {
-  "script": "play_guide_top_menu_1.04.09.00",
-  "require": [
-   "GetListButtonLayerIndex"
   ],
   "forbid": [],
   "ambiguous": []
@@ -351,6 +353,14 @@
   "script": "title_menu_2_7.02.54.00",
   "require": [
    "SetupVroadTournamentInfoBalloon"
+  ],
+  "forbid": [],
+  "ambiguous": []
+ },
+ "play_guide_top_menu": {
+  "script": "play_guide_top_menu_1.04.09.00",
+  "require": [
+   "GetListButtonLayerIndex"
   ],
   "forbid": [],
   "ambiguous": []

@@ -1,0 +1,4281 @@
+schema = "CharacterReforged.passive_icon/1"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000030_niebla_protectora"
+icon = "own_passives_icon_block_team"
+
+# Jean-Pierre Lapin: Valor de novato
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000050_valor_de_novato"
+icon = "own_passives_icon_catch_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000080_brazalete_de_capitan"
+icon = "own_passives_icon_tension_cost_team"
+
+# Riccardo Di Rigo: Segundo aire
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000090_segundo_aire"
+icon = "own_passives_icon_stamina_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000100_hoja_del_delantero"
+icon = "own_passives_icon_shoot_self_event"
+
+# Ryoma Nishiki: Genio presumido
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000160_genio_presumido"
+icon = "own_passives_icon_dribble_self_leading"
+
+# Samguk Han: Relevo sereno
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000010_relevo_sereno"
+icon = "own_passives_icon_recast_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000020_tren_a_toda_maquina"
+icon = "own_passives_icon_block_self_ball"
+
+# Wanli Changcheng: Baluarte de Raimon
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000040_baluarte_de_raimon"
+icon = "own_passives_icon_block_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000060_olas_de_la_costa"
+icon = "own_passives_icon_dribble_self_count"
+
+# Eugene Peabody: Viento de Raimon
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000070_viento_de_raimon"
+icon = "own_passives_icon_speed_team"
+
+# Michael Ballzack: Rebote travieso
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000110_rebote_travieso"
+icon = "own_passives_icon_shoot_self_count"
+
+# Lars Dijkstra: Orden y concierto
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000120_orden_y_concierto"
+icon = "own_passives_icon_control_team"
+
+# Doug McArthur: Lobo solitario
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000130_lobo_solitario"
+icon = "own_passives_icon_shoot_self_trailing"
+
+# Sven Johansson: Fondo de armario
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000140_fondo_de_armario"
+icon = "own_passives_icon_physical_team"
+
+# Aitor Cazador: Cazador paciente
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000150_cazador_paciente"
+icon = "own_passives_icon_block_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000170_pinguino_timido"
+icon = "own_passives_icon_shoot_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000360_petalos_protectores"
+icon = "own_passives_icon_catch_self_present"
+
+# Rosie Redd: Ritmo travieso
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000370_ritmo_travieso"
+icon = "own_passives_icon_dribble_team"
+
+# Jade Greene: Mariposa goleadora
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000380_mariposa_goleadora"
+icon = "own_passives_icon_shoot_self_count"
+
+# Mark Evans: Aliento de grada
+[[CharacterReforged.PassiveIcon]]
+passive = "c05024610_aliento_de_grada"
+icon = "own_passives_icon_kick_team_clock"
+
+# Percival Travis: Mirada de entrenador
+[[CharacterReforged.PassiveIcon]]
+passive = "c05026550_mirada_de_entrenador"
+icon = "own_passives_icon_tension_cost_team"
+
+# Aitor Cazador: Trampa de caza
+[[CharacterReforged.PassiveIcon]]
+passive = "c11904010_trampa_de_caza"
+icon = "own_passives_icon_agility_rival_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000210_fondo_de_armario"
+icon = "own_passives_icon_physical_team"
+
+# Tom Gato: Calma tensa
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000220_calma_tensa"
+icon = "own_passives_icon_tension_cost_team_leading"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000230_primer_aliento"
+icon = "own_passives_icon_tension_self_event"
+
+# Conant Ó Briain: Peso pesado
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000240_peso_pesado"
+icon = "own_passives_icon_physical_self_count"
+
+# Sirius Starsky: Lluvia de estrellas
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000250_lluvia_de_estrellas"
+icon = "own_passives_icon_wind_self_present"
+element = "fire"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000260_compas_enganoso"
+icon = "own_passives_icon_agility_rival_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000270_ardilla_agil"
+icon = "own_passives_icon_speed_self_count"
+
+# Punkie Mahican: Cresta rebelde
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000280_cresta_rebelde"
+icon = "own_passives_icon_physical_self_event"
+
+# Hugues Baudet: Mirada de lince
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000290_mirada_de_lince"
+icon = "own_passives_icon_technique_self_count"
+
+# Jagur Meister: Cabeza de hierro
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000300_cabeza_de_hierro"
+icon = "own_passives_icon_shoot_team"
+
+# Friedrich Schiller: Brillo propio
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000310_brillo_propio"
+icon = "own_passives_icon_shoot_self_leading"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001220_cinco_minutos_mas"
+icon = "own_passives_icon_speed_team_clock"
+
+# Rex Remington: Cuervo imperial
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001310_cuervo_imperial"
+icon = "own_passives_icon_shoot_self_count"
+
+# Preston Princeton: Pulso firme
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001210_pulso_firme"
+icon = "own_passives_icon_shoot_team_trailing"
+
+# Duke Dartmouth: Duque inamovible
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001230_duque_inamovible"
+icon = "own_passives_icon_block_team"
+
+# Cameron Cambridge: Defensa colegial
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001240_defensa_colegial"
+icon = "own_passives_icon_pressure_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001250_codigo_de_honor"
+icon = "own_passives_icon_tension_cost_team"
+
+# Caesar Cornell: Relevo sereno
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001260_relevo_sereno"
+icon = "own_passives_icon_recast_team"
+
+# Hampton Harvard: Cadete ambicioso
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001270_cadete_ambicioso"
+icon = "own_passives_icon_shoot_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001280_baron_de_hierro"
+icon = "own_passives_icon_physical_self_count"
+
+# Sterling Stanford: Aliento de grada
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001290_aliento_de_grada"
+icon = "own_passives_icon_kick_team_clock"
+
+# Colby Columbia: Pingüino aprendiz
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001300_pinguino_aprendiz"
+icon = "own_passives_icon_shoot_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001320_guardian_de_la_corona"
+icon = "own_passives_icon_catch_self_count"
+
+# Arthur Ascot: Estampa real
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001330_estampa_real"
+icon = "own_passives_icon_shoot_self_count"
+
+# Stuart St.
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001340_defensa_en_abanico"
+icon = "own_passives_icon_block_team"
+
+# Wenceslas Wales: Desprecio real
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001350_desprecio_real"
+icon = "own_passives_icon_tension_rival_event"
+
+# Yorick York: Gigante gentil
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001360_gigante_gentil"
+icon = "own_passives_icon_kick_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c05024670_voz_en_el_campo"
+icon = "own_passives_icon_intelligence_team"
+
+# David Samford: Pingüino emperador
+[[CharacterReforged.PassiveIcon]]
+passive = "c05024620_pinguino_emperador"
+icon = "own_passives_icon_forest_self"
+element = "forest"
+
+# Strom Boojum: Relevo sereno
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002210_relevo_sereno"
+icon = "own_passives_icon_recast_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002290_triangulo_de_la_montana"
+icon = "own_passives_icon_block_self_count"
+
+# Langford Ash: Descarga de Kirkwood
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002300_descarga_de_kirkwood"
+icon = "own_passives_icon_shoot_self_count"
+
+# Dock Hickory: Garras de roble
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002220_garras_de_roble"
+icon = "own_passives_icon_pressure_self_event"
+
+# Bourne Birch: Savia dura
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002230_savia_dura"
+icon = "own_passives_icon_block_team"
+
+# Flynt Pine: Pino joven
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002240_pino_joven"
+icon = "own_passives_icon_block_self_count"
+
+# Trent Poplar: Álamo resistente
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002250_alamo_resistente"
+icon = "own_passives_icon_physical_self_trailing"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002260_corriente_del_rio"
+icon = "own_passives_icon_speed_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002270_brazalete_de_capitan"
+icon = "own_passives_icon_tension_cost_team"
+
+# Brook Linden: Segundo aire
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002280_segundo_aire"
+icon = "own_passives_icon_stamina_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002310_triangulo_de_aspen"
+icon = "own_passives_icon_shoot_self_count"
+
+# Maxwell Mahogany: Aliento de grada
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002320_aliento_de_grada"
+icon = "own_passives_icon_kick_team_clock"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002330_cuna_de_fresno"
+icon = "own_passives_icon_shoot_self_ball"
+
+# Calder Elm: Olmo veloz
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002340_olmo_veloz"
+icon = "own_passives_icon_shoot_self_count"
+
+# Laike Alder: Camino de seda
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002350_camino_de_seda"
+icon = "own_passives_icon_agility_self_event"
+
+# Tahoma Sequoia: Espejismo de secuoya
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002360_espejismo_de_secuoya"
+icon = "own_passives_icon_tension_cost_rival_ball"
+
+# Byron Love: Aura divina
+[[CharacterReforged.PassiveIcon]]
+passive = "c05026590_aura_divina"
+icon = "own_passives_icon_all_moves_team_count"
+
+# Clem Attish: Puerto seguro
+[[CharacterReforged.PassiveIcon]]
+passive = "c04004010_puerto_seguro"
+icon = "own_passives_icon_catch_self_count"
+
+# Tyrian Purpel: Marea cambiante
+[[CharacterReforged.PassiveIcon]]
+passive = "c04004020_marea_cambiante"
+icon = "own_passives_icon_dribble_self_count"
+
+# Pike Pollack: Relevo sereno
+[[CharacterReforged.PassiveIcon]]
+passive = "c04004030_relevo_sereno"
+icon = "own_passives_icon_recast_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04004040_tacon_de_corriente"
+icon = "own_passives_icon_speed_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04004050_cinco_minutos_mas"
+icon = "own_passives_icon_speed_team_clock"
+
+# Shaun Bonce: Burbuja veloz
+[[CharacterReforged.PassiveIcon]]
+passive = "c04004060_burbuja_veloz"
+icon = "own_passives_icon_dribble_self_event"
+
+# Penn Minim: Tiburón de marea
+[[CharacterReforged.PassiveIcon]]
+passive = "c04004070_tiburon_de_marea"
+icon = "own_passives_icon_wind_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04004080_voz_en_el_campo"
+icon = "own_passives_icon_speed_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04004090_colmillo_de_megalodon"
+icon = "own_passives_icon_block_self_count"
+
+# Joshua Bleak: Ventisca de proa
+[[CharacterReforged.PassiveIcon]]
+passive = "c04004100_ventisca_de_proa"
+icon = "own_passives_icon_shoot_self_trailing"
+
+# Hayden Whyrl: Cardumen alado
+[[CharacterReforged.PassiveIcon]]
+passive = "c04004110_cardumen_alado"
+icon = "own_passives_icon_shoot_self_count"
+
+# Matt Durer: Pulso firme
+[[CharacterReforged.PassiveIcon]]
+passive = "c04004120_pulso_firme"
+icon = "own_passives_icon_shoot_team_trailing"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04004130_guardian_de_la_ensenada"
+icon = "own_passives_icon_block_team"
+
+# Jack Balance: Equilibrio de cubierta
+[[CharacterReforged.PassiveIcon]]
+passive = "c04004140_equilibrio_de_cubierta"
+icon = "own_passives_icon_agility_self_count"
+
+# Skylar Lepton: Rayo de tormenta
+[[CharacterReforged.PassiveIcon]]
+passive = "c04004150_rayo_de_tormenta"
+icon = "own_passives_icon_shoot_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04004160_tiburon_de_arena"
+icon = "own_passives_icon_shoot_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003060_madre_de_los_dioses"
+icon = "own_passives_icon_all_moves_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003070_voz_en_el_campo"
+icon = "own_passives_icon_intelligence_team"
+
+# Cronus Fourseasons: Cuatro estaciones
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003080_cuatro_estaciones"
+icon = "own_passives_icon_all_stats_self_count"
+
+# Theo Divine: Pulso firme
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003010_pulso_firme"
+icon = "own_passives_icon_shoot_team_trailing"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003020_memoria_olimpica"
+icon = "own_passives_icon_block_team"
+
+# Perses Destroyer: Destructor de titanes
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003030_destructor_de_titanes"
+icon = "own_passives_icon_physical_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003040_lanza_del_titan"
+icon = "own_passives_icon_block_self_count"
+
+# Phoebus Moonlight: Luz de luna
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003050_luz_de_luna"
+icon = "own_passives_icon_stamina_team_half"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003090_corriente_oceanica"
+icon = "own_passives_icon_block_self_event"
+
+# Coeus Heavens: Cielos abiertos
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003100_cielos_abiertos"
+icon = "own_passives_icon_shoot_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003110_fuego_del_mar"
+icon = "own_passives_icon_shoot_self_count"
+
+# Eos Dawn: Relevo sereno
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003120_relevo_sereno"
+icon = "own_passives_icon_recast_team"
+
+# Pallas Brandish: Escudo de Palas
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003130_escudo_de_palas"
+icon = "own_passives_icon_pressure_self_event"
+
+# Themis Law: Aliento de grada
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003140_aliento_de_grada"
+icon = "own_passives_icon_kick_team_clock"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003150_cargar_con_el_mundo"
+icon = "own_passives_icon_physical_self_trailing"
+
+# Orion Hunter: Cazador de constelaciones
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003160_cazador_de_constelaciones"
+icon = "own_passives_icon_speed_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c05026580_fuego_de_antano"
+icon = "own_passives_icon_fire_team"
+element = "fire"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c05026620_cinco_minutos_mas"
+icon = "own_passives_icon_speed_team_clock"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001420_kraken_de_las_profundidades"
+icon = "own_passives_icon_physical_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001490_viento_del_capitan"
+icon = "own_passives_icon_speed_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001500_tesoro_del_davy_jones"
+icon = "own_passives_icon_speed_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001410_capitan_de_proa"
+icon = "own_passives_icon_catch_self_count"
+
+# Roger Jolly: Bandera negra
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001430_bandera_negra"
+icon = "own_passives_icon_tension_rival_event"
+
+# Sinbad Saylor: Siete mares
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001440_siete_mares"
+icon = "own_passives_icon_block_self_clock"
+
+# Rob Crusoe: Isla desierta
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001450_isla_desierta"
+icon = "own_passives_icon_block_self_count"
+
+# Cheung Po: Pulso firme
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001460_pulso_firme"
+icon = "own_passives_icon_shoot_team_trailing"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001470_dardo_del_corsario"
+icon = "own_passives_icon_dribble_self_event"
+
+# Santelmo Phyre: Fuego de San Telmo
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001480_fuego_de_san_telmo"
+icon = "own_passives_icon_fire_team"
+element = "fire"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001510_corsario_del_arrecife"
+icon = "own_passives_icon_speed_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001520_cinco_minutos_mas"
+icon = "own_passives_icon_speed_team_clock"
+
+# Marley Hookson: Anzuelo certero
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001530_anzuelo_certero"
+icon = "own_passives_icon_shoot_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001540_rodillazos_del_abordaje"
+icon = "own_passives_icon_block_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001550_pirateria_elegante"
+icon = "own_passives_icon_block_team"
+
+# Barnabas Rossa: Relevo sereno
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001560_relevo_sereno"
+icon = "own_passives_icon_recast_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c11804040_voz_en_el_campo"
+icon = "own_passives_icon_tension_cost_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002410_telon_de_ilusionista"
+icon = "own_passives_icon_catch_self"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002490_telarana_magica"
+icon = "own_passives_icon_technique_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002500_truco_del_sombrero"
+icon = "own_passives_icon_shoot_self_event"
+
+# Pocus Sesame: Viento negro
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002510_viento_negro"
+icon = "own_passives_icon_shoot_self_event"
+
+# Jaymes Randie: Puerta trampa
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002420_puerta_trampa"
+icon = "own_passives_icon_agility_rival_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002430_ceno_fruncido"
+icon = "own_passives_icon_block_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002440_excavacion_magica"
+icon = "own_passives_icon_physical_self_clock"
+
+# Sigfryd Roi: Nube de arena
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002450_nube_de_arena"
+icon = "own_passives_icon_block_team"
+
+# Dave Coppfielder: Cambio de capa
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002460_cambio_de_capa"
+icon = "own_passives_icon_speed_team"
+
+# Launce Berton: Cuerda floja
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002470_cuerda_floja"
+icon = "own_passives_icon_dribble_self_leading"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002480_manana_lo_veras"
+icon = "own_passives_icon_agility_self_event"
+
+# Pen Teller: Orden y concierto
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002520_orden_y_concierto"
+icon = "own_passives_icon_control_team"
+
+# Petey Sorcar: Noche de feria
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002530_noche_de_feria"
+icon = "own_passives_icon_block_team"
+
+# Trump Loyal: Fondo de armario
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002540_fondo_de_armario"
+icon = "own_passives_icon_physical_team"
+
+# Daren Blakh: Aullido de medianoche
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002550_aullido_de_medianoche"
+icon = "own_passives_icon_wind_self_half"
+element = "wind"
+
+# Billy Lingsoo: Calma tensa
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002560_calma_tensa"
+icon = "own_passives_icon_tension_cost_team_leading"
+
+# Hans Sleight: Primer aliento
+[[CharacterReforged.PassiveIcon]]
+passive = "c11804070_primer_aliento"
+icon = "own_passives_icon_tension_self_event"
+
+# Par Scal: Gravedad cero
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000610_gravedad_cero"
+icon = "own_passives_icon_catch_self_count"
+
+# Tez La: Primer aliento
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000620_primer_aliento"
+icon = "own_passives_icon_tension_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000630_logica_de_aris"
+icon = "own_passives_icon_tension_cost_team"
+
+# Archie Medes: Muro colectivo
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000640_muro_colectivo"
+icon = "own_passives_icon_block_team_clock"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000650_contagio_de_animo"
+icon = "own_passives_icon_tension_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000660_primera_leccion"
+icon = "own_passives_icon_technique_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000670_cabeza_fria"
+icon = "own_passives_icon_tension_self_event"
+
+# Mitchell Angelio: Mirada al cielo
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000680_mirada_al_cielo"
+icon = "own_passives_icon_speed_self_count"
+
+# Moe Sart: Remate de gafas
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000690_remate_de_gafas"
+icon = "own_passives_icon_shoot_self_ball"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000700_magnetismo_logico"
+icon = "own_passives_icon_block_team"
+
+# Frank Lyn: Punto de fuga
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000710_punto_de_fuga"
+icon = "own_passives_icon_tension_cost_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000720_parada_del_raton_de_biblioteca"
+icon = "own_passives_icon_catch_self_clock"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000730_red_de_caza_logica"
+icon = "own_passives_icon_agility_rival_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000740_duda_metodica"
+icon = "own_passives_icon_block_self_leading"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000750_fiebre_del_conocimiento"
+icon = "own_passives_icon_technique_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000760_gran_tifon_de_ideas"
+icon = "own_passives_icon_shoot_self_count"
+
+# Tom Jefferson: Padre fundador
+[[CharacterReforged.PassiveIcon]]
+passive = "c11804010_padre_fundador"
+icon = "own_passives_icon_shoot_self_count"
+
+# Quentin Cinquedea: Aliento de grada
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003210_aliento_de_grada"
+icon = "own_passives_icon_kick_team_clock"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003220_salto_de_dimension"
+icon = "own_passives_icon_wind_team"
+element = "wind"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003230_pieza_del_quinteto"
+icon = "own_passives_icon_block_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003240_ballesta_del_quinteto"
+icon = "own_passives_icon_long_shoot_self_count"
+
+# Federigo Cinco: Segundo aire
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003250_segundo_aire"
+icon = "own_passives_icon_stamina_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003260_sangre_de_dragon"
+icon = "own_passives_icon_forest_team"
+element = "forest"
+
+# Quinque Flores: Picadura de abejas
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003270_picadura_de_abejas"
+icon = "own_passives_icon_shoot_self_event"
+
+# Jacques Cinquini: Salto de pared
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003280_salto_de_pared"
+icon = "own_passives_icon_dribble_self_leading"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003290_llovizna_de_acido"
+icon = "own_passives_icon_agility_rival_count"
+
+# David Quintola: Quinto elemento
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003300_quinto_elemento"
+icon = "own_passives_icon_shoot_self_count"
+
+# Erik Pentona: Estrella de rayos
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003310_estrella_de_rayos"
+icon = "own_passives_icon_void_self_ball"
+element = "void"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003320_brazalete_de_capitan"
+icon = "own_passives_icon_tension_cost_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003330_triangulo_dorado"
+icon = "own_passives_icon_recast_self_present"
+
+# Geert Vandevijf: Meteoro de hielo
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003340_meteoro_de_hielo"
+icon = "own_passives_icon_long_shoot_self_clock"
+
+# Folke Fem: Orden y concierto
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003350_orden_y_concierto"
+icon = "own_passives_icon_control_team"
+
+# Naji Khamsa: Ahora me ves
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003360_ahora_me_ves"
+icon = "own_passives_icon_tension_cost_rival_ball"
+
+# Gyan Cinquedea: Muralla solitaria
+[[CharacterReforged.PassiveIcon]]
+passive = "c06039060_muralla_solitaria"
+icon = "own_passives_icon_block_self_leading"
+
+# Iggie Loo: Furia glacial
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002050_furia_glacial"
+icon = "own_passives_icon_physical_self_event"
+
+# Bob Sled: Deslizamiento sobre hielo
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002060_deslizamiento_sobre_hielo"
+icon = "own_passives_icon_speed_self_ball"
+
+# Njord Snio: Orden y concierto
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002100_orden_y_concierto"
+icon = "own_passives_icon_control_team"
+
+# Wolfe Whyte: Fondo de armario
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002010_fondo_de_armario"
+icon = "own_passives_icon_physical_team"
+
+# Sascha Kotch: Escudo de escarcha
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002020_escudo_de_escarcha"
+icon = "own_passives_icon_block_team"
+
+# Guy l'Acier: Engranaje de acero
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002030_engranaje_de_acero"
+icon = "own_passives_icon_block_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002040_orca_del_artico"
+icon = "own_passives_icon_kick_self_event"
+
+# Blain Chills: Cristal quebradizo
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002070_cristal_quebradizo"
+icon = "own_passives_icon_agility_rival_count"
+
+# Art Tundra: Cima helada
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002080_cima_helada"
+icon = "own_passives_icon_wind_self_count"
+element = "wind"
+
+# Borel Aurora: Calma tensa
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002090_calma_tensa"
+icon = "own_passives_icon_tension_cost_team_leading"
+
+# Yule Hoarfrost: Primera helada
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002110_primera_helada"
+icon = "own_passives_icon_shoot_self_clock"
+
+# Suno Aisu: Primer aliento
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002120_primer_aliento"
+icon = "own_passives_icon_tension_self_event"
+
+# Himesh Himalaya: Cumbre infranqueable
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002130_cumbre_infranqueable"
+icon = "own_passives_icon_block_team"
+
+# Blake Wintry: Paciencia invernal
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002140_paciencia_invernal"
+icon = "own_passives_icon_tension_cost_team"
+
+# Fritz Brisk: Viento polar
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002150_viento_polar"
+icon = "own_passives_icon_speed_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002160_oso_de_las_nieves"
+icon = "own_passives_icon_shoot_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c11804060_yeti_de_la_tundra"
+icon = "own_passives_icon_all_stats_self_present"
+
+# Alessandro il Grande: Fondo de armario
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001610_fondo_de_armario"
+icon = "own_passives_icon_physical_team"
+
+# Gene Ghiskhan: Primer aliento
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001620_primer_aliento"
+icon = "own_passives_icon_tension_self_event"
+
+# Attila Hun: Muro colectivo
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001630_muro_colectivo"
+icon = "own_passives_icon_block_team_clock"
+
+# Sun Tzu: Calma tensa
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001640_calma_tensa"
+icon = "own_passives_icon_tension_cost_team_leading"
+
+# Arty Xerxes: Estratagema persa
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001650_estratagema_persa"
+icon = "own_passives_icon_dribble_self_event"
+
+# Darius Cyrus: Imperio veloz
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001660_imperio_veloz"
+icon = "own_passives_icon_speed_team"
+
+# Jerry Onimo: Mina de guerrilla
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001670_mina_de_guerrilla"
+icon = "own_passives_icon_agility_rival_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001680_deriva_del_desierto"
+icon = "own_passives_icon_shoot_self_count"
+
+# Robert Lee: Cabezazo de cohete
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001700_cabezazo_de_cohete"
+icon = "own_passives_icon_shoot_self_count"
+
+# Nobby Naga: Hambre ancestral
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001710_hambre_ancestral"
+icon = "own_passives_icon_shoot_self_trailing"
+
+# Salvador Addin: Escudo sagrado
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001720_escudo_sagrado"
+icon = "own_passives_icon_catch_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001730_aparicion_del_ninja"
+icon = "own_passives_icon_agility_self_event"
+
+# Jean Darc: Doncella de hierro
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001740_doncella_de_hierro"
+icon = "own_passives_icon_block_team"
+
+# Bobby Bruce: Salva de arcabuces
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001750_salva_de_arcabuces"
+icon = "own_passives_icon_long_shoot_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001760_petalos_de_viento"
+icon = "own_passives_icon_dribble_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c11804050_veterano_del_cesped"
+icon = "own_passives_icon_shoot_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000860_salto_a_la_velocidad_de_la_luz"
+icon = "own_passives_icon_shoot_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000810_capitan_del_puente"
+icon = "own_passives_icon_catch_self_count"
+
+# Worff Chewback: Guerrero de otro mundo
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000820_guerrero_de_otro_mundo"
+icon = "own_passives_icon_physical_self_count"
+
+# Dart H.
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000830_segundo_aire"
+icon = "own_passives_icon_stamina_team"
+
+# Scotty O'Brien: Teletransporte de emergencia
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000840_teletransporte_de_emergencia"
+icon = "own_passives_icon_block_self_clock"
+
+# Billy-Lee Adarma: Motor de curvatura
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000850_motor_de_curvatura"
+icon = "own_passives_icon_speed_self_event"
+
+# Cyber Dalekman: Orden y concierto
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000870_orden_y_concierto"
+icon = "own_passives_icon_control_team"
+
+# Lucas Skywalk: Sable de luz
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000880_sable_de_luz"
+icon = "own_passives_icon_shoot_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000890_audacia_de_capitan"
+icon = "own_passives_icon_shoot_self_trailing"
+
+# Harkness Torchwood: Agujero de gusano
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000900_agujero_de_gusano"
+icon = "own_passives_icon_dribble_self_count"
+
+# Jean-Luc Janeway: Rumbo a lo desconocido
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000910_rumbo_a_lo_desconocido"
+icon = "own_passives_icon_shoot_team"
+
+# Wesley Sheridan: Joven cadete
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000920_joven_cadete"
+icon = "own_passives_icon_catch_self_count"
+
+# Sithri Peon: Soldado raso
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000930_soldado_raso"
+icon = "own_passives_icon_physical_self_trailing"
+
+# Isaac Binks: Fondo de armario
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000940_fondo_de_armario"
+icon = "own_passives_icon_physical_team"
+
+# Carl Rissian: Calma tensa
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000950_calma_tensa"
+icon = "own_passives_icon_tension_cost_team_leading"
+
+# Robert Affett: Fogonazo
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000960_fogonazo"
+icon = "own_passives_icon_shoot_self_count"
+
+# Deanna Tam: Brisa rebelde
+[[CharacterReforged.PassiveIcon]]
+passive = "c11804020_brisa_rebelde"
+icon = "own_passives_icon_speed_self_count"
+
+# Ringo Saturn: Anillos de Saturno
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002810_anillos_de_saturno"
+icon = "own_passives_icon_catch_self_count"
+
+# Sol Daystar: Corona solar
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002900_corona_solar"
+icon = "own_passives_icon_all_stats_self_count"
+
+# Triton Nettuno: Marea de espuma
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002910_marea_de_espuma"
+icon = "own_passives_icon_shoot_self_trailing"
+
+# Auberon Ouranos: Luz de Urano
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002820_luz_de_urano"
+icon = "own_passives_icon_block_team"
+
+# Manning Moon: Luna de cuarto menguante
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002830_luna_de_cuarto_menguante"
+icon = "own_passives_icon_kick_rival_clock"
+
+# Terran Gaea: Madre tierra
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002840_madre_tierra"
+icon = "own_passives_icon_physical_self_count"
+
+# Crateris Mercury: Chorro mercurial
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002850_chorro_mercurial"
+icon = "own_passives_icon_block_self_event"
+
+# Nix Pluto: Planeta enano
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002860_planeta_enano"
+icon = "own_passives_icon_technique_self_count"
+
+# Neith Venus: Calma tensa
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002870_calma_tensa"
+icon = "own_passives_icon_tension_cost_team_leading"
+
+# Callis Jove: Primer aliento
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002880_primer_aliento"
+icon = "own_passives_icon_tension_self_event"
+
+# Deimos Mars: Rojo marciano
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002890_rojo_marciano"
+icon = "own_passives_icon_shoot_self_clock"
+
+# Astro Ceres: Muro colectivo
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002920_muro_colectivo"
+icon = "own_passives_icon_block_team_clock"
+
+# Chiron Vestal: Centauro salvaje
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002930_centauro_salvaje"
+icon = "own_passives_icon_kick_self_count"
+
+# Xeno Eris: Eris y discordia
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002940_eris_y_discordia"
+icon = "own_passives_icon_dribble_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002950_cinturon_de_haumea"
+icon = "own_passives_icon_block_team"
+
+# Mac Emake: Roca de asteroide
+[[CharacterReforged.PassiveIcon]]
+passive = "c04002960_roca_de_asteroide"
+icon = "own_passives_icon_pressure_self_event"
+
+# Hailey Cometti: Fondo de armario
+[[CharacterReforged.PassiveIcon]]
+passive = "c11804080_fondo_de_armario"
+icon = "own_passives_icon_physical_team"
+
+# Aum Nirvana: Segundo aire
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001010_segundo_aire"
+icon = "own_passives_icon_stamina_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001100_bumeran_de_mannouzaka"
+icon = "own_passives_icon_shoot_self_event"
+
+# Adamant Walhalla: Valhalla
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001020_valhalla"
+icon = "own_passives_icon_block_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001030_eliseo_inamovible"
+icon = "own_passives_icon_block_team"
+
+# Fürimmer Jung: Joven siempre
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001040_joven_siempre"
+icon = "own_passives_icon_block_self_count"
+
+# Zenith Shangrila: Shangri-La
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001050_shangri_la"
+icon = "own_passives_icon_agility_rival_event"
+
+# Optimum Limbo: Limbo suspendido
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001060_limbo_suspendido"
+icon = "own_passives_icon_shoot_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001070_utopia_practica"
+icon = "own_passives_icon_tension_cost_team"
+
+# Acme Rapture: Éxtasis fugaz
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001080_extasis_fugaz"
+icon = "own_passives_icon_tension_cost_rival_ball"
+
+# Ultima Nextworld: Mundo siguiente
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001090_mundo_siguiente"
+icon = "own_passives_icon_shoot_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001110_mas_alla_del_infinito"
+icon = "own_passives_icon_shoot_self_clock"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001120_brazalete_de_capitan"
+icon = "own_passives_icon_tension_cost_team"
+
+# Pearl Gates: Puerta de perlas
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001130_puerta_de_perlas"
+icon = "own_passives_icon_shoot_self_ball"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001140_reflejo_acrobatico"
+icon = "own_passives_icon_agility_self_count"
+
+# Sempiterno Bliss: Dicha eterna
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001150_dicha_eterna"
+icon = "own_passives_icon_speed_self_count"
+
+# Myriad Arcadia: Orden y concierto
+[[CharacterReforged.PassiveIcon]]
+passive = "c04001160_orden_y_concierto"
+icon = "own_passives_icon_control_team"
+
+# Primo Eden: Fondo de armario
+[[CharacterReforged.PassiveIcon]]
+passive = "c11804030_fondo_de_armario"
+icon = "own_passives_icon_physical_team"
+
+# Gus Martin: Memoria de rival
+[[CharacterReforged.PassiveIcon]]
+passive = "c04004450_memoria_de_rival"
+icon = "own_passives_icon_block_self_ball"
+
+# Pinkus Mountbatten: Calma tensa
+[[CharacterReforged.PassiveIcon]]
+passive = "c04004410_calma_tensa"
+icon = "own_passives_icon_tension_cost_team_leading"
+
+# Flint Charcoal: Brasa antigua
+[[CharacterReforged.PassiveIcon]]
+passive = "c04004420_brasa_antigua"
+icon = "own_passives_icon_shoot_self_clock"
+
+# Glaucous Gull: Viejo viento
+[[CharacterReforged.PassiveIcon]]
+passive = "c04004430_viejo_viento"
+icon = "own_passives_icon_speed_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04004440_torre_de_la_memoria"
+icon = "own_passives_icon_block_team"
+
+# Cinereous Slate: Fondo de armario
+[[CharacterReforged.PassiveIcon]]
+passive = "c04004460_fondo_de_armario"
+icon = "own_passives_icon_physical_team"
+
+# Dawntavius Spectrum: Pulso firme
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003470_pulso_firme"
+icon = "own_passives_icon_shoot_team_trailing"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003500_dragon_blanco"
+icon = "own_passives_icon_wind_team"
+element = "forest"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003410_cinco_minutos_mas"
+icon = "own_passives_icon_speed_team_clock"
+
+# Candido Glow: Destello cegador
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003420_destello_cegador"
+icon = "own_passives_icon_agility_rival_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003430_fortaleza_del_desierto"
+icon = "own_passives_icon_block_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003440_salida_de_volcan"
+icon = "own_passives_icon_block_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003450_himno_de_la_luz"
+icon = "own_passives_icon_tension_cost_team"
+
+# Beacon Noor: Hora de gracia
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003460_hora_de_gracia"
+icon = "own_passives_icon_recast_self_clock"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003480_voz_en_el_campo"
+icon = "own_passives_icon_control_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003490_danza_del_amanecer"
+icon = "own_passives_icon_speed_self_count"
+
+# Filbert Weissman: Lanza de luz
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003510_lanza_de_luz"
+icon = "own_passives_icon_shoot_self_count"
+
+# Shady Shwartz: Caballo blanco
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003660_caballo_blanco"
+icon = "own_passives_icon_block_team"
+
+# Tynan Crowe: Alfil blanco
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003690_alfil_blanco"
+icon = "own_passives_icon_pressure_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003700_heredero_de_las_cenizas"
+icon = "own_passives_icon_shoot_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003710_enemigo_de_la_luz"
+icon = "own_passives_icon_kick_self_ball"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003610_voz_en_el_campo"
+icon = "own_passives_icon_control_team"
+
+# Morris Moore: Pulso firme
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003620_pulso_firme"
+icon = "own_passives_icon_shoot_team_trailing"
+
+# Jet Onyx: Rodillazo oscuro
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003630_rodillazo_oscuro"
+icon = "own_passives_icon_shoot_self_count"
+
+# Cole Ebony: Relevo sereno
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003640_relevo_sereno"
+icon = "own_passives_icon_recast_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003650_trampa_en_las_sombras"
+icon = "own_passives_icon_dribble_self_count"
+
+# Goth Grimshaw: Paso fantasma
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003670_paso_fantasma"
+icon = "own_passives_icon_agility_rival_event"
+
+# Duff Dooley: Terremoto lento
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003680_terremoto_lento"
+icon = "own_passives_icon_physical_self_count"
+
+# Howie Itzer: Fondo de armario
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000490_fondo_de_armario"
+icon = "own_passives_icon_physical_team"
+
+# Lance Speares: Segundo aire
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000410_segundo_aire"
+icon = "own_passives_icon_stamina_team"
+
+# Dirk Anlace: Daga robada
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000420_daga_robada"
+icon = "own_passives_icon_dribble_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000430_maza_del_caballero"
+icon = "own_passives_icon_block_self_trailing"
+
+# Nun Chuck: Cadena y bola
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000440_cadena_y_bola"
+icon = "own_passives_icon_physical_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000450_filo_electrico"
+icon = "own_passives_icon_block_team"
+
+# Bilbo Baton: Orden y concierto
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000460_orden_y_concierto"
+icon = "own_passives_icon_control_team"
+
+# Jack Knife: Navaja suiza
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000470_navaja_suiza"
+icon = "own_passives_icon_dribble_self_count"
+
+# Bayonet Gunne: Bayoneta calada
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000480_bayoneta_calada"
+icon = "own_passives_icon_long_shoot_self_zone"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000510_sombra_del_cruzado"
+icon = "own_passives_icon_shoot_self_event"
+
+# Matt Chetty: Mandril de guardia
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000520_mandril_de_guardia"
+icon = "own_passives_icon_catch_self_count"
+
+# Harold Shields: Escudo y remate
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000530_escudo_y_remate"
+icon = "own_passives_icon_shoot_team"
+
+# Hal Byrd: Cabezazo de cohete
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000540_cabezazo_de_cohete"
+icon = "own_passives_icon_shoot_self_count"
+
+# Morgan Stern: Guardia de hierro
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000550_guardia_de_hierro"
+icon = "own_passives_icon_pressure_self_event"
+
+# Roman Ballista: Ballesta en llamas
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000560_ballesta_en_llamas"
+icon = "own_passives_icon_fire_team"
+element = "fire"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c06039050_brazalete_de_capitan"
+icon = "own_passives_icon_tension_cost_team"
+
+# Xavier Shotwell: Portero delantero
+[[CharacterReforged.PassiveIcon]]
+passive = "c04015210_portero_delantero"
+icon = "own_passives_icon_catch_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04015220_voz_en_el_campo"
+icon = "own_passives_icon_technique_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04015230_cinco_minutos_mas"
+icon = "own_passives_icon_speed_team_clock"
+
+# Jared Dapplegrey: Dique de ceniza
+[[CharacterReforged.PassiveIcon]]
+passive = "c04015240_dique_de_ceniza"
+icon = "own_passives_icon_physical_self_count"
+
+# Keith Wellington: Pulso firme
+[[CharacterReforged.PassiveIcon]]
+passive = "c04015250_pulso_firme"
+icon = "own_passives_icon_shoot_team_trailing"
+
+# Cirrus Whisp: Niebla radiante
+[[CharacterReforged.PassiveIcon]]
+passive = "c04015260_niebla_radiante"
+icon = "own_passives_icon_agility_rival_count"
+
+# Gamal Everlast: Aullido nocturno
+[[CharacterReforged.PassiveIcon]]
+passive = "c04015270_aullido_nocturno"
+icon = "own_passives_icon_kick_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04015280_siega_de_la_colina"
+icon = "own_passives_icon_block_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04015290_trance_del_desierto"
+icon = "own_passives_icon_tension_cost_self_ball"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04015300_tifon_del_sur"
+icon = "own_passives_icon_wind_self_count"
+element = "wind"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04015310_iman_de_balones"
+icon = "own_passives_icon_shoot_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04015320_cinco_minutos_mas"
+icon = "own_passives_icon_speed_team_clock"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04015330_niebla_del_callejon"
+icon = "own_passives_icon_tension_cost_rival_ball"
+
+# Jude Osbourne: Chispa de navaja
+[[CharacterReforged.PassiveIcon]]
+passive = "c04015340_chispa_de_navaja"
+icon = "own_passives_icon_speed_self_event"
+
+# Locke Saflowe: Pelea de barrio
+[[CharacterReforged.PassiveIcon]]
+passive = "c04015350_pelea_de_barrio"
+icon = "own_passives_icon_tension_rival_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04015360_muralla_con_punos"
+icon = "own_passives_icon_block_self_trailing"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04015370_sombra_del_colmillo"
+icon = "own_passives_icon_shoot_block_rival_count"
+
+# Bill Froger: Golpe bajo
+[[CharacterReforged.PassiveIcon]]
+passive = "c04015380_golpe_bajo"
+icon = "own_passives_icon_tension_cost_rival_ball"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04015390_voz_en_el_campo"
+icon = "own_passives_icon_intelligence_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04015400_corazon_de_leon"
+icon = "own_passives_icon_kick_self_trailing"
+
+# Stan Roller: Pulso firme
+[[CharacterReforged.PassiveIcon]]
+passive = "c04015410_pulso_firme"
+icon = "own_passives_icon_shoot_team_trailing"
+
+# Bracknell Forge: Forja de fuego
+[[CharacterReforged.PassiveIcon]]
+passive = "c04015420_forja_de_fuego"
+icon = "own_passives_icon_shoot_team"
+
+# Damien Blackloch: Calma tensa
+[[CharacterReforged.PassiveIcon]]
+passive = "c04015200_calma_tensa"
+icon = "own_passives_icon_tension_cost_team_leading"
+
+# Vivian Doosley: Primer aliento
+[[CharacterReforged.PassiveIcon]]
+passive = "c04004210_primer_aliento"
+icon = "own_passives_icon_tension_self_event"
+
+# Sean Muller: Muro de tres cabezas
+[[CharacterReforged.PassiveIcon]]
+passive = "c04004220_muro_de_tres_cabezas"
+icon = "own_passives_icon_block_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04004230_entrada_de_huracan"
+icon = "own_passives_icon_pressure_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04004240_tractor_de_la_liga"
+icon = "own_passives_icon_physical_self_clock"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04004250_ilusion_de_balon"
+icon = "own_passives_icon_tension_cost_rival_ball"
+
+# Ricky Shea: Muro de recreo
+[[CharacterReforged.PassiveIcon]]
+passive = "c04004260_muro_de_recreo"
+icon = "own_passives_icon_block_team"
+
+# Felix Higgins: Muro colectivo
+[[CharacterReforged.PassiveIcon]]
+passive = "c04004270_muro_colectivo"
+icon = "own_passives_icon_block_team_clock"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04004280_canon_de_novato"
+icon = "own_passives_icon_long_shoot_self_count"
+
+# Keeley Hall: Brisa de primavera
+[[CharacterReforged.PassiveIcon]]
+passive = "c04004290_brisa_de_primavera"
+icon = "own_passives_icon_speed_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04004300_contagio_de_animo"
+icon = "own_passives_icon_tension_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04004310_corazon_flechado"
+icon = "own_passives_icon_shoot_self_ball"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04004320_cabeza_fria"
+icon = "own_passives_icon_tension_self_event"
+
+# Puck Fishley: Finta de pie
+[[CharacterReforged.PassiveIcon]]
+passive = "c04004330_finta_de_pie"
+icon = "own_passives_icon_dribble_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04004340_cinco_minutos_mas"
+icon = "own_passives_icon_speed_team_clock"
+
+# Jacqueline Rabbit: Salto de conejo
+[[CharacterReforged.PassiveIcon]]
+passive = "c04004350_salto_de_conejo"
+icon = "own_passives_icon_agility_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04004360_ladron_de_recreo"
+icon = "own_passives_icon_tension_rival_event"
+
+# Steve Grim: Deseo fugaz
+[[CharacterReforged.PassiveIcon]]
+passive = "c06037420_deseo_fugaz"
+icon = "own_passives_icon_tension_gain_self_trailing"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c06037410_equilibrista_del_circo"
+icon = "own_passives_icon_tension_cost_self_present"
+
+# Scott Banyan: Sorpresa final
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003820_sorpresa_final"
+icon = "own_passives_icon_agility_rival_event"
+
+# Chuck Pumpkins: Calabaza gigante
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003810_calabaza_gigante"
+icon = "own_passives_icon_catch_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003830_castana_dura"
+icon = "own_passives_icon_block_self_leading"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003840_cinco_minutos_mas"
+icon = "own_passives_icon_speed_team_clock"
+
+# Autumn Leaf: Pulso firme
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003850_pulso_firme"
+icon = "own_passives_icon_shoot_team_trailing"
+
+# Skeeter Hawk: Vuelo rasante
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003860_vuelo_rasante"
+icon = "own_passives_icon_shoot_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003870_melena_de_leon"
+icon = "own_passives_icon_kick_self_count"
+
+# Jacko Lantern: Linterna de calabaza
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003880_linterna_de_calabaza"
+icon = "own_passives_icon_shoot_block_rival_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003890_soplo_de_otono"
+icon = "own_passives_icon_speed_team"
+
+# Bobine Apples: Manzana dorada
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003900_manzana_dorada"
+icon = "own_passives_icon_shoot_self_trailing"
+
+# Sibylle Equinox: Equinoccio
+[[CharacterReforged.PassiveIcon]]
+passive = "c04003910_equinoccio"
+icon = "own_passives_icon_technique_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c05026530_voz_en_el_campo"
+icon = "own_passives_icon_intelligence_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000350_ojo_de_espia"
+icon = "own_passives_icon_tension_self_event"
+
+# Jordan Greenway: Segundo aire
+[[CharacterReforged.PassiveIcon]]
+passive = "c05026610_segundo_aire"
+icon = "own_passives_icon_stamina_team"
+
+# Nelly Evans: Relevo sereno
+[[CharacterReforged.PassiveIcon]]
+passive = "c05026510_relevo_sereno"
+icon = "own_passives_icon_recast_team"
+
+# Celia Hills: Orden y concierto
+[[CharacterReforged.PassiveIcon]]
+passive = "c05026520_orden_y_concierto"
+icon = "own_passives_icon_control_team"
+
+# Austin Hobbes: Tigre madurado
+[[CharacterReforged.PassiveIcon]]
+passive = "c05026600_tigre_madurado"
+icon = "own_passives_icon_mountain_self_count"
+element = "mountain"
+
+# Camellia Travis: Camelia afilada
+[[CharacterReforged.PassiveIcon]]
+passive = "c05026540_camelia_afilada"
+icon = "own_passives_icon_dribble_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c05026560_herradura_de_la_suerte"
+icon = "own_passives_icon_block_self_count"
+
+# Chester Horse padre: Fondo de armario
+[[CharacterReforged.PassiveIcon]]
+passive = "c05026570_fondo_de_armario"
+icon = "own_passives_icon_physical_team"
+
+# Faythe Heeler: Mano de kendo
+[[CharacterReforged.PassiveIcon]]
+passive = "c05026630_mano_de_kendo"
+icon = "own_passives_icon_kick_self_event"
+
+# Maia: Niebla de Maia
+[[CharacterReforged.PassiveIcon]]
+passive = "c05026640_niebla_de_maia"
+icon = "own_passives_icon_block_team"
+
+# Julia Blaze: Chispa de familia
+[[CharacterReforged.PassiveIcon]]
+passive = "c05026650_chispa_de_familia"
+icon = "own_passives_icon_shoot_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c06037450_gafas_analiticas"
+icon = "own_passives_icon_technique_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c06039020_telarana_de_hibiki"
+icon = "own_passives_icon_catch_self"
+
+# Victoria Vanguard: Aliento de grada
+[[CharacterReforged.PassiveIcon]]
+passive = "c06037400_aliento_de_grada"
+icon = "own_passives_icon_kick_team_clock"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c06037430_manos_magicas"
+icon = "own_passives_icon_catch_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c06037440_halcon_en_vuelo"
+icon = "own_passives_icon_tension_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c06037460_corazon_de_capitan"
+icon = "own_passives_icon_technique_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c06037380_guardia_de_la_vieja_escuela"
+icon = "own_passives_icon_catch_self_clock"
+
+# Aquilina Schiller: Aura de entrenadora
+[[CharacterReforged.PassiveIcon]]
+passive = "c06037390_aura_de_entrenadora"
+icon = "own_passives_icon_shoot_self_leading"
+
+# Frank Wintersea: Mar en invierno
+[[CharacterReforged.PassiveIcon]]
+passive = "c06039030_mar_en_invierno"
+icon = "own_passives_icon_tension_rival_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c06039040_brazalete_de_capitan"
+icon = "own_passives_icon_tension_cost_team"
+
+# Othello Go: Capa de seda
+[[CharacterReforged.PassiveIcon]]
+passive = "c11904030_capa_de_seda"
+icon = "own_passives_icon_dribble_self_leading"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04017260_cupula_sonora"
+icon = "own_passives_icon_block_self_clock"
+
+# Adarn Shame: Primer aliento
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000320_primer_aliento"
+icon = "own_passives_icon_tension_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000330_tapon_de_bosque"
+icon = "own_passives_icon_block_team"
+
+# Nogo Sarikid: Brisa de relevo
+[[CharacterReforged.PassiveIcon]]
+passive = "c04000340_brisa_de_relevo"
+icon = "own_passives_icon_dribble_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04016140_relampago_y_rayo"
+icon = "own_passives_icon_agility_self_clock"
+
+# Soberan Whitebridge: Muro firme
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010910_muro_firme"
+icon = "own_passives_icon_block_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011090_ultima_linea"
+icon = "own_passives_icon_block_self_clock"
+
+# Icarus Damselfly: Aire fresco
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010010_aire_fresco"
+icon = "own_passives_icon_speed_team_clock"
+
+# Casey Moth: Reflejos de Fuego
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010020_reflejos_de_fuego"
+icon = "own_passives_icon_catch_self_clock"
+
+# Mariposa Papillon: Pirueta final
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010030_pirueta_final"
+icon = "own_passives_icon_agility_self_event"
+
+# Paris Sight: Lectura de juego
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010040_lectura_de_juego"
+icon = "own_passives_icon_tension_self_event"
+
+# Luca Cervus: Gol llama gol
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010050_gol_llama_gol"
+icon = "own_passives_icon_shoot_self_event"
+
+# Cole Optera: Relevo de suplente
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010060_relevo_de_suplente"
+icon = "own_passives_icon_stamina_team"
+
+# Hamish Voracio: Ritmo de Fuego
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010070_ritmo_de_fuego"
+icon = "own_passives_icon_speed_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010080_rematador_de_montana"
+icon = "own_passives_icon_shoot_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010090_robo_relampago"
+icon = "own_passives_icon_tension_self_event"
+
+# Rollo Twain: Arranque de remate
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010100_arranque_de_remate"
+icon = "own_passives_icon_shoot_self_event"
+
+# Buddy Arnolds: Ganas de ayudar
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010110_ganas_de_ayudar"
+icon = "own_passives_icon_agility_team"
+
+# Mirabel Tussel: Estratega de Fuego
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010120_estratega_de_fuego"
+icon = "own_passives_icon_technique_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010130_ultima_linea"
+icon = "own_passives_icon_block_self_clock"
+
+# Wilfred Coggle: Mal de ojo
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010140_mal_de_ojo"
+icon = "own_passives_icon_shoot_block_rival_count"
+
+# Soren Uphigh: Hambre de gol
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010150_hambre_de_gol"
+icon = "own_passives_icon_shoot_self_trailing"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010160_buen_companero"
+icon = "own_passives_icon_control_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010170_dominio_del_aire"
+icon = "own_passives_icon_shoot_self_count"
+
+# Rosa Welle: Arranque de remate
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010180_arranque_de_remate"
+icon = "own_passives_icon_shoot_self_event"
+
+# Miles Panzer: Muro firme
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010190_muro_firme"
+icon = "own_passives_icon_block_self_count"
+
+# Brutus Pummel: Especialista en Fuego
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010200_especialista_en_fuego"
+icon = "own_passives_icon_fire_team"
+element = "fire"
+
+# Rita Bloggs: Ayuda en defensa
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010210_ayuda_en_defensa"
+icon = "own_passives_icon_block_team_clock"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010220_engano_de_muro"
+icon = "own_passives_icon_dribble_self_count"
+
+# Sirius Buff: Hambre de gol
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010230_hambre_de_gol"
+icon = "own_passives_icon_shoot_self_trailing"
+
+# Siarti Tivi: Linaje Gran Muralla
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010240_linaje_gran_muralla"
+icon = "own_passives_icon_mountain_self_leading"
+element = "mountain"
+
+# Cumulo Nimbus: Portero de hierro
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010250_portero_de_hierro"
+icon = "own_passives_icon_catch_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010260_espiritu_de_equipo"
+icon = "own_passives_icon_tension_self_event"
+
+# Tye Foon: Rugido
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010270_rugido"
+icon = "own_passives_icon_tension_rival_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010280_herencia_electrica"
+icon = "own_passives_icon_wind_self_half"
+element = "void"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010290_dominio_del_aire"
+icon = "own_passives_icon_shoot_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010300_robo_relampago"
+icon = "own_passives_icon_tension_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010310_pequeno_empujon"
+icon = "own_passives_icon_tension_self_event"
+
+# Romeo Wheedler: Arranque explosivo
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010320_arranque_explosivo"
+icon = "own_passives_icon_dribble_self_event"
+
+# Bruno Tanner: Relevo veloz
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010330_relevo_veloz"
+icon = "own_passives_icon_speed_self_event"
+
+# Donald Hooan: Truco de manos
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010340_truco_de_manos"
+icon = "own_passives_icon_tension_cost_rival_ball"
+
+# Goldie Locke: Robo ilusorio
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010350_robo_ilusorio"
+icon = "own_passives_icon_dribble_self_event"
+
+# Harriet Bunne: Apoyo constante
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010360_apoyo_constante"
+icon = "own_passives_icon_tension_cost_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010370_engano_de_muro"
+icon = "own_passives_icon_dribble_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010380_ultima_linea"
+icon = "own_passives_icon_block_self_clock"
+
+# Beatrix Hunny: Pase maestro
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010390_pase_maestro"
+icon = "own_passives_icon_shoot_team_ball"
+
+# Piero Mantisse: Robo ilusorio
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010400_robo_ilusorio"
+icon = "own_passives_icon_dribble_self_event"
+
+# Grant Hoppa: Aire fresco
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010410_aire_fresco"
+icon = "own_passives_icon_speed_team_clock"
+
+# Anne Tenney: Rugido
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010420_rugido"
+icon = "own_passives_icon_tension_rival_event"
+
+# Renardo Foxe: Seguridad bajo palos
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010430_seguridad_bajo_palos"
+icon = "own_passives_icon_tension_self_event"
+
+# Tawny Screech: Truco de manos
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010440_truco_de_manos"
+icon = "own_passives_icon_tension_cost_rival_ball"
+
+# Gerda Dogge: Gol llama gol
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010450_gol_llama_gol"
+icon = "own_passives_icon_shoot_self_event"
+
+# Ruby Catbear: Relevo de suplente
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010460_relevo_de_suplente"
+icon = "own_passives_icon_stamina_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010470_engano_de_muro"
+icon = "own_passives_icon_dribble_self_count"
+
+# Leon Griffin: Rematador de Fuego
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010480_rematador_de_fuego"
+icon = "own_passives_icon_shoot_team"
+
+# Tommy Wobbal: Portero de hierro
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010490_portero_de_hierro"
+icon = "own_passives_icon_catch_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010500_polvora_mojada"
+icon = "own_passives_icon_shoot_self"
+
+# Boe Heemian: Ganas de ayudar
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010510_ganas_de_ayudar"
+icon = "own_passives_icon_agility_team"
+
+# Summer Salt: Niebla de Bosque
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010520_niebla_de_bosque"
+icon = "own_passives_icon_block_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010530_ultima_linea"
+icon = "own_passives_icon_block_self_clock"
+
+# Freddie Stayre: Impulso final
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010540_impulso_final"
+icon = "own_passives_icon_all_moves_self_clock"
+
+# Incus Quid: Fuerza bruta
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010550_fuerza_bruta"
+icon = "own_passives_icon_kick_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010560_buen_companero"
+icon = "own_passives_icon_control_team"
+
+# Pyro Nyah: Contraataque
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010570_contraataque"
+icon = "own_passives_icon_speed_self_event"
+
+# Otto Legge: Reflejos de Fuego
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010580_reflejos_de_fuego"
+icon = "own_passives_icon_catch_self_clock"
+
+# Lucian Sunfish: Viento veloz
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010590_viento_veloz"
+icon = "own_passives_icon_speed_team_count"
+
+# Jemima Ellison: Arranque explosivo
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010600_arranque_explosivo"
+icon = "own_passives_icon_dribble_self_event"
+
+# Martin Fleet: Ayuda en defensa
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010610_ayuda_en_defensa"
+icon = "own_passives_icon_block_team_clock"
+
+# Mudhi Uppindown: Rugido
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010620_rugido"
+icon = "own_passives_icon_tension_rival_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010630_presa_facil"
+icon = "own_passives_icon_block_self_ball"
+
+# Jenral Gaim: Manada de Aire
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010640_manada_de_aire"
+icon = "own_passives_icon_physical_team"
+
+# Snap Breakwater: Fuerza bruta
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010650_fuerza_bruta"
+icon = "own_passives_icon_kick_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010660_espiritu_de_equipo"
+icon = "own_passives_icon_tension_self_event"
+
+# Apnus Braithwaite: Seguridad bajo palos
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010670_seguridad_bajo_palos"
+icon = "own_passives_icon_tension_self_event"
+
+# Ron Flappibal: Niebla de Bosque
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010680_niebla_de_bosque"
+icon = "own_passives_icon_block_team"
+
+# Clara Schott: Truco de manos
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010690_truco_de_manos"
+icon = "own_passives_icon_tension_cost_rival_ball"
+
+# Penn Manship: Ritmo de Aire
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010700_ritmo_de_aire"
+icon = "own_passives_icon_speed_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010710_pequeno_empujon"
+icon = "own_passives_icon_tension_self_event"
+
+# Apra Chabel: Linaje Remate rebotado
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010720_linaje_remate_rebotado"
+icon = "own_passives_icon_shoot_team"
+
+# Uzi Slugge: Servido en bandeja
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010730_servido_en_bandeja"
+icon = "own_passives_icon_shoot_self_ball"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010740_linea_de_ataque"
+icon = "own_passives_icon_shoot_self_count"
+
+# Sheldon Bugg: Fuerza bruta
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010750_fuerza_bruta"
+icon = "own_passives_icon_kick_self_count"
+
+# Finn Boyle: Apoyo constante
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010760_apoyo_constante"
+icon = "own_passives_icon_tension_cost_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010770_ultima_linea"
+icon = "own_passives_icon_block_self_clock"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010780_contencion"
+icon = "own_passives_icon_pressure_self_event"
+
+# Hulk Flounder: Cerrojo
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010790_cerrojo"
+icon = "own_passives_icon_block_self_leading"
+
+# Bjorn Thiswey: Velo de Bosque
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010800_velo_de_bosque"
+icon = "own_passives_icon_block_team"
+
+# Duane Jerus: Aire fresco
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010810_aire_fresco"
+icon = "own_passives_icon_speed_team_clock"
+
+# Don Capo: Arranque de remate
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010820_arranque_de_remate"
+icon = "own_passives_icon_shoot_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010830_analisis_de_tiro"
+icon = "own_passives_icon_tension_cost_team"
+
+# Dusty Weeza: Linaje Fuego
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010840_linaje_fuego"
+icon = "own_passives_icon_fire_team"
+element = "fire"
+
+# Louisa Borde: Portero de hierro
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010850_portero_de_hierro"
+icon = "own_passives_icon_catch_self_count"
+
+# Ty Tanner: Relevo de suplente
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010860_relevo_de_suplente"
+icon = "own_passives_icon_stamina_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010870_contencion"
+icon = "own_passives_icon_pressure_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010880_rematador_de_montana"
+icon = "own_passives_icon_shoot_team"
+
+# Kitty Spinster: Servido en bandeja
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010890_servido_en_bandeja"
+icon = "own_passives_icon_shoot_self_ball"
+
+# Oswald Bones: Fuerza bruta
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010900_fuerza_bruta"
+icon = "own_passives_icon_kick_self_count"
+
+# Alfie Whitehurst: Ganas de ayudar
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010920_ganas_de_ayudar"
+icon = "own_passives_icon_agility_team"
+
+# Cabal Whitehurst: Especialista en Lobo
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010930_especialista_en_lobo"
+icon = "own_passives_icon_wind_self_present"
+element = "forest"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010940_robo_relampago"
+icon = "own_passives_icon_tension_self_event"
+
+# Dama Whitebridge: Viento veloz
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010950_viento_veloz"
+icon = "own_passives_icon_speed_team_count"
+
+# Drei Whitely: Hambre de gol
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010960_hambre_de_gol"
+icon = "own_passives_icon_shoot_self_trailing"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010970_buen_companero"
+icon = "own_passives_icon_control_team"
+
+# Tyko Wondo: Portero de hierro
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010980_portero_de_hierro"
+icon = "own_passives_icon_catch_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04010990_oraculo"
+icon = "own_passives_icon_technique_self_event"
+
+# Rhonda House: Muro firme
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011000_muro_firme"
+icon = "own_passives_icon_block_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011010_instinto_de_area"
+icon = "own_passives_icon_shoot_self_count"
+
+# Ken Haddow: Ayuda en defensa
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011020_ayuda_en_defensa"
+icon = "own_passives_icon_block_team_clock"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011030_ultima_linea"
+icon = "own_passives_icon_block_self_clock"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011040_contencion"
+icon = "own_passives_icon_pressure_self_event"
+
+# Philippa Belle: Especialista en Tornado de fuego
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011050_especialista_en_tornado_de_fuego"
+icon = "own_passives_icon_fire_team"
+element = "fire"
+
+# Des Eving: Pase maestro
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011060_pase_maestro"
+icon = "own_passives_icon_shoot_team_ball"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011070_espiritu_de_equipo"
+icon = "own_passives_icon_tension_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011080_analisis_de_tiro"
+icon = "own_passives_icon_tension_cost_team"
+
+# Alfio Blackside: Linaje Muro
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011100_linaje_muro"
+icon = "own_passives_icon_fire_team_leading"
+element = "fire"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011110_gol_llama_gol"
+icon = "own_passives_icon_shoot_self_event"
+
+# Roque Blackside: Velo de Fuego
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011120_velo_de_fuego"
+icon = "own_passives_icon_block_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011130_pequeno_empujon"
+icon = "own_passives_icon_tension_self_event"
+
+# Tre Blackley: Herencia Fuego
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011140_herencia_fuego"
+icon = "own_passives_icon_fire_team"
+element = "fire"
+
+# Ernest Etson: Portero de hierro
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011150_portero_de_hierro"
+icon = "own_passives_icon_catch_self_count"
+
+# Turner Tabel: Arranque de remate
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011160_arranque_de_remate"
+icon = "own_passives_icon_shoot_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011170_rebote_agil"
+icon = "own_passives_icon_tension_self_event"
+
+# Rocky McCanns: Apoyo constante
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011180_apoyo_constante"
+icon = "own_passives_icon_tension_cost_team"
+
+# Nash Room: Pase maestro
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011190_pase_maestro"
+icon = "own_passives_icon_shoot_team_ball"
+
+# Will Lusion: Niebla de Fuego
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011200_niebla_de_fuego"
+icon = "own_passives_icon_block_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011210_contencion"
+icon = "own_passives_icon_pressure_self_event"
+
+# Lynne Wildcat: Rematador de Bosque
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011220_rematador_de_bosque"
+icon = "own_passives_icon_shoot_team"
+
+# Shaun Asparr: Aire fresco
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011230_aire_fresco"
+icon = "own_passives_icon_speed_team_clock"
+
+# Don Prima: Rugido
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011240_rugido"
+icon = "own_passives_icon_tension_rival_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011250_presa_facil"
+icon = "own_passives_icon_block_self_ball"
+
+# Faulk Dansa: Truco de manos
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011260_truco_de_manos"
+icon = "own_passives_icon_tension_cost_rival_ball"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011270_ultima_linea"
+icon = "own_passives_icon_block_self_clock"
+
+# Cain Cavalier: Relevo de suplente
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011280_relevo_de_suplente"
+icon = "own_passives_icon_stamina_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011290_engano_de_muro"
+icon = "own_passives_icon_dribble_self_count"
+
+# Saul Durban: Especialista en Fuego
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011300_especialista_en_fuego"
+icon = "own_passives_icon_fire_team"
+element = "fire"
+
+# Algo Rithm: Pase maestro
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011310_pase_maestro"
+icon = "own_passives_icon_shoot_team_ball"
+
+# Posy Striker: Robo ilusorio
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011320_robo_ilusorio"
+icon = "own_passives_icon_dribble_self_event"
+
+# Adi Sivfeet: Ganas de ayudar
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011330_ganas_de_ayudar"
+icon = "own_passives_icon_agility_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011340_persecucion"
+icon = "own_passives_icon_speed_self_ball"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011350_presa_facil"
+icon = "own_passives_icon_block_self_ball"
+
+# Ada Vyper: Último tercio
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011360_ultimo_tercio"
+icon = "own_passives_icon_shoot_self_clock"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011370_contencion"
+icon = "own_passives_icon_pressure_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011380_buen_companero"
+icon = "own_passives_icon_control_team"
+
+# Jack Skipper: Portero de hierro
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011390_portero_de_hierro"
+icon = "own_passives_icon_catch_self_count"
+
+# Ruben Lamp: Muro firme
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011400_muro_firme"
+icon = "own_passives_icon_block_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011410_linea_de_ataque"
+icon = "own_passives_icon_shoot_self_count"
+
+# Eolia Amhart: Salto compartido
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011420_salto_compartido"
+icon = "own_passives_icon_chain_shoot_self_count"
+
+# Plato Mail: Ayuda en defensa
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011430_ayuda_en_defensa"
+icon = "own_passives_icon_block_team_clock"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011440_ultima_linea"
+icon = "own_passives_icon_block_self_clock"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011450_analisis_de_tiro"
+icon = "own_passives_icon_tension_cost_team"
+
+# Falco Peregrine: Arranque explosivo
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011460_arranque_explosivo"
+icon = "own_passives_icon_dribble_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011470_reflejos_de_montana"
+icon = "own_passives_icon_catch_self_clock"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011480_espiritu_de_equipo"
+icon = "own_passives_icon_tension_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011490_linea_de_ataque"
+icon = "own_passives_icon_shoot_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011500_instinto_de_area"
+icon = "own_passives_icon_shoot_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011510_ultima_linea"
+icon = "own_passives_icon_block_self_clock"
+
+# Spike Echidna: Fuerza bruta
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011520_fuerza_bruta"
+icon = "own_passives_icon_kick_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011530_pequeno_empujon"
+icon = "own_passives_icon_tension_self_event"
+
+# Shai Klopps: Especialista en Muro
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011540_especialista_en_muro"
+icon = "own_passives_icon_mountain_self_count"
+element = "mountain"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011550_persecucion"
+icon = "own_passives_icon_speed_self_ball"
+
+# Serena Halcyon: Ritmo de Fuego
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011560_ritmo_de_fuego"
+icon = "own_passives_icon_speed_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011570_analisis_de_tiro"
+icon = "own_passives_icon_tension_cost_team"
+
+# Mollie Cular: Apoyo constante
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011580_apoyo_constante"
+icon = "own_passives_icon_tension_cost_team"
+
+# Spark Volt: Rugido
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011590_rugido"
+icon = "own_passives_icon_tension_rival_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011600_presa_facil"
+icon = "own_passives_icon_block_self_ball"
+
+# Ross Seption: Truco de manos
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011610_truco_de_manos"
+icon = "own_passives_icon_tension_cost_rival_ball"
+
+# Luke Dwight: Herencia Estrella
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011620_herencia_estrella"
+icon = "own_passives_icon_fire_self_half"
+element = "fire"
+
+# Hunter Wanabi: Aire fresco
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011630_aire_fresco"
+icon = "own_passives_icon_speed_team_clock"
+
+# Walden Squire: Arranque de remate
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011640_arranque_de_remate"
+icon = "own_passives_icon_shoot_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011650_niebla_de_montana"
+icon = "own_passives_icon_block_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011660_instinto_de_area"
+icon = "own_passives_icon_shoot_self_count"
+
+# Marcus Maan: Velo de Bosque
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011670_velo_de_bosque"
+icon = "own_passives_icon_block_team"
+
+# Gwen Slinga: Relevo de suplente
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011680_relevo_de_suplente"
+icon = "own_passives_icon_stamina_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011690_engano_de_muro"
+icon = "own_passives_icon_dribble_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011700_presa_facil"
+icon = "own_passives_icon_block_self_ball"
+
+# Rick Tangle: Truco de manos
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011710_truco_de_manos"
+icon = "own_passives_icon_tension_cost_rival_ball"
+
+# Xanthe Crosse: Fuerza bruta
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011720_fuerza_bruta"
+icon = "own_passives_icon_kick_self_count"
+
+# Trappy Zeum: Ganas de ayudar
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011730_ganas_de_ayudar"
+icon = "own_passives_icon_agility_team"
+
+# Ken Dough: Herencia Remate rebotado
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011740_herencia_remate_rebotado"
+icon = "own_passives_icon_shoot_team"
+
+# Sam Arritan: Gol llama gol
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011750_gol_llama_gol"
+icon = "own_passives_icon_shoot_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011760_ultima_linea"
+icon = "own_passives_icon_block_self_clock"
+
+# Archie Valry: Ritmo de Bosque
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011770_ritmo_de_bosque"
+icon = "own_passives_icon_speed_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011780_buen_companero"
+icon = "own_passives_icon_control_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011790_engano_de_muro"
+icon = "own_passives_icon_dribble_self_count"
+
+# Freyer Monk: Viento veloz
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011800_viento_veloz"
+icon = "own_passives_icon_speed_team_count"
+
+# Caetano Settler: Truco de manos
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011810_truco_de_manos"
+icon = "own_passives_icon_tension_cost_rival_ball"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011820_polvora_mojada"
+icon = "own_passives_icon_shoot_self"
+
+# Ollie Impix: Ayuda en defensa
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011830_ayuda_en_defensa"
+icon = "own_passives_icon_block_team_clock"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011840_mente_fria"
+icon = "own_passives_icon_technique_self_count"
+
+# Al Overa: Pirueta final
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011850_pirueta_final"
+icon = "own_passives_icon_agility_self_event"
+
+# Amanda Jurr: Lectura de juego
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011860_lectura_de_juego"
+icon = "own_passives_icon_tension_self_event"
+
+# Tostig Muffler: Portero de hierro
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011870_portero_de_hierro"
+icon = "own_passives_icon_catch_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011880_espiritu_de_equipo"
+icon = "own_passives_icon_tension_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011890_engano_de_muro"
+icon = "own_passives_icon_dribble_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011900_mente_fria"
+icon = "own_passives_icon_technique_self_count"
+
+# Fishel Bucket: Defensa de Bosque
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011910_defensa_de_bosque"
+icon = "own_passives_icon_block_team"
+
+# Violet Eamow: Robo ilusorio
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011920_robo_ilusorio"
+icon = "own_passives_icon_dribble_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011930_pequeno_empujon"
+icon = "own_passives_icon_tension_self_event"
+
+# Walter Skimmer: Cerrojo
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011940_cerrojo"
+icon = "own_passives_icon_block_self_leading"
+
+# Gordon Hoe: Drenaje
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011950_drenaje"
+icon = "own_passives_icon_tension_rival_event"
+
+# Xander Noddle: Truco de manos
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011960_truco_de_manos"
+icon = "own_passives_icon_tension_cost_rival_ball"
+
+# Stella Thee: Velo de Bosque
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011970_velo_de_bosque"
+icon = "own_passives_icon_block_team"
+
+# Rudy Blush: Apoyo constante
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011980_apoyo_constante"
+icon = "own_passives_icon_tension_cost_team"
+
+# Buck Choy: Gol llama gol
+[[CharacterReforged.PassiveIcon]]
+passive = "c04011990_gol_llama_gol"
+icon = "own_passives_icon_shoot_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012000_ultima_linea"
+icon = "own_passives_icon_block_self_clock"
+
+# Troi Dryer: Truco de manos
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012010_truco_de_manos"
+icon = "own_passives_icon_tension_cost_rival_ball"
+
+# Raider Takkel: Especialista en Niebla
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012020_especialista_en_niebla"
+icon = "own_passives_icon_forest_self_count"
+element = "forest"
+
+# Manny Saboy: Aire fresco
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012030_aire_fresco"
+icon = "own_passives_icon_speed_team_clock"
+
+# Jack Alltrade: Lectura de juego
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012040_lectura_de_juego"
+icon = "own_passives_icon_tension_self_event"
+
+# Spacey Flipper: Seguridad bajo palos
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012050_seguridad_bajo_palos"
+icon = "own_passives_icon_tension_self_event"
+
+# Bobbie Pompon: Linaje Fuego
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012060_linaje_fuego"
+icon = "own_passives_icon_fire_team"
+element = "fire"
+
+# Frosty Patissier: Defensa de Aire
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012070_defensa_de_aire"
+icon = "own_passives_icon_block_team"
+
+# Keir Mudgeon: Relevo de suplente
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012080_relevo_de_suplente"
+icon = "own_passives_icon_stamina_team"
+
+# Gus Bagge: Pase maestro
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012090_pase_maestro"
+icon = "own_passives_icon_shoot_team_ball"
+
+# Eira Dynamic: Cerrojo
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012100_cerrojo"
+icon = "own_passives_icon_block_self_leading"
+
+# Trump Dealer: Manada de Bosque
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012110_manada_de_bosque"
+icon = "own_passives_icon_physical_team"
+
+# Rob O'Meca: Reflejos de Aire
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012120_reflejos_de_aire"
+icon = "own_passives_icon_catch_self_clock"
+
+# Debbie Dare: Ganas de ayudar
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012130_ganas_de_ayudar"
+icon = "own_passives_icon_agility_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012140_especialista_en_cefiro"
+icon = "own_passives_icon_wind_self_event"
+element = "wind"
+
+# Primrose Proppa: Gol llama gol
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012150_gol_llama_gol"
+icon = "own_passives_icon_shoot_self_event"
+
+# Ricky Shee: Truco de manos
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012160_truco_de_manos"
+icon = "own_passives_icon_tension_cost_rival_ball"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012170_analisis_de_tiro"
+icon = "own_passives_icon_tension_cost_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012180_buen_companero"
+icon = "own_passives_icon_control_team"
+
+# Leroy Kingsley: Portero de hierro
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012190_portero_de_hierro"
+icon = "own_passives_icon_catch_self_count"
+
+# Rhiannon Hoode: Niebla de Fuego
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012200_niebla_de_fuego"
+icon = "own_passives_icon_block_team"
+
+# Bianca Snough: Pase maestro
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012210_pase_maestro"
+icon = "own_passives_icon_shoot_team_ball"
+
+# Cindy Reller: Herencia Tornado de fuego
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012220_herencia_tornado_de_fuego"
+icon = "own_passives_icon_fire_team"
+element = "fire"
+
+# Ted Ledd: Ayuda en defensa
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012230_ayuda_en_defensa"
+icon = "own_passives_icon_block_team_clock"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012240_engano_de_muro"
+icon = "own_passives_icon_dribble_self_count"
+
+# Stanley Switch: Hambre de gol
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012250_hambre_de_gol"
+icon = "own_passives_icon_shoot_self_trailing"
+
+# Pero Tractor: Truco de manos
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012260_truco_de_manos"
+icon = "own_passives_icon_tension_cost_rival_ball"
+
+# Perla Sizzors: Robo ilusorio
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012270_robo_ilusorio"
+icon = "own_passives_icon_dribble_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012280_espiritu_de_equipo"
+icon = "own_passives_icon_tension_self_event"
+
+# Silas Andice: Seguridad bajo palos
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012290_seguridad_bajo_palos"
+icon = "own_passives_icon_tension_self_event"
+
+# Tia Towell: Arranque explosivo
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012300_arranque_explosivo"
+icon = "own_passives_icon_dribble_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012310_manada_de_montana"
+icon = "own_passives_icon_physical_team"
+
+# Stuart Potty: Robo ilusorio
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012320_robo_ilusorio"
+icon = "own_passives_icon_dribble_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012330_pequeno_empujon"
+icon = "own_passives_icon_tension_self_event"
+
+# Trey Prongs: Contraataque
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012340_contraataque"
+icon = "own_passives_icon_speed_self_event"
+
+# Philip Stic: Portero de hierro
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012350_portero_de_hierro"
+icon = "own_passives_icon_catch_self_count"
+
+# Andy Kareem: Muro firme
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012360_muro_firme"
+icon = "own_passives_icon_block_self_count"
+
+# Cara Mass: Estratega de Aire
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012370_estratega_de_aire"
+icon = "own_passives_icon_technique_team"
+
+# Aya Shadowe: Apoyo constante
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012380_apoyo_constante"
+icon = "own_passives_icon_tension_cost_team"
+
+# Scarlett Strands: Pase maestro
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012390_pase_maestro"
+icon = "own_passives_icon_shoot_team_ball"
+
+# Silke Coombe: Lectura de juego
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012400_lectura_de_juego"
+icon = "own_passives_icon_tension_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012410_contencion"
+icon = "own_passives_icon_pressure_self_event"
+
+# Ian Spike: Cerrojo
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012420_cerrojo"
+icon = "own_passives_icon_block_self_leading"
+
+# Chip Chisel: Aire fresco
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012430_aire_fresco"
+icon = "own_passives_icon_speed_team_clock"
+
+# Claude Hammer: Arranque de remate
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012440_arranque_de_remate"
+icon = "own_passives_icon_shoot_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012450_linea_de_ataque"
+icon = "own_passives_icon_shoot_self_count"
+
+# Hank Saw: Truco de manos
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012460_truco_de_manos"
+icon = "own_passives_icon_tension_cost_rival_ball"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012470_ultima_linea"
+icon = "own_passives_icon_block_self_clock"
+
+# Garreth Nett: Relevo de suplente
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012480_relevo_de_suplente"
+icon = "own_passives_icon_stamina_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012490_engano_de_muro"
+icon = "own_passives_icon_dribble_self_count"
+
+# Moonir Stone: Especialista en Cabezazo
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012500_especialista_en_cabezazo"
+icon = "own_passives_icon_mountain_team"
+element = "fire"
+
+# Cory Alberts: Manada de Aire
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012510_manada_de_aire"
+icon = "own_passives_icon_physical_team"
+
+# Emett Raldo: Fuerza bruta
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012520_fuerza_bruta"
+icon = "own_passives_icon_kick_self_count"
+
+# Ruth Byron: Ganas de ayudar
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012530_ganas_de_ayudar"
+icon = "own_passives_icon_agility_team"
+
+# Ambrose Ericson: Muro firme
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012540_muro_firme"
+icon = "own_passives_icon_block_self_count"
+
+# Sapp Hirell: Niebla de Aire
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012550_niebla_de_aire"
+icon = "own_passives_icon_block_team"
+
+# Ciril Trine: Truco de manos
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012560_truco_de_manos"
+icon = "own_passives_icon_tension_cost_rival_ball"
+
+# Turk Quoisey: Hambre de gol
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012570_hambre_de_gol"
+icon = "own_passives_icon_shoot_self_trailing"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012580_buen_companero"
+icon = "own_passives_icon_control_team"
+
+# Rufus Brunt: Portero de hierro
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012590_portero_de_hierro"
+icon = "own_passives_icon_catch_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012600_anticipacion"
+icon = "own_passives_icon_block_self_count"
+
+# Gordon Bolt: Truco de manos
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012610_truco_de_manos"
+icon = "own_passives_icon_tension_cost_rival_ball"
+
+# Tez Beyan: Fuerza bruta
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012620_fuerza_bruta"
+icon = "own_passives_icon_kick_self_count"
+
+# Dylan Quint: Ayuda en defensa
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012630_ayuda_en_defensa"
+icon = "own_passives_icon_block_team_clock"
+
+# Mel O'Drahma: Último tercio
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012640_ultimo_tercio"
+icon = "own_passives_icon_shoot_self_clock"
+
+# Alan McCallum: Arranque explosivo
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012650_arranque_explosivo"
+icon = "own_passives_icon_dribble_self_event"
+
+# Art Turner: Cerrojo
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012660_cerrojo"
+icon = "own_passives_icon_block_self_leading"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012670_estratega_de_montana"
+icon = "own_passives_icon_technique_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012680_espiritu_de_equipo"
+icon = "own_passives_icon_tension_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012690_linea_de_ataque"
+icon = "own_passives_icon_shoot_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012700_instinto_de_area"
+icon = "own_passives_icon_shoot_self_count"
+
+# Sal Hughes: Gol llama gol
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012710_gol_llama_gol"
+icon = "own_passives_icon_shoot_self_event"
+
+# Gale Mistral: Último tercio
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012720_ultimo_tercio"
+icon = "own_passives_icon_shoot_self_clock"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012730_pequeno_empujon"
+icon = "own_passives_icon_tension_self_event"
+
+# Richard Roake: Especialista en Muro
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012740_especialista_en_muro"
+icon = "own_passives_icon_recast_self_clock"
+
+# Tortus Northe: Niebla de Bosque
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012750_niebla_de_bosque"
+icon = "own_passives_icon_block_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012760_reflejos_de_montana"
+icon = "own_passives_icon_catch_self_clock"
+
+# Phoenix Southers: Hambre de gol
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012770_hambre_de_gol"
+icon = "own_passives_icon_shoot_self_trailing"
+
+# Drakaina Eastwick: Apoyo constante
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012780_apoyo_constante"
+icon = "own_passives_icon_tension_cost_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012790_ultima_linea"
+icon = "own_passives_icon_block_self_clock"
+
+# Jon Himmel: Último tercio
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012800_ultimo_tercio"
+icon = "own_passives_icon_shoot_self_clock"
+
+# Val Cano: Truco de manos
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012810_truco_de_manos"
+icon = "own_passives_icon_tension_cost_rival_ball"
+
+# Seb Rosa: Lectura de juego
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012820_lectura_de_juego"
+icon = "own_passives_icon_tension_self_event"
+
+# Calla de Wild: Aire fresco
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012830_aire_fresco"
+icon = "own_passives_icon_speed_team_clock"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012840_anticipacion"
+icon = "own_passives_icon_block_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012850_rebote_agil"
+icon = "own_passives_icon_tension_self_event"
+
+# Sophie Spencer: Manada de Bosque
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012860_manada_de_bosque"
+icon = "own_passives_icon_physical_team"
+
+# Erwin Goel: Pase maestro
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012870_pase_maestro"
+icon = "own_passives_icon_shoot_team_ball"
+
+# Raphael Allegro: Relevo de suplente
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012880_relevo_de_suplente"
+icon = "own_passives_icon_stamina_team"
+
+# Azrael Andrews: Ritmo de Bosque
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012890_ritmo_de_bosque"
+icon = "own_passives_icon_speed_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012900_presa_facil"
+icon = "own_passives_icon_block_self_ball"
+
+# Olympe Haymes: Portero de hierro
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012910_portero_de_hierro"
+icon = "own_passives_icon_catch_self_count"
+
+# Sepia Bartletti: Viento veloz
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012920_viento_veloz"
+icon = "own_passives_icon_speed_team_count"
+
+# Neva Kevinne: Ganas de ayudar
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012930_ganas_de_ayudar"
+icon = "own_passives_icon_agility_team"
+
+# Seneca Herrmann: Lectura de juego
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012940_lectura_de_juego"
+icon = "own_passives_icon_tension_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012950_dominio_del_aire"
+icon = "own_passives_icon_shoot_self_count"
+
+# Aaron Newgate: Impulso final
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012960_impulso_final"
+icon = "own_passives_icon_all_moves_self_clock"
+
+# Ocho Lightning: Contraataque
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012970_contraataque"
+icon = "own_passives_icon_speed_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012980_buen_companero"
+icon = "own_passives_icon_control_team"
+
+# Kyu Lightning: Servido en bandeja
+[[CharacterReforged.PassiveIcon]]
+passive = "c04012990_servido_en_bandeja"
+icon = "own_passives_icon_shoot_self_ball"
+
+# Deece Lightning: Lectura de juego
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013000_lectura_de_juego"
+icon = "own_passives_icon_tension_self_event"
+
+# Dri Lightning: Relevo veloz
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013010_relevo_veloz"
+icon = "own_passives_icon_speed_self_event"
+
+# Sett Lightning: Fuerza bruta
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013020_fuerza_bruta"
+icon = "own_passives_icon_kick_self_count"
+
+# Cinqua Lightning: Ayuda en defensa
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013030_ayuda_en_defensa"
+icon = "own_passives_icon_block_team_clock"
+
+# Sei Lightning: Contraataque
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013040_contraataque"
+icon = "own_passives_icon_speed_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013050_contencion"
+icon = "own_passives_icon_pressure_self_event"
+
+# Dos Lightning: Viento veloz
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013060_viento_veloz"
+icon = "own_passives_icon_speed_team_count"
+
+# Elf Lightning: Portero de hierro
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013070_portero_de_hierro"
+icon = "own_passives_icon_catch_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013080_espiritu_de_equipo"
+icon = "own_passives_icon_tension_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013090_linea_de_ataque"
+icon = "own_passives_icon_shoot_self_count"
+
+# Gonzalo Karter: Muro firme
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013100_muro_firme"
+icon = "own_passives_icon_block_self_count"
+
+# Will Golightly: Pirueta final
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013110_pirueta_final"
+icon = "own_passives_icon_agility_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013120_robo_relampago"
+icon = "own_passives_icon_tension_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013130_pequeno_empujon"
+icon = "own_passives_icon_tension_self_event"
+
+# Gabe Roundhouse: Cerrojo
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013140_cerrojo"
+icon = "own_passives_icon_block_self_leading"
+
+# Beorn Kodiak: Portero de hierro
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013150_portero_de_hierro"
+icon = "own_passives_icon_catch_self_count"
+
+# Cham Barra: Manada de Fuego
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013160_manada_de_fuego"
+icon = "own_passives_icon_physical_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013170_instinto_de_area"
+icon = "own_passives_icon_shoot_self_count"
+
+# Leon Proudler: Apoyo constante
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013180_apoyo_constante"
+icon = "own_passives_icon_tension_cost_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013190_engano_de_muro"
+icon = "own_passives_icon_dribble_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013200_ultima_linea"
+icon = "own_passives_icon_block_self_clock"
+
+# Chrissy Urchin: Arranque explosivo
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013210_arranque_explosivo"
+icon = "own_passives_icon_dribble_self_event"
+
+# Brane Friese: Rematador de Aire
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013220_rematador_de_aire"
+icon = "own_passives_icon_shoot_team"
+
+# Nitey Niht: Aire fresco
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013230_aire_fresco"
+icon = "own_passives_icon_speed_team_clock"
+
+# Toadie Fauna: Rugido
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013240_rugido"
+icon = "own_passives_icon_tension_rival_event"
+
+# Trey Faste: Niebla de Bosque
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013250_niebla_de_bosque"
+icon = "own_passives_icon_block_team"
+
+# Spookie Otherside: Muro firme
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013260_muro_firme"
+icon = "own_passives_icon_block_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013270_estratega_de_montana"
+icon = "own_passives_icon_technique_team"
+
+# Trev Eeya: Relevo de suplente
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013280_relevo_de_suplente"
+icon = "own_passives_icon_stamina_team"
+
+# Homer Cooken: Hambre de gol
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013290_hambre_de_gol"
+icon = "own_passives_icon_shoot_self_trailing"
+
+# Leafy Tryadd: Herencia Mano
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013300_herencia_mano"
+icon = "own_passives_icon_catch_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013310_dominio_del_aire"
+icon = "own_passives_icon_shoot_self_count"
+
+# Toasty Tryadd: Arranque de remate
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013320_arranque_de_remate"
+icon = "own_passives_icon_shoot_self_event"
+
+# Watson Itfamie: Ganas de ayudar
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013330_ganas_de_ayudar"
+icon = "own_passives_icon_agility_team"
+
+# Snapper Krabbie: Muro firme
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013340_muro_firme"
+icon = "own_passives_icon_block_self_count"
+
+# Blakey Itchifoot: Niebla de Bosque
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013350_niebla_de_bosque"
+icon = "own_passives_icon_block_team"
+
+# Foley Edge: Truco de manos
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013360_truco_de_manos"
+icon = "own_passives_icon_tension_cost_rival_ball"
+
+# Gee Kasoid: Robo ilusorio
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013370_robo_ilusorio"
+icon = "own_passives_icon_dribble_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013380_buen_companero"
+icon = "own_passives_icon_control_team"
+
+# Hart O'Gold: Rugido
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013390_rugido"
+icon = "own_passives_icon_tension_rival_event"
+
+# Oz Rater: Arranque de remate
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013400_arranque_de_remate"
+icon = "own_passives_icon_shoot_self_event"
+
+# Tish Badum: Seguridad bajo palos
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013410_seguridad_bajo_palos"
+icon = "own_passives_icon_tension_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013420_instinto_de_area"
+icon = "own_passives_icon_shoot_self_count"
+
+# Mo Zake: Ayuda en defensa
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013430_ayuda_en_defensa"
+icon = "own_passives_icon_block_team_clock"
+
+# Eska Layte: Último tercio
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013440_ultimo_tercio"
+icon = "own_passives_icon_shoot_self_clock"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013450_contencion"
+icon = "own_passives_icon_pressure_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013460_manada_de_montana"
+icon = "own_passives_icon_physical_team"
+
+# Logan Armstrong: Fuerza bruta
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013470_fuerza_bruta"
+icon = "own_passives_icon_kick_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013480_espiritu_de_equipo"
+icon = "own_passives_icon_tension_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013490_dominio_del_aire"
+icon = "own_passives_icon_shoot_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013500_instinto_de_area"
+icon = "own_passives_icon_shoot_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013510_ultima_linea"
+icon = "own_passives_icon_block_self_clock"
+
+# Charity Verchu: Ritmo de Bosque
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013520_ritmo_de_bosque"
+icon = "own_passives_icon_speed_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013530_pequeno_empujon"
+icon = "own_passives_icon_tension_self_event"
+
+# Tommie Loveapple: Servido en bandeja
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013540_servido_en_bandeja"
+icon = "own_passives_icon_shoot_self_ball"
+
+# Pepe Bell: Muro firme
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013550_muro_firme"
+icon = "own_passives_icon_block_self_count"
+
+# Ginger Carret: Reflejos de Fuego
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013560_reflejos_de_fuego"
+icon = "own_passives_icon_catch_self_clock"
+
+# Shah Lott: Seguridad bajo palos
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013570_seguridad_bajo_palos"
+icon = "own_passives_icon_tension_self_event"
+
+# Hal Istic: Apoyo constante
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013580_apoyo_constante"
+icon = "own_passives_icon_tension_cost_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013590_ultima_linea"
+icon = "own_passives_icon_block_self_clock"
+
+# Dennis Tistry: Último tercio
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013600_ultimo_tercio"
+icon = "own_passives_icon_shoot_self_clock"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013610_robo_relampago"
+icon = "own_passives_icon_tension_self_event"
+
+# Florence Orderly: Linaje Hielo
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013620_linaje_hielo"
+icon = "own_passives_icon_wind_self_zone"
+element = "wind"
+
+# Prue Scription: Aire fresco
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013630_aire_fresco"
+icon = "own_passives_icon_speed_team_clock"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013640_reflejos_de_montana"
+icon = "own_passives_icon_catch_self_clock"
+
+# Orson Riffe: Niebla de Bosque
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013650_niebla_de_bosque"
+icon = "own_passives_icon_block_team"
+
+# Joe Bloggs: Ritmo de Aire
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013660_ritmo_de_aire"
+icon = "own_passives_icon_speed_team"
+
+# Devin Hornes: Gol llama gol
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013670_gol_llama_gol"
+icon = "own_passives_icon_shoot_self_event"
+
+# Tom-Tom Thrasher: Relevo de suplente
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013680_relevo_de_suplente"
+icon = "own_passives_icon_stamina_team"
+
+# Bea Jou: Rugido
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013690_rugido"
+icon = "own_passives_icon_tension_rival_event"
+
+# Scaris Cowler: Rematador de Fuego
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013700_rematador_de_fuego"
+icon = "own_passives_icon_shoot_team"
+
+# Hardy Scrapper: Servido en bandeja
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013710_servido_en_bandeja"
+icon = "own_passives_icon_shoot_self_ball"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013720_persecucion"
+icon = "own_passives_icon_speed_self_ball"
+
+# Larga Thanlyfe: Ganas de ayudar
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013730_ganas_de_ayudar"
+icon = "own_passives_icon_agility_team"
+
+# Scally Wagg: Linaje Fuego
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013740_linaje_fuego"
+icon = "own_passives_icon_fire_team"
+element = "fire"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013750_contencion"
+icon = "own_passives_icon_pressure_self_event"
+
+# Emilia Odde: Cerrojo
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013760_cerrojo"
+icon = "own_passives_icon_block_self_leading"
+
+# Alicia Odde: Pase maestro
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013770_pase_maestro"
+icon = "own_passives_icon_shoot_team_ball"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013780_buen_companero"
+icon = "own_passives_icon_control_team"
+
+# Sally Honeywell: Servido en bandeja
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013790_servido_en_bandeja"
+icon = "own_passives_icon_shoot_self_ball"
+
+# Lora Fayre: Impulso final
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013800_impulso_final"
+icon = "own_passives_icon_all_moves_self_clock"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013810_rebote_agil"
+icon = "own_passives_icon_tension_self_event"
+
+# Carter Spaid: Especialista en Tornado de fuego
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013820_especialista_en_tornado_de_fuego"
+icon = "own_passives_icon_fire_team"
+element = "fire"
+
+# Cobie Clubb: Ayuda en defensa
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013830_ayuda_en_defensa"
+icon = "own_passives_icon_block_team_clock"
+
+# Dai Mondo: Hora bruja
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013840_hora_bruja"
+icon = "own_passives_icon_tension_cost_team_clock"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013850_analisis_de_tiro"
+icon = "own_passives_icon_tension_cost_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013860_linaje_remate_rebotado"
+icon = "own_passives_icon_shoot_team"
+
+# Belladona Belle: Robo ilusorio
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013870_robo_ilusorio"
+icon = "own_passives_icon_dribble_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013880_espiritu_de_equipo"
+icon = "own_passives_icon_tension_self_event"
+
+# Tuff Weedon: Muro firme
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013890_muro_firme"
+icon = "own_passives_icon_block_self_count"
+
+# Gen Tillmann: Niebla de Bosque
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013900_niebla_de_bosque"
+icon = "own_passives_icon_block_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013910_ultima_linea"
+icon = "own_passives_icon_block_self_clock"
+
+# Av Antguard: Robo ilusorio
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013920_robo_ilusorio"
+icon = "own_passives_icon_dribble_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013930_pequeno_empujon"
+icon = "own_passives_icon_tension_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013940_mente_fria"
+icon = "own_passives_icon_technique_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013950_presa_facil"
+icon = "own_passives_icon_block_self_ball"
+
+# Orel Knighter: Manada de Bosque
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013960_manada_de_bosque"
+icon = "own_passives_icon_physical_team"
+
+# Rith McCal: Seguridad bajo palos
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013970_seguridad_bajo_palos"
+icon = "own_passives_icon_tension_self_event"
+
+# Tarquin Chatstone: Apoyo constante
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013980_apoyo_constante"
+icon = "own_passives_icon_tension_cost_team"
+
+# Ed Jogge: Rugido
+[[CharacterReforged.PassiveIcon]]
+passive = "c04013990_rugido"
+icon = "own_passives_icon_tension_rival_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014000_persecucion"
+icon = "own_passives_icon_speed_self_ball"
+
+# Teo Chaspet: Hambre de gol
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014010_hambre_de_gol"
+icon = "own_passives_icon_shoot_self_trailing"
+
+# Drummond Bays: Herencia Tornado de fuego
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014020_herencia_tornado_de_fuego"
+icon = "own_passives_icon_fire_team"
+element = "fire"
+
+# Bowan Arras: Aire fresco
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014030_aire_fresco"
+icon = "own_passives_icon_speed_team_clock"
+
+# Patty Sierra: Reflejos de Fuego
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014040_reflejos_de_fuego"
+icon = "own_passives_icon_catch_self_clock"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014050_rebote_agil"
+icon = "own_passives_icon_tension_self_event"
+
+# Daisy Young: Truco de manos
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014060_truco_de_manos"
+icon = "own_passives_icon_tension_cost_rival_ball"
+
+# Precious Cryan: Fuerza bruta
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014070_fuerza_bruta"
+icon = "own_passives_icon_kick_self_count"
+
+# Rio Sands: Relevo de suplente
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014080_relevo_de_suplente"
+icon = "own_passives_icon_stamina_team"
+
+# Cynthia Electra: Hambre de gol
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014090_hambre_de_gol"
+icon = "own_passives_icon_shoot_self_trailing"
+
+# Ord Ayshus: Niebla de Bosque
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014100_niebla_de_bosque"
+icon = "own_passives_icon_block_team"
+
+# Moe Tivation: Truco de manos
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014110_truco_de_manos"
+icon = "own_passives_icon_tension_cost_rival_ball"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014120_reflejos_de_montana"
+icon = "own_passives_icon_catch_self_clock"
+
+# Dexter Poine: Ganas de ayudar
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014130_ganas_de_ayudar"
+icon = "own_passives_icon_agility_team"
+
+# Barry Tone: Rugido
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014140_rugido"
+icon = "own_passives_icon_tension_rival_event"
+
+# Noah Nymous: Niebla de Aire
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014150_niebla_de_aire"
+icon = "own_passives_icon_block_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014160_anticipacion"
+icon = "own_passives_icon_block_self_count"
+
+# Neil Yetty: Viento veloz
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014170_viento_veloz"
+icon = "own_passives_icon_speed_team_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014180_buen_companero"
+icon = "own_passives_icon_control_team"
+
+# Harold Oldings: Portero de hierro
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014190_portero_de_hierro"
+icon = "own_passives_icon_catch_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014200_presa_facil"
+icon = "own_passives_icon_block_self_ball"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014210_analisis_de_tiro"
+icon = "own_passives_icon_tension_cost_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014220_instinto_de_area"
+icon = "own_passives_icon_shoot_self_count"
+
+# Delia Sykes: Ayuda en defensa
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014230_ayuda_en_defensa"
+icon = "own_passives_icon_block_team_clock"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014240_ultima_linea"
+icon = "own_passives_icon_block_self_clock"
+
+# Strata Pudden: Manada de Bosque
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014250_manada_de_bosque"
+icon = "own_passives_icon_physical_team"
+
+# Silvio DiFence: Rematador de Fuego
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014260_rematador_de_fuego"
+icon = "own_passives_icon_shoot_team"
+
+# Harriet Pynn: Reflejos de Aire
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014270_reflejos_de_aire"
+icon = "own_passives_icon_catch_self_clock"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014280_espiritu_de_equipo"
+icon = "own_passives_icon_tension_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014290_engano_de_muro"
+icon = "own_passives_icon_dribble_self_count"
+
+# Virgil Ante: Niebla de Aire
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014300_niebla_de_aire"
+icon = "own_passives_icon_block_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014310_manada_de_montana"
+icon = "own_passives_icon_physical_team"
+
+# Holly Blue: Robo ilusorio
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014320_robo_ilusorio"
+icon = "own_passives_icon_dribble_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014330_pequeno_empujon"
+icon = "own_passives_icon_tension_self_event"
+
+# Graham Bock: Truco de manos
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014340_truco_de_manos"
+icon = "own_passives_icon_tension_cost_rival_ball"
+
+# Ryan Tamer: Servido en bandeja
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014350_servido_en_bandeja"
+icon = "own_passives_icon_shoot_self_ball"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014360_mente_fria"
+icon = "own_passives_icon_technique_self_count"
+
+# Sammy Salter: Seguridad bajo palos
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014370_seguridad_bajo_palos"
+icon = "own_passives_icon_tension_self_event"
+
+# Singer Long: Apoyo constante
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014380_apoyo_constante"
+icon = "own_passives_icon_tension_cost_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014390_engano_de_muro"
+icon = "own_passives_icon_dribble_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014400_niebla_de_montana"
+icon = "own_passives_icon_block_team"
+
+# Kik O'Round: Hambre de gol
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014410_hambre_de_gol"
+icon = "own_passives_icon_shoot_self_trailing"
+
+# Dirk Point: Rematador de Aire
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014420_rematador_de_aire"
+icon = "own_passives_icon_shoot_team"
+
+# Molly Gunn: Aire fresco
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014430_aire_fresco"
+icon = "own_passives_icon_speed_team_clock"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014440_reflejos_de_montana"
+icon = "own_passives_icon_catch_self_clock"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014450_analisis_de_tiro"
+icon = "own_passives_icon_tension_cost_team"
+
+# Cole Bludd: Truco de manos
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014460_truco_de_manos"
+icon = "own_passives_icon_tension_cost_rival_ball"
+
+# Sidney Cal: Arranque explosivo
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014470_arranque_explosivo"
+icon = "own_passives_icon_dribble_self_event"
+
+# Greena Grasse: Relevo de suplente
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014480_relevo_de_suplente"
+icon = "own_passives_icon_stamina_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014490_engano_de_muro"
+icon = "own_passives_icon_dribble_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014500_niebla_de_montana"
+icon = "own_passives_icon_block_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014510_dominio_del_aire"
+icon = "own_passives_icon_shoot_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014520_robo_relampago"
+icon = "own_passives_icon_tension_self_event"
+
+# Bertie Cees: Ganas de ayudar
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014530_ganas_de_ayudar"
+icon = "own_passives_icon_agility_team"
+
+# Sylvester Tung: Muro firme
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014540_muro_firme"
+icon = "own_passives_icon_block_self_count"
+
+# Steph Scorer: Niebla de Fuego
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014550_niebla_de_fuego"
+icon = "own_passives_icon_block_team"
+
+# Gen Tallgiant: Truco de manos
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014560_truco_de_manos"
+icon = "own_passives_icon_tension_cost_rival_ball"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014570_analisis_de_tiro"
+icon = "own_passives_icon_tension_cost_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014580_buen_companero"
+icon = "own_passives_icon_control_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014590_engano_de_muro"
+icon = "own_passives_icon_dribble_self_count"
+
+# Ro St.
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014600_reflejos_de_bosque"
+icon = "own_passives_icon_catch_self_clock"
+
+# Byrd Stryke: Pase maestro
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014610_pase_maestro"
+icon = "own_passives_icon_shoot_team_ball"
+
+# Bianco Snowden: Fuerza bruta
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014620_fuerza_bruta"
+icon = "own_passives_icon_kick_self_count"
+
+# Folda Steel: Ayuda en defensa
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014630_ayuda_en_defensa"
+icon = "own_passives_icon_block_team_clock"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014640_anticipacion"
+icon = "own_passives_icon_block_self_count"
+
+# Chief Kerr: Contraataque
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014650_contraataque"
+icon = "own_passives_icon_speed_self_event"
+
+# Benji Near: Cerrojo
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014660_cerrojo"
+icon = "own_passives_icon_block_self_leading"
+
+# Boo Fonte: Robo ilusorio
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014670_robo_ilusorio"
+icon = "own_passives_icon_dribble_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014680_espiritu_de_equipo"
+icon = "own_passives_icon_tension_self_event"
+
+# Griz Munkie: Rugido
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014690_rugido"
+icon = "own_passives_icon_tension_rival_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014700_presa_facil"
+icon = "own_passives_icon_block_self_ball"
+
+# Tsun Derrey: Truco de manos
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014710_truco_de_manos"
+icon = "own_passives_icon_tension_cost_rival_ball"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014720_ultima_linea"
+icon = "own_passives_icon_block_self_clock"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014730_pequeno_empujon"
+icon = "own_passives_icon_tension_self_event"
+
+# Art Izan: Niebla de Aire
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014740_niebla_de_aire"
+icon = "own_passives_icon_block_team"
+
+# Downtworth Beyan: Arranque explosivo
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014750_arranque_explosivo"
+icon = "own_passives_icon_dribble_self_event"
+
+# Hartwin Throbb: Carga acumulada
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014760_carga_acumulada"
+icon = "own_passives_icon_shoot_self_event"
+
+# Damo Jukes: Estratega de Fuego
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014770_estratega_de_fuego"
+icon = "own_passives_icon_technique_team"
+
+# Indy Iffrent: Apoyo constante
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014780_apoyo_constante"
+icon = "own_passives_icon_tension_cost_team"
+
+# Askel Blays: Hora bruja
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014790_hora_bruja"
+icon = "own_passives_icon_tension_cost_team_clock"
+
+# Burt Zerka: Último tercio
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014800_ultimo_tercio"
+icon = "own_passives_icon_shoot_self_clock"
+
+# Drew Pii: Hambre de gol
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014810_hambre_de_gol"
+icon = "own_passives_icon_shoot_self_trailing"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014820_rematador_de_montana"
+icon = "own_passives_icon_shoot_team"
+
+# Sly Sundice: Aire fresco
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014830_aire_fresco"
+icon = "own_passives_icon_speed_team_clock"
+
+# Pat Ryarke: Reflejos de Bosque
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014840_reflejos_de_bosque"
+icon = "own_passives_icon_catch_self_clock"
+
+# Trixie Playfair: Ritmo de Aire
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014850_ritmo_de_aire"
+icon = "own_passives_icon_speed_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014860_manada_de_montana"
+icon = "own_passives_icon_physical_team"
+
+# Hugh Handy: Robo ilusorio
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014870_robo_ilusorio"
+icon = "own_passives_icon_dribble_self_event"
+
+# Len Grayves: Relevo de suplente
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014880_relevo_de_suplente"
+icon = "own_passives_icon_stamina_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014890_engano_de_muro"
+icon = "own_passives_icon_dribble_self_count"
+
+# Colin Urlane: Drenaje
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014900_drenaje"
+icon = "own_passives_icon_tension_rival_event"
+
+# Francie Holly: Truco de manos
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014910_truco_de_manos"
+icon = "own_passives_icon_tension_cost_rival_ball"
+
+# Mitzi Holly: Fuerza bruta
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014920_fuerza_bruta"
+icon = "own_passives_icon_kick_self_count"
+
+# Breeze Windward: Ganas de ayudar
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014930_ganas_de_ayudar"
+icon = "own_passives_icon_agility_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014940_niebla_de_montana"
+icon = "own_passives_icon_block_team"
+
+# Frank Redmond: Gol llama gol
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014950_gol_llama_gol"
+icon = "own_passives_icon_shoot_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014960_ultima_linea"
+icon = "own_passives_icon_block_self_clock"
+
+# Rundeep Stillwater: Robo ilusorio
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014970_robo_ilusorio"
+icon = "own_passives_icon_dribble_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014980_buen_companero"
+icon = "own_passives_icon_control_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04014990_engano_de_muro"
+icon = "own_passives_icon_dribble_self_count"
+
+# Ramona Tempest: Arranque de remate
+[[CharacterReforged.PassiveIcon]]
+passive = "c04015000_arranque_de_remate"
+icon = "own_passives_icon_shoot_self_event"
+
+# Rolanda Tempest: Mal de ojo
+[[CharacterReforged.PassiveIcon]]
+passive = "c04015010_mal_de_ojo"
+icon = "own_passives_icon_shoot_block_rival_count"
+
+# Shilo Placidus: Especialista en Trayectoria
+[[CharacterReforged.PassiveIcon]]
+passive = "c04015020_especialista_en_trayectoria"
+icon = "own_passives_icon_forest_self_count"
+element = "forest"
+
+# Uno Blackley: Ayuda en defensa
+[[CharacterReforged.PassiveIcon]]
+passive = "c04015030_ayuda_en_defensa"
+icon = "own_passives_icon_block_team_clock"
+
+# Due Blackley: Hora bruja
+[[CharacterReforged.PassiveIcon]]
+passive = "c04015040_hora_bruja"
+icon = "own_passives_icon_tension_cost_team_clock"
+
+# Quattro Blackley: Hambre de gol
+[[CharacterReforged.PassiveIcon]]
+passive = "c04015050_hambre_de_gol"
+icon = "own_passives_icon_shoot_self_trailing"
+
+# Cinque Blackley: Rematador de Fuego
+[[CharacterReforged.PassiveIcon]]
+passive = "c04015060_rematador_de_fuego"
+icon = "own_passives_icon_shoot_team"
+
+# Eins Whitely: Portero de hierro
+[[CharacterReforged.PassiveIcon]]
+passive = "c04015070_portero_de_hierro"
+icon = "own_passives_icon_catch_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04015080_espiritu_de_equipo"
+icon = "own_passives_icon_tension_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04015090_linea_de_ataque"
+icon = "own_passives_icon_shoot_self_count"
+
+# Fünf Whitely: Herencia Remate rebotado
+[[CharacterReforged.PassiveIcon]]
+passive = "c04015100_herencia_remate_rebotado"
+icon = "own_passives_icon_shoot_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04015110_ultima_linea"
+icon = "own_passives_icon_block_self_clock"
+
+# Cloudy Forbes: Robo ilusorio
+[[CharacterReforged.PassiveIcon]]
+passive = "c04015120_robo_ilusorio"
+icon = "own_passives_icon_dribble_self_event"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04015130_pequeno_empujon"
+icon = "own_passives_icon_tension_self_event"
+
+# Maude Erne: Especialista en Remate rebotado
+[[CharacterReforged.PassiveIcon]]
+passive = "c04015140_especialista_en_remate_rebotado"
+icon = "own_passives_icon_shoot_team"
+
+# Anne Sestral: Servido en bandeja
+[[CharacterReforged.PassiveIcon]]
+passive = "c04015150_servido_en_bandeja"
+icon = "own_passives_icon_shoot_self_ball"
+
+# Gale Sweep: Muro firme
+[[CharacterReforged.PassiveIcon]]
+passive = "c04015160_muro_firme"
+icon = "own_passives_icon_block_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04015170_instinto_de_area"
+icon = "own_passives_icon_shoot_self_count"
+
+# Samson Bigglesworth: Apoyo constante
+[[CharacterReforged.PassiveIcon]]
+passive = "c04015180_apoyo_constante"
+icon = "own_passives_icon_tension_cost_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04015190_persecucion"
+icon = "own_passives_icon_speed_self_ball"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04016050_bateria_de_artilleria"
+icon = "own_passives_icon_long_shoot_self_count"
+
+# Avery Rarecard: Truco de manos
+[[CharacterReforged.PassiveIcon]]
+passive = "c04016060_truco_de_manos"
+icon = "own_passives_icon_tension_cost_rival_ball"
+
+# Spot Barkley: Cerrojo
+[[CharacterReforged.PassiveIcon]]
+passive = "c04016070_cerrojo"
+icon = "own_passives_icon_block_self_leading"
+
+# Esau Tariq: Aire fresco
+[[CharacterReforged.PassiveIcon]]
+passive = "c04016080_aire_fresco"
+icon = "own_passives_icon_speed_team_clock"
+
+# Raine Bow: Arranque de remate
+[[CharacterReforged.PassiveIcon]]
+passive = "c04016090_arranque_de_remate"
+icon = "own_passives_icon_shoot_self_event"
+
+# Abuelo Danger: Niebla de Fuego
+[[CharacterReforged.PassiveIcon]]
+passive = "c04016100_niebla_de_fuego"
+icon = "own_passives_icon_block_team"
+
+# Shortcake Holmes: Salto compartido
+[[CharacterReforged.PassiveIcon]]
+passive = "c04016110_salto_compartido"
+icon = "own_passives_icon_chain_shoot_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04016130_ultima_linea"
+icon = "own_passives_icon_block_self_clock"
+
+# Lawrence Leepson: Relevo de suplente
+[[CharacterReforged.PassiveIcon]]
+passive = "c04016150_relevo_de_suplente"
+icon = "own_passives_icon_stamina_team"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04016160_presa_facil"
+icon = "own_passives_icon_block_self_ball"
+
+# Mickey Schmitt: Servido en bandeja
+[[CharacterReforged.PassiveIcon]]
+passive = "c04016170_servido_en_bandeja"
+icon = "own_passives_icon_shoot_self_ball"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04016180_mente_fria"
+icon = "own_passives_icon_technique_self_count"
+
+[[CharacterReforged.PassiveIcon]]
+passive = "c04016190_canonazo_lejano"
+icon = "own_passives_icon_long_shoot_self_zone"
+
+# Damon Valiant: Ganas de ayudar
+[[CharacterReforged.PassiveIcon]]
+passive = "c04016200_ganas_de_ayudar"
+icon = "own_passives_icon_agility_team"
+
+# Everard Valiant: Gol llama gol
+[[CharacterReforged.PassiveIcon]]
+passive = "c04016210_gol_llama_gol"
+icon = "own_passives_icon_shoot_self_event"

@@ -40,6 +40,7 @@ end
 local function CL_Load(p)
   cl.page, cl.n, cl.lines, cl.icons, cl.head = p, 0, {}, {}, {}
   local title, rows = CL_Call(CMD.PAGE, p)
+  --- Internal: title text of the current changelog page.
   cl.title = type(title) == "string" and title or ""
   rows = type(rows) == "number" and rows or 0
   for i = 0, math.min(rows, 8) - 1 do
@@ -52,12 +53,14 @@ local function CL_Load(p)
     else
       cl.head[i + 1] = cl.head[i]
     end
+    --- Internal: number of line rows filled on the current changelog page.
     cl.n = i + 1
   end
 end
 
 -- the rows' texts (retail SetupUpdateFeatureListItemText)
 local function CL_Texts()
+  --- Internal: 1 once the line texts were fitted to the item layers.
   cl.fit = 1
   local num = funcLuaMenuCommand(C.LAYER_NUM, L_ITEM) or 0
   for i = 0, num - 1 do
@@ -74,6 +77,7 @@ end
 
 -- open the window with the current page (retail UpdateToUpdateFeatureDisplay, welcome flag on)
 local function CL_Display()
+  --- Internal: display state of the changelog sheet (1 = showing).
   cl.state = 1
   local num = funcLuaMenuCommand(C.LAYER_NUM, L_ITEM) or 0
   CL_Wait(function() return num < 1 or not funcLuaMenuCommand(C.IS_LOADING, L_ITEM, 0) end)
@@ -96,9 +100,11 @@ end
 local function CL_OnInit(nxt)
   nxt()
   local open, pages = CL_Call(CMD.SESSION)
+  --- Internal: true when the changelog session is open with at least one page.
   cl.on = open == true and type(pages) == "number" and pages > 0
   cl.co, cl.state = nil, 0
   if cl.on then
+    --- Internal: number of changelog pages of the session.
     cl.pages = pages
     CL_Load(0)
   end
@@ -113,6 +119,7 @@ local function CL_OnSetupLayer(nxt, a1, a2)
   elseif a1 == L_ITEM then
     funcLuaMenuCommand(C.LAYER_VISIBLE, a1, a2, false)
   elseif a1 == L_SHEET then
+    --- Internal: coroutine that displays the changelog sheet.
     cl.co = coroutine.create(CL_Display)
     funcLuaMenuCommand(C.TITLE_STYLE, a1, a2, N_TITLE, 1811747504)
     funcLuaMenuCommand(C.TEXT, a1, N_TITLE, cl.title)
@@ -196,5 +203,5 @@ if VRFW.host ~= nil then
   end
 end
 
--- for the tests
+-- Internal: for the tests
 VRFW.changelog_sheet = cl

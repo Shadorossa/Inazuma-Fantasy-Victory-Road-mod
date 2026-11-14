@@ -131,7 +131,7 @@ function RV.go(v)
     return
   end
   funcLuaCommand(C.SE, SE_MOVE)
-  p.view, p.top, p.full, p.srow, p.szone, p.stop = v, 0, nil, 1, "rows", 0
+  p.view, p.top, p.full, p.srow, p.szone = v, 0, nil, 1, "rows"
   Draw()
 end
 
@@ -496,6 +496,7 @@ function RV.draw_full(m)
   end
 end
 
--- for 100_mods_screen.lua and the files after this one
+-- Internal: for 100_mods_screen.lua and the files after this one
 Screen.popup_window = PopupWindow
+--- Internal: popup button builder of the record viewer.
 Screen.popup_buttons = PopupButtons

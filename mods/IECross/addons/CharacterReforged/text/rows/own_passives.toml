@@ -1,0 +1,132 @@
+schema = "VRFW.text/2"
+table = "skill_text"
+
+[[row]]
+id = 3282966103  # IECross own_c90000170
+kind = "noun"
+es = "[CPASSIVE01]Llama cruzada[C]\\nPor cada aliado de [CPASSIVE01]fuego[C] en el campo:\\npoder de [CPASSIVE01]tiro[C] [CPASSIVE01]+4 %[C] (máx. 3)"
+en = "[CPASSIVE01]Crossed Flame[C]\\nPer [CPASSIVE01]Fire[C] teammate on the pitch:\\n[CPASSIVE01]shot[C] power [CPASSIVE01]+4%[C] (max 3)"
+fr = "[CPASSIVE01]Flamme croisée[C]\\nPar allié [CPASSIVE01]Feu[C] sur le terrain :\\npuissance de [CPASSIVE01]tir[C] [CPASSIVE01]+4 %[C] (max 3)"
+de = "[CPASSIVE01]Gekreuzte Flamme[C]\\nPro [CPASSIVE01]Feuer[C]-Mitspieler auf dem Platz:\\n[CPASSIVE01]Schuss[C]-Stärke [CPASSIVE01]+4 %[C] (max. 3)"
+it = "[CPASSIVE01]Fiamma incrociata[C]\\nPer ogni alleato [CPASSIVE01]Fuoco[C] in campo:\\npotenza di [CPASSIVE01]tiro[C] [CPASSIVE01]+4%[C] (max 3)"
+pt = "[CPASSIVE01]Chama cruzada[C]\\nPor cada aliado de [CPASSIVE01]Fogo[C] em campo:\\npoder de [CPASSIVE01]remate[C] [CPASSIVE01]+4%[C] (máx. 3)"
+ja = "[CPASSIVE01]クロスフレイム[C]\\nピッチ上の[CPASSIVE01]火[C]属性の味方1人につき：\\n[CPASSIVE01]シュート[C]威力[CPASSIVE01]+4％[C]（最大3人）"
+zh_hans = "[CPASSIVE01]交错之焰[C]\\n场上每有1名[CPASSIVE01]火[C]属性的队友：[CPASSIVE01]射门[C]威力[CPASSIVE01]+4%[C]\\n（最多3名）"
+zh_hant = "[CPASSIVE01]交錯之焰[C]\\n場上每有1名[CPASSIVE01]火[C]屬性的隊友：[CPASSIVE01]射門[C]威力[CPASSIVE01]+4%[C]\\n（最多3名）"
+
+[[row]]
+id = 1144392344  # IECross own_c90000180
+kind = "noun"
+es = "[CPASSIVE01]Truco o trato[C]\\nAl ganar un duelo: tensión del rival [CPASSIVE01]-2[C]\\n(acumulable hasta 3 veces por parte)"
+en = "[CPASSIVE01]Trick or Treat[C]\\nOn winning a duel: rival team tension [CPASSIVE01]-2[C]\\n(stacks up to 3 times per half)"
+fr = "[CPASSIVE01]Un bonbon ou un sort[C]\\nEn gagnant un duel : tension de l'équipe adverse [CPASSIVE01]-2[C]\\n(cumulable jusqu'à 3 fois par mi-temps)"
+de = "[CPASSIVE01]Süßes oder Saures[C]\\nBei gewonnenem Duell: Spannung des gegnerischen Teams [CPASSIVE01]-2[C]\\n(bis zu 3× pro Halbzeit stapelbar)"
+it = "[CPASSIVE01]Dolcetto o scherzetto[C]\\nQuando vince un duello: tensione della squadra avversaria [CPASSIVE01]-2[C]\\n(cumulabile fino a 3 volte per tempo)"
+pt = "[CPASSIVE01]Doçura ou travessura[C]\\nAo ganhar um duelo: tensão da equipa adversária [CPASSIVE01]-2[C]\\n(acumulável até 3 vezes por parte)"
+ja = "[CPASSIVE01]トリック・オア・トリート[C]\\nデュエル勝利時：相手チームのテンション[CPASSIVE01]-2[C]\\n（ハーフごとに最大3回累積）"
+zh_hans = "[CPASSIVE01]不给糖就捣蛋[C]\\n赢得对决时：对方的气势[CPASSIVE01]-2[C]\\n（每半场最多叠加3次）"
+zh_hant = "[CPASSIVE01]不給糖就搗蛋[C]\\n贏得對決時：對方的氣勢[CPASSIVE01]-2[C]\\n（每半場最多疊加3次）"
+
+[[row]]
+id = 1563245529  # IECross own_c90000190
+kind = "noun"
+es = "[CPASSIVE01]Sombra de medianoche[C]\\nEn el último tercio de cada parte:\\nvelocidad de movimiento [CPASSIVE01]+6 %[C]"
+en = "[CPASSIVE01]Midnight Shadow[C]\\nIn the last third of each half:\\nmove speed [CPASSIVE01]+6%[C]"
+fr = "[CPASSIVE01]Ombre de minuit[C]\\nDans le dernier tiers de chaque mi-temps :\\nvitesse de déplacement [CPASSIVE01]+6 %[C]"
+de = "[CPASSIVE01]Mitternachtsschatten[C]\\nIm letzten Drittel jeder Halbzeit:\\nLaufgeschwindigkeit [CPASSIVE01]+6 %[C]"
+it = "[CPASSIVE01]Ombra di mezzanotte[C]\\nNell'ultimo terzo di ogni tempo:\\nvelocità di movimento [CPASSIVE01]+6%[C]"
+pt = "[CPASSIVE01]Sombra da meia-noite[C]\\nNo último terço de cada parte:\\nvelocidade de movimento [CPASSIVE01]+6%[C]"
+ja = "[CPASSIVE01]真夜中の影[C]\\n各ハーフの最後の3分の1：\\n移動速度[CPASSIVE01]+6％[C]"
+zh_hans = "[CPASSIVE01]午夜之影[C]\\n每个半场的最后三分之一：\\n移动速度[CPASSIVE01]+6%[C]"
+zh_hant = "[CPASSIVE01]午夜之影[C]\\n每個半場的最後三分之一：\\n移動速度[CPASSIVE01]+6%[C]"
+
+[[row]]
+id = 3043708150  # IECross own_c90000071
+kind = "noun"
+es = "[CPASSIVE01]Crónica en directo[C]\\nCuando un compañero gana un bloqueo: tensión del equipo [CPASSIVE01]+2[C]\\n(acumulable hasta 3 veces por parte)"
+en = "[CPASSIVE01]Live Report[C]\\nWhen a teammate wins a block: team tension [CPASSIVE01]+2[C]\\n(stacks up to 3 times per half)"
+fr = "[CPASSIVE01]Reportage en direct[C]\\nQuand un coéquipier remporte un blocage : tension de son équipe [CPASSIVE01]+2[C]\\n(cumulable jusqu'à 3 fois par mi-temps)"
+de = "[CPASSIVE01]Live-Bericht[C]\\nWenn ein Mitspieler einen Block gewinnt: Spannung seines Teams [CPASSIVE01]+2[C]\\n(bis zu 3× pro Halbzeit stapelbar)"
+it = "[CPASSIVE01]Cronaca in diretta[C]\\nQuando un compagno vince un blocco: tensione della sua squadra [CPASSIVE01]+2[C]\\n(cumulabile fino a 3 volte per tempo)"
+pt = "[CPASSIVE01]Reportagem em direto[C]\\nQuando um colega ganha um bloqueio: tensão da sua equipa [CPASSIVE01]+2[C]\\n(acumulável até 3 vezes por parte)"
+ja = "[CPASSIVE01]生中継レポート[C]\\n味方のブロック成功時：自チームのテンション[CPASSIVE01]+2[C]\\n（ハーフごとに最大3回累積）"
+zh_hans = "[CPASSIVE01]现场直播[C]\\n队友拦截成功时：己方的气势[CPASSIVE01]+2[C]\\n（每半场最多叠加3次）"
+zh_hant = "[CPASSIVE01]現場直播[C]\\n隊友攔截成功時：己方的氣勢[CPASSIVE01]+2[C]\\n（每半場最多疊加3次）"
+
+[[row]]
+id = 2814563155  # IECross own_c90000130
+kind = "noun"
+es = "[CPASSIVE01]Pingüino infernal[C]\\nPoder de supertécnica [CPASSIVE01]Pingüino emperador[C] [CPASSIVE01]+6 %[C]\\npara los jugadores de [CPASSIVE01]Royal Academy[C]"
+en = "[CPASSIVE01]Inferno Penguin[C]\\n[CPASSIVE01]Emperor Penguin[C] technique power [CPASSIVE01]+6%[C]\\nfor [CPASSIVE01]Royal Academy[C] players"
+fr = "[CPASSIVE01]Manchot infernal[C]\\nPuissance des supertechniques [CPASSIVE01]Manchot empereur[C] [CPASSIVE01]+6 %[C]\\npour les joueurs de [CPASSIVE01]Royal Academy[C]"
+de = "[CPASSIVE01]Höllenpinguin[C]\\nStärke der [CPASSIVE01]Kaiserpinguin[C]-Supertechniken [CPASSIVE01]+6 %[C]\\nfür die Spieler von [CPASSIVE01]Royal Academy[C]"
+it = "[CPASSIVE01]Pinguino infernale[C]\\nPotenza delle supertecniche [CPASSIVE01]Pinguino Imperatore[C] [CPASSIVE01]+6%[C]\\nper i giocatori della [CPASSIVE01]Royal Academy[C]"
+pt = "[CPASSIVE01]Pinguim infernal[C]\\nPoder das supertécnicas [CPASSIVE01]Pinguins Imperiais[C] [CPASSIVE01]+6%[C]\\npara os jogadores do [CPASSIVE01]Instituto Imperial[C]"
+ja = "[CPASSIVE01]インフェルノペンギン[C]\\n[CPASSIVE01]帝国学園[C]の選手の[CPASSIVE01]皇帝ペンギン[C]系の必殺技の威力[CPASSIVE01]+6％[C]"
+zh_hans = "[CPASSIVE01]地狱企鹅[C]\\n[CPASSIVE01]帝国[C]球员的[CPASSIVE01]皇帝企鹅[C]系必杀技威力[CPASSIVE01]+6%[C]"
+zh_hant = "[CPASSIVE01]地獄企鵝[C]\\n[CPASSIVE01]帝國[C]球員的[CPASSIVE01]皇帝企鵝[C]系必殺技威力[CPASSIVE01]+6%[C]"
+
+[[row]]
+id = 3201950226  # IECross own_c90000120
+kind = "noun"
+es = "[CPASSIVE01]Tiempo celestial[C]\\nEn la segunda parte:\\nvelocidad de movimiento [CPASSIVE01]-3 %[C] para todo el equipo rival"
+en = "[CPASSIVE01]Heaven's Time[C]\\nIn the second half:\\nmove speed [CPASSIVE01]-3%[C] for the whole rival team"
+fr = "[CPASSIVE01]Temps céleste[C]\\nEn seconde mi-temps :\\nvitesse de déplacement [CPASSIVE01]-3 %[C] pour toute l'équipe adverse"
+de = "[CPASSIVE01]Himmlische Zeit[C]\\nIn der zweiten Halbzeit:\\nLaufgeschwindigkeit [CPASSIVE01]-3 %[C] für das ganze gegnerische Team"
+it = "[CPASSIVE01]Tempo celeste[C]\\nNel secondo tempo:\\nvelocità di movimento [CPASSIVE01]-3%[C] per tutta la squadra avversaria"
+pt = "[CPASSIVE01]Tempo celestial[C]\\nNa segunda parte:\\nvelocidade de movimento [CPASSIVE01]-3%[C] para toda a equipa adversária"
+ja = "[CPASSIVE01]ヘヴンズタイム[C]\\n後半：相手チーム全員の移動速度[CPASSIVE01]-3％[C]"
+zh_hans = "[CPASSIVE01]天堂时间[C]\\n下半场：对方全队移动速度[CPASSIVE01]-3%[C]"
+zh_hant = "[CPASSIVE01]天堂時間[C]\\n下半場：對方全隊移動速度[CPASSIVE01]-3%[C]"
+
+[[row]]
+id = 3502123323  # IECross own_c91022030
+kind = "noun"
+es = "[CPASSIVE01]Ventisca de fuego[C]\\nCon un aliado de [CPASSIVE01]Prominence[C] en el campo:\\npoder de [CPASSIVE01]tiro[C] [CPASSIVE01]+6 %[C]"
+en = "[CPASSIVE01]Fire Blizzard[C]\\nWith a teammate from [CPASSIVE01]Prominence[C] on the pitch:\\n[CPASSIVE01]shot[C] power [CPASSIVE01]+6%[C]"
+fr = "[CPASSIVE01]Blizzard de feu[C]\\nAvec un allié de [CPASSIVE01]Prominence[C] sur le terrain :\\npuissance de [CPASSIVE01]tir[C] [CPASSIVE01]+6 %[C]"
+de = "[CPASSIVE01]Feuerblizzard[C]\\nMit einem Mitspieler von [CPASSIVE01]Prominence[C] auf dem Platz:\\n[CPASSIVE01]Schuss[C]-Stärke [CPASSIVE01]+6 %[C]"
+it = "[CPASSIVE01]Bufera di fuoco[C]\\nCon un alleato di [CPASSIVE01]Prominence[C] in campo:\\npotenza di [CPASSIVE01]tiro[C] [CPASSIVE01]+6%[C]"
+pt = "[CPASSIVE01]Nevasca de fogo[C]\\nCom um aliado de [CPASSIVE01]Proeminência[C] em campo:\\npoder de [CPASSIVE01]remate[C] [CPASSIVE01]+6%[C]"
+ja = "[CPASSIVE01]ファイアブリザード[C]\\n[CPASSIVE01]プロミネンス[C]の味方がピッチにいる間：\\n[CPASSIVE01]シュート[C]威力[CPASSIVE01]+6％[C]"
+zh_hans = "[CPASSIVE01]火焰暴风雪[C]\\n场上有[CPASSIVE01]太阳火焰[C]的队友时：[CPASSIVE01]射门[C]威力[CPASSIVE01]+6%[C]"
+zh_hant = "[CPASSIVE01]火焰暴風雪[C]\\n場上有[CPASSIVE01]太陽火焰[C]的隊友時：[CPASSIVE01]射門[C]威力[CPASSIVE01]+6%[C]"
+
+[[row]]
+id = 2813925805  # IECross own_c91022031
+kind = "noun"
+es = "[CPASSIVE01]Llama helada[C]\\nCon un aliado de [CPASSIVE01]Polvo de Diamantes[C] en el campo:\\ncoste de tensión [CPASSIVE01]-6 %[C]"
+en = "[CPASSIVE01]Frozen Flame[C]\\nWith a teammate from [CPASSIVE01]Diamond Dust[C] on the pitch:\\ntension cost [CPASSIVE01]-6%[C]"
+fr = "[CPASSIVE01]Flamme gelée[C]\\nAvec un allié de [CPASSIVE01]Diamond Dust[C] sur le terrain :\\ncoût de tension [CPASSIVE01]-6 %[C]"
+de = "[CPASSIVE01]Gefrorene Flamme[C]\\nMit einem Mitspieler von [CPASSIVE01]Diamond Dust[C] auf dem Platz:\\nSpannungskosten [CPASSIVE01]-6 %[C]"
+it = "[CPASSIVE01]Fiamma ghiacciata[C]\\nCon un alleato di [CPASSIVE01]Diamond Dust[C] in campo:\\ncosto tensione [CPASSIVE01]-6%[C]"
+pt = "[CPASSIVE01]Chama gelada[C]\\nCom um aliado de [CPASSIVE01]Pó de Diamante[C] em campo:\\ncusto de tensão [CPASSIVE01]-6%[C]"
+ja = "[CPASSIVE01]凍てつく炎[C]\\n[CPASSIVE01]ダイヤモンドダスト[C]の味方がピッチにいる間：\\nテンション消費[CPASSIVE01]-6％[C]"
+zh_hans = "[CPASSIVE01]冰冻之焰[C]\\n场上有[CPASSIVE01]钻石冰晶[C]的队友时：气势消耗[CPASSIVE01]-6%[C]"
+zh_hant = "[CPASSIVE01]冰凍之焰[C]\\n場上有[CPASSIVE01]鑽石冰晶[C]的隊友時：氣勢消耗[CPASSIVE01]-6%[C]"
+
+[[row]]
+id = 4032437986  # IECross own_c90000050
+kind = "noun"
+es = "[CPASSIVE01]Aurora ofensiva[C]\\nEn campo rival: poder de [CPASSIVE01]regate[C] [CPASSIVE01]+6 %[C]"
+en = "[CPASSIVE01]Attacking Aurora[C]\\nIn the opponent's half: [CPASSIVE01]dribble[C] power [CPASSIVE01]+6%[C]"
+fr = "[CPASSIVE01]Aurore offensive[C]\\nDans le camp adverse : puissance de [CPASSIVE01]dribble[C] [CPASSIVE01]+6 %[C]"
+de = "[CPASSIVE01]Angriffs-Aurora[C]\\nIn der gegnerischen Hälfte: [CPASSIVE01]Dribbling[C]-Stärke [CPASSIVE01]+6 %[C]"
+it = "[CPASSIVE01]Aurora offensiva[C]\\nNella metà campo avversaria: potenza di [CPASSIVE01]dribbling[C] [CPASSIVE01]+6%[C]"
+pt = "[CPASSIVE01]Aurora ofensiva[C]\\nNo meio-campo adversário: poder de [CPASSIVE01]drible[C] [CPASSIVE01]+6%[C]"
+ja = "[CPASSIVE01]攻めのオーロラ[C]\\n敵陣：[CPASSIVE01]ドリブル[C]威力[CPASSIVE01]+6％[C]"
+zh_hans = "[CPASSIVE01]进攻极光[C]\\n在对方半场：[CPASSIVE01]盘带[C]威力[CPASSIVE01]+6%[C]"
+zh_hant = "[CPASSIVE01]進攻極光[C]\\n在對方半場：[CPASSIVE01]盤帶[C]威力[CPASSIVE01]+6%[C]"
+
+[[row]]
+id = 3913363363  # IECross own_c90000040
+kind = "noun"
+es = "[CPASSIVE01]Amanecer[C]\\nEn el primer tercio de cada parte:\\ntensión ganada [CPASSIVE01]+3 %[C] para todo el equipo"
+en = "[CPASSIVE01]The Dawn[C]\\nIn the first third of each half:\\ntension earned [CPASSIVE01]+3%[C] for the whole team"
+fr = "[CPASSIVE01]L'Aube[C]\\nDans le premier tiers de chaque mi-temps :\\ntension gagnée [CPASSIVE01]+3 %[C] pour toute l'équipe"
+de = "[CPASSIVE01]Morgendämmerung[C]\\nIm ersten Drittel jeder Halbzeit:\\ngewonnene Spannung [CPASSIVE01]+3 %[C] für das ganze Team"
+it = "[CPASSIVE01]L'alba[C]\\nNel primo terzo di ogni tempo:\\ntensione ottenuta [CPASSIVE01]+3%[C] per tutta la squadra"
+pt = "[CPASSIVE01]Amanhecer[C]\\nNo primeiro terço de cada parte:\\ntensão ganha [CPASSIVE01]+3%[C] para toda a equipa"
+ja = "[CPASSIVE01]夜明け[C]\\n各ハーフの最初の3分の1：\\nチーム全員の獲得テンション[CPASSIVE01]+3％[C]"
+zh_hans = "[CPASSIVE01]黎明[C]\\n每个半场的最初三分之一：全队获得的气势[CPASSIVE01]+3%[C]"
+zh_hant = "[CPASSIVE01]黎明[C]\\n每個半場的最初三分之一：全隊獲得的氣勢[CPASSIVE01]+3%[C]"

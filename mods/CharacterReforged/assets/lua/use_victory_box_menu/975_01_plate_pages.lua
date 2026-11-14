@@ -1102,6 +1102,138 @@ CharacterReforged.player_page = CharacterReforged.player_page or {}
       sprite_dual = G.SP_SLANTBOX2, dual_cmd = type(BetterQoL) == "table" and type(BetterQoL.passive_icons) == "table" and BetterQoL.passive_icons.CMD_INFO or nil})
   end
 
+  -- The player's type tag: one icon per archetype tag of his character (CMND_VRFW_CHARACTER_TAGS, the icon sprite of
+  -- each [[VRFW.Tag]], in declared order) on one slanted box right of the header's rarity title, vertically centred on
+  -- the title, at a fixed place (also without a title); no icon = hidden. Box = gauge copy cr_pp_ttag showing
+  -- cr_pp_typetag<n> (n = icon count); icons = the gauge copy instances cr_pp_ticon 0..G.TT_BOX.max - 1. The icons are
+  -- read when the shown player changes (G.type_tag_fill from the header fill); the step follows the page's visibility.
+  G.TTAG, G.TICON = 3465871766, 142922118
+  G.TICON_TRACE = {[0] = 4027088357, 2265927027, 503717065}
+  G.SP_TYPETAG = {3455062691, 1425621785, 603878287}
+  G.TT_BOX = {h = 21, icon = 17, gap = 4, pad = 9, slant = 0.3226, k = 4, shadow = 3, max = 3}
+  G.TT_RECT = {1520, 143, 175, 28}           -- the header's rarity title rect (player_header.toml _player_rarity01)
+  G.TT_CENTRE = 0.4805                       -- the title's visible rows' centre (icon_rarity rows 9..114 of 128)
+  G.TT_X = 1688                              -- the box's left corner: 5 px right of the title band's bottom-right end
+  G.CMD_TAGS = 3383170875
+  G.CMD_TAG_SCALE = 2566557878
+
+  -- The size factor of the whole type tag (config.toml [player_page] type_tag_scale), kept once answered; 1 while the
+  -- command does not answer. The tag grows from its bottom-left corner, so it keeps sitting on the header plate.
+  function G.type_tag_scale()
+    if G.ttScale == nil then
+      local ok, v = pcall(funcLuaCommand, G.CMD_TAG_SCALE)
+      if ok and type(v) == "number" and v > 0 then
+        G.ttScale = v
+      else
+        return 1
+      end
+    end
+    return G.ttScale
+  end
+
+  -- Lays gauge copy instance i of layer L over the screen rect (left, top, w, h) showing sprite sp of team11_01.
+  function G.type_tag_place(L, i, sp, left, top, w, h)
+    local sx, sy = w / 476, h / 44
+    Cmd(C.SPRITE, L, G.TX_T1101, sp, G.SP_FRAME, 0, i)
+    Cmd(C.SCALE, L, sx, sy, 1, i)
+    Cmd(C.POS, L, left - 94 * sx, -top + 816 * sy, 0, i)
+  end
+
+  function G.type_tag_hide()
+    if Exists(G.TTAG) and Cmd(C.IS_OPEN, G.TTAG, 0) == true then
+      Cmd(C.VIS, G.TTAG, 0, false)
+    end
+    if Exists(G.TICON) then
+      for i = 0, G.TT_BOX.max - 1 do
+        if Cmd(C.IS_OPEN, G.TICON, i) == true then
+          Cmd(C.VIS, G.TICON, i, false)
+        end
+      end
+    end
+  end
+
+  -- The shown player changed: the sprite hashes of his tag icons (empty = none).
+  function G.type_tag_fill(hdl)
+    local icons = {}
+    if type(hdl) == "number" and hdl ~= 0 then
+      local r = table.pack(pcall(funcLuaCommand, G.CMD_TAGS, hdl))
+      if r[1] and type(r[2]) == "number" then
+        for k = 1, r[2] do
+          local sprite = r[2 + 2 * k]
+          if type(sprite) == "string" and sprite ~= "" and #icons < G.TT_BOX.max then
+            icons[#icons + 1] = VRFW.crc32(sprite)
+          end
+        end
+      end
+    end
+    local key = table.concat(icons, ",")
+    if G.ttKey ~= key then
+      G.ttKey, G.ttIcons, G.ttShown = key, icons, nil
+    end
+  end
+
+  function G.type_tag()
+    local L, I = G.TTAG, G.TICON
+    if not On() or not Exists(L) or not Exists(I) or not Exists(G.PAGE) then
+      return
+    end
+    local up = Cmd(C.IS_VIS, G.PAGE, 0) == true and Cmd(C.IS_OPEN, G.PAGE, 0) == true
+    local icons = G.ttIcons or {}
+    if not up or #icons == 0 or G.in_office() then
+      G.type_tag_hide()
+      return
+    end
+    if not Ready(L, 0) then
+      return
+    end
+    for i = 0, #icons - 1 do
+      if not Ready(I, i) then
+        return
+      end
+    end
+    if not G.ready[L * 16] then
+      G.ready[L * 16] = true
+      Cmd(C.TRACE, G.PAGE, 0, L, true)
+      for _, m in ipairs({G.N_TOP, G.N_SIDE, 2043683848}) do
+        Cmd(C.MESH, L, m, false, 0)
+      end
+    end
+    for i = 0, G.TT_BOX.max - 1 do
+      if not G.ready[I * 16 + i] and Cmd(C.IS_OPEN, I, i) == true then
+        G.ready[I * 16 + i] = true
+        Cmd(C.TRACE, G.PAGE, 0, G.TICON_TRACE[i], true)
+        for _, m in ipairs({G.N_TOP, G.N_SIDE, 2043683848}) do
+          Cmd(C.MESH, I, m, false, i)
+        end
+      end
+    end
+    if G.ttShown ~= G.ttKey then
+      G.ttShown = G.ttKey
+      -- the box: its image covers the band plus its shadow (image sides rounded up to multiples of 4 px); every length
+      -- is scaled about the box's bottom-left corner (G.TT_X, the bottom of the unscaled box)
+      local b, n, sc = G.TT_BOX, #icons, G.type_tag_scale()
+      local run = b.slant * b.h
+      local bw = 2 * b.pad + run + n * b.icon + (n - 1) * b.gap
+      local iw = math.ceil((bw + b.shadow) * b.k / 4) * 4 / b.k
+      local ih = math.ceil((b.h + 1) * b.k / 4) * 4 / b.k
+      local cy = G.TT_RECT[2] + G.TT_CENTRE * G.TT_RECT[4]
+      local bottom = cy + b.h / 2
+      G.type_tag_place(L, 0, G.SP_TYPETAG[n], G.TT_X, bottom - b.h * sc, iw * sc, ih * sc)
+      for i = 0, b.max - 1 do
+        if i < n then
+          local x = G.TT_X + (b.pad + run / 2 + i * (b.icon + b.gap)) * sc
+          G.type_tag_place(I, i, icons[i + 1], x, bottom - (b.h + b.icon) / 2 * sc, b.icon * sc, b.icon * sc)
+        elseif Cmd(C.IS_OPEN, I, i) == true then
+          Cmd(C.VIS, I, i, false)
+        end
+      end
+    end
+    Cmd(C.VIS, L, 0, true)
+    for i = 0, #icons - 1 do
+      Cmd(C.VIS, I, i, true)
+    end
+  end
+
   -- [1] move A  move B [2] move C  move D [3] move E  move F the slot badge at the row's left, the pair's two
   G.GROUP_AT = {{995, 732}, {995, 789}, {995, 846}}
   G.MOVE_K = 0.68
@@ -1766,7 +1898,7 @@ CharacterReforged.player_page = CharacterReforged.player_page or {}
   G.PC = {
     LAYER = 1593383077,                                   -- team00_26_passive_slot_detail_info
     FACE = 1009965688,
-    LOOK = 3749141985,        -- (charaStHdl) -> card, chara, element, crest
+    LOOK = 181033993,        -- (charaStHdl) -> card, chara, element, crest
     TOP_LEFT = {-275, 210},                               -- the card's top-left in window units (y up)
     FACE_AT = {84, 104}, FACE_SIZE = 182,
                                                           -- the bust on the card's bottom edge, the card's full height
@@ -2138,9 +2270,6 @@ CharacterReforged.player_page = CharacterReforged.player_page or {}
     if not w.drawn and type(VRFW.face_icon) == "table" then
       w.drawn = true
       w.face = VRFW.face_icon.card(F, 0, w.who, w.x, w.y, P.FACE_SIZE) ~= false
-    end
-    if VRFW.face_icon ~= nil and VRFW.face_icon.pending() then
-      VRFW.face_icon.settle()
     end
     if G.pcardShown ~= w.face then
       Cmd(C.VIS, F, 0, w.face)
@@ -2862,15 +2991,6 @@ CharacterReforged.player_page = CharacterReforged.player_page or {}
     local V = type(BetterQoL) == "table" and BetterQoL.view_forms or nil
     return type(V) == "table" and type(V.declared) == "function" and V.declared("personal_plate_menu") == true and V or nil
   end
-  function G.form_key_down()
-    local V = G.form_key_decl()
-    if V ~= nil then
-      return V.pressed() == true
-    end
-    local ok1, a = pcall(funcLuaCommand, 4265778440, 1332654303, 3147328756)   -- CMD_FUNC6 (R3)
-    local ok2, b = pcall(funcLuaCommand, 4265778440, 2748927068, 3147328756)
-    return (ok1 and a == true) or (ok2 and b == true)
-  end
   function G.form_glyph()
     local V = G.form_key_decl()
     return V ~= nil and type(V.GLYPH) == "string" and V.GLYPH or "<CMD_FUNC6>"
@@ -2903,9 +3023,8 @@ CharacterReforged.player_page = CharacterReforged.player_page or {}
     Cmd(C.TEXT_VIS, G.PLATE, G.N_GRADE, on, 0)
   end
 
-  -- ATRIBUTOS toggles Normal / Miximax with the form key or a badge click, only for a player whose mix slot
+  -- ATRIBUTOS shows the Miximax chart while the chosen form wears the miximax, only for a player whose mix slot
   G.MX_FORMS = {1, 3}
-  G.MX_SOUND = 2629173176                -- sy0009, the form viewer's switch sound (as R3 on PERFIL)
   function G.mx_hdl()
     local a = type(CharacterReforged.stat_radar) == "table" and CharacterReforged.stat_radar.args or nil
     return type(a) == "table" and a[3] or nil
@@ -2918,7 +3037,8 @@ CharacterReforged.player_page = CharacterReforged.player_page or {}
     if G.mxAvailFor ~= h then
       G.mxAvailFor = h
       local ok, g = pcall(CharacterReforged.stat_radar.gains, h)
-      G.mxAvail = ok and type(g) == "table"
+      -- The Miximax view previews the mix slot's form: none while that slot is level-locked.
+      G.mxAvail = ok and type(g) == "table" and not G.slot_form_locked(h, "mix")
       pcall(funcLuaCommand, C.LOG, "PlayerPage mx avail", tostring(h), tostring(G.mxAvail))
     end
     return G.mxAvail == true
@@ -2937,16 +3057,6 @@ CharacterReforged.player_page = CharacterReforged.player_page or {}
       end
     end
     return nil
-  end
-  function G.mx_form()
-    return G.first_form(G.MX_FORMS)
-  end
-  function G.cur_form()
-    local M = CharacterReforged.page_model
-    if type(M) ~= "table" or type(M.forms) ~= "table" then
-      return 0
-    end
-    return M.forms[M.fidx or 1] or 0
   end
   -- the gains of the Miximax view (with every graph refresh, after G.vals)
   function G.mx_gains(hdl)
@@ -2973,49 +3083,65 @@ CharacterReforged.player_page = CharacterReforged.player_page or {}
     pcall(funcLuaCommand, C.LOG, "PlayerPage mx view", tostring(why), tostring(on))
     G.mx_redraw()
   end
-  function G.mx_toggle(why)
-    if not On() or G.ptype ~= CharacterReforged.PLAYER_PAGE_STATS_TYPE or not G.mx_avail() then
-      return
-    end
-    G.mlast = G.mtick or 0
-    pcall(funcLuaCommand, 1917805374, G.MX_SOUND)
-    G.mx_set(CharacterReforged.stat_radar.mx ~= true, why)
-  end
-  function G.mx_step()
-    if not On() or not G.H.pages or type(CharacterReforged.stat_radar) ~= "table" then
-      return
-    end
-    local h = G.mx_hdl()
-    if h ~= G.mxHdl then                   -- another player: Normal
-      G.mxHdl, G.mxAvailFor = h, nil
-      G.mx_set(false, "player")
-    end
-    local stats = G.ptype == CharacterReforged.PLAYER_PAGE_STATS_TYPE and not G.in_office()
-    if stats ~= G.mxOnPage then
-      G.mxOnPage = stats
-      if stats then                        -- entering ATRIBUTOS: the view follows the model's form
-        local mf = G.mx_form()
-        G.mx_set(G.mx_avail() and mf ~= nil and G.cur_form() == mf, "page")
-      end
-    end
-    if not stats then
-      return
-    end
-    G.mtick = (G.mtick or 0) + 1
-    if G.mtick - (G.mlast or -100) >= 8 then
-      if G.form_key_down() then
-        G.mx_toggle("R3")
-      end
-    end
+  -- ONE form state for the whole player page: plate_model's chosen form (CharacterReforged.page_model, M.fidx). The
+  -- form key (R3 / BetterQoL's view-forms key) and a badge click cycle it on every page of G.FORM_PAGES; the model,
+  -- the badge, ATRIBUTOS' Miximax chart and the Hiper page's shown slot follow it (G.form_follow), across page changes.
+  G.FORM_PAGES = {[CharacterReforged.PLAYER_PAGE_DESCRIPTION_TYPE] = true, [CharacterReforged.PLAYER_PAGE_STATS_TYPE] = true,
+    [0] = true, [1] = true, [3] = true, [5] = true, [6] = true}   -- Pasivas (2) keeps the key for its sub-pages
+  -- Returns true when form f wears the miximax (plate_model's FUSED_FORMS).
+  function G.fused(f)
     local M = CharacterReforged.page_model
-    if type(M) == "table" and type(M.show_form) == "function" and M.appearance == nil then
-      local f = (CharacterReforged.stat_radar.mx == true and G.mx_form()) or 0
-      if G.cur_form() ~= f then
-        pcall(M.show_form, f)
-      end
+    return type(M) == "table" and type(M.FUSED_FORMS) == "table" and M.FUSED_FORMS[f] == true
+  end
+  -- Returns the shown player's chosen form, nil while his form list is not loaded.
+  function G.shown_form()
+    local M = CharacterReforged.page_model
+    if type(M) ~= "table" or type(M.forms) ~= "table" or M.fhdl == nil or M.fhdl ~= M.want then
+      return nil
+    end
+    return M.forms[M.fidx or 1] or 0
+  end
+  -- The form key is live while the page is up (G.pageUp: OnOpenLayer / OnCloseLayer of the page) on a form page.
+  function G.form_key_set(why)
+    local on = On() and G.H.pages and G.pageUp == true and G.ptype ~= nil and G.FORM_PAGES[G.ptype] == true
+      and not G.in_office()
+    if (CharacterReforged.PAGE_MODEL_FORM_KEY == true) ~= on then
+      CharacterReforged.PAGE_MODEL_FORM_KEY = on
+      pcall(funcLuaCommand, C.LOG, "PlayerPage form key", tostring(why), tostring(on), tostring(G.ptype))
     end
   end
-
+  -- The press (key or badge click): the retail view on PERFIL where a rules menu offers it, else the next form.
+  function G.form_press(why)
+    local M = CharacterReforged.page_model
+    if CharacterReforged.PAGE_MODEL_FORM_KEY ~= true or type(M) ~= "table" then
+      return false
+    end
+    if G.ptype == CharacterReforged.PLAYER_PAGE_DESCRIPTION_TYPE and G.view_offered() then
+      return M.open_view(why)
+    end
+    return M.form_press(why)
+  end
+  -- Everything that shows the form follows the state (plate_model's form change, a page change, the page opening).
+  function G.form_follow(why)
+    if not On() or not G.H.pages then
+      return
+    end
+    local f = G.shown_form() or 0
+    if type(CharacterReforged.stat_radar) == "table" then
+      local mx = G.fused(f) and G.mx_avail()
+      if G.ptype == CharacterReforged.PLAYER_PAGE_STATS_TYPE and not G.in_office() then
+        G.mx_set(mx, why)
+      else
+        CharacterReforged.stat_radar.mx = mx       -- drawn when ATRIBUTOS draws its chart
+      end
+    end
+    G.hiperKey = nil                              -- the Hiper page reads the slot again (G.hiper_form_step)
+    G.fbKey = nil                                 -- the badge is placed again with the new form
+  end
+  function CharacterReforged.page_form_changed(f, why)
+    pcall(funcLuaCommand, C.LOG, "PlayerPage form", tostring(why), tostring(f))
+    G.form_follow(why)
+  end
 
   G.HIPER_TYPE = 5                        -- the Hiper page's type (plate_hiper, page index 4)
   G.SLOT_FORMS = {mix = G.MX_FORMS, aura = {2}}
@@ -3049,74 +3175,40 @@ CharacterReforged.player_page = CharacterReforged.player_page or {}
     G.hiperTgt, G.hiperSlot = G.hiper_target(c)
     pcall(funcLuaCommand, C.LOG, "PlayerPage hiper view", tostring(why), view and "mix" or "aura", tostring(G.hiperTgt))
   end
-  function G.hiper_toggle(why)
-    if not On() or G.ptype ~= G.HIPER_TYPE then
-      return
-    end
-    if G.hiperDouble == true then
-      G.mlast = G.mtick or 0
-      pcall(funcLuaCommand, 1917805374, G.MX_SOUND)
-      G.hiper_double_set(CharacterReforged.HYPER_PAGE_MIXIMAX_VIEW ~= true, G.hiper_chara(), why)
-      return
-    end
-    if G.hiperTgt == nil then
-      return
-    end
-    G.mlast = G.mtick or 0
-    G.hiperOn = not G.hiperOn
-    pcall(funcLuaCommand, 1917805374, G.MX_SOUND)
-    pcall(funcLuaCommand, C.LOG, "PlayerPage hiper form", tostring(why), tostring(G.hiperSlot), tostring(G.hiperTgt),
-      tostring(G.hiperOn))
+  -- Returns true when the player page's model may not show Hiper `slot`'s form of card `c` (a learn level he has not reached).
+  function G.slot_form_locked(c, slot)
+    local M = CharacterReforged.page_model
+    return c ~= 0 and type(M) == "table" and type(M.slot_need) == "function" and M.slot_need(c, slot) > 0
   end
+  -- The Hiper page's slot data (once per player / form list / shown slot); a double hyper shows the mix slot while the
+  -- chosen form wears the miximax, else the aura slot.
   function G.hiper_form_step()
     if not On() or not G.H.pages or G.ptype ~= G.HIPER_TYPE or G.in_office() then
-      G.hiperKey, G.hiperTgt, G.hiperDouble, G.hiperBase = nil, nil, nil, nil
+      G.hiperKey, G.hiperTgt, G.hiperDouble, G.hiperSlot = nil, nil, nil, nil
       return
     end
     local M = CharacterReforged.page_model
     local c = G.hiper_chara()
     local n = type(M) == "table" and type(M.forms) == "table" and #M.forms or 0
-    local base = string.format("%s:%s:%d", tostring(c), tostring(type(M) == "table" and M.fhdl), n)
-    local key = base .. ":" .. tostring(CharacterReforged.HYPER_PAGE_MIXIMAX_VIEW)
-    if key ~= G.hiperKey then                -- entering, another player, the other slot, the forms loaded
-      G.hiperKey = key
-      local okc, can = false, false
-      if type(CharacterReforged.hyper_page_can_switch) == "function" and c ~= 0 then
-        okc, can = pcall(CharacterReforged.hyper_page_can_switch, c)
-      end
-      G.hiperDouble = okc and can == true
-      G.hiperTgt, G.hiperSlot = G.hiper_target(c)
-      G.hiperOn = G.hiperTgt ~= nil and G.cur_form() == G.hiperTgt
-      pcall(funcLuaCommand, C.LOG, "PlayerPage hiper form", "slot", tostring(G.hiperSlot), tostring(G.hiperTgt),
-        tostring(G.hiperOn), G.hiperDouble and "double" or "single")
-      if G.hiperDouble and base ~= G.hiperBase and CharacterReforged.HYPER_PAGE_MIXIMAX_VIEW ~= true then
-        local mf = G.first_form(G.SLOT_FORMS.mix)
-        if mf ~= nil and mf ~= 0 and G.cur_form() == mf then   -- the model already in the mix slot's form
-          G.hiper_double_set(true, c, "page")
-        end
-      end
-      G.hiperBase = base
-    end
-    if G.hiperTgt == nil and G.hiperDouble ~= true then
+    local f = G.shown_form()
+    local key = string.format("%s:%s:%d:%s:%s", tostring(c), tostring(type(M) == "table" and M.fhdl), n, tostring(f),
+      tostring(CharacterReforged.HYPER_PAGE_MIXIMAX_VIEW))
+    if key == G.hiperKey then
       return
     end
-    G.mtick = (G.mtick or 0) + 1
-    if G.mtick - (G.mlast or -100) >= 8 then
-      if G.form_key_down() then
-        G.hiper_toggle("R3")
-      end
+    G.hiperKey = key
+    local okc, can = false, false
+    if type(CharacterReforged.hyper_page_can_switch) == "function" and c ~= 0 then
+      okc, can = pcall(CharacterReforged.hyper_page_can_switch, c)
     end
-    if type(M) == "table" and type(M.show_form) == "function" and M.appearance == nil then
-      local f
-      if G.hiperDouble == true then
-        f = G.hiperTgt or 0                  -- the shown slot's form, Normal without one
-      else
-        f = G.hiperOn and G.hiperTgt or 0
-      end
-      if G.cur_form() ~= f then
-        pcall(M.show_form, f)
-      end
+    G.hiperDouble = okc and can == true
+    if G.hiperDouble and f ~= nil then
+      G.hiper_double_set(G.fused(f) and not G.slot_form_locked(c, "mix"), c, "form")
+    else
+      G.hiperTgt, G.hiperSlot = G.hiper_target(c)
     end
+    pcall(funcLuaCommand, C.LOG, "PlayerPage hiper form", "slot", tostring(G.hiperSlot), tostring(G.hiperTgt),
+      tostring(f), G.hiperDouble and "double" or "single")
   end
 
   -- Glyphs per slot, including the mode change.
@@ -3146,9 +3238,12 @@ CharacterReforged.player_page = CharacterReforged.player_page or {}
       return nil
     end
     local mv = CharacterReforged.HYPER_PAGE_MIXIMAX_VIEW == true
-    local gm, tm = G.slot_glyph(mix, mv)
-    local ga, ta = G.slot_glyph(aura, not mv)
-    return {gm, ga}, string.format("d%s:%s:%s", mv and "m" or "a", tostring(tm), tostring(ta))
+    -- A slot whose form is level-locked keeps its dim glyph.
+    local mix_locked, aura_locked = G.slot_form_locked(c, "mix"), G.slot_form_locked(c, "aura")
+    local gm, tm = G.slot_glyph(mix, mv and not mix_locked)
+    local ga, ta = G.slot_glyph(aura, not mv and not aura_locked)
+    return {gm, ga}, string.format("d%s:%s:%s:%s:%s", mv and "m" or "a", tostring(tm), tostring(ta), tostring(mix_locked),
+      tostring(aura_locked))
   end
 
   -- The form badge on PERFIL shows while the player has more than one form.
@@ -3166,7 +3261,7 @@ CharacterReforged.player_page = CharacterReforged.player_page or {}
   G.N_AREA_TEXT = 1899787537
   G.N_AREA_BASE = 3516146179
   function G.fb_hide()
-    G.fbKey, G.fbBox = nil, nil
+    G.fbKey, G.fbBox, G.fbShown = nil, nil, nil
     for i = 0, 2 do
       if Exists(G.FBADGE) and Cmd(C.IS_OPEN, G.FBADGE, i) == true then
         Cmd(C.VIS, G.FBADGE, i, false)
@@ -3191,19 +3286,17 @@ CharacterReforged.player_page = CharacterReforged.player_page or {}
     Cmd(C.SCALE, L, sx, sy, 1, i)
     Cmd(C.POS, L, left - 94 * sx, -top + 816 * sy, 0, i)
   end
+  -- The badge shows the chosen form (G.shown_form) on every form page while the player has more than one form; a
+  -- double hyper shows both slots there, the shown one lit. Hidden while the page is down (G.pageUp).
   function G.form_badge()
     local glyphs, f = nil, nil
-    if On() and G.ptype == CharacterReforged.PLAYER_PAGE_DESCRIPTION_TYPE and G.form_count() > 1 and not G.view_offered() and not G.in_office() then
-      local M = CharacterReforged.page_model
-      f = M.forms[M.fidx or 1] or 0
-      glyphs = G.FORM_GLYPHS[f]
-    elseif On() and G.ptype == G.HIPER_TYPE and not G.in_office() and G.hiperDouble == true then
-      glyphs, f = G.hiper_double_glyphs()      -- a double hyper, both slots (the shown one lit)
-    elseif On() and G.ptype == G.HIPER_TYPE and not G.in_office() and G.hiperTgt ~= nil then
-      f = G.hiperOn and G.hiperTgt or 0      -- the Hiper page, Normal / the shown aura's form
-      glyphs = G.FORM_GLYPHS[f]
-    elseif On() and G.ptype == CharacterReforged.PLAYER_PAGE_STATS_TYPE and not G.in_office() and G.mx_avail() then
-      f = CharacterReforged.stat_radar.mx == true and 1 or 0       -- ATRIBUTOS, Normal / Miximax (G.mx_step)
+    local up = On() and G.pageUp == true and G.ptype ~= nil and G.FORM_PAGES[G.ptype] == true and not G.in_office()
+    if up and G.ptype == CharacterReforged.PLAYER_PAGE_DESCRIPTION_TYPE and G.view_offered() then
+      glyphs = nil                             -- PERFIL offers the retail view: its hint instead
+    elseif up and G.ptype == G.HIPER_TYPE and G.hiperDouble == true then
+      glyphs, f = G.hiper_double_glyphs()
+    elseif up and G.form_count() > 1 then
+      f = G.shown_form() or 0
       glyphs = G.FORM_GLYPHS[f]
     end
     local L, T = G.FBADGE, G.FLABEL
@@ -3240,7 +3333,7 @@ CharacterReforged.player_page = CharacterReforged.player_page or {}
     end
     local key = tostring(f) .. "/" .. n
     if G.fbKey ~= key then
-      G.fbKey = key
+      G.fbKey, G.fbShown = key, nil
       local s, gap = G.FB_S, G.FB_GAP
       local w = (n + 1) * s + n * gap
       local left, top = G.FB_AT[1] - w / 2, G.FB_AT[2] - s / 2
@@ -3258,11 +3351,14 @@ CharacterReforged.player_page = CharacterReforged.player_page or {}
       G.fbBox = {left, top, w, s}              -- the pointer zone (click = next form)
       pcall(funcLuaCommand, C.LOG, "PlayerPage form badge", tostring(f), n, string.format("%.0f", left))
     end
-    for i = 0, n - 1 do
-      Cmd(C.VIS, L, i, true)
+    if G.fbShown ~= key then                   -- shown once per placement, not every frame
+      G.fbShown = key
+      for i = 0, n - 1 do
+        Cmd(C.VIS, L, i, true)
+      end
+      Cmd(C.VIS, L, G.FB_KEY, true)
+      Cmd(C.VIS, T, 0, true)
     end
-    Cmd(C.VIS, L, G.FB_KEY, true)
-    Cmd(C.VIS, T, 0, true)
   end
 
 -- Player page block (plate_pages.lua)
@@ -3307,7 +3403,9 @@ CharacterReforged.player_page = CharacterReforged.player_page or {}
   end
 
 -- Player page block (plate_pages.lua)
+  --- Advanced: Namespace: mouse pointer tracker for menus; holds new().
   VRFW.pointer = VRFW.pointer or {}
+  --- Advanced: Creates a mouse pointer tracker; answers a table with zone setters (rect, box, inst), position, at, poll and reset.
   VRFW.pointer.new = VRFW.pointer.new or function()
     local P = {zones = {}, on = false, x = nil, y = nil, hot = nil, prev = {}, edge_t = 0, REPEAT = 10}
     local MOVED, POS, GPOS, CHECK, CTRL = 3272825600, 558229292, 4002164178, 4265778440, 1332654303
@@ -3484,27 +3582,7 @@ CharacterReforged.player_page = CharacterReforged.player_page or {}
     pcall(dir > 0 and SetPersonalPlateNextPage or SetPersonalPlatePrevPage)
   end
   function G.ptr_form()
-    local M = CharacterReforged.page_model
-    if G.ptype == G.HIPER_TYPE then        -- the Hiper page, Normal / the shown aura's form
-      G.hiper_toggle("click")
-      return
-    end
-    if G.ptype == CharacterReforged.PLAYER_PAGE_STATS_TYPE then  -- ATRIBUTOS, Normal / Miximax
-      G.mx_toggle("click")
-      return
-    end
-    if G.view_offered() then
-      pcall(M.open_view, "click")
-      return
-    end
-    if type(M) ~= "table" or M.phase ~= "ready" or CharacterReforged.PAGE_MODEL_PAGE_FORMS ~= true or type(M.forms) ~= "table"
-        or #M.forms <= 1 or type(M.mark_fresh) ~= "function" then
-      return
-    end
-    M.last = M.tick or 0
-    M.fidx = (M.fidx or 1) % #M.forms + 1
-    pcall(funcLuaCommand, 1917805374, 2629173176)   -- sy0009, as R3
-    M.mark_fresh()
+    G.form_press("click")                  -- the page's one form handler (parts/forms.lua)
   end
   function G.pointer()
     if G.gotoT ~= nil then
@@ -3545,21 +3623,11 @@ CharacterReforged.player_page = CharacterReforged.player_page or {}
       end
       P.rect(G.PTR_R3[1], G.PTR_R3[2], G.PTR_R3[3], G.PTR_R3[4], "r3")
     end
-    local forms = type(CharacterReforged.page_model) == "table" and type(CharacterReforged.page_model.forms) == "table" and #CharacterReforged.page_model.forms or 0
-    if G.ptype == CharacterReforged.PLAYER_PAGE_DESCRIPTION_TYPE and not G.in_office() then
+    if G.ptype == CharacterReforged.PLAYER_PAGE_DESCRIPTION_TYPE and not G.in_office() and G.view_offered() then
+      P.rect(G.PTR_FORM[1], G.PTR_FORM[2], G.PTR_FORM[3], G.PTR_FORM[4], "form")
+    elseif G.fbBox ~= nil then
       local b = G.fbBox
-      if G.view_offered() then
-        P.rect(G.PTR_FORM[1], G.PTR_FORM[2], G.PTR_FORM[3], G.PTR_FORM[4], "form")
-      elseif forms > 1 and b ~= nil then
-        P.rect(b[1], b[2], b[3], b[4], "form")   -- the form badge (tiles + RS key)
-      end
-    elseif G.ptype == G.HIPER_TYPE and not G.in_office() and G.fbBox ~= nil
-        and (G.hiperTgt ~= nil or G.hiperDouble == true) then
-      local b = G.fbBox
-      P.rect(b[1], b[2], b[3], b[4], "form")     -- the Hiper page's form badge
-    elseif G.ptype == CharacterReforged.PLAYER_PAGE_STATS_TYPE and not G.in_office() and G.fbBox ~= nil and G.mx_avail() then
-      local b = G.fbBox
-      P.rect(b[1], b[2], b[3], b[4], "form")     -- ATRIBUTOS' Normal / Miximax badge
+      P.rect(b[1], b[2], b[3], b[4], "form")     -- the form badge (tiles + RS key), on every form page
     end
     local ev = P.poll()
     local c = ev.click
@@ -3584,8 +3652,36 @@ CharacterReforged.player_page = CharacterReforged.player_page or {}
     end
   end
 
+  -- True while the page model's camera is zoomed past the page framing (plate_model M.zoomed).
+  function G.model_zoomed()
+    local pm = CharacterReforged.page_model
+    return type(pm) == "table" and type(pm.zoomed) == "function" and pm.zoomed() == true
+  end
+  -- Advances the paged player page's shared move plates once per frame (the hosts without pages pump their own): the refills of plates whose instance was not ready and the badge state a lock animation changes (a locked row's armed badge).
+  function G.move_plates()
+    if type(VRFW.ui_plates) == "table" then
+      VRFW.ui_plates.move_plate.pump(true)
+    end
+  end
+  -- While zoomed the status base (page dots, Q / E keys) is hidden; Q / E still change pages. Shown again once
+  -- unzoomed only while the plate shows (a hidden plate gets its layers back from the retail show).
+  function G.zoom_view()
+    local z = G.model_zoomed()
+    if z and Exists(G.STATUS) and Cmd(C.IS_OPEN, G.STATUS, 0) == true then
+      if Cmd(C.IS_VIS, G.STATUS, 0) == true then
+        Cmd(C.VIS, G.STATUS, 0, false)
+      end
+      G.zoomHid = true
+    elseif not z and G.zoomHid then
+      G.zoomHid = false
+      if Exists(G.STATUS) and Cmd(C.IS_OPEN, G.STATUS, 0) == true and Cmd(C.IS_VIS, G.PLATE, 0) == true then
+        Cmd(C.VIS, G.STATUS, 0, true)
+      end
+    end
+  end
+
   local function Description(on)
-    on = on and not G.in_office()           -- over the transfer office: its own description only
+    on = on and not G.in_office() and not G.model_zoomed()   -- over the transfer office: its own description only; none while zoomed
     Cmd(C.NODE_VIS, G.PLATE, G.N_EXPLAIN, on, 0)
     Cmd(C.TEXT_VIS, G.PLATE, G.N_EXPLAIN, on, 0)
     if Cmd(C.IS_OPEN, G.BAND, 0) == true then
@@ -3594,13 +3690,11 @@ CharacterReforged.player_page = CharacterReforged.player_page or {}
   end
 
   function G.apply(ptype)
-    -- A form look belongs to the page that chose it.
-    if G.ptype ~= nil and ptype ~= G.ptype and type(CharacterReforged.page_model) == "table" and type(CharacterReforged.page_model.reset_form) == "function" then
-      pcall(CharacterReforged.page_model.reset_form, "page " .. tostring(G.ptype) .. " -> " .. tostring(ptype), true)
-    end
     G.ptype = ptype
     CharacterReforged.PAGE_MODEL_PAGE_OK = true                -- the model on every page, behind the content
-    CharacterReforged.PAGE_MODEL_PAGE_FORMS = (ptype == CharacterReforged.PLAYER_PAGE_DESCRIPTION_TYPE)   -- R3 cycles the forms on PERFIL
+    CharacterReforged.PAGE_MODEL_PAGE_FORMS = (ptype == CharacterReforged.PLAYER_PAGE_DESCRIPTION_TYPE)   -- the stick turn / zoom and the retail view on PERFIL
+    pcall(G.form_key_set, "page")                              -- the chosen form stays across pages (parts/forms.lua)
+    pcall(G.form_follow, "page")
     local desc, stats, moves = ptype == CharacterReforged.PLAYER_PAGE_DESCRIPTION_TYPE, ptype == CharacterReforged.PLAYER_PAGE_STATS_TYPE, ptype == 1
     if desc or stats then
       pcall(SetVisibleSkillItemLayer, false)
@@ -3690,6 +3784,7 @@ CharacterReforged.player_page = CharacterReforged.player_page or {}
         G.hdl = a3
         pcall(G.player_refresh, a3)
         pcall(G.slant_fill)
+        pcall(G.type_tag_fill, a3)   -- the type tag's word follows the shown player
         if G.H.pages and On() then
           G.try("sixth")             -- the own passive card follows the player at once, as the header does
         end
@@ -3827,6 +3922,7 @@ CharacterReforged.player_page = CharacterReforged.player_page or {}
       G.try("band")
       G.try("slant")
       G.try("tag")
+      G.try("type_tag")
       G.try("hide_unplaced_gauge_copies")
       if On() and Exists(G.BUILD_GUIDE) and Cmd(C.IS_OPEN, G.BUILD_GUIDE, 0) == true then
         Cmd(C.VIS, G.BUILD_GUIDE, 0, false)
@@ -3839,7 +3935,6 @@ CharacterReforged.player_page = CharacterReforged.player_page or {}
         G.try("passive_card_step")     -- the own passive card's face (skill table and player page)
         if G.H.pages then
           G.try("dots")
-          G.try("mx_step")
           G.try("hiper_form_step")
           G.try("equip")
           G.try("hiper_l3")
@@ -3851,6 +3946,7 @@ CharacterReforged.player_page = CharacterReforged.player_page or {}
           G.try("passive_rows")
           G.try("mod_pages")          -- pages other mods declare and draw (parts/mod_pages.lua)
           G.try("sixth")
+          G.try("move_plates")
           local okP, errP = pcall(G.pointer)
           if not okP and not G.ptrErr then
             G.ptrErr = true
@@ -3861,7 +3957,9 @@ CharacterReforged.player_page = CharacterReforged.player_page or {}
           if G.itemCardPending then
             G.try("item_card_pending") -- the item card's layout when its layer opened after the last fill
           end
-          G.try("item_card_input")     -- L2 / R2 on a paged item card
+          if G.HAS_ITEM_CARD then
+            G.try("item_card_input")   -- L2 / R2 on a paged item card
+          end
         end
         if not G.keep_radar() then
           pcall(HidePoly)
@@ -3869,6 +3967,7 @@ CharacterReforged.player_page = CharacterReforged.player_page or {}
         if G.ptype ~= nil then
           pcall(Description, G.ptype == CharacterReforged.PLAYER_PAGE_DESCRIPTION_TYPE)
         end
+        G.try("zoom_view")
       end
       return table.unpack(r, 1, r.n)
     end
@@ -3900,6 +3999,11 @@ CharacterReforged.player_page = CharacterReforged.player_page or {}
         pcall(G.slant_opened, a2)
       end
       local r = Pack(orig(a1, a2, ...))       -- the original first
+      if a1 == G.PAGE and G.H.pages then      -- the page is up: the form key and badge live (parts/forms.lua)
+        G.pageUp = true
+        pcall(G.form_key_set, "page opened")
+        pcall(G.form_follow, "page opened")
+      end
       if G.H.pages and (a1 == G.SKILL or a1 == G.SKILL_BLANK) and On() and G.ptype == 1 then
         pcall(G.moves)
       end
@@ -3912,6 +4016,8 @@ CharacterReforged.player_page = CharacterReforged.player_page or {}
   end)
 
   local IC = not G.H.pages and type(G.H.item_card) == "table" and G.H.item_card or nil
+  -- The item card pieces exist only on a host without pages that declares an item card.
+  G.HAS_ITEM_CARD = IC ~= nil
   if IC ~= nil then
 -- Player page block (plate_pages.lua)
     for k, v in pairs(type(CharacterReforged.PLAYER_PAGE_ITEM_SPEC) == "table" and CharacterReforged.PLAYER_PAGE_ITEM_SPEC or {}) do
@@ -5422,6 +5528,8 @@ CharacterReforged.player_page = CharacterReforged.player_page or {}
     return function(a1, ...)
       local r = Pack(orig(a1, ...))
       if a1 == G.PAGE then
+        G.pageUp = false                    -- covered or closed: no form key, no badge until it opens again
+        pcall(G.form_key_set, "page closed")
         G.ready = {}
         G.rateInit = {}
         G.vals = nil
@@ -5429,6 +5537,7 @@ CharacterReforged.player_page = CharacterReforged.player_page or {}
         BarsVisible(false)
         G.movesOn = true                    -- next page: the slot nodes back to retail
         pcall(G.fb_hide)
+        pcall(G.type_tag_hide)
         for _, l in ipairs({G.BAND, G.SLANT, G.TAG, G.FLABEL}) do
           if Cmd(C.IS_OPEN, l, 0) == true then
             Cmd(C.VIS, l, 0, false)

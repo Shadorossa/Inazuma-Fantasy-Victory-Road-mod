@@ -1,18 +1,12 @@
-# Player sets linked to teams: Lua commands (logic scripts\set_links.lua, menus assets\lua\_all\betterqol_set_links.lua).
+# The player set links kept before team loadouts: read once and moved into VRFW.team_loadout (scripts\set_links.lua, assets\lua\_all\betterqol_team_loadout.lua).
 schema = "VRFW.game/2"
 
-# (charaStHdl, set, dock) -> the set is the player's linked set in the team of `dock`
+# -> the links as "n:h=s,h=s;n:..." (template number, charaStHdl, set index); "" when none
 [[VRFW.Command]]
-name = "CMND_BETTERQOL_SET_LINK_STATE"
-handler = "BetterQoL.SetLinks.State"
+name = "CMND_BETTERQOL_SET_LINKS_TO_MOVE"
+handler = "BetterQoL.SetLinks.ToMove"
 
-# (charaStHdl, set, dock) -> linked now; nil = refused
+# -> true once the links file is set aside
 [[VRFW.Command]]
-name = "CMND_BETTERQOL_SET_LINK_TOGGLE"
-handler = "BetterQoL.SetLinks.Toggle"
-
-# (dock, why) -> count, handles, sets of the team's linked members
-[[VRFW.Command]]
-name = "CMND_BETTERQOL_SET_LINK_PLAN"
-handler = "BetterQoL.SetLinks.Plan"
-needs = ["Party.LogicalToPhysical", "team_template_party"]
+name = "CMND_BETTERQOL_SET_LINKS_MOVED"
+handler = "BetterQoL.SetLinks.Moved"

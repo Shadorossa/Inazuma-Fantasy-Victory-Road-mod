@@ -2,162 +2,162 @@ schema = "VRFW.rule_catalog/1"
 # Vocabulary of the behaviour rules: every trigger (`on`), effect (`do`) and condition (`when`) and what each allows.
 
 [[trigger]]
-name = "tick"
+name = "frame:tick"
 id = 1
 fired_by = "hook bus unit_tick, once per frame of the actor loop (matches only)"
 
 [[trigger]]
-name = "actor_tick"
+name = "match:actor_tick"
 id = 2
 actor = true
 fired_by = "hook bus unit_tick, every actor on the pitch, every frame"
 
 [[trigger]]
-name = "move_power"
+name = "match:move_power"
 id = 3
 actor = true
 move = true
 fired_by = "Technique.Power post (0x14D7A90)"
 
 [[trigger]]
-name = "move_check"
+name = "match:move_check"
 id = 4
 actor = true
 move = true
 fired_by = "Stamina.AuraCostCheck post (0x16710F0): the HUD / input / AI availability of a slot"
 
 [[trigger]]
-name = "block_battle"
+name = "match:block_battle"
 id = 5
 actor = true
 move = true
 fired_by = "hook bus battle_build pre, field-block types (profile Battle.FieldBlockTypeFirst..Last, 0xF-0x14 on v7.2.1): a field player's block against a shot in flight (basic block or block move) is built; the blocker and his block move, the rival = the shot"
 
 [[trigger]]
-name = "mode_enter"
+name = "mode:enter"
 id = 6
-fired_by = "current-mode service: the current key changes (the key entered: on = \"mode_enter:<key>\" or when.mode)"
+fired_by = "current-mode service: the current key changes (the key entered: on = \"mode:enter:<key>\" or when.mode)"
 
 [[trigger]]
-name = "mode_leave"
+name = "mode:leave"
 id = 7
 fired_by = "current-mode service: the current key changes (the key left)"
 
 [[trigger]]
-name = "match_start"
+name = "match:start"
 id = 8
 fired_by = "current-mode service: in_match 0 -> 1"
 
 [[trigger]]
-name = "match_end"
+name = "match:end"
 id = 9
 fired_by = "current-mode service: in_match 1 -> 0"
 
 [[trigger]]
-name = "signal"
+name = "script:signal"
 id = 10
 actor = true
 move = true
 fired_by = "a rule's do.signal, the Lua CMND_VRFW_RULE_SIGNAL, the export vrfw_rule_signal (actor / move as sent)"
 
 [[trigger]]
-name = "dash"
+name = "match:dash"
 id = 11
 actor = true
 fired_by = "TeamDashStart pre (0x15BFBB0); arg = the dash type (1 dash, 2 dash attack)"
 
 [[trigger]]
-name = "move_speed"
+name = "match:move_speed"
 id = 12
 actor = true
 fired_by = "GetUnitMoveSpeedRate post (0x154B480, own trampoline)"
 
 [[trigger]]
-name = "aura_start"
+name = "match:aura_start"
 id = 13
 actor = true
 fired_by = "CanUseAuraSkill post (0x154E880); arg = the aura attribute bit (1 keshin, 2 armour, 4 miximax, 8 soul, 16 bond, 64 mode change)"
 
 [[trigger]]
-name = "tension_pay"
+name = "match:tension_pay"
 id = 14
 actor = true
 move = true
 fired_by = "TensionPay pre (0x16BFC80); arg = skill / concede / the kind number"
 
 [[trigger]]
-name = "event_build"
+name = "match:event_build"
 id = 15
 actor = true
 move = true
 fired_by = "Battle.CommandEventBuild pre (0x14DA3C0): the player and the move the command's scene shows, read as the game reads them (the keeper or the blocker for the keeper battles and the field blocks); arg = the command type (22 = aura exec)"
 
 [[trigger]]
-name = "zone_check"
+name = "match:zone_check"
 id = 16
 actor = true
 fired_by = "CanStartZone post (0x1533DF0): the zone start check"
 
 [[trigger]]
-name = "recast"
+name = "match:recast"
 id = 17
 actor = true
 move = true
 fired_by = "MatchSkillInstall post (0x1606470): kick-off and in-match slot changes"
 
 [[trigger]]
-name = "button_press"
+name = "input:press"
 id = 18
 actor = true
 fired_by = "InputCmdOn post (0x4C8250): the first frame the game answers on; arg (required) = the input command (CMD_SHOOT …)"
 
 [[trigger]]
-name = "button_hold"
+name = "input:hold"
 id = 19
 actor = true
 fired_by = "InputCmdOn post (0x4C8250): every frame the command is on; arg (required) = the input command"
 
 [[trigger]]
-name = "button_release"
+name = "input:release"
 id = 20
 actor = true
 fired_by = "frame poll: the command was on the frame before and is not now; arg (required) = the input command"
 
 [[trigger]]
-name = "select"
+name = "input:select"
 id = 21
 actor = true
 args = ["user", "rival", "team0", "team1"]
 fired_by = "frame poll of the controlled player: the side that switched"
 
 [[trigger]]
-name = "clock"
+name = "match:clock"
 id = 22
 fired_by = "frame poll of the half's clock; arg (required) = the mark it fires at, once per half: game seconds (120) or a fraction of the period's regular length (2/3, mi + 0x1C); the rules' and the mod scripts' marks"
 
 [[trigger]]
-name = "goal"
+name = "match:goal"
 id = 23
 actor = true
 args = ["user", "rival", "team0", "team1"]
 fired_by = "frame poll of the score: the side that scored, the scorer"
 
 [[trigger]]
-name = "possession"
+name = "match:possession"
 id = 24
 actor = true
 args = ["change", "keep"]
 fired_by = "frame poll of the ball owner: the new owner"
 
 [[trigger]]
-name = "foul"
+name = "match:foul"
 id = 25
 actor = true
 args = ["none", "card", "red"]
 fired_by = "frame poll of the current restart: the offender"
 
 [[trigger]]
-name = "keeper_save"
+name = "match:keeper_save"
 id = 26
 actor = true
 move = true
@@ -165,33 +165,33 @@ args = ["move", "basic"]
 fired_by = "KeeperStageEvent post (0x14CEF60), saved set: the keeper and his move"
 
 [[trigger]]
-name = "set_piece"
+name = "match:set_piece"
 id = 27
 actor = true
 fired_by = "frame poll of the current restart: a new restart, its kicker; arg = throw_in, corner, goal_kick, free_kick, offside, penalty (or 1-6)"
 
 [[trigger]]
-name = "state_enter"
+name = "match:state_enter"
 id = 28
 fired_by = "frame poll of g_soccerState; arg = the state id (9 InPlay, 10 Restart, 11 HalfTime, 13 Goal, 14 FocusBtl …)"
 
 [[trigger]]
-name = "state_leave"
+name = "match:state_leave"
 id = 29
 fired_by = "frame poll of g_soccerState; arg = the state id"
 
 [[trigger]]
-name = "cutin_start"
+name = "match:cutin_start"
 id = 30
 fired_by = "match events service: a scripted event starts playing; arg = its group (content\\defaults\\match_events.toml)"
 
 [[trigger]]
-name = "cutin_end"
+name = "match:cutin_end"
 id = 31
 fired_by = "match events service: that event stops playing; arg = the group"
 
 [[trigger]]
-name = "keeper_scene"
+name = "match:keeper_scene"
 id = 32
 actor = true
 move = true
@@ -199,40 +199,40 @@ args = ["saved", "beaten"]
 fired_by = "match events service: the keeper battle's outcome scene is set up"
 
 [[trigger]]
-name = "shot_start"
+name = "match:shot_start"
 id = 33
 move = true
 fired_by = "match events service: the ball enters the shot state"
 
 [[trigger]]
-name = "shot_end"
+name = "match:shot_end"
 id = 34
 move = true
 fired_by = "match events service: the ball leaves the shot state"
 
 [[trigger]]
-name = "duel_won"
+name = "match:duel_won"
 id = 35
 actor = true
 args = ["power_charge", "power_block", "move", "line", "duel"]
 fired_by = "match events service: FocusBattle_ExecResult post, the winner"
 
 [[trigger]]
-name = "duel_lost"
+name = "match:duel_lost"
 id = 36
 actor = true
 args = ["power_charge", "power_block", "move", "line", "duel"]
 fired_by = "match events service: FocusBattle_ExecResult post, the loser"
 
 [[trigger]]
-name = "block_won"
+name = "match:block_won"
 id = 37
 actor = true
 args = ["power_charge", "power_block", "move", "line", "duel"]
 fired_by = "match events service: FocusBattle_ExecResult post, the defender who won"
 
 [[trigger]]
-name = "keeper_beaten"
+name = "match:keeper_beaten"
 id = 38
 actor = true
 move = true
@@ -240,48 +240,48 @@ args = ["move", "basic"]
 fired_by = "match events service: the keeper's scene with the shot winning (KeeperStageEvent)"
 
 [[trigger]]
-name = "chain_window_start"
+name = "match:chain_window_start"
 id = 39
 args = ["user", "rival"]
 fired_by = "match events service: a shot can be chained now"
 
 [[trigger]]
-name = "chain_window_end"
+name = "match:chain_window_end"
 id = 40
 args = ["user", "rival"]
 fired_by = "match events service: the chain window is over"
 
 [[trigger]]
-name = "resource"
+name = "match:resource"
 id = 41
 actor = true
 fired_by = "framework services' events (match resources); arg = <key>:<event>"
 
 [[trigger]]
-name = "extra_slot"
+name = "match:extra_slot"
 id = 42
 actor = true
 fired_by = "framework services' events (extra slots); arg = <key>:<event>"
 
 [[trigger]]
-name = "transform"
+name = "match:transform"
 id = 43
 actor = true
 fired_by = "framework services' events (transformations); arg = <key>:<event>"
 
 [[trigger]]
-name = "field_mode"
+name = "match:field_mode"
 id = 44
 fired_by = "framework services' events (field mode); arg = <key>:<event>"
 
 [[trigger]]
-name = "duel_group"
+name = "match:duel_group"
 id = 45
 actor = true
 fired_by = "framework services' events (duel groups); arg = <key>:<event>"
 
 [[trigger]]
-name = "keeper_duel"
+name = "match:keeper_duel"
 id = 46
 actor = true
 move = true
@@ -289,7 +289,7 @@ args = ["move", "basic"]
 fired_by = "hook bus battle_build pre, keeper battle types 10 / 11 / 14 (KeeperBattleRequestBuild 0x14CF230): every shot that reaches the keeper; the keeper and his move; power_mult / power_add change the shot's power for that battle"
 
 [[trigger]]
-name = "technique_result"
+name = "match:hissatsu_result"
 id = 47
 actor = true
 move = true
@@ -297,13 +297,13 @@ args = ["won", "lost"]
 fired_by = "the outcome of a special move: the move its player used last (Technique.Power, within 8 s) and the focus duel that decided it (match events duel_won / duel_lost), or the keeper's move in a keeper battle (keeper_scene: saved = won)"
 
 [[trigger]]
-name = "time_up"
+name = "match:time_up"
 id = 48
 args = ["regular", "end"]
 fired_by = "frame poll of the period's clock in a timed period: regular = 2 game s before the period length (mi+0x1C), end = 2 game s before the period length + the added time (mi+0x2C00, where InPlay whistles); once per half each (end again after the added time grew)"
 
 [[trigger]]
-name = "shot_through"
+name = "match:shot_through"
 id = 49
 actor = true
 move = true
@@ -311,7 +311,7 @@ args = ["move", "basic"]
 fired_by = "Shot.FieldBlockCommit post (0x14E7890): a shot beats a field player's block (battle types 0xF-0x14); the blocker and his block move, the rival = the shot; power_mult changes the ball's power left"
 
 [[trigger]]
-name = "knockdown"
+name = "match:knockdown"
 id = 50
 actor = true
 move = true
@@ -319,21 +319,21 @@ args = ["move", "basic"]
 fired_by = "Status.AddEx pre (0x15D3740) inside Duel.ExecResult (0x150D3F0): the focus duel's loser gets his loss status; the winner and his move, the rival = the loser; down_mult scales the status time"
 
 [[trigger]]
-name = "crit_check"
+name = "match:crit_check"
 id = 51
 actor = true
 move = true
 fired_by = "Battle.CommandEventBuild pre (0x14DA3C0), the same hook as event_build: the command of a special move (the game's own command types: profile Battle.MoveCommandTypes; never an aura command) that no rule refused, once per execution, for the player its scene shows (user and CPU); its rules answer crit_chance / crit_cap / crit_mult, one roll decides, a hit multiplies that player's move_power of that move while the execution is open (until its command finishes; a shot: until the shot ends)"
 
 [[trigger]]
-name = "crit"
+name = "match:crit"
 id = 52
 actor = true
 move = true
 fired_by = "the crit_check roll hit (right after it): the player and his move"
 
 [[trigger]]
-name = "ball_stopped"
+name = "match:ball_stopped"
 id = 53
 actor = true
 move = true
@@ -341,13 +341,13 @@ args = ["keeper", "block"]
 fired_by = "the player stopped a shot by any means: keeper = a save (KeeperStageEvent post, saved set: catch or punch, with or without a move), block = a field block the shot does not win (Shot.FieldBlockCommit post, battle types 0xF-0x14)"
 
 [[trigger]]
-name = "tension_gain"
+name = "match:tension_gain"
 id = 54
 actor = true
 fired_by = "Tension.GainRequest pre (0x16FDE20): a team earns tension from play (a duel / scramble won or lost, a keeper battle, set plays…): the player who earned it (req +0; none for a team-wide gain: the actor then has only the team), arg = the gain kind (req +0x10); gain_mult scales the amount before the team's own gain rate (0xEBFA40) and the game's rounding to whole points"
 
 [[trigger]]
-name = "foul_suffered"
+name = "match:foul_suffered"
 id = 55
 actor = true
 args = ["none", "card"]
@@ -357,76 +357,82 @@ fired_by = "Match.FoulRestartBuild post (0x16CEE80): the pending foul (match inf
 
 [[effect]]
 name = "power_mult"
-on = ["move_power", "keeper_duel", "shot_through"]
+on = ["match:move_power", "match:keeper_duel", "match:shot_through", "match:duel_power"]
 min = 0.0
-summary = "the move's power (keeper_duel: the shot's power against the keeper; shot_through: the ball's power left after the block) × the product of every rule's power_mult"
+summary = "the move's power (keeper_duel: the shot's power against the keeper; shot_through: the ball's power left after the block; duel_power: the player's basic focus duel AT / DF) × the product of every rule's power_mult"
 
 [[effect]]
 name = "power_add"
-on = ["move_power", "keeper_duel"]
+on = ["match:move_power", "match:keeper_duel"]
 summary = "+ the sum of the power_adds (after the multipliers)"
 
 [[effect]]
 name = "block"
-on = ["move_check", "block_battle", "dash", "aura_start", "event_build", "zone_check", "button_press", "button_hold"]
+on = ["match:move_check", "match:block_battle", "match:dash", "match:aura_start", "match:event_build", "match:zone_check", "input:press", "input:hold"]
 summary = "true refuses what the trigger is about (false takes back an earlier rule's true; the last rule wins)"
 
 [[effect]]
 name = "speed_mult"
-on = ["move_speed"]
+on = ["match:move_speed"]
 min = 0.0
 summary = "the player's move speed rate × the product of the speed_mults"
 
 [[effect]]
 name = "cost_mult"
-on = ["tension_pay"]
+on = ["match:tension_pay"]
 min = 0.0
 summary = "the tension cost paid × the product of the cost_mults"
 
 [[effect]]
 name = "recast_mult"
-on = ["recast"]
+on = ["match:recast"]
 min = 0.0
 summary = "the move's recast time × the product of the recast_mults (rounded down)"
 
 [[effect]]
 name = "down_mult"
-on = ["knockdown"]
+on = ["match:knockdown"]
 min = 0.0
 summary = "the beaten player's down / stun status time × the product of the down_mults"
 
 [[effect]]
 name = "gain_mult"
-on = ["tension_gain"]
+on = ["match:tension_gain"]
 min = 0.0
 summary = "the tension the team gains × the product of the gain_mults (before the team's own gain rate)"
 
 [[effect]]
 name = "crit_chance"
-on = ["crit_check"]
+on = ["match:crit_check"]
 summary = "percentage points added to the critical chance of this execution (negative lowers it); the sum is kept within 0..the lowest crit_cap"
 
 [[effect]]
 name = "crit_mult"
-on = ["crit_check"]
+on = ["match:crit_check"]
 min = 0.0
 summary = "on a critical hit the move's power × the product of the crit_mults (after the move_power rules)"
 
 [[effect]]
+name = "catch_mult"
+on = ["match:catch_check"]
+min = 0.0
+summary = "the player's «Tasa de Parada» (critical catch chance) x the product of the catch_mults, added to the game's own multipliers"
+
+[[effect]]
 name = "crit_cap"
-on = ["crit_check"]
+on = ["match:crit_check"]
 min = 0.0
 summary = "the highest critical chance in percent (the lowest cap of every rule wins; none = 100)"
 
 [[effect]]
 name = "crit_chance_mult"
-on = ["crit_check"]
+on = ["match:crit_check"]
 min = 0.0
 summary = "the summed critical chance × the product of the crit_chance_mults, before the cap (1.5 = half as likely again)"
 
 [[effect]]
 name = "crit_miss_mult"
-on = ["crit_check"]
+on = ["match:crit_check"]
 min = 0.0
 summary = "when the roll misses, the move's power × the product of the crit_miss_mults for that execution (0.5 = a move that is not critical has half its power)"
 
@@ -666,8 +672,21 @@ name = "chance"
 summary = "probability 0-1 that the rule fires"
 
 [[trigger]]
-name = "card_shown"
+name = "match:card_shown"
 id = 56
 actor = true
 args = ["yellow", "red"]
 fired_by = "Match.AddCard (0x1572670): the card bit the game just set on the member; red = sent off (the second card)"
+
+[[trigger]]
+name = "match:duel_power"
+id = 57
+actor = true
+args = ["attack", "defense"]
+fired_by = "hook bus focus_update pre, once per focus duel when its battle runs (focus manager sub-state 2..8): each duel player (attack = the offense team's, defense = the other), the rival = the other duel player; power_mult scales his basic duel value (focus manager AT / DF, read by the line judge and its roll)"
+
+[[trigger]]
+name = "match:catch_check"
+id = 58
+actor = true
+fired_by = "Keeper.CriticalCatchRateMult post (0x14D4AE0): the game reads a player's «Tasa de Parada» multiplier (the critical catch roll at the shot launch, 0x14F9EF0, and its previews); catch_mult scales his rate: criticalCatchPercentage x (1 + game multipliers + (catch_mult - 1)) + the additive part"

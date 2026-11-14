@@ -3,7 +3,11 @@ local U = require "lib/util"
 
 local B = {}
 
-local S_GAME, S_DIFF, S_PLAYER, S_RIVALS, S_INDEX, S_CLEARS = 0x2CA6E4, 0x2CA6E8, 0x2CA6EC, 0x2CA6F0, 0x2CA70C, 0x208
+-- The session's campaign fields by their game profile names; the first rival is followed by the other six (u32 each).
+local S_GAME, S_DIFF, S_PLAYER = VRFW.game.field("Session.Game"), VRFW.game.field("Session.Difficulty"), VRFW.game.field("Session.Player")
+local S_RIVALS, S_INDEX = VRFW.game.field("Session.Rival1"), VRFW.game.field("Session.Match")
+-- The clear count has no game profile name.
+local S_CLEARS = 0x208
 B.RIVALS = 7
 
 local info, warn = VRFW.logger("campaign block")
@@ -32,7 +36,7 @@ local function store_of(blob)
 end
 
 function B.session()
-  return U.global("session")
+  return VRFW.game.global("session")
 end
 
 function B.read()
@@ -41,11 +45,11 @@ function B.read()
     return nil
   end
   local r = {
-    game = U.rd("u32", s + S_GAME), diff = U.rd("u8", s + S_DIFF), player = U.rd("u32", s + S_PLAYER),
-    index = U.rd("u8", s + S_INDEX), clears = U.rd("u32", s + S_CLEARS), rivals = {},
+    game = VRFW.memory.read("u32", s + S_GAME), diff = VRFW.memory.read("u8", s + S_DIFF), player = VRFW.memory.read("u32", s + S_PLAYER),
+    index = VRFW.memory.read("u8", s + S_INDEX), clears = VRFW.memory.read("u32", s + S_CLEARS), rivals = {},
   }
   for i = 0, B.RIVALS - 1 do
-    r.rivals[i + 1] = U.rd("u32", s + S_RIVALS + 4 * i) or 0
+    r.rivals[i + 1] = VRFW.memory.read("u32", s + S_RIVALS + 4 * i) or 0
   end
   return r
 end
@@ -55,12 +59,12 @@ function B.write(game, diff, player, rivals, index)
   if not s then
     return false
   end
-  local ok = U.wr("u32", s + S_GAME, U.u32(game)) and U.wr("u8", s + S_DIFF, diff)
-    and U.wr("u32", s + S_PLAYER, U.u32(player))
+  local ok = VRFW.memory.write("u32", s + S_GAME, VRFW.ids.unsigned(game)) and VRFW.memory.write("u8", s + S_DIFF, diff)
+    and VRFW.memory.write("u32", s + S_PLAYER, VRFW.ids.unsigned(player))
   for i = 0, B.RIVALS - 1 do
-    ok = ok and U.wr("u32", s + S_RIVALS + 4 * i, U.u32(rivals[i + 1] or 0))
+    ok = ok and VRFW.memory.write("u32", s + S_RIVALS + 4 * i, VRFW.ids.unsigned(rivals[i + 1] or 0))
   end
-  return ok and U.wr("u8", s + S_INDEX, index)
+  return ok and VRFW.memory.write("u8", s + S_INDEX, index)
 end
 
 function B.snapshot(blob)
@@ -78,8 +82,8 @@ function B.snapshot(blob)
     warn(blob .. " not written (" .. tostring(why) .. "): the Campaña's block is not lent")
     return false
   end
-  info(string.format("Campaña block kept in %s (player %s, rival 1 %s, index %d)", blob, U.hex(doc.player),
-    U.hex(doc.rivals[1]), doc.index))
+  info(string.format("Campaña block kept in %s (player %s, rival 1 %s, index %d)", blob, VRFW.ids.hex_text(doc.player),
+    VRFW.ids.hex_text(doc.rivals[1]), doc.index))
   return true
 end
 
@@ -133,8 +137,8 @@ function B.restore(blob)
   if not aside then
     warn(blob .. " stays on record after the block came back: " .. tostring(why))
   end
-  info(string.format("Campaña block back from %s (player %s, rival 1 %s, index %d)", blob, U.hex(U.u32(doc.player)),
-    U.hex(U.u32(doc.rivals[1])), doc.index))
+  info(string.format("Campaña block back from %s (player %s, rival 1 %s, index %d)", blob, VRFW.ids.hex_text(VRFW.ids.unsigned(doc.player)),
+    VRFW.ids.hex_text(VRFW.ids.unsigned(doc.rivals[1])), doc.index))
   return true
 end
 

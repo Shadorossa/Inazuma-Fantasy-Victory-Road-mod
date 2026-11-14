@@ -46,6 +46,10 @@ code = "layout"
 text = "move the folder or file to the place the message names (docs/framework/mod-layout.md); unknown folders are not read"
 
 [[hint]]
+code = "not_installed"
+text = "install the mod, or remove its id from the enabled list (switch it off in the Mods panel)"
+
+[[hint]]
 code = "migration_failed"
 text = "the file could not be upgraded: fix the key the message names by hand"
 
@@ -107,7 +111,7 @@ text = "switch on the mod it requires in the Mods panel, then restart the game"
 
 [[hint]]
 code = "dependency_version"
-text = "update the required mod to a version the message accepts"
+text = "the message states the required and the installed version: if this mod is yours, lower its `requires` line to the installed version; otherwise install the required version of that mod"
 
 [[hint]]
 code = "incompatible_mod"

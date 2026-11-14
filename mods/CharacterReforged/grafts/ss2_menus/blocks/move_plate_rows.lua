@@ -7,7 +7,12 @@ PL.RP = {
   -- The plate's own parts, sprites and states.
   IS_OPEN = @crc:CMND_IS_OPEN_LAYER@, IS_VISIBLE = @crc:CMND_IS_LAYER_VISIBLE@,
   want = {},
+  -- The mix half's lock: the same plate on its own layer, instance r on list row r (only instance 0, the Hiper row, is drawn).
+  MIX_LOCK = 4262169076 --[[character_reforged_ss_mix_lock]],
+  mix_lock_want = {},
 }
+-- Each plate layer of the rows and the table of the instances it wants shown.
+PL.RP.LAYERS = {[PL.RP.L] = PL.RP.want, [PL.RP.MIX_LOCK] = PL.RP.mix_lock_want}
 
 function PL.row_plate(r, skill, locked, need, fixed, inactive)
   local P = PL.RP
@@ -37,14 +42,15 @@ function PL.row_plate_sync(step)
   if type(VRFW.ui_plates) == "table" then
     VRFW.ui_plates.move_plate.pump(step)
   end
-  if not funcLuaMenuCommand(@crc:CMND_IS_EXIST_LAYER@, P.L) then
-    return
-  end
-  for r = 0, ROW_NUM - 1 do
-    if funcLuaMenuCommand(P.IS_OPEN, P.L, r) then
-      local v = P.want[r] == true and funcLuaMenuCommand(P.IS_VISIBLE, L_ROW, r) == true
-      if (funcLuaMenuCommand(P.IS_VISIBLE, P.L, r) == true) ~= v then
-        funcLuaMenuCommand(C.LAYER_VISIBLE, P.L, r, v)
+  for L, want in pairs(P.LAYERS) do
+    if funcLuaMenuCommand(@crc:CMND_IS_EXIST_LAYER@, L) then
+      for r = 0, ROW_NUM - 1 do
+        if funcLuaMenuCommand(P.IS_OPEN, L, r) then
+          local v = want[r] == true and funcLuaMenuCommand(P.IS_VISIBLE, L_ROW, r) == true
+          if (funcLuaMenuCommand(P.IS_VISIBLE, L, r) == true) ~= v then
+            funcLuaMenuCommand(C.LAYER_VISIBLE, L, r, v)
+          end
+        end
       end
     end
   end
@@ -77,7 +83,7 @@ end
 
 PL.rp_prev_setup_layer = OnSetupLayer
 function OnSetupLayer(a1, a2)
-  if a1 == PL.RP.L then
+  if PL.RP.LAYERS[a1] ~= nil then
     funcLuaMenuCommand(Priority, a1, a2, PL.RP.PRIO, true)
     funcLuaMenuCommand(C.LAYER_VISIBLE, a1, a2, false)
     return
@@ -108,7 +114,7 @@ end
 
 PL.rp_prev_open_layer = OnOpenLayer
 function OnOpenLayer(a1, a2)
-  if a1 == PL.RP.L then
+  if PL.RP.LAYERS[a1] ~= nil then
     funcLuaMenuCommand(C.LAYER_VISIBLE, a1, a2, false)   -- PL.row_plate_sync shows it (next Step)
     return
   elseif a1 == PL.L_CPK_LIST or a1 == PL.L_CPK_ROW or a1 == PL.L_CPK_ARROW then
@@ -122,9 +128,6 @@ PL.rp_prev_step = Step
 function Step(...)
   local r = PL.rp_prev_step ~= nil and PL.rp_prev_step(...) or nil
   pcall(PL.row_plate_sync, true)
-  if VRFW.face_icon ~= nil and VRFW.face_icon.pending() then
-    VRFW.face_icon.settle()
-  end
   return r
 end
 -- ===== Move plate rows + own list layers END =====

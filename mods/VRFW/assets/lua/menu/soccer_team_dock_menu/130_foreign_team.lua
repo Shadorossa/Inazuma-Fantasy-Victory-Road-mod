@@ -347,6 +347,7 @@ if VRFW.host ~= nil then
   end
 
   if type(VRFW.team_editor) == "table" then
+    --- Advanced: Reads the help line of the icon at idx; answers "name - help" text, or nil when none.
     function VRFW.team_editor.icon_help(idx)
       local icon = S.on and S.icons[(idx or 0) + 1] or nil
       local item = icon ~= nil and (local_table("t2") or {})[icon.row + 1] or nil

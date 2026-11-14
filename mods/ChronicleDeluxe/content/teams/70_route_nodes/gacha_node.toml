@@ -1,5 +1,5 @@
 schema = "VRFW.team/2"
-default_lang = "es"
+default_lang = "en"
 
 [[VRFW.RouteNode]]
 Name = "galaxy_kizuna_gacha"

@@ -93,7 +93,8 @@ function BetterUI.prematch.edit_close()
     end
     funcLuaMenuCommand(2235236614, t31, t32)
     SetDisableForceCharaInvalidUseTarget()
-    funcLuaCommand(3762929863, t31, t32, false, false, team, false)
+    -- retail pre-kick-off commit (CloseFormationMenu with flag41): lineup rewritten, no substitution recorded
+    funcLuaCommand(3762929863, t31, t32, false, true, team, true)
     if GetApplyFormationId() ~= 0 then
       funcLuaCommand(4004409795, team, GetApplyFormationId())
     end

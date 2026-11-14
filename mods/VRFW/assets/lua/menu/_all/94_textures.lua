@@ -8,6 +8,7 @@ if VRFW.textures == nil then
     waiting = 0,             -- textures still loading
     SETTLED = {wait = 600, min_frames = 10}, -- options of a per-frame poll: never in before 10 frames
   }
+  --- Texture loading for menus: request, poll, settle, pending, forget. Safe at load.
   VRFW.textures = T
 
   local function loading(path)
@@ -17,6 +18,7 @@ if VRFW.textures == nil then
 
   local function finish(path, w, ok)
     T.state[path] = ok
+    --- Internal: count of texture loads still in progress.
     T.waiting = T.waiting - 1
     if not ok then
       pcall(funcLuaCommand, VRFW.commands.VRFW_LOG, "vrfw.Textures", "texture never loaded", path)
@@ -38,7 +40,7 @@ if VRFW.textures == nil then
     end
   end
 
-  --- Requests texture `path`, calling fn when loaded; answers true or false when known, nothing while loading.
+  --- VRFW.textures.request(path, fn[, opts]): loads a texture and calls fn when it is in. Returns true or false when known, nothing while loading. Call only from OnInit, Step or another callback.
   function T.request(path, fn, opts)
     local s = T.state[path]
     if s == true or s == false then
@@ -61,7 +63,7 @@ if VRFW.textures == nil then
     return false
   end
 
-  --- One texture polled every frame, without settle(): true once it is in.
+  --- VRFW.textures.poll(path[, opts]): polls one texture each frame; true once it is loaded. Safe at load.
   function T.poll(path, opts)
     local s = T.state[path]
     if s == nil then
@@ -72,12 +74,12 @@ if VRFW.textures == nil then
     return T.state[path] == true
   end
 
-  --- True while a texture is still loading.
+  --- VRFW.textures.pending(): whether a texture is still loading. Safe at load.
   function T.pending()
     return T.waiting > 0
   end
 
-  --- Advances the texture loads.
+  --- VRFW.textures.settle(): moves the texture loads forward; call it once per Step. Safe at load.
   function T.settle()
     if T.waiting <= 0 then
       return
@@ -89,7 +91,7 @@ if VRFW.textures == nil then
     end
   end
 
-  --- True or false once path is known; nil while it is loading.
+  --- Internal: True or false once path is known; nil while it is loading.
   function T.ready(path)
     local s = T.state[path]
     if s == true or s == false then
@@ -98,7 +100,7 @@ if VRFW.textures == nil then
     return nil
   end
 
-  --- Forgets every texture state.
+  --- VRFW.textures.forget(): drops every texture state (on menu close). Safe at load.
   function T.forget()
     T.state, T.waiting = {}, 0
   end

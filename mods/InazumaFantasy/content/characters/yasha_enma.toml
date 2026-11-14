@@ -1,0 +1,104 @@
+schema = "VRFW.character/2"
+default_lang = "en"
+
+# Yasha Enma: forward, fire (the flames of his hair and coat), on the retail tall c000301 skeleton, wearing his own outfit (content/looks/yasha_enma.toml; force_kit 1: no team kit replaces it).
+# Stats rolled once (seed 20261113) inside the range of the 20 forward cards of this mod: kick and agility in their upper half, the rest in their lower half.
+[[character]]
+name = "yasha_enma"
+based_on = "c05029720"  # template: Luke Triton (own clothes, no kit)
+order = 204
+
+  [character.base]
+  id = 0x609BF633  # crc32("c90660000")
+  name = "c90660000"
+  name_text = 0xD231B986  # crc32("c90660000_name")
+  short_name_text = 0x621C0145  # crc32("c90660000_short")
+  upper_name_text = 0x836B4E7B  # crc32("c90660000_upper")
+  description_text = 0x54B049B9  # crc32("c90660000_description")
+  model = 0x3AA1E33E
+  # album only: not on any team, so Luke's belong team is cleared
+  team_1 = 0
+  team_2 = 0
+  team_3 = 0x5595D5FA  # crc32("evt_belong_team_fantasy"): the bank's Fantasy tab
+
+  [character.new_model]
+  id = 0x3AA1E33E  # crc32("c90660000_model")
+  from = "c05029720"
+  [character.new_model.cells]
+  body = 0x57BACC32  # crc32("c90660000_body"), content/tables/common/gamedata/character/chara_model.toml
+  head_mesh_path = "_face/90_FANTASY/c90660000/c90660000.g4md"
+  clothes = 0x981698C3  # crc32("u90660000_10"), his outfit, content/looks/yasha_enma.toml
+  skin_color = 0xE68AAAFF  # his pink skin: the outfit's skin part draws the wearer's skin colour
+  shoes = 0
+  gloves = 0
+  force_kit = 1
+
+  [character.text.ja]
+  name = "夜叉エンマ"
+  short = "夜叉エンマ"
+  upper = "YASHA ENMA"
+  description = "[妖魔界/ようまかい]を[統/す]べる[大王/だいおう]\nエンマの[夜叉/やしゃ]の[姿/すがた]。"
+
+  [character.text.en]
+  name = "Yasha Enma"
+  short = "Yasha Enma"
+  upper = "YASHA ENMA"
+  description = "Enma, the great king who rules the\nYo-kai world, in his fierce Yasha form."
+
+  [character.text.es]
+  name = "Yasha Enma"
+  short = "Yasha Enma"
+  upper = "YASHA ENMA"
+  description = "Enma, el gran rey que gobierna el mundo\nyo-kai, en su feroz forma Yasha."
+
+  [character.text.fr]
+  name = "Yasha Enma"
+  short = "Yasha Enma"
+  upper = "YASHA ENMA"
+  description = "Enma, le grand roi qui règne sur le monde\nyo-kai, sous sa féroce forme Yasha."
+
+  [character.text.de]
+  name = "Yasha Enma"
+  short = "Yasha Enma"
+  upper = "YASHA ENMA"
+  description = "Enma, der große König der Yo-kai-Welt,\nin seiner wilden Yasha-Gestalt."
+
+  [character.text.it]
+  name = "Yasha Enma"
+  short = "Yasha Enma"
+  upper = "YASHA ENMA"
+  description = "Enma, il grande re che governa il mondo\nyo-kai, nella sua feroce forma Yasha."
+
+  [character.text.pt]
+  name = "Yasha Enma"
+  short = "Yasha Enma"
+  upper = "YASHA ENMA"
+  description = "Enma, o grande rei que governa o mundo\nyo-kai, na sua feroz forma Yasha."
+
+  [character.text.zh_hans]
+  name = "Yasha Enma"
+  short = "Yasha Enma"
+  upper = "YASHA ENMA"
+  description = "统治妖魔界的大王\n阎魔的夜叉之姿。"
+
+  [character.text.zh_hant]
+  name = "Yasha Enma"
+  short = "Yasha Enma"
+  upper = "YASHA ENMA"
+  description = "統治妖魔界的大王\n閻魔的夜叉之姿。"
+
+  [[character.cards]]
+  id = 0x9A065F53  # crc32("c90660000_card")
+  from = 0xEDB0B29D  # template: Luke Triton's card
+  order = 204
+  element = "fire"
+  position = "fw"
+  rank = 3
+  growth = "normal"
+  stats = { kick = 346, control = 230, technique = 239, pressure = 164, physical = 183, intelligence = 218, agility = 178, luck = 162, freedom = 0 }
+  moves = [
+    { move = "whs00980", level = 1 },                     # Hellfire (shot, fire, 360)
+    { move = "who10070", level = 20 },                    # Ghoulish Glare (dribble, fire, 440)
+    { move = "whs02540", level = 38 },                    # Volcanic Rock (shot, fire, 540)
+    { move = "whs02570", level = 60 },                    # Volcanic Lightning (shot, fire, 640)
+  ]

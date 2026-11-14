@@ -34,6 +34,23 @@ default = 2
 order = 123
 category = "category_visual"
 
+# Outlines: 0 = retail lines; 1 and 2 are the [[VRFW.ShaderPreset]] entries of content\shaders\outline.toml (switches live).
+[[option]]
+id = "outline"
+visual = true
+type = "list"
+label = "outline"
+help = "outline_help"
+parent = "mod_options.custom_style"
+values = [
+    { value = 0, name = "ol_all", text = "All" },
+    { value = 1, name = "ol_no_character_contour", text = "No character contour" },
+    { value = 2, name = "ol_none", text = "None" },
+]
+default = 0
+order = 125
+category = "category_visual"
+
 # Technique level badges: «Stars» switches the +1/+2/+3 sprites to features\level_badges\ (read at start).
 [[option]]
 id = "level_badges"
@@ -49,6 +66,19 @@ values = [
 default = 0
 restart = true                                # the feature folder is read at the start
 order = 114
+category = "category_camera_interface"
+
+# Spanish texts say «Espíritu Guerrero» for keshin: the [[es.rewrite]] rules of text\keys.toml, read when the texts are merged at the start.
+[[option]]
+id = "warrior_spirit_name"
+visual = true
+type = "toggle"
+label = "warrior_spirit_name"
+help = "warrior_spirit_name_help"
+parent = "mod_options.game_settings"
+default = 0
+restart = true
+order = 115
 category = "category_camera_interface"
 
 # Auto Commander mode (config.toml [auto_commander]); read at each match init.
@@ -104,3 +134,13 @@ values = [
 default = 0
 order = 104
 category = "category_match"
+
+# Read by assets\lua\team_dock_formation_menu\160_team_level.lua: on, the team COMANDOS window gets «Ajustar nivel del equipo».
+[[option]]
+id = "team_level_cheat"                     # row key BetterQoL.team_level_cheat
+type = "toggle"
+label = "team_level_cheat"                    # text\keys.toml, 9 languages
+help = "team_level_cheat_help"
+default = 0
+order = 190
+category = { key = "mod_options.category_cheats" }   # VRFW text\option.toml, shared by every mod

@@ -15,10 +15,8 @@ stem = "team_dock_formation_menu"
   type = "append_block"
   source = "team_param_guide.lua"
   marker = "better_ui team_param_guide"
-  crc = "none"
-  generator = "research/mods/BetterUI/_tools/better_ui_generators.py:better_ui_plain"
-  generator_arguments = { part = "better_ui_team_param_guide.lua", tag = "td_formation", name = "team_param_guide", scope = "BetterUI" }
-  include = { "@UI_WRAP@" = "../_src/better_ui/better_ui_wrap.lua" }
+  generator = "research/mods/BetterUI/_tools/betterui_generators.py:better_ui_snippet"
+  generator_arguments = { part = "better_ui_team_param_guide.lua", name = "team_param_guide", scope = "BetterUI" }
   vars = { "@TAG@" = "td_formation" }
 
 [[files]]
@@ -28,10 +26,8 @@ stem = "soccer_team_dock_menu"
   type = "append_block"
   source = "team_param_guide.lua"
   marker = "better_ui team_param_guide"
-  crc = "none"
-  generator = "research/mods/BetterUI/_tools/better_ui_generators.py:better_ui_plain"
-  generator_arguments = { part = "better_ui_team_param_guide.lua", tag = "team_dock", name = "team_param_guide", scope = "BetterUI" }
-  include = { "@UI_WRAP@" = "../_src/better_ui/better_ui_wrap.lua" }
+  generator = "research/mods/BetterUI/_tools/betterui_generators.py:better_ui_snippet"
+  generator_arguments = { part = "better_ui_team_param_guide.lua", name = "team_param_guide", scope = "BetterUI" }
   vars = { "@TAG@" = "team_dock" }
 
 [[files]]
@@ -41,8 +37,6 @@ stem = "soccer_formation_menu"
   type = "append_block"
   source = "team_param_guide.lua"
   marker = "better_ui team_param_guide"
-  crc = "none"
-  generator = "research/mods/BetterUI/_tools/better_ui_generators.py:better_ui_plain"
-  generator_arguments = { part = "better_ui_team_param_guide.lua", tag = "formation", name = "team_param_guide", scope = "BetterUI" }
-  include = { "@UI_WRAP@" = "../_src/better_ui/better_ui_wrap.lua" }
+  generator = "research/mods/BetterUI/_tools/betterui_generators.py:better_ui_snippet"
+  generator_arguments = { part = "better_ui_team_param_guide.lua", name = "team_param_guide", scope = "BetterUI" }
   vars = { "@TAG@" = "formation" }

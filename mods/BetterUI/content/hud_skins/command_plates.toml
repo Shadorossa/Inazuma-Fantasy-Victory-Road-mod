@@ -1,0 +1,7 @@
+schema = "VRFW.hud_skin/1"
+
+# The command plates other mods add to the match command menu take the look of the retail super-tactics plates.
+[[VRFW.HudSkin]]
+name = "command_plates"
+part = "command_plates"
+look = "tactics_plate"

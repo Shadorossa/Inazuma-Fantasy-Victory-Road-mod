@@ -1,0 +1,16 @@
+# The two negative outline rows become the one list row outline: 0 = every line, 1 = no character contour, 2 = no line.
+schema = "VRFW.migration/1"
+id = "BetterQoL.positive_option_rows"
+description = "The rows no_character_outline and no_outline become the one row outline: no_outline on = 2, else no_character_outline on = 1, else the default 0"
+phase = "data"
+after = ["VRFW.no_compat_names"]
+
+[[step]]
+kind = "merge_option_rows"
+rows = ["BetterQoL.no_character_outline", "BetterQoL.no_outline"]
+to = "BetterQoL.outline"
+cases = [
+    { when = { "BetterQoL.no_outline" = 1 }, value = 2 },
+    { when = { "BetterQoL.no_character_outline" = 1 }, value = 1 },
+]
+if_target = "keep_target"

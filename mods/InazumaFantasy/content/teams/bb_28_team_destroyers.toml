@@ -6,41 +6,41 @@ target = "bb_28_team_destroyers"
   [[edit.member]]
   slot = 0
   patch = true
-  moves = [0x1FA91CF4, 0x49F3BB72, 0x3F18A8D1, 0x9E80E507, 0x0B56DE40, 0x26D423AD]
+  moves = ["whk01020", "whk01040", "wap01002", 0x9E80E507, 0x0B56DE40, 0x26D423AD]
   levels = [1, 1, 1, 1, 1, 1]
   # nuclear_field
   [[edit.member]]
   slot = 3
   patch = true
-  moves = [0xF626F557, 0xB8A509A7, 0xB60E3C60, 0x481F9847, 0xDCD89E53]
+  moves = ["whd01130", "whd01040", "who01000", "wap01003", 0xDCD89E53]
   levels = [1, 1, 1, 1, 1]
   # nuclear_field
   [[edit.member]]
   slot = 4
   patch = true
-  moves = [0xB60E3C60, 0xD32B8500, 0x650FA58E, 0xA17C3D72, 0xDCD89E53]
+  moves = ["who01000", "whs02200", "who00940", "wap01005", 0xDCD89E53]
   levels = [1, 1, 1, 1, 1]
   # nuclear_field
   [[edit.member]]
   slot = 5
   patch = true
-  moves = [0x86F5F6E8, 0x0D0B77EA, 0xD0A1DBC3, 0xD67B0DE4, 0xDCD89E53]
+  moves = ["whs02060", "whd01090", "who00990", "wap01004", 0xDCD89E53]
   levels = [1, 1, 1, 1, 1]
   # plasma_kick
   [[edit.member]]
   slot = 6
   patch = true
-  moves = [0xB60E3C60, 0x4E22F64D, 0x0A02DF36, 0xA17C3D72, 0x6EADCAD5]
+  moves = ["who01000", "who00970", "whd01490", "wap01005", 0x6EADCAD5]
   levels = [1, 1, 1, 1, 1]
   # abyss_strike
   [[edit.member]]
   slot = 9
   patch = true
-  moves = [0xC9BAEA82, 0xB8A509A7, 0x15138722, 0xA611F96B, 0x7AE9A7C8]
+  moves = ["who00980", "whd01040", "whs01590", "wap01001", 0x7AE9A7C8]
   levels = [1, 1, 1, 1, 1]
   # abyss_strike, nuclear_field
   [[edit.member]]
   slot = 10
   patch = true
-  moves = [0xE29933EC, 0xC8760A18, 0xD262F964, 0xA611F96B, 0x7AE9A7C8, 0xDCD89E53]
+  moves = ["whs02020", "whs02110", "who01040", "wap01001", 0x7AE9A7C8, 0xDCD89E53]
   levels = [1, 1, 1, 1, 1, 1]

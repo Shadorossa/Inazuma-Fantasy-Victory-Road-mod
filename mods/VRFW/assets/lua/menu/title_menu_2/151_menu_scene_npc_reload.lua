@@ -84,6 +84,7 @@ do
       asks, reason, frames = NpcReload.ASK_AGAIN_AT_FRAMES, "the team changed", 0
     end
   end
+  --- Advanced: Asks the title scene to place its people again (why: reason text); answers nothing.
   VRFW.menu_scene_people_again = function(why) pcall(AskAgain, why) end
 
   if VRFW.host ~= nil then

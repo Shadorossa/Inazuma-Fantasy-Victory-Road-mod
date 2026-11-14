@@ -16,7 +16,7 @@ function PL.row_has_focus()
   if not PL.ctrl_focus(L_ROW) then
     return false
   end
-  for _, b in ipairs({L_BTN, L_BTN_SS, PL.L_BTN_ROLE}) do
+  for _, b in ipairs({L_BTN, L_BTN_SS, PL.L_BTN_ROLE, L_BTN_ICON}) do
     if PL.ctrl_focus(b) then
       return false
     end

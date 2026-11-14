@@ -1,0 +1,47 @@
+schema = "VRFW.image/1"
+
+[[texture]]
+atlas = "#/menu/200_icon/own_passives/own_passives_icon_teambuff.g4tx"
+name = "own_passives_icon_teambuff"
+size = [656, 128]
+# The buff icons of the elemental passives (PNGs: assets/images/menu/200_icon/08_icon_teambuff/element_plus/).
+
+[[sprite]]
+atlas = "#/menu/200_icon/own_passives/own_passives_icon_teambuff.g4tx"
+name = "cr_icon_teambuff_aire_plus"
+texture = "own_passives_icon_teambuff"
+x = 0
+y = 0
+png = "element_plus/cr_icon_teambuff_aire_plus.png"
+
+[[sprite]]
+atlas = "#/menu/200_icon/own_passives/own_passives_icon_teambuff.g4tx"
+name = "cr_icon_teambuff_bosque_plus"
+texture = "own_passives_icon_teambuff"
+x = 132
+y = 0
+png = "element_plus/cr_icon_teambuff_bosque_plus.png"
+
+[[sprite]]
+atlas = "#/menu/200_icon/own_passives/own_passives_icon_teambuff.g4tx"
+name = "cr_icon_teambuff_fuego_plus"
+texture = "own_passives_icon_teambuff"
+x = 264
+y = 0
+png = "element_plus/cr_icon_teambuff_fuego_plus.png"
+
+[[sprite]]
+atlas = "#/menu/200_icon/own_passives/own_passives_icon_teambuff.g4tx"
+name = "cr_icon_teambuff_montana_plus"
+texture = "own_passives_icon_teambuff"
+x = 396
+y = 0
+png = "element_plus/cr_icon_teambuff_montana_plus.png"
+
+[[sprite]]
+atlas = "#/menu/200_icon/own_passives/own_passives_icon_teambuff.g4tx"
+name = "cr_icon_teambuff_neutro_plus"
+texture = "own_passives_icon_teambuff"
+x = 528
+y = 0
+png = "element_plus/cr_icon_teambuff_neutro_plus.png"

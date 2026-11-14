@@ -12,6 +12,7 @@ end
 
 if type(GeTeamBuffBuildTypeIconTextureName) == "function" and GeTeamBuffBuildTypeIconTextureName ~= A.small_icon then
   local orig = GeTeamBuffBuildTypeIconTextureName
+  --- Internal: team-buff icon texture name for a1; answers the archetype icon when one exists.
   A.small_icon = function(a1, ...)
     local icon = info_icon(a1)
     if icon then return icon end

@@ -31,6 +31,7 @@ TemplateGame = "fbtl_cro07_130_010"
 Difficulty = 4
 RivalStats = "normal"
 Rules = "chronicle_deluxe_chain"
+FreeMatchTab = "chain"                 # its beaten teams in the free match tab «Cadena»
   [VRFW.Chain.Title]
   es = "Batallas legendarias de Seymour Hillman"
   en = "Seymour Hillman's Legendary Battles"

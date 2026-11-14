@@ -1,0 +1,14 @@
+schema = "VRFW.option/2"
+# Hissatsu Effects › its row on the Mods screen's «Ajustes» and in Opciones › «Opciones de mods».
+# Values: <data dir>\mod_options\. restart = true: the gated files are read at the start.
+# technique_passives: the special moves' own effects (content\rules\technique_effects_*.toml, content\techniques\, content\effects\,
+# the add-on rule): files with if_mod = "HissatsuEffects.technique_passives". Off = none of them is read (retail moves).
+
+[[option]]
+id = "technique_passives"               # row key HissatsuEffects.technique_passives
+type = "toggle"
+label = "option_technique_passives"   # text\keys.toml, 9 languages
+help = "option_technique_passives_help"
+default = 1
+order = 520
+restart = true

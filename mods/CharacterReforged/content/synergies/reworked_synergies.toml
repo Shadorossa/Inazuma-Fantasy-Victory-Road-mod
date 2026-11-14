@@ -1,0 +1,555 @@
+schema = "VRFW.synergy/1"
+
+# ------------------------------------------------------------------------------------------------ The Dark Lineage
+
+[[VRFW.SynergyPool]]
+name = "dark_lineage"
+teams = [
+    "0x699E68EC",   # Royal Academy (crest: the IE emblem)
+    "0x9BAD3311",   # Zeus (crest: the IE emblem)
+    "0xF1E3E365",   # Royal Academy Redux
+    "0xB95A1DDD",   # (Team K, IE3; Spanish name of チームＫ, confirmed by)
+    "0x0F3CD0F1",   # Orfeo
+    "0x9E96B18A",
+]
+
+[[VRFW.Synergy]]
+key = "sp04003"                                  # El linaje oscuro (retail: Ray Dark + Lucian Dark)
+nexus = ["c11801020", "c11807230", "c11803050"]
+pool = "dark_lineage"
+count = 2
+rule = "min"
+hint = "CharacterReforged.HintDarkLineage"
+
+[[VRFW.SynergyPool]]
+name = "omega_leaders"
+charas = [
+    "c05020500", "c05020500_5000",               # Alfa
+    "c05020700", "c05020700_5000", "c11905050",  # Beta
+    "c05020800", "c05020800_5000",               # Gamma
+]
+
+[[VRFW.SynergyPool]]
+name = "omega_protocol"
+teams = [
+    "0x45B66234",   # Protocolo Omega (1.0)
+    "0x3B24FCDA",   # Protocolo Omega 2.0
+    "0x4C23CC4C",   # Protocolo Omega 3.0
+]
+# team pool: its empty rows draw the three teams' crests (no show_candidates: that switch is for person pools)
+
+[[VRFW.Synergy]]
+key = "sf05001"
+nexus_pool = "omega_leaders"
+pool = "omega_protocol"
+count = 2
+rule = "min"
+distinct = "person"
+
+[[VRFW.SynergyPool]]
+name = "managers_classic"
+role = "manager"
+gender = "female"
+series = ["ie1", "ie2", "ie3", "ares", "orion"]
+
+[[VRFW.SynergyPool]]
+name = "managers_go"
+role = "manager"
+gender = "female"
+series = ["go", "cs", "galaxy", "vr"]
+
+[[VRFW.Synergy]]
+key = "sp01002"
+pool = "managers_classic"
+count = 3
+rule = "min"
+distinct = "person"                              # Celia (IE1) + Celia (Ares) = one
+hint = "CharacterReforged.HintManagersClassic"
+
+[[VRFW.Synergy]]
+key = "sp04002"                                  # Las gerentes de GO (retail: Skie, Rosie, Jade)
+pool = "managers_go"
+count = 3
+rule = "min"
+distinct = "person"
+hint = "CharacterReforged.HintManagersGo"
+
+[[VRFW.SynergyPool]]
+name = "alius_genesis"
+teams = ["0x8E1A91A5"]
+hint = "CharacterReforged.HintPlayerOfTeam"
+
+[[VRFW.SynergyPool]]
+name = "alius_diamond_dust"
+teams = ["0xA4F89470"]   # Diamond Dust (Polvo de Diamantes)
+hint = "CharacterReforged.HintPlayerOfTeam"
+
+[[VRFW.SynergyPool]]
+name = "alius_prominence"
+teams = ["0xE0D78A15"]   # Prominence
+hint = "CharacterReforged.HintPlayerOfTeam"
+
+[[VRFW.Synergy]]
+key = "sf02002"
+nexus = ["c02021510", "c02020900", "c02020890"]  # Xene, Torch, Gazelle: any one of them
+slots = ["alius_genesis", "alius_diamond_dust", "alius_prominence"]
+skip_nexus_team = true
+hint = "CharacterReforged.HintPlayerOfTeam"
+
+[[VRFW.SynergyPool]]
+name = "ancient_dark"
+teams = ["0x51535E99"]   # Oscuridad Ancestral
+hint = "CharacterReforged.HintPlayerOfTeam"   # (only drawn without the framework's panel layers)
+
+[[VRFW.SynergyPool]]
+name = "eternal_light"
+teams = ["0x0DF68C09"]   # Luz Eterna
+hint = "CharacterReforged.HintPlayerOfTeam"
+
+[[VRFW.Synergy]]
+key = "sf04002"
+slots = ["ancient_dark", "eternal_light"]        # one player of each team (two different persons)
+slot_members = true
+
+# the players; ANY 3 of these 8 people activate the synergy (no nexus: pool + count = 3).
+[[VRFW.SynergyPool]]
+name = "marked_by_orion"
+charas = [
+    "c08120110", "c08120010", "c08120020", "c08040110", "c08030030", "c08030031", "c08030032",
+    "c08020010", "c08010020", "c11908130", "c11908320", "c08070060",
+]
+
+[[VRFW.Synergy]]
+key = "sf08002"
+pool = "marked_by_orion"
+count = 3
+rule = "min"
+distinct = "person"
+hint = "CharacterReforged.HintMarkedByOrion"
+
+[[VRFW.SynergyPool]]
+name = "raimon_captains"
+captains_of_teams = [
+    "bb_01_team_raimon",          # Raimon (IE1)
+    "bb_08_team_raimon_go",       # Raimon revolucionario (GO)
+    "bb_17_team_inakuniraimon",   # Raimon Isla Remota A (Ares)
+    "bb_18_team_inakuniraimon",   # Raimon Isla Remota B (Ares)
+    "tm_cro_victory_0600",        # Raimon (Victory Road)
+]
+exclude = ["c05026550", "c03039500", "c11807140"]   # Percival Travis
+
+[[VRFW.SynergyPool]]
+name = "raimon_rosters"
+teams = ["0xF01BB293", "0x4B51EDE4", "0x1FBFA767"]
+exclude = ["c05026550", "c03039500", "c11807140"]    # Percival Travis
+hint = "CharacterReforged.HintPlayerOfTeam"
+# exactly four crests: the Ares Raimon IS the Isla Remota team (its crest stands for the Ares-series Raimon records too)
+crests = [
+    { team = "0xF01BB293", era = "ie" },     # Raimon (IE1)
+    { team = "0x4B51EDE4", era = "go" },     # Raimon revolucionario (GO)
+    { team = "0xF01BB293", era = "ares", emblem = "0x5AEB1450" },
+    { team = "0xF01BB293", era = "vr" },     # Raimon (Victory Road)
+]
+
+[[VRFW.Synergy]]
+key = "sf09001"
+nexus_pool = "raimon_captains"
+pool = "raimon_rosters"
+count = 2
+rule = "min"
+distinct = "person"
+
+# the four seasons players of IE2; all four must be in the team.
+[[VRFW.SynergyPool]]
+name = "season_autumn"
+charas = ["c02028510"]
+
+[[VRFW.SynergyPool]]
+name = "season_summer"
+charas = ["c02027650"]
+
+[[VRFW.SynergyPool]]
+name = "season_spring"
+charas = ["c02028970"]
+
+[[VRFW.SynergyPool]]
+name = "season_winter"
+charas = ["c01003050"]
+
+[[VRFW.Synergy]]
+key = "sf11001"
+slots = ["season_autumn", "season_summer", "season_spring", "season_winter"]   # all four persons; the panel draws them as a 2 x 2 grid
+hint = "CharacterReforged.HintSeasons"
+
+# (retail: Caleb Stonewall + Joseph King + David Samford; the effects stay).
+[[VRFW.SynergyPool]]
+name = "royal_academy_captains"
+captains_of = ["0x699E68EC", "0xF1E3E365"]       # Royal Academy, Royal Academy Redux
+captains_of_teams = ["tm_cro_victory_0500"]
+# the game's Ares Royal Academy teams list Grotley Bogwash as captain; the design uses Joseph King (Ares, c07070010)
+captain_overrides = [
+    { team = "tm_cro_ares_0500", captain = "c07070010" },
+    { team = "tm_cro_ares_0520", captain = "c07070010" },
+]
+
+[[VRFW.SynergyPool]]
+name = "royal_academy"
+teams = [
+    "0x699E68EC",   # Royal Academy (IE1, GO, Ares, Victory Road)
+    "0xF1E3E365",   # Royal Academy Redux
+]
+crest_eras = true
+
+[[VRFW.Synergy]]
+key = "sp03001"
+nexus_pool = "royal_academy_captains"
+pool = "royal_academy"
+count = 2
+rule = "min"
+distinct = "person"
+
+# (retail: Hector Helio + David Arrows; PP +5 %, mountain moves +5 %).
+[[VRFW.SynergyPool]]
+name = "legend_apprentice"
+teams = ["0xE7EAEBA2"]                           # Chrono Storm
+charas = [
+    "c03030100", "c03032210",                    # Hector Helio
+    "c01000010", "c01000010_5000", "c05024610", "c05029460", "c90529460", "c07110020",
+    "c11500500", "c11500501", "c11901150", "c11905020",   # Mark Evans
+]
+
+[[VRFW.Synergy]]
+key = "sp03003"
+nexus = ["c06039010"]
+pool = "legend_apprentice"
+count = 1
+rule = "min"
+distinct = "person"
+
+[[VRFW.SynergyPool]]
+name = "asian_stars"
+teams = [
+    "0x6E8EFF55",
+    "0x3B68D406",   # Earth Eleven (Galaxy's Inazuma Japan)
+    "0x38D92EF6",
+    "0x1F3FF22B",   # Dragones de Fuego (IE3, Galaxy)
+    "0xB3233931",   # Big Waves (IE3, Galaxy)
+    "0x260DFB82",
+    "0x8B320237",   # Bisonte Rojo (Orion)
+    "0x65E98C32",   # Demonios Brillantes (Orion)
+    "0x07C063E6",   # Bailarines Eternos (Orion)
+    "0xDEA9DE01",
+    "0xFB135973",   # Cimitarras (Galaxy)
+    "0xCAA009F4",   # Muay Tigers (Galaxy)
+    "0x0BFFCFCD",   # Storm Wolves (Galaxy)
+]
+
+[[VRFW.Synergy]]
+key = "sf08001"
+pool = "asian_stars"
+count = 3                                        # any 3 players of the pool
+rule = "min"
+distinct = "person"
+
+# (retail: Heath Moore + Duske Grayling).
+[[VRFW.SynergyPool]]
+name = "emperor_vassals"
+teams = [
+    "0x27CAEF44",   # Academia Plenilunio
+]
+
+[[VRFW.Synergy]]
+key = "sp07001"
+nexus = ["c07030010"]                            # Heath Moore
+pool = "emperor_vassals"
+count = 1
+rule = "min"
+distinct = "person"
+
+[[VRFW.SynergyPool]]
+name = "neo_japan"
+teams = ["0xAAC01751"]
+hint = "CharacterReforged.HintPlayerOfTeam"
+
+[[VRFW.SynergyPool]]
+name = "japan_resistance"
+teams = ["0x5393BB30"]
+rosters = ["tm_cro_go3_0600", "tm_cro_go3_0620"]
+crests = [{ game_team = "tm_cro_go3_0600" }]   # the emblem the team's screens show
+hint = "CharacterReforged.HintPlayerOfTeam"
+
+[[VRFW.SynergyPool]]
+name = "neo_japan_relentless"
+# Neo Japón Implacable: a game team of its own (no belong team), so only its roster names it
+rosters = ["tm_cro_legend_ORION_08"]
+crests = [{ game_team = "tm_cro_legend_ORION_08" }]   # the emblem the team's screens show
+hint = "CharacterReforged.HintPlayerOfNeoJapanRelentless"
+
+[[VRFW.Synergy]]
+key = "sf11002"
+slots = ["neo_japan", "japan_resistance", "neo_japan_relentless"]   # one player of each of the three teams, three different persons
+slot_members = true
+
+[[VRFW.SynergyPool]]
+name = "second_stage"
+teams = [
+    "0x3CDF7869",   # Ragnah
+    "0x1ABB067A",   # Gir
+    "0x85423719",   # Gar
+    "0x2892DD7D",   # Zan
+    "0xE34B936A",   # Aullido Lunar
+    "0x7479FCE3",
+]
+charas = ["c05021500", "c05020110"]                                         # Zanark, Fei Rune (young)
+exclude = ["c05021500_5000", "c05021500_5100", "c05020110_5000", "c05028090_5000"]   # their armour cards: Mark's face
+hint = "CharacterReforged.HintPlayerOfTeam"
+
+[[VRFW.Synergy]]
+key = "sf11003"
+pool = "second_stage"
+count = 3                                        # any 3 persons of the pool
+rule = "min"
+distinct = "person"
+# one person although their name texts differ: Zanark and his Cao Cao miximax card
+same_person = [["c05021500", "c05028150"]]
+
+# (idea 1 of the teamless groups): any 3 of the five Blackley brothers, named with the Italian numbers.
+[[VRFW.SynergyPool]]
+name = "blackley_brothers"
+charas = ["c04015030", "c04015040", "c04011140", "c04015050", "c04015060"]   # Uno, Due, Tre, Quattro, Cinque
+
+[[VRFW.Synergy]]
+key = "sf11004"
+pool = "blackley_brothers"
+count = 3                                        # any 3 of the 5
+rule = "min"
+distinct = "person"
+
+# (idea 2 of the teamless groups): any 3 of the five Whitely brothers, named with the German numbers.
+[[VRFW.SynergyPool]]
+name = "whitely_brothers"
+charas = ["c04015070", "c04015080", "c04010960", "c04015090", "c04015100"]   # Eins, Zwei, Drei, Vier, Fünf
+
+[[VRFW.Synergy]]
+key = "sp11001"
+pool = "whitely_brothers"
+count = 3                                        # any 3 of the 5
+rule = "min"
+distinct = "person"
+
+[[VRFW.SynergyPool]]
+name = "three_convictions"
+charas = [
+    "c01000010", "c01000010_5000", "c05024610", "c05029460", "c90529460", "c07110020", "c11500500", "c11500501", "c11901150", "c11905020",   # Mark Evans
+    "c01000300", "c01010970", "c05024670", "c05024671", "c11908210", "c07020120", "c11500520", "c11901160", "c11903010", "c11903060",   # Jude Sharp
+    "c01000100", "c01000100_5000", "c01000101", "c05024710", "c05029470", "c90529470", "c06039320", "c06039330", "c07050010", "c11500530", "c11500531",   # Axel Blaze
+    "c04000080", "c04000080_5000", "c04000080_5100", "c04000080_5200", "c04000080_5300", "c05028030", "c05028130", "c05028130_5000", "c05028130_5200", "c05028130_5300", "c11908140", "c11908190", "c06037460",   # Arion Sherwind
+    "c04000090", "c04000090_5000", "c04000090_5100", "c05028040", "c05028040_5000", "c11908150",   # Riccardo Di Rigo
+    "c04000100", "c04000100_5000", "c04000100_5100", "c05028110", "c05028110_5000", "c05029410", "c90529410", "c05029440", "c90529440", "c06039070",   # Victor Blade
+    "c07010010",   # Sonny Wright
+    "c07030010", "c11907100",   # Heath Moore
+    "c07020010",   # Elliot Ember
+    "c11010010", "c11010011", "c11010012", "c11010013",   # Destin Billows
+    "c11010020", "c11010025",   # Briar Bloomhurst
+    "c11020010", "c11020011", "c11020170", "c11260010",   # Harper Evans
+]
+
+[[VRFW.Synergy]]
+key = "sf07001"
+pool = "three_convictions"
+count = 3
+rule = "min"
+distinct = "person"
+
+# ------------------------------------------------------------------------------------------------ The Unbreakable Women
+
+[[VRFW.SynergyPool]]
+name = "female_stars"
+charas = [
+    "c02024410", "c02024410_5000",   # Daisy Fields
+    "c02023220", "c07090090",   # Joaquine Downtown
+    "c02024420",   # Alexia Sand
+    "c02024440",   # Rose Pinkpetal
+    "c02024530",   # Amy Spires
+    "c02024080",   # Dora Delight
+    "c02023100", "c06037400",   # Victoria Vanguard
+    "c02023260", "c07090050",   # Kerry Bootgaiter
+    "c02024460",   # Bela Bluebells
+    "c02024500", "c11902320",   # Suzette Hartland
+    "c02023680",   # Sue Sparrow
+    "c02024520",   # Dell Closeout
+    "c02024160",   # Coral Talent
+    "c02023070",   # Marge Fielding
+    "c01002490",   # Samantha Moonlight
+    "c01002110", "c01002110_5000", "c06037410", "c06037410_5100",   # Maddie (Millie) Moonlight
+]
+
+[[VRFW.Synergy]]
+key = "sp02001"                                  # Las inquebrantables
+pool = "female_stars"
+count = 2                                        # any 2 of the team's members
+rule = "min"
+distinct = "person"
+
+[[VRFW.SynergyPool]]
+name = "mission_plathos"
+teams = ["0x29AE2318"]   # Plathos
+hint = "CharacterReforged.HintPlayerOfTeam"
+
+[[VRFW.SynergyPool]]
+name = "mission_destroyers"
+teams = ["0x3A873329"]   # Destructores
+hint = "CharacterReforged.HintPlayerOfTeam"
+
+[[VRFW.Synergy]]
+key = "sf10001"
+slots = ["mission_plathos", "mission_destroyers"]   # one player of each team
+slot_members = true
+
+# ------------------------------------------------------------------------------------------------ Chessboard
+
+[[VRFW.SynergyPool]]
+name = "chess_spirits"
+charas = [
+    "c04003220",
+    "c05024910_5100",                # Gentian, armed card (White Queen armour)
+    "c04003260", "c04002300", "c04002300_5100", "c04003290", "c04003660",
+    "c04003230", "c04003230_5100", "c04003710", "c04003710_5000",   # Eljas Viisi (+armed), Yang (+armed Black Rook): White Rook
+    "c01009010", "c04003240", "c04003240_5100", "c04003250", "c04003690", "c04003690_5000",
+    "c04001420", "c04001420_5100", "c04002060", "c04003270", "c04003280", "c04003300", "c04003310", "c04003440", "c04003470",
+]
+show_candidates = true
+hint = "CharacterReforged.HintChessBoard"
+
+[[VRFW.Synergy]]
+key = "sp11002"
+nexus = ["c04003210", "c04003210_5000"]          # Quentin Cinquedea (White King) or his armed King card
+pool = "chess_spirits"
+count = 2
+rule = "min"
+distinct = "person"
+
+# ------------------------------------------------------------------------------------------------ Dark Angel
+
+[[VRFW.Synergy]]
+key = "sf11005"
+slots = ["sky_team", "dark_team"]                # one player of each team
+slot_members = true
+
+# ------------------------------------------------------------------------------------------------ Chaos
+
+[[VRFW.Synergy]]
+key = "sf11006"
+slots = ["alius_diamond_dust", "alius_prominence"]   # one player of each team
+slot_members = true
+
+# ------------------------------------------------------------------------------------------------ Creatures of the Night
+
+[[VRFW.Synergy]]
+key = "sp11003"
+slots = ["lunar_howl", "nosfanatica"]            # one player of each team
+slot_members = true
+
+# ------------------------------------------------------------------------------------------------ The Professor and His Apprentice
+
+[[VRFW.SynergyPool]]
+name = "hershel_layton"
+charas = ["c05029710"]
+
+[[VRFW.SynergyPool]]
+name = "luke_triton"
+charas = ["c05029720"]
+
+[[VRFW.Synergy]]
+key = "sp11004"
+slots = ["hershel_layton", "luke_triton"]        # both persons (Remi Altava is not in the game data)
+
+# ------------------------------------------------------------------------------------------------ Thunder and Blaze
+
+[[VRFW.SynergyPool]]
+name = "bai_long"
+charas = ["c04003500", "c04003500_5000", "c04003500_5100", "c05028140", "c05029450", "c11908170"]
+
+[[VRFW.SynergyPool]]
+name = "sol_daystar"
+charas = ["c04002900", "c04002900_5000", "c05028060"]
+
+[[VRFW.Synergy]]
+key = "sf11007"
+slots = ["bai_long", "sol_daystar"]              # both persons
+
+# ------------------------------------------------------------------------------------------------ The Ogre Vanguard
+
+[[VRFW.SynergyPool]]
+name = "bash_lancer"
+charas = ["c03033690", "c11250060"]
+
+[[VRFW.SynergyPool]]
+name = "escavan_malice"
+charas = ["c04018060"]
+
+[[VRFW.SynergyPool]]
+name = "mystral_callous"
+charas = ["c03033660"]
+
+[[VRFW.Synergy]]
+key = "sf11008"
+slots = ["bash_lancer", "escavan_malice", "mystral_callous"]   # all three persons
+
+# ------------------------------------------------------------------------------------------------ Chrono Storm
+
+# the Chrono Storm players in their Miximax forms (the game's Miximax idol cards; other mods extend it) + Bai Long Miximax Zhuge Liang
+[[VRFW.SynergyPool]]
+name = "chrono_storm_miximax"
+charas = [
+    "c05028130", "c05028130_5000", "c05028130_5200", "c05028130_5300", "c05028030",   # Arion Sherwind
+    "c05028040", "c05028040_5000",   # Riccardo Di Rigo
+    "c05028110", "c05028110_5000",   # Victor Blade
+    "c05028090", "c05028090_5000", "c05028010",   # Fei Rune
+    "c05028070",   # Jean-Pierre Lapin
+    "c05028050",   # Gabriel García
+    "c05028100",   # Ryoma Nishiki
+    "c05028120", "c05028120_5000",   # Goldie Lemmon
+    "c05028080",   # Sor
+    "c05028060",   # Sol Daystar (Zhuge Liang)
+    "c05028160", "c05028150",   # Zanark Avalonic
+    "c05028140",   # Bai Long (Zhuge Liang)
+]
+show_candidates = true
+hint = "CharacterReforged.HintChronoStormMiximax"
+
+[[VRFW.Synergy]]
+key = "sf11009"
+pool = "chrono_storm_miximax"
+count = 3                                        # any 3 persons of the pool
+rule = "min"
+distinct = "person"
+same_person = [["c05028160", "c05028150"]]   # Zanark's Miximax cards carry different name texts
+
+# ------------------------------------------------------------------------------------------------ The Bond of the Stars
+
+[[VRFW.SynergyPool]]
+name = "philip_star"
+charas = ["c08010010", "c11908120"]
+
+[[VRFW.SynergyPool]]
+name = "lucas_star"
+charas = ["c08010020", "c11908130", "c11908320"]
+
+[[VRFW.Synergy]]
+key = "sp11005"
+slots = ["philip_star", "lucas_star"]            # both persons
+
+# ------------------------------------------------------------------------------------------------ Born of the Divine
+
+[[VRFW.SynergyPool]]
+name = "byron_love_zeus"
+charas = ["c01001900"]
+
+[[VRFW.SynergyPool]]
+name = "thaddeus_bellefax"
+charas = ["c11150120"]
+
+[[VRFW.Synergy]]
+key = "sf11010"
+slots = ["byron_love_zeus", "thaddeus_bellefax"]  # both persons

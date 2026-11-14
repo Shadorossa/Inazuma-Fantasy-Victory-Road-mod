@@ -1,3 +1,5 @@
+-- Live match frame helpers: score, minute, ball in play, timers, change watchers. Call: in a handler (not while the script loads).
+--- Library: live match state, score, minute and timers.
 
 local Live = {}
 
@@ -33,13 +35,13 @@ local function load_states()
   }
 end
 
---- The match state sets (live, in play, duel).
+--- VRFW.match.live.states(): the match state sets (live, in play, duel) to test a frame with. Call: in a handler (not while the script loads).
 function Live.states()
   if not states then states = load_states() end
   return states
 end
 
---- A state set from the array `list` (`default` when `list` is not a table).
+--- Advanced: A state set from the array `list` (`default` when `list` is not a table).
 function Live.state_set(list, default)
   if type(list) == "table" then return set_of(list) end
   return default or Live.states().live
@@ -49,38 +51,38 @@ local function state_of(m)
   return type(m) == "table" and tonumber(m.soccer_state) or nil
 end
 
---- True when frame `m` is in a state of `set` (default: the live states).
+--- Internal: True when frame `m` is in a state of `set` (default: the live states).
 function Live.is_live(m, set)
   local st = state_of(m)
   return st ~= nil and (set or Live.states().live)[st] == true
 end
 
---- True when frame `m` has the ball in play.
+--- VRFW.match.live.in_play(m): whether the ball is in play in frame m. Call: in a handler (not while the script loads).
 function Live.in_play(m)
   local st = state_of(m)
   return st ~= nil and st == Live.states().in_play
 end
 
---- True when frame `m` is in a duel.
+--- Internal: True when frame `m` is in a duel.
 function Live.is_duel(m)
   local st = state_of(m)
   return st ~= nil and Live.states().duel[st] == true
 end
 
---- The seconds of frame `m` while it is live; 0 otherwise.
+--- Advanced: The seconds of frame `m` while it is live; 0 otherwise.
 function Live.live_time_step(m, set)
   local dt = type(m) == "table" and tonumber(m.dt) or 0
   if dt > 0 and dt < 1 and Live.is_live(m, set) then return dt end
   return 0
 end
 
---- The match minute of frame `m`; nil when unknown.
+--- VRFW.match.live.minute(m): the match minute of frame m, or nil. Call: in a handler (not while the script loads).
 function Live.minute(m)
   local c = type(m) == "table" and tonumber(m.clock) or nil
   return c and math.floor(c / 60) or nil
 end
 
---- The goals of frame `m`: own, rival; nil, nil when unknown.
+--- VRFW.match.live.score(m): the goals of match frame m: own, rival (nil, nil when unknown). Call: in a handler (not while the script loads).
 function Live.score(m)
   if type(m) ~= "table" or type(m.score) ~= "table" then return nil, nil end
   local us = m.user_team
@@ -108,7 +110,7 @@ function Timer:reset()
   self.acc = 0
 end
 
---- A timer of `seconds` seconds.
+--- VRFW.match.live.timer(seconds): a countdown of match time. Call: in a handler (not while the script loads).
 function Live.timer(seconds)
   return setmetatable({ seconds = tonumber(seconds) or 0, acc = 0 }, Timer)
 end
@@ -142,7 +144,7 @@ function Watch:reset()
   self.last, self.seen = {}, false
 end
 
---- A new watcher of what changes between frames.
+--- VRFW.match.live.watch(): a watcher that tells what changed between two frames (goals, state). Call: in a handler (not while the script loads).
 function Live.watch()
   return setmetatable({ last = {}, now = {}, changed = {}, seen = false }, Watch)
 end
@@ -175,8 +177,8 @@ end
 
 local function ensure_tick()
   if listeners or timers then return end
-  VRFW.on("tick", on_tick)
-  VRFW.on("match_start", function()
+  VRFW.on("frame:tick", on_tick)
+  VRFW.on("match:start", function()
     if watcher then watcher:reset() end
     for _, t in ipairs(timers or {}) do t.timer:reset() end
     return nil
@@ -185,7 +187,7 @@ end
 
 local KINDS = { minute = true, score = true, half = true, state = true }
 
---- Calls `fn` when `kind` (minute, score, half, state) changes; false, why on another kind.
+--- Internal: Calls `fn` when `kind` (minute, score, half, state) changes; false, why on another kind.
 function Live.on(kind, fn)
   if not KINDS[kind] then return false, "kind must be minute, score, half or state" end
   ensure_tick()
@@ -195,7 +197,7 @@ function Live.on(kind, fn)
   table.insert(listeners[kind], fn)
 end
 
---- Calls `fn` every `seconds` seconds of live match time.
+--- Internal: Calls `fn` every `seconds` seconds of live match time.
 function Live.every(seconds, fn, opts)
   ensure_tick()
   timers = timers or {}

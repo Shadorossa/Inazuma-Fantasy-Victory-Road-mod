@@ -1,3 +1,4 @@
+-- Advanced: List of providers that add badges to a move plate.
 if VRFW.ui_plates == nil then
   local U = {
     LOG = 519897777,
@@ -11,17 +12,18 @@ if VRFW.ui_plates == nil then
       NAME_TEXT = 720417636,
     },
   }
+  --- Advanced: Namespace of the UI plate helpers shared by the framework menus.
   VRFW.ui_plates = U
   local C = U.C
 
   local logger
-  --- Logs through the ui logger.
+  --- Internal: Logs through the ui logger.
   function U.log(...)
     logger = logger or VRFW.logger.new("vrfw.ui")
     logger(...)
   end
 
-  --- The layout table `name`; an empty table when it is not declared.
+  --- Advanced: The layout table `name`; an empty table when it is not declared.
   function U.layout(name)
     local t = type(VRFW.ui_plates_layout) == "table" and VRFW.ui_plates_layout[name] or nil
     return type(t) == "table" and t or {}
@@ -60,6 +62,7 @@ if VRFW.ui_plates == nil then
     moved = {},
     home = {},                     -- "layer:inst" -> {x, y, z} layout translation of the glyph
   }
+  --- Advanced: Header row plate helper: draws the header row of a plate list.
   U.header_row = HR
 
   --- The state key of (layer, inst).
@@ -427,8 +430,12 @@ if VRFW.ui_plates == nil then
     ICONS = {2164615260, 559600405, 1206374040},      -- category icon, sub icon, armed badge
     LOCK_ANIME = 908051707, ANIME_SET = 753088835,
     SLOT_ARG = 1803124851,         -- SetSkillItemLayerName's 4th argument (every caller's)
+    -- The meshes a lock badge hides: the plate, category icon, sub icon, armed badge and focus frame.
+    BADGE_HIDDEN = {4282364172 --[[_cmd_base_sp01]], 2164615260, 559600405, 1206374040, 148027488},
   }
+  --- Advanced: Move plate helper: draws a move's plate and its badges.
   U.move_plate = MP
+  --- List of providers that add badges to a move plate.
   VRFW.move_badge_providers = VRFW.move_badge_providers or {}
 
   --- The move's place in the chara's match list (0..5), nil = not in it.
@@ -536,7 +543,7 @@ if VRFW.ui_plates == nil then
       if not present or funcLuaMenuCommand(C.IS_OPEN, e.row, e.inst) ~= true then
         MP.kept[k] = nil
       else
-        local armed = e.armed == true or MP.second_badge(e.row, e.inst)
+        local armed = e.badge_spot ~= false and (e.armed == true or MP.second_badge(e.row, e.inst))
         local a = funcLuaMenuCommand(MP.IS_MESH_VIS, e.row, MP.ARMED, e.inst) == true
         local d = funcLuaMenuCommand(MP.IS_MESH_VIS, e.row, MP.AT_DMY, e.inst) == true
         local b = funcLuaMenuCommand(MP.IS_MESH_VIS, e.row, MP.SUB, e.inst) == true
@@ -611,6 +618,11 @@ if VRFW.ui_plates == nil then
       funcLuaMenuCommand(C.VIS, row, inst, false)
       return false, err
     end
+    -- The plate base node shows its whole subtree again, so it is set before the parts below (lock, badges, dummies).
+    if o.full_base == true then
+      funcLuaMenuCommand(C.NODE_VIS, row, MP.POS_BASE1, true, inst)
+      funcLuaMenuCommand(C.NODE_VIS, row, MP.POS_BASE2, false, inst)
+    end
     if o.focus ~= true then
       funcLuaMenuCommand(C.MESH, row, MP.FOCUS, false, inst)
     end
@@ -618,8 +630,12 @@ if VRFW.ui_plates == nil then
     if armed == nil then
       armed = MP.armed(move)
     end
-    funcLuaMenuCommand(C.MESH, row, MP.ARMED, armed == true or MP.second_badge(row, inst), inst)
+    -- The lock of a locked or fixed row sits on the AT spot that the armed badge shares, so that row shows no badge there.
+    local badge_spot = o.locked ~= true and o.fixed ~= true
+    funcLuaMenuCommand(C.MESH, row, MP.ARMED, badge_spot and (armed == true or MP.second_badge(row, inst)), inst)
     funcLuaMenuCommand(C.MESH, row, MP.AT_DMY, false, inst)
+    -- The lock and its learn level follow the caller's rule only: a learned move never keeps the retail fill's lock.
+    MP.lock(row, inst, o.locked == true or o.fixed == true, o.locked == true and o.need or 0)
     local sub = move ~= nil and move ~= 0 and funcLuaMenuCommand(MP.IS_MESH_VIS, row, MP.SUB, inst) == true
     if move ~= nil and move ~= 0 then
       local asked = false
@@ -632,7 +648,7 @@ if VRFW.ui_plates == nil then
         end
       end
     end
-    MP.kept[key] = {row = row, inst = inst, move = move, armed = armed == true, sub = sub}
+    MP.kept[key] = {row = row, inst = inst, move = move, armed = armed == true, sub = sub, badge_spot = badge_spot}
     if o.redo == true or o.log == true then
       U.log("move plate fill", row, inst, string.format("%08X", (move or 0) % 4294967296), "armed", tostring(armed == true),
         "redo", tostring(o.redo == true), "badge", tostring(sub))
@@ -665,13 +681,12 @@ if VRFW.ui_plates == nil then
     f.show = false
     f.queued = true                                     -- the Row queues itself (not its inner Fill)
     f.redo = o.redo
+    f.full_base = true
     local ok, err = MP.fill(row, inst, chara, move, f)
     if not ok then
       return false, err
     end
     local empty = move == 0
-    funcLuaMenuCommand(C.NODE_VIS, row, MP.POS_BASE1, true, inst)
-    funcLuaMenuCommand(C.NODE_VIS, row, MP.POS_BASE2, false, inst)
     if empty or o.locked then
       funcLuaMenuCommand(C.SPRITE, row, MP.TX09, MP.GREY, MP.SP1, 0, inst)
     end
@@ -696,8 +711,13 @@ if VRFW.ui_plates == nil then
         funcLuaMenuCommand(C.TEXT, row, MP.TEXT, name .. o.suffix, inst)
       end
     end
-    local lock = o.locked == true or o.fixed == true
-    local lv = o.locked and (tonumber(o.need) or 0) or 0
+    funcLuaMenuCommand(C.MESH, row, MP.FOCUS, false, inst)
+    return true
+  end
+
+  --- Shows or hides the lock part of plate (row, inst), with learn level `level` drawn inside the lock when above 0.
+  function MP.lock(row, inst, lock, level)
+    local lv = lock and (tonumber(level) or 0) or 0
     if lock then
       funcLuaMenuCommand(C.ANIME, row, inst, MP.LOCK_ANIME, 0, MP.ANIME_SET)
       funcLuaMenuCommand(C.NODE_VIS, row, MP.POS_AT, false, inst)
@@ -711,7 +731,22 @@ if VRFW.ui_plates == nil then
       end
     end
     funcLuaMenuCommand(C.PRIM_VIS, row, inst, MP.PRIM_LOCK, lock and lv > 0)
-    funcLuaMenuCommand(C.MESH, row, MP.FOCUS, false, inst)
+  end
+
+  --- Shows plate (row, inst) as its lock part alone at node position (x, y) with `level` inside; answers true, or false, why.
+  function MP.lock_badge(row, inst, level, x, y)
+    if funcLuaMenuCommand(C.EXIST, row) ~= true then
+      return false, "no row"
+    end
+    funcLuaMenuCommand(C.NODE_VIS, row, MP.POS_BASE1, true, inst)
+    funcLuaMenuCommand(C.NODE_VIS, row, MP.POS_BASE2, false, inst)
+    MP.lock(row, inst, true, level)
+    for _, mesh in ipairs(MP.BADGE_HIDDEN) do
+      funcLuaMenuCommand(C.MESH, row, mesh, false, inst)
+    end
+    funcLuaMenuCommand(C.TEXT, row, MP.TEXT, "", inst)
+    funcLuaMenuCommand(C.NODE_POS, row, inst, MP.POS_LOCK, 0, x)
+    funcLuaMenuCommand(C.NODE_POS, row, inst, MP.POS_LOCK, 1, y)
     return true
   end
 

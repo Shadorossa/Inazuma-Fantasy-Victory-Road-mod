@@ -1,0 +1,74 @@
+schema = "VRFW.technique/3"
+# Tormenta meteoro V: Nike's (wks02060) keshin shot in place of Meteoric Fire Tornado V. Its cut-in opens with Fireball
+# Storm with Surtur (whs01770, ev60_01770: the spirit rises in the fire, the leap and the ball in the flames) with Nike
+# in Surtur's place, and ends with Meteoric Fire Tornado V (whs10160, ev60_10160: the kick in the air and the meteor's
+# dive). Power and TP: the stronger source's (whs10160, 140-800, 100 TP; whs01770
+# tops at 720, 80 TP), so `base` = whs10160 (fire, solo). Nike's packs: _tools/tormenta_meteoro_v_build.py.
+
+[[technique]]
+name = "tormenta_meteoro_v"
+base = "whs10160"
+manual = true
+users = 1
+element = "fire"
+  [technique.text.es]
+  name = "Tormenta meteoro V"
+  description = "Niké alza una tormenta de fuego y\nel balón cae como un meteoro ardiente."
+  [technique.text.en]
+  name = "Meteor Storm V"
+  description = "Niké raises a storm of fire and the\nball falls like a blazing meteor."
+  [technique.text.fr]
+  name = "Tempête météore V"
+  description = "Niké soulève une tempête de feu et le\nballon tombe comme un météore ardent."
+  [technique.text.de]
+  name = "Meteorsturm V"
+  description = "Niké entfacht einen Feuersturm und der\nBall stürzt wie ein glühender Meteor."
+  [technique.text.it]
+  name = "Tempesta Meteora V"
+  description = "Niké scatena una tempesta di fuoco e il\npallone cade come una meteora ardente."
+  [technique.text.pt]
+  name = "Tempestade Meteoro V"
+  description = "Niké ergue uma tempestade de fogo e a\nbola cai como um meteoro em chamas."
+  [technique.text.ja]
+  name = "メテオストームＶ"
+  description = "ニケが炎の嵐を巻き起こし\nボールが燃える流星となって落ちる！"
+  [technique.text.zh_hans]
+  name = "流星风暴V"
+  description = "尼刻掀起烈焰风暴，\n球化作燃烧的流星坠落。"
+  [technique.text.zh_hant]
+  name = "流星風暴V"
+  description = "尼刻掀起烈焰風暴，\n球化作燃燒的流星墜落。"
+  # The first three cuts are ev60_01770's own with Nike's packs (`assigned`); the move name shouts of both sources are
+  # left out (neither is this move's name). In the launch (c0030) Fireball Storm's fireball (ev60017700 and the ball's
+  # ball_aura_bakunetsu_storm) is left out: the fire tornado rises with the shooter there (content/effects).
+  # The splice: the launch (c0030's last frame) cuts straight to the kick in the air (ev60_10160 c0400); its c0300 (the
+  # camera following the shooter as he flies up) is left out. The last two cuts come whole from ev60_10160 (its fire
+  # tornado, effects and sounds) in their own placement; in its
+  # kick (c0400) Nike kicks behind the shooter as Surtur does in ev60_01770 c0040 (the packs the build ships there).
+  [technique.animation]
+  from = "ev60_01770"
+  id = "ev60_81770"
+  telop = "whs91016"              # its own banner (content/telops/es, any), laid out as whs10160's
+  sound_cue = "ev60_81770_me"
+  assigned = ["k002060"]
+  cuts = [
+    "c0010",
+    "c0020",
+    { cut = "c0030", hide = ["whs00450", "ev60017700", "ball_aura_bakunetsu_storm"] },
+    { from_event = "ev60_10160", cut = "c0400", slot = "c0030", whole = true },
+    { from_event = "ev60_10160", cut = "c0500", slot = "c0030", whole = true },
+  ]
+
+# Nike's keshin shot (its story variant too) becomes Tormenta meteoro V: every bearer of Nike gets it.
+[[aura]]
+aura = "wks02060"
+technique = "tormenta_meteoro_v"
+
+[[aura]]
+aura = "wks02060_st0901"
+technique = "tormenta_meteoro_v"
+
+# The cut-in's spirit is the performer's own Nike, whose packs the event ships.
+[[event_env]]
+event = "ev60_81770"
+tag_words = { set = { k002060 = "k002060" } }

@@ -37,6 +37,10 @@ log_uses = true
 raise_item = "abl_000001"
 last_grade_item = "abl_ue000001"
 last_grade_item_only = true
+# the colour of each grade 0..5 (Nv.1..Nv.6), "#RRGGBB": the skill table's use bar fades from the current
+# grade's colour to the next one's
+# (grades 1-5 sampled from the game's evolution icons gaiji_wlv101..105)
+grade_colors = ["#C8CDD7", "#F7742C", "#6EB4F2", "#DF49BA", "#F5CB3A", "#E85308"]
 
 [duplicates]
 block = true

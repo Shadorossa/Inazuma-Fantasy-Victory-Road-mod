@@ -1,3 +1,4 @@
+--- Advanced: Library: rival players, their stats, positions and elements.
 
 local Id = VRFW.ids
 local ME = VRFW.match.equipment
@@ -6,11 +7,16 @@ local _, warn = VRFW.logger("rival_players")
 local M = {}
 local TWO32 = 4294967296
 
+--- Advanced: Constants: rival stat names mapped to their stat index.
 M.STAT = { kick = 0, control = 1, technique = 2, pressure = 3, physical = 4, intelligence = 5, agility = 6, luck = 8 }
+--- Internal: Stat index mapped back to its stat name.
 M.STAT_NAME = {}
 for k, v in pairs(M.STAT) do M.STAT_NAME[v] = k end
+--- Internal: Position code (1-4) mapped to GK, FW, MF or DF.
 M.POSITION_KEY = { [1] = "GK", [2] = "FW", [3] = "MF", [4] = "DF" }
+--- Internal: Constant 5.
 M.SLOTS = 5
+--- Internal: Element names mapped to their element index.
 M.ELEMENT = { neutral = 0, wind = 1, forest = 2, fire = 3, mountain = 4, void = 5 }
 
 local RULES = nil
@@ -91,8 +97,7 @@ local function games_of(v)
   return any and out or nil
 end
 
-local function load()
-  if RULES then return RULES end
+local function read_rules()
   RULES = {}
   local ok, files = pcall(VRFW.files.declarations, "content/rival_players")
   if not ok or type(files) ~= "table" then return RULES end
@@ -206,7 +211,23 @@ local function load()
   return RULES
 end
 
---- the rule of a match: game rules first, then difficulty rules; the mod loaded last wins
+-- the rules, built once per VM and kept between starts (mod files only)
+local function load()
+  if RULES then return RULES end
+  local ok, t = pcall(VRFW.derived, "rival_rules", nil, read_rules)
+  if ok and type(t) == "table" then
+    RULES = t
+  else
+    RULES = {}
+    warn("content/rival_players not read (" .. tostring(t) .. ")")
+  end
+  return RULES
+end
+
+--- Advanced: Builds (or reads from the start cache) the rules; a script calls it at load so a match call stays short.
+M.prepare = load
+
+--- Advanced: the rule of a match: game rules first, then difficulty rules; the mod loaded last wins
 function M.rule(game, diff, mode, side)
   local rules = load()
   local best, best_rank = nil, -1
@@ -234,7 +255,7 @@ local function stat_fit(a, row)
   return all > 0 and listed / all or 0
 end
 
---- The cards `rule` picks from `rows`, as an array.
+--- Advanced: The cards `rule` picks from `rows`, as an array.
 function M.choose(rule, rows)
   local picks = {}
   if not rule.archetypes or #rows == 0 then return picks end
@@ -261,7 +282,7 @@ function M.choose(rule, rows)
   return picks
 end
 
---- The position of card `card` (0 when unknown).
+--- Internal: The position of card `card` (0 when unknown).
 function M.position(card)
   local ok, ci = pcall(VRFW.character.card, card)
   local p = ok and type(ci) == "table" and tonumber(ci.position) or 0

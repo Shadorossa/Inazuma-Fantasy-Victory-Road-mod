@@ -1,15 +1,17 @@
+-- Save documents: a text kept per save slot (or "global"), with backups. Call: in a handler (not while the script loads).
+--- Library: save slot text documents and their stores.
 
 local Doc = {}
 
 local stores = {}
 
---- True when the save slots are ready.
+--- Internal: True when the save slots are ready.
 function Doc.ready()
   local ok, r = pcall(VRFW.slots.ready)
   return ok and r == true
 end
 
---- The active slot (1 when none).
+--- VRFW.save.doc.slot(): the active save slot (1 when none). Call: in a handler (not while the script loads).
 function Doc.slot()
   local ok, s = pcall(VRFW.slots.active)
   s = ok and tonumber(s) or nil
@@ -17,21 +19,21 @@ function Doc.slot()
   return s
 end
 
---- The text kept under `name` in `scope` (a slot or "global"); nil when there is none; nil, why when it cannot be read.
+--- VRFW.save.doc.read_text(name[, scope]): the text kept under `name` (scope: a slot or "global"). Returns the text, nil when none, or nil and the error. Call: in a handler (not while the script loads).
 function Doc.read_text(name, scope)
   local ok, text, why = pcall(VRFW.save.blob, name, scope)
   if not ok then return nil, tostring(text) end
   return text, why
 end
 
---- Writes `text` under `name` in `scope`: true, where it went; false, why.
+--- VRFW.save.doc.write_text(name, text[, scope]): keeps text under `name`. Returns true and where it went, or false and the error. Needs the `save` permission. Call: in a handler (not while the script loads).
 function Doc.write_text(name, text, scope)
   local ok, written, where = pcall(VRFW.save.blob_write, name, text, scope)
   if not ok then return false, tostring(written) end
   return written and true or false, where
 end
 
---- Takes `name` of `scope` out of use with its backups: true, where it went; false, why.
+--- VRFW.save.doc.set_aside(name[, scope]): takes a document and its backups out of use. Returns true, or false and the error. Call: in a handler (not while the script loads).
 function Doc.set_aside(name, scope)
   local ok, done, where = pcall(VRFW.save.blob_aside, name, scope)
   if not ok then return false, tostring(done) end
@@ -189,7 +191,7 @@ function Store:forget()
   self.doc, self.key, self.state = nil, nil, nil
 end
 
---- A store of the document `name`; `opts` is its version, codec and scope.
+--- VRFW.save.doc.new(name, opts): a store for document `name`; opts gives its version, codec and scope. Call: at load or in a handler.
 function Doc.new(name, opts)
   opts = opts or {}
   local self = setmetatable({ name = name, opts = opts, global = opts.scope == "global", tag = opts.log or name }, Store)
@@ -205,12 +207,12 @@ local function forget_slot_documents()
   return nil
 end
 
-pcall(VRFW.on, "slot_load", function(ev)
+pcall(VRFW.on, "save:slot_load", function(ev)
   if ev and ev.after_load then return nil end
   return forget_slot_documents()
 end)
 
 -- a game reset discards what was staged and not saved
-pcall(VRFW.on, "game_reset", forget_slot_documents)
+pcall(VRFW.on, "game:reset", forget_slot_documents)
 
 return Doc

@@ -40,6 +40,7 @@ local function text(id)
   return nil
 end
 
+--- Internal: archetype table of the formation menu.
 A.formation = A.formation or {}
 local W = A.formation
 

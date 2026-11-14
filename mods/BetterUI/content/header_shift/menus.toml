@@ -1,46 +1,50 @@
 schema = "VRFW.header_shift/1"
 
+# Every menu moves up by the same height, config.toml header_shift_dy.
+
 [[VRFW.HeaderShift]]
 name = "soccer_top"
 stem = "soccer_top_menu"
-dy = 54.9
-layers = [1639968229]
-stretch = [{ layer = 1167254348, scale = 1.06182, x = -122.72, y = 66.77 }]
+dy = "header_shift_dy"
+layers = ["mainmenu90_20_list_item_locator"]
+stretch = [{ layer = "mainmenu90_00_p1_background", scale = 1.06182, x = -122.72, y = 66.77 }]
 
 [[VRFW.HeaderShift]]
 name = "market"
 stem = "market_menu"
-dy = 54.9
-layers = [2251552419, 3347475721, 788718523]
+dy = "header_shift_dy"
+layers = ["shop01_00_p1_market_background", "shop01_03_token_list", "shop01_20_market_list_base"]
 
 [[VRFW.HeaderShift]]
 name = "settings"
 stem = "setting_top_menu"
-dy = 54.9
-layers = [168421631, 3214232292, 253704787]
+dy = "header_shift_dy"
+layers = ["option03_01_list_locator", "option03_01_list_locator_key_config", "save01_05_user_info"]
 
 [[VRFW.HeaderShift]]
 name = "play_guide"
 stem = "play_guide_top_menu"
-dy = 54.9
-layers = [1988385738]
+dy = "header_shift_dy"
+layers = ["playguide01_01_list_item_locator"]
 
 [[VRFW.HeaderShift]]
 name = "chronicle"
 stem = "chronicle_mode_top_menu"
-dy = 54.9
-layers = [234014212]
+dy = "header_shift_dy"
+layers = ["vsroute04_02_chronicle_top_locator"]
 
 [[VRFW.HeaderShift]]
 name = "victory_road"
 stem = "victory_road_top_menu"
-dy = 54.9
-layers = [2649513611, 3551201148, 1283370973]
+dy = "header_shift_dy"
+layers = ["vroad01_05c1_top_attach_center_upper", "vroad01_05l1_top_attach_left_upper", "vroad01_05r1_top_attach_right_upper"]
 
 # Free match («Partido libre»): the series tab bar, the team list and the formation card (the pitch frame is attached to
-# its heading); the help line at the bottom stays.
+# its heading); the help line at the bottom stays. The team list is a list view: it moves by its root node, so its rows
+# stay inside its scissor.
 [[VRFW.HeaderShift]]
 name = "free_match"
 stem = "soccer_vs_cpu_list_menu"
-dy = 54.9
-layers = [1887158505, 1107559438, 1835074715]
+dy = "header_shift_dy"
+layers = ["cmn06_01_list_tab_attach", "mainmenu90_34_cpu_team_formation"]
+lists = [{ layer = "team05_03_soccer_cpu_opponent_list", node = "team05_03_output" }]

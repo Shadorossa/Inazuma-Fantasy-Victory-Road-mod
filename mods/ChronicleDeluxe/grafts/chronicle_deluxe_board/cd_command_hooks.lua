@@ -21,8 +21,8 @@ end
 
 -- Panel layout per list layer kind (0 normal, 1 gate).
 K.PANEL = {
-  [0] = {node = 785322415 --[[_list_base01]], width = 700, height = 644, slots = 8},
-  [1] = {node = 3083223061 --[[_list_base02]], width = 700, height = 472, slots = 5}
+  [0] = {node = @crc:_list_base01@, width = 700, height = 644, slots = 8},
+  [1] = {node = @crc:_list_base02@, width = 700, height = 472, slots = 5}
 }
 K.ROW_HEIGHT = 70
 K.NODE_SCALE = 2885415772         -- (layer, instance, node, width, height): a quad's size in px
@@ -40,7 +40,7 @@ function K.service_piece()
 end
 
 function K.fits_panel(kind)
-  return EVT_ChrFrameFit == nil and VRFW.match_difficulty ~= nil
+  return VRFW.match_difficulty ~= nil
     and (VRFW.match_difficulty.set(kind == 1 and "gate" or "route") ~= nil or K.service_piece())
 end
 
@@ -51,22 +51,22 @@ end
 
 -- Autocomplete: Select on the Chronicle row asks the board (vs_route_town_menu) to record the win.
 K.SELECT_FUNCTION = 692387310     -- the CMD_FUNCTION of CMD_FUNC2 in this menu's setting (Select, keyboard Tab)
-K.SELECT_INPUT = 3170216173 --[[CMD_FUNC2]]
+K.SELECT_INPUT = @crc:CMD_FUNC2@
 K.SELECT_GLYPH = 3401540579       -- the guide glyph retail pairs with CMD_FUNC2 on this menu
-K.AUTOCOMPLETE_TEXT = 3847662389  -- crc32("chronicle_deluxe_autocomplete_prompt")
-K.AUTOCOMPLETE_REQUEST = 1168198373 -- crc32("chronicle_deluxe_autocomplete_request"): read by the board
+K.AUTOCOMPLETE_TEXT = @crc:chronicle_deluxe_autocomplete_prompt@
+K.AUTOCOMPLETE_REQUEST = @crc:chronicle_deluxe_autocomplete_request@ -- read by the board
 K.CHRONICLE = 1                   -- the Chronicle row's difficultyType
-K.ROWS = 284009563                -- vsroute01_16_sub_list
-K.MENU = 1193383590               -- vs_route_town_command_select_menu
-K.GUIDE_LAYER = 1138543975        -- mainmenu01_06_base_button_guide
+K.ROWS = @crc:vsroute01_16_sub_list@
+K.MENU = @crc:vs_route_town_command_select_menu@
+K.GUIDE_LAYER = @crc:mainmenu01_06_base_button_guide@
 K.CMD = {
-  GET_CLEAR = 4034518619,         -- CMND_GET_CHRONICLE_CLEAR_STATUS (slot, difficulty)
-  GET_LOCK = 3394595467,          -- CMND_GET_CHRONICLE_LOCK_STATUS (slot, difficulty)
+  GET_CLEAR = @crc:CMND_GET_CHRONICLE_CLEAR_STATUS@,         -- (slot, difficulty)
+  GET_LOCK = @crc:CMND_GET_CHRONICLE_LOCK_STATUS@,          -- (slot, difficulty)
   FOCUSED_ROW = 2603265800,       -- (list layer) -> focused row, from 0
   GUIDE_EXTRA = 2190844859,       -- (parent menu, guide layer, 0, on): retail turns it on for a guide with two entries
-  SOUND = 1917805374,
-  SOUND_DECIDE = 3848881948,      -- sy0000
-  CLOSE_MENU = 320421347,         -- CMND_CLOSE_MENU_OBJECT
+  SOUND = @crc:CMND_SND_PLAY_SE@,
+  SOUND_DECIDE = @crc:sy0000@,
+  CLOSE_MENU = @crc:CMND_CLOSE_MENU_OBJECT@,
 }
 
 -- Returns the focused battle row.

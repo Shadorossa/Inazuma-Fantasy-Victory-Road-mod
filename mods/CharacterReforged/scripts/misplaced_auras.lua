@@ -37,11 +37,13 @@ local function is_player_slot(slot)
   return not (ok_reserved and reserved)
 end
 
-VRFW.on("slot_load", function(event)
+VRFW.on("save:slot_load", function(event)
   local slot = event.slot
   if not event.has_data or not is_player_slot(slot) then return nil end
   local ok_marker, marker = pcall(VRFW.save.get_blob, slot, MARKER_BLOB)
   if ok_marker and type(marker) == "string" and marker ~= "" then return nil end
+  -- the game already holds this save and the slot is not writable: the check runs at the next load of this slot
+  if event.after_load then return nil end
   local slots = aura_slots()
   if not slots then return nil end
   local tree, why = T.open(slot)
@@ -55,10 +57,6 @@ VRFW.on("slot_load", function(event)
     return nil
   end
   if tree:changed() then
-    if event.after_load then
-      log("slot " .. slot .. " (read at boot, not writable): the next load of this slot takes off " .. report.board .. " aura(s)")
-      return nil
-    end
     local ok_commit, written = pcall(function() return tree:commit() end)
     if not ok_commit or not written then
       warn("slot " .. slot .. ": the save was not written (" .. tostring(ok_commit and "nothing written" or written) .. ")")
@@ -66,8 +64,6 @@ VRFW.on("slot_load", function(event)
     end
     log(string.format("slot %d: %d players, %d board slots, %d match moves emptied", slot, report.players, report.board, report.list))
     for _, line in ipairs(report.lines) do log("slot " .. slot .. ": " .. line) end
-  elseif event.after_load then
-    return nil
   end
   pcall(VRFW.save.set_blob, slot, MARKER_BLOB, string.format("checked: %d board slots, %d match moves emptied\n", report.board, report.list))
   return nil

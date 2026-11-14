@@ -2,6 +2,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.extra_slot/1"
 folder = "content/extra_slots"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Character.ExtraSlot"
+v2_kind_folder = "Characters/ExtraSlots"
+v2_version = 1
 label = "Extra slots"
 label_es = "Ranuras extra"
 
@@ -47,4 +51,3 @@ swap = { type = "table" }
 [entry.DuelAura]
 single = true
 types = { type = "ints" }
-fast_resume = { type = "bool" }

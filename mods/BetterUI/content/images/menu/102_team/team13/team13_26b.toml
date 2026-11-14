@@ -1,0 +1,83 @@
+# BetterUI, skill board move detail: the level / lock badge (team13_26b open_level_lock) takes the shape of the
+# «IA activada» tag (team02_02 ai_use01): a 30 px body, corners of radius 6, a two row 20 % shadow, flat colour. The old
+# pill is redrawn at 4x (anti-aliased corners) in its own colours, the lock glyph shrunk to fit the lower body. The sprites
+# keep their place and 152 x 52 size, so the layout nodes (lock, «Lv.» digits) stay where they are.
+schema = "VRFW.image/1"
+
+[[recipe]]
+name = "lv_lock_base01_body"
+canvas = [592, 120]
+ops = [
+    { op = "opaque" },
+    { op = "fill", rgb = [60, 60, 60] },
+    { op = "round_corners", radius = 24 },
+    { op = "resize", size = [148, 30] },
+]
+
+[[recipe]]
+name = "lv_lock_base01_shadow"
+from = "lv_lock_base01_body"
+ops = [{ op = "fill", rgb = [0, 0, 0] }, { op = "alpha_scale", mul = 1, div = 5 }]
+
+[[recipe]]
+name = "lv_lock_base01_glyph"
+game = "#/menu/102_team/team13/team13_26b/team13_26b.g4tx"
+sprite = "lv_lock_base01"
+ops = [
+    { op = "crop", box = [13, 5, 55, 44] },
+    { op = "resize", size = [31, 29] },
+]
+
+[[recipe]]
+name = "lv_lock_base01_pill"
+canvas = [152, 52]
+ops = [
+    { op = "paste", image = "lv_lock_base01_shadow", at = [2, 13] },
+    { op = "paste", image = "lv_lock_base01_body", at = [2, 11] },
+    { op = "paste", image = "lv_lock_base01_glyph", centre = [34.0, 26.0] },
+]
+
+[[sprite]]
+atlas = "#/menu/102_team/team13/team13_26b/<LG>/team13_26b.g4tx"
+name = "lv_lock_base01"
+recipe = "lv_lock_base01_pill"
+size = [152, 52]
+
+[[recipe]]
+name = "lv_lock_base02_body"
+canvas = [592, 120]
+ops = [
+    { op = "opaque" },
+    { op = "fill", rgb = [0, 145, 106] },
+    { op = "round_corners", radius = 24 },
+    { op = "resize", size = [148, 30] },
+]
+
+[[recipe]]
+name = "lv_lock_base02_shadow"
+from = "lv_lock_base02_body"
+ops = [{ op = "fill", rgb = [0, 0, 0] }, { op = "alpha_scale", mul = 1, div = 5 }]
+
+[[recipe]]
+name = "lv_lock_base02_glyph"
+game = "#/menu/102_team/team13/team13_26b/team13_26b.g4tx"
+sprite = "lv_lock_base02"
+ops = [
+    { op = "crop", box = [13, 5, 55, 44] },
+    { op = "resize", size = [31, 29] },
+]
+
+[[recipe]]
+name = "lv_lock_base02_pill"
+canvas = [152, 52]
+ops = [
+    { op = "paste", image = "lv_lock_base02_shadow", at = [2, 13] },
+    { op = "paste", image = "lv_lock_base02_body", at = [2, 11] },
+    { op = "paste", image = "lv_lock_base02_glyph", centre = [34.0, 26.0] },
+]
+
+[[sprite]]
+atlas = "#/menu/102_team/team13/team13_26b/<LG>/team13_26b.g4tx"
+name = "lv_lock_base02"
+recipe = "lv_lock_base02_pill"
+size = [152, 52]

@@ -1,3 +1,5 @@
+-- Match players (actors): list, find by character, read fields. Call: in a handler (not while the script loads).
+--- Library: match player actors, units and their fields.
 local Memory = VRFW.memory
 
 local M = {}
@@ -16,7 +18,7 @@ local function profile_value(name)
   return nil
 end
 
---- The match actor layout from the game profile; nil, why when a field is missing.
+--- Internal: The match actor layout from the game profile; nil, why when a field is missing.
 function M.layout()
   if LAYOUT ~= nil or LAYOUT_WHY ~= nil then
     return LAYOUT, LAYOUT_WHY
@@ -25,26 +27,22 @@ function M.layout()
     count = "Match.ActorCount", stride = "Actor", handle = "Actor.Handle", team = "Actor.Team",
     unit_chara = "MatchUnit.Chara",
   }
-  local out = {}
-  for key, name in pairs(names) do
-    local v = profile_value(name)
-    if v == nil then
-      LAYOUT_WHY = "the game profile has no " .. name
-      VRFW.warn("actors: " .. LAYOUT_WHY)
-      return nil, LAYOUT_WHY
-    end
-    out[key] = v
+  local out, missing = VRFW.game.fields(names)
+  if out == nil then
+    LAYOUT_WHY = "the game profile has no " .. tostring(missing)
+    VRFW.warn("actors: " .. LAYOUT_WHY)
+    return nil, LAYOUT_WHY
   end
   LAYOUT = out
   return LAYOUT
 end
 
---- The address of the actor table; nil when there is no match.
+--- VRFW.players.base(): the address of the actor table, or nil when no match runs. Call: in a handler (not while the script loads).
 function M.base()
   return VRFW.game.global(ACTOR_TABLE)
 end
 
---- The match unit of actor `address`; nil when it has none.
+--- VRFW.players.unit_of(address): the match unit of an actor, or nil. Call: in a handler (not while the script loads).
 function M.unit_of(address)
   if not Memory.is_pointer(address) then
     return nil
@@ -56,7 +54,7 @@ function M.unit_of(address)
   return nil
 end
 
---- The character handle of actor `address` (0 when none).
+--- VRFW.players.chara(address): the character handle of an actor (0 when none). Call: in a handler (not while the script loads).
 function M.chara(address)
   local L = M.layout()
   local unit = L and M.unit_of(address)
@@ -69,7 +67,7 @@ end
 -- MatchUnit.Attr: false = the profile lacks it (asked once)
 local AURA_BITS = nil
 
---- The aura bits of actor `address`; nil when unreadable.
+--- VRFW.players.aura_flags(address): the aura bits of an actor, or nil. Call: in a handler (not while the script loads).
 function M.aura_flags(address)
   if AURA_BITS == nil then
     AURA_BITS = profile_value("MatchUnit.Attr") or false
@@ -84,7 +82,7 @@ function M.aura_flags(address)
   return Memory.read("u8", unit + AURA_BITS)
 end
 
---- The actors matching `opts`, as an array.
+--- VRFW.players.list([opts]): the actors on the pitch that match opts (team, ...), as a list. Call: in a handler (not while the script loads).
 function M.list(opts)
   opts = opts or {}
   local out = {}
@@ -116,7 +114,7 @@ end
 
 local FRAME_LIST, FRAME_ENTRIES, FRAME_N = {}, {}, 0
 
---- Every actor of this frame (an array reused by the next call), and the table address.
+--- VRFW.players.frame(): every actor of this frame (a list reused by the next call) and the table address. Call: in a handler (not while the script loads).
 function M.frame()
   local out = FRAME_LIST
   for i = FRAME_N, 1, -1 do out[i] = nil end
@@ -154,7 +152,7 @@ end
 -- [struct .. "." .. field] = { at, type } (false = unknown): asked once
 local FIELDS = {}
 
---- The values of `struct`.`field` of every actor from `base`, as an array; nil when unreadable.
+--- VRFW.players.field(struct, field[, base]): one profile field of every actor, as a list, or nil. Call: in a handler (not while the script loads).
 function M.field(struct, field, base)
   local key = struct .. "." .. field
   local f = FIELDS[key]
@@ -182,7 +180,7 @@ function M.field(struct, field, base)
   return nil
 end
 
---- An iterator over the actors matching `opts`.
+--- VRFW.players.each([opts]): an iterator over the actors that match opts. Call: in a handler (not while the script loads).
 function M.each(opts)
   local list = M.list(opts)
   local i = 0
@@ -196,7 +194,7 @@ function M.each(opts)
   end
 end
 
---- The actor of character `handle`; nil when none.
+--- VRFW.players.of(handle[, opts]): the actor of a character handle, or nil. Call: in a handler (not while the script loads).
 function M.of(handle, opts)
   local L = M.layout()
   local base = L and M.base()

@@ -155,7 +155,6 @@ if CharacterReforged.page == nil then
   Page.CMD_MATCH_MEMBER = 992494052
   Page.CMD_MEMBER_MOVES = 319507648
   Page.CMD_SKILL_INFO = 2580586398
-  Page.MIX_AURA_TYPES = {[2] = true, [6] = true}   -- Mix-Max, Switch Mode
   function Page.match_member_set(card)
     local found, team, slot = VRFW.host.command(Page.CMD_MATCH_MEMBER, card)
     if not (found == true and type(team) == "number" and type(slot) == "number") then
@@ -170,10 +169,11 @@ if CharacterReforged.page == nil then
       local m = VRFW.ids.unsigned(r[1 + i])
       local known, category = VRFW.host.command(Page.CMD_SKILL_INFO, m, 9)
       if m ~= 0 and known and category == 8 then
-        local kt, kind = VRFW.host.command(Page.CMD_SKILL_INFO, m, 13)
-        if kt and Page.MIX_AURA_TYPES[kind] then
+        -- The Hiper half of an aura: the one classifier CMND_CHARACTERREFORGED_SLOT_OF (1 mix, 0 aura, 2 armour).
+        local kind = VRFW.host.command(CharacterReforged.move_rows.SLOT_OF, m)
+        if CharacterReforged.move_rows.MIX_SLOT_KINDS[kind] then
           if value.mix == 0 then value.mix, value.mix_from = m, i - 1 end
-        elseif value.aura == 0 then
+        elseif CharacterReforged.move_rows.AURA_SLOT_KINDS[kind] and value.aura == 0 then
           value.aura, value.aura_from = m, i - 1
         end
       elseif m ~= 0 then
@@ -184,6 +184,14 @@ if CharacterReforged.page == nil then
     return value
   end
 
+  -- Adds the learn list moves of an empty aura or mix slot that card `card` has not reached yet (the one menu rule of CharacterReforged.move_rows).
+  function Page.with_locked(card, value)
+    if type(CharacterReforged.move_rows) ~= "table" then
+      return value
+    end
+    return CharacterReforged.move_rows.with_locked(funcLuaCommand, card, value)
+  end
+
   function Page.projection(card)
     if not EngineReady() or type(card) ~= "number" or card == 0 then
       return nil
@@ -191,7 +199,7 @@ if CharacterReforged.page == nil then
     if type(VRFW.plate_member) == "table" and type(VRFW.plate_member.skill_set) == "function" then
       local okm, member = pcall(VRFW.plate_member.skill_set, card)
       if okm and type(member) == "table" then
-        return member
+        return Page.with_locked(card, member)
       end
     end
     local now = Clock()
@@ -202,11 +210,18 @@ if CharacterReforged.page == nil then
     local value = Page.match_member_set(card)
     local aura, mix, auraFrom, mixFrom
     if value == nil then
+      -- the slots' own projection also steps the mod's tables and publishes the shown card's rows
       aura, mix, auraFrom, mixFrom = VRFW.host.command(Page.CMD_PROJECT, card)
+      -- the page shows the framework's effective set (the slots plus the moveset defaults a match plays), as the form viewer does
+      local answered, setAura, setMix, setAuraFrom, setMixFrom = VRFW.host.command(VRFW.commands.VRFW_SKILL_SET, card)
+      if answered == true and type(setAura) == "number" then
+        aura, mix, auraFrom, mixFrom = setAura, setMix, setAuraFrom, setMixFrom
+      end
     end
     if type(aura) == "number" then
       value = {aura = VRFW.ids.unsigned(aura), mix = VRFW.ids.unsigned(mix), aura_from = tonumber(auraFrom) or -1, mix_from = tonumber(mixFrom) or -1}
     end
+    value = Page.with_locked(card, value)
     if now ~= nil then
       Page.projectionCache[card] = {at = now, value = value}
     end

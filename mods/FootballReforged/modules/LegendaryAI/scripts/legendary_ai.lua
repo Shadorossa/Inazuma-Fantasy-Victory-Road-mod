@@ -95,19 +95,19 @@ local function user_team()
 end
 
 local carrier = nil
-VRFW.on("possession", function(ev)
+VRFW.on("match:possession", function(ev)
   local a = ev.actor
   if a and a.handle and a.handle ~= 0 and (a.team == 0 or a.team == 1) then carrier = { handle = a.handle, team = a.team } end
   return nil
 end)
-VRFW.on("match_start", function(ev)
+VRFW.on("match:start", function(ev)
   carrier = nil
   apply_difficulty()
   return nil
 end)
-VRFW.on("match_end", function(ev) carrier = nil return nil end)
+VRFW.on("match:end", function(ev) carrier = nil return nil end)
 
-VRFW.on("signal:LegendaryAI.furor_zone", function(ev)
+VRFW.on("script:signal:LegendaryAI.furor_zone", function(ev)
   local user = user_team()
   if user == nil or carrier == nil or carrier.team ~= 1 - user or VRFW.ai.human(carrier.team) then return nil end
   VRFW.signal("Furor.gauge.start", carrier.handle)
@@ -115,7 +115,7 @@ VRFW.on("signal:LegendaryAI.furor_zone", function(ev)
   return nil
 end)
 
-VRFW.on("signal:LegendaryAI.furor_defend", function(ev)
+VRFW.on("script:signal:LegendaryAI.furor_defend", function(ev)
   local user = ev.actor and ev.actor.team
   if (user ~= 0 and user ~= 1) or VRFW.ai.human(1 - user) then return nil end
   for _, a in ipairs(Actors.list()) do

@@ -50,6 +50,7 @@ based_on = "c04003700"
   [character.base]
   id = 0xB2E8F4AE
   name = "c90370081"
+  team_3 = 0x5595D5FA  # crc32("evt_belong_team_fantasy"): the bank's Fantasy tab
   model = 0x9E1AEAE6
   name_text = 0xC5204792
   short_name_text = 0x78D1C4C6

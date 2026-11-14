@@ -1,0 +1,44 @@
+schema = "VRFW.migration/1"
+id = "BattleBayDeluxe.removed_config_keys"
+description = "Settings the mod no longer reads removed from the loader's config.toml (campaign progression, Campaign field list, Draft and League name language)"
+phase = "data"
+
+[[step]]
+kind = "delete_key"
+file = "{data}/config.toml"
+key = "mods.BattleBayDeluxe.campaign.progression"
+
+[[step]]
+kind = "delete_key"
+file = "{data}/config.toml"
+key = "mods.BattleBayDeluxe.campaign_fields"
+
+[[step]]
+kind = "delete_key"
+file = "{data}/config.toml"
+key = "mods.BattleBayDeluxe.draft.name_language"
+
+[[step]]
+kind = "delete_key"
+file = "{data}/config.toml"
+key = "mods.BattleBayDeluxe.league.name_language"
+
+[[step]]
+kind = "delete_key"
+file = "{data}/config.toml"
+key = "BattleBayDeluxe.campaign.progression"
+
+[[step]]
+kind = "delete_key"
+file = "{data}/config.toml"
+key = "BattleBayDeluxe.campaign_fields"
+
+[[step]]
+kind = "delete_key"
+file = "{data}/config.toml"
+key = "BattleBayDeluxe.draft.name_language"
+
+[[step]]
+kind = "delete_key"
+file = "{data}/config.toml"
+key = "BattleBayDeluxe.league.name_language"

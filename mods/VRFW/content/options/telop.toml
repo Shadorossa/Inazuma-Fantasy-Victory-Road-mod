@@ -9,25 +9,25 @@ help = "show_banners_help"
 default = 1
 order = 110
 
-# Hide aura banners (aura_*: miximax, armour, kizuna, power-up).
+# Aura banners (aura_*: miximax, armour, kizuna, power-up); off hides them.
 [[option]]
-id = "hide_aura"                              # row key telop_engine.hide_aura
+id = "aura_banners"                           # row key telop_engine.aura_banners
 visual = true
 type = "toggle"
-label = "hide_aura"
-help = "hide_aura_help"
-default = 0
+label = "aura_banners"
+help = "aura_banners_help"
+default = 1
 parent = "telop_engine.show_banners"
 order = 111
 
-# Hide special-move name banners (keshin, totems and auras keep theirs).
+# Special-move name banners (keshin, totems and auras keep theirs); off hides them.
 [[option]]
-id = "hide_technique"                         # row key telop_engine.hide_technique
+id = "technique_banners"                      # row key telop_engine.technique_banners
 visual = true
 type = "toggle"
-label = "hide_technique"
-help = "hide_technique_help"
-default = 0
+label = "technique_banners"
+help = "technique_banners_help"
+default = 1
 parent = "telop_engine.show_banners"
 order = 112
 

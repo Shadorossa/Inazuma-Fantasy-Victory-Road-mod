@@ -216,7 +216,7 @@ ja = "5人から1人を選んでください"
 zh_hans = "请从5人中选择1人"
 zh_hant = "請從5人中選擇1人"
 
-# the candidates' «pack opening» (graft bb_draft): the hint once the 5 are shown
+# the candidates' «pack opening» (graft battlebaydeluxe_draft): the hint once the 5 are shown
 [[row]]
 id = "battlebaydeluxe_pack_skip"
 es = "Aceptar: mostrar todos"
@@ -229,7 +229,7 @@ ja = "決定：すべて表示"
 zh_hans = "确定：全部显示"
 zh_hant = "確定：全部顯示"
 
-# the «Torneo» (graft research/grafts/bb_tournament; ids battlebaydeluxe_tn_*)
+# the «Torneo» (graft research/grafts/battlebaydeluxe_tournament; ids battlebaydeluxe_tn_*)
 
 [[row]]
 id = "battlebaydeluxe_tn_mode_campaign"
@@ -893,197 +893,16 @@ zh_hans = "六十四强赛出局"
 zh_hant = "六十四強賽出局"
 
 [[row]]
-id = "battlebaydeluxe_tn_group_1"
-es = "Grupo A"
-en = "Group A"
-fr = "Groupe A"
-de = "Gruppe A"
-it = "Girone A"
-pt = "Grupo A"
-ja = "グループA"
-zh_hans = "A组"
-zh_hant = "A組"
-
-[[row]]
-id = "battlebaydeluxe_tn_group_2"
-es = "Grupo B"
-en = "Group B"
-fr = "Groupe B"
-de = "Gruppe B"
-it = "Girone B"
-pt = "Grupo B"
-ja = "グループB"
-zh_hans = "B组"
-zh_hant = "B組"
-
-[[row]]
-id = "battlebaydeluxe_tn_group_3"
-es = "Grupo C"
-en = "Group C"
-fr = "Groupe C"
-de = "Gruppe C"
-it = "Girone C"
-pt = "Grupo C"
-ja = "グループC"
-zh_hans = "C组"
-zh_hant = "C組"
-
-[[row]]
-id = "battlebaydeluxe_tn_group_4"
-es = "Grupo D"
-en = "Group D"
-fr = "Groupe D"
-de = "Gruppe D"
-it = "Girone D"
-pt = "Grupo D"
-ja = "グループD"
-zh_hans = "D组"
-zh_hant = "D組"
-
-[[row]]
-id = "battlebaydeluxe_tn_group_5"
-es = "Grupo E"
-en = "Group E"
-fr = "Groupe E"
-de = "Gruppe E"
-it = "Girone E"
-pt = "Grupo E"
-ja = "グループE"
-zh_hans = "E组"
-zh_hant = "E組"
-
-[[row]]
-id = "battlebaydeluxe_tn_group_6"
-es = "Grupo F"
-en = "Group F"
-fr = "Groupe F"
-de = "Gruppe F"
-it = "Girone F"
-pt = "Grupo F"
-ja = "グループF"
-zh_hans = "F组"
-zh_hant = "F組"
-
-[[row]]
-id = "battlebaydeluxe_tn_group_7"
-es = "Grupo G"
-en = "Group G"
-fr = "Groupe G"
-de = "Gruppe G"
-it = "Girone G"
-pt = "Grupo G"
-ja = "グループG"
-zh_hans = "G组"
-zh_hant = "G組"
-
-[[row]]
-id = "battlebaydeluxe_tn_group_8"
-es = "Grupo H"
-en = "Group H"
-fr = "Groupe H"
-de = "Gruppe H"
-it = "Girone H"
-pt = "Grupo H"
-ja = "グループH"
-zh_hans = "H组"
-zh_hant = "H組"
-
-[[row]]
-# groups 9-16 (a group stage of 64 teams)
-id = "battlebaydeluxe_tn_group_9"
-es = "Grupo I"
-en = "Group I"
-fr = "Groupe I"
-de = "Gruppe I"
-it = "Girone I"
-pt = "Grupo I"
-ja = "グループI"
-zh_hans = "I组"
-zh_hant = "I組"
-
-[[row]]
-id = "battlebaydeluxe_tn_group_10"
-es = "Grupo J"
-en = "Group J"
-fr = "Groupe J"
-de = "Gruppe J"
-it = "Girone J"
-pt = "Grupo J"
-ja = "グループJ"
-zh_hans = "J组"
-zh_hant = "J組"
-
-[[row]]
-id = "battlebaydeluxe_tn_group_11"
-es = "Grupo K"
-en = "Group K"
-fr = "Groupe K"
-de = "Gruppe K"
-it = "Girone K"
-pt = "Grupo K"
-ja = "グループK"
-zh_hans = "K组"
-zh_hant = "K組"
-
-[[row]]
-id = "battlebaydeluxe_tn_group_12"
-es = "Grupo L"
-en = "Group L"
-fr = "Groupe L"
-de = "Gruppe L"
-it = "Girone L"
-pt = "Grupo L"
-ja = "グループL"
-zh_hans = "L组"
-zh_hant = "L組"
-
-[[row]]
-id = "battlebaydeluxe_tn_group_13"
-es = "Grupo M"
-en = "Group M"
-fr = "Groupe M"
-de = "Gruppe M"
-it = "Girone M"
-pt = "Grupo M"
-ja = "グループM"
-zh_hans = "M组"
-zh_hant = "M組"
-
-[[row]]
-id = "battlebaydeluxe_tn_group_14"
-es = "Grupo N"
-en = "Group N"
-fr = "Groupe N"
-de = "Gruppe N"
-it = "Girone N"
-pt = "Grupo N"
-ja = "グループN"
-zh_hans = "N组"
-zh_hant = "N組"
-
-[[row]]
-id = "battlebaydeluxe_tn_group_15"
-es = "Grupo O"
-en = "Group O"
-fr = "Groupe O"
-de = "Gruppe O"
-it = "Girone O"
-pt = "Grupo O"
-ja = "グループO"
-zh_hans = "O组"
-zh_hant = "O組"
-
-[[row]]
-id = "battlebaydeluxe_tn_group_16"
-es = "Grupo P"
-en = "Group P"
-fr = "Groupe P"
-de = "Gruppe P"
-it = "Girone P"
-pt = "Grupo P"
-ja = "グループP"
-zh_hans = "P组"
-zh_hant = "P組"
+id = "battlebaydeluxe_tn_group"
+es = "Grupo <VALUE>"
+en = "Group <VALUE>"
+fr = "Groupe <VALUE>"
+de = "Gruppe <VALUE>"
+it = "Girone <VALUE>"
+pt = "Grupo <VALUE>"
+ja = "グループ<VALUE>"
+zh_hans = "<VALUE>组"
+zh_hant = "<VALUE>組"
 
 [[row]]
 id = "battlebaydeluxe_tn_opt_groups_1"
@@ -1241,7 +1060,7 @@ ja = "トーナメントを開始できませんでした。もう一度お試�
 zh_hans = "无法开始锦标赛，请重试。"
 zh_hant = "無法開始錦標賽，請重試。"
 
-# the «Liga» (graft bb_tournament: the selector pill, the options, the standings, the panel, the end)
+# the «Liga» (graft battlebaydeluxe_tournament: the selector pill, the options, the standings, the panel, the end)
 [[row]]
 id = "battlebaydeluxe_tn_mode_league"
 es = "Liga"
@@ -1868,7 +1687,7 @@ ja = "同じクラブの2つのバージョンは選べません。"
 zh_hans = "不能选择同一俱乐部的两个版本。"
 zh_hant = "不能選擇同一俱樂部的兩個版本。"
 
-# the team picker's last step: the bracket in the pick order or shuffled (bbt_grid.lua BattleBayDeluxe.TournamentGridPick)
+# the team picker's last step: the bracket in the pick order or shuffled (tournament_grid.lua BattleBayDeluxe.TournamentGridPick)
 [[row]]
 id = "battlebaydeluxe_tn_pick_order_ask"
 es = "¿Usar el orden escogido o aleatorizarlo?"

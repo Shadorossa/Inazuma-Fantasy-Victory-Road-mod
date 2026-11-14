@@ -5,6 +5,7 @@ if VRFW.menu_music == nil then
     EXEC = 3048355248,   -- CMND_EXEC_CRAFT_OBJ_ID (retail: plays a bgm_config id)
     ASK = 568638161,
   }
+  --- Advanced: Namespace of the menu music helpers.
   VRFW.menu_music = M
 
   -- the arguments go on as the caller gave them (a C command counts them: no extra nil for a call without one)
@@ -19,12 +20,12 @@ if VRFW.menu_music == nil then
     return nxt(...)
   end
 
-  -- the VM's funcLuaCommand with the swap (idempotent: one handler per VM)
+  -- Advanced: the VM's funcLuaCommand with the swap (idempotent: one handler per VM)
   function M.install()
     return VRFW.host.hook_command(M.EXEC, swap, "VRFW.menu_music")
   end
 
-  -- watch the menu script of this VM: the swap goes in at its OnInit (the engine's first callback)
+  -- Internal: watch the menu script of this VM: the swap goes in at its OnInit (the engine's first callback)
   function M.watch()
     local prev = OnInit
     OnInit = function(...)

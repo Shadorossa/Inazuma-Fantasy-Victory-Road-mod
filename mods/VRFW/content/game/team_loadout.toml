@@ -1,0 +1,38 @@
+# Team loadouts: the store of what each player carries in each team (scripts\team_loadout.lua, docs/framework/team-loadout.md).
+schema = "VRFW.game/2"
+
+[[VRFW.Global]]
+name = "vrfw_team_loadout_party"
+base = "game_root"
+chain = ["ROOT_PARTY"]
+
+# () -> usable, seeded, active team key ("" = none), its team set (-1 = none), its members "h,h,..."
+[[VRFW.Command]]
+name = "CMND_VRFW_TEAM_LOADOUT_STATE"
+handler = "TeamLoadout.State"
+
+# (team set[, team]) -> the member handles of that team (the playing team when nil) as "h,h,..."; nil when unreadable
+[[VRFW.Command]]
+name = "CMND_VRFW_TEAM_LOADOUT_MEMBERS"
+handler = "TeamLoadout.Members"
+needs = ["Party.LogicalToPhysical", "vrfw_team_loadout_party"]
+
+# (team key, team set, members "h,h,...", seeded) -> true when kept
+[[VRFW.Command]]
+name = "CMND_VRFW_TEAM_LOADOUT_ACTIVATE"
+handler = "TeamLoadout.Activate"
+
+# (team key, charaStHdl) -> the player's record in that team; nil when he has none
+[[VRFW.Command]]
+name = "CMND_VRFW_TEAM_LOADOUT_GET"
+handler = "TeamLoadout.Get"
+
+# (team keys "k,k,...", charaStHdl, record) -> how many teams keep the record now
+[[VRFW.Command]]
+name = "CMND_VRFW_TEAM_LOADOUT_PUT"
+handler = "TeamLoadout.Put"
+
+# (team key[, charaStHdl]) -> how many records were dropped; no handle drops the whole team
+[[VRFW.Command]]
+name = "CMND_VRFW_TEAM_LOADOUT_DROP"
+handler = "TeamLoadout.Drop"

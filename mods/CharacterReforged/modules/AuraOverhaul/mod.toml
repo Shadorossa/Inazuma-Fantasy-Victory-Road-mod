@@ -2,10 +2,11 @@ id = "AuraOverhaul"
 # name / description: English fallback of the text keys mod_name / mod_description
 name = "Aura Overhaul"
 icon = "#/menu/200_icon/16_icon_list_tab/icon_list_tab.g4tx:icon_list_tab_spirit01"
-version = "0.3.0"
+version = "0.3.1"
 author = "Fantasy Team"
 description = "Aura spirits with their own passives, and a shop with the game's mode changes."
 priority = 0
+type = "gameplay"
 tags = ["Characters", "Gameplay"]
 updated = "2026-11-09"
 prefix = "AuraOverhaul"

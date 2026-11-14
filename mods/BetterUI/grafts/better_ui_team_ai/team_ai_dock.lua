@@ -1,9 +1,9 @@
 BetterUI = type(BetterUI) == "table" and BetterUI or {}
 do
   local STEM = "team_dock_formation_menu"
-  local TEAM_AI_KEY = 216585116          -- crc32("better_ui_team_ai"): 1 = celebration list in AI-role mode
-  local TEAM_AI_KEY_TYPE = 4205327680     -- crc32("better_ui_team_ai_type"): the dock's team type
-  local TEAM_AI_TEXT = 2239751552
+  local TEAM_AI_KEY = @crc:better_ui_team_ai@          -- crc32("better_ui_team_ai"): 1 = celebration list in AI-role mode
+  local TEAM_AI_KEY_TYPE = @crc:better_ui_team_ai_type@     -- crc32("better_ui_team_ai_type"): the dock's team type
+  local TEAM_AI_TEXT = @crc:better_ui_team_ai_cmd@
   local TEAM_AI_ROW = 101                 -- row id in the team commands window
   local SHIRT_NUMBERS_ROW = 100
   local PARAM_TEAM_TYPE = 4081600465      -- the dock's team type, consumed by retail OnInit

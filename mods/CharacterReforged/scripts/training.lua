@@ -92,10 +92,32 @@ local function positions(pl)
   return main, sub
 end
 
-local function valid_position(pl, pos)
+-- Returns the positions the player may train under: every position with training pairs while the option is on, else his main and sub.
+local function allowed_positions(pl)
+  if VRFW.option("unlock_all_positions") == 1 then return R.positions() end
   local main, sub = positions(pl)
-  if pos ~= nil and pos == sub then return sub end
-  return main
+  return { main, sub }
+end
+
+-- Returns the index of `pos` in `list`, nil when it is not there.
+local function index_of(list, pos)
+  for i, p in ipairs(list) do
+    if p == pos then return i end
+  end
+  return nil
+end
+
+local function valid_position(pl, pos)
+  if pos ~= nil and index_of(allowed_positions(pl), pos) then return pos end
+  return (positions(pl))
+end
+
+-- Returns the allowed position after `pos` and the one before it, cycling, or 0 for both when no other one is allowed.
+local function neighbour_positions(pl, pos)
+  local list = allowed_positions(pl)
+  local i = index_of(list, pos)
+  if not i or #list < 2 then return 0, 0 end
+  return list[i % #list + 1], list[(i - 2) % #list + 1]
 end
 
 -- everything a command needs about one character, or nil + error code
@@ -142,6 +164,7 @@ local function loaded_player(hdl, fresh)
   if not fresh and LOADED and LOADED.hdl == hdl then return LOADED.pl end
   local t0 = VRFW.now_ms and VRFW.now_ms() or nil
   local pl, e = load_player(hdl)
+  VRFW.time.mark_step("training: player load")
   if not pl then
     LOADED = nil
     return nil, e
@@ -191,13 +214,16 @@ function CharacterReforged.Training.Info(hdl, fresh)
 end
 
 function CharacterReforged.Training.Stat(hdl, idx)
+  -- The steps name the part of a slow call in its slow script call line.
   if not active() then return false end
+  VRFW.time.mark_step("training stat: stats ready check")
   hdl = hdl_arg(hdl)
   local i = idx_arg(idx)
   if not i then
     return false, ERR_BAD_ARGS, ERR_BAD_ARGS, ERR_BAD_ARGS, ERR_BAD_ARGS, ERR_BAD_ARGS, ERR_BAD_ARGS, ERR_BAD_ARGS, ERR_BAD_ARGS, ERR_BAD_ARGS
   end
   local pl, s = session(hdl, false)
+  VRFW.time.mark_step("training stat: player session")
   if not pl then return false, s, s, s, s, s, s, s, s, s end
   local c = pl.ctx
   local min, reach = R.range(c, s.working, i)
@@ -281,7 +307,8 @@ function CharacterReforged.Training.Position(hdl)
   local main, sub = positions(pl)
   local zero = R.zeros()
   local trained = not R.equal(s.working, zero) or not R.equal(s.committed, zero)
-  return true, s.pos, main, sub or 0, trained
+  local following, previous = neighbour_positions(pl, s.pos)
+  return true, s.pos, main, sub or 0, trained, following, previous
 end
 
 function CharacterReforged.Training.SetPosition(hdl, pos)
@@ -291,7 +318,7 @@ function CharacterReforged.Training.SetPosition(hdl, pos)
   local pl, s = session(hdl, false)
   if not pl then return false, s end
   local main, sub = positions(pl)
-  if p ~= main and (sub == nil or p ~= sub) then return false, ERR_BAD_ARGS end
+  if not index_of(allowed_positions(pl), p) then return false, ERR_BAD_ARGS end
   s.pos = p
   s.working = R.zeros()
   pl.ctx.pos = p
@@ -352,10 +379,10 @@ local function start()
     rule, math.max(0, math.min(100, RULES.floor_percent)), math.max(1, math.min(9999, RULES.max_value)), S.BLOB, VRFW.is_on("CharacterReforged.TrainedPoints") and "on" or "OFF"))
 end
 
-VRFW.on("match_end", function() forget_player() end)
-VRFW.on("game_reset", function() forget_player() end)
+VRFW.on("match:end", function() forget_player() end)
+VRFW.on("game:reset", function() forget_player() end)
 
-VRFW.on("slot_load", function()
+VRFW.on("save:slot_load", function()
   forget_player()
   if not ON then return nil end
   local ok, e = pcall(store)

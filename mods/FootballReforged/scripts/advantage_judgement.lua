@@ -23,7 +23,7 @@ local function set_judgement_bit()
   return ok and done == true
 end
 
-VRFW.on("match_start", function()
+VRFW.on("match:start", function()
   armed, menu_seen = false, false
   return nil
 end)
@@ -51,7 +51,7 @@ VRFW.on("menu:open:post", function(ev)
   return nil
 end)
 
-VRFW.on("signal:vrfw.match_result", function()
+VRFW.on("script:signal:vrfw.match_result", function()
   if not armed then return nil end
   armed = false
   local r = MatchResults.last()

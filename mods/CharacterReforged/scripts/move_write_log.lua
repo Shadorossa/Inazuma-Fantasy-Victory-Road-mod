@@ -183,7 +183,7 @@ VRFW.on("menu:close:post", function() return report_bought("a menu closed") end)
 VRFW.on("item:added:post", on_item_added)
 VRFW.on("hook:CharacterReforged.MoveWriteEquipSlot:post", on_equip_slot)
 VRFW.on("chara:moves:post", on_list_rebuilt)
-VRFW.on("slot_load", function()
+VRFW.on("save:slot_load", function()
   census_due = true
   return nil
 end)
@@ -191,7 +191,7 @@ VRFW.on("menu:open:post", function()
   if census_due and census() then census_due = false end
   return report_bought("a menu opened")
 end)
-VRFW.on("game_reset", function()
+VRFW.on("game:reset", function()
   census_due, recent = true, {}
   return nil
 end)

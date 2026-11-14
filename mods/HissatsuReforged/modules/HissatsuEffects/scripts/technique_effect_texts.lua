@@ -49,16 +49,55 @@ local function text_of(key, mod)
   return ""
 end
 
--- move id -> list of { key, mod } (load order, each key once)
-local function load_all()
-  if cache ~= nil then
-    return cache
+-- the change a rule's `do` makes, as shown next to its sentence: the one `*_mult` field as a signed percent
+-- (1.12 -> "+12 %", 0.7 -> "-30 %"); nil when `do` has none or several
+local function rule_value(d)
+  if type(d) ~= "table" then
+    return nil
   end
-  cache = {}
-  local ok, files = pcall(VRFW.files.declarations, FOLDERS)
+  local shown = nil
+  for k, v in pairs(d) do
+    if type(k) == "string" and type(v) == "number" and k:match("_mult$") then
+      if shown ~= nil then
+        return nil
+      end
+      local pct = math.floor((v - 1) * 1000 + 0.5) / 10
+      shown = string.format("%s%g %%", pct >= 0 and "+" or "-", math.abs(pct))
+    end
+  end
+  return shown
+end
+
+-- `s` without its leading value (the sentence's own "+12 %" / "+12%" when it starts with the rule's number) and its joining word, a
+-- first lower-case ASCII letter raised; nil when it does not start with it
+local function without_value(s, shown)
+  local number = shown:match("^([%+%-]?[%d%.]+)")
+  if number == nil then
+    return nil
+  end
+  local alt = number:gsub("%.", ",")
+  for _, n in ipairs({ number, alt }) do
+    local plain = n:gsub("[%+%-%.]", "%%%0")
+    local rest = s:match("^" .. plain .. "%s?%%%s+(.+)$")
+    if rest ~= nil and rest ~= "" then
+      -- the language's joining word goes with the value (text key value_row_lead: «de» in «+12 % de potencia»)
+      local lead = text_of("HissatsuEffects.value_row_lead")
+      if lead ~= "" and rest:sub(1, #lead + 1) == lead .. " " and #rest > #lead + 1 then
+        rest = rest:sub(#lead + 2)
+      end
+      return (rest:gsub("^%l", string.upper))
+    end
+  end
+  return nil
+end
+
+-- move id -> list of { key, mod, value } (load order, each key once)
+local function build_index()
+  local index = {}
+  local ok, files = pcall(VRFW.files.declarations, FOLDERS, "rule")
   if not ok or type(files) ~= "table" then
     VRFW.warn("technique effect texts: the rule files could not be read: " .. tostring(files))
-    return cache
+    return index
   end
   for _, f in ipairs(files) do
     local rules = type(f.data) == "table" and f.data.rule or nil
@@ -66,6 +105,7 @@ local function load_all()
       local key = type(r) == "table" and type(r.text) == "string" and r.text or ""
       local when = type(r) == "table" and type(r.when) == "table" and r.when or {}
       if key ~= "" and r.enabled ~= false then
+        local value = rule_value(r["do"])
         if not string.find(key, ".", 1, true) then
           key = tostring(f.mod) .. "." .. key
         end
@@ -77,7 +117,7 @@ local function load_all()
         for _, ref in ipairs(refs) do
           local id = move_id(ref)
           if id ~= nil then
-            local list = cache[id] or {}
+            local list = index[id] or {}
             local seen = false
             for _, e in ipairs(list) do
               if e.key == key then
@@ -85,29 +125,39 @@ local function load_all()
               end
             end
             if not seen then
-              list[#list + 1] = { key = key, mod = f.mod }
+              list[#list + 1] = { key = key, mod = f.mod, value = value }
             end
-            cache[id] = list
+            index[id] = list
           end
         end
       end
     end
   end
+  return index
+end
+
+-- the index, built once and kept between starts (mod rule files and move ids only)
+local function load_all()
+  if cache == nil then
+    cache = VRFW.derived("technique_effect_texts_2", nil, build_index)
+  end
   return cache
 end
 
--- the index is built when a slot loads (off the game thread), so the first move card does not read every rule file
-VRFW.on("slot_load", function()
-  load_all()
-end)
+-- built at load, so neither a slot load nor the first move card reads every rule file
+load_all()
 
+-- (move) -> { count, [i] = sentence, value = { [i] = "+12 %" or nil }, rest = { [i] = the sentence without its
+-- leading value, or nil } }
 function RuleTexts.OfMove(move)
-  local out = { count = 0 }
+  local out = { count = 0, value = {}, rest = {} }
   for _, e in ipairs(load_all()[u32(move)] or {}) do
     local s = text_of(e.key, e.mod)
     if s ~= "" then
       out.count = out.count + 1
       out[out.count] = s
+      out.value[out.count] = e.value
+      out.rest[out.count] = e.value ~= nil and without_value(s, e.value) or nil
     end
   end
   return out

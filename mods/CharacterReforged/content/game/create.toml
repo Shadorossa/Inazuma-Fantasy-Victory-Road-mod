@@ -42,6 +42,11 @@ handler = "CharacterReforged.Create.Restore"
 name = "CMND_CHARACTERREFORGED_CREATE_REFUSAL"
 handler = "CharacterReforged.Create.Refusal"
 
+# (card) -> base, partner, glyphId, previewId: the stored pair that card is in (base 0 = none), for the in-use refusal window
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_CREATE_PAIR_OF"
+handler = "CharacterReforged.Create.PairOf"
+
 # (step, values…) -> true: one loader.log line per step of the graft («create: board <step> …»)
 [[VRFW.Command]]
 name = "CMND_CHARACTERREFORGED_CREATE_LOG"

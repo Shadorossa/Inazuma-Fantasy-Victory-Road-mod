@@ -160,6 +160,8 @@ local function merge_rule(policy, mod_id, rule_name, rule)
       warn(label .. ": unknown key " .. tostring(key) .. " (left out)")
     end
   end
+  -- Duplicates merge on a load only while a rule that declares one_card_per also declares apply_on_load = true.
+  if ONE_CARD_PER[rule.one_card_per] and rule.apply_on_load == true then policy.merge_on_load = true end
   policy.names[#policy.names + 1] = label
 end
 
@@ -174,7 +176,7 @@ end
 function DuplicateRules.load()
   local policy = {
     names = {}, keep_first = DuplicateRules.KEEP_ORDER_DEFAULT, element_spirits_per_released_card = 0,
-    hidden_card_sources = {}, apply_on_load = false,
+    hidden_card_sources = {}, apply_on_load = false, merge_on_load = false,
   }
   local ok, declarations = pcall(VRFW.files.declarations, DuplicateRules.FOLDER)
   if not ok then
@@ -201,6 +203,16 @@ function DuplicateRules.is_raised_copy(policy, rarity, card_rarity)
   return not (normalized and normalized[rarity])
 end
 
+-- The rarity a copy saved at `rarity` of a card of special rarity `card_rarity` (chara_param col 41) holds under the policy: with the card it names one player, so a copy of the same card at another rarity is another player.
+function DuplicateRules.copy_rarity(policy, rarity, card_rarity)
+  local target = policy.normal_card_rarity
+  if target == nil or DuplicateRules.is_raised_copy(policy, rarity, card_rarity) then return rarity end
+  local normalized = policy.normal_special_rarities
+  if card_rarity == 0 or (normalized and normalized[card_rarity]) then return target end
+  if policy.raise_every_saved_player == true and rarity < target then return target end
+  return rarity
+end
+
 -- the policy in one line, for the log and the report
 function DuplicateRules.describe(policy)
   if #policy.names == 0 then return "no duplicate rule declared" end
@@ -215,7 +227,7 @@ function DuplicateRules.describe(policy)
   end
   table.sort(raised)
   return string.format("rules %s; one copy per %s; keep first %s; normal cards -> rarity %s (special tiers too: %s%s); raised copies kept at rarity: %s; %d element spirits per released copy; hidden cards released: %s; on load: %s",
-    table.concat(policy.names, ", "), policy.one_card_per or "(none: duplicates stay)", table.concat(policy.keep_first, " > "),
+    table.concat(policy.names, ", "), policy.one_card_per and (policy.one_card_per .. " and rarity") or "(none: duplicates stay)", table.concat(policy.keep_first, " > "),
     policy.normal_card_rarity ~= nil and tostring(policy.normal_card_rarity) or "(unchanged)",
     #special > 0 and table.concat(special, ", ") or "none",
     policy.normal_special_option and (", " .. policy.normal_special_option) or "",

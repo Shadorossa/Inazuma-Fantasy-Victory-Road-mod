@@ -127,7 +127,9 @@ local function Int(v)
   return math.floor(v + 0.5)
 end
 
+--- Advanced: Namespace: mouse pointer tracker for menus; holds new().
 VRFW.pointer = VRFW.pointer or {}
+--- Advanced: Creates a mouse pointer tracker; answers a table with zone setters (rect, box, inst), position, at, poll and reset.
 VRFW.pointer.new = VRFW.pointer.new or function()
   local P = {zones = {}, on = false, x = nil, y = nil, hot = nil, prev = {}, edge_t = 0, REPEAT = 10}
   local MOVED, POS, GPOS, CHECK, CTRL = 3272825600, 558229292, 4002164178, 4265778440, 1332654303
@@ -280,6 +282,7 @@ VRFW.pointer.new = VRFW.pointer.new or function()
   return P
 end
 
+--- Advanced: Constants: command hashes of the menu keys, plus held(cmd, ctrl) and new_press().
 VRFW.keys = VRFW.keys or (function()
   local K = {
     UP = 1197218715, DOWN = 3259546669, LEFT = 2765147006, RIGHT = 2075023265,   -- CMD_UP / DOWN / LEFT / RIGHT
@@ -333,7 +336,9 @@ VRFW.keys = VRFW.keys or (function()
 end)()
 local Kit, Ptr                  -- set in OnInit
 
+--- Advanced: Namespace: 3D character model preview helper for menus; holds new().
 VRFW.chara_model = VRFW.chara_model or {}
+--- Advanced: Creates a character model preview (layer, opts); answers a table with show(pid), hide, release, ok and step.
 VRFW.chara_model.new = VRFW.chara_model.new or function(layer, opts)
   opts = opts or {}
   local M = {pid = nil, chara = nil, pend = nil, build = nil, hide_build = false, logs = 0, failed = false,

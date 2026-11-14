@@ -1,5 +1,5 @@
 schema = "VRFW.model/1"
-# own model common/chr/_uniform/s90000040/s90000040.g4md (research/mods/_aside/InazumaFantasy/_tools/if_models_to_glb.py)
+# own model common/chr/_uniform/s90000040/s90000040.g4md (if_models_to_glb.py (old Inazuma Fantasy tool, removed 2026-11-12))
 target = "chr/_uniform/s90000040/s90000040.g4md"
 template = "chr/_uniform/s000001/s000001.g4md"
 

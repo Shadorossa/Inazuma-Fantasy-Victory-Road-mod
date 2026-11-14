@@ -224,8 +224,36 @@ CharacterReforged.player_page = CharacterReforged.player_page or {}
 
 @PP_POINTER@
 
+  -- True while the page model's camera is zoomed past the page framing (plate_model M.zoomed).
+  function G.model_zoomed()
+    local pm = CharacterReforged.page_model
+    return type(pm) == "table" and type(pm.zoomed) == "function" and pm.zoomed() == true
+  end
+  -- Advances the paged player page's shared move plates once per frame (the hosts without pages pump their own): the refills of plates whose instance was not ready and the badge state a lock animation changes (a locked row's armed badge).
+  function G.move_plates()
+    if type(VRFW.ui_plates) == "table" then
+      VRFW.ui_plates.move_plate.pump(true)
+    end
+  end
+  -- While zoomed the status base (page dots, Q / E keys) is hidden; Q / E still change pages. Shown again once
+  -- unzoomed only while the plate shows (a hidden plate gets its layers back from the retail show).
+  function G.zoom_view()
+    local z = G.model_zoomed()
+    if z and Exists(G.STATUS) and Cmd(C.IS_OPEN, G.STATUS, 0) == true then
+      if Cmd(C.IS_VIS, G.STATUS, 0) == true then
+        Cmd(C.VIS, G.STATUS, 0, false)
+      end
+      G.zoomHid = true
+    elseif not z and G.zoomHid then
+      G.zoomHid = false
+      if Exists(G.STATUS) and Cmd(C.IS_OPEN, G.STATUS, 0) == true and Cmd(C.IS_VIS, G.PLATE, 0) == true then
+        Cmd(C.VIS, G.STATUS, 0, true)
+      end
+    end
+  end
+
   local function Description(on)
-    on = on and not G.in_office()           -- over the transfer office: its own description only
+    on = on and not G.in_office() and not G.model_zoomed()   -- over the transfer office: its own description only; none while zoomed
     Cmd(C.NODE_VIS, G.PLATE, G.N_EXPLAIN, on, 0)
     Cmd(C.TEXT_VIS, G.PLATE, G.N_EXPLAIN, on, 0)
     if Cmd(C.IS_OPEN, G.BAND, 0) == true then
@@ -234,13 +262,11 @@ CharacterReforged.player_page = CharacterReforged.player_page or {}
   end
 
   function G.apply(ptype)
-    -- A form look belongs to the page that chose it.
-    if G.ptype ~= nil and ptype ~= G.ptype and type(CharacterReforged.page_model) == "table" and type(CharacterReforged.page_model.reset_form) == "function" then
-      pcall(CharacterReforged.page_model.reset_form, "page " .. tostring(G.ptype) .. " -> " .. tostring(ptype), true)
-    end
     G.ptype = ptype
     CharacterReforged.PAGE_MODEL_PAGE_OK = true                -- the model on every page, behind the content
-    CharacterReforged.PAGE_MODEL_PAGE_FORMS = (ptype == CharacterReforged.PLAYER_PAGE_DESCRIPTION_TYPE)   -- R3 cycles the forms on PERFIL
+    CharacterReforged.PAGE_MODEL_PAGE_FORMS = (ptype == CharacterReforged.PLAYER_PAGE_DESCRIPTION_TYPE)   -- the stick turn / zoom and the retail view on PERFIL
+    pcall(G.form_key_set, "page")                              -- the chosen form stays across pages (parts/forms.lua)
+    pcall(G.form_follow, "page")
     local desc, stats, moves = ptype == CharacterReforged.PLAYER_PAGE_DESCRIPTION_TYPE, ptype == CharacterReforged.PLAYER_PAGE_STATS_TYPE, ptype == 1
     if desc or stats then
       pcall(SetVisibleSkillItemLayer, false)
@@ -330,6 +356,7 @@ CharacterReforged.player_page = CharacterReforged.player_page or {}
         G.hdl = a3
         pcall(G.player_refresh, a3)
         pcall(G.slant_fill)
+        pcall(G.type_tag_fill, a3)   -- the type tag's word follows the shown player
         if G.H.pages and On() then
           G.try("sixth")             -- the own passive card follows the player at once, as the header does
         end
@@ -467,6 +494,7 @@ CharacterReforged.player_page = CharacterReforged.player_page or {}
       G.try("band")
       G.try("slant")
       G.try("tag")
+      G.try("type_tag")
       G.try("hide_unplaced_gauge_copies")
       if On() and Exists(G.BUILD_GUIDE) and Cmd(C.IS_OPEN, G.BUILD_GUIDE, 0) == true then
         Cmd(C.VIS, G.BUILD_GUIDE, 0, false)
@@ -479,7 +507,6 @@ CharacterReforged.player_page = CharacterReforged.player_page or {}
         G.try("passive_card_step")     -- the own passive card's face (skill table and player page)
         if G.H.pages then
           G.try("dots")
-          G.try("mx_step")
           G.try("hiper_form_step")
           G.try("equip")
           G.try("hiper_l3")
@@ -491,6 +518,7 @@ CharacterReforged.player_page = CharacterReforged.player_page or {}
           G.try("passive_rows")
           G.try("mod_pages")          -- pages other mods declare and draw (parts/mod_pages.lua)
           G.try("sixth")
+          G.try("move_plates")
           local okP, errP = pcall(G.pointer)
           if not okP and not G.ptrErr then
             G.ptrErr = true
@@ -501,7 +529,9 @@ CharacterReforged.player_page = CharacterReforged.player_page or {}
           if G.itemCardPending then
             G.try("item_card_pending") -- the item card's layout when its layer opened after the last fill
           end
-          G.try("item_card_input")     -- L2 / R2 on a paged item card
+          if G.HAS_ITEM_CARD then
+            G.try("item_card_input")   -- L2 / R2 on a paged item card
+          end
         end
         if not G.keep_radar() then
           pcall(HidePoly)
@@ -509,6 +539,7 @@ CharacterReforged.player_page = CharacterReforged.player_page or {}
         if G.ptype ~= nil then
           pcall(Description, G.ptype == CharacterReforged.PLAYER_PAGE_DESCRIPTION_TYPE)
         end
+        G.try("zoom_view")
       end
       return table.unpack(r, 1, r.n)
     end
@@ -540,6 +571,11 @@ CharacterReforged.player_page = CharacterReforged.player_page or {}
         pcall(G.slant_opened, a2)
       end
       local r = Pack(orig(a1, a2, ...))       -- the original first
+      if a1 == G.PAGE and G.H.pages then      -- the page is up: the form key and badge live (parts/forms.lua)
+        G.pageUp = true
+        pcall(G.form_key_set, "page opened")
+        pcall(G.form_follow, "page opened")
+      end
       if G.H.pages and (a1 == G.SKILL or a1 == G.SKILL_BLANK) and On() and G.ptype == 1 then
         pcall(G.moves)
       end
@@ -552,6 +588,8 @@ CharacterReforged.player_page = CharacterReforged.player_page or {}
   end)
 
   local IC = not G.H.pages and type(G.H.item_card) == "table" and G.H.item_card or nil
+  -- The item card pieces exist only on a host without pages that declares an item card.
+  G.HAS_ITEM_CARD = IC ~= nil
   if IC ~= nil then
 @PP_ITEM_CARD@
 
@@ -591,6 +629,8 @@ CharacterReforged.player_page = CharacterReforged.player_page or {}
     return function(a1, ...)
       local r = Pack(orig(a1, ...))
       if a1 == G.PAGE then
+        G.pageUp = false                    -- covered or closed: no form key, no badge until it opens again
+        pcall(G.form_key_set, "page closed")
         G.ready = {}
         G.rateInit = {}
         G.vals = nil
@@ -598,6 +638,7 @@ CharacterReforged.player_page = CharacterReforged.player_page or {}
         BarsVisible(false)
         G.movesOn = true                    -- next page: the slot nodes back to retail
         pcall(G.fb_hide)
+        pcall(G.type_tag_hide)
         for _, l in ipairs({G.BAND, G.SLANT, G.TAG, G.FLABEL}) do
           if Cmd(C.IS_OPEN, l, 0) == true then
             Cmd(C.VIS, l, 0, false)

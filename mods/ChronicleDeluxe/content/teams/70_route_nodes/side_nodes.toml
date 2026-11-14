@@ -1,5 +1,5 @@
 schema = "VRFW.team/2"
-default_lang = "es"
+default_lang = "en"
 
 [[VRFW.RouteNode]]
 Name = "ie1_umbrella"

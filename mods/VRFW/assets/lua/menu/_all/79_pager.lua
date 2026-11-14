@@ -1,3 +1,4 @@
+-- Advanced:
 -- lua_patch.scope: used
 VRFW.pager = VRFW.pager or {}
 do
@@ -17,7 +18,7 @@ do
     N_GUIDE = 378156699,              -- _text_guide01 (the guide's text)
     GUIDE_PRIO = 655,                 -- over the card's 570
   }
-  -- the status base's parts (soccer11_05) and their layout places (x right / y up, top-left of each part)
+  -- Advanced: the status base's parts (soccer11_05) and their layout places (x right / y up, top-left of each part)
   P.LOOK = {
     dot_off = 3784855471, dot_on = 2540064569,                 -- _page01_off / _page01_on (32 px)
     glyph_l = 355816102, glyph_r = 59628764,                   -- _text_btn_l01 / _text_btn_r01
@@ -30,8 +31,9 @@ do
     prio = 580,
   }
 
-  -- the card guide pills' shared stack
+  -- Internal: the card guide pills' shared stack
   P.LOOK.pill_step = 56
+  --- Internal: pager pill states by id (shown, rank).
   P.pills = P.pills or {}
   local function PillDy(id)
     local me = P.pills[id]
@@ -43,11 +45,11 @@ do
     end
     return dy
   end
-  --- The pill offset of `id`: x, y.
+  --- Internal: The pill offset of `id`: x, y.
   function P.pill_offset(id)
     return 0, PillDy(id)
   end
-  --- Registers pill `id` with rank and apply function.
+  --- Advanced: Registers pill `id` with rank and apply function.
   function P.pill_register(id, rank, apply)
     local p = P.pills[id]
     if p == nil then
@@ -56,7 +58,7 @@ do
     end
     p.rank, p.apply = rank, apply
   end
-  --- Shows or hides pill `id`.
+  --- Advanced: Shows or hides pill `id`.
   function P.pill_show(id, shown)
     local p = P.pills[id]
     if p == nil or p.shown == shown then
@@ -70,7 +72,7 @@ do
     end
   end
 
-  --- The lit dot of `page` when `pages` pages share `dots` dots: the page's place along the row.
+  --- Advanced: The lit dot of `page` when `pages` pages share `dots` dots: the page's place along the row.
   function P.dot_of_page(page, pages, dots)
     if pages <= dots then
       return page
@@ -78,7 +80,7 @@ do
     return 1 + math.floor((page - 1) * (dots - 1) / (pages - 1) + 0.5)
   end
 
-  --- The page a click on `dot` opens when `pages` pages share `dots` dots.
+  --- Advanced: The page a click on `dot` opens when `pages` pages share `dots` dots.
   function P.page_of_dot(dot, pages, dots)
     if pages <= dots then
       return dot
@@ -95,7 +97,7 @@ do
   local Row = {}
   Row.__index = Row
 
-  --- A new pager row for spec.
+  --- Advanced: A new pager row for spec.
   function P.new(spec)
     local row = setmetatable({}, Row)
     row.layer = spec.layer

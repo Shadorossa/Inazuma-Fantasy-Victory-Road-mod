@@ -4,7 +4,7 @@ if VRFW.story == nil then
 
   local S = {}
 
-  --- The story data (read once); nil when it cannot be read.
+  --- Advanced: The story data (read once); nil when it cannot be read.
   function S.data()
     if cached ~= nil then
       return cached
@@ -20,7 +20,7 @@ if VRFW.story == nil then
     return cached
   end
 
-  --- The complete-story flags: on, off; nil when there are none.
+  --- Advanced: The complete-story flags: on, off; nil when there are none.
   function S.complete_flags()
     local d = S.data()
     if d == nil then
@@ -36,5 +36,6 @@ if VRFW.story == nil then
     return on, off
   end
 
+  --- Advanced: Namespace: the story state helpers of the menu VM.
   VRFW.story = S
 end

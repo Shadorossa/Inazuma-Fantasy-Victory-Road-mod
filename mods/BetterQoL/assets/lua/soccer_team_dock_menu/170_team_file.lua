@@ -3,6 +3,7 @@ BetterQoL = type(BetterQoL) == "table" and BetterQoL or {}
 if VRFW.host ~= nil and BetterQoL.team_file == nil then
   local STEM = "soccer_team_dock_menu"
   local TEXT_GET = 4074371074        -- CMND_TEXT_GET (text id) -> text
+  local SKIPPED_LINES = 6            -- Lines of names under the skipped notice's first line: the retail general window holds 7.
   local F = {}
   BetterQoL.team_file = F
 
@@ -44,7 +45,9 @@ if VRFW.host ~= nil and BetterQoL.team_file == nil then
     local name, area = VRFW.host.command(command("NAME"), set)
     local result, ticket = VRFW.file_pick.save({ area = area, name = name, ext = "vrmod", title = text("export_title") })
     if result == "cancelled" then return false end
-    local ok, file, written_area = VRFW.host.command(command("EXPORT"), set, result == "picked" and ticket or nil)
+    local TL = VRFW.team_loadout
+    local loadouts = TL ~= nil and TL.pack(TL.records_of(set)) or nil   -- what each member carries in this team
+    local ok, file, written_area = VRFW.host.command(command("EXPORT"), set, result == "picked" and ticket or nil, loadouts)
     if ok ~= true then
       log("export refused:", tostring(file))
       VRFW.question.notice(text("export_fail"))
@@ -96,15 +99,27 @@ if VRFW.host ~= nil and BetterQoL.team_file == nil then
     if VRFW.host.command(command("EMPTY"), set) ~= true and not VRFW.question.ask(text("import_overwrite", tostring(team_name or ""))) then
       return false
     end
-    local ok, placed, skipped, skipped_names, kept = VRFW.host.command(command("APPLY"), chosen, set, ticket)
+    local ok, placed, skipped, skipped_names, kept, loadouts = VRFW.host.command(command("APPLY"), chosen, set, ticket)
     if ok ~= true then
       log("import failed:", tostring(placed))
       VRFW.question.notice(text("import_fail"))
       return false
     end
+    -- the members' sets the file carries become their records in this team (the imported team is a new team)
+    local TL = VRFW.team_loadout
+    local key = TL ~= nil and TL.team_key(set) or nil
+    if key ~= nil then
+      local count = 0
+      for handle, record in pairs(TL.unpack(loadouts)) do
+        if TL.keep(key, handle, record, true) then count = count + 1 end
+      end
+      log("import:", count, "member set(s) kept for", key)
+      TL.sync("team file")
+    end
     VRFW.question.notice(text("import_done", placed))
     if type(skipped) == "number" and skipped > 0 then
-      VRFW.question.notice(text("import_skipped", tostring(skipped_names)))
+      local names = type(skipped_names) == "table" and skipped_names or { tostring(skipped_names) }
+      VRFW.question.notice(text("import_skipped", VRFW.question.list(names, SKIPPED_LINES)))
     end
     if type(kept) == "number" and kept > 0 then
       VRFW.question.notice(text("import_kept", kept))

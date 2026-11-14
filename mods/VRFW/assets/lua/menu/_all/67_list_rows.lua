@@ -30,11 +30,13 @@ if VRFW.list_rows == nil then
     },
     PLAYER_COMMANDS = "team_dock.player_commands",
     TEAM_COMMANDS = "formation.team_commands",
+    PLAY_GUIDE = "play_guide.rows",   -- the row kinds of play_guide_top_menu (the retail chunk's list local t)
   }
+  --- Advanced: Namespace: the declared list rows of menus and their sub window hooks.
   VRFW.list_rows = R
 
   local logger
-  --- Logs through the list-rows logger.
+  --- Internal: Logs through the list-rows logger.
   function R.log(...)
     logger = logger or VRFW.logger.new("vrfw.ListRows")
     logger(...)
@@ -67,8 +69,9 @@ if VRFW.list_rows == nil then
 
   local function check(menu, spec, what, needs_run)
     if what == "Order" then
-      if type(menu) ~= "string" or type(spec) ~= "table" or type(spec.id) ~= "string" or type(spec.rows) ~= "table" then
-        return "VRFW.list_rows.Order(menu, {id = \"<mod>.<name>\", rows = {<row id>, ...}}) expected"
+      if type(menu) ~= "string" or type(spec) ~= "table" or type(spec.id) ~= "string"
+        or (type(spec.rows) ~= "table" and type(spec.last) ~= "table") then
+        return "VRFW.list_rows.Order(menu, {id = \"<mod>.<name>\", rows = {<row id>, ...}, last = {<row id>, ...}}) expected"
       end
       return
     end
@@ -80,7 +83,7 @@ if VRFW.list_rows == nil then
     end
   end
 
-  --- Hides a retail row of `menu`; answers the rule, or false, why.
+  --- Advanced: Hides a retail row of `menu`; answers the rule, or false, why.
   function R.hide(menu, spec)
     local why = check(menu, spec, "Hide", false)
     if why ~= nil then
@@ -89,7 +92,7 @@ if VRFW.list_rows == nil then
     return put(rules_of(menu).hide, spec)
   end
 
-  --- Adds a row to `menu`; answers the rule, or false, why.
+  --- Advanced: Adds a row to `menu`; answers the rule, or false, why.
   function R.add(menu, spec)
     local why = check(menu, spec, "Add", true)
     if why ~= nil then
@@ -101,7 +104,7 @@ if VRFW.list_rows == nil then
     return put(rules_of(menu).add, spec)
   end
 
-  --- Takes over a retail row of `menu`; answers the rule, or false, why.
+  --- Advanced: Takes over a retail row of `menu`; answers the rule, or false, why.
   function R.handle(menu, spec)
     local why = check(menu, spec, "Handle", true)
     if why ~= nil then
@@ -110,7 +113,7 @@ if VRFW.list_rows == nil then
     return put(rules_of(menu).handle, spec)
   end
 
-  --- Orders the rows of `menu`; answers the rule, or false, why.
+  --- Advanced: Orders the rows of `menu`; answers the rule, or false, why.
   function R.order(menu, spec)
     local why = check(menu, spec, "Order", false)
     if why ~= nil then
@@ -119,7 +122,7 @@ if VRFW.list_rows == nil then
     return put(rules_of(menu).order, spec)
   end
 
-  --- True when `spec` applies in `context`.
+  --- Internal: True when `spec` applies in `context`.
   function R.applies(spec, context)
     if spec.when == nil then
       return true
@@ -135,7 +138,7 @@ if VRFW.list_rows == nil then
     return result == true
   end
 
-  --- The added rule of a row id (nil = a retail row).
+  --- Internal: The added rule of a row id (nil = a retail row).
   function R.added_row(menu, row)
     for _, spec in ipairs(rules_of(menu).add) do
       if spec.row == row then
@@ -145,7 +148,7 @@ if VRFW.list_rows == nil then
     return nil
   end
 
-  --- The rule that takes `row` in `context`; nil when there is none.
+  --- Internal: The rule that takes `row` in `context`; nil when there is none.
   function R.taker(menu, row, context)
     local added = R.added_row(menu, row)
     if added ~= nil then
@@ -165,7 +168,7 @@ if VRFW.list_rows == nil then
     return taker
   end
 
-  --- The order rule in force for `context`; nil when there is none.
+  --- Internal: The order rule in force for `context`; nil when there is none.
   function R.order_rule(menu, context)
     local rules = rules_of(menu)
     local winner
@@ -183,30 +186,41 @@ if VRFW.list_rows == nil then
     return winner
   end
 
-  --- Sorts `rows` by order_rule.
+  --- Internal: Sorts `rows` by order_rule: its `rows` first, its `last` at the end, the others between in their order.
   function R.sort(rows, order_rule)
-    local rank = {}
-    for i, row in ipairs(order_rule.rows) do
+    local rank, tail = {}, {}
+    for i, row in ipairs(order_rule.rows or {}) do
       if rank[row] == nil then
         rank[row] = i
       end
     end
-    local first, rest = {}, {}
+    for i, row in ipairs(order_rule.last or {}) do
+      if rank[row] == nil and tail[row] == nil then
+        tail[row] = i
+      end
+    end
+    local first, rest, final = {}, {}, {}
     for _, row in ipairs(rows) do
       if rank[row] ~= nil then
         first[#first + 1] = row
+      elseif tail[row] ~= nil then
+        final[#final + 1] = row
       else
         rest[#rest + 1] = row
       end
     end
     table.sort(first, function(a, b) return rank[a] < rank[b] end)
+    table.sort(final, function(a, b) return tail[a] < tail[b] end)
     for _, row in ipairs(rest) do
+      first[#first + 1] = row
+    end
+    for _, row in ipairs(final) do
       first[#first + 1] = row
     end
     return first
   end
 
-  --- The rows of `menu` after its rules; answers the list.
+  --- Internal: The rows of `menu` after its rules; answers the list.
   function R.apply(menu, retail_rows, context)
     local rules = rules_of(menu)
     local hidden = {}
@@ -242,7 +256,7 @@ if VRFW.list_rows == nil then
     return out
   end
 
-  --- True when `spec` is enabled in `context`.
+  --- Internal: True when `spec` is enabled in `context`.
   function R.enabled(spec, context)
     if spec.enabled == nil then
       return true
@@ -251,11 +265,12 @@ if VRFW.list_rows == nil then
     return ok and result ~= false
   end
 
-  --- Declares a sub-window menu; answers the declaration.
+  --- Internal: Declares a sub-window menu; answers the declaration.
   function R.declare_sub_window(menu, declaration)
     declaration.name = menu
     declaration.sub_window = true
     R.menus[menu] = declaration
+    --- Internal: lookup of declarations by callback name, rebuilt on demand.
     R.by_callback = nil
     R.install_sub_window_callbacks(declaration)
     R.wrap_sub_window()
@@ -263,7 +278,7 @@ if VRFW.list_rows == nil then
     return declaration
   end
 
-  -- argument positions of MENU_DEF.OpenSubWindow (after the two callbacks) that hold one value per row
+  -- Internal: argument positions of MENU_DEF.OpenSubWindow (after the two callbacks) that hold one value per row
   R.PER_ROW_ARGUMENTS = {2, 5, 11, 13, 14, 16}   -- texts, grey, icons, t15, t16, checks (positions in `...`)
   R.COUNT_ARGUMENT, R.SIZE_ARGUMENT, R.FOCUS_ARGUMENT, R.KIND_ARGUMENT = 1, 3, 6, 9
 
@@ -353,7 +368,7 @@ if VRFW.list_rows == nil then
     return out
   end
 
-  --- Wraps the opener so checkbox rows start with their state.
+  --- Internal: Wraps the opener so checkbox rows start with their state.
   function R.fix_checkboxes(d)
     local open = d.open
     if open == nil or d.checkbox_rows == nil then
@@ -374,7 +389,7 @@ if VRFW.list_rows == nil then
     end
   end
 
-  --- After the declared opener ran: the list focus (set by retail position) and the checkbox states.
+  --- Internal: After the declared opener ran: the list focus (set by retail position) and the checkbox states.
   function R.fix_sub_window_positions(d)
     local open = d.open
     if open == nil then
@@ -386,7 +401,7 @@ if VRFW.list_rows == nil then
     R.fix_checkboxes(d)
   end
 
-  --- The window's pick: the position -> the retail row id; an added row / a taken-over row runs its rule.
+  --- Internal: The window's pick: the position -> the retail row id; an added row / a taken-over row runs its rule.
   function R.pick_sub_window(menu, position, ...)
     local d = R.menus[menu]
     local open = d and d.open
@@ -426,7 +441,7 @@ if VRFW.list_rows == nil then
     return table.unpack(result, 1, result.n)
   end
 
-  --- The window's focus callback with row ids; nil when there is none.
+  --- Internal: The window's focus callback with row ids; nil when there is none.
   function R.focus_sub_window(menu, position, ...)
     local d = R.menus[menu]
     local open = d and d.open
@@ -444,11 +459,12 @@ if VRFW.list_rows == nil then
     return callback(row, ...)
   end
 
-  --- Wraps MENU_DEF.OpenSubWindow once.
+  --- Internal: Wraps MENU_DEF.OpenSubWindow once.
   function R.wrap_sub_window()
     if MENU_DEF == nil or type(MENU_DEF.OpenSubWindow) ~= "function" or R.retail_open_sub_window ~= nil then
       return
     end
+    --- Internal: the retail MENU_DEF.OpenSubWindow saved before the wrap.
     R.retail_open_sub_window = MENU_DEF.OpenSubWindow
     MENU_DEF.OpenSubWindow = function(callback, focus_callback, ...)
       local d = declaration_of_callback(callback, (select(R.KIND_ARGUMENT, ...)))
@@ -469,7 +485,7 @@ if VRFW.list_rows == nil then
     end
   end
 
-  --- The declared opener: after it ran (the window is open and the retail code addressed it by position), fix that.
+  --- Internal: The declared opener: after it ran (the window is open and the retail code addressed it by position), fix that.
   function R.wrap_opener(d)
     local name = d.opener
     if type(name) ~= "string" or type(_ENV[name]) ~= "function" or d.wrappedOpener ~= nil then
@@ -486,7 +502,7 @@ if VRFW.list_rows == nil then
     end
   end
 
-  --- Global callback names of a declared sub-window menu (the window calls its callbacks by name).
+  --- Internal: Global callback names of a declared sub-window menu (the window calls its callbacks by name).
   function R.install_sub_window_callbacks(d)
     d.global = d.global or (d.name:gsub("[^%w]", "_"))
     _ENV[R.SUBWINDOW_CALLBACK_PREFIX .. d.global] = function(...)
@@ -495,6 +511,74 @@ if VRFW.list_rows == nil then
     _ENV[R.SUBWINDOW_FOCUS_PREFIX .. d.global] = function(...)
       return R.focus_sub_window(d.name, ...)
     end
+  end
+
+  -- The row list local of a declared local-list menu (VRFW.host locals), or nil.
+  local function local_list(d)
+    local host = VRFW.host ~= nil and VRFW.host.hosts ~= nil and VRFW.host.hosts[d.stem] or nil
+    local list = host ~= nil and host.L ~= nil and host.L[d.list] or nil
+    if type(list) ~= "table" then
+      if not d.missing_logged then
+        d.missing_logged = true
+        R.log(d.name, "the row list local", d.list, "of", d.stem, "is not served: its rules do not run")
+      end
+      return nil
+    end
+    if d.list_table ~= list then
+      d.list_table, d.retail_rows = list, {}
+      for i, row in ipairs(list) do
+        d.retail_rows[i] = row
+      end
+    end
+    return list
+  end
+
+  -- Writes `rows` into the retail list table in place (the retail code holds that table).
+  local function write_rows(list, rows)
+    for i = #list, #rows + 1, -1 do
+      list[i] = nil
+    end
+    for i, row in ipairs(rows) do
+      list[i] = row
+    end
+  end
+
+  --- Internal: Declares a menu whose rows are a list local of its retail chunk; answers the declaration.
+  -- declaration: stem, list (the local's name in the host locals map), setup = {point, layer, instance} (where the
+  -- rules are applied), reset (the function before which the list goes back to the retail order); hide and order rules.
+  function R.declare_local_list(menu, declaration)
+    declaration.name = menu
+    R.menus[menu] = declaration
+    if VRFW.host == nil or declaration.attached then
+      return declaration
+    end
+    declaration.attached = true
+    local setup = declaration.setup
+    if declaration.reset ~= nil then
+      VRFW.host.on(declaration.stem, declaration.reset, {id = "menu_engine.list_rows." .. menu .. ".reset",
+        phase = "before", fn = function()
+          local list = has_rules(menu) and local_list(declaration) or nil
+          if list ~= nil then
+            write_rows(list, R.sort(list, {rows = declaration.retail_rows}))
+          end
+        end})
+    end
+    VRFW.host.on(declaration.stem, setup.point, {id = "menu_engine.list_rows." .. menu .. ".rows", phase = "before",
+      fn = function(layer, instance)
+        if layer ~= setup.layer or (setup.instance ~= nil and instance ~= setup.instance) or not has_rules(menu) then
+          return
+        end
+        local list = local_list(declaration)
+        if list == nil then
+          return
+        end
+        write_rows(list, R.apply(menu, list, {menu = menu}))
+        if not declaration.logged then
+          declaration.logged = true
+          R.log(menu, "rows", table.concat(list, ","))
+        end
+      end})
+    return declaration
   end
 
   -- the formation's team COMANDOS window (soccer_formation_menu_inc OpenSelectTeamMemberControlSubWindowCore)

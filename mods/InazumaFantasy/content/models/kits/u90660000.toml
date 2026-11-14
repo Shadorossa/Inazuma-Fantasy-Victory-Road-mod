@@ -1,0 +1,4 @@
+schema = "VRFW.model/1"
+# Yasha Enma's coat, flame skirt, sash and cords: one full-body clothes model with its skin part, his own and an outfit.
+format = "native"
+game_path = "chr/_uniform/u90660000"

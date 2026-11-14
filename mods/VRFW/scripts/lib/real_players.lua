@@ -1,3 +1,4 @@
+--- Advanced: Library: real player data of a character or card.
 local M = {}
 
 local Faces = VRFW.faces
@@ -55,7 +56,7 @@ local function player_body(model_id)
   return D.body[m]
 end
 
---- a character (chara_base id) -> true / false (+ reason) / nil
+--- Advanced: a character (chara_base id) -> true / false (+ reason) / nil
 function M.of_character(base)
   base = u32(base)
   local a = ANSWER[base]
@@ -78,7 +79,7 @@ function M.of_character(base)
   return real, reason
 end
 
---- a card (chara_param id) -> as of_character of its character
+--- Advanced: a card (chara_param id) -> as of_character of its character
 function M.of_card(card)
   local ok, base = pcall(VRFW.character.base_of, u32(card))
   if not ok or type(base) ~= "number" then return nil end

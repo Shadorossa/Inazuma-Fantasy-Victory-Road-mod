@@ -1,0 +1,153 @@
+schema = "VRFW.base_table/1"
+file = "data/common/event_cfg/evt/ev62_92114_2.cfg.bin"
+from = "data/common/event_cfg/evt/ev62_01140_2.cfg.bin"
+
+[[entry]]
+command = "LOAD_CAMERA"
+at = 4
+args = ["common/event/ev62/ev62_92114/ev62_92114_camera.g4cm"]
+
+[[entry]]
+command = "LOAD_LIGHT_LIST"
+at = 10
+args = ["common\\event\\ev62/ev62_92114\\ev62_92114_light\\light_list.cfg.bin"]
+
+[[entry]]
+command = "LOAD_ACTOR_MOTION"
+at = 13
+args = ["point_eff", "common/event/ev62/ev62_92114/ev62_92114_<CHARA>_<CUT>.g4pk", "/scene/c0100/load/point_eff##エフェクト用配置ポイント/", "c0100"]
+
+[[entry]]
+command = "LOAD_ACTOR_MOTION"
+at = 14
+args = ["c00<TYPE><NO>_s01_p<VARIATION>", "common/event/ev62/ev62_92114/ev62_92114_<CHARA>_<CUT>.g4pk", "/scene/c0100/load/c00<TYPE><NO>_s01_p<VARIATION>##共通リグ/", "c0100"]
+
+[[entry]]
+command = "LOAD_ACTOR_MOTION"
+at = 15
+args = ["point_s01", "common/event/ev62/ev62_92114/ev62_92114_<CHARA>_<CUT>.g4pk", "/scene/c0100/load/point_s01##配置ポイント/", "c0100"]
+
+[[entry]]
+command = "ACTOR_PLAY_ANIM"
+at = 57
+args = ["point_eff", "c0100", 272, 0, 0, "common/event/ev62/ev62_92114/ev62_92114_<CHARA>_<CUT>.g4pk", 0]
+
+[[entry]]
+command = "ACTOR_PLAY_ANIM"
+at = 58
+args = ["c00<TYPE><NO>_s01_p<VARIATION>", "c0100", 272, 0, 0, "common/event/ev62/ev62_92114/ev62_92114_<CHARA>_<CUT>.g4pk", 0]
+
+[[entry]]
+command = "ACTOR_PLAY_ANIM"
+at = 61
+args = ["point_s01", "c0100", 272, 0, 0, "common/event/ev62/ev62_92114/ev62_92114_<CHARA>_<CUT>.g4pk", 0]
+
+[[entry]]
+command = "LOAD_ACTOR_MOTION"
+at = 64
+args = ["point_eff", "common/event/ev62/ev62_92114/ev62_92114_<CHARA>_<CUT>.g4pk", "/scene/c0202/load/point_eff##エフェクト用配置ポイント/", "c0202"]
+
+[[entry]]
+command = "LOAD_ACTOR_MOTION"
+at = 65
+args = ["b000001_s01_p<VARIATION>", "common/event/ev62/ev62_92114/ev62_92114_<CHARA>_<CUT>.g4pk", "/scene/c0202/load/b000001_s01_p<VARIATION>##ボール/", "c0202"]
+
+[[entry]]
+command = "LOAD_ACTOR_MOTION"
+at = 66
+args = ["point_s90", "common/event/ev62/ev62_92114/ev62_92114_<CHARA>_<CUT>.g4pk", "/scene/c0202/load/point_s90##配置ポイント/", "c0202"]
+
+[[entry]]
+command = "ACTOR_PLAY_ANIM"
+at = 76
+args = ["point_eff", "c0202", 272, 0, 0, "common/event/ev62/ev62_92114/ev62_92114_<CHARA>_<CUT>.g4pk", 0]
+
+[[entry]]
+command = "ACTOR_PLAY_ANIM"
+at = 77
+args = ["b000001_s01_p<VARIATION>", "c0202", 272, 0, 0, "common/event/ev62/ev62_92114/ev62_92114_<CHARA>_<CUT>.g4pk", 0]
+
+[[entry]]
+command = "ACTOR_PLAY_ANIM"
+at = 80
+args = ["point_s90", "c0202", 272, 0, 0, "common/event/ev62/ev62_92114/ev62_92114_<CHARA>_<CUT>.g4pk", 0]
+
+[[entry]]
+command = "LOAD_ACTOR_MOTION"
+at = 86
+args = ["point_eff", "common/event/ev62/ev62_92114/ev62_92114_<CHARA>_<CUT>.g4pk", "/scene/c0300/load/point_eff##エフェクト用配置ポイント/", "c0300"]
+
+[[entry]]
+command = "LOAD_ACTOR_MOTION"
+at = 87
+args = ["c00<TYPE><NO>_s01_p<VARIATION>", "common/event/ev62/ev62_92114/ev62_92114_<CHARA>_<CUT>.g4pk", "/scene/c0300/load/c00<TYPE><NO>_s01_p<VARIATION>##共通リグ/", "c0300"]
+
+[[entry]]
+command = "LOAD_ACTOR_MOTION"
+at = 88
+args = ["point_s01", "common/event/ev62/ev62_92114/ev62_92114_<CHARA>_<CUT>.g4pk", "/scene/c0300/load/point_s01##配置ポイント/", "c0300"]
+
+[[entry]]
+command = "ACTOR_PLAY_ANIM"
+at = 105
+args = ["point_eff", "c0300", 272, 0, 0, "common/event/ev62/ev62_92114/ev62_92114_<CHARA>_<CUT>.g4pk", 0]
+
+[[entry]]
+command = "ACTOR_PLAY_ANIM"
+at = 106
+args = ["c00<TYPE><NO>_s01_p<VARIATION>", "c0300", 272, 0, 0, "common/event/ev62/ev62_92114/ev62_92114_<CHARA>_<CUT>.g4pk", 0]
+
+[[entry]]
+command = "ACTOR_PLAY_ANIM"
+at = 109
+args = ["point_s01", "c0300", 272, 0, 0, "common/event/ev62/ev62_92114/ev62_92114_<CHARA>_<CUT>.g4pk", 0]
+
+[[entry]]
+command = "LOAD_ACTOR_MOTION"
+at = 115
+args = ["point_eff", "common/event/ev62/ev62_92114/ev62_92114_<CHARA>_<CUT>.g4pk", "/scene/c0402/load/point_eff##エフェクト用配置ポイント/", "c0402"]
+
+[[entry]]
+command = "LOAD_ACTOR_MOTION"
+at = 116
+args = ["b000001_s01_p<VARIATION>", "common/event/ev62/ev62_92114/ev62_92114_<CHARA>_<CUT>.g4pk", "/scene/c0402/load/b000001_s01_p<VARIATION>##ボール/", "c0402"]
+
+[[entry]]
+command = "LOAD_ACTOR_MOTION"
+at = 117
+args = ["c00<TYPE><NO>_s01_p<VARIATION>", "common/event/ev62/ev62_92114/ev62_92114_<CHARA>_<CUT>.g4pk", "/scene/c0402/load/c00<TYPE><NO>_s01_p<VARIATION>##共通リグ/", "c0402"]
+
+[[entry]]
+command = "LOAD_ACTOR_MOTION"
+at = 118
+args = ["point_s01", "common/event/ev62/ev62_92114/ev62_92114_<CHARA>_<CUT>.g4pk", "/scene/c0402/load/point_s01##配置ポイント/", "c0402"]
+
+[[entry]]
+command = "LOAD_ACTOR_MOTION"
+at = 119
+args = ["point_s90", "common/event/ev62/ev62_92114/ev62_92114_<CHARA>_<CUT>.g4pk", "/scene/c0402/load/point_s90##配置ポイント/", "c0402"]
+
+[[entry]]
+command = "ACTOR_PLAY_ANIM"
+at = 138
+args = ["point_eff", "c0402", 272, 0, 0, "common/event/ev62/ev62_92114/ev62_92114_<CHARA>_<CUT>.g4pk", 0]
+
+[[entry]]
+command = "ACTOR_PLAY_ANIM"
+at = 139
+args = ["b000001_s01_p<VARIATION>", "c0402", 272, 0, 0, "common/event/ev62/ev62_92114/ev62_92114_<CHARA>_<CUT>.g4pk", 0]
+
+[[entry]]
+command = "ACTOR_PLAY_ANIM"
+at = 142
+args = ["c00<TYPE><NO>_s01_p<VARIATION>", "c0402", 272, 0, 0, "common/event/ev62/ev62_92114/ev62_92114_<CHARA>_<CUT>.g4pk", 0]
+
+[[entry]]
+command = "ACTOR_PLAY_ANIM"
+at = 145
+args = ["point_s01", "c0402", 272, 0, 0, "common/event/ev62/ev62_92114/ev62_92114_<CHARA>_<CUT>.g4pk", 0]
+
+[[entry]]
+command = "ACTOR_PLAY_ANIM"
+at = 146
+args = ["point_s90", "c0402", 272, 0, 0, "common/event/ev62/ev62_92114/ev62_92114_<CHARA>_<CUT>.g4pk", 0]

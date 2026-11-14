@@ -199,6 +199,22 @@
   "chunk_crc": 108364872,
   "chunk_size": 793
  },
+ "soccer_menu": {
+  "script": "soccer_menu_0.03.81",
+  "require": [
+   "ChangeTensionMeterLeftTopToRightBottom",
+   "InitializeGlobalValues",
+   "OnCloseLayer"
+  ],
+  "forbid": [
+   "SetSoccerBattleTeamName"
+  ],
+  "ambiguous": [
+   "soccer_menu_replay"
+  ],
+  "chunk_crc": 2036312462,
+  "chunk_size": 1022
+ },
  "soccer_restart_guide_menu": {
   "script": "soccer_restart_guide_menu_1.04.16.00",
   "require": [
@@ -314,22 +330,6 @@
   ],
   "forbid": [],
   "ambiguous": []
- },
- "soccer_menu": {
-  "script": "soccer_menu_0.03.81",
-  "require": [
-   "ChangeTensionMeterLeftTopToRightBottom",
-   "InitializeGlobalValues",
-   "OnCloseLayer"
-  ],
-  "forbid": [
-   "SetSoccerBattleTeamName"
-  ],
-  "ambiguous": [
-   "soccer_menu_replay"
-  ],
-  "chunk_crc": 2036312462,
-  "chunk_size": 1022
  },
  "soccer_team_dock_menu": {
   "script": "soccer_team_dock_menu_7.01.06.00",

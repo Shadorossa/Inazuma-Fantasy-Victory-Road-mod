@@ -159,7 +159,7 @@ local function reset_match()
   PLAYERS = nil
 end
 
-VRFW.on("match_start", function()
+VRFW.on("match:start", function()
   reset_match()
   settings()
   write_catch(math.max(0, math.min(100, math.floor(settings().catch_base + 0.5))))
@@ -177,7 +177,7 @@ VRFW.on("hook:CharacterReforged.TrainingShotLaunch", function()
 end)
 
 -- The critical stage of a special move's execution (docs/framework/rules.md §3.7): the chance grows with the player's Suerte.
-VRFW.on("crit_check", function(ev)
+VRFW.on("match:crit_check", function(ev)
   local a = ev.actor
   if not a or not a.handle then return nil end
   local s = settings()

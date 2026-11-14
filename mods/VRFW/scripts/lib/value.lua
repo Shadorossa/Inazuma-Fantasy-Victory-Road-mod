@@ -1,10 +1,11 @@
+-- Read a value with a default: number, integer, boolean, list, clamp, round. Call: at load or in a handler.
 -- VRFW.value: values with a default, for any mod's scripts (read VRFW.value.<name>, no require).
 
 local floor, ceil = math.floor, math.ceil
 
 local value = {}
 
---- `v` as a number (`default` when it is none).
+--- VRFW.value.number(v, default): v as a number, or default when v is not one. Call: at load or in a handler.
 function value.number(v, default)
   v = tonumber(v)
   if v == nil or v ~= v then
@@ -13,7 +14,7 @@ function value.number(v, default)
   return v
 end
 
---- `v` as an integer rounded toward zero (`default` when it is none).
+--- VRFW.value.integer(v, default): v as a whole number (rounded toward zero), or default. Call: at load or in a handler.
 function value.integer(v, default)
   v = value.number(v, nil)
   if v == nil then
@@ -25,7 +26,7 @@ function value.integer(v, default)
   return ceil(v)
 end
 
---- `v` as a boolean (`default` when it is none).
+--- VRFW.value.boolean(v, default): v as a boolean, or default when v is not one. Call: at load or in a handler.
 function value.boolean(v, default)
   if v == nil then
     return default
@@ -33,7 +34,7 @@ function value.boolean(v, default)
   return v == true
 end
 
---- `v` as an array (`default` when it is not one).
+--- VRFW.value.list(v, default): v when it is a list, else default. Call: at load or in a handler.
 function value.list(v, default)
   if v == nil then
     return default
@@ -44,7 +45,7 @@ function value.list(v, default)
   return v
 end
 
---- `v` as a number between `min` and `max` (`default` when it is none).
+--- VRFW.value.clamp(v, default, min, max): v as a number kept between min and max, or default. Call: at load or in a handler.
 function value.clamp(v, default, min, max)
   v = value.number(v, nil)
   if v == nil then
@@ -59,7 +60,7 @@ function value.clamp(v, default, min, max)
   return v
 end
 
---- `x` rounded half away from zero to `places` decimals.
+--- VRFW.value.round(x, places): x rounded to `places` decimals (halves away from zero). Call: at load or in a handler.
 function value.round(x, places)
   local scale = 1
   if places ~= nil and places ~= 0 then

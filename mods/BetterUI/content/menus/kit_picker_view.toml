@@ -1,0 +1,25 @@
+# BetterUI, the kit picker («Cambiar equipación», equip_uniform_menu_list): the right side moves 30 px right with the
+# four 3D models (assets\lua\equip_uniform_menu_list\150_kit_view_shift.lua moves their camera 0.12 m, about 30 px at
+# 1080p, so the leftmost model clears the kit grid). The «LOCAL / VISITANTE» header (team07_05) follows the models, and
+# the kit name (team07_03 _text_detail01, under the models' feet) is centred on the group: the models' centres run
+# from x 1140 to 1810 (middle 1475, 1505 after the move), so the name box (retail x 1041..1873) becomes 1125..1885.
+# The kit card (icon, line, window) keeps the retail place. Units are layout pixels (origin top left).
+schema = "VRFW.menu/2"
+
+# retail translate x 980.0 / 1426.0
+[[layout]]
+file = "common/menu/102_team/team07/team07_05/team07_05.g4pkm"
+joint = "_gtxt_home01"
+translate = [1010.0, -195.0, 0.0]
+
+[[layout]]
+file = "common/menu/102_team/team07/team07_05/team07_05.g4pkm"
+joint = "_gtxt_away01"
+translate = [1456.0, -195.0, 0.0]
+
+# retail translate x -349.0, width 832.0 (under _pos_detail01 at the window centre x 1390)
+[[layout]]
+file = "common/menu/102_team/team07/team07_03/team07_03.g4pkm"
+joint = "_text_detail01"
+translate = [-265.0, 72.0, 0.0]
+scale = [760.0, 146.0, 1.0]

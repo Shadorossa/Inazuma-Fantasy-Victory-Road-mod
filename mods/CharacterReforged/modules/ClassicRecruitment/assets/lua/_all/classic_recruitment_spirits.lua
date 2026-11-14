@@ -30,6 +30,7 @@ if ClassicRecruitment.spirits == nil then
   local SPIRIT_STOCK_MAX = 999
   local PENDING_MAX = 64
   local ENTRY_SIZE = 3
+  local SPIRIT_CHRONICLE_DOCK_ROW = 60  -- rpg_team_dock_menu_inc row kind of «Espíritu» (the Chronicle team dock list)
 
   local function Crc(text)
     return VRFW.ids.crc32(text)
@@ -76,22 +77,22 @@ if ClassicRecruitment.spirits == nil then
     end
   end
 
-  -- No "new spirit" notices while the spirit menus are hidden.
+  -- No "new spirit" notices while the option spirit_section is off.
   local function NoticeFilter(nxt, ...)
     local id = ...
-    if id == SPIRIT_INFO and ClassicRecruitment.spirit_menus_hidden() then
+    if id == SPIRIT_INFO and ClassicRecruitment.spirits_hidden() then
       return true, false
     end
-    if id == HAS_CHARA_SPIRIT and ClassicRecruitment.spirit_menus_hidden() then
+    if id == HAS_CHARA_SPIRIT and ClassicRecruitment.spirits_hidden() then
       return false
     end
     return nxt(...)
   end
 
-  -- The drop list keeps its player spirit tabs while the spirit menus are shown.
+  -- The drop list keeps its player spirit tabs while the option spirit_section is on.
   local function TabFilter(nxt, ...)
     local hidden = table.pack(nxt(...))
-    if ClassicRecruitment.spirit_menus_hidden() then
+    if ClassicRecruitment.spirits_hidden() then
       return table.unpack(hidden, 1, hidden.n)
     end
     local kept = {}
@@ -276,6 +277,23 @@ if ClassicRecruitment.spirits == nil then
     end
   end
 
+  -- The Chronicle team dock lists its rows without «Espíritu» while the option spirit_section is off.
+  local function ChronicleRows(retail_sort)
+    return function(...)
+      local list = retail_sort(...)
+      if type(list) ~= "table" or not ClassicRecruitment.holds(ClassicRecruitment.spirits_hidden) then
+        return list
+      end
+      local shown = {}
+      for _, kind in ipairs(list) do
+        if kind ~= SPIRIT_CHRONICLE_DOCK_ROW then
+          shown[#shown + 1] = kind
+        end
+      end
+      return shown
+    end
+  end
+
   -- wraps a global once per function object
   local own_wrappers = {}
   local function WrapGlobal(name, make)
@@ -294,6 +312,7 @@ if ClassicRecruitment.spirits == nil then
     if recruits_here then
       WrapGlobal("Step", RecruitStep)
     end
+    WrapGlobal("GetSortOflistItems", ChronicleRows)
   end
 
   if type(VRFW.host) == "table" and type(VRFW.host.hook_command) == "function" then

@@ -1,4 +1,4 @@
--- VRFW extra-time telops (rule engine): the period-end telop of a ruleset's match.
+-- Internal: VRFW extra-time telops (rule engine): the period-end telop of a ruleset's match.
 VRFW.extra_time_telop = VRFW.extra_time_telop or {}
 do
   local C = {
@@ -32,6 +32,7 @@ do
 
   local prev_setup = SetupTimeTelopInfo
   if type(prev_setup) == "function" and VRFW.extra_time_telop.setup ~= SetupTimeTelopInfo then
+    --- Internal: wrapped setup function; remembers the telop wanted for the extra time.
     VRFW.extra_time_telop.setup = function(a1, a2, a3, a4, ...)
       local r = table.pack(prev_setup(a1, a2, a3, a4, ...))
       want = nil
@@ -49,6 +50,7 @@ do
 
   local prev_tex = UpdateUseTextureTelop
   if type(prev_tex) == "function" and VRFW.extra_time_telop.texture ~= UpdateUseTextureTelop then
+    --- Internal: wrapped texture function; swaps the extra time telop texture.
     VRFW.extra_time_telop.texture = function(...)
       local r = table.pack(prev_tex(...))
       if want ~= nil then

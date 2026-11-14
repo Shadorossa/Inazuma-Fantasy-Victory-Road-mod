@@ -1,4 +1,4 @@
--- Derives the uniform of a card's own team from game data (mod overlays included); names no character, team or kit.
+-- Advanced: Derives the uniform of a card's own team from game data (mod overlays included); names no character, team or kit.
 
 local M = {}
 
@@ -191,12 +191,13 @@ function team_kit(team)
   return D.team_uniform[team]
 end
 
---- Reads the kit tables now, before their first use.
+--- Internal: Reads the kit tables and the team rosters now, before their first use.
 function M.prepare()
   read_all()
+  roster_kit(0)
 end
 
---- The kit of card `card` (in team `team` when given); nil when it has none.
+--- Advanced: The kit of card `card` (in team `team` when given); nil when it has none.
 function M.of(card, team)
   card, team = u32(card), u32(team)
   local cache_key = team ~= 0 and (card .. ":" .. team) or card

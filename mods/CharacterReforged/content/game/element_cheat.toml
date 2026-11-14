@@ -1,0 +1,11 @@
+schema = "VRFW.game/2"
+
+# Element cheat commands (handlers in scripts\element_cheat.lua, option CharacterReforged.element_cheat).
+
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_ELEMENT_INFO"   # (charaStHdl) -> on, the card's element, every element value it may take
+handler = "CharacterReforged.ElementCheat.Info"
+
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_ELEMENT_SET"    # (charaStHdl, element) -> ok
+handler = "CharacterReforged.ElementCheat.Set"

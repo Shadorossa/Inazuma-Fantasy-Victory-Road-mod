@@ -90,7 +90,7 @@ game = "Passive.TeamPassiveId"
 name = "Passive.TeamPassiveUnlocked"
 game = "Passive.TeamPassiveUnlocked"
 
-# SignatureSlotId(&out, chara): the signature passive slot's id.
+# SignatureSlotId(&out, chara): the own passive slot's id.
 [[VRFW.Function]]
 name = "Passive.SignatureSlotId"
 game = "Passive.SignatureSlotId"

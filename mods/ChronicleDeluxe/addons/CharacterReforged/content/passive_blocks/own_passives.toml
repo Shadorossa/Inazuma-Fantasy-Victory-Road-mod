@@ -1,0 +1,21 @@
+schema = "VRFW.passive_block/1"
+# The blocks of Hidetoshi Nakata's own passive.
+
+[[VRFW.Half]]
+name = "nakata_half_2"
+halves = [2]
+
+[[VRFW.Trait]]
+name = "nakata_trait_orpheus"
+team_groups = ["CharacterReforged.orpheus"]
+
+[[VRFW.DuelPower]]
+name = "nakata_duelpower_team_5_orpheus"
+percent = 5
+target = "team"
+trait = "nakata_trait_orpheus"
+
+[[VRFW.GamePassive]]
+name = "nakata_card_c02024760"
+passive = "own_c02024760"
+unlock = "always"

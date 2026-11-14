@@ -1,11 +1,12 @@
 id = "VRFW"
 name = "VRFW"
 icon = "#/menu/200_icon/16_icon_list_tab/icon_list_tab.g4tx:icon_list_tab_sixth01"
-version = "0.3.0"
+version = "0.3.1"
 author = "Fantasy Team"
 description = "The framework the other mods are built on: it lets mods add characters, teams, special moves, texts in 9 languages, save data, match rules, game modes, audio and menus, and it provides the Mods screen with its options. Needed by the mods that use it."
 # the base loads first: the mods that use it load after it (and win their conflicts)
 priority = -10
+type = "framework"
 tags = ["Framework"]
 updated = "2026-11-09"
 # No plugin key: the framework's code is linked into the ModLoader (winmm.dll) and runs for the mod with this id.
@@ -70,9 +71,11 @@ permissions = ["patch", "memory", "call", "command", "state", "hook"]
 # content\ folders the framework's scripts and run times read in every mod (not types, no declaration schema)
 # word that names this mod's byte edits in the game profile (research/scripts/profile_extract.py)
 profile_edit_word = "Unsigned"
+# The built files the pack places at the top of the folder: the modders' id workbook (research/scripts/vrfw_ids_xlsx.py)
+root_files = ["VRFW ids.xlsx"]
 
 [layout]
-script_folders = ["archetypes", "camera_drives", "community_links", "contact_maps", "editor", "random_teams", "redeem_codes", "screen_art", "story_start", "talk_templates"]
+script_folders = ["archetypes", "camera_drives", "community_links", "contact_maps", "data_compilers", "editor", "random_teams", "redeem_codes", "screen_art", "story_start", "talk_templates"]
 
 [[VRFW.DebugSwitch]]
 Flag = "reveal_all"

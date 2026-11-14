@@ -1,4 +1,5 @@
 schema = "VRFW.technique/3"
+if_mod = "HissatsuEffects.technique_passives"   # options.toml row «technique_passives»: off = not read
 # Ball mini-effects of retail moves, mod Hissatsu Effects.
 
 # Escudo de fuerza (Power Shield): a short-to-medium clearance, low trajectory.

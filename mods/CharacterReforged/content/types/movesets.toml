@@ -2,6 +2,9 @@
 schema = "VRFW.decl_schema/1"
 kind = "CharacterReforged.movesets/1"
 folder = "content/movesets"
+# v2 words, read beside the v1 ones until the switch: the type and its kind folder.
+v2_type = "CharacterReforged.Skill.Moveset"
+v2_kind_folder = "Skills/Movesets"
 label = "Movesets"
 label_es = "Repertorios de técnicas"
 doc = "The rules that decide which moves each player gets."

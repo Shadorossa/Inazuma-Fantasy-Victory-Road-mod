@@ -91,6 +91,7 @@ local function MM_Coroutine()
   mm_co = nil
 end
 
+--- Internal: opens the mods screen from the title menu.
 function VRFW.mods_menu_open_screen()
   if mm_co ~= nil then
     return 1

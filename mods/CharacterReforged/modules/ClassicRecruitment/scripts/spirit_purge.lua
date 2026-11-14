@@ -8,7 +8,7 @@ local function is_reserved(slot)
   return ok and reserved and true or false
 end
 
-VRFW.on("slot_duplicate", function(event)
+VRFW.on("save:slot_duplicate", function(event)
   local from, to = event.from, event.to
   local copy = "COPY " .. tostring(from) .. "->" .. tostring(to)
   if VRFW.option("classic_recruitment") == 0 then

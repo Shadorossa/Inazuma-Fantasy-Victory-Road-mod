@@ -14,9 +14,8 @@ local Memory = VRFW.memory
 local read_memory = Memory.read
 
 local RULES = nil
-local function rules()
-  if RULES then return RULES end
-  local r = { aura = {}, mix = {}, mix_stats = {}, carriers = {}, moveset_export = "" }
+local function build_rules()
+  local r = { aura = {}, mix = {}, mix_stats = {}, carriers = {}, create = {}, moveset_export = "" }
   local okd, decl = pcall(VRFW.files.declarations, "content/skill_set")
   local merged = { aura_types = { 0, 3 }, mix_types = { 2, 6 }, mix_stat_types = { 2 } }
   for _, f in ipairs(okd and type(decl) == "table" and decl or {}) do
@@ -46,8 +45,27 @@ local function rules()
       end
     end
   end
-  RULES = r
+  -- The picker's create entries ([ability_list] create of the transform tables) open a creation flow and are never stored in a slot.
+  local okt, transforms = pcall(VRFW.files.declarations, "content/transforms")
+  for _, f in ipairs(okt and type(transforms) == "table" and transforms or {}) do
+    local list = type(f.data) == "table" and type(f.data.ability_list) == "table" and f.data.ability_list.create or nil
+    for _, key in ipairs(type(list) == "table" and list or {}) do
+      if type(key) == "string" then r.create[u32(VRFW.crc32(key))] = true end
+    end
+  end
   return r
+end
+
+-- The slot rules are a derived table (kept between starts): the declarations are only read again when the mods' files change.
+local function rules()
+  if RULES then return RULES end
+  RULES = VRFW.derived("skill_set_rules", nil, build_rules)
+  return RULES
+end
+-- The slot rules come from the mods' files only, so they are built at script load (the boot thread), not in the save's load.
+do
+  local ok, e = pcall(rules)
+  if not ok then warn("slot rules not built at script load: " .. tostring(e)) end
 end
 
 local AURA_TYPE_OF, SLOT_OF = {}, {}
@@ -63,9 +81,10 @@ local function aura_type(id)
   return t or nil
 end
 
--- "aura", "mix", "armour" (+ its keshin, 0 = none) or nil (a special move / nothing)
+-- "aura", "mix", "armour" (+ its keshin, 0 = none), "create" (a menu entry, never stored) or nil (a special move / nothing)
 local function read_slot_of(id)
   local r = rules()
+  if r.create[id] then return "create" end
   if r.carriers[id] then return "mix" end
   local t = aura_type(id)
   if t == nil then return nil end
@@ -91,14 +110,16 @@ local function slot_of(id)
   return known[1] or nil, known[2]
 end
 
-local KIND = { aura = 0, mix = 1, armour = 2 }
+local KIND = { aura = 0, mix = 1, armour = 2, create = 3 }
+local CARRIER = { fusion = 1, change = 2 }
+-- (move) -> kind, keshin of an armour, carrier (1 a fusion carrier, 2 a mode change carrier, 0 a plain move).
 function CharacterReforged.SlotOfCmd(id)
   local what, k = slot_of(id)
-  return KIND[what] or -1, k or 0
+  return KIND[what] or -1, k or 0, CARRIER[rules().carriers[u32(id or 0)]] or 0
 end
 function CharacterReforged.SlotOf(id)
-  local a, b = CharacterReforged.SlotOfCmd(id)
-  return { a, b }
+  local a, b, c = CharacterReforged.SlotOfCmd(id)
+  return { a, b, c }
 end
 
 local function record(hdl)
@@ -189,7 +210,7 @@ local function project_with_board(hdl, addr, stored, inv_items)
     out.aura, out.aura_from = b[8], AURA_FROM_BOARD_SLOT
   end
   local m = stored or (CharacterReforged.MixStored and CharacterReforged.MixStored(hdl)) or 0   -- the stored mix (the mix store below)
-  if m ~= 0 then out.mix, out.mix_from = m, MIX_FROM_STORE end
+  if m ~= 0 and slot_of(m) == "mix" then out.mix, out.mix_from = m, MIX_FROM_STORE end
   for k = 0, LIST_SLOTS - 1 do
     local x = l[k]
     if x ~= 0 and aura_type(x) ~= nil then
@@ -290,12 +311,19 @@ local function save()
   return true
 end
 
+-- A stored move the mix slot no longer takes (e.g. a kind the slot declarations dropped) shows as empty; the save keeps it.
+local function shown_mix(id)
+  id = u32(id or 0)
+  if id == 0 or slot_of(id) ~= "mix" then return 0 end
+  return id
+end
+
 function CharacterReforged.MixGet(card)
   local mix = load().mix
   local own = mix[key(card)]
-  if own then return own end
+  if own then return shown_mix(own) end
   local owner = VRFW.character.copy_owner(card)
-  return owner and mix[key(owner)] or 0
+  return owner and shown_mix(mix[key(owner)]) or 0
 end
 function CharacterReforged.MixStored(card)
   local st = load()
@@ -327,6 +355,19 @@ function CharacterReforged.MixSetCmd(card, id)
     info(string.format("mix slot of %s: %s refused: not a Mix-Max / «Modo cambio» move", hex(card), hex(id)))
     return false, 1
   end
+  -- A fusion carrier is the slot's move only while the card has a stored fusion: without one it is no miximax.
+  if id ~= 0 and rules().carriers[id] == "fusion" then
+    local function partner_of(h)
+      local okf, l = pcall(VRFW.miximax.call, { op = "fusion_of", hdl = h })
+      local f = okf and type(l) == "table" and (l.f or l) or nil
+      return type(f) == "table" and u32(f.partner_hdl or 0) or 0
+    end
+    local owner = VRFW.character.copy_owner(card)
+    if partner_of(card) == 0 and (not owner or partner_of(u32(owner)) == 0) then
+      info(string.format("mix slot of %s: carrier %s refused: no stored fusion", hex(card), hex(id)))
+      return false, 1
+    end
+  end
   if id ~= 0 then id = own_row(card, id) end
   local st = load()
   local old = st.mix[key(card)] or 0
@@ -349,6 +390,26 @@ function CharacterReforged.MixSet(card, id)
 end
 
 local DEF = { done = false, map = {} }
+
+-- Returns `id` once the saved card `hdl` has reached its learn level (the learn-level service's move_locked), else 0.
+local function learned(hdl, id)
+  id = u32(id or 0)
+  if id == 0 then return 0 end
+  local ok, need = pcall(VRFW.learn.move_locked, hdl, id)
+  if ok and type(need) == "number" and need > 0 then return 0 end
+  return id
+end
+
+-- Fills an empty aura / mix slot of saved card `hdl` (chara_param `param`) with his moveset's own move once he has learned it (from = 200).
+local function default_fill(hdl, param, aura, aura_from, mix, mix_from)
+  local d = DEF.map[param]
+  if d then
+    local da, dm = learned(hdl, d.aura), learned(hdl, d.mix)
+    if aura == 0 and da ~= 0 then aura, aura_from = da, 200 end
+    if mix == 0 and dm ~= 0 then mix, mix_from = dm, 200 end
+  end
+  return aura, aura_from, mix, mix_from
+end
 local function moveset_fn()
   local name = rules().moveset_export
   if name == "" then return nil, "" end
@@ -358,43 +419,56 @@ local function moveset_fn()
   return type(f) == "function" and f or nil, name
 end
 
-local function publish_defaults()
-  if DEF.done then return DEF.n end
-  DEF.done = true
-  local ok, rows = pcall(VRFW.table.raw, VRFW.table_files.file_name(VRFW.table_files.CHARA_PARAM), "CHARA_PARAM_INFO", { 1, 27 })
-  if not ok or type(rows) ~= "table" then
-    warn("moveset defaults: chara_param not readable (" .. tostring(rows) .. "): no defaults")
-    DEF.n = 0
-    return 0
+-- The defaults are a derived table (kept between starts): the chara_param walk and the moveset export only run when the mods' files change.
+-- The export is called once for every card's mix (one call into another script per card cost about 30 microseconds each).
+local function build_defaults(f)
+  local rows = VRFW.table.raw(VRFW.table_files.file_name(VRFW.table_files.CHARA_PARAM), "CHARA_PARAM_INFO", { 1, 27 })
+  if type(rows) ~= "table" then error("no CHARA_PARAM_INFO rows") end
+  local mixes = {}
+  if f then
+    local okm, m = pcall(f)
+    if okm and type(m) == "table" then
+      for card, id in pairs(m) do mixes[u32(card)] = u32(id) end
+    end
   end
-  local f, name = moveset_fn()
-  pcall(VRFW.native.table_clear, DEFAULTS)
-  DEF.map = {}
-  local n, na, nm, nx = 0, 0, 0, 0
+  local out = { rows = #rows, nx = 0, list = {} }
   for _, r in ipairs(rows) do
     local param, nine = u32(r[1]), u32(r[27])
     if param ~= 0 then
       local aura, mix = 0, 0
       local w = slot_of(nine)
       if w == "aura" then aura = nine elseif w == "mix" then mix = nine end
-      if f then
-        local okm, m = pcall(f, param)
-        if okm and type(m) == "table" then
-          if aura == 0 and slot_of(m.aura) == "aura" then aura = u32(m.aura) end
-          if mix == 0 and slot_of(m.mix) == "mix" then mix = u32(m.mix); nx = nx + 1 end
-        end
-      end
-      if aura ~= 0 or mix ~= 0 then
-        DEF.map[param] = { aura = aura, mix = mix }
-        pcall(VRFW.native.table_set, DEFAULTS, param, { aura = aura, mix = mix })
-        n = n + 1
-        if aura ~= 0 then na = na + 1 end
-        if mix ~= 0 then nm = nm + 1 end
-      end
+      local own = mixes[param]
+      if mix == 0 and own and slot_of(own) == "mix" then mix = own; out.nx = out.nx + 1 end
+      if aura ~= 0 or mix ~= 0 then out.list[#out.list + 1] = { param, aura, mix } end
     end
   end
+  return out
+end
+
+local function publish_defaults()
+  if DEF.done then return DEF.n end
+  DEF.done = true
+  local f, name = moveset_fn()
+  local ok, built = pcall(VRFW.derived, "moveset_defaults", { name, f ~= nil }, function() return build_defaults(f) end)
+  if not ok or type(built) ~= "table" then
+    warn("moveset defaults: chara_param not readable (" .. tostring(built) .. "): no defaults")
+    DEF.n = 0
+    return 0
+  end
+  pcall(VRFW.native.table_clear, DEFAULTS)
+  DEF.map = {}
+  local n, na, nm = 0, 0, 0
+  for _, e in ipairs(built.list) do
+    local param, aura, mix = e[1], e[2], e[3]
+    DEF.map[param] = { aura = aura, mix = mix }
+    pcall(VRFW.native.table_set, DEFAULTS, param, { aura = aura, mix = mix })
+    n = n + 1
+    if aura ~= 0 then na = na + 1 end
+    if mix ~= 0 then nm = nm + 1 end
+  end
   info(string.format("moveset defaults: %d of %d characters with an own aura (%d) / mix (%d) for the empty slots; moveset export %s%s",
-    n, #rows, na, nm, name ~= "" and name or "none", f and string.format(" (gave %d mix)", nx) or (name ~= "" and " not visible here: learn list slot 9 only" or "")))
+    n, built.rows, na, nm, name ~= "" and name or "none", f and string.format(" (gave %d mix)", built.nx) or (name ~= "" and " not visible here: learn list slot 9 only" or "")))
   DEF.n = n
   return n
 end
@@ -408,7 +482,7 @@ function CharacterReforged.DefaultSetCmd(card)
   pcall(publish_defaults)
   local d = DEF.map[param]
   if not d then return 0, 0 end
-  return u32(d.aura or 0), u32(d.mix or 0)
+  return learned(card, d.aura), learned(card, d.mix)
 end
 
 local function spirit(id)
@@ -443,7 +517,7 @@ local function sweep_start(report_why)
   end
 end
 
-local function context_row(param, p, b)
+local function context_row(hdl, param, p, b)
   local aura, aura_from, mix, mix_from = spirit(p.aura), -1, 0, -1
   if aura ~= 0 then aura_from = p.aura_from end
   if p.mix ~= 0 then mix, mix_from = p.mix, p.mix_from end
@@ -452,11 +526,7 @@ local function context_row(param, p, b)
       if b[s] ~= 0 and slot_of(b[s]) == "mix" then mix, mix_from = b[s], s break end
     end
   end
-  local d = DEF.map[param]
-  if d then
-    if aura == 0 and (d.aura or 0) ~= 0 then aura, aura_from = d.aura, 200 end
-    if mix == 0 and (d.mix or 0) ~= 0 then mix, mix_from = d.mix, 200 end
-  end
+  aura, aura_from, mix, mix_from = default_fill(hdl, param, aura, aura_from, mix, mix_from)
   return { aura = aura, mix = mix, aura_from = aura_from, mix_from = mix_from }
 end
 
@@ -470,7 +540,7 @@ local function sweep_card(st, hdl, param, addr)
     SWEEP.mix_rows[#SWEEP.mix_rows + 1] = { hdl, p.mix }
     SWEEP.projected = SWEEP.projected + 1
   end
-  local row = context_row(param, p, b)
+  local row = context_row(hdl, param, p, b)
   local aura, mix = row.aura, row.mix
   SWEEP.context_rows[#SWEEP.context_rows + 1] = { hdl, row }
   if aura ~= 0 then SWEEP.with_aura = SWEEP.with_aura + 1 end
@@ -524,7 +594,7 @@ function CharacterReforged.PublishCardRows(card, p)
   -- the branch rule for the shown card (a new recruit), without a whole-roster scan
   local route = read_memory("u32", r.addr + REC_ROUTE)
   if route ~= nil and route ~= 0 then VRFW.memory.write("u32", r.addr + REC_ROUTE, 0) end
-  local row = context_row(u32(r.param or 0), p, board(r.addr))
+  local row = context_row(card, u32(r.param or 0), p, board(r.addr))
   pcall(VRFW.native.table_set, CONTEXT, card, row)
   local st = load()
   local stored = st.mix[key(card)] or 0
@@ -549,14 +619,15 @@ end
 function CharacterReforged.EffectiveSkillSet(card)
   card = u32(card or 0)
   local r = record(card)
-  if not r then return nil end
-  local p, b = project_with_board(card, r.addr)
-  local aura, aura_from, mix, mix_from = p.aura, p.aura_from, p.mix, p.mix_from
-  local d = DEF.map[u32(r.param or 0)]
-  if d then
-    if aura == 0 and (d.aura or 0) ~= 0 then aura, aura_from = d.aura, 200 end
-    if mix == 0 and (d.mix or 0) ~= 0 then mix, mix_from = d.mix, 200 end
+  -- a team copy without a record of its own answers with its owner's set (as ProjectSkillSetCmd and MixGet do)
+  if not r then
+    local owner = card ~= 0 and VRFW.character.copy_owner(card) or nil
+    r = owner and record(owner) or nil
+    if not r then return nil end
+    card = u32(owner)
   end
+  local p, b = project_with_board(card, r.addr)
+  local aura, aura_from, mix, mix_from = default_fill(card, u32(r.param or 0), p.aura, p.aura_from, p.mix, p.mix_from)
   local listed, techniques, rows = {}, {}, {}
   for _, x in ipairs(p.techniques) do
     if x ~= 0 then listed[x] = true end
@@ -650,6 +721,7 @@ local function tick(deadline)
   if RT.branch_due then
     RT.branch_due = false
     local ok, e = pcall(branch_start)
+    VRFW.time.mark_step("owned cards")
     if not ok then
       BRANCH.cards = nil
       warn("branch rule: " .. tostring(e))
@@ -658,6 +730,7 @@ local function tick(deadline)
   end
   if BRANCH.cards then
     local ok, finished = pcall(branch_step, deadline)
+    VRFW.time.mark_step("branch rule")
     if not ok then
       BRANCH.cards = nil
       warn("branch rule: " .. tostring(finished))
@@ -679,11 +752,13 @@ local function tick(deadline)
   end
   if SWEEP.running then
     local ok, finished = pcall(sweep_step, deadline)
+    VRFW.time.mark_step(ok and finished and "sweep slice and tables" or "sweep slice")
     return ok and not finished
   elseif SWEEP.dirty then
     local why = SWEEP.report_next
     SWEEP.report_next = nil
     local ok, e = pcall(sweep_start, why)
+    VRFW.time.mark_step("sweep start")
     if not ok then
       SWEEP.running = false
       warn("sweep: " .. tostring(e))
@@ -712,13 +787,13 @@ function CharacterReforged.CommandStep()
   tick(now + MENU_STEP_BUDGET_MS)
 end
 
-VRFW.on("match_end", function()
+VRFW.on("match:end", function()
   OWNED.list = nil
   SWEEP.dirty = true
   RT.branch_due = true
 end)
 VRFW.on("menu:open:post", function() pcall(menu_step) end)
-VRFW.on("slot_load", function()
+VRFW.on("save:slot_load", function()
   ST.slot, ST.st = -1, nil
   OWNED.list = nil
   RT.branch_due = true
@@ -726,11 +801,10 @@ VRFW.on("slot_load", function()
   pcall(publish_defaults)
   SWEEP.dirty, SWEEP.running = true, false
 end)
-VRFW.on("game_reset", function()
-  ST.slot, ST.st, RULES = -1, nil, nil
-  AURA_TYPE_OF, SLOT_OF = {}, {}
+-- The rules, the slot kinds and the moveset defaults come from the game tables and the mods' files, which stay the same for the session, so a title return keeps them.
+VRFW.on("game:reset", function()
+  ST.slot, ST.st = -1, nil
   OWNED.list = nil
-  DEF.done = false
   SWEEP.dirty, SWEEP.running = true, false
   RT.branch_due = true
 end)

@@ -3,6 +3,7 @@ if VRFW.face_icon == nil then
   local F = {
     FACE = 552280324,
     RESET = 4176779611,
+    SWAP = 346643487,            -- SwapLayerFaceIconTex (layer, idx, mesh, slot, chara, 0, art type, true, true, true, 5)
     LOADING = 1277042906,        -- (layer, idx) -> true while the instance's face texture loads
     MESH_VISIBLE = VRFW.commands.SET_MESH_VISIBLE,   -- (layer, mesh, on, idx)
     NODE_VISIBLE = 2158717427,   -- (layer, node, on, idx)
@@ -35,6 +36,7 @@ if VRFW.face_icon == nil then
     waiting = {},                -- "layer:idx" -> { layer, idx, mesh, key, left }
     card_key = {},
   }
+  --- Character face icons on menu layers: request, face, card. Call only from OnInit, Step or another callback.
   VRFW.face_icon = F
 
   local logger
@@ -88,7 +90,10 @@ if VRFW.face_icon == nil then
       pcall(SetDisableForceCharaInvalidUseTarget)
     end
     local ok, r
-    if opts.coach or opts.manager then
+    if opts.art ~= nil then
+      -- An aura or Mix-Max art face (retail SwapLayerFaceIconTex) uses the same slot cache and loading flag as a face.
+      ok, r = pcall(funcLuaMenuCommand, F.SWAP, layer, idx, mesh, slot, key, 0, opts.art, true, true, true, 5)
+    elseif opts.coach or opts.manager then
       ok, r = pcall(funcLuaMenuCommand, F.FACE, layer, idx, opts.face_only == true, mesh, slot, handle, kind, key,
         opts.kit or 0, false, opts.use_args == true, 0, opts.coach == true, false, -1, 0, opts.manager == true)
     elseif opts.use_args or opts.kit ~= nil or opts.keeper ~= nil then
@@ -106,7 +111,7 @@ if VRFW.face_icon == nil then
     return true
   end
 
-  --- Requests the face icon of `who`; answers false for no face.
+  --- VRFW.face_icon.request(layer, idx, who, mesh, slot[, opts]): starts loading the face of `who`. Returns false when there is no face. Call only from OnInit, Step or another callback.
   function F.request(layer, idx, who, mesh, slot, opts)
     local key, _, handle, kind = key_of(who)
     if key == nil then
@@ -116,9 +121,13 @@ if VRFW.face_icon == nil then
     return (request(layer, idx, key, mesh, slot, opts, handle, kind))
   end
 
-  --- Draws the face of `who`: "drawn", "loading", or the failure's answer.
+  --- VRFW.face_icon.face(layer, idx, who, mesh, slot[, opts]): draws the face of `who` (opts.art: an aura art type); the mesh stays hidden until the texture has loaded. Returns "drawn", "loading" or the failure. Call only from OnInit, Step or another callback.
   function F.face(layer, idx, who, mesh, slot, opts)
-    local k = layer .. ":" .. idx
+    local k = layer .. ":" .. idx .. ":" .. mesh
+    if F.unhooked ~= nil then
+      log("no menu Step hook: faces of this script stay hidden", F.unhooked)
+      F.unhooked = nil
+    end
     local key, why, handle, kind = key_of(who)
     if key == nil then
       VRFW.host.menu_command(F.MESH_VISIBLE, layer, mesh, false, idx)
@@ -129,7 +138,8 @@ if VRFW.face_icon == nil then
       F.shown[k] = nil
       return false
     end
-    local look = (opts and opts.coach) and "coach" or (opts and opts.manager) and "manager" or "player"
+    local look = (opts and opts.art) and ("art" .. opts.art) or (opts and opts.coach) and "coach"
+      or (opts and opts.manager) and "manager" or "player"
     if handle ~= nil then
       look = look .. ":" .. handle
     end
@@ -159,7 +169,7 @@ if VRFW.face_icon == nil then
     return "drawn"
   end
 
-  --- Draws a card face at (x, y) with `size`; answers as F.face.
+  --- VRFW.face_icon.card(layer, idx, who, x, y, size[, opts]): draws a card face at (x, y). Returns as face. Call only from OnInit, Step or another callback.
   function F.card(layer, idx, who, x, y, size, opts)
     local C = F.CARD
     local s = size / C.RH
@@ -188,12 +198,12 @@ if VRFW.face_icon == nil then
     return F.face(layer, idx, who, C.MESH, C.SLOT, opts)
   end
 
-  --- True while a face is still loading.
+  --- VRFW.face_icon.pending(): whether a face is still loading. Safe at load.
   function F.pending()
     return next(F.waiting) ~= nil
   end
 
-  --- Clears the faces that finished loading.
+  --- VRFW.face_icon.settle(): finishes the faces that loaded; the module runs it once per frame after each menu's Step. Call only from OnInit, Step or another callback.
   function F.settle()
     for k, w in pairs(F.waiting) do
       if VRFW.host.menu_command(F.LOADING, w.layer, w.idx) ~= true then
@@ -213,14 +223,36 @@ if VRFW.face_icon == nil then
     end
   end
 
-  --- Forgets the face state of (layer, idx), or of every instance of `layer`.
-  function F.forget(layer, idx)
-    if idx ~= nil then
-      local k = layer .. ":" .. idx
-      F.shown[k], F.waiting[k], F.card_key[k] = nil, nil, nil
+  -- Every menu that loads this module settles its faces once per frame, after its Step, so no screen has to call settle itself.
+  local script = type(VRFW.patch) == "table" and VRFW.patch.script or nil
+  local stem = type(script) == "string" and script:gsub("_%d+%.%d+%.%d+[%.%d]*$", "") or nil
+  if type(stem) == "string" and type(VRFW.host) == "table" and type(VRFW.host.on) == "function" then
+    VRFW.host.on(stem, "Step", { id = "VRFW.face_icon_settle", phase = "after", fn = function()
+      if next(F.waiting) ~= nil then
+        F.settle()
+      end
+    end })
+  else
+    F.unhooked = tostring(script)   -- no menu stem: the faces of this script are never settled (diagnostic)
+  end
+
+  --- VRFW.face_icon.loading(layer, idx, mesh): whether the face of that mesh is still loading (hidden until settle shows it). Safe at load.
+  function F.loading(layer, idx, mesh)
+    return F.waiting[layer .. ":" .. idx .. ":" .. mesh] ~= nil
+  end
+
+  --- VRFW.face_icon.forget(layer[, idx[, mesh]]): forgets the face state of one mesh, of one instance, or of every instance of the layer. Safe at load.
+  function F.forget(layer, idx, mesh)
+    if mesh ~= nil and idx ~= nil then
+      local k = layer .. ":" .. idx .. ":" .. mesh
+      F.shown[k], F.waiting[k] = nil, nil
       return
     end
     local pre = layer .. ":"
+    if idx ~= nil then
+      pre = pre .. idx .. ":"
+      F.card_key[layer .. ":" .. idx] = nil
+    end
     for _, t in ipairs({ F.shown, F.waiting, F.card_key }) do
       for k in pairs(t) do
         if k:sub(1, #pre) == pre then

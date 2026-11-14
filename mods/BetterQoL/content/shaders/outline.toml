@@ -1,0 +1,39 @@
+schema = "VRFW.shader/1"
+
+# Outline off (docs/game/media/lighting.md §10). Only toon-flagged models carry lines in VR: characters, keshin,
+# the ball and the solid-toon effect models; map shaders write no edge flag.
+
+# the contour passes of the character pipeline: inverted hull (chr_edge2) and the edge technique (chr_edge)
+[[VRFW.ShaderProgram]]
+id = "character_contour"
+patch = "no_draw"
+targets = [
+    { name = "chr_edge2.pfxo", type = "pixel", size = 1616, crc = 0x7462096E },
+    { name = "chr_edge.pfxo", type = "pixel", size = 1184, crc = 0x771E73BC },
+]
+
+# the screen-space line composite of the Edge post chain (every edge_composi variant)
+[[VRFW.ShaderProgram]]
+id = "screen_lines"
+patch = "no_draw"
+targets = [
+    { name = "edge_composi.pfxo", type = "pixel", size = 5724, crc = 0xB814B635 },
+    { name = "edge_composi_l.pfxo", type = "pixel", size = 3700, crc = 0xB5BE8F5D },
+    { name = "edge_composi_mask.pfxo", type = "pixel", size = 5980, crc = 0x7F9CF5E6 },
+    { name = "edge_composi_mask_l.pfxo", type = "pixel", size = 3956, crc = 0xA3F25BCC },
+    { name = "edge_composi_notoutline.pfxo", type = "pixel", size = 5668, crc = 0x3BBEBA61 },
+    { name = "edge_composi_notoutline_blendblur.pfxo", type = "pixel", size = 5968, crc = 0x35F897DF },
+    { name = "edge_composi_outline_mask.pfxo", type = "pixel", size = 5896, crc = 0xC435415B },
+]
+
+# characters, keshin and ball without their contour line (row outline = 1); the colour shading and the screen-space lines stay
+[[VRFW.ShaderPreset]]
+id = "no_character_outline"
+option = { key = "BetterQoL.outline", value = 1 }
+programs = ["character_contour"]
+
+# no line anywhere (row outline = 2): the contour passes and the screen-space lines
+[[VRFW.ShaderPreset]]
+id = "no_outline"
+option = { key = "BetterQoL.outline", value = 2 }
+programs = ["character_contour", "screen_lines"]

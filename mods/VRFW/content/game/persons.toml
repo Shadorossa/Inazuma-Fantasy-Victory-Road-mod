@@ -1,0 +1,6 @@
+schema = "VRFW.game/2"
+
+# (chara) -> { chara_base id, … }: every version of the character (VRFW.persons; { chara } when he has no other)
+[[VRFW.Command]]
+name = "CMND_VRFW_PERSON_VERSIONS"
+handler = "PersonCommands.Versions"

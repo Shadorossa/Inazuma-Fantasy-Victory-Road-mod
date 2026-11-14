@@ -1,0 +1,14 @@
+# Yasha Enma's miximax colours: his own model has no game character to lend him colour keys, so this mod declares them.
+# His dark blue hair is the hair colour, his pink skin the face and body skin, and the blue iris his iris.
+# The dark brows and lashes are never recoloured.
+schema = "VRFW.miximax_palette/1"
+
+[[VRFW.MiximaxPalette]]
+character = "c90660000"
+head = "_face/90_FANTASY/c90660000/c90660000.g4tx"
+hair = "#394689"
+face = "#E68AAA"
+iris = "#428AD3"
+skin = "#E68AAA"
+# The painted zones of his head: the eyes on the face atlas (his skin is painted on the head texture too, so it keeps its colour), the whole dark blue mane on the head texture (never his blue flames).
+zones = { face = "assets/images/miximax_zones/c90660000_face.png", hair = "assets/images/miximax_zones/c90660000_hair.png" }

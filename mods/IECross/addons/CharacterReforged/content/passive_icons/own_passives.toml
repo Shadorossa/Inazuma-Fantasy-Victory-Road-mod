@@ -1,0 +1,51 @@
+schema = "CharacterReforged.passive_icon/1"
+
+# Axel Blaze (Cross): Crossed Flame
+[[CharacterReforged.PassiveIcon]]
+passive = "c90000170_crossed_flame"
+icon = "own_passives_icon_shoot_self_count"
+
+# David Samford (Pumpkin Devil): Trick or Treat
+[[CharacterReforged.PassiveIcon]]
+passive = "c90000180_trick_or_treat"
+icon = "own_passives_icon_tension_rival_event"
+
+# Nathan Swift (Pumpkin Devil): Midnight Shadow
+[[CharacterReforged.PassiveIcon]]
+passive = "c90000190_midnight_shadow"
+icon = "own_passives_icon_speed_self_clock"
+
+# Celia Hills: Live Report
+[[CharacterReforged.PassiveIcon]]
+passive = "c90000071_live_report"
+icon = "own_passives_icon_tension_self_event"
+
+# Axel Blaze (Royal Academy): Inferno Penguin
+[[CharacterReforged.PassiveIcon]]
+passive = "c90000130_inferno_penguin"
+icon = "own_passives_icon_shoot_team"
+
+# Byron Love (Zeus): Heaven's Time
+[[CharacterReforged.PassiveIcon]]
+passive = "c90000120_heavens_time"
+icon = "own_passives_icon_speed_rival_present"
+
+# Gazelle: Fire Blizzard
+[[CharacterReforged.PassiveIcon]]
+passive = "c91022030_fire_blizzard"
+icon = "own_passives_icon_shoot_self_present"
+
+# Torch: Frozen Flame
+[[CharacterReforged.PassiveIcon]]
+passive = "c91022031_frozen_flame"
+icon = "own_passives_icon_tension_cost_self_present"
+
+# Shawn Froste (Pirates' Cove): Attacking Aurora
+[[CharacterReforged.PassiveIcon]]
+passive = "c90000050_attacking_aurora"
+icon = "own_passives_icon_dribble_self_ball"
+
+# Xavier Foster (Pirates' Cove): The Dawn
+[[CharacterReforged.PassiveIcon]]
+passive = "c90000040_the_dawn"
+icon = "own_passives_icon_tension_gain_team"

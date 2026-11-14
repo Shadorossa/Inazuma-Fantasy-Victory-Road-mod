@@ -3,6 +3,10 @@ schema = "VRFW.decl_schema/1"
 kind = "VRFW.passive/1"
 former_kinds = ["SignaturePassives.special_passive/1"]
 folder = "content/special_passives"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Passive"
+v2_kind_folder = "Passives"
+v2_version = 1
 label = "Special passives"
 label_es = "Pasivas especiales"
 doc = "A passive: a named list of effect blocks, with the characters and spirits that carry it."
@@ -49,9 +53,10 @@ max_percent = { type = "number", required = true, min = 0, max = 1000, doc = "th
 
 [entry.Tag]
 provides = "passive_tag"
-doc = "an archetype tag (the Trait key `tags`): its name and the text key of its word"
+doc = "an archetype tag (the Trait key `tags`): its name, the text key of its word and the sprite of its icon"
 name = { type = "name", required = true, doc = "the tag (a-z 0-9 _); one name across every mod (a later mod's entry replaces the text)" }
 text = { type = "string", default = "", doc = "a text key of the declaring mod with the tag's word (9 languages)" }
+icon = { type = "string", default = "", doc = "a sprite name of the declaring mod with the tag's icon (a white glyph shown where the tag is shown)" }
 
 [entry.CharacterTags]
 doc = "the archetype tags of a character: a later mod's entry for the same character replaces an earlier one"

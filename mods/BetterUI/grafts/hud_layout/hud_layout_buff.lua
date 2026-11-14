@@ -80,7 +80,7 @@ end
 -- Returns the step and x shift of the icons as drawn.
 local function HLB_UiStep()
   local flags = BetterUI.flags
-  if BetterUI.preset ~= "off" and type(flags) == "table" and flags.buff_icons == true then
+  if type(flags) == "table" and flags.buff_icons == true then
     return HLB_STEP * 0.85, -5.4
   end
   return HLB_STEP, 0
@@ -101,7 +101,7 @@ local function HLB_Apply(force)
   end
 end
 
---@lib vrfw_block_helpers.lua#WrapAfter
+--@lib vrfw_block_helpers.lua#Wrap,WrapAfter
 
 WrapAfter("BetterUI.hud_layout.buff", "OnSetupLayer", function(a1)
   if a1 == HLB_ANCHOR then

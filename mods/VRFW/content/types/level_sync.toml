@@ -2,17 +2,22 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.level_sync/1"
 folder = "content/level_sync"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Framework.LevelSync"
+v2_kind_folder = "Framework/LevelSync"
+v2_version = 1
 label = "Level sync"
 label_es = "Nivel sincronizado"
 doc = "The user's team plays the matches of the given games or difficulties at one level; saved players keep their own level."
 doc_es = "El equipo del usuario juega los partidos de los juegos o dificultades indicados a un único nivel; los jugadores guardados conservan el suyo."
 
 [entry.LevelSync]
-doc = "the user's team plays the matches of the given games and / or difficulty rows at one level: each player's match stats are the stats of that level (the saved players keep their level, EXP, boards and moves: every move he has stays usable); the first declaration of a game / row pair is used, a later one of the same pair is left out"
+doc = "the user's team plays the matches of the given games and / or difficulty rows at one level: each player's match card has the stats of that level and, by `moves`, the moves and board of that level or of his saved card (the saved players keep their level, EXP, boards and moves); the first declaration of a game / row pair is used, a later one of the same pair is left out"
 name = { type = "name", required = true, doc = "key <mod>.<name> (a-z 0-9 _)" }
 games = { type = "ids", doc = "game names (SOCCER_GAME_INFO col 1, e.g. fbtl_bb_stadium_00 = every Battle Bay match) or ids (0x…); empty = every game (then difficulties is required)" }
 difficulties = { type = "ints", min = 1, max = 255, doc = "difficulty rows (SOCCER_GAME_DIFFICULTY col 0, e.g. 6 = the free match's first class); empty = every row of the games" }
 difficulty_level = { type = "int", min = 1, max = 999, doc = "adds every difficulty row whose declared class level (content/defaults/match_difficulty.toml Level, every mod's, merged by Id) is this value; no such row = the declaration is left out" }
 level = { type = "int", min = 1, max = 999, required = true, doc = "the level the user's players play at" }
 raise = { type = "bool", default = true, doc = "a player below the level plays at it too (false: only the players above it are brought down, as the game's own level sync)" }
+moves = { type = "string", values = ["level", "saved"], default = "level", doc = "level: the match card is a real card of the level (moves learned above it are locked); saved: stats of the level, moves and board of the saved card (every move he has stays usable)" }
 when = { type = "when", doc = "conditions on the declaring mod's config: all must hold, else the declaration is left out" }

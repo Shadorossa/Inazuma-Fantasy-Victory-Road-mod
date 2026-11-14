@@ -1,0 +1,24 @@
+schema = "VRFW.team/2"
+default_lang = "en"
+
+# The five-a-side rival of every free match team (Chronicle Deluxe Pachanga mode). The team engine makes one team per
+# free match team at start: the same name, crest, kit, tactics and team skills (based_on), the captain and the four
+# players with the best fit on the best of these formations. A player's value on a place is his strength (the sum of his
+# seven base stats at Lv 99) times the fit of his position to the place. An [[edit]] of ChronicleDeluxe.fm5_<team key>
+# changes one five like any other team of the mod (ModManager writes it).
+[[VRFW.FormationFitTeams]]
+Id = "pachanga_fives"
+NamePrefix = "fm5_"
+KeyPrefix = "cd_fm5_"
+Sources = "free_match"
+Rows = [6, 7, 8, 9]                     # the free match classes
+LineFit = [1.0, 0.6, 0.3]               # same line, the next line, two lines apart
+LevelOffsets = false                    # every member at offset 0: the five plays exactly the class level (the classes are FlatRivalLevel)
+# The retail 5-a-side formations (the ones the game's 5v5 formation picker lists), in order of preference on equal fit.
+Formations = [
+  0x5D71E8B3,   # V formation
+  0x2A76D825,   # Y formation
+  0xB37F899F,   # Hammer formation
+  0xC478B909,   # Arrow formation
+  0x54C7A498,   # Crossfire formation
+]

@@ -1,0 +1,547 @@
+schema = "VRFW.passive/1"
+
+# Jibanyan: Paws of Fury — each duel he wins, his shot technique power +3 % (max 4, back to 0 each half)
+[[VRFW.Passive]]
+name = "c90620000_paws_of_fury"
+blocks = ["jibanyan_when_duel_won_by_self", "jibanyan_stack_max4_per_half", "jibanyan_techniquepower_self_shoot_3", "jibanyan_card_c90620000"]
+caps = ["CharacterReforged.own_total"]
+
+[[VRFW.Character]]
+character = "c90620000"
+passive = "c90620000_paws_of_fury"
+
+[[VRFW.CharacterTags]]
+character = "c90620000"
+tags = ["beast", "striker"]
+
+# Komasan: Shrine Guardian — in his own half, his block and dribble technique power +6 %
+[[VRFW.Passive]]
+name = "c90640000_shrine_guardian"
+blocks = ["komasan_zone_own_half", "komasan_techniquepower_self_block_dribble_6", "komasan_card_c90640000"]
+caps = ["CharacterReforged.own_total"]
+
+[[VRFW.Character]]
+character = "c90640000"
+passive = "c90640000_shrine_guardian"
+
+[[VRFW.CharacterTags]]
+character = "c90640000"
+tags = ["guardian", "rookie"]
+
+# Komajiro: Lightning Brother — in the rival half, his block and dribble technique power +6 %
+[[VRFW.Passive]]
+name = "c90690000_lightning_brother"
+blocks = ["komajiro_zone_rival_half", "komajiro_techniquepower_self_block_dribble_6", "komajiro_card_c90690000"]
+caps = ["CharacterReforged.own_total"]
+
+[[VRFW.Character]]
+character = "InazumaFantasy.komajiro"
+passive = "c90690000_lightning_brother"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.komajiro"
+tags = ["guardian", "rookie"]
+
+# Yami Enma: Power of Darkness — while his team is trailing, his shot technique power +8 % and his Kick +4 %
+[[VRFW.Passive]]
+name = "c90650000_power_of_darkness"
+blocks = ["yami_enma_score_trailing", "yami_enma_techniquepower_self_shoot_8", "yami_enma_stat_self_kick_4", "yami_enma_card_c90650000"]
+caps = ["CharacterReforged.own_total"]
+
+[[VRFW.Character]]
+character = "c90650000"
+passive = "c90650000_power_of_darkness"
+
+[[VRFW.CharacterTags]]
+character = "c90650000"
+tags = ["divine", "mystic"]
+
+# Yasha Enma: Yasha's Wrath — in the last third of each half, the power of his fire techniques +8 %
+[[VRFW.Passive]]
+name = "c90660000_yasha_s_wrath"
+blocks = ["yasha_enma_clock_last_third", "yasha_enma_move_element_fire", "yasha_enma_techniquepower_self_8", "yasha_enma_card_c90660000"]
+caps = ["CharacterReforged.own_total"]
+
+[[VRFW.Character]]
+character = "c90660000"
+passive = "c90660000_yasha_s_wrath"
+
+[[VRFW.CharacterTags]]
+character = "c90660000"
+tags = ["divine", "beast"]
+
+# Lord Enma: King of the Yo-kai — in the 2nd half, Kick and Control +3 % for the Yo-kai of his team, him included
+[[VRFW.Passive]]
+name = "c90670000_king_of_the_yo_kai"
+blocks = ["enma_half_2", "enma_stat_team_kick_control_3_yokai", "enma_card_c90670000"]
+caps = ["CharacterReforged.own_total"]
+
+[[VRFW.Character]]
+character = "c90670000"
+passive = "c90670000_king_of_the_yo_kai"
+
+[[VRFW.CharacterTags]]
+character = "c90670000"
+tags = ["divine", "captain"]
+
+# Enma Awoken: The King Awakens — each goal of his team, all his technique power +4 % (max 3)
+[[VRFW.Passive]]
+name = "c90680000_the_king_awakens"
+blocks = ["enma_awoken_when_goal_by_team", "enma_awoken_stack_max3", "enma_awoken_techniquepower_self_4", "enma_awoken_card_c90680000"]
+caps = ["CharacterReforged.own_total"]
+
+[[VRFW.Character]]
+character = "c90680000"
+passive = "c90680000_the_king_awakens"
+
+[[VRFW.CharacterTags]]
+character = "c90680000"
+tags = ["divine", "mystic"]
+
+# Tezcat Mixi Max Arion: Two Souls, One Wind — holding the ball in the rival half, his shot and dribble technique power +6 %
+[[VRFW.Passive]]
+name = "c90370081_two_souls_one_wind"
+blocks = ["tezcat_arion_holds_ball", "tezcat_arion_zone_rival_half", "tezcat_arion_techniquepower_self_shoot_dribble_6", "tezcat_mixi_max_arion_card_c90370081"]
+caps = ["CharacterReforged.own_total"]
+
+[[VRFW.Character]]
+character = "c90370081"
+passive = "c90370081_two_souls_one_wind"
+
+[[VRFW.CharacterTags]]
+character = "c90370081"
+tags = ["mystic", "captain"]
+
+# The idols: each one carries the own passive and the tags of the player he is based on.
+
+# axel_blaze_idol (based on c01000100)
+[[VRFW.Character]]
+character = "InazumaFantasy.axel_blaze_idol"
+passive = "CharacterReforged.c01000100_llama_goleadora"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.axel_blaze_idol"
+tags = ["striker", "acrobat"]
+
+# nathan_swift_idol (based on c02024300)
+[[VRFW.Character]]
+character = "InazumaFantasy.nathan_swift_idol"
+passive = "CharacterReforged.c02024300_fenix_negro"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.nathan_swift_idol"
+tags = ["speedster", "rebel"]
+
+# arion_sherwind_idol (based on c05028130)
+[[VRFW.Character]]
+character = "InazumaFantasy.arion_sherwind_idol"
+passive = "CharacterReforged.c05028130_capitan_de_los_vientos"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.arion_sherwind_idol"
+tags = ["captain", "speedster"]
+
+# victor_blade_idol (based on c04000100)
+[[VRFW.Character]]
+character = "InazumaFantasy.victor_blade_idol"
+passive = "CharacterReforged.c04000100_hoja_del_delantero"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.victor_blade_idol"
+tags = ["striker", "rookie"]
+
+# hector_helio_idol (based on c03032210)
+[[VRFW.Character]]
+character = "InazumaFantasy.hector_helio_idol"
+passive = "CharacterReforged.c03032210_gran_mano_del_pequeno"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.hector_helio_idol"
+tags = ["wall", "rookie"]
+
+# byron_love_idol (based on c01001900)
+[[VRFW.Character]]
+character = "InazumaFantasy.byron_love_idol"
+passive = "CharacterReforged.c01001900_voluntad_serena"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.byron_love_idol"
+tags = ["captain", "divine", "noble"]
+
+# mark_evans_idol (based on c01000010)
+[[VRFW.Character]]
+character = "InazumaFantasy.mark_evans_idol"
+passive = "CharacterReforged.c01000010_remontada_del_capitan"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.mark_evans_idol"
+tags = ["captain", "wall"]
+
+# joseph_king_idol (based on c02023610)
+[[VRFW.Character]]
+character = "InazumaFantasy.joseph_king_idol"
+passive = "CharacterReforged.c02023610_orgullo_imperial"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.joseph_king_idol"
+tags = ["wall", "noble"]
+
+# zanark_avalonic_idol (based on c05021500)
+[[VRFW.Character]]
+character = "InazumaFantasy.zanark_avalonic_idol"
+passive = "CharacterReforged.c05021500_corona_del_rey_de_zanark"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.zanark_avalonic_idol"
+tags = ["captain", "divine"]
+
+# nakata_hidetoshi_idol (based on c03031700)
+[[VRFW.Character]]
+character = "InazumaFantasy.nakata_hidetoshi_idol"
+passive = "CharacterReforged.c03031700_espada_de_plata"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.nakata_hidetoshi_idol"
+tags = ["striker", "noble"]
+
+# mark_evans_legend_idol (based on c05024610)
+[[VRFW.Character]]
+character = "InazumaFantasy.mark_evans_legend_idol"
+passive = "CharacterReforged.c05024610_aliento_de_grada"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.mark_evans_legend_idol"
+tags = ["captain", "wall"]
+
+# axel_blaze_legend_idol (based on c05024710)
+[[VRFW.Character]]
+character = "InazumaFantasy.axel_blaze_legend_idol"
+passive = "CharacterReforged.c05024710_tormenta_de_fuego_eterna"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.axel_blaze_legend_idol"
+tags = ["striker", "cannon"]
+
+# tom_skipper_idol (based on c02029290)
+[[VRFW.Character]]
+character = "InazumaFantasy.tom_skipper_idol"
+passive = "CharacterReforged.c02029290_vendaval_de_torbellino"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.tom_skipper_idol"
+tags = ["striker", "noble"]
+
+# gabriella_amati_idol (based on c08110110)
+[[VRFW.Character]]
+character = "InazumaFantasy.gabriella_amati_idol"
+passive = "CharacterReforged.c08110110_bocado_de_la_verdad"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.gabriella_amati_idol"
+tags = ["wall", "noble"]
+
+# racerit_spto_idol (based on c08110120)
+[[VRFW.Character]]
+character = "InazumaFantasy.racerit_spto_idol"
+passive = "CharacterReforged.c08110120_furia_de_dragon"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.racerit_spto_idol"
+tags = ["wall", "beast"]
+
+# david_samford_idol (based on c02023710)
+[[VRFW.Character]]
+character = "InazumaFantasy.david_samford_idol"
+passive = "CharacterReforged.c02023710_emperador_de_los_pinguinos"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.david_samford_idol"
+tags = ["striker", "noble"]
+
+# riccardo_nobunaga_idol (based on c05028040)
+[[VRFW.Character]]
+character = "InazumaFantasy.riccardo_nobunaga_idol"
+passive = "CharacterReforged.c05028040_fortissimo_del_director"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.riccardo_nobunaga_idol"
+tags = ["brain", "noble"]
+
+# gabriel_joan_idol (based on c05028050)
+[[VRFW.Character]]
+character = "InazumaFantasy.gabriel_joan_idol"
+passive = "CharacterReforged.c05028050_bruma_de_la_selva"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.gabriel_joan_idol"
+tags = ["trickster", "mystic"]
+
+# sol_zhuge_idol (based on c05028060)
+[[VRFW.Character]]
+character = "InazumaFantasy.sol_zhuge_idol"
+passive = "CharacterReforged.c05028060_aurora_del_vigia"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.sol_zhuge_idol"
+tags = ["divine", "striker"]
+
+# bailong_zhuge_idol (based on c05028140)
+[[VRFW.Character]]
+character = "InazumaFantasy.bailong_zhuge_idol"
+passive = "CharacterReforged.c05028140_huracan_blanco"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.bailong_zhuge_idol"
+tags = ["beast", "striker"]
+
+# lapin_liu_bei_idol (based on c05028070)
+[[VRFW.Character]]
+character = "InazumaFantasy.lapin_liu_bei_idol"
+passive = "CharacterReforged.c05028070_torre_de_caramelo_y_nervios"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.lapin_liu_bei_idol"
+tags = ["wall", "trickster"]
+
+# ryoma_sakamoto_idol (based on c05028100)
+[[VRFW.Character]]
+character = "InazumaFantasy.ryoma_sakamoto_idol"
+passive = "CharacterReforged.c05028100_filo_del_samurai_acrobata"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.ryoma_sakamoto_idol"
+tags = ["acrobat", "veteran"]
+
+# victor_okita_idol (based on c05028110)
+[[VRFW.Character]]
+character = "InazumaFantasy.victor_okita_idol"
+passive = "CharacterReforged.c05028110_espada_de_la_dinastia"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.victor_okita_idol"
+tags = ["cannon", "noble"]
+
+# sor_quetzalcoatlus_idol (based on c05028080)
+[[VRFW.Character]]
+character = "InazumaFantasy.sor_quetzalcoatlus_idol"
+passive = "CharacterReforged.c05028080_chispa_en_zigzag"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.sor_quetzalcoatlus_idol"
+tags = ["speedster", "trickster"]
+
+# fei_big_idol (based on c05028090)
+[[VRFW.Character]]
+character = "InazumaFantasy.fei_big_idol"
+passive = "CharacterReforged.c05028090_primer_salto_del_dia"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.fei_big_idol"
+tags = ["captain", "rookie"]
+
+# goldie_dragon_queen_idol (based on c05028120)
+[[VRFW.Character]]
+character = "InazumaFantasy.goldie_dragon_queen_idol"
+passive = "CharacterReforged.c05028120_postre_de_ultima_hora"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.goldie_dragon_queen_idol"
+tags = ["trickster", "rookie"]
+
+# zanark_clara_idol (based on c05028160)
+[[VRFW.Character]]
+character = "InazumaFantasy.zanark_clara_idol"
+passive = "CharacterReforged.c05028160_mano_del_soberano"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.zanark_clara_idol"
+tags = ["captain", "divine"]
+
+# fei_rex_idol (based on c05028010)
+[[VRFW.Character]]
+character = "InazumaFantasy.fei_rex_idol"
+passive = "CharacterReforged.c05028010_corazon_de_tenma"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.fei_rex_idol"
+tags = ["captain", "rookie"]
+
+# vladimir_victor_idol (based on c05028020)
+[[VRFW.Character]]
+character = "InazumaFantasy.vladimir_victor_idol"
+passive = "CharacterReforged.c05028020_impulso_de_hermano_menor"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.vladimir_victor_idol"
+tags = ["cannon", "rookie"]
+
+# arion_tezcat_idol (based on c05028030)
+[[VRFW.Character]]
+character = "InazumaFantasy.arion_tezcat_idol"
+passive = "CharacterReforged.c05028030_viento_del_primer_capitan"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.arion_tezcat_idol"
+tags = ["captain", "speedster"]
+
+# zanark_cao_cao_idol (based on c05028150)
+[[VRFW.Character]]
+character = "InazumaFantasy.zanark_cao_cao_idol"
+passive = "CharacterReforged.c05028150_decreto_del_soberano"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.zanark_cao_cao_idol"
+tags = ["captain", "divine"]
+
+# simeon_s_gene_idol (based on c05028620)
+[[VRFW.Character]]
+character = "InazumaFantasy.simeon_s_gene_idol"
+passive = "CharacterReforged.c05028620_cabeza_de_rebano_mirada_de_hierro"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.simeon_s_gene_idol"
+tags = ["captain", "beast"]
+
+# wolfram_w_gene_idol (based on c05028630)
+[[VRFW.Character]]
+character = "InazumaFantasy.wolfram_w_gene_idol"
+passive = "CharacterReforged.c05028630_orgullo_de_la_jauria"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.wolfram_w_gene_idol"
+tags = ["captain", "beast"]
+
+# desmodus_v_gene_idol (based on c05028640)
+[[VRFW.Character]]
+character = "InazumaFantasy.desmodus_v_gene_idol"
+passive = "CharacterReforged.c05028640_hora_de_brindar_con_colmillos"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.desmodus_v_gene_idol"
+tags = ["captain", "mystic"]
+
+# flora_black_rose_idol (based on c05028610)
+[[VRFW.Character]]
+character = "InazumaFantasy.flora_black_rose_idol"
+passive = "CharacterReforged.c05028610_reina_al_frente"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.flora_black_rose_idol"
+tags = ["captain", "noble"]
+
+# gamma_zanark_idol (based on c05028300)
+[[VRFW.Character]]
+character = "InazumaFantasy.gamma_zanark_idol"
+passive = "CharacterReforged.c05028300_orden_de_carga"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.gamma_zanark_idol"
+tags = ["captain", "cannon"]
+
+# ar_ecks_idol (based on c05028490)
+[[VRFW.Character]]
+character = "InazumaFantasy.ar_ecks_idol"
+passive = "CharacterReforged.c05028490_chispa_de_la_estrella_oscura"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.ar_ecks_idol"
+tags = ["brain", "striker"]
+
+# cade_raika_idol (based on c11010230)
+[[VRFW.Character]]
+character = "InazumaFantasy.cade_raika_idol"
+passive = "CharacterReforged.c11010230_tortuga_que_baila"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.cade_raika_idol"
+tags = ["speedster", "trickster"]
+
+# victarion_idol (based on c05029410)
+[[VRFW.Character]]
+character = "InazumaFantasy.victarion_idol"
+passive = "CharacterReforged.c05029410_dinastia_de_la_llama_negra"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.victarion_idol"
+tags = ["cannon", "noble"]
+
+# ribriel_idol (based on c05029420)
+[[VRFW.Character]]
+character = "InazumaFantasy.ribriel_idol"
+passive = "CharacterReforged.c05029420_velo_de_la_jungla"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.ribriel_idol"
+tags = ["trickster", "mystic"]
+
+# aitriel_idol (based on c05029430)
+[[VRFW.Character]]
+character = "InazumaFantasy.aitriel_idol"
+passive = "CharacterReforged.c05029430_cruz_del_sur_nocturna"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.aitriel_idol"
+tags = ["trickster", "mystic"]
+
+# baictor_idol (based on c05029440)
+[[VRFW.Character]]
+character = "InazumaFantasy.baictor_idol"
+passive = "CharacterReforged.c05029440_heredero_de_la_espada"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.baictor_idol"
+tags = ["cannon", "noble"]
+
+# baizcat_idol (based on c05029450)
+[[VRFW.Character]]
+character = "InazumaFantasy.baizcat_idol"
+passive = "CharacterReforged.c05029450_tormenta_del_dragon_blanco"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.baizcat_idol"
+tags = ["beast", "striker"]
+
+# markion_idol (based on c05029460)
+[[VRFW.Character]]
+character = "InazumaFantasy.markion_idol"
+passive = "CharacterReforged.c05029460_puno_de_la_justicia"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.markion_idol"
+tags = ["captain", "wall"]
+
+# shaxel_idol (based on c05029470)
+[[VRFW.Character]]
+character = "InazumaFantasy.shaxel_idol"
+passive = "CharacterReforged.c05029470_fuego_sin_dueno"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.shaxel_idol"
+tags = ["striker", "cannon"]
+
+# juleb_idol (based on c05029480)
+[[VRFW.Character]]
+character = "InazumaFantasy.juleb_idol"
+passive = "CharacterReforged.c05029480_pata_de_hierro"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.juleb_idol"
+tags = ["rebel", "veteran"]
+
+# jude_raimon_idol (based on c01010970)
+[[VRFW.Character]]
+character = "InazumaFantasy.jude_raimon_idol"
+passive = "CharacterReforged.c01010970_mirada_del_estratega"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.jude_raimon_idol"
+tags = ["brain", "noble"]
+
+# elliot_island_raimon_idol (based on c07020010)
+[[VRFW.Character]]
+character = "InazumaFantasy.elliot_island_raimon_idol"
+passive = "CharacterReforged.c07020010_ahorro_de_esfuerzo"
+
+[[VRFW.CharacterTags]]
+character = "InazumaFantasy.elliot_island_raimon_idol"
+tags = ["captain", "striker"]

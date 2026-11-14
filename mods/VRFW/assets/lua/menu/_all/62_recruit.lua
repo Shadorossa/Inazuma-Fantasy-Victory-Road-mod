@@ -34,6 +34,8 @@ if VRFW.recruit == nil then
     },
     ATTRIBUTE_SEASON = 0x100000,
     SPIRIT_RARITIES = {0, 1, 2, 3, 4},   -- a spirit price is paid with any rarity, lowest first
+    CHARGE_STACKS = 8,                     -- CMND_DELETE_ITEM takes from one stack per call: at most this many calls per charge
+    ITEM_MASKS = {1, 2, 3},                -- CMND_GET_ITEM_NUM arg 4: the stack play-mode bits counted (1 story, 2 other, 3 both)
     holders_cache = {},                    -- card list -> club players, until Refresh()
     cleared_cache = {},                    -- "game:difficulty" -> won, until Refresh()
     OWNER = "VRFW",
@@ -43,6 +45,7 @@ if VRFW.recruit == nil then
     INFO_SPECIAL_RARITY = 8,         -- CMND_GET_CHARA_INFO field: the card's special rarity
     SOURCE = 2,                      -- CMND_ADD_PARTY arg 17: 2 = scouted (the office uses 4)
   }
+  --- Advanced: State of the recruit helpers for player cards.
   VRFW.recruit = R
 
   local function num(v)
@@ -53,13 +56,13 @@ if VRFW.recruit == nil then
   end
 
   local logger
-  --- Logs through the recruit logger.
+  --- Internal: Logs through the recruit logger.
   function R.log(...)
     logger = logger or VRFW.logger.new("recruit")
     logger(...)
   end
 
-  --- How many copies of player `param` the club holds.
+  --- Advanced: How many copies of player `param` the club holds.
   function R.owned(param)
     local a, b = VRFW.host.command(R.C.OWNED, param, 0)
     if type(a) == "number" then
@@ -68,7 +71,7 @@ if VRFW.recruit == nil then
     return num(b)
   end
 
-  --- How many of the cards in `ids` the club holds.
+  --- Advanced: How many of the cards in `ids` the club holds.
   function R.owned_any(ids)
     local n = 0
     for _, id in ipairs(ids or {}) do
@@ -77,19 +80,22 @@ if VRFW.recruit == nil then
     return n
   end
 
-  --- How many of item `id` the player has.
+  --- Advanced: How many of item `id` the player has.
   function R.items(id)
     return num(VRFW.host.command(R.C.ITEM_NUM, id, false))
   end
 
-  --- Forget the club counts (after a signing, or when a screen opens).
+  --- Advanced: Forget the club counts (after a signing, or when a screen opens).
   function R.refresh()
+    --- Internal: cached club of the recruit.
     R.club_cache = nil
+    --- Internal: cache of cleared entries.
     R.cleared_cache = {}
+    --- Internal: cache of holders.
     R.holders_cache = {}
   end
 
-  --- The club players of some cards (cached per list until Refresh).
+  --- Advanced: The club players of some cards (cached per list until Refresh).
   function R.holders(ids)
     local key = table.concat(ids or {}, ",")
     if R.holders_cache[key] == nil then
@@ -117,7 +123,7 @@ if VRFW.recruit == nil then
     return v
   end
 
-  --- 1 when every group has a check that holds.
+  --- Internal: 1 when every group has a check that holds.
   function R.unlocked(groups)
     for _, g in ipairs(groups or {}) do
       local any = false
@@ -140,7 +146,7 @@ if VRFW.recruit == nil then
     return math.max(0, num(v))
   end
 
-  --- How many spirits of `card` the player has, over every rarity.
+  --- Advanced: How many spirits of `card` the player has, over every rarity.
   function R.spirits(card)
     local n = 0
     for _, r in ipairs(R.SPIRIT_RARITIES) do
@@ -149,7 +155,7 @@ if VRFW.recruit == nil then
     return n
   end
 
-  --- Takes n spirits of `card`; answers true, or false when there are too few.
+  --- Internal: Takes n spirits of `card`; answers true, or false when there are too few.
   function R.charge_spirits(card, n)
     n = num(n)
     if n <= 0 then
@@ -172,7 +178,7 @@ if VRFW.recruit == nil then
     return left <= 0
   end
 
-  --- Gives n spirits of `card`; answers true.
+  --- Internal: Gives n spirits of `card`; answers true.
   function R.give_spirits(card, n)
     n = num(n)
     if n > 0 then
@@ -181,18 +187,26 @@ if VRFW.recruit == nil then
     return true
   end
 
-  --- a price: {item = id, count = n} or {spirit = card, count = n}; answers true, or false when it cannot be paid.
+  --- Internal: a price: {item = id, count = n} or {spirit = card, count = n}; answers true, or false, why ("short" / "refused", as R.charge).
   function R.pay(price)
     if price == nil or (price.count or 0) <= 0 then
       return true
     end
     if price.spirit ~= nil and price.spirit ~= 0 then
-      return R.charge_spirits(price.spirit, price.count)
+      if R.charge_spirits(price.spirit, price.count) then
+        return true
+      end
+      return false, "short"
     end
     return R.charge(price.item, price.count)
   end
 
-  --- Gives back the price paid.
+  --- The recruit error of a failed payment: "price" when the player has too few, "payment_refused" when the game took none.
+  local function payment_error(why)
+    return why == "refused" and "payment_refused" or "price"
+  end
+
+  --- Internal: Gives back the price paid.
   function R.refund(price)
     if price == nil or (price.count or 0) <= 0 then
       return
@@ -204,7 +218,7 @@ if VRFW.recruit == nil then
     end
   end
 
-  --- What the player has to pay with: the spirits of `spirit`, else the item.
+  --- Advanced: What the player has to pay with: the spirits of `spirit`, else the item.
   function R.wallet(price)
     if price ~= nil and price.spirit ~= nil and price.spirit ~= 0 then
       return R.spirits(price.spirit)
@@ -212,7 +226,7 @@ if VRFW.recruit == nil then
     return R.items(price and price.item or 0)
   end
 
-  --- 1 when every game in `games` was cleared, else 0.
+  --- Internal: 1 when every game in `games` was cleared, else 0.
   function R.cleared(games)
     if type(games) ~= "table" then
       return 0
@@ -231,7 +245,7 @@ if VRFW.recruit == nil then
     return 0
   end
 
-  --- The club counts (total, element, position), cached until R.refresh.
+  --- Internal: The club counts (total, element, position), cached until R.refresh.
   function R.club()
     if R.club_cache == nil then
       local c = VRFW.host.command(R.C.CLUB)
@@ -240,7 +254,7 @@ if VRFW.recruit == nil then
     return R.club_cache
   end
 
-  --- The level of the team in use (1 when it cannot be read).
+  --- Advanced: The level of the team in use (1 when it cannot be read).
   function R.team_level()
     local dock
     if VRFW.host.command(R.C.IN_STORY) == true then
@@ -255,12 +269,12 @@ if VRFW.recruit == nil then
     return 1
   end
 
-  --- Career value `key` from the save, as a number.
+  --- Internal: Career value `key` from the save, as a number.
   function R.career(key)
     return num(tonumber(VRFW.host.command(R.C.SAVE_GET, R.OWNER, key, "0")))
   end
 
-  --- The player's current amount towards requirement `req`.
+  --- Advanced: The player's current amount towards requirement `req`.
   function R.have(req)
     local k = req.kind
     if k == "player" then
@@ -300,7 +314,7 @@ if VRFW.recruit == nil then
     return 0
   end
 
-  --- The requirements not met, as a list.
+  --- Advanced: The requirements not met, as a list.
   function R.missing(reqs)
     local out = {}
     for _, q in ipairs(reqs or {}) do
@@ -311,19 +325,48 @@ if VRFW.recruit == nil then
     return out
   end
 
-  --- Removes n of item `item`; answers true, or false when there are too few.
+  --- Advanced: Removes n of item `item`; answers true, or false, why: "short" = fewer than n, "refused" = the game did not take them all (what it took is given back).
   function R.charge(item, n)
     n = num(n)
     if n <= 0 then
       return true
     end
-    if R.items(item) < n then
-      return false
+    local have = R.items(item)
+    if have < n then
+      return false, "short"
     end
-    return VRFW.host.command(R.C.DEL_ITEM, item, n) ~= false
+    -- CMND_GET_ITEM_NUM sums every stack; CMND_DELETE_ITEM takes from the first stack it finds (v7.2.1 0xD9A900), so the drop of the count is what was paid
+    local left = n
+    for _ = 1, R.CHARGE_STACKS do
+      VRFW.host.command(R.C.DEL_ITEM, item, left)
+      local now = R.items(item)
+      local taken = have - now
+      have = now
+      if taken <= 0 then
+        break
+      end
+      left = left - taken
+      if left <= 0 then
+        break
+      end
+    end
+    if left < 0 then
+      R.give(item, -left)
+    end
+    if left <= 0 then
+      return true
+    end
+    local counts = {}
+    for k, mask in ipairs(R.ITEM_MASKS) do
+      counts[k] = string.format("mask %d: %d", mask, num(VRFW.host.command(R.C.ITEM_NUM, item, false, false, mask)))
+    end
+    R.log("charge refused", "item", string.format("%.0f", item), "price", n, "taken", n - left, "count now", have,
+      "count by stack play-mode bits", table.concat(counts, ", "))
+    R.give(item, n - left)
+    return false, "refused"
   end
 
-  --- Adds n of item `item`; answers true, or false when it does not fit.
+  --- Advanced: Adds n of item `item`; answers true, or false when it does not fit.
   function R.give(item, n)
     n = num(n)
     if n <= 0 then
@@ -336,15 +379,27 @@ if VRFW.recruit == nil then
     return true
   end
 
-  --- Every player of the club: {param, level, rarity}, nil = the club is not readable.
+  --- Internal: Every player of the club: {param, level, rarity}, nil = the club is not readable.
   function R.roster()
     local list = VRFW.host.command(R.C.ROSTER)
     return type(list) == "table" and list or nil
   end
 
-  --- True when `param` can be signed, or false, why ("owned", "bank_full").
-  function R.can_sign(param)
-    if R.owned(param) > 0 then
+  --- Advanced: How many club players are card `param` saved at `rarity`: a copy of the same card at another rarity is another player.
+  function R.copies(param, rarity)
+    local list = VRFW.host.command(R.C.HOLDERS, param)
+    local n = 0
+    for _, h in ipairs(type(list) == "table" and list or {}) do
+      if h.param == param and h.rarity == rarity then
+        n = n + 1
+      end
+    end
+    return n
+  end
+
+  --- Advanced: True when `param` can be signed at `rarity` (default: the rarity it joins with), or false, why ("owned", "bank_full").
+  function R.can_sign(param, rarity)
+    if R.copies(param, rarity or R.card_rarity(param)) > 0 then
       return false, "owned"
     end
     local free = VRFW.host.command(R.C.BANK_FREE)
@@ -354,28 +409,35 @@ if VRFW.recruit == nil then
     return true
   end
 
-  --- The rarity a new card of `param` joins with.
-  function R.card_rarity(param)
+  --- Advanced: The special rarity of card `param` (chara_param col 41): 0 = a normal card.
+  function R.special_rarity(param)
     local first, second = VRFW.host.command(R.C.CHARA_INFO, param, R.INFO_SPECIAL_RARITY)
     local special = type(second) == "number" and second or first
-    if type(special) == "number" and special > 0 then
-      return num(special)
+    return type(special) == "number" and special > 0 and num(special) or 0
+  end
+
+  --- Advanced: The rarity a new card of `param` joins with.
+  function R.card_rarity(param)
+    local special = R.special_rarity(param)
+    if special > 0 then
+      return special
     end
     return R.RARITY
   end
 
-  --- Signs player `param`; answers the handle, or nil, why.
+  --- Advanced: Signs player `param`; answers the handle, or nil, why.
   function R.sign(param, level, rarity, source)
-    local ok, why = R.can_sign(param)
+    rarity = rarity or R.card_rarity(param)
+    local ok, why = R.can_sign(param, rarity)
     if not ok then
       return nil, why
     end
     level = math.max(1, num(level))
-    rarity = rarity or R.card_rarity(param)
+    local before = R.owned(param)
     local hdl = VRFW.host.command(R.C.ADD_PARTY, param, level, false, false, 0, 0, false, false, false, R.TEAM_SET_BANK, 255, 255,
       rarity, true, true, false, source or R.SOURCE, false, false, 0)
     VRFW.host.command(R.C.AFTER_ADD)
-    if R.owned(param) <= 0 then
+    if R.owned(param) <= before then
       R.log("sign failed", param, level, rarity)
       return nil, "refused"
     end
@@ -385,7 +447,7 @@ if VRFW.recruit == nil then
     return hdl or 0
   end
 
-  --- Clears the season state of a signed player.
+  --- Internal: Clears the season state of a signed player.
   function R.clear_season(param, hdl)
     local handles = {}
     if type(hdl) == "number" and hdl ~= 0 then
@@ -403,9 +465,9 @@ if VRFW.recruit == nil then
     end
   end
 
-  --- Pays and signs opt.param; answers true, or false, why.
+  --- Advanced: Pays and signs opt.param; answers true, or false, why.
   function R.recruit(opt)
-    local ok, why = R.can_sign(opt.param)
+    local ok, why = R.can_sign(opt.param, opt.rarity)
     if not ok then
       return false, why
     end
@@ -413,8 +475,9 @@ if VRFW.recruit == nil then
       return false, "requirements"
     end
     local price = opt.price
-    if not R.pay(price) then
-      return false, "price"
+    local paid, why = R.pay(price)
+    if not paid then
+      return false, payment_error(why)
     end
     local hdl, err = R.sign(opt.param, opt.level, opt.rarity, opt.source)
     if hdl == nil then
@@ -425,17 +488,17 @@ if VRFW.recruit == nil then
     return true
   end
 
-  --- The free places in the bank; nil when they cannot be read.
+  --- Advanced: The free places in the bank; nil when they cannot be read.
   function R.bank_room()
     local free = VRFW.host.command(R.C.BANK_FREE)
     return type(free) == "number" and free or nil
   end
 
-  --- Signs a list of players, one payment for all; opt.count_of / opt.rarity_of (by card) over price_each.count / opt.rarity; answers the signed list, and why when one failed.
+  --- Advanced: Signs a list of players, one payment for all; opt.count_of / opt.rarity_of (by card) over price_each.count / opt.rarity; answers the signed list, and why when one failed.
   function R.recruit_list(opt)
     local params, signed, why = {}, {}, nil
     for _, card in ipairs(opt.params or {}) do
-      local ok, err = R.can_sign(card)
+      local ok, err = R.can_sign(card, opt.rarity_of ~= nil and opt.rarity_of[card] or opt.rarity)
       if ok then
         params[#params + 1] = card
       else
@@ -456,8 +519,9 @@ if VRFW.recruit == nil then
       end
       return {item = each.item, spirit = each.spirit, count = count}
     end
-    if not R.pay(price_of(1)) then
-      return signed, "price"
+    local paid, refused = R.pay(price_of(1))
+    if not paid then
+      return signed, payment_error(refused)
     end
     for _, card in ipairs(params) do
       local rarity = opt.rarity_of ~= nil and opt.rarity_of[card] or opt.rarity
@@ -475,7 +539,7 @@ if VRFW.recruit == nil then
     return signed, why
   end
 
-  --- Removes players `cards` from the club and gives back the price; answers true, or false, why.
+  --- Advanced: Removes players `cards` from the club and gives back the price; answers true, or false, why.
   function R.release(cards, refund_price)
     R.holders_cache = {}
     local h = nil

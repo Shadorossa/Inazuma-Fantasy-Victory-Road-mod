@@ -1,0 +1,16 @@
+# Declaration schema of CharacterReforged.affinity/1 (content\equipment): fields read from the records the mods ship. `vrfw check` validates the files with it and the ModManager draws their forms from it.
+schema = "VRFW.decl_schema/1"
+kind = "CharacterReforged.affinity/1"
+folder = "content/equipment"
+# v2 words, read beside the v1 ones until the switch: the type and its kind folder.
+v2_type = "CharacterReforged.Equipment.Affinity"
+v2_kind_folder = "Equipment/Affinities"
+label = "Equipment affinity"
+label_es = "Afinidad de equipamiento"
+
+[entry.Item]
+entry_table = "item"
+item = { type = "string", ref = "item", required = true }
+position = { type = "string", required = true }
+raises = { type = "table", required = true }
+element = { type = "string" }

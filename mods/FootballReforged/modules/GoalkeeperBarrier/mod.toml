@@ -1,10 +1,11 @@
 id = "GoalkeeperBarrier"
 # name / description: the English fallback; the card shows the text keys mod_name / mod_description (text\keys.toml)
 name = "Goalkeeper Barrier"
-version = "0.3.0"
+version = "0.3.1"
 author = "Fantasy Team"
 description = "Every keeper's barrier is the top 25 % of his bar on the scoreboard, drawn in bronze: while his bar stays above 75 %, the shots he faces lose power. A block move of his team also makes his next keeper move 30 % cheaper in tension."
 priority = 0
+type = "gameplay"
 tags = ["Gameplay"]
 updated = "2026-11-09"
 prefix = "GoalkeeperBarrier"

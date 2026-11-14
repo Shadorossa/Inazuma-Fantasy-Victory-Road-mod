@@ -26,6 +26,7 @@ if VRFW.image_spill == nil then
     holder = false,
     shared = false,
   }
+  --- Internal: State of the image spill: moves menu image atlases to a second holder when the first is full.
   VRFW.image_spill = S
 
   local function unsigned(v)
@@ -34,6 +35,7 @@ if VRFW.image_spill == nil then
   end
 
   local function read_atlases()
+    --- Internal: atlases read from the spill command, by index.
     S.atlases = {}
     local ok, n = pcall(funcLuaCommand, S.ATLASES, 0)
     if ok and type(n) == "number" then
@@ -42,6 +44,7 @@ if VRFW.image_spill == nil then
         if o and type(id) == "number" then S.atlases[unsigned(id)] = true end
       end
     end
+    --- Internal: True when at least one atlas is registered for the spill.
     S.any = next(S.atlases) ~= nil
   end
 
@@ -82,6 +85,7 @@ if VRFW.image_spill == nil then
         pcall(real, table.unpack(w.args, 1, w.args.n))
       end
     end
+    --- Internal: count of atlases still waiting to be handled.
     S.waiting = left
   end
 
@@ -124,12 +128,14 @@ if VRFW.image_spill == nil then
 
   local function load_own(real)
     if _ENV.__menuObjPtr == nil then return false end
+    --- Internal: image ids the game itself holds in this menu.
     S.own_by_game = {}
     local n, an = own_ask(0)
     if not an then return false end
     if type(n) ~= "number" then return true end   -- a failure answer: the command has no list
     local on, aon = own_ask(-1, 0)
     if not aon then return false end
+    --- Internal: true when a second holder also takes the shared images.
     S.shared = on == true   -- a second holder takes them from the first one too
     local complete = true
     for i = 1, n do
@@ -273,6 +279,7 @@ if VRFW.image_spill == nil then
 
   local current = rawget(_ENV, "funcLuaMenuCommand")
   if type(current) == "function" then
+    --- Internal: true once funcLuaMenuCommand is wrapped for the spill.
     S.hooked = true
     rawset(_ENV, "funcLuaMenuCommand", make(current))
   else

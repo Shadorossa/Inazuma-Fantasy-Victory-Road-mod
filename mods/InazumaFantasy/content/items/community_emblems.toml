@@ -1,5 +1,5 @@
 schema = "VRFW.item/2"
-# Crests of the community emblem pack, sold in the general store (rule: _general_store.toml, extra_items).
+# Crests of the community emblem pack, sold in the general store (the shop merge content/shop_merges/shops.toml, extra_items).
 default_lang = "en"
 
 [[item]]

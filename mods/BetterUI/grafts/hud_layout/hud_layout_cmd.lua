@@ -335,7 +335,7 @@ local function HL_PlaceAll()
   HL_PlaceActionPlates()
 end
 
---@lib vrfw_block_helpers.lua#WrapAfter
+--@lib vrfw_block_helpers.lua#Wrap,WrapAfter
 local function HL_Wrap(name, after)
   WrapAfter("BetterUI.hud_layout.command", name, after, function(err)
     HL_Log(name .. " error " .. tostring(err))

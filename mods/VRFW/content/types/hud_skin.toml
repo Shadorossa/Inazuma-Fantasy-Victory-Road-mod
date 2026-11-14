@@ -1,0 +1,21 @@
+# Schema of the HUD skin declarations (kind VRFW.hud_skin/1, a mod's content\hud_skins\**\*.toml): the retail look a part of
+# the match HUD that other mods draw takes. The mod that draws the part asks CMND_VRFW_HUD_SKIN(part) and draws that look;
+# without a declaration it keeps its own. Read by scripts\hud_skins.lua; doc docs/framework/hud-skin.md.
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.hud_skin/1"
+folder = "content/hud_skins"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Menu.HudSkin"
+v2_kind_folder = "Menus/HudSkins"
+v2_version = 1
+label = "HUD skins"
+label_es = "Aspecto del HUD"
+doc = "The retail look a HUD part that other mods draw takes."
+doc_es = "El aspecto del juego que toma una parte del HUD que dibujan otros mods."
+
+[entry.HudSkin]
+doc = "part `part` of the match HUD is drawn with look `look`; the first declaration of a part in load order wins"
+name = { type = "name", required = true, doc = "key <mod>.<name> (a-z 0-9 _)" }
+part = { type = "string", required = true, values = ["command_plates"], doc = "the HUD part: command_plates = the command plates a mod adds around its own button ring in the match command menu" }
+look = { type = "string", required = true, values = ["tactics_plate"], doc = "the look: tactics_plate = the retail super-tactics command plate (soccer08_12: coloured plate, icon at its left end, one name)" }
+when = { type = "when", doc = "conditions on the declaring mod's config: all must hold, else the declaration is left out" }

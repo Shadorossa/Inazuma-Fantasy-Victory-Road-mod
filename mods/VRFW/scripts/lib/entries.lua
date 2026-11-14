@@ -1,4 +1,4 @@
--- Read once; a mod reload re-runs the scripts.
+-- Advanced: Read once; a mod reload re-runs the scripts.
 
 local M = {}
 
@@ -42,7 +42,7 @@ local function read_profile()
   return PROFILE
 end
 
---- The label of the game build the entry table describes.
+--- Internal: The label of the game build the entry table describes.
 function M.reference()
   read_profile()
   return LABEL
@@ -70,7 +70,7 @@ local function matches(entry, name, d)
   return rva ~= nil and entry.rva ~= nil and rva + (tonumber(d.offset) or 0) == entry.rva + entry.offset
 end
 
---- The mods declaring hook `name`, as an array.
+--- Internal: The mods declaring hook `name`, as an array.
 function M.declarers(name)
   local entry = read_profile()[name]
   local out = {}
@@ -87,7 +87,7 @@ function M.declarers(name)
   return out
 end
 
---- The subscribers `subs` in the order they run.
+--- Internal: The subscribers `subs` in the order they run.
 function M.run_order(subs)
   local out = {}
   for i = #subs, 1, -1 do
@@ -103,7 +103,7 @@ function M.run_order(subs)
   return out
 end
 
---- The values declaration `decl` answers for argument `arg`, as an array.
+--- Advanced: The values declaration `decl` answers for argument `arg`, as an array.
 function M.answered_values(decl, arg)
   local want = "args[" .. tostring(arg or 1) .. "]"
   local seen, out = {}, {}
@@ -130,7 +130,7 @@ end
 
 local MANIFESTS = nil
 
---- The mods exporting `name`, as an array.
+--- Internal: The mods exporting `name`, as an array.
 function M.exporters(name)
   if not MANIFESTS then
     local ok, list = pcall(VRFW.files.declarations, "mod.toml")
@@ -150,7 +150,7 @@ function M.exporters(name)
   return out
 end
 
---- The first key part of every row of mod `mod`'s [[VRFW.Table]] `name` (sorted, unique; {} = rows filled by scripts only).
+--- Internal: The first key part of every row of mod `mod`'s [[VRFW.Table]] `name` (sorted, unique; {} = rows filled by scripts only).
 function M.table_keys(mod, name)
   local seen, out = {}, {}
   for _, f in ipairs(files()) do
@@ -171,12 +171,12 @@ function M.table_keys(mod, name)
   return out
 end
 
---- "mod.name" of a declaration.
+--- Internal: "mod.name" of a declaration.
 function M.label(s)
   return tostring(s.mod) .. "." .. tostring(s.name)
 end
 
---- One line: the hooks in run order (" > "), then the callers ("called by …"), for the boot log.
+--- Internal: One line: the hooks in run order (" > "), then the callers ("called by …"), for the boot log.
 function M.describe(name, subs)
   local chain, callers, seen = {}, {}, {}
   for _, s in ipairs(M.run_order(subs)) do chain[#chain + 1] = M.label(s) end

@@ -1,5 +1,6 @@
 # Professional Kits has its own update channel: a channel's mod list can never grow, so a new mod gets a new channel.
 # Its index lives on its own branch of the same repository (docs/framework/auto-update.md, "A mod added later").
+# The declaration stays in Inazuma Fantasy: a launcher accepts it only inside a folder its installed channel ships, and lists it before Professional Kits is installed.
 [[VRFW.UpdateChannel]]
 id = "ProfessionalKits"
 title = "Professional Kits"

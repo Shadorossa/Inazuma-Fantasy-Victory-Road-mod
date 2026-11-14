@@ -25,6 +25,7 @@ if VRFW.menu_pick == nil then
   local st = { layer = nil, row = nil, frames = 0, ready = 0, marked = false, co = nil, after = nil, option = -1,
     answering = false, hooked = false, back_to_title = false, opened = nil, opened_up = 0, confirm_skipped = false,
     back_co = nil }
+  --- Internal: State of the menu pick: presses a list entry requested by another screen.
   VRFW.menu_pick = st
 
   local logger
@@ -43,8 +44,10 @@ if VRFW.menu_pick == nil then
     local n = VRFW.host.menu_command(P.LAYER_NUM, layer)
     if type(n) ~= "number" or n <= 0 then return false end     -- not this menu
     local row = (tonumber(VRFW.param.get(P.PICK_INDEX)) or 0) - 1
+    --- Internal: option index requested, or -1.
     st.option = -1
     if VRFW.param.has(P.PICK_OPTION) then st.option = (tonumber(VRFW.param.get(P.PICK_OPTION)) or 0) - 1 end
+    --- Internal: True when the pick was asked to return to the title.
     st.back_to_title = VRFW.param.has(P.PICK_RETURN)
     VRFW.param.clear(P.PICK_LAYER)
     VRFW.param.clear(P.PICK_INDEX)
@@ -155,6 +158,7 @@ if VRFW.menu_pick == nil then
     if st.layer == nil and not Take() then return end
     if st.layer == nil then return end
     White(true)
+    --- Internal: frames waited for the pick.
     st.frames = st.frames + 1
     if st.frames > P.GIVE_UP_FRAMES then
       Log("entry", st.row, "not picked: the list never took the focus")
@@ -163,6 +167,7 @@ if VRFW.menu_pick == nil then
       return
     end
     if VRFW.host.menu_command(P.FOCUS_ACTIVE, st.layer) ~= true then st.ready = 0 return end
+    --- Internal: frames the list has held the focus.
     st.ready = st.ready + 1
     if st.ready < P.READY_FRAMES then return end
     if VRFW.host.menu_command(P.FOCUS_INDEX, st.layer) ~= st.row then
@@ -182,6 +187,7 @@ if VRFW.menu_pick == nil then
     st.opened, st.opened_up = nil, 0
     if st.option >= 0 or st.back_to_title then Wrap(true) end
     if st.option >= 0 then Answer(true) end
+    --- Internal: coroutine pressing the entry.
     st.co = coroutine.create(function() OnDecideFocus(layer, row) end)
     local ok, err = coroutine.resume(st.co)
     if not ok then Log("press error:", tostring(err)) st.co = nil end

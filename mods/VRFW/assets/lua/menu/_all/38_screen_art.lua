@@ -6,6 +6,7 @@ if VRFW.screen_art == nil then
     PLAIN = "#/menu/220_img/vrfw_plain/vrfw_plain.g4tx",
     art = {},                    -- screen -> role -> { atlas, sprite, tex, crc }
   }
+  --- Advanced: Namespace: the screen art helpers of the menu VM.
   VRFW.screen_art = A
 
   local logger
@@ -14,7 +15,7 @@ if VRFW.screen_art == nil then
     logger(...)
   end
 
-  --- The declared roles of a screen (read once per VM): role -> { atlas, sprite, tex = crc32(atlas), crc = crc32(sprite) }.
+  --- Advanced: The declared roles of a screen (read once per VM): role -> { atlas, sprite, tex = crc32(atlas), crc = crc32(sprite) }.
   function A.get(screen)
     local t = A.art[screen]
     if t ~= nil then
@@ -40,12 +41,12 @@ if VRFW.screen_art == nil then
     return t
   end
 
-  --- One declared role of a screen (nil = none: draw the fallback).
+  --- Advanced: One declared role of a screen (nil = none: draw the fallback).
   function A.role(screen, role)
     return A.get(screen)[role]
   end
 
-  --- The atlases a screen's declared art uses (each once): the screen asks them with CMND_LOAD_TEX.
+  --- Advanced: The atlases a screen's declared art uses (each once): the screen asks them with CMND_LOAD_TEX.
   function A.atlases(screen)
     local seen, out = {}, {}
     for _, a in pairs(A.get(screen)) do
@@ -57,7 +58,7 @@ if VRFW.screen_art == nil then
     return out
   end
 
-  --- The texture and sprite hashes of the plain fallback quad of `shape`.
+  --- Advanced: The texture and sprite hashes of the plain fallback quad of `shape`.
   function A.plain(shape)
     return CRC32(A.PLAIN), CRC32("vrfw_plain_" .. shape)
   end

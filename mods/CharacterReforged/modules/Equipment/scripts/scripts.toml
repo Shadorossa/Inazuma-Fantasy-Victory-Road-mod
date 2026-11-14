@@ -1,7 +1,0 @@
-schema = "VRFW.script/1"
-
-[settings]
-budget = 5000000
-
-[[script]]
-file = "equipment.lua"

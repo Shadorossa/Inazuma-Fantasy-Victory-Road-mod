@@ -2,9 +2,11 @@ local VERSION = 1
 local host = VRFW.host
 if type(host) ~= "table" then
   host = {}
+  --- The menu host: hook a game menu's points and commands without editing its file. Safe at load.
   VRFW.host = host
 end
 
+--- Internal: snapshot of the retail global functions captured before wrapping.
 host.retail = host.retail or {}
 for k, v in next, _ENV do
   if type(v) == "function" and type(k) == "string" and host.retail[k] == nil then
@@ -15,6 +17,7 @@ end
 if (host.version or 0) >= VERSION then
   return
 end
+--- Internal: host version string.
 host.version = VERSION
 
 local function get_global(name)
@@ -47,13 +50,21 @@ local DEBUG_LIBRARY = VRFW.debug
 local LOG = VRFW.commands.VRFW_LOG
 local pack, unpack = table.pack, table.unpack
 
+--- Return value of a command hook that stops the call (the game's command does not run). Safe at load.
 host.HALT = host.HALT or setmetatable({}, { __tostring = function() return "VRFW.host.HALT" end })
+--- Internal: registry of the hooks by command.
 host.reg = host.reg or {}
+--- Advanced: Per-menu host records, keyed by menu stem.
 host.hosts = host.hosts or {}
+--- Internal: map of hook ids to their registrations.
 host.ids = host.ids or {}
+--- Internal: running sequence counter of hook registrations.
 host.seq = host.seq or 0
+--- Internal: generation counter of host settings.
 host.gen = host.gen or 0
+--- Internal: queued notes about the host state.
 host.notes = host.notes or {}
+--- Internal: set of notes already logged.
 host.noted = host.noted or {}
 
 local PHASES = { before = true, after = true, around = true, edit = true, item = true }
@@ -77,7 +88,7 @@ local function refuse(stem, why)
   return false, why
 end
 
---- Logs text once per stem at the next flush; safe at Lua load.
+--- VRFW.host.note(stem, text): logs text once per menu stem. Safe at load.
 function host.note(stem, text)
   local key = tostring(stem) .. "|" .. text
   if host.noted[key] then
@@ -88,7 +99,7 @@ function host.note(stem, text)
   host.flush()
 end
 
---- Writes the pending notes to the log; does nothing before the engine is up.
+--- Internal: Writes the pending notes to the log; does nothing before the engine is up.
 function host.flush()
   if #host.notes == 0 or type(funcLuaCommand) ~= "function" then
     return
@@ -105,7 +116,7 @@ local function caller_mod()
   return type(patch_file) == "string" and patch_file:match("^mods/([^/]+)/") or nil
 end
 
---- Register (or replace, same stem + point + id) a handler; answers the entry, or false, why on a bad spec.
+--- VRFW.host.on(stem, point, spec): runs spec.fn at a point ("OnInit", "Step"...) of menu `stem`; the same stem, point and id replace it. Returns the entry, or false and why. Safe at load.
 function host.on(stem, point, spec)
   if type(stem) ~= "string" or type(point) ~= "string" or type(spec) ~= "table" then
     return refuse(stem, "VRFW.host.on(stem, point, spec): strings and a table expected")
@@ -158,7 +169,7 @@ function host.on(stem, point, spec)
   return entry
 end
 
---- Remove a handler (every phase of that id on that point).
+--- Internal: Remove a handler (every phase of that id on that point).
 function host.off(stem, point, id)
   local list = host.reg[stem] and host.reg[stem][point]
   if list == nil then
@@ -172,7 +183,7 @@ function host.off(stem, point, id)
   host.gen = host.gen + 1
 end
 
---- An item of a host's named list (see H.items); answers as VRFW.host.on.
+--- VRFW.host.add(stem, list, item): adds an item to a named list of a menu host. Returns as VRFW.host.on. Safe at load.
 function host.add(stem, list, item)
   if type(item) ~= "table" then
     return refuse(stem, "VRFW.host.add(stem, list, item): a table expected")
@@ -185,7 +196,7 @@ function host.add(stem, list, item)
   return host.on(stem, list, spec)
 end
 
---- A handler id (or a whole mod) is registered somewhere in this VM.
+--- Internal: A handler id (or a whole mod) is registered somewhere in this VM.
 function host.has(ref)
   return host.ids[ref] == true
 end
@@ -194,7 +205,7 @@ local function matches(ref, entry)
   return ref == entry.id or ref == entry.mod
 end
 
---- The live handlers of a point and phase, in run order.
+--- Internal: The live handlers of a point and phase, in run order.
 function host.order(stem, point, phase)
   local live = {}
   for _, entry in ipairs((host.reg[stem] and host.reg[stem][point]) or {}) do
@@ -276,7 +287,7 @@ function host.order(stem, point, phase)
   return out
 end
 
---- The values of a host's named list in order (item.value, or the item spec when it has none).
+--- Internal: The values of a host's named list in order (item.value, or the item spec when it has none).
 function host.items(stem, list)
   local out = {}
   for _, entry in ipairs(host.order(stem, list, "item")) do
@@ -652,8 +663,9 @@ hook_point = function(menu_host, name, create)
   install(menu_host, point_record)
 end
 
---- Marks the hosts settled and applies what was registered so far to the active ones.
+--- Internal: Marks the hosts settled and applies what was registered so far to the active ones.
 function host.settle()
+  --- Internal: true once host.settle has run for the open menu.
   host.settled = true
   for _, menu_host in pairs(host.hosts) do
     if menu_host.active then
@@ -673,8 +685,9 @@ function host.settle()
   end
 end
 
--- VRFW.host.wrap(name, make [, spec]) -> true when `name` is a global function of this script.
+-- Internal: VRFW.host.wrap(name, make [, spec]) -> true when `name` is a global function of this script.
 host.unhosted = host.unhosted or {}
+--- Internal: record of the globals already wrapped by the host.
 host.wrapped = host.wrapped or {}
 local wrap_seq = 0
 
@@ -696,7 +709,7 @@ local function wrap_target(name)
   return name
 end
 
---- Wraps the global of wrap_spec; answers true, or false, why when that global does not exist.
+--- Internal: Wraps the global of wrap_spec; answers true, or false, why when that global does not exist.
 function host.wrap_global(wrap_spec)
   local target = wrap_target(wrap_spec.name)
   local cur = get_global(target)
@@ -713,7 +726,7 @@ function host.wrap_global(wrap_spec)
   return true
 end
 
---- Wraps global `name` with make(previous); answers true, or false, why.
+--- VRFW.host.wrap(name, make[, spec]): replaces global function `name` with make(previous). Returns true, or false and why. Safe at load.
 function host.wrap(name, make, spec)
   if type(name) ~= "string" or type(make) ~= "function" then
     return refuse(name, "VRFW.host.wrap(name, make [, spec]): a string and a function expected")
@@ -767,8 +780,9 @@ function host.wrap(name, make, spec)
   return true
 end
 
+--- Internal: record of the globals wrapped through host.wrap_once.
 host.wrapped_once = host.wrapped_once or {}
---- Wraps global `name` once for `owner`; fn gets next and the arguments; answers true, or false, why.
+--- VRFW.host.wrap_once(name, owner, fn): wraps global `name` once per owner; fn gets the previous function and the arguments. Safe at load.
 function host.wrap_once(name, owner, fn)
   local current = _ENV[name]
   if type(current) ~= "function" then
@@ -812,12 +826,12 @@ function host.wrap_once(name, owner, fn)
   return true
 end
 
---- Declares a named list of a host, with its default.
+--- Internal: Declares a named list of a host, with its default.
 function host.list(stem, name, def)
   host_of(stem).lists[name] = def or {}
 end
 
---- Declares a menu host (stem, locals, points); answers the host, or false, why.
+--- Advanced: Declares a menu host (stem, locals, points); answers the host, or false, why.
 function host.host(stem, spec)
   if type(stem) == "table" and spec == nil then
     stem, spec = nil, stem
@@ -854,12 +868,12 @@ function host.host(stem, spec)
   return menu_host
 end
 
---- The retail function saved under `name`, or nil.
+--- Internal: The retail function saved under `name`, or nil.
 function host.retail_function(name)
   return host.retail[name]
 end
 
---- A function that calls the version of `name` underneath this stem's handlers.
+--- Internal: A function that calls the version of `name` underneath this stem's handlers.
 function host.original(stem, name)
   return function(...)
     local menu_host = host.hosts[stem]
@@ -876,7 +890,7 @@ function host.original(stem, name)
   end
 end
 
---- A text report of a host's points and handlers.
+--- Internal: A text report of a host's points and handlers.
 function host.report(stem)
   local lines = {}
   local menu_host = host.hosts[stem]
@@ -911,5 +925,6 @@ if type(VRFW.host_queue) == "table" then
       host.add(queued[2], queued[3], queued[4])
     end
   end
+  --- Advanced: Queue of host work requested before the host existed; cleared once it ran.
   VRFW.host_queue = nil
 end

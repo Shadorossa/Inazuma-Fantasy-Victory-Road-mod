@@ -1,170 +1,170 @@
 -- Only node / layer transforms of this menu's layer instances
 BetterUI = type(BetterUI) == "table" and BetterUI or {}
--- @@dock_panel_layout BEGIN (research/mods/BetterUI/_tools/better_ui_dock_panel.py --write; computed from the retail layouts, not seen in game)
+-- @@dock_panel_layout BEGIN (research/mods/BetterUI/_tools/betterui_dock_panel.py --write; computed from the retail layouts, not seen in game)
 local FRAME_LAYOUT = {
-  [3321884270] = {  -- soccer11_02_formation_frame
-    {3559539200, -426.13, -253.0},
-    {3514366479, -318.13, -220.0},
-    {2117182803, -35.4, 460.0},
-    {727258178, -366.0, -132.0},
+  [@crc:soccer11_02_formation_frame@] = {  -- soccer11_02_formation_frame
+    {@crc:_atc_formation01@, -426.13, -253.0},
+    {@crc:_atc_build01@, -318.13, -220.0},
+    {@crc:_atc_uniform01@, -35.4, 460.0},
+    {@crc:_atc_tactics01@, -366.0, -132.0},
   },
-  [3518110933] = {  -- mainmenu04_10_formation_base
-    {3559539200, -426.13, -233.0},
-    {3514366479, -318.13, -200.0},
-    {2117182803, -35.4, 480.0},
-    {727258178, -366.0, -112.0},
+  [@crc:mainmenu04_10_formation_base@] = {  -- mainmenu04_10_formation_base
+    {@crc:_atc_formation01@, -426.13, -233.0},
+    {@crc:_atc_build01@, -318.13, -200.0},
+    {@crc:_atc_uniform01@, -35.4, 480.0},
+    {@crc:_atc_tactics01@, -366.0, -112.0},
   },
 }
 local TACTICS_BASE_LAYOUT = {
-  {727258178, -108.0, -9.0},
-  {2991605240, 0.0, -9.0},
-  {3310843246, 108.0, -9.0},
+  {@crc:_atc_tactics01@, -108.0, -9.0},
+  {@crc:_atc_tactics02@, 0.0, -9.0},
+  {@crc:_atc_tactics03@, 108.0, -9.0},
 }
 local TACTIC_PLATE_CLIPPED = {
   [0] = {
-    {3179308504, -309.09, 58.97, 378.18, 117.95},
-    {3059243006, -309.09, 58.97, 378.18, 117.95},
-    {793839172, -309.09, 58.97, 378.18, 117.95},
-    {3412960572, -309.09, 58.97, 378.18, 117.95},
-    {4023606909, -309.09, 58.97, 378.18, 117.95},
-    {2085899927, -60.61, 71.79, 121.21, 143.59},
-    {3269155364, -80.0, 50.0, 160.0, 100.0},
-    {248918510, -53.33, 33.33, 106.67, 66.67},
-    {2424767532, -22.86, 22.86, 45.71, 45.71},
+    {@crc:_cmd_base_t01@, -309.09, 58.97, 378.18, 117.95},
+    {@crc:_cmd_base_t_add01@, -309.09, 58.97, 378.18, 117.95},
+    {@crc:_cmd_base_t_add02@, -309.09, 58.97, 378.18, 117.95},
+    {@crc:_cmd_base_t_grayout01@, -309.09, 58.97, 378.18, 117.95},
+    {@crc:_cmd_base_t_blank01@, -309.09, 58.97, 378.18, 117.95},
+    {@crc:_t_ring01@, -60.61, 71.79, 121.21, 143.59},
+    {@crc:_cmd_base_t_effect01@, -80.0, 50.0, 160.0, 100.0},
+    {@crc:_touch_cmd_base01@, -53.33, 33.33, 106.67, 66.67},
+    {@crc:_icon_tactics_dmy01@, -22.86, 22.86, 45.71, 45.71},
   },
   [1] = {
-    {3179308504, -189.09, 58.97, 378.18, 117.95},
-    {3059243006, -189.09, 58.97, 378.18, 117.95},
-    {793839172, -189.09, 58.97, 378.18, 117.95},
-    {3412960572, -189.09, 58.97, 378.18, 117.95},
-    {4023606909, -189.09, 58.97, 378.18, 117.95},
-    {2085899927, -60.61, 71.79, 121.21, 143.59},
-    {3269155364, -80.0, 50.0, 160.0, 100.0},
-    {248918510, -53.33, 33.33, 106.67, 66.67},
-    {2424767532, -22.86, 22.86, 45.71, 45.71},
+    {@crc:_cmd_base_t01@, -189.09, 58.97, 378.18, 117.95},
+    {@crc:_cmd_base_t_add01@, -189.09, 58.97, 378.18, 117.95},
+    {@crc:_cmd_base_t_add02@, -189.09, 58.97, 378.18, 117.95},
+    {@crc:_cmd_base_t_grayout01@, -189.09, 58.97, 378.18, 117.95},
+    {@crc:_cmd_base_t_blank01@, -189.09, 58.97, 378.18, 117.95},
+    {@crc:_t_ring01@, -60.61, 71.79, 121.21, 143.59},
+    {@crc:_cmd_base_t_effect01@, -80.0, 50.0, 160.0, 100.0},
+    {@crc:_touch_cmd_base01@, -53.33, 33.33, 106.67, 66.67},
+    {@crc:_icon_tactics_dmy01@, -22.86, 22.86, 45.71, 45.71},
   },
   [2] = {
-    {3179308504, -69.09, 58.97, 378.18, 117.95},
-    {3059243006, -69.09, 58.97, 378.18, 117.95},
-    {793839172, -69.09, 58.97, 378.18, 117.95},
-    {3412960572, -69.09, 58.97, 378.18, 117.95},
-    {4023606909, -69.09, 58.97, 378.18, 117.95},
-    {2085899927, -60.61, 71.79, 121.21, 143.59},
-    {3269155364, -80.0, 50.0, 160.0, 100.0},
-    {248918510, -53.33, 33.33, 106.67, 66.67},
-    {2424767532, -22.86, 22.86, 45.71, 45.71},
+    {@crc:_cmd_base_t01@, -69.09, 58.97, 378.18, 117.95},
+    {@crc:_cmd_base_t_add01@, -69.09, 58.97, 378.18, 117.95},
+    {@crc:_cmd_base_t_add02@, -69.09, 58.97, 378.18, 117.95},
+    {@crc:_cmd_base_t_grayout01@, -69.09, 58.97, 378.18, 117.95},
+    {@crc:_cmd_base_t_blank01@, -69.09, 58.97, 378.18, 117.95},
+    {@crc:_t_ring01@, -60.61, 71.79, 121.21, 143.59},
+    {@crc:_cmd_base_t_effect01@, -80.0, 50.0, 160.0, 100.0},
+    {@crc:_touch_cmd_base01@, -53.33, 33.33, 106.67, 66.67},
+    {@crc:_icon_tactics_dmy01@, -22.86, 22.86, 45.71, 45.71},
   },
 }
 local TACTIC_PLATE_SQUEEZED = {
-  {3179308504, -58.18, 58.97, 116.36, 117.95},
-  {3059243006, -58.18, 58.97, 116.36, 117.95},
-  {793839172, -58.18, 58.97, 116.36, 117.95},
-  {3412960572, -58.18, 58.97, 116.36, 117.95},
-  {4023606909, -58.18, 58.97, 116.36, 117.95},
-  {2085899927, -60.61, 71.79, 121.21, 143.59},
-  {3269155364, -80.0, 50.0, 160.0, 100.0},
-  {248918510, -53.33, 33.33, 106.67, 66.67},
-  {2424767532, -22.86, 22.86, 45.71, 45.71},
+  {@crc:_cmd_base_t01@, -58.18, 58.97, 116.36, 117.95},
+  {@crc:_cmd_base_t_add01@, -58.18, 58.97, 116.36, 117.95},
+  {@crc:_cmd_base_t_add02@, -58.18, 58.97, 116.36, 117.95},
+  {@crc:_cmd_base_t_grayout01@, -58.18, 58.97, 116.36, 117.95},
+  {@crc:_cmd_base_t_blank01@, -58.18, 58.97, 116.36, 117.95},
+  {@crc:_t_ring01@, -60.61, 71.79, 121.21, 143.59},
+  {@crc:_cmd_base_t_effect01@, -80.0, 50.0, 160.0, 100.0},
+  {@crc:_touch_cmd_base01@, -53.33, 33.33, 106.67, 66.67},
+  {@crc:_icon_tactics_dmy01@, -22.86, 22.86, 45.71, 45.71},
 }
 local TACTIC_FOCUS_LAYOUT = {
-  {493703002, -54.79, 41.03, 109.58, 82.05},
-  {688754292, -53.33, 33.33, 106.67, 66.67},
-  {282284405, -53.33, 0.0},
+  {@crc:_list_t_focus01@, -54.79, 41.03, 109.58, 82.05},
+  {@crc:_touch_list01@, -53.33, 33.33, 106.67, 66.67},
+  {@crc:_pos_atc_cur01@, -53.33, 0.0},
 }
 local FORMATION_BOX_LAYOUT = {
-  {1083262227, -342.87, -24.0, 289.75, 76.0},
-  {2577145296, -342.87, -24.0, 289.75, 76.0},
-  {579557469, -340.75, -28.0, 285.51, 68.0},
-  {4057411956, -338.63, -30.0, 281.27, 64.0},
-  {1803877747, -318.0, 7.0},
-  {282284405, -333.69, -60.0},
-  {4293674698, -162.67, -74.0},
+  {@crc:_base_formation01@, -342.87, -24.0, 289.75, 76.0},
+  {@crc:_focus_formation01@, -342.87, -24.0, 289.75, 76.0},
+  {@crc:_base_formation_blank_stop01@, -340.75, -28.0, 285.51, 68.0},
+  {@crc:_touch_formation01@, -338.63, -30.0, 281.27, 64.0},
+  {@crc:_gtxt_formation01@, -318.0, 7.0},
+  {@crc:_pos_atc_cur01@, -333.69, -60.0},
+  {@crc:_pos_atc_free01@, -162.67, -74.0},
 }
 local TEAM_CONFIG_LAYOUT = {
-  {2422459839, -151.13, -57.0, 110.25, 76.0},
-  {2883099077, -151.13, -57.0, 110.25, 76.0},
-  {1038461407, -193.0, -30.0, 194.0, 130.0},
-  {4209478916, -142.03, -40.41, 92.06, 19.27},
-  {260772049, -121.15, -69.85, 50.31, 50.31},
-  {282284405, -134.0, -93.93},
-  {4293674698, -53.18, -93.93},
-  {191456257, -53.18, -50.04},
+  {@crc:_base_build01@, -151.13, -57.0, 110.25, 76.0},
+  {@crc:_focus_build01@, -151.13, -57.0, 110.25, 76.0},
+  {@crc:_touch_build01@, -193.0, -30.0, 194.0, 130.0},
+  {@crc:_gtxt_teambuild01@, -142.03, -40.41, 92.06, 19.27},
+  {@crc:_icon_build_dmy01@, -121.15, -69.85, 50.31, 50.31},
+  {@crc:_pos_atc_cur01@, -134.0, -93.93},
+  {@crc:_pos_atc_free01@, -53.18, -93.93},
+  {@crc:_pos_atc_flavor01@, -53.18, -50.04},
 }
 local KIT_ICON_LAYOUT = {
-  {177988645, -106.0, -53.0, 84.0, 84.0},
-  {2475865503, -106.0, -53.0, 0.0, 0.0},
-  {2610942165, -114.0, -45.0, 100.0, 100.0},
-  {225152159, -114.0, -45.0, 100.0, 100.0},
-  {282284405, -114.0, -95.0},
-  {4293674698, -14.0, -145.0},
+  {@crc:_icon_uniform_dmy01@, -106.0, -53.0, 84.0, 84.0},
+  {@crc:_icon_uniform_dmy02@, -106.0, -53.0, 0.0, 0.0},
+  {@crc:_focus_uniform01@, -114.0, -45.0, 100.0, 100.0},
+  {@crc:_touch_uniform01@, -114.0, -45.0, 100.0, 100.0},
+  {@crc:_pos_atc_cur01@, -114.0, -95.0},
+  {@crc:_pos_atc_free01@, -14.0, -145.0},
 }
-local KIT_HIDDEN_NODES = {575270911, 287845214, 2475865503}
+local KIT_HIDDEN_NODES = {@crc:_base_uniform01@, @crc:_gtxt_uniform01@, @crc:_icon_uniform_dmy02@}
 local HEADER_BAR_LAYOUT = {
-  {3281704751, -535.0, 50.0},
-  {2575942053, -540.0, 50.0},
-  {1685915119, -534.0, 44.0},
-  {282284405, -520.0, 0.0},
-  {4293674698, -484.0, 0.0},
-  {59066708, 532.6, 8.8, 48.0, 30.0},
-  {762262827, 584.6, 21.2, 0.8, 0.8},  -- num_team_lv01
-  {3110904843, 280.6, 0.0},
-  {529481415, 280.6, 0.0},
-  {121011092, -155.0, 0.0},
+  {@crc:_icon_emblem_dmy01@, -535.0, 50.0},
+  {@crc:_focus_emblem01@, -540.0, 50.0},
+  {@crc:_touch_emblem01@, -534.0, 44.0},
+  {@crc:_pos_atc_cur01@, -520.0, 0.0},
+  {@crc:_pos_atc_free01@, -484.0, 0.0},
+  {@crc:_gtxt_team_lv01@, 532.6, 8.8, 48.0, 30.0},
+  {@crc:num_team_lv01@, 584.6, 21.2, 0.8, 0.8},  -- num_team_lv01
+  {@crc:_atc_deck01@, 280.6, 0.0},
+  {@crc:_atc_lock01@, 280.6, 0.0},
+  {@crc:_atc_name01@, -155.0, 0.0},
 }
 local TEAM_NAME_LAYOUT = {    -- team01_04_p1_team_name_frame: 307.6 px wide
-  {192135682, -234.0, 30.0, 307.6, 60.0},
-  {3098115344, -234.0, 30.0, 307.6, 60.0},
-  {1049849218, -228.0, 24.0, 295.6, 48.0},
-  {4293674698, -28.93, -10.0},
+  {@crc:_base_team01@, -234.0, 30.0, 307.6, 60.0},
+  {@crc:_base_focus01@, -234.0, 30.0, 307.6, 60.0},
+  {@crc:_touch_base01@, -228.0, 24.0, 295.6, 48.0},
+  {@crc:_pos_atc_free01@, -28.93, -10.0},
 }
-local HEADER_LAYOUT = {crest = 3281704751, cx = -484.0, cy = -1.0, kx = -21.4, ky = -1.0,  -- crest centre, kit centre (bar units)
+local HEADER_LAYOUT = {crest = @crc:_icon_emblem_dmy01@, cx = -484.0, cy = -1.0, kx = -21.4, ky = -1.0,  -- crest centre, kit centre (bar units)
   ux = -64.0, uy = -95.0,  -- the kit's centre in its own layer (the retail hit zone's centre)
-  nv_atlas = 4225297828, nv_sprite = 246002043, nv_slot = 2549962395,
-  nv_mesh = 59066708, nv_rgb = {0.192, 0.463, 1.0}}
+  nv_atlas = 4225297828, nv_sprite = @crc:gtxt_lv_l01@, nv_slot = @crc:gtxt_team_lv@,
+  nv_mesh = @crc:_gtxt_team_lv01@, nv_rgb = {0.192, 0.463, 1.0}}
 local HEADER_BAR_RETAIL = {  -- the same nodes at their retail values (header left retail)
-  {3281704751, -651.0, 50.0},
-  {2575942053, -656.0, 50.0},
-  {1685915119, -650.0, 44.0},
-  {282284405, -636.0, 0.0},
-  {4293674698, -600.0, 0.0},
-  {59066708, -75.0, 30.0, 140.0, 60.0},
-  {762262827, 64.0, 25.0, 1.0, 1.0},  -- num_team_lv01
-  {3110904843, 418.0, 0.0},
-  {529481415, 418.0, 0.0},
-  {121011092, -308.0, 0.0},
+  {@crc:_icon_emblem_dmy01@, -651.0, 50.0},
+  {@crc:_focus_emblem01@, -656.0, 50.0},
+  {@crc:_touch_emblem01@, -650.0, 44.0},
+  {@crc:_pos_atc_cur01@, -636.0, 0.0},
+  {@crc:_pos_atc_free01@, -600.0, 0.0},
+  {@crc:_gtxt_team_lv01@, -75.0, 30.0, 140.0, 60.0},
+  {@crc:num_team_lv01@, 64.0, 25.0, 1.0, 1.0},  -- num_team_lv01
+  {@crc:_atc_deck01@, 418.0, 0.0},
+  {@crc:_atc_lock01@, 418.0, 0.0},
+  {@crc:_atc_name01@, -308.0, 0.0},
 }
 local TEAM_NAME_RETAIL = {
-  {192135682, -234.0, 30.0, 468.0, 60.0},
-  {3098115344, -234.0, 30.0, 468.0, 60.0},
-  {1049849218, -228.0, 24.0, 456.0, 48.0},
-  {4293674698, 78.0, -10.0},
+  {@crc:_base_team01@, -234.0, 30.0, 468.0, 60.0},
+  {@crc:_base_focus01@, -234.0, 30.0, 468.0, 60.0},
+  {@crc:_touch_base01@, -228.0, 24.0, 456.0, 48.0},
+  {@crc:_pos_atc_free01@, 78.0, -10.0},
 }
 local KIT_BOX_RETAIL = {
-  {177988645, -111.0, -48.0, 94.0, 94.0},
-  {2475865503, -103.0, -56.0, 94.0, 94.0},
-  {2610942165, -135.0, -24.0, 142.0, 142.0},
-  {225152159, -129.0, -30.0, 130.0, 130.0},
-  {282284405, -103.0, -93.0},
-  {4293674698, -16.0, -93.0},
+  {@crc:_icon_uniform_dmy01@, -111.0, -48.0, 94.0, 94.0},
+  {@crc:_icon_uniform_dmy02@, -103.0, -56.0, 94.0, 94.0},
+  {@crc:_focus_uniform01@, -135.0, -24.0, 142.0, 142.0},
+  {@crc:_touch_uniform01@, -129.0, -30.0, 130.0, 130.0},
+  {@crc:_pos_atc_cur01@, -103.0, -93.0},
+  {@crc:_pos_atc_free01@, -16.0, -93.0},
 }
 local KIT_PANEL_LAYOUT = {    -- panel mode: the kit's field locator, centred under the panel
-  [3321884270] = {-507.0, -92.0},  -- soccer11_02_formation_frame
-  [3518110933] = {-507.0, -72.0},  -- mainmenu04_10_formation_base
+  [@crc:soccer11_02_formation_frame@] = {-507.0, -92.0},  -- soccer11_02_formation_frame
+  [@crc:mainmenu04_10_formation_base@] = {-507.0, -72.0},  -- mainmenu04_10_formation_base
 }
 local HEADER_CHECK = {name_l = -389.0, deck_l = 38.6, tol = 16,
   nv_atlas = 3197067911}
 local HEADER_CREST_CORNER = {-535.0, 50.0}  -- crest mesh top-left (bar units): the run-time scale reference
 local ATTACK_DEFENSE_LAYOUT = {
-  layer = 859123864, frame = 3321884270, scl = 705786522, num = 1662964535, field = 852487707, gk = 3024005116,
+  layer = @crc:mainmenu04_06_team_atdf@, frame = @crc:soccer11_02_formation_frame@, scl = @crc:_pos_scl01@, num = @crc:_pos_num_team_at01@, field = @crc:_formation_field01@, gk = @crc:_pos_formation01@,
   dx = 221.0, dy = 46.0, fx = -348.0, fy = 280.0, tx = 0.0, ty = -58.0, scale = 0.5}  -- base->scl x, scl->AT number y; field mesh from _pos_base01
 local DOCK_NUMBER_LAYOUT = {
-  {1811606789, 8.8, -16.0, 26.4, 48.0},
-  {2448805990, 8.8, -16.0, 26.4, 48.0},
-  {355816102, -336.8, 103.0},
-  {59628764, 31.8, 103.0},
+  {@crc:_arrow01_l@, 8.8, -16.0, 26.4, 48.0},
+  {@crc:_arrow01_r@, 8.8, -16.0, 26.4, 48.0},
+  {@crc:_text_btn_l01@, -336.8, 103.0},
+  {@crc:_text_btn_r01@, 31.8, 103.0},
 }
 local MOD_BUTTON_LAYOUT = {
-  step = -72.0, dx = 0.0, pdx = -139.0, dy = -384.5, h = 107.0, mesh = 4273639855, mx = -66.0, my = 36.0, mw = 132.0, mh = 72.0}
+  step = -72.0, dx = 0.0, pdx = -139.0, dy = -384.5, h = 107.0, mesh = @crc:_synergy_top_base01@, mx = -66.0, my = 36.0, mw = 132.0, mh = 72.0}
 local TEAM_ICON_LAYOUT = {
   dy = -292.6, pdx = -139.0, step = 132.8, scale = 0.9}
 -- @@dock_panel_layout END
@@ -187,78 +187,78 @@ end
 
 local Dock = {
   -- layers (crc32 of the setting's layer names)
-  TAC = 1559239586,               -- team00_11_p1_tactics_focus x3 (the focusable boxes, scissor frames)
-  CMD = 3018698265,               -- soccer08_12_tactics_cmd x3 (plate + icon)
-  BASE = 2579693296,
-  FORM = 3286546665,              -- team00_12_formation_style
-  UNI = 3822105360,               -- team00_13_uniform_icon
-  CONF = 721367678,               -- team00_14_build_type_icon
-  BALLOON = 2914643032,           -- team00_15_build_type_balloon
-  DOCKNO = 1308042914,            -- team01_05_team_dock_no
-  BAR = 1044086265,
-  NAME = 1922851874,              -- team01_04_p1_team_name_frame
-  DECK = 3926241346,              -- team01_04_p2_deck_name_frame (the player plate)
-  VR_MENU = 1917973090,           -- victory_road_top_menu (g_parentMenuId): its own header, left retail
-  IS_VISIBLE = 1262717583,        -- CMND_IS_LAYER_VISIBLE (layer, idx) -> bool
-  NAME_BASE = 192135682,
-  DECK_BASE = 2787210400,
-  LIST = 3367997069,              -- team01_02_list_item
-  CARDS = 1973487846,             -- team00_01_chara_card_for_soccer
-  LEADER = 1658289671,            -- team00_01_chara_card_for_leader (the coach card)
-  FRAMES = {3321884270, 3518110933},   -- soccer11_02_formation_frame / mainmenu04_10_formation_base
-  GUIDE_LINE = 3078308064, GUIDE_NODE = 378156699,   -- mainmenu90_05_content_guide_line01 / _text_guide01
+  TAC = @crc:team00_11_p1_tactics_focus@,               -- team00_11_p1_tactics_focus x3 (the focusable boxes, scissor frames)
+  CMD = @crc:soccer08_12_tactics_cmd@,               -- soccer08_12_tactics_cmd x3 (plate + icon)
+  BASE = @crc:team00_10_tactics_base@,
+  FORM = @crc:team00_12_formation_style@,              -- team00_12_formation_style
+  UNI = @crc:team00_13_uniform_icon@,               -- team00_13_uniform_icon
+  CONF = @crc:team00_14_build_type_icon@,               -- team00_14_build_type_icon
+  BALLOON = @crc:team00_15_build_type_balloon@,           -- team00_15_build_type_balloon
+  DOCKNO = @crc:team01_05_team_dock_no@,            -- team01_05_team_dock_no
+  BAR = @crc:team01_04_team_name_bar@,
+  NAME = @crc:team01_04_p1_team_name_frame@,              -- team01_04_p1_team_name_frame
+  DECK = @crc:team01_04_p2_deck_name_frame@,              -- team01_04_p2_deck_name_frame (the player plate)
+  VR_MENU = @crc:victory_road_top_menu@,           -- victory_road_top_menu (g_parentMenuId): its own header, left retail
+  IS_VISIBLE = @crc:CMND_IS_LAYER_VISIBLE@,        -- CMND_IS_LAYER_VISIBLE (layer, idx) -> bool
+  NAME_BASE = @crc:_base_team01@,
+  DECK_BASE = @crc:_base_deck01@,
+  LIST = @crc:team01_02_list_item@,              -- team01_02_list_item
+  CARDS = @crc:team00_01_chara_card_for_soccer@,             -- team00_01_chara_card_for_soccer
+  LEADER = @crc:team00_01_chara_card_for_leader@,            -- team00_01_chara_card_for_leader (the coach card)
+  FRAMES = {@crc:soccer11_02_formation_frame@, @crc:mainmenu04_10_formation_base@},   -- soccer11_02_formation_frame / mainmenu04_10_formation_base
+  GUIDE_LINE = @crc:mainmenu90_05_content_guide_line01@, GUIDE_NODE = @crc:_text_guide01@,   -- mainmenu90_05_content_guide_line01 / _text_guide01
   -- nodes
-  TEXT_CMD = 625330766,
-  TEXT_BUILD = 2160352228,
-  CURSOR = 3313461902,
-  POS_BASE = 1517329426,
-  ATC_UNI = 2117182803,
-  KIT_ICON = 177988645,
-  KIT_SHADOW = 2475865503,
-  TOUCH_LIST = 688754292,
-  MESH_VIS = 3405944500,          -- CMND_SET_MESH_VISIBLE (layer, mesh, bool, idx)
-  SET_PRIO = 1491630496,
+  TEXT_CMD = @crc:_text_cmd01@,
+  TEXT_BUILD = @crc:_text_build01@,
+  CURSOR = @crc:cursor@,
+  POS_BASE = @crc:_pos_base01@,
+  ATC_UNI = @crc:_atc_uniform01@,
+  KIT_ICON = @crc:_icon_uniform_dmy01@,
+  KIT_SHADOW = @crc:_icon_uniform_dmy02@,
+  TOUCH_LIST = @crc:_touch_list01@,
+  MESH_VIS = @crc:CMND_SET_MESH_VISIBLE@,          -- CMND_SET_MESH_VISIBLE (layer, mesh, bool, idx)
+  SET_PRIO = @crc:CMND_SET_DRAW_PRIORITY@,
   KIT_PRIO = 460,
   SLICE_ATLAS = 2640011428,
-  SLICES = {[2] = 2548980574, [1] = 3773393864, [0] = 1843488317},   -- better_ui_tactic_row_l / _m / _r by instance
-  PLATE_SLOT = 3889891185,        -- 0xE7DB0771: _cmd_base_t01 (and its additive overlays)
-  SLICES_READY = 4184132903,
+  SLICES = {[2] = @crc:better_ui_tactic_row_l@, [1] = @crc:better_ui_tactic_row_m@, [0] = @crc:better_ui_tactic_row_r@},   -- better_ui_tactic_row_l / _m / _r by instance
+  PLATE_SLOT = @crc:cmd_base_t01@,        -- 0xE7DB0771: _cmd_base_t01 (and its additive overlays)
+  SLICES_READY = @crc:CMND_BETTERUI_TACTIC_SLICES@,
   -- menu commands
   NODE_POS = 2575768773,
   NODE_SCALE = 2885415772,        -- (layer, idx, node, sx, sy): node local scale (nie 0xCE7960)
   NODE_VIS = 2158717427,          -- (layer, node, bool, idx)
-  TEXT_VIS = 1505208242,          -- (layer, text node, bool, idx)
-  SET_TEXT = 1083631230,          -- (layer, text node, string, idx)
+  TEXT_VIS = @crc:CMND_SET_MENU_TEXT_VISIBLE@,          -- (layer, text node, bool, idx)
+  SET_TEXT = @crc:CMND_SET_MENU_TEXT_STRING@,          -- (layer, text node, string, idx)
   SWAP = 558735651,
-  PRIM_COLOR = 855211291,
-  PRIM_ALPHA = 2219773080,        -- CMND_SET_PRIM_ALPHA (layer, idx, mesh, a)
-  GPOS = 499270986,               -- CMND_GET_MESH_GLOBAL_POSITION (layer, idx, node) -> x, y, z
+  PRIM_COLOR = @crc:CMND_SET_PRIM_COLOR@,
+  PRIM_ALPHA = @crc:CMND_SET_PRIM_ALPHA@,        -- CMND_SET_PRIM_ALPHA (layer, idx, mesh, a)
+  GPOS = @crc:CMND_GET_MESH_GLOBAL_POSITION@,               -- CMND_GET_MESH_GLOBAL_POSITION (layer, idx, node) -> x, y, z
   SCISSOR_UPDATE = 1607272191,    -- (layer, idx)
-  SCISSOR_COPY = 2438447022,      -- (layer, idx, from layer, from idx)
-  SCISSOR_ON = 588955388,         -- (layer, idx, bool)
-  LAYER_VISIBLE = 711242136,      -- (layer, idx, bool)
-  FOCUS_ACTIVE = 102308320,       -- (layer) -> bool
+  SCISSOR_COPY = @crc:CMND_REQ_FP_BUILD_SET@,      -- (layer, idx, from layer, from idx)
+  SCISSOR_ON = @crc:CMND_DELETE_PURCHASE_TO@,         -- (layer, idx, bool)
+  LAYER_VISIBLE = @crc:CMND_SET_LAYER_VISIBLE@,      -- (layer, idx, bool)
+  FOCUS_ACTIVE = @crc:CMND_IS_CTRL_FOCUS_ACTIVE@,       -- (layer) -> bool
   FOCUS_IDX = 2603265800,         -- (layer) -> focused instance
   FOCUS_SET = 3466097042,         -- (layer, idx)
   FOCUS_MARK = 1778826357,        -- (layer, idx, bool): what the retail dock sends to move its focus
-  FOCUS_ENABLE = 3518307824,      -- (layer, bool)
-  CURSOR_LOC = 381797568,         -- (layer, crc32("cursor"), idx, count)
-  CURSOR_TRACE = 1774843228,
+  FOCUS_ENABLE = @crc:CMND_SET_ENABLE_CTRL_FOCUS@,      -- (layer, bool)
+  CURSOR_LOC = @crc:CMND_SET_CURSOR_LOCATOR@,         -- (layer, crc32("cursor"), idx, count)
+  CURSOR_TRACE = @crc:CMND_SET_LAYER_ATTACH_LOCATOR_TRACE@,
   CARD_CURSOR = 945715707,
-  CREATE_NUM = 1175615627,        -- (layer) -> instances
-  IS_OPEN = 2640875187,           -- (layer[, idx]) -> bool
-  LAYER_ACTIVE = 782642007,
-  LAYER_POS = 1389957207,
-  LAYER_SCALE = 3778714801,       -- CMND_SET_LAYER_LOCAL_SCALE (layer, sx, sy, sz, idx)
-  ZONE = 855005857,
+  CREATE_NUM = @crc:CMND_GET_CREATE_LAYER_NUM@,        -- (layer) -> instances
+  IS_OPEN = @crc:CMND_IS_OPEN_LAYER@,           -- (layer[, idx]) -> bool
+  LAYER_ACTIVE = @crc:CMND_IS_MENU_LAYER_ACTIVE@,
+  LAYER_POS = @crc:CMND_SET_LAYER_LOCAL_POS@,
+  LAYER_SCALE = @crc:CMND_SET_LAYER_LOCAL_SCALE@,       -- CMND_SET_LAYER_LOCAL_SCALE (layer, sx, sy, sz, idx)
+  ZONE = @crc:CMND_SET_MENU_COLLISION_HIT_ALL@,
   POINTER = 558229292,            -- () -> x, y: the pointer, screen px, y down
-  PLAY_ANIME = 3781155141,        -- CMND_PLAY_ANIME_TYPE (layer, idx, anime, mode, kind)
-  ANIME_ACTIVE = 1286797620, ANIME_FOCUS = 2734777837, ANIME_BUTTON = 973515837,   -- "Active", "Focus", "button"
+  PLAY_ANIME = @crc:CMND_PLAY_ANIME_TYPE@,        -- CMND_PLAY_ANIME_TYPE (layer, idx, anime, mode, kind)
+  ANIME_ACTIVE = @crc:Active@, ANIME_FOCUS = @crc:Focus@, ANIME_BUTTON = @crc:button@,   -- "Active", "Focus", "button"
   -- funcLuaCommand
-  SOUND = 1917805374, SE_MOVE = 2500047763,   -- sy0005: the dock's cursor sound
-  TEXT_GET = 4074371074, CARD_GUIDE = 104932408,   -- t2[1].itemExplation of the retail dock (a card is focused)
-  LOG = 519897777,               -- CMND_VRFW_LOG
-  LOG_DEBUG = 3626744379,         -- CMND_VRFW_LOG_DEBUG
+  SOUND = @crc:CMND_SND_PLAY_SE@, SE_MOVE = @crc:sy0005@,   -- sy0005: the dock's cursor sound
+  TEXT_GET = @crc:CMND_TEXT_GET@, CARD_GUIDE = 104932408,   -- t2[1].itemExplation of the retail dock (a card is focused)
+  LOG = @crc:CMND_VRFW_LOG@,               -- CMND_VRFW_LOG
+  LOG_DEBUG = @crc:CMND_VRFW_LOG_DEBUG@,         -- CMND_VRFW_LOG_DEBUG
   -- OnChangeFocus argument of the retail FCS_CHANGE right row
   ARG_RIGHT = 2682339866,
   busy = false, echo = false, logged = false, kit = {}, clipLogged = false,
@@ -359,7 +359,7 @@ local function foreign_editor_spec()
 end
 
 local function panel_enabled()
-  return BetterUI.dock_panel == true and BetterUI.preset ~= "off"
+  return BetterUI.dock_panel == true
 end
 
 local function tactics_enabled()
@@ -371,7 +371,7 @@ local function clip_enabled()
 end
 
 local function arrows_enabled()
-  return BetterUI.dock_arrows == true and BetterUI.preset ~= "off"
+  return BetterUI.dock_arrows == true
 end
 
 local function attack_defense_enabled()
@@ -384,7 +384,7 @@ local function send_attack_defense()
   menu_command(Dock.LAYER_POS, ATTACK_DEFENSE_LAYOUT.layer, st.x, st.y, 0, 0)
 end
 
-local TACTICS_FRAME_LOCATOR = 727258178
+local TACTICS_FRAME_LOCATOR = @crc:_atc_tactics01@
 
 local function place_nodes(layer, idx, rows, skip)
   for _, r in ipairs(rows) do
@@ -714,8 +714,8 @@ end
 -- (from, fi) -> (to, ti) like a retail focus shift row
 local GHOST_STEPS = 3
 -- Layers of the team's identity fixed by the dock's opener (VRFW.team_editor.foreign().lock_identity, a team page).
-Dock.LOCKED_LAYERS = {[1044086265] = true, [1922851874] = true, [3822105360] = true,   -- bar (crest), team name, kit
-  [72691397] = true}
+Dock.LOCKED_LAYERS = {[@crc:team01_04_team_name_bar@] = true, [@crc:team01_04_p1_team_name_frame@] = true, [@crc:team00_13_uniform_icon@] = true,   -- bar (crest), team name, kit
+  [@crc:home_stadium_dock_button@] = true}
 function Dock.locked()
   if Dock.lock == nil then
     local f = foreign_editor_spec()
@@ -806,7 +806,7 @@ end
 local function formation_down(at, ai)
   local ci = card_from(2, Dock.FORM, 0)
   if ci ~= nil then
-    log_move("focus " .. tostring(at) .. "[" .. tostring(ai) .. "] -> card " .. tostring(ci) .. " (FORMACIÓN DOWN)")
+    log_move("focus " .. tostring(at) .. "[" .. tostring(ai) .. "] -> card " .. tostring(ci) .. " (formation box, down)")
     move_to_card(at, ai, ci)
     if at ~= Dock.FORM then
       unfocus(Dock.FORM, 0)
@@ -829,7 +829,7 @@ local function config_to_pitch(at, ai)
   end
 end
 
-Dock.SYN_UPPER, Dock.SYN_LOWER = 830633104, 1179455358   -- team00_17_synergy_attachment_button_flag / _pillar
+Dock.SYN_UPPER, Dock.SYN_LOWER = @crc:team00_17_synergy_attachment_button_flag@, @crc:team00_17_synergy_attachment_button_pillar@   -- team00_17_synergy_attachment_button_flag / _pillar
 Dock.slot = {layer = nil, x = 0, y = 0, wait = 0, placed = false, n = 0, extra = {}, live = 0, still = 0}
 local MOD_BUTTON_STILL_STEPS = 8
 
@@ -1019,12 +1019,12 @@ local function is_unfocused(layer, idx)
   menu_command(Dock.FOCUS_MARK, layer, idx, false)
 end
 
-Dock.ICON = 330027688              -- vrfw_team_icon
+Dock.ICON = @crc:vrfw_team_icon@              -- vrfw_team_icon
 Dock.ICON_MAX = 3                  -- vrfw_team_icon instances
 Dock.ICON_JOINTS = {
-  {3112134118, -271.8, -292.6},
-  {544617564, -139.0, -292.6},
-  {1467024586, -6.2, -292.6},
+  {@crc:_atc_vrfw_icon01@, -271.8, -292.6},
+  {@crc:_atc_vrfw_icon02@, -139.0, -292.6},
+  {@crc:_atc_vrfw_icon03@, -6.2, -292.6},
 }
 
 -- the pitch frame layer the icons hang from (the frame of this dock that has their joints), nil = none
@@ -1268,7 +1268,7 @@ function Dock.header_focus_log()
 end
 
 -- Node of the free text.
-Dock.FREE_NODE = 4293674698
+Dock.FREE_NODE = @crc:_pos_atc_free01@
 Dock.boxOff = {}
 Dock.boxLogs = 0
 function Dock.drawn(layer, rows)
@@ -1453,9 +1453,9 @@ Dock.PAD_MAP = {
 
 -- Pad targets of vrfw_team_icon_* (team_icons.toml).
 Dock.PAD_FN = {
-  [2909329368] = 1, [623165486] = 2, [1136441213] = 3, [3643689647] = 4,
-  [2122449173] = 1, [885050662] = 2, [1381546613] = 3, [3622053520] = 4,
-  [3213729062] = 1, [957527670] = 2, [1602928933] = 3, [3162678559] = 4,
+  [@crc:betterui_dock_pad_up@] = 1, [@crc:betterui_dock_pad_down@] = 2, [@crc:betterui_dock_pad_left@] = 3, [@crc:betterui_dock_pad_right@] = 4,
+  [@crc:betterui_dock_button_up@] = 1, [885050662] = 2, [1381546613] = 3, [3622053520] = 4,
+  [3213729062] = 1, [957527670] = 2, [@crc:vrfw_team_icon_left@] = 3, [3162678559] = 4,
 }
 -- OnChangeFocus arguments of the cards' and the coach card's retail direction rows
 Dock.PAD_CARD_ARG = {[3483715641] = 1, [49409691] = 2, [1684642248] = 3, [1644353666] = 4}

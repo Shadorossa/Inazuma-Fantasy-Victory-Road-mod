@@ -5,3 +5,5 @@ area = "retail"
 user_area = "penalty_box"
 rival_area = "retail"
 scale_config = "shoot_zone.user_box_scale"
+# the option row «Limit my shot zone to the rival's penalty area»: off = no zone rule, the game's own zone
+when_option = "LegendaryAI.user_shot_zone_box"

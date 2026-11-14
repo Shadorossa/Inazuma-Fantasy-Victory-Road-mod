@@ -1,31 +1,46 @@
-VRFW.match_exit = VRFW.match_exit or {}
+-- Advanced: VRFW_MATCH_EXIT: the menu side of the flow toggle match_exit = "black_to_menu" (scripts\flow.lua, docs/framework/flow.md §1.1).
+-- Leaving an offline match with the game's hold prompts («Finalizar partido» in the pause or at the end of the match)
+-- fades the screen to black (bright-fade layer 1) and asks the framework to HOLD it there (CMND_VRFW_MATCH_EXIT_COVER:
+-- the detour Flow.ExitCover keeps the layer black through the game's own fade-ins). The match-end transition, the
+-- loading and the menus the game passes through are not seen; the menu the game lands on fades in once.
+--   * match VMs (they define UpdateGameEndProgress / UpdateGameRetireProgress): the hold gauge reaching full asks for
+--     the cover (only if a mod declared the toggle for this play mode, offline);
+--   * every menu VM whose OnInit runs under the cover, outside a match, is a landing candidate: once its layers stopped
+--     opening for LAND_QUIET Steps it releases the cover and fades layer 1 in. A menu that routes on to another one by
+--     itself sets VRFW_MATCH_EXIT.route (its stem patch); VRFW_MATCH_EXIT.manual = true leaves the landing to its stem
+--     patch (VRFW_MATCH_EXIT.land(why));
+--   * every such VM asks the framework every POLL Steps: a cover held too long is released there and faded in;
+--   * the cover is drawn under the menus' chrome (header, button guide, help band: VRFW.hub_yield.LAYERS): a
+--     chrome layer a landing candidate opens under the cover is hidden at its open and shown again when the cover ends.
+-- Wraps global functions (and OnInit through VRFW.host too); no engine call at load time.
+VRFW_MATCH_EXIT = VRFW_MATCH_EXIT or {}
 do
-  local X = VRFW.match_exit
+  local X = VRFW_MATCH_EXIT
   if not X.wrapped then
     X.wrapped = true
     local C = {
-      COVER = VRFW.commands.VRFW_MATCH_EXIT_COVER,
+      COVER = VRFW.commands.VRFW_MATCH_EXIT_COVER,      -- CMND_VRFW_MATCH_EXIT_COVER(op, arg)
       MODE = VRFW.commands.VRFW_MODE_CURRENT,       -- CMND_VRFW_MODE_CURRENT -> key, id, play mode, in match, …
       FADE = 609722083,        -- (alpha, seconds, layer): the bright fade
+      LOG = VRFW.commands.EVT_LOG,        -- CMND_EVT_LOG
     }
-    local LAYER = 1
+    local LAYER = 1            -- the bright-fade layer of the cover (layer 0 stays the game's)
     local FADE_OUT_S = 0.3     -- the fade to black when the hold gauge is full
     local FADE_IN_S = 0.3      -- the fade in on the landing menu
     local LAND_QUIET = 6       -- Steps with no layer opening: the landing menu is open
-    local LAND_MAX = 240
+    local LAND_MAX = 240       -- Steps a landing candidate waits for its first layer before it lands anyway
     local POLL = 30            -- Steps between two expiry checks
 
-    local script = type(VRFW.patch) == "table" and VRFW.patch.script or nil
+    local script = type(EVT_PATCH) == "table" and EVT_PATCH.script or nil
     X.stem = type(script) == "string" and (script:gsub("_%d+%.%d+%.%d+[%.%d]*$", "")) or "?"
     X.armed, X.born, X.done = false, false, false
     X.route = X.route or false
     X.manual = X.manual or false
     local steps, last_open, inited = 0, nil, false
+    local chrome_hidden = {}   -- {layer, idx} of chrome layers hidden under the cover
 
-    local logger
     local function log(...)
-      logger = logger or VRFW.logger.new("VRFW match_exit")
-      logger(tostring(X.stem), ...)
+      pcall(funcLuaCommand, C.LOG, "VRFW match_exit", tostring(X.stem), ...)
     end
     X.log = log
 
@@ -33,7 +48,23 @@ do
       pcall(funcLuaCommand, C.FADE, 0, FADE_IN_S, LAYER)
     end
 
-    --- Arms the match-exit handling once, keeping the game mode.
+    -- the cover ended (landed, released elsewhere or held too long): the chrome hidden under it is drawn again
+    local function chrome_restore()
+      if #chrome_hidden == 0 then return end
+      local list = chrome_hidden
+      chrome_hidden = {}
+      for _, e in ipairs(list) do pcall(funcLuaMenuCommand, VRFW.commands.SET_LAYER_VISIBLE, e[1], e[2], true) end
+      log("chrome shown again", #list)
+    end
+
+    local function is_chrome(layer)
+      local Y = VRFW.hub_yield
+      if type(Y) ~= "table" or type(Y.LAYERS) ~= "table" then return false end
+      for _, l in ipairs(Y.LAYERS) do if l == layer then return true end end
+      return false
+    end
+
+    -- match VM: the hold gauge of a «Finalizar partido» prompt is full
     function X.arm(why)
       if X.armed then return end
       X.armed = true
@@ -54,7 +85,7 @@ do
       end
     end
 
-    --- Covers the screen after a match exit; answers true when it did.
+    -- landing menu: the cover off and one fade in (true when this VM released it)
     function X.land(why)
       if X.done or not X.born then return false end
       local ok, r, why_not = pcall(funcLuaCommand, C.COVER, 0, X.stem)
@@ -65,10 +96,14 @@ do
       if r == 1 then
         X.done = true
         fade_in()
+        chrome_restore()
         log("landed (" .. tostring(why) .. "): cover released, fade in")
         return true
       end
-      if why_not == "not held" then X.done = true end
+      if why_not == "not held" then
+        X.done = true
+        chrome_restore()
+      end
       return false
     end
 
@@ -86,8 +121,13 @@ do
       end
     end
 
-    local function opened()
-      if X.born and not X.done then last_open = steps end
+    local function opened(layer, idx)
+      if not X.born or X.done then return end
+      last_open = steps
+      if type(layer) == "number" and type(idx) == "number" and is_chrome(layer) then
+        local ok = pcall(funcLuaMenuCommand, VRFW.commands.SET_LAYER_VISIBLE, layer, idx, false)
+        if ok then chrome_hidden[#chrome_hidden + 1] = { layer, idx } end
+      end
     end
 
     local function step()
@@ -98,10 +138,12 @@ do
         if ok and st == 2 then
           X.done = true
           fade_in()
+          chrome_restore()
           log("cover held too long: released, fade in")
           return
         elseif ok and st == 0 then
           X.done = true          -- released elsewhere
+          chrome_restore()
           return
         end
       end

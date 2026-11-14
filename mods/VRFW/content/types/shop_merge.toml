@@ -1,0 +1,42 @@
+# Schema of the shop merges: shops filled from every game shop's rows by item category and priced by one rule,
+# resolved by the item engine at load (docs/framework/shop-merge.md).
+# Unknown keys, wrong types or out-of-range values leave the declaration out with a warning.
+schema = "VRFW.decl_schema/1"
+kind = "VRFW.shop_merge/1"
+folder = "content/shop_merges"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Shop.Merge"
+v2_kind_folder = "Shop/Merges"
+v2_version = 1
+label = "Shop merges"
+label_es = "Fusiones de tiendas"
+doc = "Shops of a mod filled from every game shop's rows by item category and priced by one rule; the game shops lose those rows."
+doc_es = "Tiendas de un mod llenadas con las filas de todas las tiendas del juego por categoría de objeto y con precios de una sola regla; las tiendas del juego pierden esas filas."
+
+[entry.ShopMerge]
+doc = "the shops of a merge and the rule that fills and prices them"
+name = { type = "name", required = true, doc = "key <mod>.<name> (a-z 0-9 _)" }
+story_shops = { type = "strings", doc = "game shops (0x… ids) whose rows only categories with include_story take; a shop on a map is a story shop too" }
+hide_spirits = { type = "bool", default = false, doc = "the game shops' player spirit rows are hidden" }
+spirit_shops_kept = { type = "strings", doc = "game shops (0x… ids) that keep their spirit rows" }
+hide_unknown_items = { type = "bool", default = false, doc = "the game shops' rows of an item item_config does not have are hidden" }
+skip_away_kits = { type = "bool", default = false, doc = "a kit whose key is another kit's key + _20 gets no row" }
+extra_items = { type = "any", doc = "items no game shop sells that get a row: an item key, or { item, price, currency, stock (0 = no limit), unlock }" }
+mod_outfits = { type = "bool", default = false, doc = "the mod's own outfits with a price get rows" }
+exclude_items = { type = "strings", doc = "item keys that never get a row" }
+redirect_emptied_to = { type = "string", doc = "the shop of the merge every game shop left with no visible row opens as" }
+rewarded_by = { type = "records", fields = { prize_tables = { type = "string" }, kinds = { type = "strings" }, chains = { type = "strings" } }, doc = "the mod's prize tables and route chains (paths relative to the mod): the items of `kinds` they give are not sold" }
+chronicle_rewards = { type = "table", doc = "{ kinds, difficulties }: items of these kinds a Chronicle battle's first clear at these difficulties gives get no row" }
+learnable = { type = "table", doc = "{ min_rows, skills, override_bases, obtained, unobtainable }: every move a player can obtain gets a row in the categories with learnable" }
+sort_series = { type = "table", doc = "{ order, key_prefixes, digits }: the series of a key = the digits after a prefix, ranked by order" }
+sort_team = { type = "table", doc = "{ kit_prefix }: a game home kit key is the prefix and six digits (series, team, variant)" }
+price = { type = "table", required = true, doc = "{ currency, rate, scale, power = { anchors }, contents = { boxes, tables }, value, premium }: every row's price in `currency`" }
+shop = { type = "records", required = true, fields = { name = { type = "name" }, based_on = { type = "string" }, name_text = { type = "string" }, category = { type = "any" } }, doc = "the merge's shops: name, based_on (a game shop 0x… id), name_text (a text key) and their categories" }
+
+[entry.ShopMergeAdd]
+doc = "another mod's items added to a merge"
+name = { type = "name", required = true, doc = "key <mod>.<name> (a-z 0-9 _)" }
+merge = { type = "string", required = true, doc = "the merge: <mod>.<name>" }
+extra_items = { type = "any", doc = "the mod's items that get a row: an item key, or { item, price, currency, stock, unlock }" }
+mod_outfits = { type = "bool", default = false, doc = "the mod's own outfits with a price get rows" }
+rewarded_by = { type = "records", fields = { prize_tables = { type = "string" }, kinds = { type = "strings" }, chains = { type = "strings" } }, doc = "the mod's prize tables and route chains: the items of `kinds` they give are not sold" }

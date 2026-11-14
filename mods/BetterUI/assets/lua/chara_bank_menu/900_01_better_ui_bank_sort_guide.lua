@@ -5,20 +5,15 @@ local better_ui_block = function()
 BetterUI = type(BetterUI) == "table" and BetterUI or {}
 local BETTER_UI_SIGNATURE = "BETTER_UI_GRAFT"
 
-if BetterUI.preset == nil then
-  BetterUI.preset = "limpio"
-end
 BetterUI.flags = BetterUI.flags or {}
-for k, v in pairs({ bank_sort_guide = true, buff_icons = true, buff_panel = false, corner_buttons = true, duel_telop = true, enemy_meters = true, esc_guide = true, exec_offset = true, header_short = true, nickname_pill = true, team_param_guide = true, zone_exec = false, zone_hud = true }) do
+for k, v in pairs({ bank_sort_guide = true, buff_icons = true, corner_buttons = true, enemy_meters = true, esc_guide = true, header_short = true, nickname_pill = true, team_param_guide = true, zone_hud = true }) do
   if BetterUI.flags[k] == nil then
     BetterUI.flags[k] = v
   end
 end
 
--- funcLuaMenuCommand filter and the callback wrapper.
-
 local function UiOn(flag)
-  return BetterUI.preset ~= "off" and BetterUI.flags[flag] == true
+  return BetterUI.flags[flag] == true
 end
 
 local function Pack(...)
@@ -41,53 +36,36 @@ local function UiLog(...)
   end
 end
 
--- Per-tag table of funcLuaMenuCommand wrappers.
-BetterUI.menu_wrappers_by_tag = BetterUI.menu_wrappers_by_tag or {}
-BetterUI.menu_wrappers_by_tag["bank"] = BetterUI.menu_wrappers_by_tag["bank"] or {}
-local wrapped_functions = BetterUI.menu_wrappers_by_tag["bank"]
-local function UiInstallMenuWrap(f, filter)
-  if type(f) ~= "function" or wrapped_functions[f] then
-    return f
-  end
-  local w = function(id, ...)
-    if BetterUI.preset ~= "off" then
-      local r = filter(f, id, ...)
+-- Runs filter(call, id, ...) on every funcLuaMenuCommand of this VM as an innermost VRFW.host command hook, so the
+-- other hooks run outside it; call(id, ...) passes the same command on and runs another one on the function under
+-- every hook; a nil answer passes the command on.
+local function UiHookMenuCommand(filter)
+  local function register(host)
+    local real = host.real_menu_command
+    host.hook_command("*", function(nxt, id, ...)
+      local function call(command, ...)
+        if command == id then
+          return nxt(command, ...)
+        end
+        return real(command, ...)
+      end
+      local r = filter(call, id, ...)
       if r ~= nil then
         return table.unpack(r, 1, r.n)
       end
-    end
-    return f(id, ...)
+      return nxt(id, ...)
+    end, "BetterUI.bank", { menu = true, priority = host.INNERMOST })
   end
-  wrapped_functions[w] = true
-  return w
-end
-
-local function UiHookMenuCommand(filter)
-  if type(rawget(_ENV, "funcLuaMenuCommand")) == "function" then
-    rawset(_ENV, "funcLuaMenuCommand", UiInstallMenuWrap(rawget(_ENV, "funcLuaMenuCommand"), filter))
-    return
-  end
-  local mt = getmetatable(_ENV)
-  if mt == nil then
-    mt = {}
-    setmetatable(_ENV, mt)
-  end
-  local prev = mt.__newindex
-  mt.__newindex = function(t, k, v)
-    if k == "funcLuaMenuCommand" then
-      v = UiInstallMenuWrap(v, filter)
-    end
-    if prev == nil then
-      rawset(t, k, v)
-    elseif type(prev) == "function" then
-      prev(t, k, v)
-    else
-      prev[k] = v
-    end
+  if type(VRFW) == "table" and type(VRFW.host) == "table" and type(VRFW.host.hook_command) == "function" then
+    register(VRFW.host)
+  else
+    -- The menu chunk runs before the Lua patch files: BetterUI's lua/_all/better_ui.lua registers the queue after VRFW's.
+    BetterUI.command_hooks = BetterUI.command_hooks or {}
+    BetterUI.command_hooks[#BetterUI.command_hooks + 1] = register
   end
 end
 
--- Wrap a menu callback (OnSetupLayer, OnOpenLayer, ...) that the chunk already defined
+-- Wraps a menu callback (OnSetupLayer, OnOpenLayer, ...) that the chunk already defined: `after` runs after it.
 local function UiWrapCallback(name, after)
   local orig = rawget(_ENV, name)
   if type(orig) ~= "function" then

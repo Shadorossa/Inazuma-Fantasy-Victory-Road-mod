@@ -1,10 +1,11 @@
 id = "FootballReforged"
 name = "Football Reforged"
 icon = "#/menu/200_icon/16_icon_list_tab/icon_list_tab.g4tx:icon_list_tab_help01"
-version = "0.3.0"
+version = "0.3.1"
 author = "Fantasy Team"
 description = "Match mechanics in modules you switch on or off in Mods: goalkeeper barrier, furor, home stadium, pressing, stoppage time and a legendary CPU. It also adds the Football 7, Inazuma Street and 5-a-side match formats, skill duels, auras in open duels and match challenges."
 priority = 0
+type = "gameplay"
 tags = ["Gameplay"]
 updated = "2026-11-09"
 prefix = "FootballReforged"

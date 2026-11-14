@@ -156,3 +156,15 @@ pt = "Prime <CMD_FUNC1> outra vez para o usar."
 ja = "もう一度<CMD_FUNC1>で使用"
 zh_hans = "再按一次<CMD_FUNC1>使用"
 zh_hant = "再按一次<CMD_FUNC1>使用"
+
+[[row]]
+id = "HissatsuReforged.UseBarMax"  # the skill table's use bar at the last level reached by uses
+es = "Máx."
+en = "Max."
+fr = "Max."
+de = "Max."
+it = "Max."
+pt = "Máx."
+ja = "MAX"
+zh_hans = "MAX"
+zh_hant = "MAX"

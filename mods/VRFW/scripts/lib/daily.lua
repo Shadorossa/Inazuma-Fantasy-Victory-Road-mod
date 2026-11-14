@@ -1,3 +1,4 @@
+--- Advanced: Library: entries of a pool picked or cycled for a given day by a rule.
 
 local M = {}
 
@@ -46,7 +47,7 @@ local function greatest_divisor(a, b)
   return a
 end
 
---- The pool entry of day `id` going through the pool in order; nil, why on a bad rule.
+--- Advanced: The pool entry of day `id` going through the pool in order; nil, why on a bad rule.
 function M.cycle(rule, id)
   if type(rule) ~= "table" or type(rule.pool) ~= "table" then
     return nil, "rule"
@@ -68,7 +69,7 @@ function M.cycle(rule, id)
   return pool[(start + (int(id, 0) % n) * step) % n + 1]
 end
 
---- The entries of `rule` drawn for day `id`; nil, why on a bad rule.
+--- Advanced: The entries of `rule` drawn for day `id`; nil, why on a bad rule.
 function M.pick(rule, id)
   if type(rule) ~= "table" or type(rule.pool) ~= "table" then
     return nil, "rule"

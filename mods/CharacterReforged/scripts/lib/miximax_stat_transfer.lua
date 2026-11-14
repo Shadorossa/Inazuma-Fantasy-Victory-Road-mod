@@ -134,6 +134,6 @@ function M.PeBase(record)
   return pe > 0 and math.floor(pe) or 0
 end
 
-VRFW.on("game_reset", function() RULES, OWNED = nil, nil end)
+VRFW.on("game:reset", function() RULES, OWNED = nil, nil end)
 
 return M

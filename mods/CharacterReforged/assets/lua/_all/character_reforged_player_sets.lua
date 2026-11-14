@@ -42,6 +42,7 @@ if CharacterReforged.player_sets == nil then
     SIX_SENSE = 8065085 --[[CMND_CHARACTERREFORGED_SIX_SENSE]],
     GET_ROLE = 1327558109 --[[CMND_CHARACTERREFORGED_GET_ROLE]],
     SET_ROLE = 3083981324 --[[CMND_CHARACTERREFORGED_SET_ROLE]],
+    DEFAULT_SET = 2076075108 --[[CMND_CHARACTERREFORGED_DEFAULT_SET]],
     SET_GET = 390397015 --[[CMND_CHARACTERREFORGED_PLAYER_SET_GET]],
     SET_FULL = 2129739473 --[[CMND_CHARACTERREFORGED_PLAYER_SET_FULL]],
     PC_INFO = 3569354349 --[[CMND_BETTERQOL_PC_INFO]],
@@ -266,12 +267,7 @@ if CharacterReforged.player_sets == nil then
 
   --- Whether a row is below its unlock level, and that level.
   function S.is_locked(h, row)
-    local need = S.unlock_level(h, row)
-    if need <= 1 then
-      return false, need
-    end
-    local lv = funcLuaCommand(C.CHARA_GET, h, 0) or 0
-    return lv < need, need
+    return CharacterReforged.move_rows.below(funcLuaCommand, h, S.unlock_level(h, row))
   end
 
   --- Whether the move is in the match list.
@@ -507,7 +503,7 @@ if CharacterReforged.player_sets == nil then
     return all_ok
   end
 
-  --- The slot kind of a Hiper move (0 aura, 1 mix, 2 both) and its partner.
+  --- The slot kind of a Hiper move (0 aura, 1 mix, 2 an armour, 3 a picker create entry) and the keshin of an armour.
   function S.hs_kind(id)
     if id == nil or id == 0 then
       return nil, 0
@@ -862,6 +858,14 @@ if CharacterReforged.player_sets == nil then
   --- Equip step: the placement rules; a refusal answers false.
   function S.with_rules(h, row, skill, ctx, inner)
     local slot = S.place_slot_of(row, ctx)
+    -- A picker create entry opens its creation flow and is never stored in any row.
+    if skill ~= nil and skill ~= 0 and S.hs_kind(skill) == 3 then
+      log("equip refused by Character Reforged: a create entry", row, string.format("%08X", u32(skill)))
+      if ctx.se ~= nil then
+        ctx.se(SE_NG)
+      end
+      return false
+    end
     if row == 0 and skill ~= nil and skill ~= 0 then
       local kind = S.hs_kind(skill)
       if kind == 1 then
@@ -972,6 +976,12 @@ if CharacterReforged.player_sets == nil then
     local inv = funcLuaCommand(C.ADD_ITEM, item, 1, false)
     funcLuaCommand(C.DEL_ITEM, item, 1)
     if inv == nil or inv == 0 then
+      return 0, "no item"
+    end
+    -- The delete takes from the first stack of the item (v7.2.1 0xD9A900), so it can empty and free the stack the add opened.
+    local held = funcLuaCommand(C.INV_ITEM, inv, 0)
+    if type(held) ~= "number" or u32(held) ~= u32(item) then
+      log("free handle", string.format("%08X", u32(item)), string.format("handle %08X holds no copy after the probe", u32(inv)))
       return 0, "no item"
     end
     local used = funcLuaCommand(C.EQUIPPED_NUM, inv)
@@ -1126,7 +1136,92 @@ if CharacterReforged.player_sets == nil then
     end
   end
 
-  --- Writes set `p` on `h`; only what the set holds. ctx: dock, kind, readonly, hs_half, se, after_change, skip.
+  --- With ctx.exact: empties the rows, the Hiper, the mix and the sixth sense that set `p` holds empty.
+  function S.clear_unset(h, p, ctx, skip)
+    for r = 1, NORMAL_NUM do
+      if (p.moves[r] or 0) == 0 and S.skill(h, r, ctx) ~= 0 and not S.is_locked(h, r) and not S.idol_fixed(h, r) then
+        local pos = r - 1
+        if S.list_skill(h, pos) ~= 0 then
+          funcLuaCommand(C.REMOVE_SKILL, h, pos)
+        end
+        S.sync_board(h, ctx)
+        if S.skill(h, r, ctx) ~= 0 then
+          skip("fail", "move", 0)
+        end
+      end
+    end
+    if (p.hiper or 0) == 0 and S.skill(h, 0, ctx) ~= 0 and not S.idol_fixed(h, 0) then
+      call(C.BOARD_CLEAR, h, HYPER_SLOT, 3)        -- keep-open mode 3: the placed and the native item off
+      S.team_aura_put(h, 0, ctx)
+    end
+    if (p.mix or 0) == 0 and S.hs_mix(h) ~= 0 and not S.hs_mix_put(h, 0, ctx) then
+      skip("fail", "move", 0)
+    end
+    local _, ss = S.six_get(h)
+    if (p.sixsense or 0) == 0 and ss ~= 0 and S.has_six_sense() and call(C.SIX_SENSE, h, 1, 0, -1) ~= 1 then
+      skip("fail", "passive")
+    end
+  end
+
+  --- The player's current build as a set (rows below their unlock level count as empty); ctx: dock, kind.
+  function S.current(h, ctx)
+    ctx = ctx or {}
+    S.forget()
+    local p = {name = "", moves = {}, equip = {0, 0, 0, 0, 0}}
+    for r = 1, NORMAL_NUM do
+      p.moves[r] = S.is_locked(h, r) and 0 or S.skill(h, r, ctx)
+    end
+    p.hiper = S.skill(h, 0, ctx)
+    p.mix = S.hs_mix(h)
+    local _, ss = S.six_get(h)
+    p.sixsense = ss
+    local ok, got = pcall(funcLuaCommand, C.PC_INFO, h)
+    if ok and got == true then
+      p.pcfg = {}
+      for s = 0, 4 do
+        local ok_slot, id, conf = pcall(funcLuaCommand, C.PC_SLOT, h, s)
+        p.pcfg[s + 1] = (ok_slot and conf == true and type(id) == "number") and u32(id) or 0
+      end
+    end
+    local role = S.role(h)
+    if role >= 0 then
+      p.role = role
+    end
+    return p
+  end
+
+  --- The card's own build of `h`: the learnset moves its level reached, the card's aura and mix, no sixth sense,
+  --- no configured passives and the native role.
+  function S.default_set(h)
+    S.forget()
+    local p = {name = "", moves = {}, equip = {0, 0, 0, 0, 0}, sixsense = 0, pcfg = {0, 0, 0, 0, 0}}
+    local ls = S.read_learnset(h)
+    local level = funcLuaCommand(C.CHARA_GET, h, 0) or 0
+    local function reached(slot)
+      local m = ls.skill[slot] or 0
+      return (m ~= 0 and (ls.lv[slot] or 0) <= level) and m or 0
+    end
+    for r = 1, NORMAL_NUM do
+      local m = reached(r)
+      p.moves[r] = S.is_special(m) and 0 or m
+    end
+    local ok, aura, mix = pcall(funcLuaCommand, C.DEFAULT_SET, h)
+    aura = (ok and type(aura) == "number") and u32(aura) or 0
+    if aura == 0 or not S.is_special(aura) then
+      local m = reached(9)
+      aura = S.is_special(m) and m or 0
+    end
+    p.hiper = aura
+    p.mix = (ok and type(mix) == "number") and u32(mix) or 0
+    local role, native = S.role(h)
+    if role >= 0 then
+      p.role = native
+    end
+    return p
+  end
+
+  --- Writes set `p` on `h`; only what the set holds (with ctx.exact, also what it holds empty). ctx: dock, kind, readonly,
+  --- hs_half, se, after_change, skip, exact.
   --- ctx.skip(reason, kind, value) gets each piece left out; reasons: prime, row, idol, notown, inuse, fail, locked.
   function S.apply(h, p, ctx)
     ctx = ctx or {}
@@ -1186,6 +1281,9 @@ if CharacterReforged.player_sets == nil then
         elseif not S.hs_mix_put(h, mix, ctx) then
           skip("fail", "move", mix)
         end
+      end
+      if ctx.exact then
+        S.clear_unset(h, p, ctx, skip)
       end
     end
     local cur = S.equip_ids(h)                     -- equipment, as the retail equip list commits

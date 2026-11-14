@@ -1,9 +1,10 @@
 id = "LegendaryAI"
 name = "Legendary AI"
-version = "0.3.0"
+version = "0.3.1"
 author = "Fantasy Team"
 description = "Offline matches, except the Chronicle battles played with a story team, are played against a «Legendary» CPU: the rival reacts at once in duels, picks the move that beats your element, learns the moves you use, shoots as soon as a zone opens and presses tired players. In free matches the rival also comes trained for his position, with his best passives."
 priority = 0
+type = "gameplay"
 tags = ["AI difficulty", "Gameplay"]
 updated = "2026-11-09"
 # This mod's own names: TOML keys LegendaryAI.X (profile and class names); never VRFW.

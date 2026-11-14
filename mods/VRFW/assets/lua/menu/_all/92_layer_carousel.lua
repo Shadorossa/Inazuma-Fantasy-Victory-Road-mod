@@ -5,7 +5,9 @@
 -- Defines functions only: no engine call at load time.
 if VRFW.layer_carousel == nil then
   local K = {}
+  --- Internal: metatable index of the layer carousel.
   K.__index = K
+  --- Advanced: Class of the layer carousel.
   VRFW.layer_carousel = K
 
   local C = {
@@ -20,7 +22,7 @@ if VRFW.layer_carousel == nil then
     return type(v) == "number" and v or default
   end
 
-  --- A carousel for `spec`: { parts = { { layer, pivot = { x, y } } }, places = { [0] = { x, y, scale, alpha }, ... },
+  --- Advanced: A carousel for `spec`: { parts = { { layer, pivot = { x, y } } }, places = { [0] = { x, y, scale, alpha }, ... },
   --- frames, wrap }. `places[d]` is the look of a card d steps from the centre (x mirrored on the left side); the last
   --- place is the parked one, never shown at rest. `pivot` is the part's origin measured from the card's centre.
   function K.new(spec)
@@ -38,12 +40,12 @@ if VRFW.layer_carousel == nil then
     return c
   end
 
-  --- The number of instances each part needs.
+  --- Internal: The number of instances each part needs.
   function K:instances()
     return self.ring
   end
 
-  -- The item `offset` steps from item `index`; nil past the ends of a carousel that does not wrap.
+  -- Internal: The item `offset` steps from item `index`; nil past the ends of a carousel that does not wrap.
   function K:item_near(index, offset)
     local k = index + offset
     if self.wrap then
@@ -55,7 +57,7 @@ if VRFW.layer_carousel == nil then
     return k
   end
 
-  -- The look of a card `offset` steps from the centre (a fraction between two places while it moves).
+  -- Internal: The look of a card `offset` steps from the centre (a fraction between two places while it moves).
   function K:look(offset)
     local d = math.min(math.abs(offset), self.parked)
     local lo = math.floor(d)
@@ -70,7 +72,7 @@ if VRFW.layer_carousel == nil then
     return side * Mix("x", 0), Mix("y", 0), Mix("scale", 1), Mix("alpha", 1)
   end
 
-  -- Applies the look of `offset` to instance `i` of every part.
+  -- Internal: Applies the look of `offset` to instance `i` of every part.
   function K:place(i, offset)
     local x, y, scale, alpha = self:look(offset)
     local visible = self.item[i] ~= nil and math.abs(offset) < self.parked
@@ -90,7 +92,7 @@ if VRFW.layer_carousel == nil then
     self.shown[i] = visible
   end
 
-  --- Opens the carousel over `count` items with item `index` (0-based) at the centre. Call it once every instance of
+  --- Internal: Opens the carousel over `count` items with item `index` (0-based) at the centre. Call it once every instance of
   --- the parts is set up. Answers the list of { instance, item } the screen must fill.
   function K:open(count, index)
     if self.base == nil then
@@ -108,7 +110,7 @@ if VRFW.layer_carousel == nil then
     return self:jump(index)
   end
 
-  --- Puts item `index` at the centre without a slide. Answers the list of { instance, item } the screen must fill.
+  --- Internal: Puts item `index` at the centre without a slide. Answers the list of { instance, item } the screen must fill.
   function K:jump(index)
     self.index = math.max(0, math.min(math.max(0, self.count - 1), math.floor(index)))
     self.frame = 0
@@ -134,7 +136,7 @@ if VRFW.layer_carousel == nil then
     return fill
   end
 
-  --- Moves one item to the right (direction 1) or to the left (-1). Answers false at an end of a carousel that does
+  --- Internal: Moves one item to the right (direction 1) or to the left (-1). Answers false at an end of a carousel that does
   --- not wrap; else true and the { instance, item } the screen must fill (nil when no new card comes in).
   function K:move(direction)
     direction = direction < 0 and -1 or 1
@@ -167,7 +169,7 @@ if VRFW.layer_carousel == nil then
     return true, { instance = spare, item = self.item[spare] }
   end
 
-  --- Ends a running slide at once.
+  --- Internal: Ends a running slide at once.
   function K:finish()
     self.frame = 0
     for i = 0, self.ring - 1 do
@@ -176,7 +178,7 @@ if VRFW.layer_carousel == nil then
     end
   end
 
-  --- One frame of the slide (the screen's Step). Answers true while the cards move.
+  --- Internal: One frame of the slide (the screen's Step). Answers true while the cards move.
   function K:step()
     if self.frame <= 0 then
       return false
@@ -194,17 +196,17 @@ if VRFW.layer_carousel == nil then
     return true
   end
 
-  --- True while the cards move.
+  --- Internal: True while the cards move.
   function K:moving()
     return self.frame > 0
   end
 
-  --- The item at the centre (0-based).
+  --- Internal: The item at the centre (0-based).
   function K:centre_item()
     return self.index
   end
 
-  --- The instance at the centre.
+  --- Internal: The instance at the centre.
   function K:centre_instance()
     for i = 0, self.ring - 1 do
       if self.offset[i] == 0 then
@@ -214,12 +216,12 @@ if VRFW.layer_carousel == nil then
     return 0
   end
 
-  --- The item instance `i` holds; nil when it holds none.
+  --- Internal: The item instance `i` holds; nil when it holds none.
   function K:item_of(i)
     return self.item[i]
   end
 
-  --- The instance that shows `item`; nil when no visible card holds it.
+  --- Internal: The instance that shows `item`; nil when no visible card holds it.
   function K:instance_of(item)
     for i = 0, self.ring - 1 do
       if self.item[i] == item and math.abs(self.offset[i]) < self.parked then
@@ -229,12 +231,12 @@ if VRFW.layer_carousel == nil then
     return nil
   end
 
-  --- How many steps instance `i` is from the centre (negative = to the left).
+  --- Internal: How many steps instance `i` is from the centre (negative = to the left).
   function K:offset_of(i)
     return self.offset[i]
   end
 
-  --- Lays `count` marks of `spec` in one centred row with a wider gap between groups: spec = { layer, first, limit,
+  --- Advanced: Lays `count` marks of `spec` in one centred row with a wider gap between groups: spec = { layer, first, limit,
   --- x, y, pitch, group_gap, scale = { x, y } }, `groups` = the size of each group. Mark k (0-based) is instance
   --- first + k of the layer. Answers the number of marks laid (0 when they do not fit in `limit`).
   function K.lay_marks(spec, groups)

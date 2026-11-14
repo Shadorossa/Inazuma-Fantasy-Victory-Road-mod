@@ -14,11 +14,12 @@ if VRFW.list_rows ~= nil and VRFW.list_rows.attach_player_commands == nil then
     return ok and handle or 0
   end
 
-  --- Installs the player-command row rules.
+  --- Internal: Installs the player-command row rules.
   function R.attach_player_commands()
     if VRFW.host == nil or R.player_commands_attached then
       return
     end
+    --- Internal: true once the player command rows are attached.
     R.player_commands_attached = true
 
     -- The rows: hidden ones out, added ones in.

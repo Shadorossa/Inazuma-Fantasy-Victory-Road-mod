@@ -7,7 +7,7 @@ key = "evt_ct_ft_crossed_japan"
 level = 1
 formation = 0xBA9D367C                    # 4-5-1 Equilibrio (4-2-3-1)
 kit = 0xC68FF352                          # Inazuma Japan (u030101)
-emblem = 0xB11D47C8                       # em030015 Inazuma Japan
+emblem = "em030015"                       # em030015 Inazuma Japan
 roster = "exact"
 member = [
   { card = 0x3055CF22, slot = 0, number = 1, captain = true, rarity_step = 1 },   # Mark Evans (c01000010) · GK

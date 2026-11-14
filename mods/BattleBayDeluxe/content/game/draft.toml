@@ -1,4 +1,4 @@
-# The Draft's native access as data (schema VRFW.game/1, docs/internal/native.md), used by scripts\draft.lua.
+# The Draft's native access as data (schema VRFW.game/1, docs/internal/native.md), used by scripts\draft.lua and its parts in scripts\lib\draft\.
 schema = "VRFW.game/1"
 
 # ---------------------------------------------------------------- functions

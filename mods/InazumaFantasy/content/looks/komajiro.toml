@@ -1,0 +1,8 @@
+schema = "VRFW.look/2"
+# Komajiro's own full-body clothes model: the row format of the retail full-body robot, on the c000201 body profile.
+
+[[clothes]]
+model = "u90690000_10"
+rows = [
+  ["_uniform/u90690000/u90690000.g4md", "_uniform/u90690000/u90690000_10.g4tx", 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0],
+]

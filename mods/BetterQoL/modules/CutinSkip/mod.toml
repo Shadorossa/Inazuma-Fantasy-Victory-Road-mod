@@ -1,9 +1,10 @@
 id = "CutinSkip"
 name = "Technique Cut-in Skip"
-version = "0.3.0"
+version = "0.3.1"
 author = "Fantasy Team"
 description = "Press A / Enter to skip a special move's cut-in during a match; the match carries on with the same result. Keshin, Armed, Miximax and transformation cut-ins can be skipped too. It never works in network matches."
 priority = 0
+type = "gameplay"
 tags = ["Gameplay"]
 updated = "2026-11-09"
 prefix = "CutinSkip"

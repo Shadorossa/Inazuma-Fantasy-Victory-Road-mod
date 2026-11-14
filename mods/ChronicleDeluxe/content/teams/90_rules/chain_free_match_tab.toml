@@ -1,0 +1,12 @@
+schema = "VRFW.team/2"
+
+# «Cadena»: every team of the chains' match tiles, listed once a tile against it is won ([[VRFW.Chain]] FreeMatchTab = "chain").
+[[VRFW.FreeMatchTab]]
+Id = "chain"
+Text = "ChronicleDeluxe.FreeMatchTabChain"
+Icon = "#/menu/200_icon/16_icon_list_tab/<LG>/icon_list_tab.g4tx:icon_list_tab_battle01"
+IconOff = "#/menu/200_icon/16_icon_list_tab/<LG>/icon_list_tab.g4tx:icon_list_tab_battle01_off"
+Order = 210                            # right of the Fantasy tab (Order 200)
+Page = 2
+Template = "fbtl_free_001"
+Unlock = "fbtl_cro01_010_010"          # the hidden piece is open from the start; each row waits for its tile's win flag

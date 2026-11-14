@@ -6,7 +6,7 @@ if VRFW.logger == nil then
 
   local L = {}
 
-  --- A logger for `tag`: call it to log; it has debug, once and changed.
+  --- VRFW.logger.new(tag): a log function whose lines start with tag; it also has debug, once and changed. Call only from OnInit, Step or another callback.
   function L.new(tag)
     tag = tostring(tag or "log")
     local once_seen = {}
@@ -56,5 +56,6 @@ if VRFW.logger == nil then
     return setmetatable(logger, { __call = function(_, ...) write(...) end })
   end
 
+  --- Menu logging: VRFW.logger.new(tag). Safe at load.
   VRFW.logger = L
 end

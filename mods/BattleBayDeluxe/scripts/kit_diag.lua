@@ -5,8 +5,10 @@ local TeamConfig = VRFW.teams.config
 local M = {}
 
 local MATCH_TEAMS_KEY = "VRFW.team_lineup.match_teams"
-local TEAM_FIRST, TEAM_STRIDE = 0x60, 0x1130
-local TEAM_UNIFORM, TEAM_ALTERNATE, USER_SIDE = 0x1040, 0x1101, 0x2C29
+local TEAM_FIRST, TEAM_STRIDE = VRFW.game.field("MatchInfo.Teams"), VRFW.game.field("MatchTeam")
+local USER_SIDE = VRFW.game.field("MatchInfo.UserTeam")
+-- The match team's uniform and alternate flag have no game profile name.
+local TEAM_UNIFORM, TEAM_ALTERNATE = 0x1040, 0x1101
 local STAFF_FLAGS = 0x30
 
 local logged = {}
@@ -21,7 +23,7 @@ local function declared_kit(team)
   if not rec then
     return 0
   end
-  return U.u32(U.get(U.struct("ActiveTeamRecord", rec), "uniform") or 0)
+  return VRFW.ids.unsigned(U.get(VRFW.memory.struct("ActiveTeamRecord", rec), "uniform") or 0)
 end
 
 local function teams_by_side(match)
@@ -29,11 +31,11 @@ local function teams_by_side(match)
   if not ok or type(block) ~= "number" or block < 0x10000 then
     return {}
   end
-  local user = U.rd("u8", match + USER_SIDE) or 0
+  local user = VRFW.memory.read("u8", match + USER_SIDE) or 0
   if user > 1 then
     return {}
   end
-  return { [user] = U.rd("u32", block) or 0, [1 - user] = U.rd("u32", block + 4) or 0 }
+  return { [user] = VRFW.memory.read("u32", block) or 0, [1 - user] = VRFW.memory.read("u32", block + 4) or 0 }
 end
 
 local function on_look(ev)
@@ -45,7 +47,7 @@ local function on_look(ev)
   if not flags or not uniform or math.floor(flags / 16) % 4 ~= 0 then
     return nil
   end
-  local match = U.global("kit_diag_match")
+  local match = VRFW.game.global("kit_diag_match")
   if not match then
     return nil
   end
@@ -53,9 +55,9 @@ local function on_look(ev)
   local block = {}
   for side = 0, 1 do
     local at = match + TEAM_FIRST + side * TEAM_STRIDE
-    block[side] = { uniform = U.u32(U.rd("u32", at + TEAM_UNIFORM) or 0), alternate = U.rd("u8", at + TEAM_ALTERNATE) or 0 }
+    block[side] = { uniform = VRFW.ids.unsigned(VRFW.memory.read("u32", at + TEAM_UNIFORM) or 0), alternate = VRFW.memory.read("u8", at + TEAM_ALTERNATE) or 0 }
   end
-  uniform = U.u32(uniform)
+  uniform = VRFW.ids.unsigned(uniform)
   local side
   if block[0].uniform ~= block[1].uniform then
     side = (uniform == block[0].uniform and 0) or (uniform == block[1].uniform and 1) or nil
@@ -68,14 +70,14 @@ local function on_look(ev)
   logged[side] = true
   local teams = teams_by_side(match)
   local other = 1 - side
-  local user = U.rd("u8", match + USER_SIDE)
+  local user = VRFW.memory.read("u8", match + USER_SIDE)
   log(string.format("side %d (%s) team %s declared kit %s match uniform %s dressed typeId %d (alternative bit %d, team alternate flag %d) rival kit %s (declared %s)",
-    side, user == side and "user" or "cpu", U.hex(teams[side] or 0), U.hex(declared_kit(teams[side])), U.hex(block[side].uniform),
-    alt, alt, block[side].alternate, U.hex(block[other].uniform), U.hex(declared_kit(teams[other]))))
+    side, user == side and "user" or "cpu", VRFW.ids.hex_text(teams[side] or 0), VRFW.ids.hex_text(declared_kit(teams[side])), VRFW.ids.hex_text(block[side].uniform),
+    alt, alt, block[side].alternate, VRFW.ids.hex_text(block[other].uniform), VRFW.ids.hex_text(declared_kit(teams[other]))))
   return nil
 end
 
-VRFW.on("match_start", function()
+VRFW.on("match:start", function()
   logged = {}
   return nil
 end)

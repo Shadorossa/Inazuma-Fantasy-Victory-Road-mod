@@ -121,5 +121,5 @@ local function PageKey(id)
   return true
 end
 
--- for 100_mods_screen.lua and the files after this one
+-- Internal: for 100_mods_screen.lua and the files after this one
 Screen.page_key = PageKey

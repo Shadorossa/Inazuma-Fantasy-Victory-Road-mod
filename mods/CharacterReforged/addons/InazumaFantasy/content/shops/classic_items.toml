@@ -1,0 +1,673 @@
+
+schema = "VRFW.shop/2"
+
+[[edit]]
+target = "InazumaFantasy.training_shop"
+  [[edit.entry]]                         # as eq_mi0101001
+  item = "CharacterReforged.red_bracelet"
+  price = 2
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0101001
+  item = "CharacterReforged.leather_bracelet"
+  price = 2
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0101001
+  item = "CharacterReforged.seed_bracelet"
+  price = 2
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0101001
+  item = "CharacterReforged.rainbow_bracelet"
+  price = 2
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0104001
+  item = "CharacterReforged.courage_bracelet"
+  price = 3
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0104101
+  item = "CharacterReforged.sacred_bracelet"
+  price = 4
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0105401
+  item = "CharacterReforged.paradise_bracelet"
+  price = 4
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0101001
+  item = "CharacterReforged.tezcat_bracelet"
+  price = 2
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_ac0105201
+  item = "CharacterReforged.cross_pendant"
+  price = 4
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_ac0104201
+  item = "CharacterReforged.inazuma_pendant"
+  price = 3
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_ac0105901
+  item = "CharacterReforged.sacred_pendant"
+  price = 4
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0107901
+  item = "CharacterReforged.mt_olympus_gloves"
+  price = 3
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0107901
+  item = "CharacterReforged.thunder_gloves"
+  price = 3
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0107901
+  item = "CharacterReforged.victory_gloves"
+  price = 3
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0107901
+  item = "CharacterReforged.gentleman_gloves"
+  price = 3
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0107901
+  item = "CharacterReforged.premium_gloves"
+  price = 3
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0101001
+  item = "CharacterReforged.dirty_bracelet"
+  price = 2
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0101001
+  item = "CharacterReforged.angelic_bracelet"
+  price = 2
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0101001
+  item = "CharacterReforged.demonic_bracelet"
+  price = 2
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_ac0105201
+  item = "CharacterReforged.destruction_pendant"
+  price = 4
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0107901
+  item = "CharacterReforged.automated_gloves"
+  price = 3
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_ac0105201
+  item = "CharacterReforged.treasure_pendant"
+  price = 4
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_sh110801
+  item = "CharacterReforged.sports_shoes"
+  price = 4
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_sh111101
+  item = "CharacterReforged.power_boots"
+  price = 4
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_sh110801
+  item = "CharacterReforged.uplifting_boots"
+  price = 4
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_sh111101
+  item = "CharacterReforged.premium_boots"
+  price = 4
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0100901
+  item = "CharacterReforged.active_bracelet"
+  price = 2
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_ac0107001
+  item = "CharacterReforged.diamond_pendant"
+  price = 4
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.raimon_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.black_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.prodigy_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.almighty_faith_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.pirates_cove_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.alpine_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.mirage_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.universal_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.dragon_link_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.ancient_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.zero_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.reserve_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.kids_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.discipline_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.flurry_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.sports_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.smart_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.sailor_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.vitality_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_sh111101
+  item = "CharacterReforged.tonghanian_boots"
+  price = 4
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_sh111101
+  item = "CharacterReforged.eastern_boots"
+  price = 4
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_sh110201
+  item = "CharacterReforged.fortress_boots"
+  price = 3
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.sherwind_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.omega_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.white_deer_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.omega_z_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.zanark_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.cascade_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.zan_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.gihl_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.ragnah_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.werewolf_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.champion_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.global_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.national_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.tonghanian_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.dashing_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.shinsengumi_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.gauntlets"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.eastern_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_sh111101
+  item = "CharacterReforged.knights_boots"
+  price = 4
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_sh110201
+  item = "CharacterReforged.sandstorm_boots"
+  price = 3
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_sh111101
+  item = "CharacterReforged.volcano_boots"
+  price = 4
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.fire_dragon_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.big_waves_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.shamshir_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.storm_wolves_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.japanese_resistance_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.fertilia_eleven_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.falam_medius_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.combat_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.space_rankers_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.zeus_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.team_ogre_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.erg_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.current_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102201
+  item = "CharacterReforged.hunting_gloves"
+  price = 1
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_sh081301
+  item = "CharacterReforged.black_boots"
+  price = 6
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_sh112901
+  item = "CharacterReforged.thunder_boots"
+  price = 10
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_sh040701
+  item = "CharacterReforged.wildfire_boots"
+  price = 10
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_sh081301
+  item = "CharacterReforged.terror_boots"
+  price = 6
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_sh081301
+  item = "CharacterReforged.harlequin_boots"
+  price = 6
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_sh112901
+  item = "CharacterReforged.boat_boots"
+  price = 10
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_sh081301
+  item = "CharacterReforged.panther_boots"
+  price = 6
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0104801
+  item = "CharacterReforged.uplifting_gloves"
+  price = 12
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_sh081301
+  item = "CharacterReforged.legendary_boots"
+  price = 6
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_sh081301
+  item = "CharacterReforged.national_boots"
+  price = 6
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_sh081301
+  item = "CharacterReforged.waterproof_boots"
+  price = 6
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_sh081301
+  item = "CharacterReforged.bright_sandals"
+  price = 6
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_sh081301
+  item = "CharacterReforged.shinsengumi_sandals"
+  price = 6
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_sh081301
+  item = "CharacterReforged.noble_boots"
+  price = 6
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_sh081301
+  item = "CharacterReforged.aristocrat_boots"
+  price = 6
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_sh081301
+  item = "CharacterReforged.binary_boots"
+  price = 6
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_sh081301
+  item = "CharacterReforged.combat_boots"
+  price = 6
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_sh081101
+  item = "CharacterReforged.erg_boots"
+  price = 9
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_sh021601
+  item = "CharacterReforged.hunting_boots"
+  price = 10
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_sh070201
+  item = "CharacterReforged.eternal_boots"
+  price = 7
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_sh070201
+  item = "CharacterReforged.devotion_boots"
+  price = 7
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_ac0103801
+  item = "CharacterReforged.silver_pendant"
+  price = 2
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102001
+  item = "CharacterReforged.milky_way_gloves"
+  price = 6
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0104501
+  item = "CharacterReforged.royal_gloves"
+  price = 5
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0104501
+  item = "CharacterReforged.lunar_sea_gloves"
+  price = 5
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102001
+  item = "CharacterReforged.golden_oldies_gloves"
+  price = 6
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0107001
+  item = "CharacterReforged.ivy_selective_gloves"
+  price = 10
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102001
+  item = "CharacterReforged.wildfire_gloves"
+  price = 6
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0104501
+  item = "CharacterReforged.terror_gloves"
+  price = 5
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102001
+  item = "CharacterReforged.echo_gloves"
+  price = 6
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_sh070201
+  item = "CharacterReforged.warrior_sandals"
+  price = 7
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102001
+  item = "CharacterReforged.despairado_gloves"
+  price = 6
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102001
+  item = "CharacterReforged.bright_gloves"
+  price = 6
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0104701
+  item = "CharacterReforged.warrior_gloves"
+  price = 11
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102001
+  item = "CharacterReforged.noble_gloves"
+  price = 6
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0107001
+  item = "CharacterReforged.peasant_gloves"
+  price = 10
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102001
+  item = "CharacterReforged.aristocrat_gloves"
+  price = 6
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0104701
+  item = "CharacterReforged.binary_gloves"
+  price = 11
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_sh070201
+  item = "CharacterReforged.current_boots"
+  price = 7
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102001
+  item = "CharacterReforged.muay_tigers_gloves"
+  price = 6
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0104501
+  item = "CharacterReforged.magmavia_eleven_gloves"
+  price = 5
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102001
+  item = "CharacterReforged.knights_gloves"
+  price = 6
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0104701
+  item = "CharacterReforged.sandstorm_gloves"
+  price = 11
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0104501
+  item = "CharacterReforged.volcano_gloves"
+  price = 5
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102001
+  item = "CharacterReforged.sunbeam_gloves"
+  price = 6
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_sh1105201
+  item = "CharacterReforged.discipline_boots"
+  price = 4
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_sh1105001
+  item = "CharacterReforged.sunbeam_boots"
+  price = 4
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_sh042301
+  item = "CharacterReforged.practice_boots"
+  price = 7
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_sh080801
+  item = "CharacterReforged.terra_boots"
+  price = 5
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_sh042301
+  item = "CharacterReforged.stripe_boots"
+  price = 7
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_sh070801
+  item = "CharacterReforged.gentleman_boots"
+  price = 7
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_sh080801
+  item = "CharacterReforged.echo_boots"
+  price = 5
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_sh042301
+  item = "CharacterReforged.vitality_boots"
+  price = 7
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_ac0102501
+  item = "CharacterReforged.heart_pendant"
+  price = 4
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_ac0100701
+  item = "CharacterReforged.gothic_pendant"
+  price = 3
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_ac0104301
+  item = "CharacterReforged.courage_pendant"
+  price = 5
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_ac0103301
+  item = "CharacterReforged.paradise_pendant"
+  price = 4
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102101
+  item = "CharacterReforged.kirkwood_gloves"
+  price = 3
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102101
+  item = "CharacterReforged.eternal_gloves"
+  price = 3
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102101
+  item = "CharacterReforged.verdant_gloves"
+  price = 3
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102101
+  item = "CharacterReforged.terra_gloves"
+  price = 3
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102101
+  item = "CharacterReforged.stripe_gloves"
+  price = 3
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102101
+  item = "CharacterReforged.harlequin_gloves"
+  price = 3
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102101
+  item = "CharacterReforged.devotion_gloves"
+  price = 3
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102101
+  item = "CharacterReforged.panther_gloves"
+  price = 3
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_sh021401
+  item = "CharacterReforged.global_boots"
+  price = 7
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_sh080701
+  item = "CharacterReforged.sabaton_boots"
+  price = 5
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_sh080701
+  item = "CharacterReforged.automated_boots"
+  price = 5
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102101
+  item = "CharacterReforged.gahl_gloves"
+  price = 3
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102101
+  item = "CharacterReforged.vampire_gloves"
+  price = 3
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102101
+  item = "CharacterReforged.nocturnal_gloves"
+  price = 3
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102101
+  item = "CharacterReforged.genesis_gloves"
+  price = 3
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102101
+  item = "CharacterReforged.waterproof_gloves"
+  price = 3
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102101
+  item = "CharacterReforged.fortress_gloves"
+  price = 3
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_sh045501
+  item = "CharacterReforged.float_boots"
+  price = 5
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_sh045501
+  item = "CharacterReforged.ash_boots"
+  price = 5
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102101
+  item = "CharacterReforged.silica_eleven_gloves"
+  price = 3
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102101
+  item = "CharacterReforged.naiadi_eleven_gloves"
+  price = 3
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102101
+  item = "CharacterReforged.ixar_fleet_gloves"
+  price = 3
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102101
+  item = "CharacterReforged.float_gloves"
+  price = 3
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_mi0102101
+  item = "CharacterReforged.ash_gloves"
+  price = 3
+  currency = "tk_bb000001"
+  [[edit.entry]]                         # as eq_ac0106201
+  item = "CharacterReforged.study_pendant"
+  price = 7
+  currency = "tk_bb000001"

@@ -1,13 +1,14 @@
-InazumaFantasyDailyRival = {}
+InazumaFantasy = InazumaFantasy or {}
+InazumaFantasy.DailyRivalMenu = {}
 
 local logger
-InazumaFantasyDailyRival.log = function(text)
+InazumaFantasy.DailyRivalMenu.log = function(text)
   logger = logger or VRFW.logger.new("InazumaFantasy daily rival")
   logger(text)
 end
 
-InazumaFantasyDailyRival.ask = function()
-  local DR = InazumaFantasyDailyRival
+InazumaFantasy.DailyRivalMenu.ask = function()
+  local DR = InazumaFantasy.DailyRivalMenu
   local day = VRFW.daily ~= nil and VRFW.daily.period("day") or nil
   if day == nil then return nil end
   local r = VRFW.host.command(VRFW.crc32("CMND_INAZUMAFANTASY_DAILY_RIVAL"), day)
@@ -18,8 +19,8 @@ InazumaFantasyDailyRival.ask = function()
   return r
 end
 
-InazumaFantasyDailyRival.stadium = function(team, row_map)
-  local DR = InazumaFantasyDailyRival
+InazumaFantasy.DailyRivalMenu.stadium = function(team, row_map)
+  local DR = InazumaFantasy.DailyRivalMenu
   local declared = VRFW.host.command(VRFW.crc32("CMND_VRFW_TEAM_HOME_STADIUM"), team)
   if type(declared) ~= "number" then declared = 0 end
   local map = VRFW.host.command(VRFW.crc32("CMND_INAZUMAFANTASY_DAILY_RIVAL_STADIUM"), team, declared, row_map or 0)
@@ -31,14 +32,14 @@ InazumaFantasyDailyRival.stadium = function(team, row_map)
   return nil
 end
 
-InazumaFantasyDailyRival.play = function(row_map)
-  local DR = InazumaFantasyDailyRival
+InazumaFantasy.DailyRivalMenu.play = function(row_map)
+  local DR = InazumaFantasy.DailyRivalMenu
   local r = DR.ask()
-  if r == nil or r.ok ~= true or type(r.cards) ~= "table" or #r.cards == 0 then
+  if r == nil or r.ok ~= true or type(r.cards) ~= "table" or #r.cards == 0 or type(r.slot_team) ~= "number" then
     DR.log("no rival, the row keeps its own team (" .. tostring(r and r.why) .. ")")
     return
   end
-  local slot_team = VRFW.crc32("evt_ct_ft_daily_legendary_rival")
+  local slot_team = r.slot_team
   local done, why = VRFW.host.command(VRFW.crc32("CMND_VRFW_TEAM_STAND_IN"), slot_team, r.team, table.unpack(r.cards))
   if not (done == true) then
     DR.log("stand-in failed: " .. tostring(why or done))
@@ -57,11 +58,11 @@ InazumaFantasyDailyRival.play = function(row_map)
   return DR.stadium(r.team, row_map)
 end
 
-InazumaFantasyDailyRival.play_on_reserve = function()
+InazumaFantasy.DailyRivalMenu.play_on_reserve = function()
   local game = VRFW.crc32("inazuma_fantasy_daily_legendary_rival")
   VRFW.host.hook_command(VRFW.commands.RESERVE_SOCCER, function(nxt, id, reserved, map, ...)
     if type(reserved) == "number" and reserved % 4294967296 == game then
-      map = InazumaFantasyDailyRival.play(map) or map
+      map = InazumaFantasy.DailyRivalMenu.play(map) or map
     end
     return nxt(id, reserved, map, ...)
   end, "InazumaFantasy.daily_rival_reserve")

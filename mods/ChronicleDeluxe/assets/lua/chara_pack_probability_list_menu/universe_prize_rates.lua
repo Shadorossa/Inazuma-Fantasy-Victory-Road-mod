@@ -1,34 +1,33 @@
-local PRIZE_RATES = 2720253709
+local PRIZE_RATES = VRFW.commands.CHRONICLEDELUXE_UNIVERSE_PRIZE_RATES
 local PROP_LIST_LAST_STAR = 478309527
 local VALUES_PER_ROW = 4
 
-local RATE_WINDOW = 795374569             -- universe01_30_rarity_rate_window
-local RATE_ROW = 3591108357
+local RATE_WINDOW = VRFW.ids.crc32("universe01_30_rarity_rate_window")
+local RATE_ROW = VRFW.ids.crc32("universe01_31_rarity_rate_item")
 local RARITY_ROWS = 6                     -- the retail instances of RATE_ROW (setting count)
-local RARITY_PLATE = 286154265            -- _rarity_plate_dmy01: hidden on a prize row
+local RARITY_PLATE = VRFW.ids.crc32("_rarity_plate_dmy01")            -- hidden on a prize row
 local RATE_PERCENT_PRIM = 3179168223      -- the rate row's number
-local PRIZE_ROW = 2524577816
+local PRIZE_ROW = VRFW.ids.crc32("chronicle_deluxe_universe_prize_row")
 local PRIZE_ROW_SCALE = 0.7
-local TEXT_PRIM = 456522680               -- _text_item01
-local ICONS = { { 303536660, 1875672568 }, { 2334051246, 4140117058 } }  -- _icon_item_dmy01 / 02 and their texture nodes
+local TEXT_PRIM = VRFW.ids.crc32("_text_item01")
+local ICONS = { { VRFW.ids.crc32("_icon_item_dmy01"), VRFW.ids.crc32("icon_item_dmy01") }, { VRFW.ids.crc32("_icon_item_dmy02"), VRFW.ids.crc32("icon_item_dmy02") } }  -- the two item icons and their texture nodes
 local ITEM_ATLAS = 411649454              -- #/menu/103_item/item01/item01_02/<LG>/item01_02.g4tx
-local ITEM_BASE, ITEM_BASE_RARE = 1868240048, 4132586762  -- item_base01 / 02 (an item of rarity 2 or more, as retail)
+local ITEM_BASE, ITEM_BASE_RARE = VRFW.ids.crc32("item_base01"), VRFW.ids.crc32("item_base02")  -- the rare base is for an item of rarity 2 or more, as retail
 
 local C = {
-  IS_OPEN = 2640875187, OPEN = 629267548, CLOSE = 1273612389, LAYER_COUNT = 1175615627, GET_PRIORITY = 1018283794,
-  SET_PRIORITY = 1491630496, SCALE = 3778714801, MESH_VISIBLE = 3405944500, PRIM_INDEX = 1927054058,
-  RATE_VALUE = 36541260, NUMBER = 3609943765, TEXT = 1083631230, TEXT_GET = 4074371074, ITEM_PARAM = 1883585771,
+  IS_OPEN = VRFW.commands.IS_OPEN_LAYER, OPEN = VRFW.commands.OPEN_LAYER, CLOSE = VRFW.commands.CLOSE_LAYER, LAYER_COUNT = VRFW.commands.GET_CREATE_LAYER_NUM, GET_PRIORITY = VRFW.commands.GET_DRAW_PRIORITY,
+  SET_PRIORITY = VRFW.commands.SET_DRAW_PRIORITY, SCALE = VRFW.commands.SET_LAYER_LOCAL_SCALE, MESH_VISIBLE = VRFW.commands.SET_MESH_VISIBLE, PRIM_INDEX = VRFW.commands.SEARCH_PRIM_INDEX,
+  RATE_VALUE = 36541260, NUMBER = 3609943765, TEXT = VRFW.commands.SET_MENU_TEXT_STRING, TEXT_GET = VRFW.commands.TEXT_GET, ITEM_PARAM = VRFW.commands.GET_ITEM_PARAM,
   ITEM_ICON = 3508889864, SPRITE = 558735651,
 }
 
 local log = type(VRFW.logger) == "table" and VRFW.logger.new("ChronicleDeluxe.UniversePrizeRates") or function() end
 local last_star = 0
 
-local retail_init = OnInit
-function OnInit(...)
+VRFW.host.wrap_once("OnInit", "ChronicleDeluxe.universe_prize_rates", function(retail_init, ...)
   retail_init(...)
   last_star = GetPropValue(PROP_LIST_LAST_STAR) == 1 and 1 or 0
-end
+end)
 
 local function fill_row(index, text_id, percent, count, item)
   local rate = RARITY_ROWS + index
@@ -70,17 +69,15 @@ local function open_prize_rows()
   log("prize rows", shown, "pools", math.floor(#rows / VALUES_PER_ROW), "last star", last_star)
 end
 
-local retail_open = OpenRarityRateWindow
-function OpenRarityRateWindow(...)
+VRFW.host.wrap_once("OpenRarityRateWindow", "ChronicleDeluxe.universe_prize_rates", function(retail_open, ...)
   local was_open = funcLuaMenuCommand(C.IS_OPEN, RATE_WINDOW)
   retail_open(...)
   if not was_open then
     open_prize_rows()
   end
-end
+end)
 
-local retail_close = CloseRarityRateWindow
-function CloseRarityRateWindow(...)
+VRFW.host.wrap_once("CloseRarityRateWindow", "ChronicleDeluxe.universe_prize_rates", function(retail_close, ...)
   local was_open = funcLuaMenuCommand(C.IS_OPEN, RATE_WINDOW)
   retail_close(...)
   if was_open then
@@ -88,4 +85,4 @@ function CloseRarityRateWindow(...)
       funcLuaMenuCommand(C.CLOSE, PRIZE_ROW, index)
     end
   end
-end
+end)

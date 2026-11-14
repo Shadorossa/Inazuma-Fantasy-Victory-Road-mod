@@ -125,7 +125,7 @@ function HomeStadium.Set(set, map)
   return ok
 end
 
-VRFW.on("slot_load", function()
+VRFW.on("save:slot_load", function()
   pcall(load_list)
   return nil
 end)

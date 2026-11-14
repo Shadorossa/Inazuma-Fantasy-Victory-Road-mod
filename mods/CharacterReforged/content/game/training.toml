@@ -33,7 +33,7 @@ handler = "CharacterReforged.Training.Reset"
 needs = ["Board.FindCharaRecord", "Chara.HumanGetLevel", "character_reforged_chara_containers"]
 
 [[VRFW.Command]]
-name = "CMND_CHARACTERREFORGED_TRAINING_POSITION"
+name = "CMND_CHARACTERREFORGED_TRAINING_POSITION"   # (charaStHdl) -> ok, chosen, main, sub, trained, next allowed, previous allowed (0 = none)
 handler = "CharacterReforged.Training.Position"
 needs = ["Board.FindCharaRecord", "Chara.HumanGetLevel", "character_reforged_chara_containers"]
 
@@ -76,17 +76,6 @@ order = 10
 owned = false
 npc = true
 stat = "clamp(args[4] + lookup_or(CharacterReforged.RivalTrainingAdd, 0, args[3], i), 1, 9999)"
-
-# Match info and play data blocks the framework's match libraries read.
-[[VRFW.Global]]
-name = "match_equipment_info"
-base = "game_root"
-chain = ["Game.RootMatch"]
-
-[[VRFW.Global]]
-name = "match_equipment_play_data"
-base = "game_root"
-chain = ["Game.RootPlayData"]
 
 # ------------------------------------------------------------------------------------------------ the training beans
 

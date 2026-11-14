@@ -1,3 +1,0 @@
-schema = "VRFW.base_table/1"
-file = "data/common/event_cfg/eff/ev71_19250_eff.cfg.bin"
-from = "data/common/event_cfg/eff/ev71_10020_eff.cfg.bin"

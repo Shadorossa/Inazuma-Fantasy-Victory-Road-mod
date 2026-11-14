@@ -2,12 +2,12 @@ schema = "VRFW.behaviour/1"
 
 [[rule]]
 id = "focus_no_auto_run_left"
-on = "button_hold:CMD_FOCUS_AUTO_RUN_LEFT"
+on = "input:hold:CMD_FOCUS_AUTO_RUN_LEFT"
 [rule.do]
 block = true
 
 [[rule]]
 id = "focus_no_auto_run_right"
-on = "button_hold:CMD_FOCUS_AUTO_RUN_RIGHT"
+on = "input:hold:CMD_FOCUS_AUTO_RUN_RIGHT"
 [rule.do]
 block = true

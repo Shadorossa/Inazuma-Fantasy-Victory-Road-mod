@@ -99,11 +99,17 @@ local function read_auras()
   return auras
 end
 
--- Everything the pass reads, once per copy.
+-- The card and aura rows come from the game's tables, which stay the same for the whole session, so they are read once.
+local game_cards, game_auras = nil, nil
+
+-- Everything the pass reads, once per copy; the hidden cards follow the policy of this pass.
 function CardFacts.load(policy)
-  local cards = read_cards()
-  if next(cards) == nil then error("chara_param: no CHARA_PARAM_INFO rows") end
-  local self = { cards = cards, hidden = read_hidden(cards, policy.hidden_card_sources), auras = read_auras() }
+  if game_cards == nil then
+    local cards = read_cards()
+    if next(cards) == nil then error("chara_param: no CHARA_PARAM_INFO rows") end
+    game_cards, game_auras = cards, read_auras()
+  end
+  local self = { cards = game_cards, hidden = read_hidden(game_cards, policy.hidden_card_sources), auras = game_auras }
   return setmetatable(self, { __index = CardFacts })
 end
 
@@ -141,6 +147,11 @@ end
 
 function CardFacts:is_hidden(card)
   return self.hidden[card] ~= nil
+end
+
+-- Whether any card is hidden in this pass.
+function CardFacts:has_hidden()
+  return next(self.hidden) ~= nil
 end
 
 -- an aura command a team's aura entry may keep

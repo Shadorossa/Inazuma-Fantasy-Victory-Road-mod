@@ -24,13 +24,13 @@ based_on = "c04000080"
   [[character.cards]]
   id = 0xD4B19B55
   moves = [
-    { move = 0x501F2F12, level = 1 },                     # Heel Flick
-    { move = 0x6F918884, level = 13 },                    # Easy Breezy
+    { move = "rho10030", level = 1 },                     # Heel Flick
+    { move = "who00740", level = 13 },                    # Easy Breezy
     { move = 0, level = 0 },                              # (empty)
-    { move = 0x9349F1DA, level = 30 },                    # Zephyr Shot
-    { move = 0xA9E3374B, level = 38 },                    # Cyclone Sprint
+    { move = "whs01460", level = 30 },                    # Zephyr Shot
+    { move = "whd00780", level = 38 },                    # Cyclone Sprint
     { move = 0, level = 0 },                              # (empty)
-    { move = 0xC755E805, level = 30 },                    # Triple Threat
-    { move = 0xAF9E1B72, level = 38 },
-    { move = 0x1080BF9E, level = 43 },
+    { move = "whs01700", level = 30 },                    # Triple Threat
+    { move = "whs02350", level = 38 },
+    { move = "wmm00100", level = 43 },
   ]

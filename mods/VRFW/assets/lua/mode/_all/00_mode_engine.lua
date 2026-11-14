@@ -5,6 +5,7 @@ if VRFW.mode == nil then
   local IS_MENU = 2231168902       -- CMND_IS_EXIST_MENU_OBJECT (funcLuaMenuCommand)
   local LANG = 477234096           -- CMND_GET_LANGUAGE_CODE
 
+  --- Advanced: Table of the mode engine; holds the running mode, log and story provider.
   VRFW.mode = { run = nil, log = {}, story_provider = nil }
 
   local function note(...)
@@ -13,12 +14,13 @@ if VRFW.mode == nil then
     end
   end
 
-  -- The engine answers (VERSION); without the plugin every query is empty and every mode counts as on.
+  -- Internal: The engine answers (VERSION); without the plugin every query is empty and every mode counts as on.
   function VRFW.mode.ready()
     local v = VRFW.host.command(VRFW.commands.VRFW_MODE_VERSION)
     return type(v) == "number"
   end
 
+  --- Internal: answers whether the mode key is on.
   function VRFW.mode.on(key)
     local known, on = VRFW.host.command(VRFW.commands.VRFW_MODE_ON, key)
     if known ~= true then
@@ -27,6 +29,7 @@ if VRFW.mode == nil then
     return on == true
   end
 
+  --- Internal: text of a mode key field (default name).
   function VRFW.mode.text(key, field)
     local s = VRFW.host.command(VRFW.commands.VRFW_MODE_TEXT, key, field or "name", VRFW.host.command(LANG) or 3)
     if type(s) ~= "string" or s == "" then
@@ -35,7 +38,7 @@ if VRFW.mode == nil then
     return s
   end
 
-  -- the Lua clauses of [mode.unlock] (the Rust ones come with UNLOCKED)
+  -- Internal: the Lua clauses of [mode.unlock] (the Rust ones come with UNLOCKED)
   function VRFW.mode.story_cleared()
     local p = VRFW.mode.story_provider or VRFW.story_provider
     if type(p) ~= "function" then
@@ -48,6 +51,7 @@ if VRFW.mode == nil then
     return cleared == true or cleared == 1
   end
 
+  --- Internal: answers whether the mode key is unlocked.
   function VRFW.mode.unlocked(key)
     local ok, story, lua = VRFW.host.command(VRFW.commands.VRFW_MODE_UNLOCKED, key)
     if ok ~= true then
@@ -65,6 +69,7 @@ if VRFW.mode == nil then
     return true
   end
 
+  --- Internal: mode entries of a menu host.
   function VRFW.mode.entries(host)
     local out = {}
     local n = VRFW.host.command(VRFW.commands.VRFW_MODE_ENTRIES, host)
@@ -81,6 +86,7 @@ if VRFW.mode == nil then
     return out
   end
 
+  --- Advanced: True while a mode run is active.
   function VRFW.mode.busy()
     return VRFW.mode.run ~= nil
   end
@@ -90,6 +96,7 @@ if VRFW.mode == nil then
     if type(send) == "string" and send ~= "" then
       VRFW.host.command(VRFW.ids.crc32(send), 0)
     end
+    --- Internal: the active mode run record, or nil.
     VRFW.mode.run = nil
     note("exit", run.key, tostring(ret), tostring(to), tostring(focus))
     if run.cb and run.cb.back then
@@ -127,7 +134,7 @@ if VRFW.mode == nil then
     end
   end
 
-  -- start mode `key` from `host` (focus = the host's entry index, given back at the end).
+  -- Internal: start mode `key` from `host` (focus = the host's entry index, given back at the end).
   function VRFW.mode.start(key, host, focus, cb)
     if VRFW.mode.run ~= nil then
       return false, 4
@@ -152,6 +159,7 @@ if VRFW.mode == nil then
     if cb and cb.before then
       cb.before(run)
     end
+    --- Internal: coroutine of the active run.
     run.co = coroutine.create(body)
     VRFW.mode.run = run
     note("enter", key, host, tostring(action), tostring(arg), tostring(save))
@@ -159,6 +167,7 @@ if VRFW.mode == nil then
     return true, 0
   end
 
+  --- Internal: finishes the run of mode key; args key, cleared.
   function VRFW.mode.finish(key, cleared)
     local run = VRFW.mode.run
     if run == nil or run.key ~= key then
@@ -168,6 +177,7 @@ if VRFW.mode == nil then
     return true
   end
 
+  --- Internal: advances the active mode run one frame.
   function VRFW.mode.step()
     local run = VRFW.mode.run
     if run == nil or run.co == nil then
@@ -184,6 +194,7 @@ if VRFW.mode == nil then
     end
   end
 
+  --- Internal: answers the rules id of a mode key for ctx (default match).
   function VRFW.mode.rules(key, ctx)
     local id = VRFW.host.command(VRFW.commands.VRFW_MODE_RULES, key, ctx or "match")
     return type(id) == "string" and id or ""

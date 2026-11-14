@@ -142,7 +142,7 @@ function SpriteRedirects.Atlases(i, k)
 end
 
 -- the holder menus are made again after a reset: until one loads the own atlases, every menu loads its own
-VRFW.on("game_reset", function()
+VRFW.on("game:reset", function()
   holder_on = false
 end)
 

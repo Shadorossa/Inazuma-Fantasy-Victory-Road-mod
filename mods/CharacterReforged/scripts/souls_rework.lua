@@ -538,7 +538,7 @@ function CharacterReforged.Souls.ReelLanded(seq)
 end
 
 local scene_playing = false
-VRFW.on("cutin_start", function(ev)
+VRFW.on("match:cutin_start", function(ev)
   scene_playing = true
   local item = reel.armed
   reel.armed = nil
@@ -547,7 +547,7 @@ VRFW.on("cutin_start", function(ev)
   end
   return nil
 end)
-VRFW.on("cutin_end", function(ev)
+VRFW.on("match:cutin_end", function(ev)
   scene_playing = false
   local item = reel.current
   if item and item.cutin then
@@ -629,7 +629,7 @@ local actor_recs = {}
 local SCAN_SECONDS = 0.1
 local FALLBACK_DT = 1 / 60
 
-VRFW.on("tick", function(ev)
+VRFW.on("frame:tick", function(ev)
   if not match.on then return nil end
   local m = ev.match or NO_MATCH
   match.state = m.soccer_state or 0
@@ -710,12 +710,12 @@ function CharacterReforged.Souls.TotemLevel(hdl)
   return true, st.level, text("CharacterReforged.reel_level", st.level), progress, 0
 end
 
-VRFW.on("game_reset", function(ev)
+VRFW.on("game:reset", function(ev)
   publish_start_max()
   return nil
 end)
 
-VRFW.on("match_start", function(ev)
+VRFW.on("match:start", function(ev)
   scene_playing = false
   read_options()
   publish_start_max()
@@ -729,7 +729,7 @@ VRFW.on("match_start", function(ev)
   return nil
 end)
 
-VRFW.on("match_end", function(ev)
+VRFW.on("match:end", function(ev)
   for _, p in pairs(players) do
     for key, st in pairs(p.pairs) do
       if st.level > 1 then info(string.format("match #%d end: actor %s T%d totem %s Lv%d (LP %.1f)", match.no, hex(p.hdl), p.team, A.key(key), st.level, st.lp)) end
@@ -745,19 +745,19 @@ local function actor_player(ev)
   return h and players[h] or nil
 end
 
-VRFW.on("duel_won", function(ev)
+VRFW.on("match:duel_won", function(ev)
   local p = actor_player(ev)
   if p and p.active then add_lp(p, RULE.per_duel_won or 0, "duel won") end
   return nil
 end)
 
-VRFW.on("goal", function(ev)
+VRFW.on("match:goal", function(ev)
   local p = actor_player(ev)
   if p and p.active then add_lp(p, RULE.per_goal or 0, "goal") end
   return nil
 end)
 
-VRFW.on("event_build", function(ev)
+VRFW.on("match:event_build", function(ev)
   if not match.on then return nil end
   local hdl = ev.actor and tonumber(ev.actor.handle)
   local skill = tonumber(ev.skill)
@@ -814,12 +814,12 @@ VRFW.on("match:skill_used:post", function(ev)
   return nil
 end)
 
-VRFW.on("possession", function(ev)
+VRFW.on("match:possession", function(ev)
   for _, p in pairs(players) do p.move_used = nil end
   return nil
 end)
 
-VRFW.on("move_speed", function(ev)
+VRFW.on("match:move_speed", function(ev)
   if timed_count <= 0 then return nil end
   local h = ev.actor and ev.actor.handle
   if not h then return nil end
@@ -829,7 +829,7 @@ VRFW.on("move_speed", function(ev)
   return nil
 end)
 
-VRFW.on("block_battle", function(ev)
+VRFW.on("match:block_battle", function(ev)
   if timed_count <= 0 then return nil end
   local blocker, shooter = ev.actor, ev.rival and ev.rival.handle
   if not blocker or not shooter then return nil end

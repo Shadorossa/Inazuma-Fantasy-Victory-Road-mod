@@ -2,6 +2,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.gacha/1"
 folder = "content/gacha"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Shop.Gacha"
+v2_kind_folder = "Shop/Gacha"
+v2_version = 1
 label = "Gacha pools"
 label_es = "Fondos de gacha"
 doc = "A gacha pool: it draws one card at random among the cards the club can sign, for a cost."

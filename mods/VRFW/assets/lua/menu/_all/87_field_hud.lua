@@ -8,7 +8,7 @@ if VRFW.field_hud == nil then
 
   local F = {}
 
-  --- Hides the field HUD while scene `tag` is up; answers whether it hides.
+  --- Internal: Hides the field HUD while scene `tag` is up; answers whether it hides.
   function F.hide_under_menu_scene(tag, while_hidden)
     local log = VRFW.logger.new("menu_scene")
     local seen, logged = {}, false
@@ -61,5 +61,6 @@ if VRFW.field_hud == nil then
     end
   end
 
+  --- Internal: Namespace: the field HUD helpers of the menu VM.
   VRFW.field_hud = F
 end

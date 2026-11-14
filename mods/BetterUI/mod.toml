@@ -2,10 +2,11 @@ id = "BetterUI"
 # name / description: English fallback; the Mods screen shows text keys mod_name / mod_description (text\keys.toml)
 name = "BetterUI"
 icon = "#/menu/200_icon/16_icon_list_tab/icon_list_tab.g4tx:icon_list_tab_option03"
-version = "0.3.0"
+version = "0.3.1"
 author = "Fantasy Team"
 description = "A cleaner match HUD and game menus: a compact translucent top bar, fewer markers and guides in matches, compact player cards and shop shortcuts (L2 / R2). Shirt numbers and AI roles can be set for the whole team. Rules, data and saves are untouched."
 priority = 0
+type = "interface"
 tags = ["Visual", "Interface"]
 updated = "2026-11-09"
 requires = ["VRFW>=0.3.0"]

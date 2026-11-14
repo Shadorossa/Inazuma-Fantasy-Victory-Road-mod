@@ -87,6 +87,12 @@ For = "config"
   Label = { es = "Recarga por nivel", en = "Recast per level" }
   Help = { es = "La recarga de la técnica crece × (1 + este valor × nivel); entre 0 y 1.", en = "Recast grows × (1 + this value × level); between 0 and 1." }
   [[Shape.Field]]
+  Key = "ranks.grade_colors"
+  Type = "list"
+  Of = "string"
+  Label = { es = "Colores de nivel", en = "Level colours" }
+  Help = { es = "Color «#RRGGBB» de cada nivel (Nv.1 a Nv.6); la barra de usos va del color del nivel actual al del siguiente.", en = "Colour «#RRGGBB» of each level (Lv.1 to Lv.6); the use bar fades from the current level's colour to the next one's." }
+  [[Shape.Field]]
   Key = "ranks.popup"
   Type = "bool"
   Label = { es = "Aviso de subida", en = "Level-up banner" }

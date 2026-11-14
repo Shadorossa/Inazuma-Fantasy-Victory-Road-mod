@@ -212,7 +212,7 @@ function PL.ss_list(list, init)
 end
 
 function CharacterReforged.skill_slot_pick_coroutine()
-  if PL.signature() ~= nil then                  -- Signature Passives: read only (the detail shows on focus)
+  if PL.own_passive() ~= nil then                  -- Own Passives: read only (the detail shows on focus)
     funcLuaCommand(C.SE, SE_NG)
     pcall(SkillSlotInfo)
     return

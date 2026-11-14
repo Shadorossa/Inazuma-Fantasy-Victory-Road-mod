@@ -4,7 +4,7 @@ local T = {}
 
 local byte, char, sub, concat, floor = string.byte, string.char, string.sub, table.concat, math.floor
 
---- The `n`-byte little-endian text of `v`.
+--- Internal: The `n`-byte little-endian text of `v`.
 function T.little_endian(v, n)
   v = v % (2 ^ (8 * n))
   local p = {}
@@ -15,7 +15,7 @@ function T.little_endian(v, n)
   return concat(p)
 end
 
---- the unsigned little-endian integer of `n` bytes at 0-based offset `off` of `s`
+--- Internal: the unsigned little-endian integer of `n` bytes at 0-based offset `off` of `s`
 function T.read(s, off, n)
   local v = 0
   for i = n, 1, -1 do
@@ -24,7 +24,7 @@ function T.read(s, off, n)
   return v
 end
 
---- the u32 words of `s` (1-based array; trailing bytes ignored)
+--- Internal: the u32 words of `s` (1-based array; trailing bytes ignored)
 function T.words(s)
   local w = {}
   for i = 0, floor(#s / 4) - 1 do
@@ -34,19 +34,19 @@ function T.words(s)
   return w
 end
 
---- The "0x" hex text of `v`.
+--- Internal: The "0x" hex text of `v`.
 function T.hex(v)
   return string.format("0x%08X", v)
 end
 
 -- open(slot), open_bytes(bytes) and hash(name) are the Rust members of this table (VRFW.save_tree).
 
---- The path of element `i` of `path`.
+--- Internal: The path of element `i` of `path`.
 function T.at(path, i)
   return path .. "[" .. i .. "]"
 end
 
---- block `id` is in the save
+--- Internal: block `id` is in the save
 function T.has_block(t, id)
   for _, b in ipairs(t:blocks()) do
     if b == id then return true end
@@ -54,7 +54,7 @@ function T.has_block(t, id)
   return false
 end
 
---- The path of `base`.`name` when it has children; nil otherwise.
+--- Internal: The path of `base`.`name` when it has children; nil otherwise.
 function T.kids(t, base, name)
   local p = base .. "." .. name
   local g = t:get(p)
@@ -62,12 +62,12 @@ function T.kids(t, base, name)
   return nil
 end
 
---- The path inside wrapper `wrapper` of `base` (`base` when there is none).
+--- Internal: The path inside wrapper `wrapper` of `base` (`base` when there is none).
 function T.unwrap(t, base, wrapper)
   return T.kids(t, base, wrapper) or base
 end
 
---- The array `base`.`name`: its element path, its count; nil when none.
+--- Advanced: The array `base`.`name`: its element path, its count; nil when none.
 function T.array(t, base, name)
   if not base then return nil end
   local p = base .. "." .. name
@@ -76,7 +76,7 @@ function T.array(t, base, name)
   return nil
 end
 
---- the bytes of leaf `base.name`, nil when it is no leaf
+--- Internal: the bytes of leaf `base.name`, nil when it is no leaf
 function T.leaf(t, base, name)
   if not base then return nil end
   local p = base .. "." .. name
@@ -85,7 +85,7 @@ function T.leaf(t, base, name)
   return nil
 end
 
---- leaf `base.name` of 1 / 2 / 4 bytes as an unsigned number (nil otherwise).
+--- Internal: leaf `base.name` of 1 / 2 / 4 bytes as an unsigned number (nil otherwise).
 function T.number(t, base, name)
   if not base then return nil end
   local p = base .. "." .. name
@@ -96,7 +96,7 @@ function T.number(t, base, name)
   return t:int(p)
 end
 
---- leaf `base.name` as a value { path, v, w } (for the few values a pass keeps by path)
+--- Internal: leaf `base.name` as a value { path, v, w } (for the few values a pass keeps by path)
 function T.value(t, base, name)
   local v = T.number(t, base, name)
   if v == nil then return nil end
@@ -104,7 +104,7 @@ function T.value(t, base, name)
   return { path = p, v = v, w = t:get(p).len }
 end
 
---- every leaf under `path` (a struct or an array element), in record order: { path, ... }
+--- Internal: every leaf under `path` (a struct or an array element), in record order: { path, ... }
 function T.leaves(t, path, out)
   out = out or {}
   for _, name in ipairs(t:children(path)) do
@@ -123,7 +123,7 @@ function T.leaves(t, path, out)
   return out
 end
 
---- The path of the first `name` under `path`; nil when none.
+--- Internal: The path of the first `name` under `path`; nil when none.
 function T.find_deep(t, path, name)
   t:get(path .. "." .. name)
   local hex = string.format("0x%08X", VRFW.save_tree.hash(name))
@@ -157,7 +157,7 @@ end
 local P = {}
 P.__index = P
 
---- A new list of queued writes on tree `t`.
+--- Internal: A new list of queued writes on tree `t`.
 function T.patches(t)
   return setmetatable({ t = t, list = {}, orig = {} }, P)
 end

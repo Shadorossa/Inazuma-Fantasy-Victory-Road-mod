@@ -4,12 +4,7 @@ schema = "VRFW.menu/2"
 file = "common/menu/20_cmn/cmn03/better_ui_power_counter_label/better_ui_power_counter_label.g4pkm"
 from = "common/menu/20_cmn/cmn03/cmn03_01/cmn03_01.g4pkm"
 
-[[layout]]
-file = "common/menu/20_cmn/cmn03/better_ui_power_counter_label/better_ui_power_counter_label.g4pkm"
-joint = "_text_cmd_back01"
-scale = [840.0, 76.0, 1.0]
-
-# the plate mesh at the size of the «critical» tag sprite (the tag layer shows it; the move-name labels hide it)
+# the plate mesh at the size of the «critical» tag sprite (the tag layer shows it)
 [[layout]]
 file = "common/menu/20_cmn/cmn03/better_ui_power_counter_label/better_ui_power_counter_label.g4pkm"
 joint = "_cmd_back_base01"
@@ -35,17 +30,15 @@ script = "assets/lua/screens/betterui_power_counter_menu.lua"
 layer = [
     { layer = "soccer10_25_at_kp_power_info_telop_self" },
     { layer = "soccer10_25_at_kp_power_info_telop_enemy" },
-    { layer = "betterui_power_counter_label", object = "betterui_power_counter_label", count = 2 },
     { layer = "betterui_power_counter_crit", object = "betterui_power_counter_label", count = 2 },
 ]
 group_base = [
     { layer = "soccer10_25_at_kp_power_info_telop_self", flags = [0, 1, 0, 0, 1, 0] },
     { layer = "soccer10_25_at_kp_power_info_telop_enemy", flags = [0, 1, 0, 0, 1, 0] },
-    { layer = "betterui_power_counter_label", flags = [0, 0, 0, 0, 1, 0] },
     { layer = "betterui_power_counter_crit", flags = [0, 0, 0, 0, 1, 0] },
 ]
 group = [
-    { group = "betterui_power_counter_menu", flags = [1], slice = [0, 4] },
+    { group = "betterui_power_counter_menu", flags = [1], slice = [0, 3] },
 ]
 
 # the TOTAL DF picture and the «critical» tag (content/images/menu/00_soccer/power_counter.toml)

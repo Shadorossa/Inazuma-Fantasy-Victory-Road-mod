@@ -28,7 +28,7 @@ key = "I"
 xinput = true
 pass_when_empty = true
 
-# RB + left: the armour of the keshin (summoned first when it is not out), then the technique kept under the armour
+# RB + left: the armour of the keshin as its own transformation (no summon first); while it is worn the arrow is empty (the keshin's technique stays on RB + down)
 [[VRFW.ExtraSlot.direct]]
 pages = ["armour"]
 pad = "RB+LEFT"
@@ -62,10 +62,10 @@ idle_only = true
 [VRFW.ExtraSlot.source]
 board_slot = 8
 team_aura = true
-board_aura_types = [0, 3, 2, 6, 5, 7]
+board_aura_types = [0, 3, 2, 6, 5]
 compatible = true
 write_aura_row = true
-types = [0, 3, 5, 7]
+types = [0, 3, 5]
 mix_types = [2, 6]
 mix_table = "MixSlot"
 team_commands = ["aura", "mix"]
@@ -75,14 +75,20 @@ default_table = "MovesetDefault"
 list_auras_out = true
 # an empty position of the technique list takes, in the match only, the move on the board slot of the same position
 list_board_fill = true
+# both slots open at the learn level of the player's first Hiper move of his learn list (the skill table, the player page and the match read this one rule)
+learn_lock = true
 
 # around the running keshin: plate 0 its armour, its own move on plate 1 while the mix slot is idle
 [VRFW.ExtraSlot.spirit]
 armour = true
-# RB + left without the keshin out: the press summons it and the armour goes on as soon as it is out
-armour_direct = true
+# the armour entry starts the armour's own armed command, keshin out or not (the game's armour equipped in a row)
+armour_kind = "direct"
 own_move = true
 inherit = true
+# The game's rule is that an armour grants no technique of its own, so the keshin's technique is greyed («Armed») while its armour is on.
+armour_blocks_spirit_move = true
+# the keshin's technique takes the keshin's own arrow while it is out (and, greyed, under its armour); the worn armour's arrow is then empty
+technique_on_spirit = true
 inherit_grace_s = 3.0
 move_hold_s = 4.0
 zone_retry_s = 2.0

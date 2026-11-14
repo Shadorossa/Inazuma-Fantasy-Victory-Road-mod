@@ -1,0 +1,9 @@
+# The moves screen's «Team set» X action (Character Reforged's skill table, key CMD_FUNC4): copy the player's set to all his teams, or his card's default set in this team.
+schema = "VRFW.menu/2"
+
+[[entry]]
+host = "CharacterReforged.skill_table.x_action"
+id = "team_set"
+text = "BetterQoL.TeamSet.Action"
+order = 100
+action = { lua = "BetterQoL.team_loadout.x_action" }

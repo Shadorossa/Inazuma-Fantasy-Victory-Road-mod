@@ -328,7 +328,7 @@ local function repair_freed_cells()
 end
 
 local repair_due = false
-VRFW.on("slot_load", function()
+VRFW.on("save:slot_load", function()
   repair_due, repair_tried = true, {}
   return nil
 end)
@@ -336,7 +336,7 @@ VRFW.on("menu:open:post", function()
   if repair_due and repair_freed_cells() then repair_due = false end
   return nil
 end)
-VRFW.on("game_reset", function()
+VRFW.on("game:reset", function()
   repair_due, repair_tried = false, {}
   return nil
 end)

@@ -1,0 +1,115 @@
+schema = "VRFW.game/2"
+
+# 1 while the option own_passives is on (set once per start by scripts\own_passives.lua), else 0: the game's custom passives stay
+[[VRFW.State]]
+key = "CharacterReforged.own_passives.on"
+
+# ------------------------------------------------------------------------------------------------ hooks
+
+[[VRFW.Hook]]
+name = "CharacterReforged.SixSensePassiveId"
+kind = "function"
+pattern = "48 89 5C 24 10 57 48 83 EC 20 8B DA 48 8B F9 85 D2 74 71 8B C2 C1 E8 0C 83 E0 0F 83 F8 0D 73 64 8B D0 48 8B 05 ?? ?? ?? ?? 48 8B 88 D8 69 00 00 48 8B 4C D1 08 48 85 C9 74 4A"
+alt = ["89 54 24 10 53 48 83 EC 20 48 8B D9 48 8D 54 24 38 48 8B 0D ?? ?? ?? ?? 48 8B 89 ?? ?? ?? ?? E8 ?? ?? ?? ?? 48 85 C0 74 ?? 48 8B 48 08 8B 01 25 00 F0 00 00 3D 00 60 00 00"]
+rva = 0xE7B390
+steal = 17
+arguments = ["ptr", "u32"]
+returns = "ptr"
+
+[[VRFW.Hook.answer]]
+value = "0"
+when = { state = "vrfw.passive.all_off", equals = 1 }
+write = "[args[1]]:u32"
+
+# the own passive of the player's card (key: chara_param id)
+[[VRFW.Hook.answer]]
+table = "CharacterReforged.OwnPassive"
+key = ["[record(args[2]) + 4]:u32"]
+write = "[args[1]]:u32"
+
+# no own passive: the slot is empty whatever item the save holds there (option off: the game's custom passive answers)
+[[VRFW.Hook.answer]]
+value = "0"
+when = [{ value = "args[2]", not = 0 }, { state = "CharacterReforged.own_passives.on", equals = 1 }]
+write = "[args[1]]:u32"
+
+[[VRFW.Hook]]
+name = "CharacterReforged.SixSensePieceOpen"
+kind = "function"
+pattern = "48 89 5C 24 08 66 89 54 24 10 55 56 57 41 54 41 55 41 56 41 57 48 83 EC 20 48 8B ?? ?? ?? ?? ?? 4C 8D 44 24 68 48 8B ?? C7 44 24 68 D7 9B 55 0D"
+rva = 0x165EBF0
+steal = 21
+arguments = ["ptr"]
+returns = "u8"
+
+# first: in a mode without player passives the piece counts as closed
+[[VRFW.Hook.answer]]
+value = "0"
+when = { state = "vrfw.passive.all_off", equals = 1 }
+
+[[VRFW.Hook.answer]]
+table = "CharacterReforged.AlwaysOpen"
+key = ["[record([args[1]]:u32) + 4]:u32"]
+
+[[VRFW.Hook]]
+name = "CharacterReforged.GroupPassiveId"
+kind = "function"
+pattern = "48 89 5C 24 18 48 89 6C 24 20 89 54 24 10 56 57 41 56 48 83 EC 30 33 DB 41 0F B6 E9 41 0F B6 F0 8B FA 4C 8B F1 85 D2 75 07 89 19 E9 ?? ?? ?? ?? 40 80 FE 05 0F 85"
+rva = 0xE833E0
+steal = 14
+arguments = ["ptr", "u32", "u8", "u8"]
+returns = "ptr"
+
+# first: in a mode without player passives the slot is empty for every player
+[[VRFW.Hook.answer]]
+value = "0"
+when = [{ value = "mask(args[3], 0xFF)", equals = 5 }, { state = "vrfw.passive.all_off", equals = 1 }]
+write = "[args[1]]:u32"
+
+# a mode's own passive (the framework's Passive.Signature* tables, as its reader of the slot answers them)
+[[VRFW.Hook.answer]]
+table = "*/Passive.SignatureSlot"
+key = ["slot", "[record(args[2]) + 4]:u32"]
+when = { value = "mask(args[3], 0xFF)", equals = 5 }
+write = "[args[1]]:u32"
+
+[[VRFW.Hook.answer]]
+table = "*/Passive.SignatureOnly"
+key = ["slot"]
+when = { value = "mask(args[3], 0xFF)", equals = 5 }
+write = "[args[1]]:u32"
+
+# the own passive of the player's card (key: chara_param id)
+[[VRFW.Hook.answer]]
+table = "CharacterReforged.OwnPassive"
+key = ["[record(args[2]) + 4]:u32"]
+when = { value = "mask(args[3], 0xFF)", equals = 5 }
+write = "[args[1]]:u32"
+
+# no own passive: the slot is empty whatever item the save holds there (option off: the game's custom passive answers)
+[[VRFW.Hook.answer]]
+value = "0"
+when = [{ value = "mask(args[3], 0xFF)", equals = 5 }, { state = "CharacterReforged.own_passives.on", equals = 1 }]
+write = "[args[1]]:u32"
+
+# ------------------------------------------------------------------------------------------------ commands
+
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_OWN_PASSIVE"
+handler = "CharacterReforged.Cmd.OwnPassive"
+
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_CARD_LOOK"
+handler = "CharacterReforged.Cmd.CardLook"
+
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_PASSIVE_ICON"
+handler = "CharacterReforged.Cmd.PassiveIcon"
+
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_PASSIVE_SAGA"
+handler = "CharacterReforged.Cmd.PassiveSaga"
+
+[[VRFW.Command]]
+name = "CMND_CHARACTERREFORGED_ELEMENT_ICON"
+handler = "CharacterReforged.Cmd.ElementIcon"

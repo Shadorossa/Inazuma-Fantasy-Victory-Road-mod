@@ -10,9 +10,11 @@ local function info(text) VRFW.log("level_sync: " .. text) end
 local function warn(text) VRFW.warn("level_sync: " .. text) end
 
 local TABLE_RAISE, TABLE_CAP = "VRFW.LevelSync.Raise", "VRFW.LevelSync.Cap"
+-- The card level tables only hold the rules whose moves come from the synced level.
+local TABLE_CARD_RAISE, TABLE_CARD_CAP = "VRFW.LevelSync.CardRaise", "VRFW.LevelSync.CardCap"
 local STATE_KEY = "VRFW.level_sync.request"
-local HOOKS = { "LevelSync.MatchRequest", "LevelSync.StatLevel" }
--- the game's reads of the level a screen shows; the stats and the moves never go through them
+local HOOKS = { "LevelSync.MatchRequest", "LevelSync.MatchCopyLevel", "LevelSync.StatusLevel" }
+-- The game's reads of the level a screen shows for the saved cards, whose own level is not changed.
 local SHOWN_HOOKS = { "LevelSync.ShownTeamLevel", "LevelSync.ShownCharaInfo", "LevelSync.ShownMainStatus",
   "LevelSync.ShownDetailStatus", "LevelSync.ShownUseChara", "LevelSync.ShownCharaCard" }
 
@@ -59,7 +61,7 @@ local function load_rules()
           if had then
             warn(string.format("%s: %s already synced by %s: left out for it", d.where, pair_text(game, row), had.key))
           else
-            RULES[k] = { game = game, row = row, level = v.level, raise = v.raise ~= false, key = d.key }
+            RULES[k] = { game = game, row = row, level = v.level, raise = v.raise ~= false, saved_moves = v.moves == "saved", key = d.key }
             count = count + 1
           end
         end
@@ -75,8 +77,8 @@ end
 local function describe()
   local parts = {}
   for _, r in pairs(RULES) do
-    parts[#parts + 1] = string.format("%s = Nv. %d (%s, %s)", pair_text(r.game, r.row), r.level,
-      r.raise and "every player" or "players above it", r.key)
+    parts[#parts + 1] = string.format("%s = Nv. %d (%s, %s, %s)", pair_text(r.game, r.row), r.level,
+      r.raise and "every player" or "players above it", r.saved_moves and "saved moves" or "moves of the level", r.key)
   end
   table.sort(parts)
   return table.concat(parts, "; ")
@@ -103,13 +105,14 @@ local function clear(why)
   if rule_of(game, row) then info(string.format("%s: sync off (%s)", pair_text(game, row), why)) end
 end
 
-VRFW.on("match_start", function()
+VRFW.on("match:start", function()
   if not LIVE then return end
   local row, game = request()
   local r = row ~= nil and rule_of(game, row)
   if r then
-    info(string.format("this match (%s): the user's players play at Nv. %d%s (%s); their moves stay as they are",
-      pair_text(game, row), r.level, r.raise and "" or " (only the players above it)", r.key))
+    info(string.format("this match (%s): the user's players play with the stats of Nv. %d%s (%s); moves and board of %s",
+      pair_text(game, row), r.level, r.raise and "" or " (only the players above it)", r.key,
+      r.saved_moves and "their saved cards" or "that level"))
   elseif row ~= nil then
     info(string.format("this match (request game %s, difficulty %d): no rule: the user's players play at their own levels",
       hex(game), row))
@@ -118,20 +121,23 @@ VRFW.on("match_start", function()
   end
 end)
 
-VRFW.on("match_end", function() clear("match end") end)
-VRFW.on("game_reset", function() clear("title return") end)
+VRFW.on("match:end", function() clear("match end") end)
+VRFW.on("game:reset", function() clear("title return") end)
 
 local function start()
   if load_rules() == 0 then return end
   for _, r in pairs(RULES) do
-    local name = r.raise and TABLE_RAISE or TABLE_CAP
-    local ok, err = pcall(VRFW.native.table_set, name, { r.game, r.row }, r.level)
-    if not ok then
-      warn(string.format("table %s: %s not written (%s): no level sync", name, pair_text(r.game, r.row), tostring(err)))
-      return
+    local names = { r.raise and TABLE_RAISE or TABLE_CAP }
+    if not r.saved_moves then names[2] = r.raise and TABLE_CARD_RAISE or TABLE_CARD_CAP end
+    for _, name in ipairs(names) do
+      local ok, err = pcall(VRFW.native.table_set, name, { r.game, r.row }, r.level)
+      if not ok then
+        warn(string.format("table %s: %s not written (%s): no level sync", name, pair_text(r.game, r.row), tostring(err)))
+        return
+      end
     end
   end
-  local block = VRFW.memory.buffer("level_sync_request", 8)
+  local block = VRFW.memory.buffer("level_sync_request", 16)
   local okb = block ~= nil
   if not okb or type(block) ~= "number" or not pcall(VRFW.state.set, STATE_KEY, block) then
     warn("the request block is not set up: no level sync")

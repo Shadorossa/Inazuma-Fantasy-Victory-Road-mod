@@ -1,0 +1,9 @@
+schema = "VRFW.game/2"
+# Aura Reworked › banner trace (diagnostics): which menus / layers the game opens and fills during the ~2 s after an
+# aura command (keshin, armour, miximax, soul) runs. scripts\banner_trace.lua opens the window and logs the menu opens;
+# assets\lua\_all\aura_banner_trace.lua logs each menu VM's layer / text / texture calls while it is open.
+
+# CMND_AURAOVERHAUL_BANNER_TRACE() -> frames left in the window (0 = closed), window number
+[[VRFW.Command]]
+name = "CMND_AURAOVERHAUL_BANNER_TRACE"
+handler = "AuraOverhaul.BannerTrace.Window"

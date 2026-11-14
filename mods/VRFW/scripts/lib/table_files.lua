@@ -1,4 +1,4 @@
--- VRFW.table_files: the game's table files as a script reads them (any mod's scripts; read VRFW.table_files.<name>).
+-- Advanced: VRFW.table_files: the game's table files as a script reads them (any mod's scripts; read VRFW.table_files.<name>).
 
 local GAMEDATA = "data/common/gamedata/"
 
@@ -13,7 +13,7 @@ local M = {
 
 local KEYS = {}   -- stem -> the key answered
 
---- The file key of table stem `stem`; nil when unknown.
+--- Advanced: The file key of table stem `stem`; nil when unknown.
 function M.file_name(stem)
   local known = KEYS[stem]
   if known ~= nil then
@@ -28,7 +28,7 @@ function M.file_name(stem)
   return key
 end
 
---- The rows of list `list` of table `id` by column `names`: rows, column places.
+--- Advanced: The rows of list `list` of table `id` by column `names`: rows, column places.
 function M.read(id, list, names)
   if type(VRFW.table) ~= "table" or type(VRFW.table.raw) ~= "function" then return nil, "no table service" end
   local okc, cols = pcall(VRFW.table.columns, id)
@@ -55,10 +55,10 @@ local _, warn = VRFW.logger("table_files")
 local u32 = Id.unsigned
 local GAMES = nil
 
-local function games()
-  if GAMES then return GAMES end
-  GAMES = {}
-  local ok, err = pcall(function()
+-- [game id] = { [difficulty] = team, first = team, levels = { [difficulty] = level } } of soccer_game_info
+local function read_games()
+  local out = {}
+  do
     local key = VRFW.table.source("soccer/soccer_game_info")
     local cur, slices, diffs, order = nil, {}, {}, {}
     for _, e in ipairs(VRFW.table.entries(key, { "SOCCER_GAME_INFO", "SOCCER_GAME_INFO_REF_DIFFICULTY",
@@ -83,14 +83,31 @@ local function games()
           end
         end
       end
-      GAMES[g] = t
+      out[g] = t
     end
-  end)
-  if not ok then warn("soccer_game_info not readable (" .. tostring(err) .. ")") end
+  end
+  return out
+end
+
+-- the games' table, built once per VM and kept between starts (it is game data only)
+local function games()
+  if GAMES then return GAMES end
+  local ok, t = pcall(VRFW.derived, "soccer_game_rows", nil, read_games)
+  if ok and type(t) == "table" then
+    GAMES = t
+  else
+    GAMES = {}
+    warn("soccer_game_info not readable (" .. tostring(t) .. ")")
+  end
   return GAMES
 end
 
---- The team of game `game` at `difficulty`; nil when none.
+--- Internal: Builds (or reads from the start cache) the games' table; a script calls it at load so a match call stays short.
+function M.prepare_games()
+  games()
+end
+
+--- Advanced: The team of game `game` at `difficulty`; nil when none.
 function M.team(game, difficulty)
   local t = games()[u32(game or 0)]
   if t then
@@ -100,7 +117,7 @@ function M.team(game, difficulty)
   return 0, "none"
 end
 
---- The level of game `game` at `difficulty`; nil when none.
+--- Internal: The level of game `game` at `difficulty`; nil when none.
 function M.level(game, difficulty)
   local t = games()[u32(game or 0)]
   local l = t and t.levels[difficulty]

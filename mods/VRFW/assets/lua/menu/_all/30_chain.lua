@@ -27,10 +27,11 @@ if VRFW.chain == nil then
     debug_all_cache = nil,         -- [debug] all_chains, read once per VM (CH.debug_all)
     bad_state = {},
   }
+  --- Internal: Namespace: the chain menu helpers (rewards, nodes, items and hubs).
   VRFW.chain = CH
 
   local logger
-  --- Logs through the chain logger.
+  --- Internal: Logs through the chain logger.
   function CH.log(...)
     logger = logger or VRFW.logger.new("chain")
     logger(...)
@@ -58,7 +59,7 @@ if VRFW.chain == nil then
     return out
   end
 
-  --- The rank rewards decoded from `enc` with the names in `names`.
+  --- Internal: The rank rewards decoded from `enc` with the names in `names`.
   function CH.parse_rank_rewards(enc, names)
     local out, nm = {}, {}
     for x in string.gmatch((names or "") .. "|", "([^|]*)|") do
@@ -74,7 +75,7 @@ if VRFW.chain == nil then
     return out
   end
 
-  --- Board i as a table, read once; nil when there is none.
+  --- Internal: Board i as a table, read once; nil when there is none.
   function CH.board(i)
     if type(i) ~= "number" or i < 0 then
       return nil
@@ -113,7 +114,7 @@ if VRFW.chain == nil then
     return b
   end
 
-  --- The board and slot of a board piece; nil when the piece has none.
+  --- Internal: The board and slot of a board piece; nil when the piece has none.
   function CH.of_piece(piece)
     local i, slot = VRFW.host.command(CH.CMD.OF_PIECE, piece)
     if type(i) ~= "number" or i < 0 then
@@ -122,7 +123,7 @@ if VRFW.chain == nil then
     return CH.board(i), slot
   end
 
-  --- The tile-state text of board b from the save.
+  --- Internal: The tile-state text of board b from the save.
   function CH.state(b)
     local s = VRFW.host.command(CH.SAVE_GET, CH.OWNER, "chain." .. b.key, "")
     if type(s) ~= "string" then
@@ -138,7 +139,7 @@ if VRFW.chain == nil then
     return s
   end
 
-  --- The state letter of tile t ("s" for the start tile).
+  --- Internal: The state letter of tile t ("s" for the start tile).
   function CH.tile_state(b, t)
     if t == b.start then
       return "s"
@@ -152,12 +153,12 @@ if VRFW.chain == nil then
     pcall(funcLuaCommand, CH.SAVE_SET, CH.OWNER, "chain." .. b.key, s, 1)
   end
 
-  --- True when tile t is no longer closed.
+  --- Internal: True when tile t is no longer closed.
   function CH.done(b, t)
     return CH.tile_state(b, t) ~= "0"
   end
 
-  --- The tiles of the branch that leads to tile t.
+  --- Internal: The tiles of the branch that leads to tile t.
   function CH.branch(b, t)
     local seen, todo, out = {[t] = true, [b.start] = true}, {t}, {}
     while #todo > 0 do
@@ -198,17 +199,17 @@ if VRFW.chain == nil then
     return #ms > 0
   end
 
-  --- An S chest (IE3's "S" chest) is ready once every match of its branch is won with S.
+  --- Internal: An S chest (IE3's "S" chest) is ready once every match of its branch is won with S.
   function CH.s_ready(b, t)
     return branch_at_least(b, t, tier_need("S"))
   end
 
-  --- a double chest's A tier is ready once every match of its branch is won with A or better.
+  --- Internal: a double chest's A tier is ready once every match of its branch is won with A or better.
   function CH.a_ready(b, t)
     return branch_at_least(b, t, tier_need("A"))
   end
 
-  --- What the player has towards one requirement of a blocked tile, and whether it is met.
+  --- Internal: What the player has towards one requirement of a blocked tile, and whether it is met.
   function CH.req_have(r)
     if r.kind == "win" then
       return CH.team_wins(r.value)
@@ -223,13 +224,13 @@ if VRFW.chain == nil then
     return 0   -- a kind this build does not know is never met
   end
 
-  --- True when requirement r is met.
+  --- Internal: True when requirement r is met.
   function CH.req_met(r)
     local need = r.kind == "team_level" and (tonumber(r.value) or 1) or 1
     return CH.req_have(r) >= need
   end
 
-  --- Every requirement of blocked tile t met.
+  --- Internal: Every requirement of blocked tile t met.
   function CH.unblocked(b, t)
     local reqs = b.tiles[t].requires or {}
     for _, r in ipairs(reqs) do
@@ -250,7 +251,7 @@ if VRFW.chain == nil then
     return false
   end
 
-  --- Opens every tile whose requirements are now met; answers the tiles opened.
+  --- Internal: Opens every tile whose requirements are now met; answers the tiles opened.
   function CH.sync(b)
     local opened = {}
     local again = true
@@ -268,13 +269,13 @@ if VRFW.chain == nil then
     return opened
   end
 
-  --- True when double chest t has no reward left.
+  --- Internal: True when double chest t has no reward left.
   function CH.d_chest_empty(b, t)
     local tile = b.tiles[t]
     return tile ~= nil and tile.kind == "dchest" and tile.reward == "" and (tile.sreward or "") == "" and (tile.areward or "") == ""
   end
 
-  --- True when the all_chains debug switch is on (read once).
+  --- Internal: True when the all_chains debug switch is on (read once).
   function CH.debug_all()
     if CH.debug_all_cache == nil then
       local v = VRFW.host.command(CH.DEBUG_SWITCH, "all_chains")
@@ -286,7 +287,7 @@ if VRFW.chain == nil then
     return CH.debug_all_cache
   end
 
-  --- Opens tile t; answers true when it is open, false when it cannot be.
+  --- Internal: Opens tile t; answers true when it is open, false when it cannot be.
   function CH.open(b, t)
     if CH.done(b, t) then
       return true
@@ -328,7 +329,7 @@ if VRFW.chain == nil then
     pcall(funcLuaCommand, CH.SAVE_SET, CH.OWNER, "chain." .. b.key .. ".ranks", table.concat(parts, ";"), 1)
   end
 
-  --- The rank Id of a won match tile (nil = not won).
+  --- Internal: The rank Id of a won match tile (nil = not won).
   function CH.rank_id(b, t)
     local c = CH.tile_state(b, t)
     if c == "r" then
@@ -341,7 +342,7 @@ if VRFW.chain == nil then
     return nil
   end
 
-  --- The rank order of tile t; 0 when it was not won.
+  --- Internal: The rank order of tile t; 0 when it was not won.
   function CH.rank(b, t)
     local id = CH.rank_id(b, t)
     if id == nil then
@@ -375,7 +376,7 @@ if VRFW.chain == nil then
     return VRFW.stats
   end
 
-  --- Records the win of match tile t at `rank`; answers the previous rank Id.
+  --- Internal: Records the win of match tile t at `rank`; answers the previous rank Id.
   function CH.win(b, t, rank)
     local id = rank
     if type(rank) ~= "string" then
@@ -429,7 +430,7 @@ if VRFW.chain == nil then
     return base, a, s
   end
 
-  --- Opens chest t; answers its state letter afterwards.
+  --- Internal: Opens chest t; answers its state letter afterwards.
   function CH.open_chest(b, t)
     local tile = b.tiles[t]
     if tile.kind == "dchest" then
@@ -455,7 +456,7 @@ if VRFW.chain == nil then
     return CH.tile_state(b, t)
   end
 
-  --- True when double chest t can be opened now; answers the reward tiers that are ready.
+  --- Internal: True when double chest t can be opened now; answers the reward tiers that are ready.
   function CH.d_chest_ready(b, t)
     if not CH.open(b, t) or CH.d_chest_empty(b, t) then
       return false
@@ -474,19 +475,23 @@ if VRFW.chain == nil then
     return base
   end
 
-  --- Which tier double chest t waits for: "a" or "s".
+  --- Internal: Which tier double chest t waits for: "a" or "s".
   function CH.d_chest_waits(b, t)
     local tile = b.tiles[t]
     local _, a = dchest_left(tile, CH.tile_state(b, t))
     return a and "a" or "s"
   end
 
+  --- Internal: command hash asking whether the bag has room for (item, n).
   CH.ITEM_FITS = 765340069     -- (item, n) -> the bag has room
+  --- Internal: retail command counting how many of an item the player has.
   CH.ITEM_NUM = VRFW.commands.GET_ITEM_NUM     -- (item, false) -> how many the player has
+  --- Internal: retail command adding an item (item, n) without a window.
   CH.ITEM_ADD = VRFW.commands.ADD_ITEM_ONLY     -- (item, n): no window (the screen shows the retail one)
+  --- Internal: retail command that triggers the auto save.
   CH.AUTO_SAVE = VRFW.commands.SYSTEM_AUTO_SAVE
 
-  --- The rewards of tile t, of `tier` for a double chest.
+  --- Internal: The rewards of tile t, of `tier` for a double chest.
   function CH.rewards(b, t, tier)
     local out = {}
     local tile = b.tiles[t]
@@ -525,7 +530,7 @@ if VRFW.chain == nil then
     return m
   end
 
-  --- Chest t's rewards already given in this save.
+  --- Internal: Chest t's rewards already given in this save.
   function CH.paid(b, t)
     return paid_set(b)[b.tiles[t].id] == true
   end
@@ -555,7 +560,7 @@ if VRFW.chain == nil then
     return out
   end
 
-  --- The opened chests of board b whose rewards were never given.
+  --- Internal: The opened chests of board b whose rewards were never given.
   function CH.unpaid(b)
     local out, m = {}, nil
     for t, tile in ipairs(b.tiles) do
@@ -585,7 +590,7 @@ if VRFW.chain == nil then
     return one_copy and "owned" or "full"
   end
 
-  --- Give opened chest t's rewards once; answers the rewards given (nil, why when it waits) and how many were already owned.
+  --- Internal: Give opened chest t's rewards once; answers the rewards given (nil, why when it waits) and how many were already owned.
   function CH.pay(b, t)
     local tile = b.tiles[t]
     if tile == nil or (tile.kind ~= "chest" and tile.kind ~= "schest" and tile.kind ~= "dchest") or CH.tile_state(b, t) == "0" then
@@ -682,7 +687,7 @@ if VRFW.chain == nil then
     return VRFW.match_rank ~= nil and VRFW.match_rank.order(id) or (({B = 1, A = 2, S = 3})[id] or 0)
   end
 
-  --- The rank rewards of match tile t.
+  --- Internal: The rank rewards of match tile t.
   function CH.rank_rewards(b, t)
     local tile = b.tiles[t]
     local out = {}
@@ -710,7 +715,7 @@ if VRFW.chain == nil then
     return out
   end
 
-  --- The match tiles of board b with earned rank rewards never given (a full bag at the win).
+  --- Internal: The match tiles of board b with earned rank rewards never given (a full bag at the win).
   function CH.rank_unpaid(b)
     local out = {}
     for t, tile in ipairs(b.tiles) do
@@ -721,7 +726,7 @@ if VRFW.chain == nil then
     return out
   end
 
-  --- Give tile t's earned rank rewards once; answers the rewards given, or nil, "full".
+  --- Internal: Give tile t's earned rank rewards once; answers the rewards given, or nil, "full".
   function CH.pay_rank(b, t, save)
     local tile = b.tiles[t]
     local due = rank_due(b, t)
@@ -763,13 +768,13 @@ if VRFW.chain == nil then
     return given
   end
 
-  --- The stored news text of board b; "" when there is none.
+  --- Internal: The stored news text of board b; "" when there is none.
   function CH.news_text(b)
     local s = VRFW.host.command(CH.SAVE_GET, CH.OWNER, "chain." .. b.key .. ".news", "")
     return type(s) == "string" and s or ""
   end
 
-  --- The news of board b as a list of {id, count}.
+  --- Internal: The news of board b as a list of {id, count}.
   function CH.news(b)
     local out = {}
     for id, n in string.gmatch(CH.news_text(b), "(%d+):(%d+)") do
@@ -778,12 +783,12 @@ if VRFW.chain == nil then
     return out
   end
 
-  --- Clears the news of board b.
+  --- Internal: Clears the news of board b.
   function CH.clear_news(b)
     pcall(funcLuaCommand, CH.SAVE_SET, CH.OWNER, "chain." .. b.key .. ".news", "", 0)
   end
 
-  --- Every match tile won.
+  --- Internal: Every match tile won.
   function CH.complete(b)
     for t, tile in ipairs(b.tiles) do
       if tile.kind == "match" and CH.rank(b, t) == 0 then
@@ -793,7 +798,7 @@ if VRFW.chain == nil then
     return b.matches > 0
   end
 
-  --- The average rank Id of a complete board; nil while it is not complete.
+  --- Internal: The average rank Id of a complete board; nil while it is not complete.
   function CH.average(b)
     if not CH.complete(b) then
       return nil
@@ -810,7 +815,7 @@ if VRFW.chain == nil then
     return VRFW.match_rank.for_order(sum / n)
   end
 
-  --- The number of won match tiles of a board.
+  --- Internal: The number of won match tiles of a board.
   function CH.won(b)
     local n = 0
     for t, tile in ipairs(b.tiles) do
@@ -821,11 +826,12 @@ if VRFW.chain == nil then
     return n
   end
 
-  --- The boards of the chain hub whose node has save slot `slot`, in the hub's order (nil = not a hub).
+  --- Internal: The boards of the chain hub whose node has save slot `slot`, in the hub's order (nil = not a hub).
   function CH.hub(slot)
     if type(slot) ~= "number" then
       return nil
     end
+    --- Internal: cache of the hub node data per slot.
     CH.hubs = CH.hubs or {}
     if CH.hubs[slot] ~= nil then
       return CH.hubs[slot] or nil
@@ -852,7 +858,7 @@ if VRFW.chain == nil then
     return CH.hubs[slot] or nil
   end
 
-  --- Every chain of a hub complete.
+  --- Internal: Every chain of a hub complete.
   function CH.hub_complete(boards)
     for _, b in ipairs(boards) do
       if not CH.complete(b) then
@@ -862,7 +868,7 @@ if VRFW.chain == nil then
     return #boards > 0
   end
 
-  --- The average rank Id of a complete hub; nil while it is not complete.
+  --- Internal: The average rank Id of a complete hub; nil while it is not complete.
   function CH.hub_average(boards)
     if not CH.hub_complete(boards) or VRFW.match_rank == nil then
       return nil
@@ -876,12 +882,12 @@ if VRFW.chain == nil then
     return VRFW.match_rank.for_order(sum / #boards)
   end
 
-  --- Stores the board tile and slot of the match about to start.
+  --- Internal: Stores the board tile and slot of the match about to start.
   function CH.set_pending(b, t, slot)
     pcall(funcLuaCommand, CH.SAVE_SET, CH.OWNER, CH.PENDING, b.key .. "|" .. tostring(t) .. "|" .. tostring(slot or -1), 0)
   end
 
-  --- Chain key, tile, opener's slot of the match started from a board (nil = none).
+  --- Internal: Chain key, tile, opener's slot of the match started from a board (nil = none).
   function CH.pending()
     local s = VRFW.host.command(CH.SAVE_GET, CH.OWNER, CH.PENDING, "")
     if type(s) ~= "string" or s == "" then
@@ -894,12 +900,12 @@ if VRFW.chain == nil then
     return k, tonumber(t), tonumber(slot)
   end
 
-  --- Clears the stored pending match.
+  --- Internal: Clears the stored pending match.
   function CH.clear_pending()
     pcall(funcLuaCommand, CH.SAVE_SET, CH.OWNER, CH.PENDING, "", 0)
   end
 
-  --- The board table of chain key `key` (nil = none).
+  --- Internal: The board table of chain key `key` (nil = none).
   function CH.by_key(key)
     local n = VRFW.host.command(CH.CMD.COUNT)
     if type(n) ~= "number" then
@@ -914,7 +920,7 @@ if VRFW.chain == nil then
     return nil
   end
 
-  --- The wins against `team`.
+  --- Internal: The wins against `team`.
   function CH.team_wins(team)
     if stats() ~= nil then
       return VRFW.stats.wins_against(team)
@@ -932,7 +938,7 @@ if VRFW.chain == nil then
     return n
   end
 
-  --- The wins against tile t's team; 0 when t is no match.
+  --- Internal: The wins against tile t's team; 0 when t is no match.
   function CH.wins_against(b, t)
     local tile = b.tiles[t]
     if tile == nil or tile.kind ~= "match" then

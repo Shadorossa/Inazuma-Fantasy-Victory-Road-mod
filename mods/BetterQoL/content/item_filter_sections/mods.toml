@@ -1,0 +1,12 @@
+schema = "VRFW.item_filter_section/1"
+
+# The equipment shop's filter window gets a Mods tab: one row for the game's items and one per mod that adds items.
+[[VRFW.ItemFilterSection]]
+name = "mods"
+window = "equipment"
+menus = ["shop_menu"]
+text = "BetterQoL.filter_tab_mods"
+icon = "icon_list_tab_activity04"
+symbol = "filter_symbol06"
+serve = "CMND_BETTERQOL_ITEM_FILTER"
+rows = [{ each = "mods" }]

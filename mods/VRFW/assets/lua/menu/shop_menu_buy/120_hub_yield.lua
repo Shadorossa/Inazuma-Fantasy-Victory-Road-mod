@@ -4,6 +4,7 @@ if VRFW.host ~= nil then
   local MARKET = 839500579           -- market_menu
   local BG = 717014739               -- shop01_00_background: its close = the shop is going
   local HY = {hub = nil, on = false}
+  --- Internal: state of the shop hub yield.
   VRFW.shop_hub_yield = HY
 
   local Log = VRFW.logger.new("vrfw.ShopHubYield")
@@ -25,6 +26,7 @@ if VRFW.host ~= nil then
       end
       HY.hub = parent
     end
+    --- Internal: true while the shop yields the hub.
     HY.on = on
     if HY.hub == nil then
       return

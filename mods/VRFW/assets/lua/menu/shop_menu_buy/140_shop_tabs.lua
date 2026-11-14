@@ -24,6 +24,7 @@ if VRFW.host ~= nil then
   local MARK = 0x56540000
 
   local ST = { bound = false, shop = 0, split = 0, first = 0, tabs = {} }
+  --- Internal: state of the shop tabs.
   VRFW.shop_tabs = ST
 
   local Log = VRFW.logger.new("vrfw.ShopTabs")
@@ -52,6 +53,7 @@ if VRFW.host ~= nil then
   -- the ids of the shops declared by key (once per menu)
   local function bind()
     if ST.bound then return end
+    --- Internal: true once the tab commands are read.
     ST.bound = true
     local r = table.pack(VRFW.host.command(CMD.TAB_KEYS))
     if type(r[1]) ~= "number" then return end
@@ -68,10 +70,12 @@ if VRFW.host ~= nil then
   local function load_tabs()
     ST.split, ST.tabs = 0, {}
     local okid, shop = pcall(GetShopId)
+    --- Internal: id of the open shop.
     ST.shop = okid and unsigned(shop) or 0
     if ST.shop == 0 then return end
     local r = table.pack(VRFW.host.command(CMD.TABS, ST.shop))
     if type(r[1]) ~= "number" or r[1] == 0 or type(r[2]) ~= "number" then return end
+    --- Internal: tab split index, 0 when none.
     ST.split = r[1]
     for k = 1, r[2] do
       ST.tabs[k] = { icon = r[1 + 2 * k], text = r[2 + 2 * k] }
@@ -86,6 +90,7 @@ if VRFW.host ~= nil then
   on("SetupSlotInfo", "around", function(nxt, n, list)
     bind()
     load_tabs()
+    --- Internal: first tab index.
     ST.first = 0
     if ST.split == 0 or type(list) ~= "table" or #ST.tabs < 2 then
       return nxt(n, list)

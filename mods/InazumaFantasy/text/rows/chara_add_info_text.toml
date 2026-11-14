@@ -1,15 +1,15 @@
 schema = "VRFW.text/2"
-# Name of the «Inazuma Eleven Fantasy» character series, added at the end of the list.
+# Name of the «Inazuma Fantasy» (the bank tab's title) character series, added at the end of the list.
 
 [[row]]
-id = 0x790903A3  # Inazuma Eleven Fantasy
+id = 0x790903A3  # Inazuma Fantasy
 kind = "noun"
-es = "Inazuma Eleven Fantasy"
-en = "Inazuma Eleven Fantasy"
-fr = "Inazuma Eleven Fantasy"
-de = "Inazuma Eleven Fantasy"
-it = "Inazuma Eleven Fantasy"
-pt = "Inazuma Eleven Fantasy"
+es = "Inazuma Fantasy"
+en = "Inazuma Fantasy"
+fr = "Inazuma Fantasy"
+de = "Inazuma Fantasy"
+it = "Inazuma Fantasy"
+pt = "Inazuma Fantasy"
 ja = "イナズマイレブン ファンタジー"
 zh_hans = "闪电十一人 Fantasy"
 zh_hant = "閃電十一人 Fantasy"

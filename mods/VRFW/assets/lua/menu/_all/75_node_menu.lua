@@ -47,9 +47,10 @@ if VRFW.node_menu == nil then
     cache = {},                      -- save slot -> its rows menu or false (N.MenuOfSlot)
     providers = VRFW.node_menu_providers,
   }
+  --- Internal: Namespace of the route node menu: builds the node's menu rows and answers the game's route menu commands.
   VRFW.node_menu = N
 
-  --- Logs through the node-menu tag.
+  --- Internal: Logs through the node-menu tag.
   function N.log(...)
     if PRINT ~= nil then
       pcall(PRINT, "VRFW.node_menu", ...)
@@ -65,7 +66,7 @@ if VRFW.node_menu == nil then
     return type(fn) == "function" and fn or nil
   end
 
-  --- The service node of board piece idx: handler, node, key; nil when there is none.
+  --- Internal: The service node of board piece idx: handler, node, key; nil when there is none.
   function N.of(idx)
     if idx == nil or idx < 0 or (VRFW.route_nodes == nil or VRFW.route_nodes.load == nil) then
       return nil
@@ -88,7 +89,7 @@ if VRFW.node_menu == nil then
     return m.handler, m.node, m.key
   end
 
-  --- True when idx is a service node.
+  --- Internal: True when idx is a service node.
   function N.is_piece(idx)
     return N.of(idx) ~= nil
   end
@@ -160,7 +161,7 @@ if VRFW.node_menu == nil then
     return nil
   end
 
-  --- The rows menu of a piece's save slot: a service's (the providers) or a declared node's; nil = none.
+  --- Internal: The rows menu of a piece's save slot: a service's (the providers) or a declared node's; nil = none.
   function N.menu_of_slot(slot)
     if type(slot) ~= "number" then
       return nil
@@ -183,7 +184,7 @@ if VRFW.node_menu == nil then
     return menu or nil
   end
 
-  --- Runs the piece's handler; answers true when it ran.
+  --- Internal: Runs the piece's handler; answers true when it ran.
   function N.open_piece(idx)
     local handler, node, key = N.of(idx)
     if handler == nil then
@@ -218,8 +219,9 @@ if VRFW.node_menu == nil then
     return N.menu_of_slot(slot), slot
   end
 
-  --- The command menu's rows of a rows node (route_board's VRFW.route_board_commands.rows default); nil = not one.
+  --- Internal: The command menu's rows of a rows node (route_board's VRFW.route_board_commands.rows default); nil = not one.
   function N.rows_for(slot, rows)
+    --- Internal: cache of the node menu built for the current slot.
     N.cache = {}
     local menu = N.menu_of_slot(slot)
     if menu == nil or #menu.rows == 0 then
@@ -265,7 +267,7 @@ if VRFW.node_menu == nil then
     end
   end
 
-  --- Fills a row of the command menu.
+  --- Internal: Fills a row of the command menu.
   function N.setup_row(layer, inst, menu)
     local row = menu.rows[inst + 1]
     if row == nil then
@@ -364,6 +366,7 @@ if VRFW.node_menu == nil then
       return nxt(...)
     end
     local game = VRFW.route_board_commands.L.n4
+    --- Internal: Game's own value of the row's route board command, restored after the wrapped call.
     VRFW.route_board_commands.L.n4 = row.game
     local r = table.pack(pcall(nxt, ...))
     VRFW.route_board_commands.L.n4 = game
@@ -398,7 +401,7 @@ if VRFW.node_menu == nil then
     VRFW.host.on(N.MENU, "VRFW.route_board_commands.list_layer", {id = "VRFW.node_menu_place", phase = "after", fn = menu_place})
   end
 
-  --- Runs the row asked for after a menu; answers true when there was one.
+  --- Internal: Runs the row asked for after a menu; answers true when there was one.
   function N.after_menu(idx)
     if not VRFW.param.has(N.REQUEST_ROW) then
       return false

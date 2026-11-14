@@ -1,6 +1,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.flow/1"
 folder = "content/flows"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Framework.Flow"
+v2_kind_folder = "Framework/Flows"
+v2_version = 1
 label = "Flow toggles"
 label_es = "Interruptores de flujo"
 doc = "A screen or flow toggle of the game: which way one of its fixed decisions goes."

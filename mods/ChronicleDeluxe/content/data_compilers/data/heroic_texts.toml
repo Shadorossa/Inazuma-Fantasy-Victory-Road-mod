@@ -1,0 +1,205 @@
+# The words of the heroic battles' player rules, read by the data compiler builder heroic_battles (Settings text_templates).
+# Build time: {g} = the series' short name, {name} = the required player, {p} = his places.
+# Shown time (filled from each challenge's TextValues): <GAME> = the series' short name, <SERIES> = its full name, <VALUE> = the minimum of players, <VALUE2> = the per-season maximum.
+languages = ["es", "en", "fr", "de", "it", "pt", "ja", "zh_hans", "zh_hant"]
+
+# What a created kit's name gets after it when another kit already has that name ({g} = the series' short name).
+[kit_name_suffix]
+es = " ({g})"
+en = " ({g})"
+fr = " ({g})"
+de = " ({g})"
+it = " ({g})"
+pt = " ({g})"
+ja = "（{g}）"
+zh_hans = "（{g}）"
+zh_hant = "（{g}）"
+
+# The formation places' abbreviations of the required player's text; `default` serves every other language.
+[places.default]
+gk = "GK"
+df = "DF"
+mf = "MF"
+fw = "FW"
+
+[places.es]
+gk = "PO"
+df = "DF"
+mf = "MC"
+fw = "DL"
+
+[templates.title_first]
+es = "Solo jugadores de <GAME>"
+en = "<GAME> players only"
+fr = "Seulement des joueurs de <GAME>"
+de = "Nur Spieler aus <GAME>"
+it = "Solo giocatori di <GAME>"
+pt = "Só jogadores de <GAME>"
+ja = "<GAME>の選手のみ"
+zh_hans = "仅限<GAME>的球员"
+zh_hant = "僅限<GAME>的球員"
+
+[templates.title]
+es = "Solo jugadores hasta <GAME> · mínimo <VALUE> de <GAME>"
+en = "Players up to <GAME> only · at least <VALUE> from <GAME>"
+fr = "Joueurs jusqu'à <GAME> · au moins <VALUE> de <GAME>"
+de = "Nur Spieler bis <GAME> · mindestens <VALUE> aus <GAME>"
+it = "Solo giocatori fino a <GAME> · almeno <VALUE> di <GAME>"
+pt = "Só jogadores até <GAME> · mínimo <VALUE> de <GAME>"
+ja = "<GAME>までの選手のみ・<GAME>の選手<VALUE>人以上"
+zh_hans = "仅限<GAME>及之前的球员·至少<VALUE>名<GAME>球员"
+zh_hant = "僅限<GAME>及之前的球員·至少<VALUE>名<GAME>球員"
+
+[templates.title_ramp]
+es = "Mínimo <VALUE> jugadores de <GAME>"
+en = "At least <VALUE> players from <GAME>"
+fr = "Au moins <VALUE> joueurs de <GAME>"
+de = "Mindestens <VALUE> Spieler aus <GAME>"
+it = "Almeno <VALUE> giocatori di <GAME>"
+pt = "Mínimo <VALUE> jogadores de <GAME>"
+ja = "<GAME>の選手<VALUE>人以上"
+zh_hans = "至少<VALUE>名<GAME>球员"
+zh_hant = "至少<VALUE>名<GAME>球員"
+
+[templates.title_ramp_one]
+es = "Mínimo <VALUE> jugador de <GAME>"
+en = "At least <VALUE> player from <GAME>"
+fr = "Au moins <VALUE> joueur de <GAME>"
+de = "Mindestens <VALUE> Spieler aus <GAME>"
+it = "Almeno <VALUE> giocatore di <GAME>"
+pt = "Mínimo <VALUE> jogador de <GAME>"
+ja = "<GAME>の選手<VALUE>人以上"
+zh_hans = "至少<VALUE>名<GAME>球员"
+zh_hant = "至少<VALUE>名<GAME>球員"
+
+[templates.title_max]
+es = "Solo jugadores hasta <GAME> · mínimo <VALUE> de <GAME> · máximo <VALUE2> por temporada"
+en = "Players up to <GAME> only · at least <VALUE> from <GAME> · at most <VALUE2> per season"
+fr = "Joueurs jusqu'à <GAME> · au moins <VALUE> de <GAME> · <VALUE2> max. par saison"
+de = "Nur Spieler bis <GAME> · mindestens <VALUE> aus <GAME> · höchstens <VALUE2> pro Staffel"
+it = "Solo giocatori fino a <GAME> · almeno <VALUE> di <GAME> · massimo <VALUE2> per stagione"
+pt = "Só jogadores até <GAME> · mínimo <VALUE> de <GAME> · máximo <VALUE2> por temporada"
+ja = "<GAME>までの選手のみ・<GAME>の選手<VALUE>人以上・各シリーズ<VALUE2>人まで"
+zh_hans = "仅限<GAME>及之前的球员·至少<VALUE>名<GAME>球员·每部作品最多<VALUE2>名"
+zh_hant = "僅限<GAME>及之前的球員·至少<VALUE>名<GAME>球員·每部作品最多<VALUE2>名"
+
+[templates.cap_first]
+es = "Todos los jugadores: de <GAME>"
+en = "Every player: from <GAME>"
+fr = "Tous les joueurs : de <GAME>"
+de = "Alle Spieler: aus <GAME>"
+it = "Tutti i giocatori: di <GAME>"
+pt = "Todos os jogadores: de <GAME>"
+ja = "全員：<GAME>の選手"
+zh_hans = "全员：<GAME>的球员"
+zh_hant = "全員：<GAME>的球員"
+
+[templates.cap]
+es = "Todos los jugadores: de <GAME> o anteriores"
+en = "Every player: from <GAME> or earlier"
+fr = "Tous les joueurs : de <GAME> ou avant"
+de = "Alle Spieler: aus <GAME> oder früher"
+it = "Tutti i giocatori: di <GAME> o precedenti"
+pt = "Todos os jogadores: de <GAME> ou anteriores"
+ja = "全員：<GAME>以前の選手"
+zh_hans = "全员：<GAME>及之前的球员"
+zh_hant = "全員：<GAME>及之前的球員"
+
+[templates.ramp]
+es = "Al menos <VALUE> jugadores de <GAME>"
+en = "At least <VALUE> players from <GAME>"
+fr = "Au moins <VALUE> joueurs de <GAME>"
+de = "Mindestens <VALUE> Spieler aus <GAME>"
+it = "Almeno <VALUE> giocatori di <GAME>"
+pt = "Pelo menos <VALUE> jogadores de <GAME>"
+ja = "<GAME>の選手<VALUE>人以上"
+zh_hans = "至少<VALUE>名<GAME>球员"
+zh_hant = "至少<VALUE>名<GAME>球員"
+
+[templates.ramp_one]
+es = "Al menos <VALUE> jugador de <GAME>"
+en = "At least <VALUE> player from <GAME>"
+fr = "Au moins <VALUE> joueur de <GAME>"
+de = "Mindestens <VALUE> Spieler aus <GAME>"
+it = "Almeno <VALUE> giocatore di <GAME>"
+pt = "Pelo menos <VALUE> jogador de <GAME>"
+ja = "<GAME>の選手<VALUE>人以上"
+zh_hans = "至少<VALUE>名<GAME>球员"
+zh_hant = "至少<VALUE>名<GAME>球員"
+
+[templates.at_most]
+es = "Como máximo <VALUE2> jugadores de <GAME>"
+en = "At most <VALUE2> players from <GAME>"
+fr = "Au plus <VALUE2> joueurs de <GAME>"
+de = "Höchstens <VALUE2> Spieler aus <GAME>"
+it = "Al massimo <VALUE2> giocatori di <GAME>"
+pt = "No máximo <VALUE2> jogadores de <GAME>"
+ja = "<GAME>の選手は<VALUE2>人まで"
+zh_hans = "<GAME>球员最多<VALUE2>名"
+zh_hant = "<GAME>球員最多<VALUE2>名"
+
+[templates.short_first]
+es = "Solo jugadores de <SERIES_ICON>"
+en = "<SERIES_ICON> players only"
+fr = "Seulement des joueurs de <SERIES_ICON>"
+de = "Nur Spieler aus <SERIES_ICON>"
+it = "Solo giocatori di <SERIES_ICON>"
+pt = "Só jogadores de <SERIES_ICON>"
+ja = "<SERIES_ICON>の選手のみ"
+zh_hans = "仅限<SERIES_ICON>的球员"
+zh_hant = "僅限<SERIES_ICON>的球員"
+
+[templates.short_cap]
+es = "Solo jugadores de <SERIES_ICON> o anteriores"
+en = "Players from <SERIES_ICON> or earlier only"
+fr = "Seulement des joueurs de <SERIES_ICON> ou avant"
+de = "Nur Spieler aus <SERIES_ICON> oder früher"
+it = "Solo giocatori di <SERIES_ICON> o precedenti"
+pt = "Só jogadores de <SERIES_ICON> ou anteriores"
+ja = "<SERIES_ICON>以前の選手のみ"
+zh_hans = "仅限<SERIES_ICON>及之前的球员"
+zh_hant = "僅限<SERIES_ICON>及之前的球員"
+
+[templates.short_ramp]
+es = "Juega con +<ABOVE> jugadores de <SERIES_ICON>"
+en = "Play with +<ABOVE> players from <SERIES_ICON>"
+fr = "Joue avec +<ABOVE> joueurs de <SERIES_ICON>"
+de = "Spiele mit +<ABOVE> Spielern aus <SERIES_ICON>"
+it = "Gioca con +<ABOVE> giocatori di <SERIES_ICON>"
+pt = "Joga com +<ABOVE> jogadores de <SERIES_ICON>"
+ja = "<SERIES_ICON>の選手+<ABOVE>人でプレイ"
+zh_hans = "使用+<ABOVE>名<SERIES_ICON>球员"
+zh_hant = "使用+<ABOVE>名<SERIES_ICON>球員"
+
+[templates.short_ramp_one]
+es = "Juega con <VALUE> jugador de <SERIES_ICON>"
+en = "Play with <VALUE> player from <SERIES_ICON>"
+fr = "Joue avec <VALUE> joueur de <SERIES_ICON>"
+de = "Spiele mit <VALUE> Spieler aus <SERIES_ICON>"
+it = "Gioca con <VALUE> giocatore di <SERIES_ICON>"
+pt = "Joga com <VALUE> jogador de <SERIES_ICON>"
+ja = "<SERIES_ICON>の選手<VALUE>人でプレイ"
+zh_hans = "使用<VALUE>名<SERIES_ICON>球员"
+zh_hant = "使用<VALUE>名<SERIES_ICON>球員"
+
+[templates.required]
+es = "{name} obligatorio ({p})"
+en = "{name} required ({p})"
+fr = "{name} obligatoire ({p})"
+de = "{name} Pflicht ({p})"
+it = "{name} obbligatorio ({p})"
+pt = "{name} obrigatório ({p})"
+ja = "{name}必須（{p}）"
+zh_hans = "{name}必须上场（{p}）"
+zh_hant = "{name}必須上場（{p}）"
+
+[templates.required_any]
+es = "{name} obligatorio"
+en = "{name} required"
+fr = "{name} obligatoire"
+de = "{name} Pflicht"
+it = "{name} obbligatorio"
+pt = "{name} obrigatório"
+ja = "{name}必須"
+zh_hans = "{name}必须上场"
+zh_hant = "{name}必須上場"

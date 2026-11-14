@@ -1,0 +1,118 @@
+# Battle Bay Deluxe tournament (knockout, groups + knockout, league) on the Battle Bay campaign matches.
+# tournament_top.lua and its tournament_top_*.lua parts form one chunk with shared locals; order 346 runs after battlebaydeluxe_draft (345).
+name = "battlebaydeluxe_tournament"
+mod = "BattleBayDeluxe"
+order = 346
+module = "lua_bridge"
+requires = ["battlebaydeluxe_draft"]
+conflicts = []
+wraps = ["OnInit", "OnDecideFocus", "OnBack", "OnFunction", "Step", "OnEnter", "OnSetupLayer", "SetupParam", "funcLuaMenuCommand", "funcLuaCommand", "SetupListItemTexture", "OpenWindow", "SetupWindowParams", "OnOpenLayer"]
+description = "Battle Bay tournament mode on the campaign matches"
+
+[[files]]
+stem = "bb_stadium_top_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "tournament_common.lua"
+  marker = "battlebaydeluxe_tournament common"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "tournament_top.lua"
+  marker = "battlebaydeluxe_tournament top"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "tournament_top_overlay.lua"
+  marker = "battlebaydeluxe_tournament top overlay"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "tournament_top_advance.lua"
+  marker = "battlebaydeluxe_tournament top advance"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "tournament_top_league_hub.lua"
+  marker = "battlebaydeluxe_tournament top league hub"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "tournament_top_entry.lua"
+  marker = "battlebaydeluxe_tournament top entry"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "tournament_top_mode_selector.lua"
+  marker = "battlebaydeluxe_tournament top mode selector"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "tournament_top_wraps.lua"
+  marker = "battlebaydeluxe_tournament top wraps"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "tournament_mode.lua"
+  marker = "battlebaydeluxe_tournament mode"
+
+[[files]]
+stem = "enjoy_team_select_menu_campaign"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "tournament_common.lua"
+  marker = "battlebaydeluxe_tournament common"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "tournament_grid.lua"
+  marker = "battlebaydeluxe_tournament grid"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "tournament_mode.lua"
+  marker = "battlebaydeluxe_tournament mode"
+
+[[files]]
+stem = "bb_stadium_campaign_end_window"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "tournament_common.lua"
+  marker = "battlebaydeluxe_tournament common"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "tournament_end.lua"
+  marker = "battlebaydeluxe_tournament end"
+
+[[files]]
+stem = "fade_menu_encount"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "tournament_common.lua"
+  marker = "battlebaydeluxe_tournament common"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "tournament_encount.lua"
+  marker = "battlebaydeluxe_tournament encount"
+
+[[files]]
+stem = "sub_window_group"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "tournament_common.lua"
+  marker = "battlebaydeluxe_tournament common"
+
+[[files]]
+stem = "game_over_menu"
+
+  [[files.ops]]
+  type = "append_block"
+  source = "tournament_over.lua"
+  marker = "battlebaydeluxe_tournament over"

@@ -83,7 +83,7 @@ end
 -- Returns the step and x shift of the icons as drawn.
 local function HLB_UiStep()
   local flags = BetterUI.flags
-  if BetterUI.preset ~= "off" and type(flags) == "table" and flags.buff_icons == true then
+  if type(flags) == "table" and flags.buff_icons == true then
     return HLB_STEP * 0.85, -5.4
   end
   return HLB_STEP, 0
@@ -104,16 +104,41 @@ local function HLB_Apply(force)
   end
 end
 
---- Wraps global `name` once for `owner`: runs `after` with the same arguments after the previous function.
-local function WrapAfter(owner, name, after, on_error)
-  VRFW.host.wrap_once(name, owner, function(previous, ...)
-    local results = table.pack(previous(...))
-    local ok, err = pcall(after, ...)
-    if not ok and on_error ~= nil then
-      on_error(err)
+--- Wraps global `name` once for `owner` with `parts`: `before` and `after` run in a pcall with the same arguments, `around(previous, ...)` makes the call; answers true, or false, why.
+local function Wrap(owner, name, parts)
+  local function failed(phase, err)
+    if parts.on_error ~= nil then
+      parts.on_error(err, phase)
+    else
+      VRFW.host.note(owner, name .. " " .. phase .. " error: " .. tostring(err))
+    end
+  end
+  return VRFW.host.wrap_once(name, owner, function(previous, ...)
+    if parts.before ~= nil then
+      local ok, err = pcall(parts.before, ...)
+      if not ok then
+        failed("before", err)
+      end
+    end
+    local results
+    if parts.around ~= nil then
+      results = table.pack(parts.around(previous, ...))
+    else
+      results = table.pack(previous(...))
+    end
+    if parts.after ~= nil then
+      local ok, err = pcall(parts.after, ...)
+      if not ok then
+        failed("after", err)
+      end
     end
     return table.unpack(results, 1, results.n)
   end)
+end
+
+--- Wraps global `name` once for `owner`: runs `after` with the same arguments after the previous function (needs the Wrap section).
+local function WrapAfter(owner, name, after, on_error)
+  return Wrap(owner, name, { after = after, on_error = on_error })
 end
 
 WrapAfter("BetterUI.hud_layout.buff", "OnSetupLayer", function(a1)

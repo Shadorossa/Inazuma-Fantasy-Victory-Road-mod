@@ -1,3 +1,5 @@
+-- Experience: the EXP a character needs per level. Call: at load or in a handler.
+--- Library: character experience tables and the experience needed per level.
 local M = {}
 
 local STEM = "data/common/gamedata/character/chara_exp_table_config"
@@ -5,7 +7,7 @@ local NEED, RATE = nil, nil
 
 local function int(v) return math.floor(tonumber(v) or 0) end
 
---- The experience tables: need, rate.
+--- Internal: The experience tables: need, rate.
 function M.tables()
   if NEED ~= nil then return NEED, RATE end
   local key = VRFW.table_files.file_name(STEM)
@@ -26,7 +28,7 @@ function M.tables()
   return NEED, RATE
 end
 
---- the EXP from `level` to the next for a character of `rarity` (each rarity's rate); nil when the table has no row
+--- VRFW.experience.need(level, rarity): the EXP from `level` to the next one for a character of `rarity`, or nil. Call: at load or in a handler.
 function M.need(level, rarity)
   local need, rate = M.tables()
   local n = need and need[int(level)]

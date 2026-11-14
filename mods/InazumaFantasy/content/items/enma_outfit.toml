@@ -1,0 +1,39 @@
+schema = "VRFW.item/2"
+default_lang = "en"
+
+# Lord Enma's own clothes sold as an outfit: built on the retail c000301 skeleton, so the players of that body group wear it.
+
+[[VRFW.Outfit]]
+Name = "enma_outfit"
+Kit = { Uniform = "0x859E89E3" }  # crc32("inazumafantasy_uni_enma_outfit"), content/looks/enma.toml
+IconKey = "cos_if_enma_outfit"
+Who = { Body = [4] }
+Price = 28
+Currency = "tk_bb000001"
+  [VRFW.Outfit.Text.es]
+  Name = "Ropa de Lord Enma"
+  Description = "La ropa de Lord Enma.\nSolo la pueden llevar jugadores de su misma complexión."
+  [VRFW.Outfit.Text.en]
+  Name = "Lord Enma's outfit"
+  Description = "Lord Enma's own clothes.\nOnly players of the same build can wear it."
+  [VRFW.Outfit.Text.fr]
+  Name = "Tenue de Lord Enma"
+  Description = "Les vêtements de Lord Enma.\nSeuls les joueurs de même gabarit peuvent la porter."
+  [VRFW.Outfit.Text.de]
+  Name = "Outfit von Lord Enma"
+  Description = "Die Kleidung von Lord Enma.\nNur Spieler mit gleichem Körperbau können sie tragen."
+  [VRFW.Outfit.Text.it]
+  Name = "Abito di Lord Enma"
+  Description = "Gli abiti di Lord Enma.\nPossono indossarli solo i giocatori con la stessa corporatura."
+  [VRFW.Outfit.Text.pt]
+  Name = "Traje de Lord Enma"
+  Description = "A roupa de Lord Enma.\nSó a podem usar jogadores com a mesma constituição."
+  [VRFW.Outfit.Text.ja]
+  Name = "エンマの[衣装/いしょう]"
+  Description = "エンマの[服/ふく]。\n[同/おな]じ[体型/たいけい]の[選手/せんしゅ]だけが[着/き]られる。"
+  [VRFW.Outfit.Text.zh_hans]
+  Name = "阎魔的服装"
+  Description = "阎魔的衣服。\n只有体型相同的球员可以穿。"
+  [VRFW.Outfit.Text.zh_hant]
+  Name = "閻魔的服裝"
+  Description = "閻魔的衣服。\n只有體型相同的球員可以穿。"

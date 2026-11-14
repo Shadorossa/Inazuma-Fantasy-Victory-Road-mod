@@ -41,7 +41,7 @@ if VRFW.bracket == nil then
     return child
   end
 
-  --- Shows the bracket on `page` with options.
+  --- Advanced: Shows the bracket on `page` with options.
   function Bracket.show(page, opts)
     S.want = page or -1
     S.opts = type(opts) == "table" and opts or {}
@@ -52,14 +52,14 @@ if VRFW.bracket == nil then
     Child().show(S.want, S.opts.host, S.opts.animate == true)
   end
 
-  --- Hides the bracket.
+  --- Advanced: Hides the bracket.
   function Bracket.hide(why)
     S.want = nil
     Child().hide(why or "the host left the bracket")
     VRFW.param.clear(P("busy"))
   end
 
-  --- True while the bracket is busy.
+  --- Advanced: True while the bracket is busy.
   function Bracket.busy()
     if S.want == nil then
       return false
@@ -67,24 +67,24 @@ if VRFW.bracket == nil then
     return VRFW.param.has(P("busy"))
   end
 
-  --- Skips the bracket's animation.
+  --- Advanced: Skips the bracket's animation.
   function Bracket.skip()
     VRFW.param.clear(P("busy"))
     param_set("skip", 1)
     Child().call("vrfw_bracket_skip")
   end
 
-  --- True while the bracket is wanted.
+  --- Internal: True while the bracket is wanted.
   function Bracket.shown()
     return S.want ~= nil
   end
 
-  --- One frame of the bracket child.
+  --- Advanced: One frame of the bracket child.
   function Bracket.step()
     Child().step()
   end
 
-  --- Marks instance `fixed`, or the next free one of `layer`, as used in this draw (state: { used, taken }); returns it.
+  --- Advanced: Marks instance `fixed`, or the next free one of `layer`, as used in this draw (state: { used, taken }); returns it.
   function Bracket.take(state, layer, fixed)
     local i = fixed
     if i == nil then
@@ -98,7 +98,7 @@ if VRFW.bracket == nil then
     return i
   end
 
-  --- Appends the digit sprites of number n to parts as { name, height }; wrap puts it in brackets. Sprites are <prefix><style>_<digit>.
+  --- Advanced: Appends the digit sprites of number n to parts as { name, height }; wrap puts it in brackets. Sprites are <prefix><style>_<digit>.
   function Bracket.number_parts(prefix, parts, n, style, h, wrap)
     if wrap then
       parts[#parts + 1] = { prefix .. "lp", h }
@@ -112,7 +112,7 @@ if VRFW.bracket == nil then
     return parts
   end
 
-  --- `text` with <VALUE> filled with a, and <VALUE2> with b when b is given (the retail text value command, once per tag).
+  --- Advanced: `text` with <VALUE> filled with a, and <VALUE2> with b when b is given (the retail text value command, once per tag).
   function Bracket.text_value2(text, a, b)
     text = VRFW.host.command(TEXT_VALUE, text, "VALUE", a or 0, 0, 0, true) or text
     if b ~= nil then
@@ -121,5 +121,6 @@ if VRFW.bracket == nil then
     return text
   end
 
+  --- Advanced: Namespace of the tournament bracket drawing helpers.
   VRFW.bracket = Bracket
 end

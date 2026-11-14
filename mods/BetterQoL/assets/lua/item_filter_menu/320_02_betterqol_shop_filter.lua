@@ -34,7 +34,11 @@ do
     if not BetterQoL.shop_filter.FROM_SHOP then
       return count(...)
     end
-    local flat = CreateSendFilterParamArray(GetFilterParamArray())
+    local params = GetFilterParamArray()
+    if VRFW ~= nil and VRFW.item_filter_sections ~= nil then
+      params = VRFW.item_filter_sections.saved(params)
+    end
+    local flat = CreateSendFilterParamArray(params)
     local ok, shown, total = pcall(funcLuaCommand, 2721607605, GetInventoryType(), table.unpack(flat))
     if not ok or type(shown) ~= "number" or type(total) ~= "number" then
       BetterQoL.shop_filter.SHOWN = -1

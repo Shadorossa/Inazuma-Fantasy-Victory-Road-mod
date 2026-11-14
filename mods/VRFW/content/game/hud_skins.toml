@@ -1,0 +1,7 @@
+schema = "VRFW.game/2"
+
+# The HUD skins (content\hud_skins, VRFW.hud_skin/1; scripts\hud_skins.lua; docs/framework/hud-skin.md).
+# (part) -> the look the part takes ("" = its owner's own look)
+[[VRFW.Command]]
+name = "CMND_VRFW_HUD_SKIN"
+handler = "VRFW.hud_skins.look"

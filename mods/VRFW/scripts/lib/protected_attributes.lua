@@ -1,8 +1,9 @@
+--- Advanced: Library: the attribute bits mods protect.
 
 local M = {}
 
 local BITS = nil
---- The attribute bits mods protect, as an array.
+--- Advanced: The attribute bits mods protect, as an array.
 function M.bits()
   if BITS then return BITS end
   BITS = {}
@@ -22,7 +23,7 @@ end
 
 local function has_bit(v, bit) return math.floor(v / bit) % 2 == 1 end
 
---- True when `attribute` holds a protected bit.
+--- Internal: True when `attribute` holds a protected bit.
 function M.has_any(attribute)
   attribute = tonumber(attribute) or 0
   for _, b in ipairs(M.bits()) do

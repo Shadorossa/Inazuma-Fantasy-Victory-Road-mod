@@ -28,6 +28,7 @@ if VRFW.tab_bar_caps == nil then
     TRIES = 300,                  -- Step calls the placement waits for the layer at most
     logs = 0,
   }
+  --- Advanced: Namespace: the tab bar caps helpers of the menu VM.
   VRFW.tab_bar_caps = T
 
   local logger
@@ -35,6 +36,7 @@ if VRFW.tab_bar_caps == nil then
     if T.logs >= 10 then
       return
     end
+    --- Internal: count of log lines written, capped at 10.
     T.logs = T.logs + 1
     logger = logger or VRFW.logger.new("VRFW tab_bar_caps")
     logger(...)
@@ -82,12 +84,12 @@ if VRFW.tab_bar_caps == nil then
     return xf, xl, y
   end
 
-  --- A new caps state table.
+  --- Advanced: A new caps state table.
   function T.new()
     return {opened = false, pending = false, tries = 0, set = false}
   end
 
-  --- Opens the tab bar caps for `spec` once.
+  --- Advanced: Opens the tab bar caps for `spec` once.
   function T.open(state, spec)
     if state.opened then
       return
@@ -104,7 +106,7 @@ if VRFW.tab_bar_caps == nil then
     state.pending, state.tries = true, 0
   end
 
-  --- Hides the caps of `state`.
+  --- Advanced: Hides the caps of `state`.
   function T.hide(state, spec)
     state.pending = false
     if state.set then
@@ -115,7 +117,7 @@ if VRFW.tab_bar_caps == nil then
     end
   end
 
-  --- One frame of the caps: places them once the bar is up.
+  --- Advanced: One frame of the caps: places them once the bar is up.
   function T.step(state, spec)
     if not state.pending then
       return

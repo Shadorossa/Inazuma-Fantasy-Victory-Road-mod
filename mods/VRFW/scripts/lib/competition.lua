@@ -1,9 +1,10 @@
+-- Advanced: Competition building blocks: league fixtures, tables, knockout trees, Poisson draws and shoot-outs (docs/framework/competition.md).
 
 local Competition = {}
 
 local floor, exp = math.floor, math.exp
 
---- The fixtures of a league between `teams`.
+--- Advanced: The fixtures of a league between `teams`.
 function Competition.round_robin(teams, opts)
   opts = type(opts) == "table" and opts or {}
   local list = {}
@@ -79,7 +80,7 @@ local function head_to_head(x, y, results, points)
   return nil
 end
 
---- The table of `teams` after `results`.
+--- Advanced: The table of `teams` after `results`.
 function Competition.standings(teams, results, opts)
   opts = type(opts) == "table" and opts or {}
   local points = opts.points or DEFAULT_POINTS
@@ -147,7 +148,7 @@ function Competition.standings(teams, results, opts)
   return rows
 end
 
---- a goal count drawn from a Poisson law of mean `mean` with the caller's uniform numbers, at most cap + 1 draws
+--- Advanced: a goal count drawn from a Poisson law of mean `mean` with the caller's uniform numbers, at most cap + 1 draws
 function Competition.poisson(uniform, mean, cap)
   local limit, k, p = exp(-mean), 0, 1
   repeat
@@ -157,7 +158,27 @@ function Competition.poisson(uniform, mean, cap)
   return k - 1
 end
 
---- True when `n` is a power of two of at least 2.
+--- Advanced: a penalty shoot-out with the caller's uniform numbers: side a scores with chance qa, side b with qb, `kicks` each, then sudden death up to `cap` rounds; still level after `cap` rounds gives side a one more
+function Competition.shootout(uniform, qa, qb, kicks, cap)
+  local a, b = 0, 0
+  for i = 1, cap do
+    if uniform() < qa then
+      a = a + 1
+    end
+    if uniform() < qb then
+      b = b + 1
+    end
+    if i >= kicks and a ~= b then
+      break
+    end
+  end
+  if a == b then
+    a = a + 1
+  end
+  return a, b
+end
+
+--- Advanced: True when `n` is a power of two of at least 2.
 function Competition.is_power_of_two(n)
   if type(n) ~= "number" or n < 2 or n ~= floor(n) then
     return false
@@ -168,7 +189,7 @@ function Competition.is_power_of_two(n)
   return n == 1
 end
 
---- the standard seed order of n leaves (n a power of two, 1 = the best seed): 1, n/2 + 1, ...
+--- Advanced: the standard seed order of n leaves (n a power of two, 1 = the best seed): 1, n/2 + 1, ...
 function Competition.seed_order(n)
   local order = { 1 }
   while #order < n do
@@ -183,7 +204,7 @@ function Competition.seed_order(n)
   return order
 end
 
---- the next round of a knockout: the winners of matches 1-2, 3-4, ...
+--- Internal: the next round of a knockout: the winners of matches 1-2, 3-4, ...
 function Competition.next_round(winners, seed)
   seed = seed or {}
   local out = {}
@@ -197,7 +218,7 @@ function Competition.next_round(winners, seed)
   return out
 end
 
---- The knockout tree as the bracket screen draws it.
+--- Advanced: The knockout tree as the bracket screen draws it.
 function Competition.bracket_view(bracket)
   local R = bracket.rounds
   local next_from = tonumber(bracket.next_from)

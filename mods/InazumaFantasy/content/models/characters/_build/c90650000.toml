@@ -1,0 +1,31 @@
+# Yami Enma (c90650000.toml), from the Yo-kai Watch 4 rip: a tall human shape on the retail c000301 skeleton; his
+# weapon and the hanging flap of his right sleeve are left out.
+# Built by _tools/model_builder.py (dev-only, never installed) with --src the rip's folder.
+recipe = "rip_humanoid"
+
+[rules]
+face_id = "c90650000"
+clothes_id = "u90650000"
+dae = "Yami Enma.dae"
+outfit_skin_tolerance = 12
+long_hair_joints = ["fir"]
+body = "c000301"
+rip_prefix = "w00170000_"
+meshes = ["10"]
+shared = '^(c_c_1_[01]|c_n_1_0|c_head_1_0|[lr]_(s|a|w|l|foot|thb|idx|mid|rng|pky)_1_\d)$'
+shared_distance = 0.15
+sleeve = '_slv'
+eye_joints = ["eld", "eye", "pup"]
+mouth_joints = ["lip", "jaw", "tth", "tng"]
+hair_joints = ["hir"]
+zone_tolerance = 30
+hair_tolerance = 30
+ink = [0.1, 0.09, 0.11]
+right_eye_mirrored = false
+iris_is_pupil = false
+mouth_line = 0.55
+mouth_line_painted = false
+mouth_height_joints = ["c_lip1_1_0", "c_lip2_1_0"]
+mouth_inside = [0.22, 0.08, 0.12]
+tongue = [0.78, 0.38, 0.44]
+teeth = [0.96, 0.96, 0.96]

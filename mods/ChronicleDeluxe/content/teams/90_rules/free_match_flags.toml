@@ -1,0 +1,18 @@
+schema = "VRFW.team/2"
+# The game teams the free_match_base_forms and free_match_shuffles builders copy (content/data_compilers/builders.toml).
+
+[[edit]]
+target = "tm_cro_go2_0800"
+flags = { free_match_base_form = { name = "fm_protocol_omega_3_base" } }
+
+[[edit]]
+target = "tm_cro_original_0300"
+flags = { free_match_base_form = { name = "fm_plathos_base" } }
+
+[[edit]]
+target = "tm_cro_original_0400"
+flags = { free_match_base_form = { name = "fm_destructores_base", coach = true } }
+
+[[edit]]
+target = "tm_cro_orion_1200"
+flags = { free_match_shuffle = { name = "fm_perfect_spark_shuffle", key = "chronicle_deluxe_fms_perfect_spark" } }

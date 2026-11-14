@@ -34,15 +34,7 @@ local rd = VRFW.memory.read
 local LAYOUT = nil
 local function layout()
   if LAYOUT == nil then
-    local out = {}
-    for key, name in pairs(LAYOUT_NAMES) do
-      local ok, v = pcall(VRFW.game.field, name)
-      if not ok or type(v) ~= "number" then
-        return nil
-      end
-      out[key] = v
-    end
-    LAYOUT = out
+    LAYOUT = VRFW.game.fields(LAYOUT_NAMES)
   end
   return LAYOUT
 end
@@ -66,10 +58,26 @@ local zone_hooks_in = false
 -- with the detours in and no zone declared by a mod that is on: every side answers with the game's band
 local RETAIL_ZONE = { margin = 0, scale = 1, area = "retail", user_area = "retail", rival_area = "retail", chain_retail = true }
 
+-- the value of a declaration's `when_option` row (the declaring mod's, or a full <prefix>.<id> key); nil = no such row set
+local function option_value(d)
+  local id = d.v.when_option
+  if type(id) ~= "string" or id == "" then return nil end
+  local ok, v = pcall(VRFW.option, id:find(".", 1, true) and id or (d.mod .. "." .. id))
+  if ok then return v end
+  return nil
+end
+
+-- a declaration counts while its mod is on and its `when_option` row (if any) is not 0
+local function decl_applies(d)
+  if not VRFW.mod_is_on_now(d.mod) then return false end
+  local v = option_value(d)
+  return v == nil or (v ~= 0 and v ~= false)
+end
+
 local function pick_zone()
   local z = {}
   for _, d in ipairs(ZONE_DECLS) do
-    if VRFW.mod_is_on_now(d.mod) then
+    if decl_applies(d) then
       local v = d.v
       for _, k in ipairs({ "area", "user_area", "rival_area", "scale", "scale_config", "margin_m", "margin_config", "chain_area", "chain_area_config", "extra_state" }) do
         if d.given[k] or z[k] == nil then z[k] = { value = v[k], mod = d.mod, given = d.given[k] } end
@@ -443,13 +451,13 @@ end
 -- which zone mods are on: a change (a live-toggle mod switched) picks the zone again at the next match start
 local function zone_mods_on()
   local on = {}
-  for _, d in ipairs(ZONE_DECLS) do on[#on + 1] = tostring(VRFW.mod_is_on_now(d.mod)) end
+  for _, d in ipairs(ZONE_DECLS) do on[#on + 1] = tostring(decl_applies(d)) end
   return table.concat(on, ",")
 end
 local zone_mods_seen = zone_mods_on()
 
 if #ZONE_DECLS > 0 or #LONG_FLAGS > 0 then
-  VRFW.on("tick", function(ev)
+  VRFW.on("frame:tick", function(ev)
     if not refresh_due(ev) then return nil end
     if ZONE then refresh(ev) end
     if #LONG_FLAGS > 0 then
@@ -458,14 +466,14 @@ if #ZONE_DECLS > 0 or #LONG_FLAGS > 0 then
     end
     return nil
   end)
-  VRFW.on("match_end", function()
+  VRFW.on("match:end", function()
     since_refresh, frames_since_refresh = REFRESH_SECONDS, REFRESH_FRAMES
     PUBLISHED = {}
     if ZONE then clear() end
     if #LONG_FLAGS > 0 then set_long(false, "match end") end
     return nil
   end)
-  VRFW.on("match_start", function()
+  VRFW.on("match:start", function()
     since_refresh, frames_since_refresh = REFRESH_SECONDS, REFRESH_FRAMES
     PUBLISHED = {}
     local seen = zone_mods_on()
@@ -477,7 +485,7 @@ if #ZONE_DECLS > 0 or #LONG_FLAGS > 0 then
     end
     return nil
   end)
-  VRFW.on("game_reset", function()
+  VRFW.on("game:reset", function()
     PUBLISHED = {}
     if #LONG_FLAGS > 0 then set_long(false, "title") end
     return nil

@@ -1,5 +1,6 @@
 if VRFW.match_challenge ~= nil then
   local S = type(VRFW.match_challenge_vs_screen) == "table" and VRFW.match_challenge_vs_screen or {game = 0, diff = 1}
+  --- Internal: state of the match challenge VS screen (game, diff).
   VRFW.match_challenge_vs_screen = S
   local C = {
     PIECE = 160947459, DIFFICULTY = 2968810192,
@@ -41,6 +42,7 @@ if VRFW.match_challenge ~= nil then
   -- wrapped once per definition of the retail function (a chunk that runs again gets wrapped again)
   local init = rawget(_ENV, "OnInit")
   if type(init) == "function" and init ~= S.init_wrap then
+    --- Internal: wrapped init of the VS screen; resets game and difficulty and installs route slots.
     S.init_wrap = function(...)
       S.game, S.diff = 0, 1
       VRFW.host.command(VRFW.match_challenge.AURAS_DISARM)
@@ -65,6 +67,7 @@ if VRFW.match_challenge ~= nil then
 
   local decide = rawget(_ENV, "OnDecideFocus")
   if type(decide) == "function" and decide ~= S.decide_wrap then
+    --- Internal: wrapped decide of the VS screen; refuses to start when the challenge has offenders.
     S.decide_wrap = function(...)
       local st = status()
       if st ~= nil then

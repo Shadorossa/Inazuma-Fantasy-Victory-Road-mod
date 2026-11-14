@@ -158,11 +158,6 @@ handler = "BetterQoL.PassiveConfig.Info"
 needs = ["GetTeamPassiveId"]
 
 [[VRFW.Command]]
-name = "CMND_BETTERQOL_PC_STATE"       # (hdl) -> "param=.. build=.. diamond_build=.. passives=s1,..,s5" (the hero style log)
-handler = "BetterQoL.PassiveConfig.State"
-needs = ["GetTeamPassiveId"]
-
-[[VRFW.Command]]
 name = "CMND_BETTERQOL_PC_SLOT"
 handler = "BetterQoL.PassiveConfig.Slot"
 needs = ["GetTeamPassiveId"]

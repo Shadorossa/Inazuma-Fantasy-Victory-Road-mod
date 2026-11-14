@@ -10,9 +10,10 @@ if VRFW.tab_pager == nil then
     ANIME_FOCUS = 2734777837,               -- Focus: the tab's selected look
     ANIME_SET_BUTTON = 973515837,           -- button
   }
+  --- Internal: metatable index of a tab pager object.
   TP.__index = TP
 
-  --- A tab pager for spec, on page 1.
+  --- Internal: A tab pager for spec, on page 1.
   function TP.new(spec)
     local p = setmetatable({spec = spec, page = 1, slot = nil, turning = false, rebuilt = false}, TP)
     spec.pinned = math.max(0, math.min(spec.pinned or 0, (spec.per_page or 1) - 1))
@@ -20,7 +21,7 @@ if VRFW.tab_pager == nil then
   end
 
   local logger
-  --- Logs the arguments with this pager's tag.
+  --- Internal: Logs the arguments with this pager's tag.
   function TP:log(...)
     local parts = {}
     for i = 1, select("#", ...) do
@@ -30,7 +31,7 @@ if VRFW.tab_pager == nil then
     logger(tostring(self.spec.name) .. " " .. table.concat(parts, " "))
   end
 
-  --- The number of pages.
+  --- Internal: The number of pages.
   function TP:pages()
     local s = self.spec
     local total, per = #s.entries, s.per_page or 0
@@ -40,7 +41,7 @@ if VRFW.tab_pager == nil then
     return 1 + math.ceil((total - per) / (per - s.pinned))
   end
 
-  --- The tabs of page p in slot order.
+  --- Internal: The tabs of page p in slot order.
   function TP:list(p)
     local s = self.spec
     local out = {}
@@ -61,13 +62,13 @@ if VRFW.tab_pager == nil then
     return out
   end
 
-  --- Page 1 in the screen's table, without drawing (the screen opening).
+  --- Internal: Page 1 in the screen's table, without drawing (the screen opening).
   function TP:reset()
     self.page, self.slot = 1, nil
     self.spec.show(self:list(1))
   end
 
-  --- Shows page p and focuses `slot`; `rebuild` asks the screen to rebuild its bar.
+  --- Internal: Shows page p and focuses `slot`; `rebuild` asks the screen to rebuild its bar.
   function TP:show(p, slot, rebuild)
     local s = self.spec
     local list = self:list(p)
@@ -95,7 +96,7 @@ if VRFW.tab_pager == nil then
     self:log("page", p, "of", self:pages(), "slots", n, "focus", slot)
   end
 
-  --- Moves the focus to `slot`, turning the page at the edge slots; answers true when it turned.
+  --- Advanced: Moves the focus to `slot`, turning the page at the edge slots; answers true when it turned.
   function TP:focus(slot)
     if self.turning then
       self.rebuilt = true
@@ -127,5 +128,6 @@ if VRFW.tab_pager == nil then
     return false
   end
 
+  --- Advanced: Namespace of the tab pager: pages a long tab list into screens of tabs.
   VRFW.tab_pager = TP
 end

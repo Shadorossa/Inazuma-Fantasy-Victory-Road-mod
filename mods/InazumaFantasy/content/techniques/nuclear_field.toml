@@ -9,6 +9,7 @@ order = 3
 name_text = 0x1A9284C0
 description_text = 0x4F045692
 event = "ev62_92114_1"
+fail_event = "ev62_92114_2"     # its shot-block cut-in (retail whd01140: ev62_01140_2)
 power_min = 85
 power_max = 540
 tp = 80

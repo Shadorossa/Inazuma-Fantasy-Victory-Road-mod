@@ -2,7 +2,7 @@
 -- ===== EVT better_ui_dock_panel BEGIN =====
 -- Only node / layer transforms of this menu's layer instances
 BetterUI = type(BetterUI) == "table" and BetterUI or {}
--- @@dock_panel_layout BEGIN (research/mods/BetterUI/_tools/better_ui_dock_panel.py --write; computed from the retail layouts, not seen in game)
+-- @@dock_panel_layout BEGIN (research/mods/BetterUI/_tools/betterui_dock_panel.py --write; computed from the retail layouts, not seen in game)
 local FRAME_LAYOUT = {
   [3321884270] = {  -- soccer11_02_formation_frame
     {3559539200, -426.13, -253.0},
@@ -361,7 +361,7 @@ local function foreign_editor_spec()
 end
 
 local function panel_enabled()
-  return BetterUI.dock_panel == true and BetterUI.preset ~= "off"
+  return BetterUI.dock_panel == true
 end
 
 local function tactics_enabled()
@@ -373,7 +373,7 @@ local function clip_enabled()
 end
 
 local function arrows_enabled()
-  return BetterUI.dock_arrows == true and BetterUI.preset ~= "off"
+  return BetterUI.dock_arrows == true
 end
 
 local function attack_defense_enabled()
@@ -808,7 +808,7 @@ end
 local function formation_down(at, ai)
   local ci = card_from(2, Dock.FORM, 0)
   if ci ~= nil then
-    log_move("focus " .. tostring(at) .. "[" .. tostring(ai) .. "] -> card " .. tostring(ci) .. " (FORMACIÓN DOWN)")
+    log_move("focus " .. tostring(at) .. "[" .. tostring(ai) .. "] -> card " .. tostring(ci) .. " (formation box, down)")
     move_to_card(at, ai, ci)
     if at ~= Dock.FORM then
       unfocus(Dock.FORM, 0)

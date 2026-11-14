@@ -45,11 +45,11 @@ if TEAM == 0 then
   warn("off (" .. tostring(KEY_ERR) .. "): the Active team tile plays its placeholder players")
 elseif not VRFW.is_on("StartMatchRequest") then
   warn(string.format("team %s = %s (%s), but the hook StartMatchRequest is off: the tile would play its placeholder " ..
-    "players, so it is refused", TEAM_NAME, KEY, U.hex(TEAM)))
+    "players, so it is refused", TEAM_NAME, KEY, VRFW.ids.hex_text(TEAM)))
 else
   local ok, e = pcall(VRFW.native.table_set, TABLE, TEAM, 1)
   if ok then
-    info(string.format("team %s = %s (%s): its matches play the player's active team", TEAM_NAME, KEY, U.hex(TEAM)))
+    info(string.format("team %s = %s (%s): its matches play the player's active team", TEAM_NAME, KEY, VRFW.ids.hex_text(TEAM)))
   else
     warn("the hook's table not written (" .. tostring(e) .. "): the tile is refused")
     TEAM = 0
@@ -97,7 +97,7 @@ end
 
 -- CMND_BATTLEBAYDELUXE_PERSONAL_DOCK_READY (team, 1 = 11 starters)
 function BattleBayDeluxe.PersonalDockReady(team, ready)
-  team = U.u32(tonumber(team) or 0) or 0
+  team = VRFW.ids.unsigned(tonumber(team) or 0) or 0
   if DOCK_OF[team] == nil then
     return false
   end
@@ -113,7 +113,7 @@ local DRAFT_UNCHANGED = "Draft crest and kit unchanged, Draft name unchanged"
 local function parse_lineup(text)
   local out = {}
   for pos, param in string.gmatch(tostring(text or ""), "(%d+):(%d+)") do
-    local p, id = tonumber(pos), U.u32(tonumber(param))
+    local p, id = tonumber(pos), VRFW.ids.unsigned(tonumber(param))
     if p and id and id ~= 0 then
       out[p] = id
     end
@@ -144,7 +144,7 @@ local function write_look(team, label, emblem, uniform)
     return "no emblem / kit to write"
   end
   local rec, why = TeamConfig.find(team or TEAM)
-  local r = rec and U.struct("ActiveTeamRecord", rec)
+  local r = rec and VRFW.memory.struct("ActiveTeamRecord", rec)
   if not r then
     warn("mirror: the " .. label .. "'s team record not read: " .. tostring(why or "struct off"))
     return label .. " team record not read"
@@ -156,7 +156,7 @@ local function write_look(team, label, emblem, uniform)
       if pcall(function()
         r[field] = value
       end) then
-        done[#done + 1] = field .. " " .. U.hex(value)
+        done[#done + 1] = field .. " " .. VRFW.ids.hex_text(value)
       else
         warn("mirror: the " .. label .. "'s " .. field .. " NOT written")
       end
@@ -168,9 +168,17 @@ local function write_look(team, label, emblem, uniform)
   return label .. " " .. table.concat(done, ", ")
 end
 
+-- The crest and kit of `team`'s team record (0 = left as it is) -> note.
+function A.write_look(team, label, emblem, uniform)
+  return write_look(team, label, emblem, uniform)
+end
+
 local NAME_TABLE = "BattleBayDeluxe.TeamName"
 local NAME_BLOCK, NAME_BYTES = "bbd_active_team_name", 128
-local name_written = nil
+-- team -> the name last written as its match name
+local name_written = {}
+-- team -> the active team's name last mirrored onto that tile
+local MIRRORED_NAME = {}
 
 local function utf8_cut(text, max)
   if #text <= max then
@@ -187,8 +195,8 @@ local function utf8_cut(text, max)
   return text:sub(1, n)
 end
 
--- the active team's name as the match name of `team` -> note
-local function write_name(team, name)
+-- `name` as the match name of `team`, kept in the native block `block_name` (none = the Draft's) -> note
+local function write_name(team, name, block_name)
   if type(name) ~= "string" or name == "" then
     return "no team name to write"
   end
@@ -196,10 +204,10 @@ local function write_name(team, name)
     return "name: the hook TeamLookBuild is off"
   end
   name = utf8_cut(name, NAME_BYTES - 1)
-  if name_written == name then
+  if name_written[team] == name then
     return "name unchanged"
   end
-  local block = VRFW.memory.buffer(NAME_BLOCK, NAME_BYTES)
+  local block = VRFW.memory.buffer(block_name or NAME_BLOCK, NAME_BYTES)
   local okb = block ~= nil
   if not okb or type(block) ~= "number" or block == 0 then
     warn("mirror: no native block for the team name")
@@ -217,8 +225,28 @@ local function write_name(team, name)
     warn("mirror: the team name table NOT written")
     return "name NOT written"
   end
-  name_written = name
+  name_written[team] = name
   return "name «" .. name .. "»"
+end
+
+-- The team name of `team` as the match name of that team (`block_name` = its own native block) -> note.
+function A.write_name(team, name, block_name)
+  return write_name(team, name, block_name)
+end
+
+-- `team` plays its own name again (its match name entry goes) -> note.
+function A.clear_name(team)
+  name_written[team] = nil
+  if pcall(VRFW.native.table_set, NAME_TABLE, team, nil) then
+    return "its own name"
+  end
+  warn("the team name table entry of " .. VRFW.ids.hex_text(team) .. " NOT cleared")
+  return "name NOT cleared"
+end
+
+-- The active team's name last mirrored onto tile `team`; nil when none.
+function A.name_of(team)
+  return MIRRORED_NAME[team]
 end
 
 -- the active team's kit and name onto the Draft team -> note
@@ -232,7 +260,7 @@ end
 
 -- `tile` (optional): the Personal Teams tile to mirror onto; none = the Active team tile.
 function BattleBayDeluxe.ActiveTeamMirror(captain, lineup, set, emblem, uniform, name, tile)
-  local dock_tile = U.u32(tonumber(tile) or 0) or 0
+  local dock_tile = VRFW.ids.unsigned(tonumber(tile) or 0) or 0
   local team = dock_tile ~= 0 and dock_tile or TEAM
   if team == 0 then
     return false, "no Active team tile"
@@ -245,10 +273,13 @@ function BattleBayDeluxe.ActiveTeamMirror(captain, lineup, set, emblem, uniform,
     ACTIVE_SET = math.floor(set)
     pcall(VRFW.native.table_set, "BattleBayDeluxe.ActiveSet", TEAM, ACTIVE_SET)
   end
-  emblem, uniform = U.u32(tonumber(emblem) or 0) or 0, U.u32(tonumber(uniform) or 0) or 0
+  emblem, uniform = VRFW.ids.unsigned(tonumber(emblem) or 0) or 0, VRFW.ids.unsigned(tonumber(uniform) or 0) or 0
+  if type(name) == "string" and name ~= "" then
+    MIRRORED_NAME[team] = name
+  end
   local look = write_look(team, "tile", emblem, uniform)
   local draft_look = dock_tile ~= 0 and DRAFT_UNCHANGED or write_draft_identity(uniform, name)
-  captain = U.u32(tonumber(captain) or 0) or 0
+  captain = VRFW.ids.unsigned(tonumber(captain) or 0) or 0
   local want = parse_lineup(lineup)
   if next(want) == nil then
     return false, "empty line-up"
@@ -299,17 +330,17 @@ function BattleBayDeluxe.ActiveTeamMirror(captain, lineup, set, emblem, uniform,
   local lead, lead_why = leader_of(final, captain)
   local leader_note = "leader unchanged"
   local row = lead and G.enjoy_row(team)
-  local er = row and U.struct("EnjoyRow", row)
+  local er = row and VRFW.memory.struct("EnjoyRow", row)
   if er then
     local old = U.get(er, "leader") or 0
     if old ~= lead then
       if pcall(function()
         er.leader = lead
       end) then
-        leader_note = string.format("leader %s -> %s (%s)", U.hex(old), U.hex(lead), lead_why)
+        leader_note = string.format("leader %s -> %s (%s)", VRFW.ids.hex_text(old), VRFW.ids.hex_text(lead), lead_why)
       else
         leader_note = "leader NOT written"
-        warn("mirror: the tile's row leader NOT written (" .. U.hex(old) .. " stays)")
+        warn("mirror: the tile's row leader NOT written (" .. VRFW.ids.hex_text(old) .. " stays)")
       end
     end
   elseif lead then
@@ -326,8 +357,12 @@ end
 
 local REQUEST_EXPLICIT, REQUEST_PLAYER, REQUEST_RIVAL = G.REQUEST_EXPLICIT, G.REQUEST_PLAYER, G.REQUEST_RIVAL
 local REQUEST_TEAM_SET = 0xC0
-local REQUEST_GAME, REQUEST_DIFFICULTY = 0x6C, 0x7D
-local PARTY_VS_SET, PARTY_VS_SET_STORY, SESSION_PLAY_MODE = 0x9F10, 0x9F13, 0x2CAC6F
+-- The game id and the difficulty of the match info inside the match request.
+local REQUEST_GAME = VRFW.game.field("Match.StartRequestInfo") + VRFW.game.field("MatchInfo.Game")
+local REQUEST_DIFFICULTY = VRFW.game.field("Match.StartRequestInfo") + VRFW.game.field("MatchInfo.Difficulty")
+local PARTY_VS_SET, SESSION_PLAY_MODE = VRFW.game.field("Party.ActiveTeamSet"), VRFW.game.field("Game.PlayMode")
+-- The story's VS team set has no game profile name.
+local PARTY_VS_SET_STORY = 0x9F13
 
 local SYNC_TABLE = "BattleBayDeluxe.LevelSync"
 local LEVEL_SYNC = U.int(U.config("active_team.level_sync", 40), 40)
@@ -335,11 +370,11 @@ local sync_on = false
 
 -- the active VS team set read from the party block (the mirror's when unreadable), nil when none
 local function active_set()
-  local party = U.global("active_team_party")
-  local session = U.global("session")
+  local party = VRFW.game.global("active_team_party")
+  local session = VRFW.game.global("session")
   if party then
-    local mode = session and U.rd("u8", session + SESSION_PLAY_MODE)
-    local set = U.rd("u8", party + (mode == 2 and PARTY_VS_SET_STORY or PARTY_VS_SET))
+    local mode = session and VRFW.memory.read("u8", session + SESSION_PLAY_MODE)
+    local set = VRFW.memory.read("u8", party + (mode == 2 and PARTY_VS_SET_STORY or PARTY_VS_SET))
     if set and set < 16 then
       return set
     end
@@ -370,7 +405,7 @@ local function is_tile_request(req, player)
   if A.is_tile(player) then
     return true
   end
-  return request_mark ~= nil and U.rd("ptr", request_mark) == req
+  return request_mark ~= nil and VRFW.memory.read("ptr", request_mark) == req
 end
 
 if TEAM ~= 0 then
@@ -389,7 +424,7 @@ if TEAM ~= 0 then
     warn("the request's tile is not recorded: a Personal Teams tile turned by the native answer plays the active team set")
   end
 
-  VRFW.on("game_reset", function()
+  VRFW.on("game:reset", function()
     set_sync(nil)
   end)
 
@@ -399,25 +434,25 @@ if TEAM ~= 0 then
       set_sync(nil)
       return nil
     end
-    local explicit = U.rd("u8", req + REQUEST_EXPLICIT)
-    local player = U.rd("u32", req + REQUEST_PLAYER)
-    local rival = U.rd("u32", req + REQUEST_RIVAL)
+    local explicit = VRFW.memory.read("u8", req + REQUEST_EXPLICIT)
+    local player = VRFW.memory.read("u32", req + REQUEST_PLAYER)
+    local rival = VRFW.memory.read("u32", req + REQUEST_RIVAL)
     if not is_tile_request(req, player) then
       info(string.format("match request: not the Active team tile (player's team %s, explicit flag %s, game %s, marked %s): " ..
-        "no level sync from the tile", U.hex(player or 0), tostring(explicit), U.hex(U.rd("u32", req + REQUEST_GAME) or 0),
-        tostring(request_mark ~= nil and U.rd("ptr", request_mark) == req)))
+        "no level sync from the tile", VRFW.ids.hex_text(player or 0), tostring(explicit), VRFW.ids.hex_text(VRFW.memory.read("u32", req + REQUEST_GAME) or 0),
+        tostring(request_mark ~= nil and VRFW.memory.read("ptr", request_mark) == req)))
       set_sync(nil)
       return nil
     end
     info(string.format("match request: the Active team tile (player's team %s, game %s, difficulty %s): stats synced to Nv. %d",
-      U.hex(player or 0), U.hex(U.rd("u32", req + REQUEST_GAME) or 0), tostring(U.rd("u8", req + REQUEST_DIFFICULTY)), LEVEL_SYNC))
-    local tile = player ~= 0 and player or (request_tile and U.rd("u32", request_tile)) or 0
+      VRFW.ids.hex_text(player or 0), VRFW.ids.hex_text(VRFW.memory.read("u32", req + REQUEST_GAME) or 0), tostring(VRFW.memory.read("u8", req + REQUEST_DIFFICULTY)), LEVEL_SYNC))
+    local tile = player ~= 0 and player or (request_tile and VRFW.memory.read("u32", request_tile)) or 0
     local set = DOCK_OF[tile] or active_set()
-    local had = U.rd("u8", req + REQUEST_TEAM_SET)
+    local had = VRFW.memory.read("u8", req + REQUEST_TEAM_SET)
     if set == nil then
       warn("match request: the active team set is unknown: the request keeps team set " .. tostring(had))
     elseif had ~= set then
-      if U.wr("u8", req + REQUEST_TEAM_SET, set) then
+      if VRFW.memory.write("u8", req + REQUEST_TEAM_SET, set) then
         info(string.format("match request: team set %s -> %d (the active VS team set)", tostring(had), set))
       else
         warn("match request: the team set NOT written (" .. tostring(had) .. " stays)")
@@ -425,15 +460,15 @@ if TEAM ~= 0 then
     end
     set_sync(LEVEL_SYNC)
     if A.is_tile(player) then
-      if U.wr("u32", req + REQUEST_PLAYER, 0) then
+      if VRFW.memory.write("u32", req + REQUEST_PLAYER, 0) then
         info(string.format("match request: the tile %s as the player's team with explicit flag %s: turned into the " ..
-          "active team set here (the native answer did not)", U.hex(player), tostring(explicit)))
+          "active team set here (the native answer did not)", VRFW.ids.hex_text(player), tostring(explicit)))
       else
         warn("match request: the tile as the player's team NOT turned into the active team set (write failed)")
       end
     elseif player == 0 then
       info(string.format("match request: the tile turned natively into the active team set (player's team 0), rival %s",
-        U.hex(rival or 0)))
+        VRFW.ids.hex_text(rival or 0)))
     end
     return nil
   end)

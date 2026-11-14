@@ -150,6 +150,12 @@ function BetterQoL.tech_preview.want()
   return p ~= nil and p.ok
 end
 
+-- A press of the preview from another script (BetterUI's thumbnail click): played on the next Step under the same
+-- rules as the key (prompt wanted, move list focused).
+function BetterQoL.tech_preview.request()
+  BetterQoL.tech_preview.requested = true
+end
+
 local function PlayFailed(e)
   local T = BetterQoL.tech_preview
   T.log("play failed:", e)
@@ -168,6 +174,8 @@ function BetterQoL.tech_preview.step()
     end
     return
   end
+  local asked = T.requested == true
+  T.requested = false
   if not T.hint_ready() then return end
   local want = T.want()
   T.show(want)
@@ -175,7 +183,7 @@ function BetterQoL.tech_preview.step()
   local okf, act = pcall(funcLuaMenuCommand, T.FOCUS_ACTIVE, T.ITEM)
   if not (okf and act == true) then return end
   local okk, pressed = pcall(funcLuaCommand, T.INPUT, T.MENU_CTRL, T.KEY)
-  if okk and pressed == true then
+  if asked or (okk and pressed == true) then
     T.co = coroutine.create(T.play)
     local ok, e = coroutine.resume(T.co, T.skill)
     if not ok then

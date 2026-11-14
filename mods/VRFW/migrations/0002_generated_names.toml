@@ -6,36 +6,6 @@ after = ["VRFW.no_compat_names", "BetterQoL.former_utilities_ids"]
 
 [[step]]
 kind = "rename_id_keep_number"
-space = "team"
-from = "ChronicleDeluxe.cro_ie1_own_evt_rn_ie1_umbrella"
-to = "ChronicleDeluxe.cro_ie1_own_vrfw_node_ie1_umbrella"
-if_target = "keep_source"
-
-[[step]]
-kind = "rename_id_keep_number"
-space = "team"
-from = "ChronicleDeluxe.cro_ie1_own_evt_rn_ie1_sallys"
-to = "ChronicleDeluxe.cro_ie1_own_vrfw_node_ie1_sallys"
-if_target = "keep_source"
-
-[[step]]
-kind = "rename_id_keep_number"
-space = "team"
-from = "ChronicleDeluxe.cro_ie2_own_evt_rn_ie2_forest"
-to = "ChronicleDeluxe.cro_ie2_own_vrfw_node_ie2_forest"
-if_target = "keep_source"
-
-[[step]]
-kind = "rename_id_keep_number"
-space = "team"
-from = "ChronicleDeluxe.cro_galaxy_own_evt_rn_galaxy_raimon"
-to = "ChronicleDeluxe.cro_galaxy_own_vrfw_node_galaxy_raimon"
-if_target = "keep_source"
-
-# Free-match clear bits of the route node games (keys free_match.<game>.<class>): same bits, won classes stay won.
-
-[[step]]
-kind = "rename_id_keep_number"
 space = "vrfw.clear_bit"
 from = "free_match.evt_rn_ie1_umbrella"
 to = "free_match.vrfw_node_ie1_umbrella"

@@ -2,6 +2,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.contact_map/1"
 folder = "content/contact_maps"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.ContactMap"
+v2_kind_folder = "ContactMaps"
+v2_version = 1
 label = "Contact map"
 label_es = "Mapa de contactos"
 doc = "The sets and entries of the contact map, and what each entry opens."

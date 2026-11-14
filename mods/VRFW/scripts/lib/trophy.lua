@@ -1,3 +1,4 @@
+--- Advanced: Library: plays the trophy celebration after a won match and answers the trophy shown now.
 local Trophy = {}
 local MatchResults = VRFW.match.results
 
@@ -25,7 +26,7 @@ local function match_info()
   return nil
 end
 
---- the finished match wins a competition: the celebration plays after its full time when the player won the match.
+--- Internal: the finished match wins a competition: the celebration plays after its full time when the player won the match.
 function Trophy.play(name, result)
   if type(result) ~= "table" or result.outcome ~= "win" then
     info(string.format("%s decided without a won match (%s): no celebration", name ~= "" and name or "a competition",
@@ -61,11 +62,11 @@ local function clear()
   return nil
 end
 
-VRFW.on("match_start", clear)
-VRFW.on("game_reset", clear)
+VRFW.on("match:start", clear)
+VRFW.on("game:reset", clear)
 
 -- a mod's competition won by the finished match (that mod's own rule decided it, from vrfw.match_result)
-VRFW.on("signal:vrfw.trophy", function()
+VRFW.on("script:signal:vrfw.trophy", function()
   local name = text_at(NAME_KEY)
   if name ~= "" then
     pcall(VRFW.state.set, NAME_KEY, "")
@@ -76,7 +77,7 @@ VRFW.on("signal:vrfw.trophy", function()
   return nil
 end)
 
---- The trophy shown now: { active, name, name_id } ({ active = false } when none).
+--- Advanced: The trophy shown now: { active, name, name_id } ({ active = false } when none).
 function Trophy.details()
   local ok, active = pcall(VRFW.state.get, ACTIVE_KEY)
   if not ok or active ~= true then

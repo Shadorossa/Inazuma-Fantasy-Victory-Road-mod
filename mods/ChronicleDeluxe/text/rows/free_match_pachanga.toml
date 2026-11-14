@@ -1,0 +1,67 @@
+schema = "VRFW.text/2"
+table = "menu_text"
+
+# the free match list's guide entry on Select while the list is in Match mode
+[[row]]
+id = "ChronicleDeluxe.FreeMatchModeMatch"
+es = "Modo: Partido"
+en = "Mode: Match"
+fr = "Mode : Match"
+de = "Modus: Spiel"
+it = "Modalità: Partita"
+pt = "Modo: Jogo"
+ja = "モード：試合"
+zh_hans = "模式：比赛"
+zh_hant = "模式：比賽"
+
+# the same entry while the list is in Pachanga mode
+[[row]]
+id = "ChronicleDeluxe.FreeMatchModePachanga"
+es = "Modo: Pachanga"
+en = "Mode: Kickabout"
+fr = "Mode : Petit match"
+de = "Modus: Bolzen"
+it = "Modalità: Partitella"
+pt = "Modo: Peladinha"
+ja = "モード：ミニゲーム"
+zh_hans = "模式：街头赛"
+zh_hant = "模式：街頭賽"
+
+# the help line under the list in Pachanga mode
+[[row]]
+id = "ChronicleDeluxe.FreeMatchPachangaHint"
+es = "Elige un equipo para jugar una pachanga."
+en = "Choose a team to play a kickabout against."
+fr = "Choisissez une équipe pour un petit match."
+de = "Wähle ein Team zum Bolzen."
+it = "Scegli una squadra per una partitella."
+pt = "Escolhe uma equipa para uma peladinha."
+ja = "ミニゲームで対戦するチームを選んでください。"
+zh_hans = "选择一支队伍进行街头赛。"
+zh_hant = "選擇一支隊伍進行街頭賽。"
+
+# the question before a pachanga; %s = the rival team's name
+[[row]]
+id = "ChronicleDeluxe.FreeMatchPachangaAsk"
+es = "¿Jugar una pachanga contra %s?"
+en = "Play a kickabout against %s?"
+fr = "Jouer un petit match contre %s ?"
+de = "Gegen %s bolzen?"
+it = "Giocare una partitella contro %s?"
+pt = "Jogar uma peladinha contra %s?"
+ja = "%sとミニゲームをしますか？"
+zh_hans = "要和%s进行街头赛吗？"
+zh_hant = "要和%s進行街頭賽嗎？"
+
+# the window the free match list shows when the chosen team has no five-a-side team for a pachanga
+[[row]]
+id = "ChronicleDeluxe.FreeMatchPachangaNoFive"
+es = "%s no tiene equipo de fútbol 5: no se puede jugar una pachanga contra él."
+en = "%s has no five-a-side team, so no kickabout can be played against it."
+fr = "%s n'a pas d'équipe à cinq : aucun petit match n'est possible contre elle."
+de = "%s hat kein Fünferteam, daher kann nicht gegen dieses Team gebolzt werden."
+it = "%s non ha una squadra a cinque: non si può giocare una partitella contro di essa."
+pt = "%s não tem equipa de cinco, por isso não é possível jogar uma peladinha contra ela."
+ja = "%sには5人制チームがないため、ミニゲームはできません。"
+zh_hans = "%s没有五人制队伍，无法与其进行街头赛。"
+zh_hant = "%s沒有五人制隊伍，無法與其進行街頭賽。"

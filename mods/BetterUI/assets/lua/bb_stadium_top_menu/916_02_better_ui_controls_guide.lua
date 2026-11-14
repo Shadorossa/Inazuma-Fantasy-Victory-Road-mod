@@ -14,7 +14,7 @@ BetterUI.controls_guide = {
 
 -- corner_buttons flag of the menu cleanup block
 function BetterUI.controls_guide.hidden()
-  return BetterUI.preset ~= "off" and type(BetterUI.flags) == "table" and BetterUI.flags.corner_buttons == true
+  return type(BetterUI.flags) == "table" and BetterUI.flags.corner_buttons == true
 end
 
 do

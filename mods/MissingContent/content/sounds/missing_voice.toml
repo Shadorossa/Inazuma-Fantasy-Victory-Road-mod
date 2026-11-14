@@ -1,113 +1,53 @@
 schema = "VRFW.sound/1"
+# Japanese special-move call-outs the game lacks: every <bank>_<cue>.wav of the folder is that cue of that voice bank.
+# The lines come from GO Strikers 2013 (_tools/missing_voice_build.py, _build.toml) and from the Voice Plus pack of Andrea Calvaruso.
 
-[[voice]]
-bank = "c01001440"            # Makiya
-cue = "whd00040"
+[[voice_folder]]
+folder = "assets/sounds/voice/ja"
 lang = "ja"
-file = "assets/sounds/voice/ja/c01001440_whd00040.wav"
 normalize = "none"
 
-[[voice]]
-bank = "c01001860"            # Arute
-cue = "whd00290"
-lang = "ja"
-file = "assets/sounds/voice/ja/c01001860_whd00290.wav"
-normalize = "none"
+# The other cards of the same character: a line of the first bank also goes to their banks.
+[voice_folder.also_banks]
+c01000010 = ["c07110020"]
+c01000020 = ["c02024300", "c07070120"]
+c01000030 = ["c07040120"]
+c01000040 = ["c02024240"]
+c01000050 = ["c02024250"]
+c01000060 = ["c02024260"]
+c01000070 = ["c02024270"]
+c01000080 = ["c02024280"]
+c01000090 = ["c02024290"]
+c01000100 = ["c07050010"]
+c01000110 = ["c02024310", "c07090140"]
+c01000300 = ["c01010970", "c07020120"]
+c01000310 = ["c02023710"]
+c01000810 = ["c02024210"]
+c01001690 = ["c07050020"]
+c01001710 = ["c07050040"]
+c01010910 = ["c07120060"]
+c01010980 = ["c02024230"]
+c02023290 = ["c02023370", "c02023380", "c07090010", "c11902360"]
+c02023700 = ["c03030050", "c07070110"]
+c03030070 = ["c07100040"]
+c04000050 = ["c05028070"]
+c04000080 = ["c05028030"]
+c04002900 = ["c05028060"]
+c04003500 = ["c05028140"]
+c05021890 = ["c05028490"]
+c07010020 = ["c08010030"]
 
-[[voice]]
-bank = "c01001890"            # Demete
-cue = "who00070"
-lang = "ja"
-file = "assets/sounds/voice/ja/c01001890_who00070.wav"
-normalize = "none"
-
-[[voice]]
-bank = "c02021040"            # Ganymede
-cue = "whs00700"
-lang = "ja"
-file = "assets/sounds/voice/ja/c02021040_whs00700.wav"
-normalize = "none"
-
-[[voice]]
-bank = "c02021510"            # Gran
-cue = "who00800"
-lang = "ja"
-file = "assets/sounds/voice/ja/c02021510_who00800.wav"
-normalize = "none"
-
-[[voice]]
-bank = "c02021510"            # Gran
-cue = "whs01690"
-lang = "ja"
-file = "assets/sounds/voice/ja/c02021510_whs01690.wav"
-normalize = "none"
-
-[[voice]]
-bank = "c02024040"            # Tsunami (IE2)
-cue = "whs02000"
-lang = "ja"
-file = "assets/sounds/voice/ja/c02024040_whs02000.wav"
-normalize = "none"
-
-[[voice]]
-bank = "c02024750"            # Kino Aki
-cue = "whk00240"
-lang = "ja"
-file = "assets/sounds/voice/ja/c02024750_whk00240.wav"
-normalize = "none"
-
-[[voice]]
-bank = "c02024750"            # Kino Aki
-cue = "whk00690"
-lang = "ja"
-file = "assets/sounds/voice/ja/c02024750_whk00690.wav"
-normalize = "none"
-
-[[voice]]
-bank = "c03030430"            # Bjorn Kyle
-cue = "whd00580"
-lang = "ja"
-file = "assets/sounds/voice/ja/c03030430_whd00580.wav"
-normalize = "none"
-
-[[voice]]
-bank = "c04000170"            # Kageyama Hikaru
-cue = "whs01480"
-lang = "ja"
-file = "assets/sounds/voice/ja/c04000170_whs01480.wav"
-normalize = "none"
-
-[[voice]]
-bank = "c04000170"            # Kageyama Hikaru
-cue = "who00820"
-lang = "ja"
-file = "assets/sounds/voice/ja/c04000170_who00820.wav"
-normalize = "none"
-
-[[voice]]
-bank = "c04000360"            # Sorano Aoi
-cue = "whk00880"
-lang = "ja"
-file = "assets/sounds/voice/ja/c04000360_whk00880.wav"
-normalize = "none"
-
-[[voice]]
-bank = "c04000360"            # Sorano Aoi
-cue = "whk00530"
-lang = "ja"
-file = "assets/sounds/voice/ja/c04000360_whk00530.wav"
-normalize = "none"
-
-[[voice]]
-bank = "c05024680"            # adult Someoka
-cue = "whs01990"
-lang = "ja"
-file = "assets/sounds/voice/ja/c05024680_whs01990.wav"
-normalize = "none"
-
-[[voice]]
-bank = "c05024700"            # adult Fubuki
-cue = ["whs00600", "whs00600_mm"]
-lang = "ja"
-file = "assets/sounds/voice/ja/c05024700_whs00600.wav"
-normalize = "none"
+# The alternate keys of a move: a line of the first cue also plays as these cues.
+[voice_folder.also_cues]
+whd00170 = ["whd00170_or"]
+whd00390 = ["whd00390_or"]
+whk00380 = ["whk00380_or"]
+whk01710 = ["whk00010", "whk00480"]
+who00360 = ["who00360_or"]
+whs00350 = ["whs00350_or"]
+whs00600 = ["whs00600_mm"]
+whs00770 = ["whs00770_or"]
+whs00780 = ["whs00780_or"]
+whs00940 = ["whs00850"]
+whs02010 = ["whs02010_or"]
+whs03290 = ["whs03290_cro"]

@@ -1,0 +1,254 @@
+--@lib vrfw_block_helpers.lua#Wrap
+BattleBayDeluxe = type(BattleBayDeluxe) == "table" and BattleBayDeluxe or {}
+BattleBayDeluxe.daily_challenge = BattleBayDeluxe.daily_challenge or {}
+BattleBayDeluxe.daily_challenge.PREPARE = @crc:CMND_BATTLEBAYDELUXE_DAILY_PREPARE@
+BattleBayDeluxe.daily_challenge.UNLOAD = @crc:CMND_BATTLEBAYDELUXE_DAILY_UNLOAD@
+BattleBayDeluxe.daily_challenge.SYNC = @crc:CMND_BATTLEBAYDELUXE_DAILY_SYNC@
+BattleBayDeluxe.daily_challenge.ROW_CONTINUE = 2856747853   -- the retail window's first row text
+BattleBayDeluxe.daily_challenge.ROW_NEW = 1851993283        -- the retail window's second row text
+BattleBayDeluxe.daily_challenge.WINDOW_X = 1068             -- the retail window's centre x (sub window kind 20)
+BattleBayDeluxe.daily_challenge_state = { sync = false, menu_open = false, no_daily = false }
+
+function BattleBayDeluxe.daily_challenge_id(key)
+  return BattleBayDeluxe.tournament_crc("battlebaydeluxe_dc_" .. key)
+end
+
+-- Returns the UTC day of the framework's daily service.
+function BattleBayDeluxe.daily_challenge_today()
+  if type(VRFW.daily) ~= "table" or type(VRFW.daily.period) ~= "function" then
+    return nil
+  end
+  local _, _, label = VRFW.daily.period("day")
+  local y, m, d = tostring(label or ""):match("^(%d%d%d%d)%-(%d%d)%-(%d%d)$")
+  if y == nil then
+    return nil
+  end
+  return tonumber(y) * 10000 + tonumber(m) * 100 + tonumber(d)
+end
+
+function BattleBayDeluxe.daily_challenge_is_campaign_row(l, i)
+  if (l ~= BattleBayDeluxe.tournament.LIST_MID and l ~= BattleBayDeluxe.tournament.LIST_SMALL) or BattleBayDeluxe.tournament_host.name ~= "bb_stadium_top_menu" then
+    return false
+  end
+  local ok, info = pcall(GetLitItemInfo, l, i)
+  return ok and info ~= nil and info.menuObjectName == BattleBayDeluxe.tournament.ROW_CAMPAIGN
+end
+
+function BattleBayDeluxe.daily_challenge_window_gone()
+  local g = 0
+  while funcLuaMenuCommand(@crc:CMND_IS_EXIST_MENU_OBJECT@, BattleBayDeluxe.tournament.SUB_WINDOW) == true and g < 300 do
+    g = g + 1
+    coroutine.yield()
+  end
+  for _ = 1, 6 do
+    coroutine.yield()
+  end
+end
+
+function BattleBayDeluxe.daily_challenge_campaign_menu()
+  while true do
+    local t = BattleBayDeluxe.tournament_info_no_ended()
+    local run = t.active == true
+    local league = t.fmt == 2
+    local daily = BattleBayDeluxe.daily_challenge_id("daily")
+    local ids = { BattleBayDeluxe.daily_challenge_id("new"), daily }
+    if run then
+      ids = { BattleBayDeluxe.tournament_id(BattleBayDeluxe.tournament_run_key("continue", league)), BattleBayDeluxe.tournament_id(BattleBayDeluxe.tournament_run_key("new", league)), daily }
+    end
+    local c = BattleBayDeluxe.tournament_choose(ids, 0, false, BattleBayDeluxe.daily_challenge.WINDOW_X)
+    local id = ids[c + 1]
+    if c < 0 or id == nil then
+      funcLuaCommand(@crc:CMND_SND_PLAY_SE@, @crc:sy0006@)
+      BattleBayDeluxe.daily_challenge_window_gone()
+      return nil
+    end
+    if id == daily then
+      return "daily"
+    end
+    if not run or c == 0 then
+      return "campaign"
+    end
+    if BattleBayDeluxe.tournament_entry_tournament(BattleBayDeluxe.tournament_entry_new, t) then
+      return "started"
+    end
+  end
+end
+
+-- the one-row notice when the day's run cannot be prepared
+function BattleBayDeluxe.daily_challenge_unavailable(why)
+  BattleBayDeluxe.tournament_log("daily: not available:", tostring(why))
+  funcLuaCommand(@crc:CMND_SND_PLAY_SE@, @crc:sy0003@)
+  BattleBayDeluxe.tournament_choose({ BattleBayDeluxe.daily_challenge_id("unavailable") }, 0)
+end
+
+function BattleBayDeluxe.daily_challenge_play()
+  local date = BattleBayDeluxe.daily_challenge_today()
+  if date == nil then
+    BattleBayDeluxe.daily_challenge_unavailable("no daily service")
+    return false
+  end
+  local prep = BattleBayDeluxe.tournament_call(BattleBayDeluxe.daily_challenge.PREPARE, date)
+  if type(prep) ~= "table" or not prep.ok then
+    BattleBayDeluxe.daily_challenge_unavailable(type(prep) == "table" and prep.why or "busy")
+    return false
+  end
+  pcall(funcLuaCommand, BattleBayDeluxe.tournament.RULE_SELECT, "")
+  funcLuaCommand(@crc:CMND_SND_PLAY_SE@, @crc:sy0000@)
+  local ret = funcLuaMenuCommand(2227512519)
+  BattleBayDeluxe.tournament_log("daily: match", (prep.k or 0) + 1, "requested", tostring(ret))
+  if not ret then
+    BattleBayDeluxe.tournament_call(BattleBayDeluxe.daily_challenge.UNLOAD)
+    funcLuaCommand(@crc:CMND_SND_PLAY_SE@, @crc:sy0003@)
+    return false
+  end
+  pcall(BattleBayDeluxe.tournament_host.before_match)
+  funcLuaMenuCommand(@crc:CMND_MAKE_ACHIEVE_MESSAGE@ --[[CMND_SET_MENU_ACTIVE?]], BattleBayDeluxe.tournament_host.menu, false)
+  if type(BrightFadeAllMenu) == "function" then
+    BrightFadeAllMenu(@crc:fade_menu_encount_campaign@, true)
+  end
+  funcLuaCommand(769636339, 0.5)
+  if BattleBayDeluxe.tournament_host.menu ~= @crc:soccer_top_menu@ then
+    funcLuaCommand(@crc:CMND_CLOSE_MENU_OBJECT@, BattleBayDeluxe.tournament_host.menu, true)
+  end
+  funcLuaCommand(@crc:CMND_CLOSE_MENU_OBJECT@, @crc:soccer_top_menu@)
+  return true
+end
+
+function BattleBayDeluxe.daily_challenge_retail_window(wait, a1, a2, with_daily)
+  local dc = BattleBayDeluxe.daily_challenge
+  local picked = false
+  local cmd, open = funcLuaCommand, MENU_DEF.OpenSubWindowDefault
+  local swap, swap_open
+  swap_open = function(n, ids, size, cursor, enabled, ...)
+    if type(ids) ~= "table" or ids[1] ~= dc.ROW_CONTINUE or ids[2] ~= dc.ROW_NEW then
+      return open(n, ids, size, cursor, enabled, ...)
+    end
+    MENU_DEF.OpenSubWindowDefault = open
+    if with_daily then
+      return open(3, { ids[1], BattleBayDeluxe.daily_challenge_id("new"), BattleBayDeluxe.daily_challenge_id("daily") }, BattleBayDeluxe.tournament_choose_size[3], cursor, { 1, 1, 1 }, ...)
+    end
+    return open(n, { ids[1], BattleBayDeluxe.daily_challenge_id("new") }, size, cursor, enabled, ...)
+  end
+  swap = function(c, ...)
+    if c ~= @crc:CMND_GET_SUB_WINDOW_RESULT@ then
+      return cmd(c, ...)
+    end
+    local r = cmd(c, ...)
+    if r >= 0 then
+      picked = with_daily and r == 2
+      funcLuaCommand = cmd
+    end
+    return r
+  end
+  MENU_DEF.OpenSubWindowDefault = swap_open
+  funcLuaCommand = swap
+  local ok, err = pcall(wait, a1, a2)
+  if MENU_DEF.OpenSubWindowDefault == swap_open then
+    MENU_DEF.OpenSubWindowDefault = open
+  end
+  if funcLuaCommand == swap then
+    funcLuaCommand = cmd
+  end
+  if not ok then
+    error(err, 0)
+  end
+  return picked
+end
+
+-- the window fully gone, then the run's next match
+function BattleBayDeluxe.daily_challenge_play_from_window()
+  BattleBayDeluxe.daily_challenge_window_gone()
+  local ok, err = pcall(BattleBayDeluxe.daily_challenge_play)
+  if not ok then
+    BattleBayDeluxe.tournament_log("daily: error", tostring(err))
+  end
+end
+
+-- a sync answer (CMND_BATTLEBAYDELUXE_DAILY_SYNC records the result itself)
+function BattleBayDeluxe.daily_challenge_synced(r)
+  BattleBayDeluxe.daily_challenge_state.sync = false
+  if type(r) == "table" and r.event ~= nil and r.event ~= "none" then
+    BattleBayDeluxe.tournament_log("daily: back from a run match:", tostring(r.event))
+  end
+end
+
+-- the sync again while the scripts were busy at OnInit
+function BattleBayDeluxe.daily_challenge_step()
+  if BattleBayDeluxe.tournament_host.name ~= "bb_stadium_top_menu" or not BattleBayDeluxe.daily_challenge_state.sync then
+    return
+  end
+  local r = BattleBayDeluxe.tournament_call(BattleBayDeluxe.daily_challenge.SYNC)
+  if r ~= nil then
+    BattleBayDeluxe.daily_challenge_synced(r)
+  end
+end
+
+
+do
+  Wrap("BattleBayDeluxe.daily_challenge_top", "OnInit", { around = function(init, ...)
+    BattleBayDeluxe.daily_challenge_state.sync = false
+    BattleBayDeluxe.daily_challenge_state.no_daily = false
+    local r = BattleBayDeluxe.tournament_call(BattleBayDeluxe.daily_challenge.SYNC)
+    if r ~= nil then
+      BattleBayDeluxe.daily_challenge_synced(r)
+    else
+      BattleBayDeluxe.daily_challenge_state.sync = true   -- the scripts were busy: again from Step
+    end
+    return init(...)
+  end })
+
+  Wrap("BattleBayDeluxe.daily_challenge_top", "WaitExecOtherMenu", { around = function(wait, a1, a2)
+    local no_daily = BattleBayDeluxe.daily_challenge_state.no_daily
+    BattleBayDeluxe.daily_challenge_state.no_daily = false
+    if a1 ~= BattleBayDeluxe.tournament.ROW_CAMPAIGN or BattleBayDeluxe.tournament_host.name ~= "bb_stadium_top_menu"
+      or funcLuaMenuCommand(BattleBayDeluxe.tournament.CAMPAIGN, 0) ~= true then
+      return wait(a1, a2)
+    end
+    if BattleBayDeluxe.daily_challenge_retail_window(wait, a1, a2, not no_daily) then
+      BattleBayDeluxe.tournament_choose_close()
+      BattleBayDeluxe.daily_challenge_play_from_window()
+    end
+  end })
+
+  Wrap("BattleBayDeluxe.daily_challenge_top", "OnDecideFocus", { around = function(decide, a1, a2, ...)
+    local state = BattleBayDeluxe.tournament_state
+    BattleBayDeluxe.daily_challenge_state.no_daily = state.row_mode ~= nil
+    if state.open or state.row_mode ~= nil or not BattleBayDeluxe.daily_challenge_is_campaign_row(a1, a2) then
+      return decide(a1, a2, ...)
+    end
+    local t = BattleBayDeluxe.tournament_info_no_ended()
+    if t.active ~= true and funcLuaMenuCommand(BattleBayDeluxe.tournament.CAMPAIGN, 0) == true then
+      return decide(a1, a2, ...)
+    end
+    funcLuaCommand(@crc:CMND_SND_PLAY_SE@, @crc:sy0000@)
+    BattleBayDeluxe.daily_challenge_state.menu_open = true
+    local ok, pick = pcall(BattleBayDeluxe.daily_challenge_campaign_menu)
+    BattleBayDeluxe.daily_challenge_state.menu_open = false
+    if not ok then
+      BattleBayDeluxe.tournament_log("daily: menu error", tostring(pick))
+    elseif pick == "campaign" then
+      BattleBayDeluxe.daily_challenge_window_gone()
+      return decide(a1, a2, ...)
+    elseif pick == "daily" then
+      BattleBayDeluxe.daily_challenge_play_from_window()
+    end
+    return 1
+  end })
+
+  Wrap("BattleBayDeluxe.daily_challenge_top", "OnBack", { around = function(back, ...)
+    if BattleBayDeluxe.daily_challenge_state.menu_open and not BattleBayDeluxe.tournament_state.open then
+      return 1
+    end
+    return back(...)
+  end })
+
+  Wrap("BattleBayDeluxe.daily_challenge_top", "Step", { around = function(step, ...)
+    local r = table.pack(step(...))
+    local ok, err = pcall(BattleBayDeluxe.daily_challenge_step)
+    if not ok and BattleBayDeluxe.daily_challenge_state.step_error ~= err then
+      BattleBayDeluxe.daily_challenge_state.step_error = err
+      BattleBayDeluxe.tournament_log("daily: step error", tostring(err))
+    end
+    return table.unpack(r, 1, r.n)
+  end })
+end

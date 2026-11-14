@@ -50,6 +50,7 @@ do
   BetterQoL.passive_config_plate.K_ENTER = 1981080283
   BetterQoL.passive_config_plate.K_CLICK = 1651523701
   BetterQoL.passive_config_plate.K_BACK = 3011112225
+  BetterQoL.passive_config_plate.K_RCLICK = 3473063670 -- CMD_MOUSE_RIGHT_CLICK
   BetterQoL.passive_config_plate.K_UP = 1197218715
   BetterQoL.passive_config_plate.K_DOWN = 3259546669
   BetterQoL.passive_config_plate.K_FUNC3 = 3421673595
@@ -94,13 +95,21 @@ do
   end
 
   -- the game's own menu input (CMND_CHECK_INPUT_CMD on MENU_CTRL / MENU_CTRL_WITH_ANALOG_MOVE_FOCUS)
-  function BetterQoL.passive_config_plate.key(k)
+  function BetterQoL.passive_config_plate.input(k)
     local okm, v = pcall(funcLuaCommand, 4265778440, BetterQoL.passive_config_plate.CTRL, k)
     if okm and v == true then
       return true
     end
     local okn, w = pcall(funcLuaCommand, 4265778440, BetterQoL.passive_config_plate.CTRL2, k)
     return okn and w == true
+  end
+
+  -- Back also answers to right click, as the retail CMD_MOUSE_RIGHT_CLICK -> CMD_BACK row of every menu layer.
+  function BetterQoL.passive_config_plate.key(k)
+    if BetterQoL.passive_config_plate.input(k) then
+      return true
+    end
+    return k == BetterQoL.passive_config_plate.K_BACK and BetterQoL.passive_config_plate.input(BetterQoL.passive_config_plate.K_RCLICK)
   end
 
   function BetterQoL.passive_config_plate.SE(id)
@@ -589,7 +598,7 @@ do
       end
       local left, click = Edge(LEFT), Edge(CLICK)
       if left then
-        P.on = true
+        P.on, ev.left = true, true
       end
       local z = P.on and P.at() or nil
       local id = z and z.id or nil

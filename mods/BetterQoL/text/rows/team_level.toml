@@ -1,0 +1,27 @@
+# Team level texts (the «Ajustar nivel del equipo» row of the team COMANDOS window; ids = crc32(id)).
+schema = "VRFW.text/2"
+table = "menu_text"
+
+[[row]]
+id = "better_qol_team_level_cmd"
+es = "Ajustar nivel del equipo"
+en = "Set team level"
+fr = "Régler le niveau de l'équipe"
+de = "Teamstufe festlegen"
+it = "Imposta livello squadra"
+pt = "Ajustar nível da equipa"
+ja = "チームのレベルを調整"
+zh_hans = "调整队伍等级"
+zh_hant = "調整隊伍等級"
+
+[[row]]
+id = "better_qol_team_level_pick"
+es = "Nivel para todo el equipo"
+en = "Level for the whole team"
+fr = "Niveau de toute l'équipe"
+de = "Stufe für das ganze Team"
+it = "Livello per tutta la squadra"
+pt = "Nível para toda a equipa"
+ja = "チーム全員のレベル"
+zh_hans = "全队等级"
+zh_hant = "全隊等級"

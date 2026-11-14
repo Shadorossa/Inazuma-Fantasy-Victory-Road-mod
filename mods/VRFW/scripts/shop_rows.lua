@@ -61,7 +61,7 @@ local function check_reset()
     seen_epoch = e
   end
 end
-reset_by_event = pcall(VRFW.on, "game_reset", function()
+reset_by_event = pcall(VRFW.on, "game:reset", function()
   reset_rows()
   return nil
 end)
@@ -91,12 +91,7 @@ local function be32(p, i)
 end
 
 -- The payload references `flag` as a hash literal (34 <crc32 big-endian>)
-local function mentions(p, flag)
-  for i = 1, #p - 4 do
-    if p[i] == 0x34 and be32(p, i + 1) == flag then return true end
-  end
-  return false
-end
+local mentions = VRFW.shop.mentions
 
 -- A literal (32 int / 34 hash, big-endian) at i
 local function lit(p, i)

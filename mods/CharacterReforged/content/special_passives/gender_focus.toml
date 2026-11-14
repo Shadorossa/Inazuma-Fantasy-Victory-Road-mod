@@ -1,0 +1,13 @@
+schema = "VRFW.passive/1"
+
+# Focus AT & DF +10 % in a focus duel against an opponent of that gender (blocks: content\passive_blocks\base.toml).
+
+[[VRFW.Passive]]
+name = "focus_vs_female"
+blocks = ["female_rival", "own_duel_power_10"]
+carried_by = ["character_reforged_focus_vs_female"]
+
+[[VRFW.Passive]]
+name = "focus_vs_male"
+blocks = ["male_rival", "own_duel_power_10"]
+carried_by = ["character_reforged_focus_vs_male"]

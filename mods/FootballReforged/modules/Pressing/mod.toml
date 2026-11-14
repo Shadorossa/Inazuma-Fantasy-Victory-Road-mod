@@ -1,10 +1,11 @@
 id = "Pressing"
 # name / description: the English fallback; the card shows the text keys mod_name / mod_description (text\keys.toml)
 name = "Team pressing"
-version = "0.3.0"
+version = "0.3.1"
 author = "Fantasy Team"
 description = "Without the ball, L2 becomes a press button: hold it and 2 to 4 of your teammates nearest to the ball carrier sprint at him, never the keeper. Release it or win the ball back and they play as before. The CPU presses with the same rules."
 priority = 0
+type = "gameplay"
 tags = ["Gameplay"]
 updated = "2026-11-09"
 # This mod's own names (Lua Pressing.X); never VRFW.

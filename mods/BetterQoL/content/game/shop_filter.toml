@@ -52,10 +52,10 @@ value = "17"
 name = "CMND_BETTERQOL_SHOP_FILTER_SET"
 handler = "BetterQoL.ShopFilterSet"
 
-# value 1, count 1, item 1, …, value 2, … -> true: rows a mod adds to the equipment window; no arguments = none
+# the rows and tests of the shop's Mods filter section (content\item_filter_sections\mods.toml)
 [[VRFW.Command]]
-name = "CMND_BETTERQOL_SHOP_FILTER_ROWS"
-handler = "BetterQoL.ShopFilterRows"
+name = "CMND_BETTERQOL_ITEM_FILTER"
+handler = "BetterQoL.ItemFilter"
 
 # inv, t1, v1, o1, … -> shown, total over the rows of the tab built last
 [[VRFW.Command]]

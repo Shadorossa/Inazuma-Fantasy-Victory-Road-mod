@@ -10,6 +10,13 @@ number = "num_passive_lock01"
 digits = 2
 
 [[VRFW.NumberFit]]
+name = "skill_table_mix_lock_level"
+layer = "character_reforged_ss_mix_lock"
+node = "_num_passive_lock01"
+number = "num_passive_lock01"
+digits = 2
+
+[[VRFW.NumberFit]]
 name = "move_row_lock_level"
 layer = "soccer11_09_formation_chara_skill"
 node = "_num_passive_lock01"

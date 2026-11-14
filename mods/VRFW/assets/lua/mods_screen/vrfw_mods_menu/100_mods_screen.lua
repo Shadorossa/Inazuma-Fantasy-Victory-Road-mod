@@ -72,13 +72,14 @@ local L_BTN = Crc("mainmenu01_07_button_guide")
 local L_RET = Crc("mainmenu01_10_return_arrow_button_guide")
 -- free layers (screen.rs FREE): name -> instances
 local FREE = {
-  Q0 = {Crc("vrfw_mm_q0"), 80}, CARD = {Crc("vrfw_mm_card"), 16}, Q2 = {Crc("vrfw_mm_q2"), 48}, Q1 = {Crc("vrfw_mm_q1"), 144},
+  Q0 = {Crc("vrfw_mm_q0"), 80}, CARD = {Crc("vrfw_mm_card"), 16}, Q2 = {Crc("vrfw_mm_q2"), 48}, Q1 = {Crc("vrfw_mm_q1"), 128},
+  Q3 = {Crc("vrfw_mm_q3"), 16},
   TL = {Crc("vrfw_mm_tl"), 128}, TC = {Crc("vrfw_mm_tc"), 96}, TR = {Crc("vrfw_mm_tr"), 24},
-  P0 = {Crc("vrfw_mm_p0"), 24}, P1 = {Crc("vrfw_mm_p1"), 55},
+  P0 = {Crc("vrfw_mm_p0"), 24}, P1 = {Crc("vrfw_mm_p1"), 96}, P2 = {Crc("vrfw_mm_p2"), 12},
   PL = {Crc("vrfw_mm_pl"), 48}, PC = {Crc("vrfw_mm_pc"), 28}, PR = {Crc("vrfw_mm_pr"), 8},
 }
 -- the layers of THIS menu (set up with it, counted by the reveal, hidden by Finish)
-local FREE_ORDER = {"Q0", "CARD", "Q2", "Q1", "TL", "TC", "TR", "P0", "P1", "PL", "PC", "PR"}
+local FREE_ORDER = {"Q0", "CARD", "Q2", "Q1", "Q3", "TL", "TC", "TR", "P0", "P1", "P2", "PL", "PC", "PR"}
 local N = {
   ROW_ON = Crc("_text_list01_on"), ROW_OFF = Crc("_text_list01_off"),
   ROW_MESHES = {Crc("_list_icon_dmy_s01_on"), Crc("_list_icon_dmy_s01_off"), Crc("_list_icon_dmy_s01_ok"), Crc("_list_base_s01_ok"),
@@ -154,7 +155,7 @@ local K = {A = "<CMD_ENTER>", B = "<CMD_BACK>", L1 = "<CMD_FUNCL1>", R1 = "<CMD_
            L3 = "<CMD_FUNC5>", R3 = "<CMD_FUNC6>", LEFT = "<CMD_LEFT>", RIGHT = "<CMD_RIGHT>"}
 
 local G = {
-  TABBAR_X = 0, TABBAR_W = 990,
+  TABBAR_X = 0, TABBAR_PAD = 125,   -- the bar ends this far right of the last tab
   TAB_X = 55, TAB_Y = 137, TAB_W = 270, TAB_H = 50, TAB_STEP = 270,
   TOOLS_Y = 202, TOOLS_H = 42,
   ROW_SEARCH_X = 25, ROW_SEARCH_W = 300, ROW_FILTER_X = 335, ROW_FILTER_W = 150, ROW_SORT_X = 495, ROW_SORT_W = 160,
@@ -176,15 +177,15 @@ local G = {
   INFO_TEXT_W = 620,         -- the page's information view: width of the description column
   MOD_LIST_W = 650, MOD_PANE_X = 1410, MOD_PANE_W = 460, MOD_PANE_HEAD = 48,
   MOD_VER_W = 150, MOD_NOTES = 3, MOD_CHIPS = 3,   -- the version column, the sheet's points and requirement chips
-  SET_VAL_W = 230, SET_HELP_LINES = 6,   -- Settings: the value box's width, the sheet's help lines
-  SET_STRIP_H = 140, SET_STRIP_LINES = 2,   -- Settings of a page: the focused setting's strip under the rows, its help lines
   Q = 36,                    -- the cmn01_10 quad side
   TXT_X = 48, TXT_Y = 915, TXT_W = 800, TXT_MID = 949,   -- the text node of the text layers (mainmenu90_05)
   PX = 14.5,                 -- width of one Latin character at text scale 1 (28 px font)
-  NTABS = 2,
   -- the top-anchored y keys a header mod's top_dy moves (CE.apply_layout); TXT_Y stays
   SHIFT_Y = {"TAB_Y", "TOOLS_Y", "PROF_Y", "NOTICE_Y", "BOX_Y", "LIST_Y", "PANEL_Y", "PANEL_BODY_Y", "WIN_Y"},
 }
+
+-- the tabs in their order on the bar
+local TAB = {INSTALLED = 1, SETTINGS = 2, PROBLEMS = 3, BASE_GAME = 4}
 
 local have = false          -- the ModLoader answers CMND_VRFW_LOADER_MODS_COUNT
 local mods = {}
@@ -221,13 +222,13 @@ end
 
 local function Reset()
   Refill(ui, {
-    tab = 1,                 -- 1 installed mods, 2 problems (each mod's settings live on its page)
+    tab = TAB.INSTALLED,     -- TAB: installed mods, every active mod's settings, problems
     zone = "grid",           -- Instalados: "grid" | "bar" (search, filter, sort)
     bar = 1,                 -- 1 search, 2 filter, 3 sort
     sel = 1, top = 0,
     osel = 1, otop = 1,      -- load order list
     psel = 0, ptop = 0, pfilter = 1,
-    ssel = 0, stop = 0,
+    all_settings = {srow = 1, szone = "rows", btn = 1},   -- the Settings tab's focused row
     query = "", filter = 1, sort = 1,
     popup = nil,             -- the docked page of the selected mod: {kind = "mod", id = …, btn = 1, view = …}
     pane = "list",           -- the Mods tab's pane the keys go to: "list" | "page"
@@ -342,7 +343,7 @@ end
 -- width units of a text without its markup ([CN] … [C], <CMD_…> = 2 units)
 local function Units(s) return VRFW.text_fold.units(s) end
 
--- untrusted text (problem messages, paths, mod names) as written, never read as markup
+-- Internal: untrusted text (problem messages, paths, mod names) as written, never read as markup
 function Screen.literal(s) return VRFW.text_fold.literal(s) end
 
 local function Cut(s, units)
@@ -746,6 +747,11 @@ local function IconOf(m)
   local t = icons[m.id]
   if t then
     CE.texture(t[3])
+    -- a texture the game never finished loading: the initials instead
+    if tex_asked[t[3]] == 3 then
+      logger.once("icon_tex:" .. t[3], "icon of mod", m.id, "not drawn: texture never loaded", t[3])
+      return nil
+    end
   end
   return t or nil
 end
@@ -804,8 +810,9 @@ local function Quad(key, sprite, x, y, w, h, alpha, tex)
 end
 
 -- The retail plate a game picture icon sits on (the list tabs' icon base), its size and the icon's inset and aspect.
+-- OVER: the layer drawn above each base layer, where the picture goes (two quads of one layer have no fixed order).
 local ICON_BASE = {atlas = "#/menu/20_cmn/cmn06/cmn06_20/cmn06_20.g4tx", sprite = Crc("icon_base01"), W = 92, H = 52, INSET = 2,
-                   ICON_ASPECT = 3 / 2}
+                   ICON_ASPECT = 3 / 2, OVER = {Q1 = "Q3", P1 = "P2"}}
 
 -- Mod m's icon in the square slot (x, y, s) of layer q: a game picture on the retail icon base as wide as the slot, a PNG
 -- icon filling the slot. False when the mod has no icon (the caller draws its initials).
@@ -818,18 +825,26 @@ function CE.draw_icon(q, m, x, y, s, alpha)
     Quad(q, ic[2], x, y, s, s, alpha, ic[1])
     return true
   end
+  local over = ICON_BASE.OVER[q]
+  if over == nil then
+    logger.once("icon_layer:" .. q, "game picture icons are not drawn on layer", q, "(no layer above it): initials instead")
+    return false
+  end
   local bh = s * ICON_BASE.H / ICON_BASE.W
   local by = y + (s - bh) / 2
-  Quad(q, ICON_BASE.sprite, x, by, s, bh, alpha, CE.texture(ICON_BASE.atlas))
   local ih = bh - 2 * ICON_BASE.INSET
   local iw = ih * ICON_BASE.ICON_ASPECT
-  Quad(q, ic[2], x + (s - iw) / 2, by + ICON_BASE.INSET, iw, ih, alpha, ic[1])
+  if Quad(over, ic[2], x + (s - iw) / 2, by + ICON_BASE.INSET, iw, ih, alpha, ic[1]) == nil then
+    logger.once("icon_slot:" .. over, "layer", over, "has no free instance for a game picture icon: initials instead")
+    return false
+  end
+  Quad(q, ICON_BASE.sprite, x, by, s, bh, alpha, CE.texture(ICON_BASE.atlas))
   return true
 end
 
--- a text anchored at x (left / centre / right edge by the layer: TL / TC / TR, PL / PC / PR), vertical middle y
+-- a text anchored at x (left / centre / right edge by the layer: TL / TC / TR, PL / PC / PR), vertical middle y, opacity alpha (1 when nil)
 local ALIGN = {TL = 0, TC = 1, TR = 2, PL = 0, PC = 1, PR = 2}
-local function Txt(key, s, x, y, sc)
+local function Txt(key, s, x, y, sc, alpha)
   if s == nil or s == "" then
     return nil
   end
@@ -849,6 +864,7 @@ local function Txt(key, s, x, y, sc)
   Set(L, i, "txt", C.TEXT, L, N.TEXT, s, i)
   Set(L, i, "sc", C.SCALE, L, sc, sc, 1, i)
   Set(L, i, "pos", C.POS, L, x - ox * sc, G.TXT_MID * sc - y, 0, i)
+  Set(L, i, "a", C.ALPHA, L, i, 0, alpha or 1)
   return i
 end
 
@@ -885,32 +901,38 @@ local function DrawHeader()
   funcLuaMenuCommand(C.TEXT, L_HEADER, N.SUB_TITLE, s)
 end
 
+-- Each tab declares its label and whether it can be opened; a tab with enabled = false is drawn dimmed and skipped.
+local TABS = {
+  [TAB.INSTALLED] = {enabled = true, label = function() return T("tab_installed", {n = cnt.mods or #mods}) end},
+  [TAB.SETTINGS] = {enabled = true, label = function() return CE.all_settings_label() end},
+  [TAB.PROBLEMS] = {enabled = true, label = function() return CE.problem_tab_label() end},
+  [TAB.BASE_GAME] = {enabled = true, label = function() return T("tab_base_game") end},
+}
+
 local function TabLabel(k)
-  if k == 1 then
-    return T("tab_installed", {n = cnt.mods or #mods})
-  end
-  return CE.problem_tab_label()
+  return TABS[k].label()
 end
 
 local function DrawTabs()
   -- the navy bar (Q, the tabs, E) at the top left
-  Quad("Q0", SP("tabbar"), G.TABBAR_X, G.TAB_Y, G.TABBAR_W, G.TAB_H)
-  for k = 1, G.NTABS do
+  Quad("Q0", SP("tabbar"), G.TABBAR_X, G.TAB_Y, G.TAB_X + #TABS * G.TAB_STEP + G.TABBAR_PAD - G.TABBAR_X, G.TAB_H)
+  for k = 1, #TABS do
     local x = G.TAB_X + (k - 1) * G.TAB_STEP
     local sel = ui.tab == k
-    local hot = mouse.on and mouse.hot == "tab" .. k and not sel
+    local on = TABS[k].enabled
+    local hot = mouse.on and mouse.hot == "tab" .. k and not sel and on
     local locked = ui.page ~= nil and not sel
     if sel or hot then
       Quad("Q2", SP(sel and "tab_sel" or "tab_hot"), x, G.TAB_Y, G.TAB_W, G.TAB_H, locked and 0.45 or 1)
     end
-    Txt("TC", (sel and "" or "[CWG]") .. Cut(TabLabel(k), Fit(G.TAB_W - 40, 0.82)) .. (sel and "" or "[C]"), x + G.TAB_W / 2, G.TAB_Y + G.TAB_H / 2, 0.82)
-    if ui.page == nil then
+    Txt("TC", (sel and "" or "[CWG]") .. Cut(TabLabel(k), Fit(G.TAB_W - 40, 0.82)) .. (sel and "" or "[C]"), x + G.TAB_W / 2, G.TAB_Y + G.TAB_H / 2, 0.82, not on and 0.45 or nil)
+    if ui.page == nil and on then
       Hit(x + 10, G.TAB_Y, G.TAB_W - 20, G.TAB_H, "tab" .. k, function() SwitchTab(k) end)
     end
   end
-  if ui.page == nil and G.NTABS > 1 then
+  if ui.page == nil and #TABS > 1 then
     Txt("TC", K.L2, G.TAB_X - 22, G.TAB_Y + G.TAB_H / 2, 0.8)
-    Txt("TC", K.R2, G.TAB_X + G.NTABS * G.TAB_STEP + 28, G.TAB_Y + G.TAB_H / 2, 0.8)
+    Txt("TC", K.R2, G.TAB_X + #TABS * G.TAB_STEP + 28, G.TAB_Y + G.TAB_H / 2, 0.8)
   end
   -- the profile (the last button of the row under the tabs)
   if have then
@@ -918,7 +940,7 @@ local function DrawTabs()
     if cnt.profiles > 1 then
       s = s .. " (" .. (cnt.profile + 1) .. "/" .. cnt.profiles .. ")"
     end
-    local pfoc = mouse.hot == "profile" or (ui.tab == 1 and ui.zone == "bar" and ui.bar == 4 and not CE.page_focused() and ui.page == nil)
+    local pfoc = mouse.hot == "profile" or (ui.tab == TAB.INSTALLED and ui.zone == "bar" and ui.bar == 4 and not CE.page_focused() and ui.page == nil)
     CE.row_tool(G.PROF_X, {id = "profile", key = K.X, text = s, value = ProfileName(), w = G.PROF_W,
                           act = function() StartCo(ProfileFlow) end}, ui.page == nil, pfoc)
   end
@@ -936,18 +958,22 @@ end
 
 -- the search box: s = {query, hint (text key), count (nil = none), foc, on, id (hit id), act (click)}
 function CE.row_search(s)
-  local x, y, w, h = G.ROW_SEARCH_X, G.TOOLS_Y, G.ROW_SEARCH_W, G.TOOLS_H
+  local x, y, w, h = s.x or G.ROW_SEARCH_X, G.TOOLS_Y, G.ROW_SEARCH_W, G.TOOLS_H
   local cy = y + h / 2
   Quad("Q0", SP(s.foc and "search2_sel" or "search2"), x, y, w, h, s.on and 1 or 0.45)
-  local q = (s.query or "") ~= "" and ("[CB]" .. Cut(s.query, 14) .. "[C]") or ("[CWG]" .. T(s.hint) .. "[C]")
+  -- the typed text or the hint ends left of the count (right-aligned before the key), so the two never overlap
+  local count = s.on and s.count ~= nil and Cut(s.count, Fit(w / 2 - 30, 0.56)) or nil
+  local right = s.on and (x + w - 50) or (x + w - 12)
+  local room = right - (x + 20) - (count ~= nil and (Units(count) * G.PX * 0.56 + 12) or 0)
+  local q = (s.query or "") ~= "" and ("[CB]" .. Cut(s.query, Fit(room, 0.72)) .. "[C]") or ("[CWG]" .. Cut(T(s.hint), Fit(room, 0.72)) .. "[C]")
   Txt("TL", q, x + 20, cy, 0.72)
   if not s.on then
     return
   end
   Txt("TR", "[CWG]" .. K.R3 .. "[C]", x + w - 12, cy, 0.66)
-  if s.count ~= nil then
+  if count ~= nil then
     -- the count, small, inside the box
-    Txt("TR", "[CWG]" .. Cut(s.count, Fit(w / 2 - 30, 0.56)) .. "[C]", x + w - 50, cy, 0.56)
+    Txt("TR", "[CWG]" .. count .. "[C]", x + w - 50, cy, 0.56)
   end
   Hit(x, y, w, h, s.id or "search", s.act)
 end
@@ -977,20 +1003,24 @@ local function DrawToolbar(shown)
     CE.draw_page_row(ui.page)
     return
   end
-  if ui.tab == 2 then
+  if ui.tab == TAB.PROBLEMS then
     CE.draw_problem_filters()
     return
   end
+  if ui.tab == TAB.BASE_GAME then
+    CE.draw_base_game_bar()
+    return
+  end
   local tab = ui.tab
-  local focus = tab == 1 and ui.zone == "bar"
-  CE.row_search({on = tab == 1, query = ui.query, hint = "search_hint", foc = (focus and ui.bar == 1) or mouse.hot == "search",
-             count = (tab == 1 and have) and T("count_short", {n = #shown - ((shown[1] ~= nil and shown[1] == base_mod) and 1 or 0), t = cnt.mods or #mods, a = cnt.active}) or nil,
+  local focus = tab == TAB.INSTALLED and ui.zone == "bar"
+  CE.row_search({on = tab == TAB.INSTALLED, query = ui.query, hint = "search_hint", foc = (focus and ui.bar == 1) or mouse.hot == "search",
+             count = (tab == TAB.INSTALLED and have) and T("count_short", {n = #shown - ((shown[1] ~= nil and shown[1] == base_mod) and 1 or 0), t = cnt.mods or #mods, a = cnt.active}) or nil,
              act = function() StartCo(SearchFlow) end})
   -- View / Order: "Installed" only (drawn off elsewhere: the row never moves)
   local tools = {{x = G.ROW_FILTER_X, w = G.ROW_FILTER_W, id = "filter", key = K.L3, text = T("filter", {f = FilterLabel()}), value = FilterLabel(), bar = 2, act = function() CycleFilter(1) end},
                  {x = G.ROW_SORT_X, w = G.ROW_SORT_W, id = "sort", key = K.SELECT, text = T("sort", {s = SortLabel()}), value = SortLabel(), bar = 3, act = function() CycleSort(1) end}}
   for _, t in ipairs(tools) do
-    local live = tab == 1
+    local live = tab == TAB.INSTALLED
     CE.row_tool(t.x, t, live, live and ((focus and ui.bar == t.bar) or mouse.hot == t.id))
   end
 end
@@ -1089,21 +1119,21 @@ local function UpdateButtonGuide()
   local m = nil
   if CE.page_focused() then
     m = ModById(ui.popup.id)
-  elseif ui.page == nil and ui.tab == 1 and ui.zone == "grid" then
+  elseif ui.page == nil and ui.tab == TAB.INSTALLED and ui.zone == "grid" then
     m = Shown()[ui.sel]
-  elseif ui.page == nil and ui.tab == 2 then
+  elseif ui.page == nil and ui.tab == TAB.PROBLEMS then
     -- "Problems": A opens the page of the focused problem's mod
     if CE.problem_mod() ~= nil then
       add(TextId("g_open_mod") or TextId("g_details"), I_ENTER, Crc("CMD_ENTER"))
     end
   end
-  if ui.page ~= nil or (ui.tab == 1 and ui.zone == "bar") then
+  if ui.page ~= nil or (ui.tab == TAB.INSTALLED and ui.zone == "bar") then
     -- a list page or the top row: A (a text the game lacks: "Accept")
     add(G_ACCEPT, I_ENTER, Crc("CMD_ENTER"), 0)
   elseif CE.page_focused() then
     -- the page's own buttons show their keys (A, Y, L1 / R1): no second copy at the bottom
   elseif have and m ~= nil then
-    if m.enabled and m.family == nil and m.pos > 0 and ui.tab == 1 and ui.zone == "grid" then
+    if m.enabled and m.family == nil and m.pos > 0 and ui.tab == TAB.INSTALLED and ui.zone == "grid" then
       texts, icons, offs, cmds = {0, TextId("g_order") or RT_MOVE}, {I_L1, I_R1}, {0, 54}, {Crc("CMD_FUNCL1"), Crc("CMD_FUNCR1")}
     end
     if m ~= base_mod then
@@ -1166,12 +1196,16 @@ function Draw()
   Begin()
   DrawHeader()
   DrawTabs()
-  DrawToolbar(ui.page == nil and ui.tab == 1 and Shown() or {})
+  DrawToolbar(ui.page == nil and ui.tab == TAB.INSTALLED and Shown() or {})
   if ui.page ~= nil then
     Screen.draw_page()
-  elseif ui.tab == 1 then
+  elseif ui.tab == TAB.INSTALLED then
     ClampGrid(Shown())
     DrawGrid()
+  elseif ui.tab == TAB.SETTINGS then
+    CE.draw_all_settings()
+  elseif ui.tab == TAB.BASE_GAME then
+    CE.draw_base_game()
   else
     CE.draw_problems()
   end
@@ -1253,9 +1287,9 @@ local function Focused()
   if ui.page ~= nil then
     return nil
   end
-  if ui.tab == 1 and ui.zone == "grid" then
+  if ui.tab == TAB.INSTALLED and ui.zone == "grid" then
     return Shown()[ui.sel]
-  elseif ui.tab == 2 then
+  elseif ui.tab == TAB.PROBLEMS then
     return CE.problem_mod()
   end
   return nil
@@ -1377,7 +1411,7 @@ end
 
 function Order(delta)
   -- the load order is edited from the mods list (its rows or a mod's page), not from the top row or a list page
-  if ui.page ~= nil or ui.tab ~= 1 or ui.zone ~= "grid" then
+  if ui.page ~= nil or ui.tab ~= TAB.INSTALLED or ui.zone ~= "grid" then
     funcLuaCommand(C.SE, SE_NG)
     return
   end
@@ -1429,13 +1463,13 @@ function OpenDetails()
   funcLuaCommand(C.SE, SE_OK)
   RV.cache = {}
   local view, srow = nil, 1
-  if ui.tab == 2 then
+  if ui.tab == TAB.PROBLEMS then
     -- from "Problems": the page opens on the view that lists the focused problem
     view = CE.problem_view()
   end
-  if ui.tab ~= 1 then
+  if ui.tab ~= TAB.INSTALLED then
     -- the page lives in the Mods tab: go there with the mod selected (the search and the filter cleared when they hide it)
-    ui.tab, ui.zone = 1, "grid"
+    ui.tab, ui.zone = TAB.INSTALLED, "grid"
     SelectMod(m.id)
     local s = Shown()[ui.sel]
     if s == nil or s.id ~= m.id then
@@ -1488,7 +1522,7 @@ function CE.dock_sync()
   if ui.page ~= nil then
     return
   end
-  if ui.tab ~= 1 then
+  if ui.tab ~= TAB.INSTALLED then
     ui.popup, ui.pane = nil, "list"
     return
   end
@@ -1642,7 +1676,7 @@ function RV.key(id)
     RV.restore_default(m)
   elseif id == FN.PROFILE and v == "settings" then
     StartCo(function() RV.restore_mod(m) end)
-  elseif arrow and v == "settings" and RV.settings_key(id) then
+  elseif arrow and v == "settings" and RV.settings_key(id, m) then
     -- "Settings": the keys went to the setting rows
   elseif (id == FN.UP or id == FN.DOWN) and (v == "problems" or v == "conflicts" or v == "news") then
     local n, rows = 0, RV.ROWS
@@ -1667,18 +1701,23 @@ function RV.key(id)
   end
 end
 
-function SwitchTab(k)
+function SwitchTab(k, d)
   if ui.page ~= nil or CE.page_focused() then
     funcLuaCommand(C.SE, SE_NG)
     return
   end
-  k = ((k - 1) % G.NTABS) + 1
-  if k == ui.tab then
+  -- With a direction d the switch steps past disabled tabs; a direct pick of a disabled tab does nothing.
+  for _ = 1, #TABS do
+    k = ((k - 1) % #TABS) + 1
+    if TABS[k].enabled or d == nil then break end
+    k = k + d
+  end
+  if k == ui.tab or not TABS[k].enabled then
     return
   end
   funcLuaCommand(C.SE, SE_MOVE)
   ui.tab = k
-  if k == 1 then
+  if k == TAB.INSTALLED then
     ui.zone = "grid"
   end
   Draw()
@@ -1700,8 +1739,8 @@ end
 
 -- R3 / the search bar: type part of a name (empty = no search)
 function SearchFlow()
-  if ui.tab ~= 1 then
-    ui.tab = 1
+  if ui.tab ~= TAB.INSTALLED then
+    ui.tab = TAB.INSTALLED
   end
   local q = Keyboard(ui.query, "kb_search", RT_SEARCH, 24)
   if q ~= nil then
@@ -1910,7 +1949,7 @@ end
 local function Decide()
   if CE.page_focused() then
     RV.decide()
-  elseif ui.tab == 1 then
+  elseif ui.tab == TAB.INSTALLED then
     if ui.zone == "bar" then
       if ui.bar == 1 then
         StartCo(SearchFlow)
@@ -1925,6 +1964,10 @@ local function Decide()
     else
       DecideRow()
     end
+  elseif ui.tab == TAB.SETTINGS then
+    CE.all_settings_decide()
+  elseif ui.tab == TAB.BASE_GAME then
+    CE.base_game_decide()
   else
     CE.problem_open()
   end
@@ -1961,10 +2004,10 @@ local function Hover(h)
   local id = h and h[5] or nil
   local redraw = id ~= mouse.hot
   mouse.hot = id
-  if id ~= nil and ui.popup ~= nil then
-    -- a mod page's module / setting row under the pointer becomes the focused row (the one the keys move on from)
-    local p = ui.popup
-    local mr = tonumber(string.match(id, "^mrow(%d+)$") or string.match(id, "^mtog(%d+)$") or "")
+  if id ~= nil then
+    -- a module / setting row under the pointer becomes the focused row (the one the keys move on from)
+    local p = RV.set_state()
+    local mr = ui.popup ~= nil and tonumber(string.match(id, "^mrow(%d+)$") or string.match(id, "^mtog(%d+)$") or "") or nil
     local sr = tonumber(string.match(id, "^set(%d+)$") or "")
     if mr ~= nil and mr ~= p.mrow then
       p.mrow, redraw = mr, true
@@ -1974,13 +2017,16 @@ local function Hover(h)
   end
   if id ~= nil and not CE.page_focused() then
     local cid = string.match(id, "^card(.+)$") or string.match(id, "^btn(.+)$")
-    if cid ~= nil and ui.page == nil and ui.tab == 1 then
+    if cid ~= nil and ui.page == nil and ui.tab == TAB.INSTALLED then
       local before = ui.sel
       SelectMod(cid)
       redraw = redraw or before ~= ui.sel or ui.zone ~= "grid"
       ui.zone = "grid"
     end
-    if ui.tab == 2 and ui.page == nil and CE.problem_hover(id) then
+    if ui.tab == TAB.PROBLEMS and ui.page == nil and CE.problem_hover(id) then
+      redraw = true
+    end
+    if ui.tab == TAB.BASE_GAME and ui.page == nil and CE.base_game_hover(id) then
       redraw = true
     end
     local on = tonumber(string.match(id, "^orow(%d+)$") or string.match(id, "^otag(%d+)$") or "")
@@ -2005,7 +2051,7 @@ local function Click()
   Log("click", h[5])
   last_act = frame
   decided = true
-  if ui.tab == 1 and ui.page == nil and ui.popup ~= nil then
+  if ui.tab == TAB.INSTALLED and ui.page == nil and ui.popup ~= nil then
     -- A click gives the keys to the pane it lands in.
     ui.pane = mouse.x >= G.WIN_X and "page" or "list"
   end
@@ -2080,6 +2126,7 @@ function OnInit()
   CE.apply_layout()
   Call(M.RESCAN)            -- the app may have changed mods\ while the game runs
   Reset()
+  RV.cache = {}             -- the mods were read again: their pages' and the Settings tab's rows too
   changed, co, frame, last_act, lang, text_ids = false, nil, 0, -1000, nil, {}
   sent, used, was, hits = {}, {}, {}, {}
   tex_asked, tex_wait, tex_frames, thumbs, icons = {}, false, 0, {}, {}
@@ -2241,13 +2288,24 @@ function OnFunction(a1, a2)
   if id == FN.UP or id == FN.DOWN or id == FN.LEFT or id == FN.RIGHT then
     local dx = (id == FN.LEFT and -1) or (id == FN.RIGHT and 1) or 0
     local dy = (id == FN.UP and -1) or (id == FN.DOWN and 1) or 0
-    if ui.tab == 1 then
+    if ui.tab == TAB.INSTALLED then
       MoveGrid(dx, dy)
+    elseif ui.tab == TAB.SETTINGS then
+      CE.all_settings_key(id)
+    elseif ui.tab == TAB.BASE_GAME then
+      CE.base_game_move(dx, dy)
     else
       CE.problem_move(dy ~= 0 and dy or dx * CE.PROBLEM_ROWS)
     end
   elseif id == FN.TAB_PREV or id == FN.TAB_NEXT then
-    SwitchTab(ui.tab + (id == FN.TAB_PREV and -1 or 1))
+    local d = id == FN.TAB_PREV and -1 or 1
+    SwitchTab(ui.tab + d, d)
+  elseif (id == FN.ORDER_UP or id == FN.ORDER_DOWN) and ui.tab == TAB.SETTINGS then
+    CE.all_settings_step(id == FN.ORDER_UP and -1 or 1)
+  elseif (id == FN.ORDER_UP or id == FN.ORDER_DOWN) and ui.tab == TAB.BASE_GAME then
+    CE.base_game_step(id == FN.ORDER_UP and -1 or 1)
+  elseif id == FN.EXTRA3 and ui.tab == TAB.BASE_GAME then
+    CE.base_game_reset()
   elseif id == FN.ORDER_UP or id == FN.ORDER_DOWN then
     if frame - last_act >= 4 then
       last_act = frame
@@ -2256,18 +2314,20 @@ function OnFunction(a1, a2)
   elseif id == FN.DETAILS then
     OpenDetails()
   elseif id == FN.SORT then
-    if ui.tab == 1 then
+    if ui.tab == TAB.INSTALLED then
       CycleSort(1)
     end
   elseif id == FN.FILTER then
-    if ui.tab == 2 then
+    if ui.tab == TAB.PROBLEMS then
       CE.problem_filter(1)
-    elseif ui.tab == 1 then
+    elseif ui.tab == TAB.BASE_GAME then
+      CE.base_game_section(1)
+    elseif ui.tab == TAB.INSTALLED then
       CycleFilter(1)
     end
   elseif id == FN.SEARCH then
     funcLuaCommand(C.SE, SE_OK)
-    StartCo(SearchFlow)
+    StartCo(ui.tab == TAB.BASE_GAME and CE.base_game_search or SearchFlow)
   elseif id == FN.PROFILE then
     StartCo(ProfileFlow)
   elseif ExtraFor(id) ~= nil then
@@ -2307,7 +2367,13 @@ function OnBack(a1)
     end
     return 1
   end
-  if ui.tab == 1 and (ui.query ~= "" or ui.filter ~= 1) and ui.zone == "grid" then
+  if ui.tab == TAB.BASE_GAME and CE.base_game_clear_search() then
+    -- B first clears the search of the «Base game» list
+    funcLuaCommand(C.SE, SE_BACK)
+    Draw()
+    return 1
+  end
+  if ui.tab == TAB.INSTALLED and (ui.query ~= "" or ui.filter ~= 1) and ui.zone == "grid" then
     -- B first clears the search and the filter
     funcLuaCommand(C.SE, SE_BACK)
     ui.query, ui.filter, ui.sel, ui.top = "", 1, 1, 0
@@ -2366,6 +2432,8 @@ function Step()
             busy = true
           elseif not loading then
             tex_asked[path] = 2
+          else
+            tex_asked[path] = 3   -- given up: still loading after 600 frames
           end
         end
       end
@@ -2382,7 +2450,7 @@ function Step()
   end
 end
 
--- for the tests / other mods: the state as drawn
+-- Internal: for the tests / other mods: the state as drawn
 VRFW.mods_menu = {
   wrap = Wrap, units = Units, crc = Crc, hits = function() return hits end,
   -- the free layers this script draws on: layer crc -> instances (the plugin's setting must have as many)
@@ -2427,19 +2495,29 @@ for name, value in pairs({
 }) do
   Screen[name] = value
 end
+--- Internal: answers the list of mods the screen shows.
 function Screen.mods()
   return mods
 end
+--- Internal: answers the base mod of the screen.
 function Screen.base_mod()
   return base_mod
 end
+-- Internal: the instances layer `key` still has in this drawing
+function Screen.free(key)
+  return FREE[key][2] - (used[key] or 0)
+end
+--- Internal: answers the current language of the screen.
 function Screen.lang()
   return lang
 end
+--- Internal: sets the current language of the screen (value).
 function Screen.set_lang(value)
   lang = value
 end
+--- Internal: answers the text ids table of the screen.
 function Screen.text_ids()
   return text_ids
 end
+--- Internal: Namespace of the mods screen: its mod list, language and text ids.
 VRFW.mods_screen = Screen

@@ -3,12 +3,12 @@ local STAR_KEY_INFO = 1041824793          -- (4, sign, star index) -> the sign t
 local STAR_KEY_IS_LAST = 3                -- sub of STAR_KEY_INFO: the star is its constellation's last star
 local STARS_PER_SIGN = 8
 local STAR_INFO = 2558342785              -- (6, sign) -> the layer of the sign's drawing
-local ATTACH_TARGET = 407105448           -- CMND_SET_ATTACH_LOCATOR_TARGET (layer, instance, attach, bone)
-local OPEN_LAYER = 629267548              -- CMND_OPEN_LAYER
-local RARE_LAYER = 2147597562             -- universe01_08_rare_star_key
-local RARE_ATTACH = 2124906742            -- star_rare: where the drawing holds the last star
-local ORB_STATE = 2378569539              -- CMND_CHRONICLEDELUXE_UNIVERSE_ORB_STATE
-local ORB_PULL = 1959126462               -- CMND_CHRONICLEDELUXE_UNIVERSE_ORB_PULL
+local ATTACH_TARGET = VRFW.commands.SET_ATTACH_LOCATOR_TARGET           -- (layer, instance, attach, bone)
+local OPEN_LAYER = VRFW.commands.OPEN_LAYER
+local RARE_LAYER = VRFW.ids.crc32("universe01_08_rare_star_key")
+local RARE_ATTACH = VRFW.ids.crc32("star_rare")            -- where the drawing holds the last star
+local ORB_STATE = VRFW.commands.CHRONICLEDELUXE_UNIVERSE_ORB_STATE
+local ORB_PULL = VRFW.commands.CHRONICLEDELUXE_UNIVERSE_ORB_PULL
 local PROP_LIST_SIGN = 1387388075         -- the sign chara_pack_probability_list_menu opens
 local PROP_SEARCH_RESULT = 1963839147     -- the sign the search result screen hands back
 local PROP_LIST_LAST_STAR = 478309527
@@ -18,23 +18,23 @@ local STAR_KEY_LAYER = 4246964035
 local STAR_INFO_STARS = 3                 -- sub of STAR_INFO: (sign) -> ok, stars of the constellation
 local LAST_STAR_PULLED = 1810803886       -- (sign) -> true once a last star pull was made: the game's stamp rule
 local SIGN_INFO = 1112436817              -- (0, sign) -> ok, name
-local ICON_LAYER = 1423720364             -- universe01_11_chara_icon
-local CLOSE_LAYER = 1273612389            -- CMND_CLOSE_LAYER (layer, instance)
+local ICON_LAYER = VRFW.ids.crc32("universe01_11_chara_icon")
+local CLOSE_LAYER = VRFW.commands.CLOSE_LAYER            -- (layer, instance)
 local MAX_STAMP_LOG_LINES = 8
 local MAX_ICON_LOG_LINES = 12
-local UNIVERSE_DAY = 2645209268
-local SET_GLOBAL_BIT_FLAG = 3258400760    -- CMND_SET_GLOBAL_BIT_FLAG (flag, on)
+local UNIVERSE_DAY = VRFW.commands.CHRONICLEDELUXE_UNIVERSE_DAY
+local SET_GLOBAL_BIT_FLAG = VRFW.commands.SET_GLOBAL_BIT_FLAG    -- (flag, on)
 
 -- the item prize of a pull (content\universe_prizes), given on this screen once the result screen has closed
-local ROLL_PRIZE = 3466716809
+local ROLL_PRIZE = VRFW.commands.CHRONICLEDELUXE_ROLL_UNIVERSE_PRIZE
 local HAS_ROOM = 765340069                -- (item, count) -> true when it fits
-local ADD_ITEM = 1897915498               -- CMND_ADD_ITEM_ONLY (item, count)
+local ADD_ITEM = VRFW.commands.ADD_ITEM_ONLY               -- (item, count)
 local WINDOWS_FREE_ASK = 218753920
 local WINDOWS_FREE = 682363669
 local WINDOW_MAKE = 2127769271            -- (11, text id, item) -> the retail item window
-local WINDOW_RUN = 1089303874             -- CMND_RUN_INFO_WIN_STACK (window)
-local WINDOW_RUNNING = 3215700878         -- CMND_IS_RUN_INFO_WIN_STACK
-local TEXT_ITEM_GOT = 3675423478          -- sysmes_item_get
+local WINDOW_RUN = VRFW.commands.RUN_INFO_WIN_STACK             -- (window)
+local WINDOW_RUNNING = VRFW.commands.IS_RUN_INFO_WIN_STACK
+local TEXT_ITEM_GOT = VRFW.ids.crc32("sysmes_item_get")
 
 local log = type(VRFW.logger) == "table" and VRFW.logger.new("ChronicleDeluxe.Universe") or function() end
 local logged = 0
@@ -140,8 +140,7 @@ local function apply_day()
 end
 
 -- every reader of a star's list (side window, list button, pull, read back) asks this first
-local retail_override = GetOverrideLotteryStarSignId
-function GetOverrideLotteryStarSignId(sign, star)
+VRFW.host.wrap_once("GetOverrideLotteryStarSignId", "ChronicleDeluxe.universe_stars", function(retail_override, sign, star)
   apply_day()
   local rate_up = draws_last_star(sign, star)
   if restoring then
@@ -151,11 +150,10 @@ function GetOverrideLotteryStarSignId(sign, star)
     star = last_star(sign)
   end
   return retail_override(sign, star)
-end
+end)
 
 -- an orb comes back after its pull: only the constellation's last star stays closed, the rate-up orb stands for it
-local retail_valid = IsStarKeyValid
-function IsStarKeyValid(sign, star)
+VRFW.host.wrap_once("IsStarKeyValid", "ChronicleDeluxe.universe_stars", function(retail_valid, sign, star)
   local last = last_star(sign)
   local valid
   if last == 0 or star == 0 or star > STARS_PER_SIGN then
@@ -165,12 +163,11 @@ function IsStarKeyValid(sign, star)
   end
   -- a spent orb takes the game's used orb look; nothing is saved, so it comes back when a card is free again
   return valid and not ChronicleDeluxe.UniversePool.orb_spent(sign, star, GetOverrideLotteryStarSignId)
-end
+end)
 
 -- while orbs run out the stamp follows them: on when no orb of the constellation has a card left
 local stamp_logged = 0
-local retail_clear_stamp = SetupStarSignClearStamp
-function SetupStarSignClearStamp(layer, instance)
+VRFW.host.wrap_once("SetupStarSignClearStamp", "ChronicleDeluxe.universe_stars", function(retail_clear_stamp, layer, instance)
   local pool = ChronicleDeluxe.UniversePool
   if not pool.orbs_run_out() then
     return retail_clear_stamp(layer, instance)
@@ -200,7 +197,7 @@ function SetupStarSignClearStamp(layer, instance)
       log("clear stamp: sign", sign, "orbs spent", spent, "of", orbs, "stamp", complete, "last star pulled", pulled_last)
     end
   end
-end
+end)
 
 function DeactiveStarKeyValid()
   local sign = GetSelectedStarSignId()
@@ -211,22 +208,20 @@ function DeactiveStarKeyValid()
   pull_now = { sign = sign, star = star, rate_up = funcLuaCommand(ORB_PULL, sign, star) == 1 }
 end
 
-local retail_is_last = IsRarePackStar
-function IsRarePackStar(sign, star)
+VRFW.host.wrap_once("IsRarePackStar", "ChronicleDeluxe.universe_stars", function(retail_is_last, sign, star)
   if pull_now ~= nil and pull_now.rate_up and sign == pull_now.sign and star == pull_now.star then
     return true
   end
   return retail_is_last(sign, star)
-end
+end)
 
-local retail_rare_layer = SetupRareStarLayer
-function SetupRareStarLayer(layer, instance)
+VRFW.host.wrap_once("SetupRareStarLayer", "ChronicleDeluxe.universe_stars", function(retail_rare_layer, layer, instance)
   retail_rare_layer(layer, instance)
   local sign = SearchSelectedStarSignId(instance)
   if sign ~= nil and sign ~= 0 then
     rare_instance[sign] = instance
   end
-end
+end)
 
 -- the last star layer moves onto the rate-up orb when that orb first gets its layer
 local function place_rate_up(sign, star)
@@ -245,47 +240,42 @@ local function place_rate_up(sign, star)
   log("rate-up orb: sign", sign, "star", star)
 end
 
-local retail_star_texture = SetupStarLayerTexture
-function SetupStarLayerTexture(layer, instance, sign, star)
+VRFW.host.wrap_once("SetupStarLayerTexture", "ChronicleDeluxe.universe_stars", function(retail_star_texture, layer, instance, sign, star)
   retail_star_texture(layer, instance, sign, star)
   if orb(sign).pending == star then
     place_rate_up(sign, star)
   end
-end
+end)
 
-local retail_restore = RestoreLotteryCharacter
-function RestoreLotteryCharacter(...)
+VRFW.host.wrap_once("RestoreLotteryCharacter", "ChronicleDeluxe.universe_stars", function(retail_restore, ...)
   restoring = true
   local ok, err = pcall(retail_restore, ...)
   restoring = false
   if not ok then
     error(err, 0)
   end
-end
+end)
 
-local retail_focus = OnChangeFocus
-function OnChangeFocus(layer, ...)
+VRFW.host.wrap_once("OnChangeFocus", "ChronicleDeluxe.universe_stars", function(retail_focus, layer, ...)
   retail_focus(layer, ...)
   if layer == STAR_KEY_LAYER then
     ApplyDetailWindowLotteryInfo()
   end
-end
+end)
 
 local icons_shown = 0                     -- icon instances the side window holds open
 local icons_drawn = nil                   -- icons of the redraw in progress
 local icon_logged = 0
 
-local retail_icon = UpdateCharaIcon
-function UpdateCharaIcon(layer, instance, ...)
+VRFW.host.wrap_once("UpdateCharaIcon", "ChronicleDeluxe.universe_stars", function(retail_icon, layer, instance, ...)
   if icons_drawn ~= nil and layer == ICON_LAYER and instance >= icons_drawn then
     icons_drawn = instance + 1
   end
   return retail_icon(layer, instance, ...)
-end
+end)
 
 -- the game redraws the open side window without closing the icons past the new count: a shorter list kept the old ones
-local retail_detail = UpdateDetailWindow
-function UpdateDetailWindow(sign, ...)
+VRFW.host.wrap_once("UpdateDetailWindow", "ChronicleDeluxe.universe_stars", function(retail_detail, sign, ...)
   if not funcLuaMenuCommand(SIGN_INFO, 0, sign) then
     return retail_detail(sign, ...)
   end
@@ -301,16 +291,14 @@ function UpdateDetailWindow(sign, ...)
     log("side window: sign", sign, "icons", drawn, "closed", icons_shown - drawn)
   end
   icons_shown = drawn
-end
+end)
 
-local retail_close_detail = CloseDetailWindow
-function CloseDetailWindow(...)
+VRFW.host.wrap_once("CloseDetailWindow", "ChronicleDeluxe.universe_stars", function(retail_close_detail, ...)
   icons_shown = 0
   return retail_close_detail(...)
-end
+end)
 
-local retail_register = RegisterPropValue
-function RegisterPropValue(key, value, ...)
+VRFW.host.wrap_once("RegisterPropValue", "ChronicleDeluxe.universe_stars", function(retail_register, key, value, ...)
   if key == PROP_LIST_SIGN and value ~= 0 then
     local place = pools()[value]
     local sign, star = value, GetNowSelectStarKeyLayerIndex() + 1
@@ -328,18 +316,16 @@ function RegisterPropValue(key, value, ...)
     retail_register(PROP_LIST_LAST_STAR, (IsRarePackStar(sign, star) or draws_last_star(sign, star)) and 1 or 0, ...)
   end
   return retail_register(key, value, ...)
-end
+end)
 
-local retail_delete = DeletePropValue
-function DeletePropValue(key, ...)
+VRFW.host.wrap_once("DeletePropValue", "ChronicleDeluxe.universe_stars", function(retail_delete, key, ...)
   if key == PROP_LIST_SIGN then
     retail_delete(PROP_LIST_LAST_STAR)
   end
   return retail_delete(key, ...)
-end
+end)
 
-local retail_prop = GetPropValue
-function GetPropValue(key, ...)
+VRFW.host.wrap_once("GetPropValue", "ChronicleDeluxe.universe_stars", function(retail_prop, key, ...)
   local value = retail_prop(key, ...)
   if key == PROP_SEARCH_RESULT and value ~= nil and value ~= 0 then
     local place = pools()[value]
@@ -349,26 +335,23 @@ function GetPropValue(key, ...)
     end
   end
   return value
-end
+end)
 
-local retail_first = GetFirstSelectStarKeyIndex
-function GetFirstSelectStarKeyIndex(sign)
+VRFW.host.wrap_once("GetFirstSelectStarKeyIndex", "ChronicleDeluxe.universe_stars", function(retail_first, sign)
   local star = wanted_star
   wanted_star = nil
   if star ~= nil and IsStarKeyValid(sign, star) then
     return star
   end
   return retail_first(sign)
-end
+end)
 
-local retail_select = ApplyStarKeySelectMode
-function ApplyStarKeySelectMode(sign)
+VRFW.host.wrap_once("ApplyStarKeySelectMode", "ChronicleDeluxe.universe_stars", function(retail_select, sign)
   retail_select(sign)
   ApplyDetailWindowLotteryInfo()
-end
+end)
 
-local retail_lottery = LotteryStarSignCharacter
-function LotteryStarSignCharacter(pool, is_last_star)
+VRFW.host.wrap_once("LotteryStarSignCharacter", "ChronicleDeluxe.universe_stars", function(retail_lottery, pool, is_last_star)
   local cards = retail_lottery(pool, is_last_star)
   if logged < MAX_LOG_LINES then
     logged = logged + 1
@@ -376,13 +359,12 @@ function LotteryStarSignCharacter(pool, is_last_star)
     log("pull: sign", place and place.sign or 0, "star", place and place.star or 0, "pool", pool, "last star", is_last_star, "cards", #cards)
   end
   return cards
-end
+end)
 
-local retail_open_result = OpenResultMenu
-function OpenResultMenu()
+VRFW.host.wrap_once("OpenResultMenu", "ChronicleDeluxe.universe_stars", function(retail_open_result)
   prize_due = true
   return retail_open_result()
-end
+end)
 
 local function give_prize(item)
   if funcLuaCommand(HAS_ROOM, item, 1) ~= true then
@@ -413,12 +395,11 @@ local function give_pull_prizes()
   end
 end
 
-local retail_resume = ResumeMenu
-function ResumeMenu(...)
+VRFW.host.wrap_once("ResumeMenu", "ChronicleDeluxe.universe_stars", function(retail_resume, ...)
   retail_resume(...)
   ApplyDetailWindowLotteryInfo()
   if prize_due then
     prize_due = false
     give_pull_prizes()
   end
-end
+end)

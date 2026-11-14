@@ -15,10 +15,8 @@ stem = "team_dock_formation_menu"
   type = "append_block"
   source = "sn_dock.lua"
   marker = "better_ui shirt_number"
-  crc = "none"
-  generator = "research/mods/BetterUI/_tools/better_ui_generators.py:better_ui_plain"
-  generator_arguments = { part = "better_ui_shirt_number_dock.lua", tag = "shirt_number_dock", name = "shirt_number", scope = "BetterUI" }
-  include = { "@UI_WRAP@" = "../_src/better_ui/better_ui_wrap.lua" }
+  generator = "research/mods/BetterUI/_tools/betterui_generators.py:better_ui_snippet"
+  generator_arguments = { part = "better_ui_shirt_number_dock.lua", name = "shirt_number", scope = "BetterUI" }
   vars = { "@TAG@" = "shirt_number_dock" }
 
 [[files]]
@@ -28,8 +26,6 @@ stem = "soccer_performance_change_menu"
   type = "bytecode_child"
   source = "sn_menu.lua"
   marker = "better_ui shirt_number"
-  crc = "none"
-  generator = "research/mods/BetterUI/_tools/better_ui_generators.py:better_ui_child"
-  generator_arguments = { part = "better_ui_shirt_number_menu.lua", tag = "shirt_number_menu", scope = "BetterUI" }
-  include = { "@UI_WRAP@" = "../_src/better_ui/better_ui_wrap.lua" }
+  generator = "research/mods/BetterUI/_tools/betterui_generators.py:better_ui_snippet"
+  generator_arguments = { part = "better_ui_shirt_number_menu.lua", scope = "BetterUI" }
   vars = { "@TAG@" = "shirt_number_menu" }

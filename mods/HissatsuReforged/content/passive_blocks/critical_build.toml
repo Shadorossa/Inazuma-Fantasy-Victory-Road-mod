@@ -15,7 +15,7 @@ target = "team"
 # a critical hit of his own
 [[VRFW.Trigger]]
 name = "own_critical_hit"
-on = "crit"
+on = "match:crit"
 by = "self"
 
 # ps10059: 3.6 tension points for his team

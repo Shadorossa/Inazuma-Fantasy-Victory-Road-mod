@@ -1,0 +1,14 @@
+# Lord Enma's miximax colours: his own model has no game character to lend him colour keys, so this mod declares them.
+# His pale yellow hair is the hair colour, his red skin the face and body skin, and the yellow iris his iris.
+# The dark brows and lashes are never recoloured.
+schema = "VRFW.miximax_palette/1"
+
+[[VRFW.MiximaxPalette]]
+character = "c90670000"
+head = "_face/90_FANTASY/c90670000/c90670000.g4tx"
+hair = "#FCF19C"
+face = "#C86652"
+iris = "#F7CB00"
+skin = "#C86652"
+# The painted zones of his head: the eyes on the face atlas (his skin is painted on the head texture too, so it keeps its colour), the pale yellow hair on the head texture.
+zones = { face = "assets/images/miximax_zones/c90670000_face.png", hair = "assets/images/miximax_zones/c90670000_hair.png" }

@@ -867,7 +867,7 @@ VRFW.on("hook:SettingRowWrite:post", function(ev)
   return nil
 end)
 
-VRFW.on("game_reset", function()
+VRFW.on("game:reset", function()
   opt_forget()
   return nil
 end)

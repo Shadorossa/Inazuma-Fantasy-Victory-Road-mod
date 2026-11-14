@@ -4,6 +4,9 @@ local R = require "lib/training_rules"
 local ME = VRFW.match.equipment
 local MT = VRFW.match.training
 local RP = VRFW.rivals
+-- the rival and match equipment rules are built (or read from the start cache) at load, so the training signal stays short
+RP.prepare()
+ME.prepare()
 
 local info, warn = VRFW.logger("rival_training")
 local u32 = CS.u32
@@ -301,17 +304,17 @@ VRFW.on("match:start_request", function(ev)
   if not ok then warn("rival training: " .. tostring(e)) end
 end)
 
-VRFW.on("signal:vrfw.rival_players.training", function()
+VRFW.on("script:signal:vrfw.rival_players.training", function()
   local ok, e = pcall(train_rival_players)
   if not ok then warn("rival training: " .. tostring(e)) end
 end)
 
-VRFW.on("match_end", function()
+VRFW.on("match:end", function()
   LOGGED = nil
   RP_LUCK = {}
 end)
 
-VRFW.on("game_reset", function()
+VRFW.on("game:reset", function()
   clear()
   LOGGED = nil
 end)

@@ -21,12 +21,12 @@ local function groups()
       local own = type(data.ChronicleDeluxe) == "table" and data.ChronicleDeluxe.UniverseDay or nil
       for _, group in ipairs(type(own) == "table" and own or {}) do
         if type(group.group) == "string" and type(group.flags) == "table" and #group.flags > 0 then
-          local flags = {}
+          local flags, order = {}, {}
           for i, name in ipairs(group.flags) do
             flags[i] = VRFW.crc32(name)
+            order[i] = i
           end
-          local offset = VRFW.random("ChronicleDeluxe.universe_day", { group.group }):below(#flags)
-          GROUPS[#GROUPS + 1] = { name = group.group, flags = flags, offset = offset }
+          GROUPS[#GROUPS + 1] = { name = group.group, flags = flags, rule = { pool = order, salt = "ChronicleDeluxe.universe_day." .. group.group } }
         end
       end
     end
@@ -39,7 +39,7 @@ function ChronicleDeluxe.UniverseDay(day)
   local out = {}
   day = math.floor(tonumber(day) or 0)
   for _, group in ipairs(groups()) do
-    local on = (day + group.offset) % #group.flags + 1
+    local on = VRFW.daily.cycle(group.rule, day)
     for i, flag in ipairs(group.flags) do
       out[#out + 1] = flag
       out[#out + 1] = i == on and 1 or 0

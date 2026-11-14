@@ -5,22 +5,28 @@ local BLOB = "if_daily_legendary_rival.json"
 local DOC_VERSION = 1
 local SLOT_TEAM_PLAYERS = 16
 
+-- The settings of config.toml [daily_legendary_rival]: key, type and the allowed range of a number.
+local SETTINGS = {
+  { "salt", "string" }, { "version", "number", 1, 1000000 }, { "level", "number", 1, 999 },
+  { "class", "number", 1, 255 }, { "game", "string" }, { "slot_team", "string" }, { "min_players", "number", 1, 19 },
+  { "keep_days", "number", 1, 3650 }, { "reward", "number", 0, 255 }, { "reward_item", "string" },
+  { "chronicle_prefix", "string" }, { "exclude", "table" },
+}
+
+-- Returns the settings read from config.toml, or nil with a warning when one is missing or out of range.
 local function settings()
-  local s = {
-    salt = tostring(VRFW.config("daily_legendary_rival.salt", "InazumaFantasy.DailyLegendaryRival")),
-    version = VRFW.config("daily_legendary_rival.version", 1, 1, 1000000),
-    level = VRFW.config("daily_legendary_rival.level", 250, 1, 999),
-    class = VRFW.config("daily_legendary_rival.class", 9, 1, 255),
-    game = tostring(VRFW.config("daily_legendary_rival.game", "inazuma_fantasy_daily_legendary_rival")),
-    min_players = VRFW.config("daily_legendary_rival.min_players", 11, 1, 19),
-    keep_days = VRFW.config("daily_legendary_rival.keep_days", 60, 1, 3650),
-    reward = VRFW.config("daily_legendary_rival.reward", 10, 0, 255),
-    reward_item = tostring(VRFW.config("daily_legendary_rival.reward_item", "tk_bb000001")),
-    chronicle_prefix = tostring(VRFW.config("daily_legendary_rival.chronicle_prefix", "fbtl_cro")),
-    exclude = {},
-  }
-  local x = VRFW.config("daily_legendary_rival.exclude", {})
-  for _, k in ipairs(type(x) == "table" and x or {}) do
+  local c = VRFW.config("daily_legendary_rival", {})
+  local s = { exclude = {} }
+  for _, def in ipairs(SETTINGS) do
+    local key, kind, low, high = def[1], def[2], def[3], def[4]
+    local v = type(c) == "table" and c[key] or nil
+    if type(v) ~= kind or (kind == "number" and (v < low or v > high)) then
+      warn("config.toml [daily_legendary_rival] " .. key .. " is missing or invalid (" .. tostring(v) .. "): no rival")
+      return nil
+    end
+    if kind ~= "table" then s[key] = v end
+  end
+  for _, k in ipairs(c.exclude) do
     if type(k) == "string" then s.exclude[VRFW.crc32(k)] = true end
   end
   return s
@@ -54,7 +60,7 @@ local function pool(s)
     warn("free-match list not readable (" .. tostring(why) .. "): no rival")
     return {}
   end
-  local slot_team = VRFW.crc32("evt_ct_ft_daily_legendary_rival")
+  local slot_team = VRFW.crc32(s.slot_team)
   local ids = {}
   for _, team in ipairs(teams) do
     local _, players = players_of(team)
@@ -276,6 +282,7 @@ function InazumaFantasy.DailyRival(day)
   day = math.floor(tonumber(day) or -1)
   if day < 0 then return { ok = false, why = "day" } end
   local s = settings()
+  if s == nil then return { ok = false, why = "config" } end
   local got = PICKED[day]
   if got == nil then
     got = pick(s, day) or false
@@ -287,12 +294,14 @@ function InazumaFantasy.DailyRival(day)
   end
   LAST_DAY = day
   return { ok = true, day = day, team = got.team, cards = got.cards, coach = got.coach, level = s.level,
+    slot_team = VRFW.crc32(s.slot_team),
     done = doc.days[tostring(day)] == true, paid = doc.paid[tostring(day)] == true, reward = s.reward,
     pool = #pool(s) }
 end
 
 function InazumaFantasy.DailyRivalStadium(team, declared, row_map)
   local s = settings()
+  if s == nil then return 0, "none" end
   team = u32(tonumber(team) or 0)
   census(s)
   local map, source = rival_stadium(s, team, declared)
@@ -306,6 +315,7 @@ end
 function InazumaFantasy.DailyRivalReward(day)
   local key = tostring(math.floor(tonumber(day) or -1))
   local s = settings()
+  if s == nil then return 0, 0 end
   local doc = load()
   if s.reward <= 0 or doc.days[key] ~= true or doc.paid[key] == true then return 0, 0 end
   return VRFW.crc32(s.reward_item), s.reward
@@ -315,6 +325,7 @@ end
 function InazumaFantasy.DailyRivalPaid(day)
   local key = tostring(math.floor(tonumber(day) or -1))
   local s = settings()
+  if s == nil then return false end
   local doc = load()
   if doc.days[key] ~= true or doc.paid[key] == true then return false end
   doc.paid[key] = true
@@ -323,11 +334,11 @@ function InazumaFantasy.DailyRivalPaid(day)
   return true
 end
 
-VRFW.on("signal:vrfw.match_result", function()
+VRFW.on("script:signal:vrfw.match_result", function()
   local last = VRFW.match.results.last()
   if type(last) ~= "table" or LAST_DAY == nil then return nil end
   local s = settings()
-  if last.game ~= VRFW.crc32(s.game) or last.difficulty ~= s.class or last.outcome ~= "win" then return nil end
+  if s == nil or last.game ~= VRFW.crc32(s.game) or last.difficulty ~= s.class or last.outcome ~= "win" then return nil end
   local doc = load()
   local key = tostring(LAST_DAY)
   if not doc.days[key] then
@@ -337,3 +348,12 @@ VRFW.on("signal:vrfw.match_result", function()
   end
   return nil
 end)
+
+-- The rival pool and the stadium tables are read at script load (off the game thread), so opening the free-match list does not read them.
+do
+  local ok, s = pcall(settings)
+  if ok and s ~= nil then
+    pcall(pool, s)
+    pcall(venues, s)
+  end
+end

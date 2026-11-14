@@ -6,7 +6,9 @@ VRFW.route_board.LOCALS = {
   n21 = {function() return n21 end, function(v) n21 = v end},    -- PreStep state (4 = an event plays, 6 = clear effect)
   n11 = {function() return n11 end, function(v) n11 = v end},    -- the focused piece's index (-1 none)
   flag5 = {function() return flag5 end, function(v) flag5 = v end},     -- closing for a reserved map jump
-  flag16 = {function() return flag16 end, function(v) flag16 = v end}   -- FinalizeMenu sets temp bit 1255964678
+  flag16 = {function() return flag16 end, function(v) flag16 = v end},  -- FinalizeMenu sets temp bit 1255964678
+  l3 = {function() return l3 end, function(v) l3 = v end},       -- the clear effect's coroutine (UpdateClearEffect, state 6)
+  l5 = {function() return l5 end, function(v) l5 = v end}        -- the gate battle open effect's coroutine (UpdateGateBattleOpenEffect, state 7)
 }
 VRFW.route_board.L = setmetatable({}, {
   __index = function(_, k)
@@ -25,6 +27,12 @@ VRFW.route_board.L = setmetatable({}, {
   end
 })
 
+-- Forgets the effect coroutines of the last win flow as the board's OnInit does, so a win flow started on the open board runs its effects from their start (UpdateClearEffect leaves its finished coroutine behind when it hands over to the new-piece effect).
+function VRFW.route_board.reset_effects()
+  VRFW.route_board.L.l3 = nil
+  VRFW.route_board.L.l5 = nil
+end
+
 function VRFW.route_board.is_command(item)
   return false
 end
@@ -33,7 +41,16 @@ function VRFW.route_board.command(item, piece)
   return false
 end
 
+-- Forgets a stale hand-over before a mod's flow runs from a piece: retail sets flag16 when it hands the scene to its own match or event and clears it only when the VS team menu reserved none (OpenVsTeamMenu), FinalizeMenu then writes temp bit 1255964678 and the engine reports the next match's result back to the board as a Chronicle result.
+function VRFW.route_board.drop_hand_over(piece)
+  if VRFW.route_board.L.flag16 then
+    VRFW.route_board.L.flag16 = false
+    VRFW.route_board.log("hand-over: piece", piece, "the board's last hand-over flag (flag16) was still set and is cleared, so a match a mod's flow starts is not reported back as a Chronicle result")
+  end
+end
+
 function VRFW.route_board.piece_open(piece)
+  VRFW.route_board.drop_hand_over(piece)
   if VRFW.node_menu ~= nil and VRFW.node_menu.open_piece ~= nil then
     return VRFW.node_menu.open_piece(piece) == true
   end
@@ -41,6 +58,7 @@ function VRFW.route_board.piece_open(piece)
 end
 
 function VRFW.route_board.menu_closed(piece)
+  VRFW.route_board.drop_hand_over(piece)
   if VRFW.node_menu ~= nil and VRFW.node_menu.after_menu ~= nil then
     VRFW.node_menu.after_menu(piece)
   end
@@ -272,6 +290,18 @@ end
 if VRFW.host ~= nil then
   VRFW.host.on(VRFW.route_board.STEM, "OnInit", {id = "VRFW.route_board.repair_routes", phase = "after", fn = function()
     VRFW.route_board.repair_routes()
+  end})
+  -- Diagnostics: the pieces one open effect opens in a row (an open event on another map changes the map before the pieces after it).
+  VRFW.host.on(VRFW.route_board.STEM, "WaitPieceOpenEffect", {id = "VRFW.route_board.open_list_log", phase = "before", fn = function(pieces, events)
+    local parts = {}
+    for i = 1, type(pieces) == "table" and #pieces or 0 do
+      parts[#parts + 1] = tostring(pieces[i]) .. (type(events) == "table" and events[i] == true and "+event" or "")
+    end
+    VRFW.route_board.log("open effect: focused piece", VRFW.route_board.L.n11, "opens", #parts, "piece(s):", table.concat(parts, " "))
+  end})
+  -- Diagnostics: whether the board's close hands the next match's result back to it (FinalizeMenu writes temp bit 1255964678 when flag16 is set).
+  VRFW.host.on(VRFW.route_board.STEM, "FinalizeMenu", {id = "VRFW.route_board.close_log", phase = "before", fn = function()
+    VRFW.route_board.log("close: state", VRFW.route_board.L.n21, "the next match's result goes back to the board", tostring(VRFW.route_board.L.flag16 == true))
   end})
 end
 

@@ -2,6 +2,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.trigger/1"
 folder = "content/triggers"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Rule.Trigger"
+v2_kind_folder = "Rules/Triggers"
+v2_version = 1
 label = "Triggers"
 label_es = "Disparadores"
 

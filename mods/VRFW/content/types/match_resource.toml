@@ -2,6 +2,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.match_resource/1"
 folder = "content/match_resources"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Match.Resource"
+v2_kind_folder = "Match/Resources"
+v2_version = 1
 
 [entry.MatchResource]
 name = { type = "name", required = true, doc = "key <mod>.pe (a-z 0-9 _)" }

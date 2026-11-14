@@ -1,0 +1,7 @@
+schema = "VRFW.script/1"
+# Aura Reworked: its scripts.
+
+# Banner trace (diagnostics): the menus and layers opened in the 2 s after an aura command
+[[script]]
+file = "banner_trace.lua"
+allow = []

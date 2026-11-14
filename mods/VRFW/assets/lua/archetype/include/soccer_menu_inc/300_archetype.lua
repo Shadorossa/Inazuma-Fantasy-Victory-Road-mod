@@ -29,6 +29,7 @@ local function gauge_icon(b)
   return nil
 end
 
+--- Internal: table holding the wrappers installed on the soccer_menu VM for archetype display.
 A.soccer_menu = A.soccer_menu or {}
 local W = A.soccer_menu
 local st = { frames = 0, rank = nil }

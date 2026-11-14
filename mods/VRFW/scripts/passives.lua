@@ -61,8 +61,8 @@ local function carried_of_chara(chara)
   local ok_rec, rec = pcall(VRFW.character.record, chara)
   if not ok_rec or not rec then return {} end
   if not BUF_VERSION then
-    BUF_VERSION = VRFW.memory.buffer("signature_passives_passive_version", 4)
-    BUF_OUT = VRFW.memory.buffer("signature_passives_passive_out", 8)
+    BUF_VERSION = VRFW.memory.buffer("own_passives_passive_version", 4)
+    BUF_OUT = VRFW.memory.buffer("own_passives_passive_out", 8)
   end
   local rarity = rec.rarity or 0
   local out = {}
@@ -82,7 +82,7 @@ local function carried_of_chara(chara)
       out[v] = true
     end
   end
-  local own = L.signature_passive(chara, SIGNATURE_ID_ONLY)
+  local own = L.own_passive(chara, SIGNATURE_ID_ONLY)
   if own ~= 0 then out[own] = true end
   return out
 end
@@ -451,6 +451,7 @@ local function players()
   DYNAMIC_STALE, DYNAMIC_FORCE, DYNAMIC_FRAME, DYNAMIC_AT = false, false, FRAME, TICK_NOW
   ANSWER_EPOCH = ANSWER_EPOCH + 1
   BY_HANDLE = {}
+  VRFW.time.mark_step("before the player list")
   -- a mode without player passives (vrfw.passive.all_off, a mod's [[VRFW.NoPassives]]): nobody carries a passive
   local okoff, off = pcall(VRFW.state.get, "vrfw.passive.all_off")
   if okoff and tonumber(off) == 1 then
@@ -524,6 +525,7 @@ local function players()
   -- PLAYERS_AT numbers the readings: the trait answers, move slots and plates are kept per reading
   PLAYERS, PLAYERS_AT = out, math.max(PLAYERS_AT, 0) + 1
   settle_dynamic(out)
+  VRFW.time.mark_step("player list")
   return out
 end
 
@@ -587,6 +589,7 @@ end
 
 local CHARACTER_FACTS = {}
 local TAGS_OF = nil          -- [chara_base id] = { [tag] = true }
+local TAG_LIST = {}         -- [chara_base id] = his tag names in declared order (the first = his type)
 local MOVES_OF = {}
 local PLATES = nil
 local UNIT_MOVES = DATA.unit_moves
@@ -615,6 +618,7 @@ local function tags_of(base)
         local set = {}
         for _, t in ipairs(e.tags) do set[t] = true end
         TAGS_OF[id] = set
+        TAG_LIST[id] = e.tags
       end
     end
   end
@@ -681,15 +685,17 @@ local function shares(a, b)
   return false
 end
 
--- a Trait's `characters`, resolved once
+-- a Trait's `characters`, resolved once; with the any_version rule of the synergies, every version of them
 function CS.trait_characters(t)
   local set = CS.trait_characters_of[t.key]
   if set then return set end
-  set = {}
+  local declared = {}
   for _, c in ipairs(t.v.characters or NONE) do
     local id = L.character_id(c)
-    if id and id ~= 0 then set[u32(id)] = true else warn(t.where .. ": no character " .. tostring(c)) end
+    if id and id ~= 0 then declared[u32(id)] = true else warn(t.where .. ": no character " .. tostring(c)) end
   end
+  set = {}
+  for _, b in ipairs(G.with_versions(declared)) do set[u32(b)] = true end
   CS.trait_characters_of[t.key] = set
   return set
 end
@@ -861,6 +867,25 @@ do
     local v, per = effect.v[effect.meta.amount_key], effect.v.value_by_level
     if type(per) == "table" and #per > 0 then v = per[math.min(math.max(h.level or 1, 1), #per)] or v end
     return true, v * n, unit, n, max
+  end
+
+  -- CMND_VRFW_CHARACTER_TAGS(charaHdl) -> count, then per archetype tag with a word or an icon, in declared order (the
+  -- first = the player's type): its text key ("<mod>.<key>", "" = none; CMND_VRFW_TEXT_GET reads it) and its icon sprite
+  -- name ("" = none); 0 = none
+  function PassiveValue.CmdCharacterTags(hdl)
+    local h = lineup_entry(u32(hdl or 0))
+    if not h then return 0 end
+    local base = u32(h.chara or 0)
+    tags_of(base)
+    local out = {}
+    for _, name in ipairs(TAG_LIST[base] or {}) do
+      local t = DATA.tags[name]
+      if t and (t.text ~= "" or (t.icon or "") ~= "") then
+        out[#out + 1] = t.text == "" and "" or t.text:find(".", 1, true) and t.text or (t.mod .. "." .. t.text)
+        out[#out + 1] = t.icon or ""
+      end
+    end
+    return math.floor(#out / 2), table.unpack(out)
   end
 
   pcall(passive_of_game_id, 0)
@@ -1680,7 +1705,7 @@ local function hook_set(e)
   local set = HOOK_SETS[e]
   if set == nil then
     set = {}
-    for x in tostring(e.meta.hooks or ""):gmatch("[%w_]+") do set[x] = true end
+    for x in tostring(e.meta.hooks or ""):gmatch("[%w_:]+") do set[x] = true end
     HOOK_SETS[e] = set
   end
   return set
@@ -1690,8 +1715,10 @@ local KEY_INFO = {}
 local function key_info(key)
   local k = KEY_INFO[key]
   if k == nil then
-    k = { base = key:match("^[^:]+"), set_piece = key:match("^set_piece") ~= nil,
-      possession = key:match("^possession") ~= nil, shot = key:match("^shot_") ~= nil }
+    -- base: the event key without its argument (`match:goal:user` -> `match:goal`; an engine event: its word)
+    local base = L.ENGINE_EVENTS[key:match("^[^:]+")] and key:match("^[^:]+") or key:match("^[^:]+:[^:]+") or key
+    k = { base = base, set_piece = base == "match:set_piece", possession = base == "match:possession",
+      shot = base:match("^match:shot_") ~= nil }
     KEY_INFO[key] = k
   end
   return k
@@ -1699,7 +1726,7 @@ end
 
 local SHOOT_KIND = { "shoot" }
 
-local CACHED_KEYS = { move_speed = true, recast = true, move_power = "frame" }
+local CACHED_KEYS = { ["match:move_speed"] = true, ["match:recast"] = true, ["match:catch_check"] = true, ["match:move_power"] = "frame" }
 local VOLATILE_MS = 100
 local VOLATILE_TYPES = { Zone = true, Near = true, TargetZone = true, HasBall = true, Holder = true, Clock = true, SetPiece = true,
   Score = true, Half = true, ScoreMargin = true, TensionLevel = true, AuraActive = true, Resource = true, Flag = true, Critical = true }
@@ -1765,7 +1792,7 @@ local function answer(key, ev)
   CS.spare_answer = nil
   local who = ev.actor
   local ki = key_info(key)
-  if key == "move_power" and NEED_LAST_SHOT and who and ev.skill and move_kind_ok(SHOOT_KIND, ev.skill) then
+  if key == "match:move_power" and NEED_LAST_SHOT and who and ev.skill and move_kind_ok(SHOOT_KIND, ev.skill) then
     CS.note_last_shot(u32(who.handle), who.team, u32(ev.skill))
   end
   -- the play of a set piece: its kicker until another player has the ball
@@ -1778,13 +1805,14 @@ local function answer(key, ev)
   end
   if ANY_DYNAMIC then DYNAMIC_STALE = true end
   -- the shot events carry no player: the shooter of the last shoot move, when recent
-  if who == nil and (ev.trigger == "shot_start" or ev.trigger == "shot_end" or ki.shot) and LAST_SHOT
+  if who == nil and (ev.trigger == "match:shot_start" or ev.trigger == "match:shot_end" or ki.shot) and LAST_SHOT
     and VRFW.now_ms() - LAST_SHOT.at <= SHOT_WINDOW_MS then
     who = { handle = LAST_SHOT.handle, team = LAST_SHOT.team }
     ev.actor = who
     -- its move: the move conditions (MoveKind chain_shoot…) read the shot's move
     if ev.skill == nil and LAST_SHOT.skill ~= 0 then ev.skill = LAST_SHOT.skill end
   end
+  if CS.stepping then VRFW.time.mark_step("event bookkeeping") end
   local counted = DATA.counted_set[key]
   if counted then CS.count_event(key, who, ev, counted) end
   local list = DATA.listen_set[key]
@@ -1813,6 +1841,7 @@ local function answer(key, ev)
       end
     end
   end
+  if CS.stepping then VRFW.time.mark_step("counts and listeners") end
   -- the lasting effects answered on this trigger, for its player
   local hook = DATA.hooks_set[ki.base]
   local t = who and player(u32(who.handle))
@@ -1837,6 +1866,7 @@ local function answer(key, ev)
       end
     end
   end
+  if CS.stepping then VRFW.time.mark_step("lasting effects") end
   settle_caps(out)
   if not any or next(out) == nil then
     -- (nothing was written: the next answer fills this table)
@@ -1847,13 +1877,13 @@ local function answer(key, ev)
 end
 
 local function cached_answer(key, ev)
-  if key == "move_speed" and warming() then return nil end
+  if key == "match:move_speed" and warming() then return nil end
   local who = ev.actor
   local hdl = who and who.handle and u32(who.handle) or 0
   -- (while an input changed this frame, DIRTY, the answers are worked out afresh until the tick numbers the change)
   if hdl == 0 or PLAYERS == nil or DIRTY then return answer(key, ev) end
   -- (answer()'s own bookkeeping of a shoot move runs on a kept answer too)
-  if key == "move_power" and NEED_LAST_SHOT and ev.skill and move_kind_ok(SHOOT_KIND, ev.skill) then
+  if key == "match:move_power" and NEED_LAST_SHOT and ev.skill and move_kind_ok(SHOOT_KIND, ev.skill) then
     CS.note_last_shot(hdl, who.team, u32(ev.skill))
   end
   if ANY_DYNAMIC then DYNAMIC_STALE = true end
@@ -2145,10 +2175,10 @@ for k in pairs(keys) do
 end
 -- The shot events have no player of their own: the last shoot move's shooter stands in.
 for k in pairs(keys) do
-  if k:match("^shot_") then NEED_LAST_SHOT = true end
+  if k:match("^match:shot_") then NEED_LAST_SHOT = true end
 end
-if NEED_LAST_SHOT then keys.move_power = true end
-if NEED_SET_PIECE then keys.set_piece, keys.possession = true, true end
+if NEED_LAST_SHOT then keys["match:move_power"] = true end
+if NEED_SET_PIECE then keys["match:set_piece"], keys["match:possession"] = true, true end
 
 -- what makes the player list (or its spirit / granted passives) be read again: [refresh] of passive_block.toml
 local LIVE_STATES = {}
@@ -2171,19 +2201,19 @@ local function forget_dynamic(now)
 end
 local INVALIDATE = {
   -- a state change out of live play: a restart, a half, a substitution may have changed the lineup
-  state_enter = function(ev)
+  ["match:state_enter"] = function(ev)
     local st, before = tonumber(ev.arg), STATE_SEEN
     STATE_SEEN = st
     if not (before and st and LIVE_STATES[before] and LIVE_STATES[st]) then forget_players() end
   end,
-  transform = forget_characters,
-  ["signal:vrfw.passives.refresh"] = forget_characters,
-  ["signal:vrfw.off_pitch.layout_done"] = forget_characters,
-  cutin_end = function() forget_dynamic(true) end,
-  resource = function() forget_dynamic(true) end,
+  ["match:transform"] = forget_characters,
+  ["script:signal:vrfw.passives.refresh"] = forget_characters,
+  ["script:signal:vrfw.off_pitch.layout_done"] = forget_characters,
+  ["match:cutin_end"] = function() forget_dynamic(true) end,
+  ["match:resource"] = function() forget_dynamic(true) end,
 }
 if AURA_COMMAND then
-  INVALIDATE.event_build = function(ev) if tonumber(ev.arg) == AURA_COMMAND then forget_dynamic() end end
+  INVALIDATE["match:event_build"] = function(ev) if tonumber(ev.arg) == AURA_COMMAND then forget_dynamic() end end
 end
 
 -- the inputs of the summed effects (Stat, PoolCost, StaminaRecovery, BallWalls): one event each, no timer
@@ -2209,21 +2239,21 @@ for _, p in pairs(DATA.passives) do
   if summed then
     for _, b in ipairs(CS.all_conditions(p)) do
       if b.type == "Score" or b.type == "ScoreMargin" then
-        CS.also_changed("goal")
+        CS.also_changed("match:goal")
       elseif b.type == "TensionLevel" then
-        CS.also_changed("tension_gain")
-        CS.also_changed("tension_pay")
+        CS.also_changed("match:tension_gain")
+        CS.also_changed("match:tension_pay")
       elseif b.type == "AuraActive" then
         -- an aura starts or ends: a summon command, a cut-in's end, a form change, a knockdown, a restart (list read)
-        CS.also_changed("cutin_end")
-        CS.also_changed("transform")
-        CS.also_changed("knockdown")
-        CS.also_changed("resource")
+        CS.also_changed("match:cutin_end")
+        CS.also_changed("match:transform")
+        CS.also_changed("match:knockdown")
+        CS.also_changed("match:resource")
         if AURA_COMMAND then CS.also_changed("aura_command") end
       elseif b.type == "Resource" then
-        CS.also_changed("resource")
+        CS.also_changed("match:resource")
       elseif b.type == "HasBall" or b.type == "Holder" or b.type == "SetPiece" then
-        INVALIDATE.possession = function()
+        INVALIDATE["match:possession"] = function()
           BALL.at, DIRTY = -1e12, true
         end
       elseif b.type == "Zone" or b.type == "Near" then
@@ -2246,9 +2276,9 @@ for _, p in pairs(DATA.passives) do
 end
 end)()
 for key in pairs(CS.summed_keys) do
-  local before = INVALIDATE[key == "aura_command" and "event_build" or key]
+  local before = INVALIDATE[key == "aura_command" and "match:event_build" or key]
   if key == "aura_command" then
-    INVALIDATE.event_build = function(ev)
+    INVALIDATE["match:event_build"] = function(ev)
       if before then before(ev) end
       if tonumber(ev.arg) == AURA_COMMAND then DIRTY = true end
     end
@@ -2261,7 +2291,7 @@ for key in pairs(CS.summed_keys) do
     end
   end
 end
-for m in pairs(CLOCK_MARKS) do INVALIDATE["clock:" .. m] = changed end
+for m in pairs(CLOCK_MARKS) do INVALIDATE["match:clock:" .. m] = changed end
 
 local POSITION_AT = -1e12
 CS.any_clock_dynamic = next(CS.clock_dynamic) ~= nil
@@ -2303,22 +2333,42 @@ local function summed_tick(m, now)
   if DATA.has_ball_walls then ball_walls_tick(m) end
 end
 
+-- diagnosis (install 707: the first move_power took 18.6 ms; install 721: 71.7 ms with the warm-up done): the first call of
+-- each trigger notes the warm-up state; its time comes from the step clock (a slow handler line names the steps: the
+-- player list and the parts of the answer, marked only during this first call)
+CS.timed = {}
+function CS.first_call(k, handle, ev)
+  CS.timed[k] = true
+  VRFW.time.mark_step("first " .. k .. " call start")
+  CS.stepping = true
+  local ok, out = pcall(handle, ev)
+  CS.stepping = false
+  if not ok then error(out, 0) end
+  VRFW.time.mark_step("caps and the kept answer")
+  info(string.format("first %s answer: warm-up %s; answer epoch %d", k, WARM == false and "done" or "running", ANSWER_EPOCH))
+  return out
+end
+
 local n = 0
 local ANY_PASSIVE = next(DATA.passives) ~= nil
 -- the tick runs the engine events and the summed effects (it also counts the frames and numbers the answers' inputs)
-local TICK_ON = DATA.has_stat or keys.tick or ENGINE_TICK or DATA.has_pool_cost or DATA.has_stamina or DATA.has_ball_walls or ANY_DYNAMIC
+local TICK_ON = DATA.has_stat or keys["frame:tick"] or ENGINE_TICK or DATA.has_pool_cost or DATA.has_stamina or DATA.has_ball_walls or ANY_DYNAMIC
 CS.frames_counted = TICK_ON
 for key in pairs(keys) do
   local k = key
-  if k == "tick" then
+  if k == "frame:tick" then
     -- (stats share the tick handler below)
   else
     local inv = ANY_PASSIVE and INVALIDATE[k] or nil
     local cached = TICK_ON and CACHED_KEYS[k] and not DATA.listen_set[k] and not DATA.counted_set[k]
-    VRFW.on(k, function(ev)
+    local function handle(ev)
       if inv then inv(ev) end
       if cached then return cached_answer(k, ev) end
       return answer(k, ev)
+    end
+    VRFW.on(k, function(ev)
+      if CS.timed[k] then return handle(ev) end
+      return CS.first_call(k, handle, ev)
     end)
     n = n + 1
   end
@@ -2328,7 +2378,7 @@ if ANY_PASSIVE then
     if not keys[k] then VRFW.on(k, function(ev) inv(ev) end) end
   end
 end
-VRFW.on("match_start", function()
+VRFW.on("match:start", function()
   for hdl, old in pairs(POOL_FLAGS) do pcall(VRFW.clear_flag, string.format("%s.%d", old.flag, hdl)) end
   STACKS, APPLIED, CARRIED, PLAYERS, DIRTY, DYNAMIC, POOL_FLAGS, LAST_SHOT = {}, {}, {}, nil, true, {}, {}, nil
   MOVES_OF, PLATES, HALF_SEEN, CLOCK_SEEN, INTERVAL_TIME = {}, nil, nil, nil, {}
@@ -2341,10 +2391,10 @@ VRFW.on("match_start", function()
 end)
 -- (the tick also counts the frames: the spirit / granted passives are read at most once per frame)
 if TICK_ON then
-  VRFW.on("tick", function(ev)
+  VRFW.on("frame:tick", function(ev)
     FRAME = FRAME + 1
     TICK_NOW = VRFW.now_ms()
-    local out = keys.tick and answer("tick", ev) or nil
+    local out = keys["frame:tick"] and answer("frame:tick", ev) or nil
     local m = ev.match or VRFW.match() or NO_EVENT
     if ENGINE_TICK then engine_events_tick(m) end
     -- the spirit / granted passives an answered event marked stale (kept answers do not read the list)

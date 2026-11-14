@@ -14,9 +14,3 @@ move_cost_short = [
     [{ table = "CharacterReforged.PointsPair", key = ["hdl", "skill"], field = "partner_cover", is = "zero" }],
 ]
 armour_blocks_spirit_move = [[{ table = "CharacterReforged.PointsTeam", key = [255], field = "armour_blocks_keshin_move", is = "nonzero" }]]
-
-# the number at the end of an entry of the transformation cross: the pool points one use of the running form's technique takes
-[VRFW.ExtraSlotExtend.entry_cost]
-table = "CharacterReforged.PointsPair"
-key = ["hdl", "skill"]
-field = "cost"

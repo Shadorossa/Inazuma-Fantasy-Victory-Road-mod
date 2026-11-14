@@ -1,22 +1,22 @@
 BetterUI = type(BetterUI) == "table" and BetterUI or {}
-local CHR_LAYER = 3085812933 --[[crc32("better_ui_chr_box")]]
-local CHR_NOTICE = 4119018370 --[[crc32("better_ui_chr_box_notice")]]
+local CHR_LAYER = @crc:better_ui_chr_box@ --[[crc32("better_ui_chr_box")]]
+local CHR_NOTICE = @crc:better_ui_chr_box_notice@ --[[crc32("better_ui_chr_box_notice")]]
 local CHR_TEX = 3558185727 --[[crc32("#/menu/100_mainmenu/mainmenu90/better_ui_chr_box/better_ui_chr_box.g4tx")]]
-local CHR_FN_UP = 2091226243 --[[crc32("better_ui_chr_box_up")]]
-local CHR_SMALL = 530619243 --[[mainmenu90_12_list_item_small]]
-local CHR_MIDDLE = 4042532538 --[[mainmenu90_11_chronicle_top_list_item_middle]]
-local CHR_GUIDE = 3078308064 --[[mainmenu90_05_content_guide_line01]]
-local CHR_CURSOR = 3313461902 --[[cursor]]
+local CHR_FN_UP = @crc:better_ui_chr_box_up@ --[[crc32("better_ui_chr_box_up")]]
+local CHR_SMALL = @crc:mainmenu90_12_list_item_small@
+local CHR_MIDDLE = @crc:mainmenu90_11_chronicle_top_list_item_middle@
+local CHR_GUIDE = @crc:mainmenu90_05_content_guide_line01@
+local CHR_CURSOR = @crc:cursor@
 local CHR_NEWICON = 1108398278 --[[attach name of the "!" in the small row objbin]]
-local CHR_ACTIVE = 1286797620 --[[Active]]
-local CHR_BUTTON = 973515837 --[[button]]
+local CHR_ACTIVE = @crc:Active@
+local CHR_BUTTON = @crc:button@
 local CHR_N = 4
 -- Menus of the 4 boxes, in box order.
 local CHR_BOX_OBJ = {
-  937147172 --[[soccer_team_dock_menu]],
-  3518667992 --[[item_menu_soccer]],
-  3170360552 --[[shop_menu]],
-  1936716961 --[[setting_top_menu]]
+  @crc:soccer_team_dock_menu@,
+  @crc:item_menu_soccer@,
+  @crc:shop_menu@,
+  @crc:setting_top_menu@
 }
 -- the retail texts the "!" of a box depends on (buttonTextName of Plantilla de equipo / Objetos / Tienda)
 local CHR_TXT_TEAM = 2074787642
@@ -130,12 +130,12 @@ local function ChrGuide(k)
   if CHR_LABEL_COLOR ~= "" then
     text = CHR_LABEL_COLOR .. label .. ":[C] " .. desc
   end
-  funcLuaMenuCommand(@crc:CMND_SET_MENU_TEXT_STRING@, CHR_GUIDE, 378156699 --[[_text_guide01]], text, 0)
+  funcLuaMenuCommand(@crc:CMND_SET_MENU_TEXT_STRING@, CHR_GUIDE, @crc:_text_guide01@, text, 0)
 end
 
 local function ChrSetup(a1, a2)
   if a2 == 0 then
-    funcLuaMenuCommand(3252599449, a1, CHR_N)
+    funcLuaMenuCommand(@crc:CMND_RUN_PHOTO_START_INFO@, a1, CHR_N)
     ChrLog("setup", CHR_N)
   end
   local info = ChrInfo(a2)
@@ -145,11 +145,11 @@ local function ChrSetup(a1, a2)
     return 1
   end
   -- Clears the caption on the box.
-  funcLuaMenuCommand(@crc:CMND_SET_MENU_TEXT_STRING@, a1, 931545948 --[[_text_list01_on]], "", a2)
-  funcLuaMenuCommand(@crc:CMND_SET_MENU_TEXT_STRING@, a1, 3705682548 --[[_text_list01_off]], "", a2)
-  funcLuaMenuCommand(558735651, a1, CHR_TEX, info.listItemOnTextureName, 2880627768 --[[`list_icon_dmy_s01_on`]], 0, a2)
-  funcLuaMenuCommand(558735651, a1, CHR_TEX, info.listItemOnTextureName, 3688370359 --[[list_icon_dmy_s01_ok]], 0, a2)
-  funcLuaMenuCommand(558735651, a1, CHR_TEX, info.listItemOffTextureName, 2527308690 --[[list_icon_dmy_s01_off]], 0, a2)
+  funcLuaMenuCommand(@crc:CMND_SET_MENU_TEXT_STRING@, a1, @crc:_text_list01_on@, "", a2)
+  funcLuaMenuCommand(@crc:CMND_SET_MENU_TEXT_STRING@, a1, @crc:_text_list01_off@, "", a2)
+  funcLuaMenuCommand(558735651, a1, CHR_TEX, info.listItemOnTextureName, @crc:list_icon_dmy_s01_on@ --[[`list_icon_dmy_s01_on`]], 0, a2)
+  funcLuaMenuCommand(558735651, a1, CHR_TEX, info.listItemOnTextureName, @crc:list_icon_dmy_s01_ok@, 0, a2)
+  funcLuaMenuCommand(558735651, a1, CHR_TEX, info.listItemOffTextureName, @crc:list_icon_dmy_s01_off@, 0, a2)
   funcLuaMenuCommand(@crc:CMND_SET_LAYER_ATTACH_LOCATOR_TRACE@, a1, a2, CHR_CURSOR, false)
   funcLuaMenuCommand(@crc:CMND_SET_LAYER_ATTACH_LOCATOR_TRACE@, a1, a2, CHR_NEWICON, true)
 end
@@ -169,7 +169,7 @@ local function ChrNotice(k)
         on = f
       end
     elseif b == CHR_TXT_ITEMS then
-      on = funcLuaCommand(917126939, 0, 18)
+      on = funcLuaCommand(@crc:CMND_GET_INVENTORY_INFO@, 0, 18)
     elseif b == CHR_TXT_SHOP then
       -- Reads the shop setting from EVT_SRW_CHRONICLE_SHOP.
       on = funcLuaMenuCommand(1862518458, rawget(_ENV, "EVT_SRW_CHRONICLE_SHOP") or CHR_SHOP_RETAIL)
@@ -200,7 +200,7 @@ local function ChrLeave(target, idx)
   end
   chr_focus = i
   ChangeFocusToNextLayer(CHR_LAYER, i, target, idx)
-  funcLuaCommand(@crc:CMND_SND_PLAY_SE@, 2500047763 --[[sy0005]])
+  funcLuaCommand(@crc:CMND_SND_PLAY_SE@, @crc:sy0005@)
   ChrLog("leave box", i, "->", target, idx)
 end
 

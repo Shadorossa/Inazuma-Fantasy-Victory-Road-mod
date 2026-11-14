@@ -4,6 +4,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.flag/1"
 folder = "content/flags"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Framework.Flag"
+v2_kind_folder = "Framework/Flags"
+v2_version = 1
 label = "Flags"
 label_es = "Banderas"
 doc = "One global bit flag."

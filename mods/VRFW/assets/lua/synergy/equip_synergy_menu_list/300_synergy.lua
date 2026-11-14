@@ -10,6 +10,7 @@ local function item_of(inv)
   return 0
 end
 
+--- Internal: state of the synergy list menu (list rows and tabs).
 S.list = S.list or {}
 local W = S.list
 

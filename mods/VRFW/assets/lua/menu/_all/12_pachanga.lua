@@ -1,20 +1,23 @@
+-- Internal:
 -- lua_patch.scope: used
 VRFW.friendly_match = VRFW.friendly_match or {}
 do
   local P = VRFW.friendly_match
+  --- Internal: command hashes of the friendly match plugin (START, STEP, REPORT, ABORT, BACK...).
   P.CMD = {
     START = VRFW.commands.VRFW_FRIENDLY_START, STEP = 2152525079, REPORT = 2550860972, ABORT = 1839503551, BACK = VRFW.commands.VRFW_FRIENDLY_BACK,
     STATE = 881000032, ACK = 3682169452, AUX = 1130333797, PASSED = 1073637999, PASSED_SET = 662976001,
     MAP = 1781538918, RULES = 512472487, ROLL = VRFW.commands.VRFW_ITEM_REWARD_ROLL,
   }
+  --- Internal: hash of the retail encounter fade menu.
   P.FADE_ENCOUNT = 2721617045 --[[fade_menu_encount]]
-  -- op codes of crate::pachanga::Step::encode
+  -- Internal: op codes of crate::pachanga::Step::encode
   P.OP = {VS_SWAP = 1, KIT = 2, VS_RESTORE = 3, RETURN = 4, DEACTIVATE = 10, FADE_BLACK = 11, FADE_ENCOUNTER = 12,
     BYTE = 13, WAIT = 14, ACTIVATE = 15, PRE_MATCH = 20, DIFFICULTY = 21, RESERVE = 22, KEY = 30, CLOSE = 31,
     WAIT_GONE = 32, WAIT_SETTLED = 33, TOP_WAIT = 34, WATCHDOG = 35}
 
   local logger
-  --- Logs through the pachanga logger.
+  --- Internal: Logs through the pachanga logger.
   function P.log(...)
     logger = logger or VRFW.logger.new("EVT pachanga")
     logger(...)
@@ -29,7 +32,7 @@ do
     return false
   end
 
-  --- The active friendly dock (2..12) or nil: the VS team swapped out by a friendly, else the VS team, when its five can play.
+  --- Internal: The active friendly dock (2..12) or nil: the VS team swapped out by a friendly, else the VS team, when its five can play.
   function P.pachanga_set()
     local ok, _, pending = pcall(funcLuaCommand, VRFW.commands.VRFW_FRIENDLY_VS, 2)
     if not ok or type(pending) ~= "number" then
@@ -46,7 +49,7 @@ do
     return set
   end
 
-  --- a five WITHOUT a kit of its own wears its dock's 11v11 kit (street battles dress kit-less fives in gym clothes).
+  --- Internal: a five WITHOUT a kit of its own wears its dock's 11v11 kit (street battles dress kit-less fives in gym clothes).
   function P.kit(set)
     local a = table.pack(pcall(funcLuaCommand, VRFW.commands.VRFW_TEAM_UNIFORM, set, 0))
     local b = table.pack(pcall(funcLuaCommand, VRFW.commands.VRFW_TEAM_UNIFORM, set, 1))
@@ -59,7 +62,7 @@ do
     pcall(funcLuaCommand, VRFW.commands.VRFW_TEAM_UNIFORM, set, 1, a[3], 0)
   end
 
-  --- Restores the VS team a friendly swapped out.
+  --- Internal: Restores the VS team a friendly swapped out.
   function P.restore_versus()
     local ok, had, vs = pcall(funcLuaCommand, VRFW.commands.VRFW_FRIENDLY_VS, 0)
     if ok and had == true and type(vs) == "number" and vs >= 0 then
@@ -159,9 +162,10 @@ do
     end
     return true
   end
+  --- Internal: runs the friendly match steps of the plugin for a context.
   P.exec = exec
 
-  --- The home stadium of dock `set`; answers map (0 = none), set.
+  --- Internal: The home stadium of dock `set`; answers map (0 = none), set.
   function P.home_stadium(set)
     local M = VRFW.home_stadium
     if type(M) ~= "table" or type(M.of) ~= "function" then
@@ -178,7 +182,7 @@ do
     return 0, set
   end
 
-  --- Undoes the last n recorded launch steps.
+  --- Internal: Undoes the last n recorded launch steps.
   function P.rollback(n)
     for i = 1, (n or 0) do
       local op, a, b, c = VRFW.host.command(P.CMD.STEP, -i)
@@ -188,7 +192,7 @@ do
     end
   end
 
-  -- THE function.
+  -- Internal: THE function.
   --- Starts friendly match `id` with context ctx; answers true, or false, why.
   function P.start(id, ctx)
     ctx = ctx or {}
@@ -212,6 +216,7 @@ do
       return false, code
     end
     local skip = false
+    --- Internal: true while the match runs without a stadium of its own in the context.
     P.home_open = ctx.stadium == nil
     for i = 1, (n or 0) do
       local op, a, b, c = VRFW.host.command(P.CMD.STEP, i)
@@ -241,12 +246,12 @@ do
     return true
   end
 
-  --- Aborts the pending launch and rolls back its steps.
+  --- Internal: Aborts the pending launch and rolls back its steps.
   function P.abort(why)
     P.rollback(VRFW.host.command(P.CMD.ABORT, why or "aborted"))
   end
 
-  --- Returns from a match to `where`; answers an info table (closed, outcome, passed, id, tag, sub).
+  --- Internal: Returns from a match to `where`; answers an info table (closed, outcome, passed, id, tag, sub).
   function P.back(where)
     local r = table.pack(VRFW.host.command(P.CMD.BACK, where))
     local info = {closed = r[1] == true, outcome = r[2] or 0, passed = r[3] == true, origin = r[4] or 0,
@@ -264,26 +269,26 @@ do
     return info
   end
 
-  --- The launch state as a table (phase, id, tag, sub, ret, aux).
+  --- Internal: The launch state as a table (phase, id, tag, sub, ret, aux).
   function P.state()
     local r = table.pack(VRFW.host.command(P.CMD.STATE))
     return {phase = r[1] or 0, id = r[2], tag = r[3] or 0, sub = r[4] or 0, outcome = r[5] or 0, passed = r[6] == true,
       ret = r[7] or 0, aux = {r[8] or 0, r[9] or 0, r[10] or 0, r[11] or 0}, field_net = r[12] == true}
   end
-  --- Reads or writes aux value i; answers true when the command succeeded.
+  --- Internal: Reads or writes aux value i; answers true when the command succeeded.
   function P.aux(i, v)
     return VRFW.host.command(P.CMD.AUX, i, v) == true
   end
-  --- True when the (id, tag, sub) launch was passed.
+  --- Internal: True when the (id, tag, sub) launch was passed.
   function P.passed(id, tag, sub)
     return VRFW.host.command(P.CMD.PASSED, id, tag or 0, sub or 0) == true
   end
-  --- Marks the (id, tag, sub) launch passed or not; answers true when stored.
+  --- Internal: Marks the (id, tag, sub) launch passed or not; answers true when stored.
   function P.set_passed(id, tag, sub, on)
     return VRFW.host.command(P.CMD.PASSED_SET, id, tag or 0, sub or 0, on and 1 or 0) == true
   end
 
-  --- Gives the reward roll of `key`.
+  --- Internal: Gives the reward roll of `key`.
   function P.give(key)
     local ok, n, list = pcall(funcLuaCommand, P.CMD.ROLL, key, math.random(1, 2147483646), false)
     if not ok or type(list) ~= "string" then

@@ -98,7 +98,9 @@ local function Int(v)
   return math.floor(v + 0.5)
 end
 
+--- Advanced: Namespace: mouse pointer tracker for menus; holds new().
 VRFW.pointer = VRFW.pointer or {}
+--- Advanced: Creates a mouse pointer tracker; answers a table with zone setters (rect, box, inst), position, at, poll and reset.
 VRFW.pointer.new = VRFW.pointer.new or function()
   local P = {zones = {}, on = false, x = nil, y = nil, hot = nil, prev = {}, edge_t = 0, REPEAT = 10}
   local MOVED, POS, GPOS, CHECK, CTRL = 3272825600, 558229292, 4002164178, 4265778440, 1332654303
@@ -251,6 +253,7 @@ VRFW.pointer.new = VRFW.pointer.new or function()
   return P
 end
 
+--- Advanced: Constants: command hashes of the menu keys, plus held(cmd, ctrl) and new_press().
 VRFW.keys = VRFW.keys or (function()
   local K = {
     UP = 1197218715, DOWN = 3259546669, LEFT = 2765147006, RIGHT = 2075023265,   -- CMD_UP / DOWN / LEFT / RIGHT
@@ -817,9 +820,6 @@ function Step()
     if not Kit.pending() then
       DrawAll()
     end
-  end
-  if VRFW.face_icon ~= nil and VRFW.face_icon.pending() then
-    VRFW.face_icon.settle()
   end
   PollPointer()
   local free = vrfw_co == nil and open_guard <= 0 and funcLuaCommand(C.MSG_BUSY) ~= true

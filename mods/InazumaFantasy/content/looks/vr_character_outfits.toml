@@ -1,817 +1,95 @@
 schema = "VRFW.look/2"
 
 # Retail clothes of VR characters as kits (uniform_config): each mesh as fielder and keeper, home and away.
-
-[[kit]]
-id = "inazumafantasy_uni_sturm_schwartzkopf_outfit"  # u11804050, Sturm Schwartzkopf
-  [[kit.model]]
-  type = 0
-  fielder = "u11804050"
-  keeper = "u11804050"
-  [[kit.model]]
-  type = 1
-  fielder = "u11804050"
-  keeper = "u11804050"
-
-[[kit]]
-id = "inazumafantasy_uni_wilder_bigfoot_outfit"  # u11804060, Wilder Bigfoot
-  [[kit.model]]
-  type = 0
-  fielder = "u11804060"
-  keeper = "u11804060"
-  [[kit.model]]
-  type = 1
-  fielder = "u11804060"
-  keeper = "u11804060"
-
-[[kit]]
-id = "inazumafantasy_uni_hans_sleight_outfit"  # u11804070, Hans Sleight
-  [[kit.model]]
-  type = 0
-  fielder = "inazumafantasy_u11804070"
-  keeper = "inazumafantasy_u11804070"
-  [[kit.model]]
-  type = 1
-  fielder = "inazumafantasy_u11804070"
-  keeper = "inazumafantasy_u11804070"
-
-[[kit]]
-id = "inazumafantasy_uni_hailey_cometti_outfit"  # u11804080, Hailey Cometti
-  [[kit.model]]
-  type = 0
-  fielder = "u11804080"
-  keeper = "u11804080"
-  [[kit.model]]
-  type = 1
-  fielder = "u11804080"
-  keeper = "u11804080"
-
-[[kit]]
-id = "inazumafantasy_uni_bete_noire_outfit"  # u11805010, Bête Noire
-  [[kit.model]]
-  type = 0
-  fielder = "u11805010"
-  keeper = "u11805010"
-  [[kit.model]]
-  type = 1
-  fielder = "u11805010"
-  keeper = "u11805010"
-
-[[kit]]
-id = "inazumafantasy_uni_orlando_sherman_outfit"  # u11806010, Orlando Sherman
-  [[kit.model]]
-  type = 0
-  fielder = "u11806010"
-  keeper = "u11806010"
-  [[kit.model]]
-  type = 1
-  fielder = "u11806010"
-  keeper = "u11806010"
-
-[[kit]]
-id = "inazumafantasy_uni_murshid_amir_outfit"  # u11806020, Murshid Amir
-  [[kit.model]]
-  type = 0
-  fielder = "u11806020"
-  keeper = "u11806020"
-  [[kit.model]]
-  type = 1
-  fielder = "u11806020"
-  keeper = "u11806020"
-
-[[kit]]
-id = "inazumafantasy_uni_rashiri_saran_outfit"  # u11806030, Rashiri Saran
-  [[kit.model]]
-  type = 0
-  fielder = "u11806030"
-  keeper = "u11806030"
-  [[kit.model]]
-  type = 1
-  fielder = "u11806030"
-  keeper = "u11806030"
-
-[[kit]]
-id = "inazumafantasy_uni_zundar_zand_outfit"  # u11806040, Zundar Zand
-  [[kit.model]]
-  type = 0
-  fielder = "u11806040"
-  keeper = "u11806040"
-  [[kit.model]]
-  type = 1
-  fielder = "u11806040"
-  keeper = "u11806040"
-
-[[kit]]
-id = "inazumafantasy_uni_porco_umir_outfit"  # u11806050, Porco Umir
-  [[kit.model]]
-  type = 0
-  fielder = "u11806050"
-  keeper = "u11806050"
-  [[kit.model]]
-  type = 1
-  fielder = "u11806050"
-  keeper = "u11806050"
-
-[[kit]]
-id = "inazumafantasy_uni_simeur_feromont_outfit"  # u11806060, Simeur Feromont
-  [[kit.model]]
-  type = 0
-  fielder = "u11806060"
-  keeper = "u11806060"
-  [[kit.model]]
-  type = 1
-  fielder = "u11806060"
-  keeper = "u11806060"
-
-[[kit]]
-id = "inazumafantasy_uni_changsu_choi_outfit"  # u11806070, Changsu Choi
-  [[kit.model]]
-  type = 0
-  fielder = "u11806070"
-  keeper = "u11806070"
-  [[kit.model]]
-  type = 1
-  fielder = "u11806070"
-  keeper = "u11806070"
-
-[[kit]]
-id = "inazumafantasy_uni_nikolai_gagarin_outfit"  # u11806080, Nikolai Gagarin
-  [[kit.model]]
-  type = 0
-  fielder = "u11806080"
-  keeper = "u11806080"
-  [[kit.model]]
-  type = 1
-  fielder = "u11806080"
-  keeper = "u11806080"
-
-[[kit]]
-id = "inazumafantasy_uni_caldera_dorne_outfit"  # u11806090, Caldera Dorne
-  [[kit.model]]
-  type = 0
-  fielder = "inazumafantasy_u11806090"
-  keeper = "inazumafantasy_u11806090"
-  [[kit.model]]
-  type = 1
-  fielder = "inazumafantasy_u11806090"
-  keeper = "inazumafantasy_u11806090"
-
-[[kit]]
-id = "inazumafantasy_uni_regina_mulgrave_outfit"  # u11807010, Regina Mulgrave
-  [[kit.model]]
-  type = 0
-  fielder = "u11807010"
-  keeper = "u11807010"
-  [[kit.model]]
-  type = 1
-  fielder = "u11807010"
-  keeper = "u11807010"
-
-[[kit]]
-id = "inazumafantasy_uni_mister_yi_outfit_1"  # u11807020_10, Mister Yi
-  [[kit.model]]
-  type = 0
-  fielder = "u11807020_10"
-  keeper = "u11807020_10"
-  [[kit.model]]
-  type = 1
-  fielder = "u11807020_10"
-  keeper = "u11807020_10"
-
-[[kit]]
-id = "inazumafantasy_uni_mister_yi_outfit_2"  # u11807020_20, Mister Yi
-  [[kit.model]]
-  type = 0
-  fielder = "u11807020_20"
-  keeper = "u11807020_20"
-  [[kit.model]]
-  type = 1
-  fielder = "u11807020_20"
-  keeper = "u11807020_20"
-
-[[kit]]
-id = "inazumafantasy_uni_dean_rush_outfit"  # u11807030, Dean Rush
-  [[kit.model]]
-  type = 0
-  fielder = "u11807030"
-  keeper = "u11807030"
-  [[kit.model]]
-  type = 1
-  fielder = "u11807030"
-  keeper = "u11807030"
-
-[[kit]]
-id = "inazumafantasy_uni_emperio_n_guinn_outfit"  # u11807040, Emperio N. Guinn
-  [[kit.model]]
-  type = 0
-  fielder = "inazumafantasy_u11807040"
-  keeper = "inazumafantasy_u11807040"
-  [[kit.model]]
-  type = 1
-  fielder = "inazumafantasy_u11807040"
-  keeper = "inazumafantasy_u11807040"
-
-[[kit]]
-id = "inazumafantasy_uni_lanny_tern_outfit"  # u11807050, Lanny Tern
-  [[kit.model]]
-  type = 0
-  fielder = "inazumafantasy_u11807050"
-  keeper = "inazumafantasy_u11807050"
-  [[kit.model]]
-  type = 1
-  fielder = "inazumafantasy_u11807050"
-  keeper = "inazumafantasy_u11807050"
-
-[[kit]]
-id = "inazumafantasy_uni_flammie_gonzalez_outfit"  # u11807060, Flammie Gonzalez
-  [[kit.model]]
-  type = 0
-  fielder = "u11807060"
-  keeper = "u11807060"
-  [[kit.model]]
-  type = 1
-  fielder = "u11807060"
-  keeper = "u11807060"
-
-[[kit]]
-id = "inazumafantasy_uni_jethro_mackin_outfit"  # u11807070, Jethro Mackin
-  [[kit.model]]
-  type = 0
-  fielder = "u11807070"
-  keeper = "u11807070"
-  [[kit.model]]
-  type = 1
-  fielder = "u11807070"
-  keeper = "u11807070"
-
-[[kit]]
-id = "inazumafantasy_uni_des_pott_outfit"  # u11807080, Des Pott
-  [[kit.model]]
-  type = 0
-  fielder = "u11807080"
-  keeper = "u11807080"
-  [[kit.model]]
-  type = 1
-  fielder = "u11807080"
-  keeper = "u11807080"
-
-[[kit]]
-id = "inazumafantasy_uni_lynn_tambelle_outfit"  # u11807090, Lynn Tambelle
-  [[kit.model]]
-  type = 0
-  fielder = "inazumafantasy_u11807090"
-  keeper = "inazumafantasy_u11807090"
-  [[kit.model]]
-  type = 1
-  fielder = "inazumafantasy_u11807090"
-  keeper = "inazumafantasy_u11807090"
-
-[[kit]]
-id = "inazumafantasy_uni_alexander_scrivener_outfit"  # u11807100, Alexander Scrivener
-  [[kit.model]]
-  type = 0
-  fielder = "u11807100"
-  keeper = "u11807100"
-  [[kit.model]]
-  type = 1
-  fielder = "u11807100"
-  keeper = "u11807100"
-
-[[kit]]
-id = "inazumafantasy_uni_deirdre_staples_outfit"  # u11807110, Deirdre Staples
-  [[kit.model]]
-  type = 0
-  fielder = "u11807110"
-  keeper = "u11807110"
-  [[kit.model]]
-  type = 1
-  fielder = "u11807110"
-  keeper = "u11807110"
-
-[[kit]]
-id = "inazumafantasy_uni_mila_simmering_outfit"  # u11807120, Mila Simmering
-  [[kit.model]]
-  type = 0
-  fielder = "u11807120"
-  keeper = "u11807120"
-  [[kit.model]]
-  type = 1
-  fielder = "u11807120"
-  keeper = "u11807120"
-
-[[kit]]
-id = "inazumafantasy_uni_robert_cottontail_outfit"  # u11807130, Robert Cottontail
-  [[kit.model]]
-  type = 0
-  fielder = "u11807130"
-  keeper = "u11807130"
-  [[kit.model]]
-  type = 1
-  fielder = "u11807130"
-  keeper = "u11807130"
-
-[[kit]]
-id = "inazumafantasy_uni_percival_travis_outfit"  # u11807140, Percival Travis
-  [[kit.model]]
-  type = 0
-  fielder = "u11807140"
-  keeper = "u11807140"
-  [[kit.model]]
-  type = 1
-  fielder = "u11807140"
-  keeper = "u11807140"
-
-[[kit]]
-id = "inazumafantasy_uni_dominic_hewitt_outfit"  # u11807150, Dominic Hewitt
-  [[kit.model]]
-  type = 0
-  fielder = "u11807150"
-  keeper = "u11807150"
-  [[kit.model]]
-  type = 1
-  fielder = "u11807150"
-  keeper = "u11807150"
-
-[[kit]]
-id = "inazumafantasy_uni_curt_gale_outfit"  # u11807160, Curt Gale
-  [[kit.model]]
-  type = 0
-  fielder = "u11807160"
-  keeper = "u11807160"
-  [[kit.model]]
-  type = 1
-  fielder = "u11807160"
-  keeper = "u11807160"
-
-[[kit]]
-id = "inazumafantasy_uni_bastiana_chateau_outfit"  # u11807170, Bastiana Chateau
-  [[kit.model]]
-  type = 0
-  fielder = "u11807170"
-  keeper = "u11807170"
-  [[kit.model]]
-  type = 1
-  fielder = "u11807170"
-  keeper = "u11807170"
-
-[[kit]]
-id = "inazumafantasy_uni_fortnum_pile_outfit"  # u11807180, Fortnum Pile
-  [[kit.model]]
-  type = 0
-  fielder = "u11807180"
-  keeper = "u11807180"
-  [[kit.model]]
-  type = 1
-  fielder = "u11807180"
-  keeper = "u11807180"
-
-[[kit]]
-id = "inazumafantasy_uni_skinner_lankley_outfit"  # u11807190, Skinner Lankley
-  [[kit.model]]
-  type = 0
-  fielder = "u11807190"
-  keeper = "u11807190"
-  [[kit.model]]
-  type = 1
-  fielder = "u11807190"
-  keeper = "u11807190"
-
-[[kit]]
-id = "inazumafantasy_uni_aquilina_schiller_outfit"  # u11807200, Aquilina Schiller
-  [[kit.model]]
-  type = 0
-  fielder = "u11807200"
-  keeper = "u11807200"
-  [[kit.model]]
-  type = 1
-  fielder = "u11807200"
-  keeper = "u11807200"
-
-[[kit]]
-id = "inazumafantasy_uni_aurelia_dingle_outfit"  # u11807210, Aurelia Dingle
-  [[kit.model]]
-  type = 0
-  fielder = "u11807210"
-  keeper = "u11807210"
-  [[kit.model]]
-  type = 1
-  fielder = "u11807210"
-  keeper = "u11807210"
-
-[[kit]]
-id = "inazumafantasy_uni_alessio_ganonti_outfit"  # u11807220, Alessio Ganonti
-  [[kit.model]]
-  type = 0
-  fielder = "u11807220"
-  keeper = "u11807220"
-  [[kit.model]]
-  type = 1
-  fielder = "u11807220"
-  keeper = "u11807220"
-
-[[kit]]
-id = "inazumafantasy_uni_an_min_su_outfit"  # u11808010, An Min-su
-  [[kit.model]]
-  type = 0
-  fielder = "u11808010"
-  keeper = "u11808010"
-  [[kit.model]]
-  type = 1
-  fielder = "u11808010"
-  keeper = "u11808010"
-
-[[kit]]
-id = "inazumafantasy_uni_grant_grimoire_outfit"  # u11808020, Grant Grimoire
-  [[kit.model]]
-  type = 0
-  fielder = "u11808020"
-  keeper = "u11808020"
-  [[kit.model]]
-  type = 1
-  fielder = "u11808020"
-  keeper = "u11808020"
-
-[[kit]]
-id = "inazumafantasy_uni_baz_azel_outfit"  # u11808030, Baz Azel
-  [[kit.model]]
-  type = 0
-  fielder = "u11808030"
-  keeper = "u11808030"
-  [[kit.model]]
-  type = 1
-  fielder = "u11808030"
-  keeper = "u11808030"
-
-[[kit]]
-id = "inazumafantasy_uni_ballet_burkhanov_outfit"  # u11808040, Ballet Burkhanov
-  [[kit.model]]
-  type = 0
-  fielder = "u11808040"
-  keeper = "u11808040"
-  [[kit.model]]
-  type = 1
-  fielder = "u11808040"
-  keeper = "u11808040"
-
-[[kit]]
-id = "inazumafantasy_uni_carrie_ogrova_outfit"  # u11808050, Carrie Ogrova
-  [[kit.model]]
-  type = 0
-  fielder = "u11808050"
-  keeper = "u11808050"
-  [[kit.model]]
-  type = 1
-  fielder = "u11808050"
-  keeper = "u11808050"
-
-[[kit]]
-id = "inazumafantasy_uni_anqa_qushchi_outfit"  # u11808060, Anqa Qushchi
-  [[kit.model]]
-  type = 0
-  fielder = "u11808060"
-  keeper = "u11808060"
-  [[kit.model]]
-  type = 1
-  fielder = "u11808060"
-  keeper = "u11808060"
-
-[[kit]]
-id = "inazumafantasy_uni_roc_nasr_outfit"  # u11808070, Roc Nasr
-  [[kit.model]]
-  type = 0
-  fielder = "u11808070"
-  keeper = "u11808070"
-  [[kit.model]]
-  type = 1
-  fielder = "u11808070"
-  keeper = "u11808070"
-
-[[kit]]
-id = "inazumafantasy_uni_lucy_wongfu_outfit"  # u11808080, Lucy Wongfu
-  [[kit.model]]
-  type = 0
-  fielder = "u11808080"
-  keeper = "u11808080"
-  [[kit.model]]
-  type = 1
-  fielder = "u11808080"
-  keeper = "u11808080"
-
-[[kit]]
-id = "inazumafantasy_uni_wilson_ip_outfit"  # u11808090, Wilson Ip
-  [[kit.model]]
-  type = 0
-  fielder = "u11808090"
-  keeper = "u11808090"
-  [[kit.model]]
-  type = 1
-  fielder = "u11808090"
-  keeper = "u11808090"
-
-[[kit]]
-id = "inazumafantasy_uni_rene_gade_outfit"  # u11808100, René Gadé
-  [[kit.model]]
-  type = 0
-  fielder = "u11808100"
-  keeper = "u11808100"
-  [[kit.model]]
-  type = 1
-  fielder = "u11808100"
-  keeper = "u11808100"
-
-[[kit]]
-id = "inazumafantasy_uni_baton_maystrov_outfit"  # u11808110, Baton Maystrov
-  [[kit.model]]
-  type = 0
-  fielder = "u11808110"
-  keeper = "u11808110"
-  [[kit.model]]
-  type = 1
-  fielder = "u11808110"
-  keeper = "u11808110"
-
-[[kit]]
-id = "inazumafantasy_uni_cristiano_dabola_outfit"  # u11808120, Cristiano Dabola
-  [[kit.model]]
-  type = 0
-  fielder = "u11808120"
-  keeper = "u11808120"
-  [[kit.model]]
-  type = 1
-  fielder = "u11808120"
-  keeper = "u11808120"
-
-[[kit]]
-id = "inazumafantasy_uni_marsilio_magno_outfit"  # u11808130, Marsilio Magno
-  [[kit.model]]
-  type = 0
-  fielder = "u11808130"
-  keeper = "u11808130"
-  [[kit.model]]
-  type = 1
-  fielder = "u11808130"
-  keeper = "u11808130"
-
-[[kit]]
-id = "inazumafantasy_uni_vladimir_outfit"  # u11808140, Vladimir
-  [[kit.model]]
-  type = 0
-  fielder = "u11808140"
-  keeper = "u11808140"
-  [[kit.model]]
-  type = 1
-  fielder = "u11808140"
-  keeper = "u11808140"
-
-[[kit]]
-id = "inazumafantasy_uni_li_kobun_outfit"  # u11808150, Li Kobun
-  [[kit.model]]
-  type = 0
-  fielder = "inazumafantasy_u11808150"
-  keeper = "inazumafantasy_u11808150"
-  [[kit.model]]
-  type = 1
-  fielder = "inazumafantasy_u11808150"
-  keeper = "inazumafantasy_u11808150"
-
-[[kit]]
-id = "inazumafantasy_uni_jim_trainer_outfit"  # u11808160, Jim Trainer
-  [[kit.model]]
-  type = 0
-  fielder = "u11808160"
-  keeper = "u11808160"
-  [[kit.model]]
-  type = 1
-  fielder = "u11808160"
-  keeper = "u11808160"
-
-[[kit]]
-id = "inazumafantasy_uni_pepe_ballester_outfit"  # u11808170, Pepe Ballester
-  [[kit.model]]
-  type = 0
-  fielder = "u11808170"
-  keeper = "u11808170"
-  [[kit.model]]
-  type = 1
-  fielder = "u11808170"
-  keeper = "u11808170"
-
-[[kit]]
-id = "inazumafantasy_uni_tom_dark_outfit"  # u11901010, Tom Dark
-  [[kit.model]]
-  type = 0
-  fielder = "inazumafantasy_u11901010"
-  keeper = "inazumafantasy_u11901010"
-  [[kit.model]]
-  type = 1
-  fielder = "inazumafantasy_u11901010"
-  keeper = "inazumafantasy_u11901010"
-
-[[kit]]
-id = "inazumafantasy_uni_chester_horse_sr_outfit"  # u11901080, Chester Horse Sr
-  [[kit.model]]
-  type = 0
-  fielder = "u11901080"
-  keeper = "u11901080"
-  [[kit.model]]
-  type = 1
-  fielder = "u11901080"
-  keeper = "u11901080"
-
-[[kit]]
-id = "inazumafantasy_uni_suzette_hartland_outfit"  # u11902320, Suzette Hartland
-  [[kit.model]]
-  type = 0
-  fielder = "u11902320"
-  keeper = "u11902320"
-  [[kit.model]]
-  type = 1
-  fielder = "u11902320"
-  keeper = "u11902320"
-
-[[kit]]
-id = "inazumafantasy_uni_gammon_checker_outfit_1"  # u11905060, Gammon Checker
-  [[kit.model]]
-  type = 0
-  fielder = "u11905060"
-  keeper = "u11905060"
-  [[kit.model]]
-  type = 1
-  fielder = "u11905060"
-  keeper = "u11905060"
-
-[[kit]]
-id = "inazumafantasy_uni_gammon_checker_outfit_2"  # u11905070, Gammon Checker
-  [[kit.model]]
-  type = 0
-  fielder = "u11905070"
-  keeper = "u11905070"
-  [[kit.model]]
-  type = 1
-  fielder = "u11905070"
-  keeper = "u11905070"
-
-[[kit]]
-id = "inazumafantasy_uni_gammon_checker_outfit_3"  # u11905080, Gammon Checker
-  [[kit.model]]
-  type = 0
-  fielder = "u11905080"
-  keeper = "u11905080"
-  [[kit.model]]
-  type = 1
-  fielder = "u11905080"
-  keeper = "u11905080"
-
-[[kit]]
-id = "inazumafantasy_uni_gammon_checker_outfit_4"  # u11905090, Gammon Checker
-  [[kit.model]]
-  type = 0
-  fielder = "u11905090"
-  keeper = "u11905090"
-  [[kit.model]]
-  type = 1
-  fielder = "u11905090"
-  keeper = "u11905090"
-
-[[kit]]
-id = "inazumafantasy_uni_othman_laspic_outfit"  # u11907030, Othman Laspic
-  [[kit.model]]
-  type = 0
-  fielder = "inazumafantasy_u11907030"
-  keeper = "inazumafantasy_u11907030"
-  [[kit.model]]
-  type = 1
-  fielder = "inazumafantasy_u11907030"
-  keeper = "inazumafantasy_u11907030"
-
-[[kit]]
-id = "inazumafantasy_uni_niall_lund_outfit"  # u11907040, Niall Lund
-  [[kit.model]]
-  type = 0
-  fielder = "inazumafantasy_u11907040"
-  keeper = "inazumafantasy_u11907040"
-  [[kit.model]]
-  type = 1
-  fielder = "inazumafantasy_u11907040"
-  keeper = "inazumafantasy_u11907040"
-
-[[kit]]
-id = "inazumafantasy_uni_hunter_foster_outfit"  # u11907050, Hunter Foster
-  [[kit.model]]
-  type = 0
-  fielder = "u11907050"
-  keeper = "u11907050"
-  [[kit.model]]
-  type = 1
-  fielder = "u11907050"
-  keeper = "u11907050"
-
-[[kit]]
-id = "inazumafantasy_uni_xavier_schiller_outfit"  # u11907060, Xavier Schiller
-  [[kit.model]]
-  type = 0
-  fielder = "inazumafantasy_u11907060"
-  keeper = "inazumafantasy_u11907060"
-  [[kit.model]]
-  type = 1
-  fielder = "inazumafantasy_u11907060"
-  keeper = "inazumafantasy_u11907060"
-
-[[kit]]
-id = "inazumafantasy_uni_faith_winter_outfit"  # u11907070, Faith Winter
-  [[kit.model]]
-  type = 0
-  fielder = "inazumafantasy_u11907070"
-  keeper = "inazumafantasy_u11907070"
-  [[kit.model]]
-  type = 1
-  fielder = "inazumafantasy_u11907070"
-  keeper = "inazumafantasy_u11907070"
-
-[[kit]]
-id = "inazumafantasy_uni_massimo_donati_outfit"  # u11907080, Massimo Donati
-  [[kit.model]]
-  type = 0
-  fielder = "inazumafantasy_u11907080"
-  keeper = "inazumafantasy_u11907080"
-  [[kit.model]]
-  type = 1
-  fielder = "inazumafantasy_u11907080"
-  keeper = "inazumafantasy_u11907080"
-
-[[kit]]
-id = "inazumafantasy_uni_heath_moore_outfit"  # u11907100, Heath Moore
-  [[kit.model]]
-  type = 0
-  fielder = "u11907100"
-  keeper = "u11907100"
-  [[kit.model]]
-  type = 1
-  fielder = "u11907100"
-  keeper = "u11907100"
-
-[[kit]]
-id = "inazumafantasy_uni_duske_grayling_outfit"  # u11907110, Duske Grayling
-  [[kit.model]]
-  type = 0
-  fielder = "inazumafantasy_u11907110"
-  keeper = "inazumafantasy_u11907110"
-  [[kit.model]]
-  type = 1
-  fielder = "inazumafantasy_u11907110"
-  keeper = "inazumafantasy_u11907110"
-
-[[kit]]
-id = "inazumafantasy_uni_carl_volton_outfit"  # u11907120, Carl Volton
-  [[kit.model]]
-  type = 0
-  fielder = "inazumafantasy_u11907120"
-  keeper = "inazumafantasy_u11907120"
-  [[kit.model]]
-  type = 1
-  fielder = "inazumafantasy_u11907120"
-  keeper = "inazumafantasy_u11907120"
-
-[[kit]]
-id = "inazumafantasy_uni_master_li_outfit"  # u11908020, Master Li
-  [[kit.model]]
-  type = 0
-  fielder = "u11908020"
-  keeper = "u11908020"
-  [[kit.model]]
-  type = 1
-  fielder = "u11908020"
-  keeper = "u11908020"
-
-[[kit]]
-id = "inazumafantasy_uni_yekaterina_stronov_outfit"  # u11908050, Yekaterina Stronov
-  [[kit.model]]
-  type = 0
-  fielder = "u11908050"
-  keeper = "u11908050"
-  [[kit.model]]
-  type = 1
-  fielder = "u11908050"
-  keeper = "u11908050"
-
-[[kit]]
-id = "inazumafantasy_uni_philip_star_outfit"  # u11908120, Philip Star
-  [[kit.model]]
-  type = 0
-  fielder = "inazumafantasy_u11908120"
-  keeper = "inazumafantasy_u11908120"
-  [[kit.model]]
-  type = 1
-  fielder = "inazumafantasy_u11908120"
-  keeper = "inazumafantasy_u11908120"
-
-[[kit]]
-id = "inazumafantasy_uni_lucas_star_outfit"  # u11908130, Lucas Star
-  [[kit.model]]
-  type = 0
-  fielder = "inazumafantasy_u11908130"
-  keeper = "inazumafantasy_u11908130"
-  [[kit.model]]
-  type = 1
-  fielder = "inazumafantasy_u11908130"
-  keeper = "inazumafantasy_u11908130"
+# One [[VRFW.Family]]: every member is one [[kit]] (docs/framework/record-families.md).
+
+[[VRFW.Family]]
+members = [
+  { id = "inazumafantasy_uni_sturm_schwartzkopf_outfit", model = "u11804050" },  # u11804050, Sturm Schwartzkopf
+  { id = "inazumafantasy_uni_wilder_bigfoot_outfit", model = "u11804060" },  # u11804060, Wilder Bigfoot
+  { id = "inazumafantasy_uni_hans_sleight_outfit", model = "inazumafantasy_u11804070" },  # u11804070, Hans Sleight
+  { id = "inazumafantasy_uni_hailey_cometti_outfit", model = "u11804080" },  # u11804080, Hailey Cometti
+  { id = "inazumafantasy_uni_bete_noire_outfit", model = "u11805010" },  # u11805010, Bête Noire
+  { id = "inazumafantasy_uni_orlando_sherman_outfit", model = "u11806010" },  # u11806010, Orlando Sherman
+  { id = "inazumafantasy_uni_murshid_amir_outfit", model = "u11806020" },  # u11806020, Murshid Amir
+  { id = "inazumafantasy_uni_rashiri_saran_outfit", model = "u11806030" },  # u11806030, Rashiri Saran
+  { id = "inazumafantasy_uni_zundar_zand_outfit", model = "u11806040" },  # u11806040, Zundar Zand
+  { id = "inazumafantasy_uni_porco_umir_outfit", model = "u11806050" },  # u11806050, Porco Umir
+  { id = "inazumafantasy_uni_simeur_feromont_outfit", model = "u11806060" },  # u11806060, Simeur Feromont
+  { id = "inazumafantasy_uni_changsu_choi_outfit", model = "u11806070" },  # u11806070, Changsu Choi
+  { id = "inazumafantasy_uni_nikolai_gagarin_outfit", model = "u11806080" },  # u11806080, Nikolai Gagarin
+  { id = "inazumafantasy_uni_caldera_dorne_outfit", model = "inazumafantasy_u11806090" },  # u11806090, Caldera Dorne
+  { id = "inazumafantasy_uni_regina_mulgrave_outfit", model = "u11807010" },  # u11807010, Regina Mulgrave
+  { id = "inazumafantasy_uni_mister_yi_outfit_1", model = "u11807020_10" },  # u11807020_10, Mister Yi
+  { id = "inazumafantasy_uni_mister_yi_outfit_2", model = "u11807020_20" },  # u11807020_20, Mister Yi
+  { id = "inazumafantasy_uni_dean_rush_outfit", model = "u11807030" },  # u11807030, Dean Rush
+  { id = "inazumafantasy_uni_emperio_n_guinn_outfit", model = "inazumafantasy_u11807040" },  # u11807040, Emperio N. Guinn
+  { id = "inazumafantasy_uni_lanny_tern_outfit", model = "inazumafantasy_u11807050" },  # u11807050, Lanny Tern
+  { id = "inazumafantasy_uni_flammie_gonzalez_outfit", model = "u11807060" },  # u11807060, Flammie Gonzalez
+  { id = "inazumafantasy_uni_jethro_mackin_outfit", model = "u11807070" },  # u11807070, Jethro Mackin
+  { id = "inazumafantasy_uni_des_pott_outfit", model = "u11807080" },  # u11807080, Des Pott
+  { id = "inazumafantasy_uni_lynn_tambelle_outfit", model = "inazumafantasy_u11807090" },  # u11807090, Lynn Tambelle
+  { id = "inazumafantasy_uni_alexander_scrivener_outfit", model = "u11807100" },  # u11807100, Alexander Scrivener
+  { id = "inazumafantasy_uni_deirdre_staples_outfit", model = "u11807110" },  # u11807110, Deirdre Staples
+  { id = "inazumafantasy_uni_mila_simmering_outfit", model = "u11807120" },  # u11807120, Mila Simmering
+  { id = "inazumafantasy_uni_robert_cottontail_outfit", model = "u11807130" },  # u11807130, Robert Cottontail
+  { id = "inazumafantasy_uni_percival_travis_outfit", model = "u11807140" },  # u11807140, Percival Travis
+  { id = "inazumafantasy_uni_dominic_hewitt_outfit", model = "u11807150" },  # u11807150, Dominic Hewitt
+  { id = "inazumafantasy_uni_curt_gale_outfit", model = "u11807160" },  # u11807160, Curt Gale
+  { id = "inazumafantasy_uni_bastiana_chateau_outfit", model = "u11807170" },  # u11807170, Bastiana Chateau
+  { id = "inazumafantasy_uni_fortnum_pile_outfit", model = "u11807180" },  # u11807180, Fortnum Pile
+  { id = "inazumafantasy_uni_skinner_lankley_outfit", model = "u11807190" },  # u11807190, Skinner Lankley
+  { id = "inazumafantasy_uni_aquilina_schiller_outfit", model = "u11807200" },  # u11807200, Aquilina Schiller
+  { id = "inazumafantasy_uni_aurelia_dingle_outfit", model = "u11807210" },  # u11807210, Aurelia Dingle
+  { id = "inazumafantasy_uni_alessio_ganonti_outfit", model = "u11807220" },  # u11807220, Alessio Ganonti
+  { id = "inazumafantasy_uni_an_min_su_outfit", model = "u11808010" },  # u11808010, An Min-su
+  { id = "inazumafantasy_uni_grant_grimoire_outfit", model = "u11808020" },  # u11808020, Grant Grimoire
+  { id = "inazumafantasy_uni_baz_azel_outfit", model = "u11808030" },  # u11808030, Baz Azel
+  { id = "inazumafantasy_uni_ballet_burkhanov_outfit", model = "u11808040" },  # u11808040, Ballet Burkhanov
+  { id = "inazumafantasy_uni_carrie_ogrova_outfit", model = "u11808050" },  # u11808050, Carrie Ogrova
+  { id = "inazumafantasy_uni_anqa_qushchi_outfit", model = "u11808060" },  # u11808060, Anqa Qushchi
+  { id = "inazumafantasy_uni_roc_nasr_outfit", model = "u11808070" },  # u11808070, Roc Nasr
+  { id = "inazumafantasy_uni_lucy_wongfu_outfit", model = "u11808080" },  # u11808080, Lucy Wongfu
+  { id = "inazumafantasy_uni_wilson_ip_outfit", model = "u11808090" },  # u11808090, Wilson Ip
+  { id = "inazumafantasy_uni_rene_gade_outfit", model = "u11808100" },  # u11808100, René Gadé
+  { id = "inazumafantasy_uni_baton_maystrov_outfit", model = "u11808110" },  # u11808110, Baton Maystrov
+  { id = "inazumafantasy_uni_cristiano_dabola_outfit", model = "u11808120" },  # u11808120, Cristiano Dabola
+  { id = "inazumafantasy_uni_marsilio_magno_outfit", model = "u11808130" },  # u11808130, Marsilio Magno
+  { id = "inazumafantasy_uni_vladimir_outfit", model = "u11808140" },  # u11808140, Vladimir
+  { id = "inazumafantasy_uni_li_kobun_outfit", model = "inazumafantasy_u11808150" },  # u11808150, Li Kobun
+  { id = "inazumafantasy_uni_jim_trainer_outfit", model = "u11808160" },  # u11808160, Jim Trainer
+  { id = "inazumafantasy_uni_pepe_ballester_outfit", model = "u11808170" },  # u11808170, Pepe Ballester
+  { id = "inazumafantasy_uni_tom_dark_outfit", model = "inazumafantasy_u11901010" },  # u11901010, Tom Dark
+  { id = "inazumafantasy_uni_chester_horse_sr_outfit", model = "u11901080" },  # u11901080, Chester Horse Sr
+  { id = "inazumafantasy_uni_suzette_hartland_outfit", model = "u11902320" },  # u11902320, Suzette Hartland
+  { id = "inazumafantasy_uni_gammon_checker_outfit_1", model = "u11905060" },  # u11905060, Gammon Checker
+  { id = "inazumafantasy_uni_gammon_checker_outfit_2", model = "u11905070" },  # u11905070, Gammon Checker
+  { id = "inazumafantasy_uni_gammon_checker_outfit_3", model = "u11905080" },  # u11905080, Gammon Checker
+  { id = "inazumafantasy_uni_gammon_checker_outfit_4", model = "u11905090" },  # u11905090, Gammon Checker
+  { id = "inazumafantasy_uni_othman_laspic_outfit", model = "inazumafantasy_u11907030" },  # u11907030, Othman Laspic
+  { id = "inazumafantasy_uni_niall_lund_outfit", model = "inazumafantasy_u11907040" },  # u11907040, Niall Lund
+  { id = "inazumafantasy_uni_hunter_foster_outfit", model = "u11907050" },  # u11907050, Hunter Foster
+  { id = "inazumafantasy_uni_xavier_schiller_outfit", model = "inazumafantasy_u11907060" },  # u11907060, Xavier Schiller
+  { id = "inazumafantasy_uni_faith_winter_outfit", model = "inazumafantasy_u11907070" },  # u11907070, Faith Winter
+  { id = "inazumafantasy_uni_massimo_donati_outfit", model = "inazumafantasy_u11907080" },  # u11907080, Massimo Donati
+  { id = "inazumafantasy_uni_heath_moore_outfit", model = "u11907100" },  # u11907100, Heath Moore
+  { id = "inazumafantasy_uni_duske_grayling_outfit", model = "inazumafantasy_u11907110" },  # u11907110, Duske Grayling
+  { id = "inazumafantasy_uni_carl_volton_outfit", model = "inazumafantasy_u11907120" },  # u11907120, Carl Volton
+  { id = "inazumafantasy_uni_master_li_outfit", model = "u11908020" },  # u11908020, Master Li
+  { id = "inazumafantasy_uni_yekaterina_stronov_outfit", model = "u11908050" },  # u11908050, Yekaterina Stronov
+  { id = "inazumafantasy_uni_philip_star_outfit", model = "inazumafantasy_u11908120" },  # u11908120, Philip Star
+  { id = "inazumafantasy_uni_lucas_star_outfit", model = "inazumafantasy_u11908130" },  # u11908130, Lucas Star
+]
+
+[VRFW.Family.each.kit]
+id = "{id}"
+  [[VRFW.Family.each.kit.model]]
+  type = 0
+  fielder = "{model}"
+  keeper = "{model}"
+  shoes = "{shoes}"
+  [[VRFW.Family.each.kit.model]]
+  type = 1
+  fielder = "{model}"
+  keeper = "{model}"
+  shoes = "{shoes}"

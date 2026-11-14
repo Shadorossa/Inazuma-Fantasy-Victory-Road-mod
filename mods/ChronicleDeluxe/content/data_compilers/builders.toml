@@ -1,0 +1,55 @@
+schema = "VRFW.data_compiler/1"
+# The builders ModManager reruns when one of their config.toml keys is saved; each one reads the outputs of the earlier ones.
+
+[[Compiler]]
+Builder = "free_match_base_forms"
+Settings = { output = "content/teams/90_rules/free_match_base_forms.toml" }
+
+[[Compiler]]
+Builder = "free_match_shuffles"
+Settings = { output = "content/teams/90_rules/free_match_shuffles.toml", key_prefix = "chronicle_deluxe_fms_" }
+
+[[Compiler]]
+Builder = "heroic_battles"
+Config = ["heroic", "chapter_auras_refused", "golden_coin"]
+  [Compiler.Settings]
+  teams_output = "content/teams/90_rules/heroic.toml"
+  prizes_output = "content/base_tables/gamedata/soccer/soccer_prize_config.toml"
+  texts_output = "text/rows/heroic_challenges.toml"
+  kits_output = "content/items/rival_kits.toml"
+  kit_icons_output = "content/images/menu/200_icon/02_icon_item/icon_item07.toml"
+  kit_icon_redirect_output = "content/sprite_redirects/kit_icons.toml"
+  side_nodes = "content/teams/70_route_nodes/side_nodes.toml"
+  chain_files = "content/teams/70_route_nodes/chain_{chain}.toml"
+  teams_folder = "content/teams"
+  team_rules_option = "heroic_requirements"
+  text_key_prefix = "chronicle_deluxe_heroic_"
+  challenge_name_prefix = "Heroic_"
+  icon_sheet = "#/menu/200_icon/02_icon_item/icon_item07.g4tx"
+  own_icon_sheet = "#/menu/200_icon/02_icon_item/chronicle_deluxe_kit_icons.g4tx"
+  icon_png_folder = "assets/images/menu/200_icon/02_icon_item/icon_item07"
+  text_templates = "content/data_compilers/data/heroic_texts.toml"
+  story_aura_prizes = "content/data_compilers/data/story_aura_prizes.toml"
+  kits_default_lang = "es"
+
+[[Compiler]]
+Builder = "rival_drops"
+Config = ["drops", "golden_coin"]
+  [Compiler.Settings]
+  games = "content/teams/90_rules/rival_drops.toml"
+  drop_tables = "content/base_tables/gamedata/soccer/soccer_drop_rivals.toml"
+  loot_tables = "content/base_tables/gamedata/item/win_treasure_lot_table_config.toml"
+  prizes = "content/base_tables/gamedata/soccer/soccer_prize_config.toml"
+  opponents = "content/base_tables/gamedata/soccer/soccer_opponent_info.toml"
+
+[[Compiler]]
+Builder = "rival_equipment"
+Config = ["rival_equipment"]
+  [Compiler.Settings]
+  output = "content/match_equipment/legendary_rivals.toml"
+  opponents = "content/base_tables/gamedata/soccer/soccer_opponent_info.toml"
+  affinity = "equipment/affinity.toml"
+  item_passives = "equipment/items.toml"
+  sets = "equipment/sets.toml"
+  set_slots = "items/equipment_sets.toml"
+  move_kinds = "types/passive_block.toml"

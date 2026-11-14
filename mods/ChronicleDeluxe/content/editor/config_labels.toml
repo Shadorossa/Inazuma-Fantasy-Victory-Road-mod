@@ -33,7 +33,7 @@ For = "config"
   Type = "list"
   Of = "string"
   Label = { es = "Equipaciones de batallas puerta", en = "Gate battle kits" }
-  Help = { es = "Batallas puerta cuya primera victoria da también la equipación del rival. Lo escribe un script de generación.", en = "Gate battles whose first win also gives the rival kit. Written by a build script." }
+  Help = { es = "Batallas puerta cuya primera victoria da también la equipación del rival.", en = "Gate battles whose first win also gives the rival kit." }
   [[Shape.Field]]
   Key = "heroic.rival_rewards"
   Type = "list"
@@ -59,7 +59,7 @@ For = "config"
   Key = "heroic.store_kits"
   Type = "list"
   Label = { es = "Equipaciones de tienda", en = "Store kits" }
-  Help = { es = "Equipaciones de equipos que se venden en una tienda.", en = "Kits of teams sold in a store." }
+  Help = { es = "Equipaciones de equipos que se venden en una tienda. Solo desarrollo: la fila de la tienda (precio, moneda, tienda) y el icono dibujado los escribe la herramienta de desarrollo del mod; guardar aquí solo actualiza el objeto de equipación.", en = "Kits of teams sold in a store. Developer only: the store row (price, currency, store) and the drawn icon are written by the mod's developer tool; saving here only updates the kit item." }
   [[Shape.Field]]
   Key = "heroic.players"
   Type = "table"
@@ -214,46 +214,6 @@ For = "config"
   Of = "string"
   Label = { es = "Auras en Orion", en = "Auras in Orion" }
   Help = { es = "Tipos de aura permitidos en batallas de Orion.", en = "Aura kinds allowed in Orion battles." }
-  [[Shape.Field]]
-  Key = "free_match_base_form"
-  Type = "list"
-  Label = { es = "Equipos en forma base", en = "Base-form teams" }
-  Help = { es = "Equipos de partido libre cuyos jugadores juegan en su forma base. Lo escribe un script de generación.", en = "Free-match teams whose players play their base form. Written by a build script." }
-  [[Shape.Field]]
-  Key = "free_match_base_form.team"
-  Type = "string"
-  Label = { es = "Equipo", en = "Team" }
-  Help = { es = "Equipo del partido libre afectado.", en = "Free-match team affected." }
-  [[Shape.Field]]
-  Key = "free_match_base_form.name"
-  Type = "string"
-  Label = { es = "Regla", en = "Rule" }
-  Help = { es = "Nombre interno de la regla generada.", en = "Internal name of the generated rule." }
-  [[Shape.Field]]
-  Key = "free_match_base_form.coach"
-  Type = "bool"
-  Label = { es = "Incluir entrenador", en = "Include coach" }
-  Help = { es = "Si se activa, el entrenador también juega en forma base.", en = "When on, the coach also plays in base form." }
-  [[Shape.Field]]
-  Key = "free_match_shuffle"
-  Type = "list"
-  Label = { es = "Equipos con alineación cambiada", en = "Shuffled line-up teams" }
-  Help = { es = "Equipos de partido libre que juegan con la alineación intercambiada. Lo escribe un script de generación.", en = "Free-match teams that play with a swapped line-up. Written by a build script." }
-  [[Shape.Field]]
-  Key = "free_match_shuffle.team"
-  Type = "string"
-  Label = { es = "Equipo", en = "Team" }
-  Help = { es = "Equipo del partido libre afectado.", en = "Free-match team affected." }
-  [[Shape.Field]]
-  Key = "free_match_shuffle.name"
-  Type = "string"
-  Label = { es = "Regla", en = "Rule" }
-  Help = { es = "Nombre interno de la regla generada.", en = "Internal name of the generated rule." }
-  [[Shape.Field]]
-  Key = "free_match_shuffle.key"
-  Type = "string"
-  Label = { es = "Clave", en = "Key" }
-  Help = { es = "Clave interna de la regla.", en = "Internal key of the rule." }
   [[Shape.Field]]
   Key = "drops"
   Type = "table"

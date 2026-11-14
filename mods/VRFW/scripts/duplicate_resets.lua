@@ -20,7 +20,7 @@ local function declared()
   return most_by_item, keys
 end
 
-VRFW.on("slot_copy", function(event)
+VRFW.on("save:slot_copy", function(event)
   local from, to = event.from, event.to
   local copy = "COPY " .. tostring(from) .. "->" .. tostring(to)
   local untouched = ": copy refused, slot " .. tostring(from) .. " untouched"

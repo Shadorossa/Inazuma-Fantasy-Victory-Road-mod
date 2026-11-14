@@ -30,10 +30,14 @@ name = "CMND_VRFW_PASSIVE_SLOTS_OFF"    # () -> true while a declared signature-
 handler = "PassiveSlots.CmdOff"
 
 [[VRFW.Command]]
-name = "CMND_VRFW_SIGNATURE_PASSIVE"
-handler = "PassiveSlots.CmdSignature"
+name = "CMND_VRFW_OWN_PASSIVE"
+handler = "PassiveSlots.CmdOwnPassive"
 needs = ["VRFW.SignatureSlotIdLive", "VRFW.SignaturePieceOpenLive"]
 
 [[VRFW.Command]]
 name = "CMND_VRFW_PASSIVE_CURRENT_VALUE"
 handler = "PassiveValue.CmdCurrent"
+
+[[VRFW.Command]]
+name = "CMND_VRFW_CHARACTER_TAGS"
+handler = "PassiveValue.CmdCharacterTags"

@@ -42,3 +42,8 @@ table = "character/chara_base"
   key = 0xFAF184B5                # ev62_92004
   from = 0x7F3C9890               # ev62_10110
   cells = { name = { text = "ev62_92004" }, name_text = 0x625F5437, model = 0xFBB3D2D5 }
+
+  [[keyed.add]]
+  key = 0x236998E5                # k902020
+  from = 0x0466C92D               # k002020
+  cells = { name = { text = "k902020" }, model = 0x222BCE85 }

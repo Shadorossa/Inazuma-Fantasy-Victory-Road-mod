@@ -1,6 +1,6 @@
 schema = "VRFW.item/2"
 # Kit items of uniforms that are in the game with no item and no team wearing them.
-default_lang = "es"
+default_lang = "en"
 
 [[item]]
 name = "kit_mary_times_v"
@@ -84,6 +84,7 @@ model = { uniform = 0xA0F5F748 }
 name = "kit_silica_eleven_alt"
 base = "uni_u060701"
 category = "kit"
+icon_key = "uni_cd_silica_alt"
 model = { uniform = 0x4E6D84E6 }
   [item.text.es]
   name = "Equipación Sílice alternativa"
@@ -108,6 +109,7 @@ model = { uniform = 0x4E6D84E6 }
 name = "kit_naiadi_eleven_alt"
 base = "uni_u060801"
 category = "kit"
+icon_key = "uni_cd_naiadi_alt"
 model = { uniform = 0xD4E13C3D }
   [item.text.es]
   name = "Equipación Naiadi alternativa"

@@ -1,6 +1,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.chara_filter_tab/1"
 folder = "content/chara_filter_tabs"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Menu.CharaFilterTab"
+v2_kind_folder = "Menus/CharaFilterTabs"
+v2_version = 1
 label = "Player filter tabs"
 label_es = "Pestañas del filtro de jugadores"
 doc = "A tab of its own in the player filter window (bank and players' album), in the place of the season tab the framework leaves out."

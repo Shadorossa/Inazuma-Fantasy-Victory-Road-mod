@@ -5,3 +5,5 @@ owner = "match"
 name = "dark_tornado_a"
 from = "ev60_02750"
 id = "ev60_86000"
+# the name call of Tornado oscuro (whs00430) instead of Tornado de fuego's (whs00030): every character says his own Dark Tornado line
+voice_cues = { whs00030 = "whs00430" }

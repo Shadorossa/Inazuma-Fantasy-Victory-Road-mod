@@ -178,8 +178,9 @@ function RV.who_flow(id)
   Draw()
 end
 
--- a mod's vertical offset (px) of the screen's top block, applied at the next layout
+-- Internal: a mod's vertical offset (px) of the screen's top block, applied at the next layout
 function Screen.set_top_offset(dy)
+  --- Internal: vertical offset in px of the mods screen top block, set by Screen.set_top_offset.
   Screen.top_offset = tonumber(dy) or 0
 end
 
@@ -218,5 +219,5 @@ function CE.draw_page_row(p)
   end
 end
 
--- for 100_mods_screen.lua and the files after this one
+-- Internal: for 100_mods_screen.lua and the files after this one
 Screen.draw_page = DrawPage

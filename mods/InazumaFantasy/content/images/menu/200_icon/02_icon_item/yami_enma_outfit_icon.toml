@@ -1,0 +1,13 @@
+# The icon of Yami Enma's outfit: his clothes on the shop's white mannequin, rendered from the outfit model like the other
+# outfit icons, in its own icon atlas (content/sprite_redirects/yami_enma_outfit_icon.toml).
+schema = "VRFW.image/1"
+
+[[recipe]]
+name = "cos_if_yami_enma_outfit"
+png = "yami_enma_outfit_icon.png"
+
+[[texture]]
+atlas = "#/menu/200_icon/02_icon_item/inazuma_fantasy_yami_enma_outfit_icon.g4tx"
+name = "cos_if_yami_enma_outfit"
+recipe = "cos_if_yami_enma_outfit"
+size = [256, 256]

@@ -2,6 +2,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.catalog/1"
 folder = "content/catalog"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Framework.Catalog"
+v2_kind_folder = "Framework/Catalogs"
+v2_version = 1
 label = "Catalogue"
 label_es = "Catálogo"
 

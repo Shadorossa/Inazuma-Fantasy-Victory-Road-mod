@@ -84,23 +84,23 @@ local function end_current()
   return true
 end
 
-VRFW.on("match_start", function(ev)
+VRFW.on("match:start", function(ev)
   disarm("match start")
   skips = 0
   return nil
 end)
 
-VRFW.on("goal", function(ev)
+VRFW.on("match:goal", function(ev)
   arm("goal")
   return nil
 end)
 
-VRFW.on("keeper_scene:beaten", function(ev)
+VRFW.on("match:keeper_scene:beaten", function(ev)
   arm("keeper beaten")
   return nil
 end)
 
-VRFW.on("tick", function(ev)
+VRFW.on("frame:tick", function(ev)
   if armed_at == nil or failed then return nil end
   if not off() or VRFW.now_ms() - armed_at > ARM_MS then
     disarm("time out")
@@ -124,7 +124,7 @@ VRFW.on("tick", function(ev)
   return nil
 end)
 
-VRFW.on("match_end", function(ev)
+VRFW.on("match:end", function(ev)
   disarm("match end")
   return nil
 end)

@@ -3,6 +3,7 @@
 if VRFW.match_challenge == nil then
   local MC = {
     CLEAR_FLAG = VRFW.commands.GET_SOCCER_GAME_CLEAR_FLAG,   -- CMND_GET_SOCCER_GAME_CLEAR_FLAG (game, difficulty) -> won
+    OPTION_GET = VRFW.commands.VRFW_OPTION_GET,     -- CMND_VRFW_OPTION_GET (row key) -> the value in force
     CMD = {
       OF = VRFW.commands.VRFW_TEAM_CHALLENGE_OF,         -- CMND_VRFW_TEAM_CHALLENGE_OF (game) -> i / -1
       GET = VRFW.commands.VRFW_TEAM_CHALLENGE_GET,
@@ -11,11 +12,12 @@ if VRFW.match_challenge == nil then
       CHECK = VRFW.commands.VRFW_TEAM_CHALLENGE_CHECK,
                               -- -> ok, failed, offenders
       REQUIRED = VRFW.commands.VRFW_TEAM_CHALLENGE_REQUIRED,
-                              -- clear, own text id, label suffix text id
+                              -- clear, own text id, label suffix text id, first character id
       AURAS = VRFW.commands.VRFW_TEAM_CHALLENGE_AURAS,
                               -- sides, label suffix text id
       MOVES = VRFW.commands.VRFW_TEAM_CHALLENGE_MOVES,
                               -- (i) -> ruled, banned categories ("shoot,keeper"), sides, label suffix text id
+      TEXT_FILL = VRFW.commands.VRFW_TEXT_FILL,   -- CMND_VRFW_TEXT_FILL (text, tag, value, ...) -> the text with each <tag> filled
     },
     AURAS_ARM = VRFW.commands.VRFW_MATCH_AURAS_ARM,
     AURAS_DISARM = VRFW.commands.VRFW_MATCH_AURAS_DISARM, -- CMND_VRFW_MATCH_AURAS_DISARM (): the next match has none
@@ -24,6 +26,8 @@ if VRFW.match_challenge == nil then
     MEMBER = 1720957768,      -- (set, team, i, 0 hdl / 1 position)
     STATUS = 1131797651,      -- (hdl, 0 level / 4 chara_param / 12 rarity)
     IS_AVATAR = VRFW.commands.GET_IS_AVATAR_CHARA,
+    CHARA_OF_CARD = 347353059,   -- (chara_param id) -> chara id
+    PERSON_VERSIONS = VRFW.commands.VRFW_PERSON_VERSIONS,   -- CMND_VRFW_PERSON_VERSIONS (chara) -> { chara_base id, … }
     HAS_ATTRIBUTE = 29506568,
     ATTRIBUTE_AVATAR = 4096,
     TEAM_SET_INFO = VRFW.commands.GET_TEAM_SET_INFO, -- CMND_GET_TEAM_SET_INFO (set, team, 4) -> ok, formation id
@@ -53,13 +57,15 @@ if VRFW.match_challenge == nil then
     MAX_NAMES = 4,
     SUPPLY_ROW = 1,           -- the difficulty row (retail: the fixed line-up row) a restricted chain match plays with a supplied squad
     info_cache = {},
+    versions_cache = {},      -- card -> "id,id,…": every version of its character
   }
+  --- Internal: State of the match challenge extension.
   VRFW.match_challenge = MC
 
   local function u32(v) return VRFW.ids.unsigned(v) end
 
   local logger
-  --- Logs the arguments with the challenge tag.
+  --- Internal: Logs the arguments with the challenge tag.
   function MC.log(...)
     local parts = {}
     for i = 1, select("#", ...) do
@@ -80,6 +86,71 @@ if VRFW.match_challenge == nil then
     return ""
   end
 
+  --- The <TAG> values of a GET / REQ answer ("<tag>\t<kind>\t<value>" lines) as a list.
+  local function values_of(line)
+    local out = {}
+    for tag, kind, value in tostring(line or ""):gmatch("([^\t\n]+)\t([^\t\n]+)\t([^\n]*)\n") do
+      out[#out + 1] = {tag = tag, kind = kind, value = value}
+    end
+    return out
+  end
+
+  --- An inline icon inside a label: ICON_MARK kind ":" value ICON_MARK (kinds "series" = series type, "face" = chara id).
+  local ICON_MARK = "\1"
+  local function icon_mark(kind, value)
+    return ICON_MARK .. kind .. ":" .. tostring(value) .. ICON_MARK
+  end
+
+  --- Text id with its <TAG> placeholders filled from values (a series value is its name in the game's language).
+  --- A series tag T also fills <T_ICON>: its icon mark when rich, else its name.
+  local function filled(id, values, rich)
+    local s = text(id)
+    if s == "" or values == nil or #values == 0 then
+      return s
+    end
+    local args = {}
+    for _, v in ipairs(values) do
+      local value = v.value
+      if v.kind == "series" then
+        local okc, name = VRFW.host.menu_command(MC.SERIES, 1, v.value)
+        value = okc and type(name) == "string" and name or ""
+        local icon = value
+        if rich then
+          local okt, series_type = VRFW.host.menu_command(MC.SERIES, 0, v.value)
+          if okt and type(series_type) == "number" and series_type > 0 then
+            icon = icon_mark("series", series_type)
+          end
+        end
+        args[#args + 1] = v.tag .. "_ICON"
+        args[#args + 1] = icon
+      end
+      args[#args + 1] = v.tag
+      args[#args + 1] = value
+    end
+    local r = VRFW.host.command(MC.CMD.TEXT_FILL, s, table.unpack(args))
+    return type(r) == "string" and r or s
+  end
+
+  --- A label with icon marks as parts: {text = s} and {series = type} / {face = chara}, in order.
+  local function label_parts(s)
+    local parts, at = {}, 1
+    while true do
+      local a, b, kind, value = string.find(s, ICON_MARK .. "(%a+):([^" .. ICON_MARK .. "]*)" .. ICON_MARK, at)
+      if a == nil then
+        break
+      end
+      if a > at then
+        parts[#parts + 1] = {text = string.sub(s, at, a - 1)}
+      end
+      parts[#parts + 1] = {[kind] = tonumber(value) or value}
+      at = b + 1
+    end
+    if at <= string.len(s) then
+      parts[#parts + 1] = {text = string.sub(s, at)}
+    end
+    return parts
+  end
+
   local function fmt(id, ...)
     local ok, s = pcall(string.format, text(id), ...)
     if ok then
@@ -88,7 +159,7 @@ if VRFW.match_challenge == nil then
     return text(id)
   end
 
-  --- The challenge index of a match row; nil when it has none.
+  --- Internal: The challenge index of a match row; nil when it has none.
   function MC.of(game, diff)
     if type(game) ~= "number" or game == 0 then
       return nil
@@ -104,7 +175,7 @@ if VRFW.match_challenge == nil then
     return i
   end
 
-  --- Whether the match row was won: the game's clear bit of the row; beaten = the launcher's own record (a chain tile won with its supplied squad).
+  --- Internal: Whether the match row was won: the game's clear bit of the row; beaten = the launcher's own record (a chain tile won with its supplied squad).
   function MC.won(game, diff, beaten)
     if beaten == true then
       return true
@@ -112,7 +183,7 @@ if VRFW.match_challenge == nil then
     return type(game) == "number" and type(diff) == "number" and VRFW.host.command(MC.CLEAR_FLAG, game, diff) == true
   end
 
-  --- The challenge in force on a match row, nil = none: one declared UntilFirstClear is off once the row was won.
+  --- Internal: The challenge in force on a match row, nil = none: one declared UntilFirstClear is off once the row was won.
   function MC.applies(game, diff, beaten)
     local i = MC.of(game, diff)
     local c = i ~= nil and MC.details(i) or nil
@@ -122,12 +193,12 @@ if VRFW.match_challenge == nil then
     return i
   end
 
-  --- The challenge info table of index i (cached); nil when there is none.
+  --- Internal: The challenge info table of index i (cached); nil when there is none.
   function MC.details(i)
     if MC.info_cache[i] ~= nil then
       return MC.info_cache[i] or nil
     end
-    local name, mod, title, desc, scope, nreq, diffs, nrequired, short, until_first_clear = VRFW.host.command(MC.CMD.GET, i)
+    local name, mod, title, desc, scope, nreq, diffs, nrequired, short, until_first_clear, team_rules_option, text_values = VRFW.host.command(MC.CMD.GET, i)
     if type(name) ~= "string" or name == "" then
       MC.info_cache[i] = false
       return nil
@@ -138,13 +209,13 @@ if VRFW.match_challenge == nil then
     end
     local required = {}
     for k = 1, (type(nrequired) == "number" and nrequired or 0) do
-      local count, places, until_first_clear, own, label = VRFW.host.command(MC.CMD.REQUIRED, i, k)
+      local count, places, until_first_clear, own, label, chara = VRFW.host.command(MC.CMD.REQUIRED, i, k)
       local codes = {}
       for x in string.gmatch(type(places) == "string" and places or "", "%d+") do
         codes[#codes + 1] = tonumber(x)
       end
       required[k] = {count = count or 0, places = codes, until_first_clear = until_first_clear == true, text = own or 0,
-                     label = type(label) == "number" and label or 0}
+                     label = type(label) == "number" and label or 0, chara = type(chara) == "number" and chara or 0}
     end
     local auras = nil
     local ruled, allowed, sides, alabel, always, always_allowed = VRFW.host.command(MC.CMD.AURAS, i)
@@ -161,30 +232,39 @@ if VRFW.match_challenge == nil then
     end
     local c = {i = i, name = name, mod = mod, title = title or 0, description = desc or 0,
                short = type(short) == "number" and short or 0, scope = scope or "squad", nreq = nreq or 0,
-               diffs = set, required = required, auras = auras, moves = moves, until_first_clear = until_first_clear == true}
+               diffs = set, required = required, auras = auras, moves = moves, until_first_clear = until_first_clear == true,
+               team_rules_option = type(team_rules_option) == "string" and team_rules_option or "", values = values_of(text_values)}
     MC.info_cache[i] = c
     return c
   end
 
-  --- The title text of the challenge on a match row; nil when there is none.
+  --- Internal: Whether the team conditions (Require and Required) of challenge info c apply: its TeamRulesOption row is not off.
+  function MC.team_ruled(c)
+    if c == nil or c.team_rules_option == "" then
+      return true
+    end
+    return VRFW.host.command(MC.OPTION_GET, c.team_rules_option) ~= 0
+  end
+
+  --- Internal: The title text of the challenge on a match row; nil when there is none.
   function MC.title_of(game, diff, beaten)
     local i = MC.applies(game, diff, beaten)
     local c = i and MC.details(i)
-    if c == nil then
+    if c == nil or not MC.team_ruled(c) then
       return nil
     end
-    local t = text(c.title)
+    local t = filled(c.title, c.values)
     if t == "" then
       t = c.name
     end
     return t
   end
 
-  --- The texts of the required starters of challenge i.
+  --- Internal: The texts of the required starters of challenge i.
   function MC.required_texts(i, cleared)
     local c = MC.details(i)
     local out = {}
-    for _, r in ipairs(c and c.required or {}) do
+    for _, r in ipairs(c and MC.team_ruled(c) and c.required or {}) do
       if not (r.until_first_clear and cleared) and r.label == 0 and type(r.text) == "number" and r.text ~= 0 then
         out[#out + 1] = r.text
       end
@@ -205,7 +285,26 @@ if VRFW.match_challenge == nil then
     return 0
   end
 
-  --- The players of `scope` ("starters" or the squad) for team type tt.
+  --- Every version of the character of `card` (VRFW.persons) as the dock's "id,id,…" field ("" = his card's character only).
+  local function versions_of(card)
+    local known = MC.versions_cache[card]
+    if known ~= nil then
+      return known
+    end
+    local chara = VRFW.host.command(MC.CHARA_OF_CARD, card)
+    local list = type(chara) == "number" and chara ~= 0 and VRFW.host.command(MC.PERSON_VERSIONS, chara) or nil
+    local parts = {}
+    for _, v in ipairs(type(list) == "table" and list or {}) do
+      if type(v) == "number" then
+        parts[#parts + 1] = string.format("%.0f", u32(v))
+      end
+    end
+    known = table.concat(parts, ",")
+    MC.versions_cache[card] = known
+    return known
+  end
+
+  --- Internal: The players of `scope` ("starters" or the squad) for team type tt.
   function MC.players(scope, tt)
     tt = tt or 0
     local limits = MC.LAST[tt] or MC.LAST[0]
@@ -274,17 +373,17 @@ if VRFW.match_challenge == nil then
            "ok", ok, "failed", failed ~= "" and failed or "-")
   end
 
-  --- Checks challenge i against the squad; answers ok, failed, bad, players.
+  --- Internal: Checks challenge i against the squad; answers ok, failed, bad, players.
   function MC.check(i, tt, cleared)
     local c = MC.details(i)
-    if c == nil then
+    if c == nil or not MC.team_ruled(c) then
       return true, {}, {}, {}
     end
     local ps = MC.players(c.scope, tt)
     local parts = {}
     for _, p in ipairs(ps) do
       -- not "%d": card ids >= 2^31 (32-bit `long`); the place only for starters
-      parts[#parts + 1] = string.format("%.0f:%.0f:%.0f:%.0f:%d", p.card, p.level, p.rarity, p.place or -1, p.avatar and 1 or 0)
+      parts[#parts + 1] = string.format("%.0f:%.0f:%.0f:%.0f:%d:%s", p.card, p.level, p.rarity, p.place or -1, p.avatar and 1 or 0, versions_of(p.card))
     end
     local dock = table.concat(parts, ";")
     local ok, failed, bad = VRFW.host.command(MC.CMD.CHECK, i, dock, cleared and 1 or 0)
@@ -295,11 +394,11 @@ if VRFW.match_challenge == nil then
     return ok == true, csv(failed), csv(bad), ps
   end
 
-  --- The row a restricted match plays with its supplied squad: its challenge covers `diff` and leaves SUPPLY_ROW out (nil = none).
+  --- Internal: The row a restricted match plays with its supplied squad: its challenge covers `diff` and leaves SUPPLY_ROW out (nil = none).
   function MC.supply_row(game, diff)
     local i = MC.of(game, diff)
     local c = i and MC.details(i)
-    if c == nil or next(c.diffs) == nil or not c.diffs[diff] or c.diffs[MC.SUPPLY_ROW] or diff == MC.SUPPLY_ROW then
+    if c == nil or not MC.team_ruled(c) or next(c.diffs) == nil or not c.diffs[diff] or c.diffs[MC.SUPPLY_ROW] or diff == MC.SUPPLY_ROW then
       return nil
     end
     return MC.SUPPLY_ROW
@@ -308,13 +407,16 @@ if VRFW.match_challenge == nil then
   local function dock_of(list)
     local parts = {}
     for _, p in ipairs(list) do
-      parts[#parts + 1] = string.format("%.0f:%.0f:%.0f:-1:%d", u32(p.param), p.level, p.rarity, VRFW.host.command(MC.IS_AVATAR, p.param) == true and 1 or 0)
+      parts[#parts + 1] = string.format("%.0f:%.0f:%.0f:-1:%d:%s", u32(p.param), p.level, p.rarity, VRFW.host.command(MC.IS_AVATAR, p.param) == true and 1 or 0, versions_of(u32(p.param)))
     end
     return table.concat(parts, ";")
   end
 
-  --- Whether the whole club can field challenge i: the club minus every player the rules reject still fills the starters and passes.
+  --- Internal: Whether the whole club can field challenge i: the club minus every player the rules reject still fills the starters and passes.
   function MC.club_can_field(i, tt, cleared)
+    if not MC.team_ruled(MC.details(i)) then
+      return true
+    end
     local roster = VRFW.recruit ~= nil and VRFW.recruit.roster() or nil
     if roster == nil then
       return true   -- the club cannot be read: the challenge's normal refusal stands
@@ -393,7 +495,7 @@ if VRFW.match_challenge == nil then
     return tonumber(a), tonumber(z)
   end
 
-  --- The filter description (CMND_VRFW_TEAM_CHALLENGE_REQ's last value) in words.
+  --- Internal: The filter description (CMND_VRFW_TEAM_CHALLENGE_REQ's last value) in words.
   function MC.filter(desc)
     local out = {}
     for _, part in ipairs(parts_of(desc)) do
@@ -443,16 +545,17 @@ if VRFW.match_challenge == nil then
     return table.concat(out, text(MC.T.AND))
   end
 
-  --- Appends the requirement lines of challenge i at `path` to `lines`; answers `lines`.
+  --- Internal: Appends the requirement lines of challenge i at `path` to `lines`; answers `lines`.
   function MC.lines(i, path, depth, lines)
     lines = lines or {}
-    local kind, lo, hi, own, nsub, desc = VRFW.host.command(MC.CMD.REQ, i, path)
+    local kind, lo, hi, own, nsub, desc, own_values = VRFW.host.command(MC.CMD.REQ, i, path)
     if type(kind) ~= "string" or kind == "" then
       return lines
     end
     local pad = string.rep("  ", depth or 0) .. "· "
-    if type(own) == "number" and own ~= 0 and text(own) ~= "" then
-      lines[#lines + 1] = pad .. text(own)
+    local own_text = type(own) == "number" and own ~= 0 and filled(own, values_of(own_values)) or ""
+    if own_text ~= "" then
+      lines[#lines + 1] = pad .. own_text
       return lines
     end
     local what = MC.filter(desc)
@@ -477,7 +580,7 @@ if VRFW.match_challenge == nil then
     return lines
   end
 
-  --- The line of required starter k (1-based) of challenge i.
+  --- Internal: The line of required starter k (1-based) of challenge i.
   function MC.required_line(i, k)
     local c = MC.details(i)
     local r = c and c.required[k]
@@ -495,7 +598,7 @@ if VRFW.match_challenge == nil then
     return pad .. fmt(MC.T.REQUIRED_PLACES, who, words(MC.T.POSITION, table.concat(r.places, ",")))
   end
 
-  --- The refusal text of a match row's challenge; nil when it is allowed.
+  --- Internal: The refusal text of a match row's challenge; nil when it is allowed.
   function MC.refusal(game, tt, diff, beaten)
     local i = MC.applies(game, diff, beaten)
     if i == nil then
@@ -507,9 +610,9 @@ if VRFW.match_challenge == nil then
     if ok or c == nil then
       return nil
     end
-    local t = text(c.title)
+    local t = filled(c.title, c.values)
     local lines = {fmt(MC.T.HEAD, t ~= "" and t or c.name)}
-    local d = text(c.description)
+    local d = filled(c.description, c.values)
     if d ~= "" then
       lines[#lines + 1] = d
     end
@@ -540,7 +643,7 @@ if VRFW.match_challenge == nil then
     return table.concat(lines, "\n")
   end
 
-  --- The challenge status of a match row as a table; nil when there is none.
+  --- Internal: The challenge status of a match row as a table; nil when there is none.
   function MC.status(game, tt, diff, beaten)
     local i = MC.applies(game, diff, beaten)
     local c = i ~= nil and MC.details(i) or nil
@@ -549,31 +652,39 @@ if VRFW.match_challenge == nil then
     end
     local cleared = MC.won(game, diff, beaten)
     local ok, _, bad = MC.check(i, tt, cleared)
-    local label = text(c.short)
-    if label == "" then
-      label = text(c.title)
+    local team_ruled = MC.team_ruled(c)
+    local label = team_ruled and filled(c.short, c.values) or ""
+    local rich = team_ruled and filled(c.short, c.values, true) or ""
+    if team_ruled and label == "" then
+      label = filled(c.title, c.values)
+      rich = label
     end
-    if label == "" then
-      label = c.name
+    if team_ruled and label == "" then
+      label, rich = c.name, c.name
     end
-    for _, r in ipairs(c.required) do
+    -- `label` = plain text naming every suffix; `parts` = the same line with its series icons and the required starters' faces inline
+    for _, r in ipairs(team_ruled and c.required or {}) do
       local suffix = r.label ~= 0 and not (r.until_first_clear and cleared) and text(r.label) or ""
       if suffix ~= "" then
         label = fmt(MC.T.WITH_REQUIRED, label, suffix)
+        rich = fmt(MC.T.WITH_REQUIRED, rich, r.chara ~= 0 and icon_mark("face", r.chara) or suffix)
       end
     end
-    local aura_suffix = c.auras ~= nil and text(c.auras.label) or ""
-    if aura_suffix ~= "" then
-      label = fmt(MC.T.WITH_REQUIRED, label, aura_suffix)
+    for _, suffix in ipairs({c.auras ~= nil and text(c.auras.label) or "", c.moves ~= nil and text(c.moves.label) or ""}) do
+      if suffix ~= "" and label == "" then
+        label, rich = suffix, suffix
+      elseif suffix ~= "" then
+        label = fmt(MC.T.WITH_REQUIRED, label, suffix)
+        rich = fmt(MC.T.WITH_REQUIRED, rich, suffix)
+      end
     end
-    local move_suffix = c.moves ~= nil and text(c.moves.label) or ""
-    if move_suffix ~= "" then
-      label = fmt(MC.T.WITH_REQUIRED, label, move_suffix)
+    if label == "" then
+      return nil
     end
-    return {i = i, ok = ok, offenders = #bad, label = label}
+    return {i = i, ok = ok, offenders = #bad, label = label, parts = label_parts(rich)}
   end
 
-  --- The aura rule a game's challenge keeps on every row (AlwaysRefused), nil = none: read whatever the difficulty and the clear state.
+  --- Internal: The aura rule a game's challenge keeps on every row (AlwaysRefused), nil = none: read whatever the difficulty and the clear state.
   function MC.always_auras(game)
     if type(game) ~= "number" or game == 0 then
       return nil
@@ -586,7 +697,7 @@ if VRFW.match_challenge == nil then
     return c
   end
 
-  --- Arms the aura and move rules the challenge on a match row declares.
+  --- Internal: Arms the aura and move rules the challenge on a match row declares.
   function MC.arm_auras(game, diff, beaten)
     local i = MC.applies(game, diff, beaten)
     local c = i ~= nil and MC.details(i) or nil
@@ -607,7 +718,7 @@ if VRFW.match_challenge == nil then
     end
   end
 
-  --- True when the match row's challenge lets the match start; a refusal shows its text.
+  --- Internal: True when the match row's challenge lets the match start; a refusal shows its text.
   function MC.gate(game, tt, diff, beaten)
     local msg = MC.refusal(game, tt, diff, beaten)
     if msg == nil then

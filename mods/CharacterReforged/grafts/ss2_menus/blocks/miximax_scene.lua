@@ -715,18 +715,12 @@ function PL.mx_detail(f, team_info)
   local face = f.face or f.chara
   if face ~= nil and face ~= 0 then
     pcall(PL.face_reset, A)
-    funcLuaMenuCommand(C.MESH_VISIBLE, A, 478320441 --[[_icon_chr_dmy01]], true, 0)
-    -- Mirrors retail UpdateMixiMaxDetailInfo.
+    -- Mirrors retail UpdateMixiMaxDetailInfo; VRFW.face_icon shows the mesh once the texture has loaded.
     pcall(funcLuaCommand, @crc:CMND_VRFW_APPEARANCE@, "skill_panel", face)   -- the partner on purpose (module appearance)
     local has = funcLuaMenuCommand(2208175668, face)
-    local r
     VRFW.face_icon.forget(A, 0)                     -- drawn again on every fill: the retail fill may change the mesh
-    if has then
-      r = funcLuaMenuCommand(346643487 --[[SwapLayerFaceIconTex]], A, 0, 478320441, 3237726902 --[[icon_chr_dmy01]],
-        face, 0, 12, true, true, true, 5)
-    else
-      r = VRFW.face_icon.face(A, 0, face, 478320441 --[[_icon_chr_dmy01]], 3237726902 --[[icon_chr_dmy01]])
-    end
+    local r = VRFW.face_icon.face(A, 0, face, 478320441 --[[_icon_chr_dmy01]], 3237726902 --[[icon_chr_dmy01]],
+      has and {art = 12} or nil)
     r = tostring(has) .. "/" .. tostring(r)
     pcall(Call, C.LOG, "skill_slots", "miximax portrait", "chara", tostring(f.chara), "face key", tostring(face),
       "param", string.format("%08X", f.partner or 0), tostring(r))

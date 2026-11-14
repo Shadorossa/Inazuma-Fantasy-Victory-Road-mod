@@ -14,9 +14,10 @@ if VRFW.number_fit == nil then
     node_rules_cache = nil,                       -- [layer] = list of { digits, both, node, number }
     node_applied = {},                            -- [layer][instance][node] = scale set last
   }
+  --- Internal: State of the number fit rules.
   VRFW.number_fit = F
 
-  --- The declared number-fit rules, by layer (read once).
+  --- Internal: The declared number-fit rules, by layer (read once).
   function F.rules()
     if F.rules_cache ~= nil then
       return F.rules_cache
@@ -36,12 +37,14 @@ if VRFW.number_fit == nil then
         rules[layer] = rule
       end
     end
+    --- Internal: cached layer rules.
     F.rules_cache = rules
+    --- Internal: cached node rules.
     F.node_rules_cache = node_rules
     return rules
   end
 
-  --- The number of decimal digits of v.
+  --- Internal: The number of decimal digits of v.
   function F.digits(v)
     v = math.floor(math.abs(tonumber(v) or 0))
     local n = 1
@@ -66,7 +69,7 @@ if VRFW.number_fit == nil then
     return s
   end
 
-  --- Scales the joint of one number of (layer, instance) when the number is the rule's and has more digits than the rule's.
+  --- Internal: Scales the joint of one number of (layer, instance) when the number is the rule's and has more digits than the rule's.
   function F.fit_node(rule, layer, instance, primitive, value)
     if VRFW.host.real_menu_command(F.PRIMITIVE_INDEX, layer, instance, rule.number) ~= primitive then
       return
@@ -85,7 +88,7 @@ if VRFW.number_fit == nil then
     end
   end
 
-  --- Scales the number on (layer, instance, primitive) to fit its rule.
+  --- Internal: Scales the number on (layer, instance, primitive) to fit its rule.
   function F.fit(layer, instance, primitive, value)
     local rule = F.rules()[layer]
     local node_rules = F.node_rules_cache[layer]

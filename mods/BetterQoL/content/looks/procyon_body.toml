@@ -1,0 +1,9 @@
+schema = "VRFW.look/2"
+
+# Procyon (Orion Eclipse) wears body group 7 (c000301 / sh000105, as Alessandro) instead of group 4.
+# His chara_model row is his own (mdl_c08120110), so every card of his takes it.
+# Previews of every body type: research/scripts/pose_render.py --char c08120110 --body <id> --rest.
+
+[[look]]
+target = "c08120110"
+body = { body = 0x46F67529 }

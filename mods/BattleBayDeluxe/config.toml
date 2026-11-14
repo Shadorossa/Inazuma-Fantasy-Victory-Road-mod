@@ -1,25 +1,8 @@
 # «Battle Bay Deluxe» settings; may also go in <game>\vrfw_loader\config.toml under [mods.BattleBayDeluxe].
 
 [campaign]
-progression = true
 # 0 = a new draw every campaign and Draft; any other number = the same rivals and Draft offers every time (testing).
 seed = 0
-
-[campaign_fields]
-# Special-conditions fields of the Campaña, one per match, none repeated within a run if enough fields are listed (soccer_studium_gimmick_config maps).
-fields = [
-  "s20g001",   # Starship Stadium (Silica)
-  "s20g001b",  # Starship Stadium (Naiad)
-  "s20g001c",  # Starship Stadium (Magmavis)
-  "s20g001d",  # Starship Stadium (Fertilia)
-  "s21g001",   # Grand Celesta Stadium
-  "s34g001",   # Turbine Stadium
-  "s35g001",   # Iceberg Stadium
-  "s35g001b",  # Iceberg Stadium (second form)
-  "s36g001",   # Raft Stadium
-  "s37g001",   # Pinball Stadium
-  "s38g001",   # Desert Stadium
-]
 
 [active_team]
 # The «Active team» tile: the [[team]] of content\teams with this name (222_active_team.toml; placeholder players).
@@ -37,8 +20,6 @@ owner_states = ["LegendaryAI.ai_difficulty"]
 team = "draft"
 # Card types (chara_param column 41) never offered: 5-7 Idol / Hero, 8 Diamond, 10 Prime.
 special_rarities = [5, 6, 7, 8, 10]
-# Text language whose character names merge the variants of one character (same name = one card).
-name_language = "es"
 # chara_param ids never offered (e.g. exclude = [0x12345678]).
 exclude = []
 # Where the Draft tile can be played: "campaign" (Campaign and Tournament) and "free_match" (the 1 vs 1 grid).
@@ -94,7 +75,7 @@ penalty_kicks = 5
 knockout_rules = "bbd_knockout"
 # Rulebook id of the final; "" = the knockout rulebook.
 final_rules = "bbd_final"
-# Final stadiums, one drawn per tournament (soccer_game_option maps); [] = the Battle Bay's own stadium.
+# Final stadiums, one drawn per tournament (soccer_game_option maps, owner's choice: no game flag marks a final stadium); [] = the Battle Bay's own stadium.
 final_stadiums = [
   "s01g001",  # Football Frontier Stadium
   "s14g001",  # Legendary Football Frontier Stadium
@@ -112,10 +93,10 @@ final_stadiums = [
 ]
 # 0 = a new draw every tournament; any other number = the same bracket and results (testing).
 seed = 0
-# Teams never drawn (team_config keys): every team wearing the same kit as one of these
-exclude_same_kit_as = ["tm_prc_050200"]
+# Teams never drawn (team_config keys, owner's choice; no game flag marks them): every team wearing the same kit as one of these
+exclude_same_kit_as = ["tm_prc_050200"]   # the school clubs' common kit
 # every team with the same emblem as one of these
-exclude_same_emblem_as = ["tm_cro_original_0700"]
+exclude_same_emblem_as = ["tm_cro_original_0700"]   # the Llamarada volcanica emblem
 # these teams themselves
 exclude_teams = []
 
@@ -149,7 +130,6 @@ double = false
 rows_per_page = 12
 # «Sin selecciones nacionales» start value (national sides: content\team_tags\national.toml)
 no_national = false
-name_language = "es"
 # Simulated top scorers: a starter's share of his team's goals = kick stat x his position's weight
 scorer_weight_forward = 1.0
 scorer_weight_midfielder = 0.45
@@ -158,6 +138,9 @@ scorer_weight_midfielder = 0.45
 # «Sala privada»: both PCs play it as the Campaign match of this soccer game at this difficulty (0-3).
 game = 0x8F85B173
 difficulty = 1
+# The two room teams (content teams 224_net_room.toml): side 0 plays the host's team payload, side 1 the guest's.
+side_0_team = "net_side_0"
+side_1_team = "net_side_1"
 
 [daily_challenge]
 # Seed = the date (YYYYMMDD) + salt + version; change salt or version for other runs (every player needs the same values).
@@ -173,4 +156,8 @@ keep_days = 60
 [daily_challenge.pool]
 # Team table rows of this level whose key matches one of these globs, one per team name, in key order
 level = 40
-team_keys = ["bbcr_*_bb"]
+team_keys = ["battlebaydeluxe_*_bb"]
+
+[debug]
+# Logs each match team's declared and dressed kit once per match (scripts\kit_diag.lua)
+kit_log = false

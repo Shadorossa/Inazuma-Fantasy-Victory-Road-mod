@@ -2,6 +2,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.shot_rule/1"
 folder = "content/shot_rules"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Match.ShotRule"
+v2_kind_folder = "Match/ShotRules"
+v2_version = 1
 label = "Shot rules"
 label_es = "Reglas de tiro"
 doc = "Where the shoot zone may start: past the zone line, the penalty box or the goal area, per side."
@@ -19,6 +23,7 @@ margin_m = { type = "number", default = 0, min = 0, max = 20, doc = "metres adde
 margin_config = { type = "string", default = "", doc = "a dotted path of the declaring mod's config that gives margin_m (a user setting; missing = margin_m)" }
 chain_area = { type = "string", default = "retail", doc = "while a zone runs or a shot chain window is open / taken (passes, chain partners, the ball holder, chained shots; the box only decides where a zone starts): \"retail\" = the game's own band, \"box\" = the box too" }
 chain_area_config = { type = "string", default = "", doc = "a dotted path of the declaring mod's config that gives chain_area (missing = chain_area)" }
+when_option = { type = "string", default = "", doc = "an option row (its full <prefix>.<id> key, or an id of the declaring mod): the declaration counts only while the row's value is not 0; read again at each match start (no restart)" }
 extra_state = { type = "string", default = "", doc = "a game_state key prefix of the declaring mod: <prefix>.0 / <prefix>.1 = extra metres around the box team 0 / 1 attacks (its passives), read every match frame; the total stays within 0..20 m" }
 when = { type = "when", doc = "conditions on the declaring mod's config: all must hold, else the declaration is left out" }
 

@@ -407,5 +407,6 @@ if VRFW.screen_kit == nil then
     return K
   end
 
+  --- Advanced: Screen kit: the new constructor and the command constants C.
   VRFW.screen_kit = {new = New, C = C}
 end

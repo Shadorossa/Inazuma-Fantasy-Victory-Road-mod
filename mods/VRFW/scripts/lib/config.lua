@@ -1,4 +1,5 @@
 
+-- VRFW.config(path[, default, min, max, mod]): one value of the mod's merged config, checked against the type and range of `default`. Returns the value or `default`. Call: at load or in a handler.
 -- config paths already warned about a value of the wrong type (bounded; one warning per path and VM)
 local WRONG_TYPE_WARNED = {}
 local WRONG_TYPE_WARNED_COUNT = 0

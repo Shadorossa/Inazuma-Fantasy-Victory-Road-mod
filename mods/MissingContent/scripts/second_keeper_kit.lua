@@ -2,20 +2,24 @@
 
 local OPTION = "second_keeper_kit"
 
--- Look flags of a match player's model (CreateMatchCharaModel, +0x716 of the model).
+-- Look flags of a match player's model (Scene.CharaObjectLookFlags of the profile).
 local FLAG_ALTERNATE, FLAG_KEEPER = 1, 2
-local MODEL_FLAGS = 0x716
 
--- Model pool: [SoccerSystem + 0x50] + 0x10 + (handle & 0xFFFF) * 0x1460; the record holds its own handle at +0x70.
-local POOL_LIST, POOL_FIRST, POOL_STRIDE, POOL_COUNT, MODEL_HANDLE = 0x50, 0x10, 0x1460, 0x280, 0x70
-local MODEL_UNIFORM = 0x708
-
--- Match info: team records at +0x60 (stride 0x1130), members from +0x80 (stride 0x80), the character handle at member +0x50.
-local TEAM_FIRST, TEAM_STRIDE, TEAM_UNIFORM, TEAM_MEMBERS, TEAM_MEMBER_COUNT = 0x60, 0x1130, 0x1040, 0x80, 0x1D
-local MEMBER_STRIDE, MEMBER_CHARA = 0x80, 0x50
-
--- Closure of RefreshMatchCharaLook: pointers to the keeper byte, the coach byte, the team byte and the member pointer.
-local CLOSURE_KEEPER, CLOSURE_TEAM, CLOSURE_MEMBER = 0, 0x10, 0x18
+-- The layouts come from the game profile: the model pool of Match.SoccerSystem, the match info's teams and the closure of RefreshMatchCharaLook.
+local field = VRFW.game.field
+local POOL_LIST, POOL_FIRST, POOL_STRIDE = field("Scene.CharaObjects"), field("Scene.CharaObjectBase"), field("Scene.CharaObjectSize")
+local POOL_COUNT, MODEL_HANDLE = field("Scene.CharaObjectCount"), field("Scene.CharaObjectHandle")
+local MODEL_FLAGS, MODEL_UNIFORM = field("Scene.CharaObjectLookFlags"), field("Scene.CharaObjectUniform")
+local TEAM_FIRST, TEAM_STRIDE, TEAM_UNIFORM = field("MatchInfo.Teams"), field("MatchTeam"), field("MatchTeam.Uniform")
+local TEAM_MEMBERS, TEAM_MEMBER_COUNT = field("MatchTeam.Members"), field("Match.TeamMemberSlots")
+local MEMBER_STRIDE, MEMBER_CHARA = field("MatchTeamMember"), field("MatchTeamMember.Chara")
+local CLOSURE_KEEPER, CLOSURE_TEAM, CLOSURE_MEMBER = field("MatchLookRefreshClosure.Keeper"), field("MatchLookRefreshClosure.Team"), field("MatchLookRefreshClosure.Member")
+local LAYOUT_KNOWN = POOL_LIST and POOL_FIRST and POOL_STRIDE and POOL_COUNT and MODEL_HANDLE and MODEL_FLAGS and MODEL_UNIFORM
+  and TEAM_FIRST and TEAM_STRIDE and TEAM_UNIFORM and TEAM_MEMBERS and TEAM_MEMBER_COUNT and MEMBER_STRIDE and MEMBER_CHARA
+  and CLOSURE_KEEPER and CLOSURE_TEAM and CLOSURE_MEMBER
+if not LAYOUT_KNOWN then
+  VRFW.warn("the game profile lacks a model pool, match team or look closure field: every keeper keeps his team's kit")
+end
 
 local Mem = VRFW.memory
 local u32 = VRFW.ids.unsigned
@@ -30,10 +34,7 @@ local function enabled()
 end
 
 -- Uniforms with a type 0 and a type 1 row holding two different keeper shirts.
-local function read_two_keeper_kits()
-  if two_keeper_kits then
-    return two_keeper_kits
-  end
+local function build_two_keeper_kits()
   local found = {}
   local models = VRFW.table.rows("character/uniform_model_info")
   local type_col, keeper_col
@@ -60,9 +61,25 @@ local function read_two_keeper_kits()
   else
     VRFW.warn("uniform_model_info has no type_id or keeper column: every keeper keeps his team's kit")
   end
+  return found
+end
+
+-- The uniforms above, built once and kept between starts (game data only).
+local function read_two_keeper_kits()
+  if two_keeper_kits then
+    return two_keeper_kits
+  end
+  local ok, found = pcall(VRFW.derived, "two_keeper_kits", nil, build_two_keeper_kits)
+  if not ok or type(found) ~= "table" then
+    VRFW.warn("uniform tables not readable (" .. tostring(found) .. "): every keeper keeps his team's kit")
+    found = {}
+  end
   two_keeper_kits = found
   return found
 end
+
+-- Built at load: the match start only resets this match's records.
+read_two_keeper_kits()
 
 local function has_second_keeper_kit(uniform)
   return uniform ~= 0 and read_two_keeper_kits()[uniform] == true
@@ -90,9 +107,6 @@ end
 
 VRFW.on("match:start_request", function()
   starters, team_alternate, loaded = {}, {}, false
-  if enabled() then
-    read_two_keeper_kits()
-  end
   return nil
 end)
 
@@ -103,6 +117,9 @@ end)
 
 -- Every model the match builds: records the starting keepers, then dresses a rebuilt substitute keeper.
 VRFW.on("hook:VRFW.MatchLook", function(ev)
+  if not LAYOUT_KNOWN then
+    return nil
+  end
   local hdl, flags, uniform = u32(ev.args[1]), ev.args[2], u32(ev.args[4])
   if math.floor(flags / 16) % 4 ~= 0 or math.floor(flags / FLAG_KEEPER) % 2 == 0 then
     return nil
@@ -121,7 +138,11 @@ end)
 -- A substitution or position change is about to reload this model with the keeper's flag set or cleared.
 VRFW.on("hook:MissingContent.KeeperLookRefresh", function(ev)
   local closure, handle = ev.args[1], u32(ev.args[2])
-  local system = VRFW.game.missing_content_soccer_system()
+  if not LAYOUT_KNOWN then
+    return nil
+  end
+  local var = VRFW.game.symbol("Match.SoccerSystem")
+  local system = var and Mem.read_pointer(var)
   local index = handle % 0x10000
   if not system or handle == 0 or index >= POOL_COUNT then
     return nil

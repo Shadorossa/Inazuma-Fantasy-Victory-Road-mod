@@ -15,12 +15,12 @@ local SQUAD_LAYOUT = Squads.layout()
 local TEAM_SIZE, MEMBERS = SQUAD_LAYOUT.team_size, SQUAD_LAYOUT.member_count
 local MEMBER_LIST, MEMBER_STRIDE = SQUAD_LAYOUT.members, SQUAD_LAYOUT.member_size
 local TEAM_FIELDS_FROM, TEAM_FIELDS_TO, COUNTERS, TEAMS = 0x250, 0x2C8, 0x2C8, 3
-local PLAY_MODE, PLAY_MODE_STORY = 0x2CAC6F, 2
+local PLAY_MODE, PLAY_MODE_STORY = VRFW.game.field("Game.PlayMode"), 2
 local REC_TEAM_FLAG = 0x1EC
 local CAPTAIN_PARAM, CAPTAIN_HDL = 0x2A0, 0x2A4
 local C = { OK = 0, BAD_ARGS = 1, NOT_READY = 2, STORY = 3, PAIRED = 4, EXCEPTION = 7 }
 local MEMBER_POSITION, STARTERS, PLAYER_POSITIONS, MATCH_STARTERS = 0xE, 5, 16, 11
-local GOALKEEPER, FORWARD, MIDFIELDER, DEFENDER = 1, 2, 3, 4
+local GOALKEEPER = 1   -- the keeper class of VRFW.formation.classes
 
 local info, warn = VRFW.logger("friendlies")
 
@@ -197,48 +197,9 @@ local function active_dock()
   return nil
 end
 
-local function role_of(position_id)
-  if position_id == 1 then return GOALKEEPER end
-  if position_id == 2 or position_id == 3 then return DEFENDER end
-  if position_id >= 4 and position_id <= 7 then return MIDFIELDER end
-  return FORWARD
-end
-
-local roles_cache = nil
-local function all_formation_roles()
-  local key = VRFW.table_files.file_name(VRFW.table_files.FORMATION_CONFIG)
-  local places = VRFW.table.raw(key, "m_SoccerFormPlacementInfoList")
-  local out = {}
-  for _, r in ipairs(VRFW.table.raw(key, "m_SoccerFormationInfoList")) do
-    if type(r.formId) == "number" then
-      local id = math.floor(r.formId) % 4294967296
-      if out[id] == nil then
-        local s = r.placementInfo
-        if type(s) ~= "table" or type(s.start) ~= "number" or type(s.count) ~= "number" then
-          out[id] = false
-        else
-          local roles = {}
-          for k = s.start + 1, s.start + s.count do
-            local p = places[k]
-            if p and type(p.positionNo) == "number" then
-              roles[math.floor(p.positionNo) % 256] = role_of(type(p.positionId) == "number" and p.positionId or 0)
-            end
-          end
-          out[id] = roles
-        end
-      end
-    end
-  end
-  return out
-end
-
+-- The position classes of formation `id` (1 keeper, 2 forward, 3 midfield, 4 defence) from the framework's formation library.
 local function formation_roles(id)
-  if roles_cache == nil then
-    local ok, out = pcall(all_formation_roles)
-    if not ok then warn(string.format("formation 0x%08X: roles not read (%s)", id, tostring(out))) end
-    roles_cache = ok and out or {}
-  end
-  return roles_cache[id] or nil
+  return VRFW.formation.classes(id)
 end
 
 local function player_info(h)
@@ -649,7 +610,5 @@ if ENABLED then
   info("active (5v5 templates of the team dock; the active pachanga team is the active match team's pair)")
 end
 
--- the formations' roles (one read of the whole formation table) on the save's loading screen, not by the first mirror
-VRFW.on("slot_load", function()
-  if ENABLED and roles_cache == nil and ready() then formation_roles(0) end
-end)
+-- The formation classes are read at script load, on the boot thread, so the first friendly does not build them.
+if ENABLED then pcall(VRFW.formation.prepare) end

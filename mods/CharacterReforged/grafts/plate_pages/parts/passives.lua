@@ -377,7 +377,7 @@
   G.PC = {
     LAYER = 1593383077,                                   -- team00_26_passive_slot_detail_info
     FACE = @crc:cr_pp_card_face@,
-    LOOK = @crc:CMND_PASSIVESSYNERGIES_CARD_LOOK@,        -- (charaStHdl) -> card, chara, element, crest
+    LOOK = @crc:CMND_CHARACTERREFORGED_CARD_LOOK@,        -- (charaStHdl) -> card, chara, element, crest
     TOP_LEFT = {-275, 210},                               -- the card's top-left in window units (y up)
     FACE_AT = {84, 104}, FACE_SIZE = 182,
                                                           -- the bust on the card's bottom edge, the card's full height
@@ -749,9 +749,6 @@
     if not w.drawn and type(VRFW.face_icon) == "table" then
       w.drawn = true
       w.face = VRFW.face_icon.card(F, 0, w.who, w.x, w.y, P.FACE_SIZE) ~= false
-    end
-    if VRFW.face_icon ~= nil and VRFW.face_icon.pending() then
-      VRFW.face_icon.settle()
     end
     if G.pcardShown ~= w.face then
       Cmd(C.VIS, F, 0, w.face)

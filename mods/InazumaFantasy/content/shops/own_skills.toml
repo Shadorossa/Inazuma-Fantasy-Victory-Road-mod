@@ -14,13 +14,8 @@ target = "InazumaFantasy.technique_shop"
   currency = "tk_bb000001"
 
   [[edit.entry]]
-  technique = "god_hand_ev_red"    # Mano celestial EV Roja: catch, 540
-  price = 18
-  currency = "tk_bb000001"
-
-  [[edit.entry]]
-  technique = "god_hand_ev_blue"    # Mano celestial EV Azul: catch, 540
-  price = 18
+  technique = "last_resort_trio"    # Último recurso (3 players): shot, 640
+  price = 32
   currency = "tk_bb000001"
 
   [[edit.entry]]
@@ -286,15 +281,16 @@ target = "InazumaFantasy.training_shop"
 #   unlock = [{ chronicle = 0x90185427, difficulty = 2 }]
 # ```
 
-# These two warrior spirits are off for this version, and removing the comment marks brings them back.
+  # Devoramentes.
+  [[edit.entry]]
+  item = "wks_fantasy_me000010"
+  after = "wks_fantasy_k002011"
+  price = 30
+  currency = "tk_bb000001"
+  unlock = [{ chronicle = 0x90185427, difficulty = 2 }]
+
+# This warrior spirit is off for this version, and removing the comment marks brings it back.
 # ```
-#   [[edit.entry]]
-#   item = "wks_fantasy_me000010"
-#   after = "wks_fantasy_k002011"
-#   price = 30
-#   currency = "tk_bb000001"
-#   unlock = [{ chronicle = 0x90185427, difficulty = 2 }]
-#
 #   [[edit.entry]]
 #   item = "wks_fantasy_mx000010"
 #   after = "wks_fantasy_me000010"

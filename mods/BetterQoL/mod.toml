@@ -2,11 +2,12 @@ id = "BetterQoL"
 # name / description: English fallback of the text keys mod_name / mod_description (text\keys.toml)
 name = "BetterQoL"
 icon = "#/menu/200_icon/16_icon_list_tab/icon_list_tab.g4tx:icon_list_tab_quest03"
-version = "0.3.0"
+version = "0.3.1"
 author = "Fantasy Team"
-description = "Everyday conveniences for any save: Team Dock pages, home and away kits, extra formations, a shop filter and technique search, a Player album and Club stats in the Clubroom, a team planner and career stats on each player, and a Hero style picker for Hero cards."
+description = "Everyday conveniences for any save: Team Dock pages, home and away kits, extra formations, a shop filter and technique search, a Player album and Club stats in the Clubroom, a team planner and career stats on each player."
 
 priority = 0
+type = "gameplay"
 tags = ["Gameplay", "Interface"]
 updated = "2026-11-09"
 requires = ["VRFW>=0.3.0", "VRFW.text", "VRFW.menu"]
@@ -24,6 +25,7 @@ profile_edit_word = "Skip"
 [exports]
 functions = ["Career.Params", "TeamTemplatesMembers", "TeamTemplatesRepair", "TemplateOfDock", "TopBarOn", "TopBarOnBoard", "RunningEvent", "VrmodFilesReference", "VrmodFilesNeed", "VrmodFilesWrite", "VrmodFilesList", "VrmodFilesEntry", "VrmodFilesRead", "VrmodFilesReadPicked", "VrmodFilesResolve"]
 game_lua = ["BetterQoL.view_forms", "BetterQoL.album_actions"]
+tables = ["ItemFilter.Rejected"]
 
 # content folders read only by the mod's scripts
 [layout]

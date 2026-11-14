@@ -1,0 +1,9 @@
+schema = "VRFW.sound/1"
+# Tormenta meteoro V: each part plays the sound of its own retail cuts (content/techniques/tormenta_meteoro_v.toml):
+# Fireball Storm with Surtur's frames 0-253 (cuts c0010-c0030), then Meteoric Fire Tornado V's frames 184-451 (c0400-c0500).
+
+[[sfx]]
+add = "ev60_81770_me"
+from = "ev60_01770_me"
+bank = "waza_stream"
+segments = [[0, 253], { cue = "ev60_10110_me", frames = [184, 451], bank = "waza_stream" }]

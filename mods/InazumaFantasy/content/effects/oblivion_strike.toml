@@ -1,0 +1,33 @@
+schema = "VRFW.effect/1"
+# Devoramentes' keshin shot (content/techniques/oblivion_strike.toml): Golpe justiciero's effect object (ev60018200) as a
+# dark copy: black with deep violet streaks, feathers included.
+
+[[recolor]]
+object = "ev60018200"
+copy = "ev60818200"
+textures = "all"
+materials = "none"
+gradient = [[0.0, 0.0, 0.0, 0.0], [0.4, 0.02, 0.0, 0.04], [0.75, 0.1, 0.03, 0.17], [1.0, 0.24, 0.14, 0.34]]
+# The feathers keep only a dim violet edge on black.
+[recolor.per_texture."wks0006_ef_11"]
+gradient = [[0.0, 0.0, 0.0, 0.0], [0.6, 0.04, 0.0, 0.08], [1.0, 0.2, 0.12, 0.3]]
+
+# The colour of the white-textured streaks, rings and flashes lives in their vertices and materials.
+[[recolor]]
+object = "ev60818200"
+textures = "none"
+materials = "all"
+hue = 272.0
+mode = "set"
+colorize = 0.45
+saturation = 0.45
+value = 0.13
+vertex_colors = "all"
+
+# The new event loads the dark copy instead of the retail object.
+[[event_command]]
+event = "ev60_81820"
+command = "CMD_799A1EBA"                 # LOAD_ACTOR_RESOURCE
+args = ["ev60018200"]
+set = ["ev60018200", "common/effect/event/ev60/ev60818200/ev60818200.objbin"]
+

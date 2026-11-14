@@ -1,0 +1,6 @@
+schema = "BetterQoL.passive_config/1"
+
+[[passive]]
+key = "character_reforged_focus_vs_female"
+[[passive]]
+key = "character_reforged_focus_vs_male"

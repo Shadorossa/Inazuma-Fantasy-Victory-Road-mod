@@ -10,11 +10,12 @@ end
 function PL.skill_set_projection()
   return CharacterReforged.player_sets.skill_set_projection(n)
 end
+-- Returns the aura and mix the two Hiper halves show and the learn level each half still needs (0 = open; CharacterReforged.move_rows.with_locked).
 function PL.shown_skill_set_slots()
   local own, mix = PL.row_move(0), PL.hs_mix()
   local okp, proj = pcall(PL.skill_set_projection)
   if not okp or proj == nil then
-    return own, mix
+    return own, mix, 0, 0
   end
   local aura = own
   local kind = own ~= 0 and PL.hs_kind(own) or nil
@@ -24,7 +25,8 @@ function PL.shown_skill_set_slots()
   if mix == 0 then
     mix = proj.mix
   end
-  return aura, mix
+  local shown = CharacterReforged.move_rows.with_locked(funcLuaCommand, n, {aura = aura, mix = mix})
+  return shown.aura, shown.mix, shown.aura_need, shown.mix_need
 end
 
 PL.proj_prev_equip = CharacterReforged.skill_table_equip

@@ -1,0 +1,17 @@
+# Jibanyan (c90620000.toml), from the approved preview model of the Yo-kai Watch rip: skeleton, clothes model, face
+# model, textures, objbin, clobin. Built by _tools/model_builder.py (dev-only, never installed) with --src the rip's
+# folder and JIBANYAN_HELPERS the preview modules.
+recipe = "rip_preview_rig"
+
+[rules]
+face_id = "c90620000"
+clothes_id = "u90620000"
+rip_prefix = "y02320000_"
+template_face = "_face/05_GO2/c05029720/c05029720"
+skin_mat = "c05029720_20M"
+template_metal = "_uniform/u11600050/u11600050"
+metal_old = "u11600050_10"
+flame_tint = [0.8, 0.65, 1.3]
+flame_lift = [0.2, 0.2, 0.55]
+flame_lift_share = 0.6
+eye_margin = 0.004

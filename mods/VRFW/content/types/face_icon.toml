@@ -2,6 +2,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.face_icon/1"
 folder = "content/face_icons"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Character.FaceIcon"
+v2_kind_folder = "Characters/FaceIcons"
+v2_version = 1
 label = "Face icons"
 label_es = "Iconos de cara"
 doc = "Menu face icons drawn another way: the cards of these rarities or characters show the face only, without the kit bust."

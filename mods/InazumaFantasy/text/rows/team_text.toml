@@ -1,0 +1,6 @@
+# Name of the Inazuma Fantasy belong team. Added to the end of the list.
+schema = "VRFW.text/2"
+
+[[row]]
+id = 0x2C1CDC40  # Inazuma Fantasy
+all = "Inazuma Fantasy"

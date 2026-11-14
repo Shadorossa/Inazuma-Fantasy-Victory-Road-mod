@@ -10,16 +10,17 @@ if VRFW.footer_prompts == nil then
     attached = {},
     wrapping = {},
   }
+  --- Advanced: Namespace: the footer prompt helpers (hide and hold prompts) of the menu VM.
   VRFW.footer_prompts = F
 
   local logger
-  --- Logs through the footer-prompts logger.
+  --- Internal: Logs through the footer-prompts logger.
   function F.log(...)
     logger = logger or VRFW.logger.new("vrfw.FooterPrompts")
     logger(...)
   end
 
-  --- Adds a footer prompt; answers true, or false, why.
+  --- Advanced: Adds a footer prompt; answers true, or false, why.
   function F.add(d)
     if type(d) ~= "table" or type(d.name) ~= "string" or type(d.menu) ~= "string" or type(d.text) ~= "number"
         or type(d.icon) ~= "number" then
@@ -50,7 +51,7 @@ if VRFW.footer_prompts == nil then
     return on == true
   end
 
-  --- The shown entries of a menu, in order.
+  --- Internal: The shown entries of a menu, in order.
   function F.entries(menu)
     local list = {}
     for _, d in pairs(F.decls) do
@@ -118,7 +119,7 @@ if VRFW.footer_prompts == nil then
     return replaced, appended
   end
 
-  --- Adds the shown entries of a menu to the guide tables (in place); returns how many.
+  --- Advanced: Adds the shown entries of a menu to the guide tables (in place); returns how many.
   function F.apply(menu, texts, glyphs, offs, s1, s2, cmds)
     if type(texts) ~= "table" or type(glyphs) ~= "table" then
       return 0
@@ -136,7 +137,7 @@ if VRFW.footer_prompts == nil then
     return r
   end
 
-  --- Replaces the footer of `menu` with `entries`; answers how many it wrote.
+  --- Advanced: Replaces the footer of `menu` with `entries`; answers how many it wrote.
   function F.set(stem, menu, entries, options)
     local o = type(options) == "table" and options or { guide = options }
     local texts, glyphs, offs, s1, s2, cmds = {}, {}, {}, {}, {}, {}
@@ -156,7 +157,9 @@ if VRFW.footer_prompts == nil then
     return #texts
   end
 
+  --- Internal: hide declarations by name.
   F.hides = {}                   -- name -> hide declaration
+  --- Internal: places of the footer hidden by the hide declarations.
   F.hidden_places = {}
 
   local function hide_place(d, texts, glyphs)
@@ -227,7 +230,7 @@ if VRFW.footer_prompts == nil then
     return nxt(...)
   end
 
-  --- Hides a retail footer prompt; answers true, or false, why.
+  --- Advanced: Hides a retail footer prompt; answers true, or false, why.
   function F.hide(d)
     if type(d) ~= "table" or type(d.name) ~= "string" or (type(d.text) ~= "number" and type(d.icon) ~= "number") then
       return false, "a name and a text or an icon expected"
@@ -277,7 +280,7 @@ if VRFW.footer_prompts == nil then
     return table.unpack(r, 2, r.n)
   end
 
-  --- Adds the shown entries to footer function `fn` of `stem`; answers true, or false, why.
+  --- Advanced: Adds the shown entries to footer function `fn` of `stem`; answers true, or false, why.
   function F.attach(stem, fn, guide)
     local key = stem .. "/" .. fn
     if F.attached[key] then
@@ -306,7 +309,7 @@ if VRFW.footer_prompts == nil then
     return true
   end
 
-  -- Hold prompts: a guide entry whose key acts when held.
+  -- Internal: Hold prompts: a guide entry whose key acts when held.
   F.HOLD = {
     SECONDS = 2,
     SHOW_AFTER = 0.1,
@@ -319,9 +322,10 @@ if VRFW.footer_prompts == nil then
     RING_DX = 25, RING_DY = -25,   -- glyph top-left -> centre (layout units, y up)
     PRIORITY = 700,
   }
+  --- Internal: hold prompt declarations by name.
   F.holds = {}
 
-  --- Declares a hold prompt; answers true, or false, why.
+  --- Internal: Declares a hold prompt; answers true, or false, why.
   function F.add_hold(d)
     if type(d) ~= "table" or type(d.name) ~= "string" or type(d.ring) ~= "number" or type(d.icon) ~= "number" then
       return false, "a hold needs a name, a ring and an icon"
@@ -368,7 +372,7 @@ if VRFW.footer_prompts == nil then
     return nil
   end
 
-  --- One frame of the hold: the ring at `progress` over the entry's glyph; false = unknown hold / no ring layer.
+  --- Internal: One frame of the hold: the ring at `progress` over the entry's glyph; false = unknown hold / no ring layer.
   function F.hold_progress(name, progress)
     local d = F.holds[name]
     if d == nil then
@@ -414,7 +418,7 @@ if VRFW.footer_prompts == nil then
     return true
   end
 
-  --- Hides the ring of hold `name`.
+  --- Internal: Hides the ring of hold `name`.
   function F.hold_hide(name)
     local d = F.holds[name]
     if d == nil then
@@ -428,7 +432,7 @@ if VRFW.footer_prompts == nil then
     end
   end
 
-  --- Waits for hold `name` to finish or be released; answers its result, nil for an unknown hold.
+  --- Internal: Waits for hold `name` to finish or be released; answers its result, nil for an unknown hold.
   function F.wait_hold(name)
     local d = F.holds[name]
     if d == nil then

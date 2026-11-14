@@ -8,6 +8,7 @@ if VRFW.match_difficulty == nil then
     lists = {},
     orbs = {},
   }
+  --- Advanced: State of the match difficulty extension.
   VRFW.match_difficulty = D
 
   local logger
@@ -39,25 +40,25 @@ if VRFW.match_difficulty == nil then
     log(ctx, n)
   end
 
-  --- The difficulty set of context ctx; nil when none is declared.
+  --- Advanced: The difficulty set of context ctx; nil when none is declared.
   function D.set(ctx)
     load(ctx)
     return D.sets[ctx] or nil
   end
 
-  --- Does difficulty d exist in context ctx (true when nothing is declared).
+  --- Advanced: Does difficulty d exist in context ctx (true when nothing is declared).
   function D.exists(ctx, d)
     local s = D.set(ctx)
     return s == nil or s[d] == true
   end
 
-  --- The declared difficulties of context ctx, in order.
+  --- Internal: The declared difficulties of context ctx, in order.
   function D.list(ctx)
     load(ctx)
     return D.lists[ctx]
   end
 
-  --- The clear orb sprite crc32 of free-match class d on game `game` (its own Orb, else the class's), nil = none declared; read once.
+  --- Advanced: The clear orb sprite crc32 of free-match class d on game `game` (its own Orb, else the class's), nil = none declared; read once.
   function D.class_orb(game, d)
     if type(game) ~= "number" or type(d) ~= "number" then
       return nil

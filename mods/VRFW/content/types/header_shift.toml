@@ -3,6 +3,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.header_shift/1"
 folder = "content/header_shift"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Menu.HeaderShift"
+v2_kind_folder = "Menus/HeaderShift"
+v2_version = 1
 label = "Header shift"
 label_es = "Desplazamiento bajo la cabecera"
 doc = "Layers of a menu moved up by a fixed height, e.g. under a shorter header."
@@ -12,7 +16,8 @@ doc_es = "Capas de un men√∫ subidas una altura fija, p. ej. bajo una cabecera m√
 doc = "the root layers of menu script `stem` move up by `dy`; `stretch` layers are scaled so only their top moves"
 name = { type = "name", required = true, doc = "key <mod>.<name> (a-z 0-9 _)" }
 stem = { type = "string", required = true, doc = "the menu script, e.g. \"soccer_top_menu\"" }
-dy = { type = "number", required = true, min = 0, doc = "height the layers move up (layout units)" }
+dy = { type = "any", required = true, doc = "height the layers move up (layout units, >= 0), or the key of the declaring mod's config.toml that holds it" }
 layers = { type = "ids", default = [], doc = "root layers moved up (names or crc ids); a layer attached to one follows it" }
 stretch = { type = "records", default = [], fields = { layer = { type = "any", doc = "the layer (name or crc id)" }, scale = { type = "number", doc = "uniform scale of the layer" }, x = { type = "number", doc = "layer x at that scale" }, y = { type = "number", doc = "layer y at that scale, before the shift" } }, doc = "background layers stretched instead of moved: { layer, scale, x, y }" }
+lists = { type = "records", default = [], fields = { layer = { type = "any", doc = "the list view layer (name or crc id)" }, node = { type = "any", doc = "the root node of the list's layout (name or crc id), e.g. \"team05_03_output\"" } }, doc = "list view layers (CMenuListView*) moved by their root node instead of the layer position: the list places its rows at the layout positions of its locators and ignores the layer position" }
 when = { type = "when", doc = "conditions on the declaring mod's config: all must hold, else the declaration is left out" }

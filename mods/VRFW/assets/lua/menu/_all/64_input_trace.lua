@@ -14,9 +14,10 @@ if VRFW.input_trace == nil then
     CMD = {[1813741958] = "cursor_control", [VRFW.commands.CLOSE_MENU_OBJECT] = "close_menu", [VRFW.commands.OPEN_MENU_OBJECT] = "open_menu",
       [VRFW.commands.SET_TEMP_BIT_FLAG] = "temp_flag", [2515285936] = "input_switch", [2770980979] = "pause_input"},
     ring = {}, RING = 50}
+  --- Internal: State of the input trace that logs menu commands per frame.
   VRFW.input_trace = T
 
-  --- Records one command in this VM's ring.
+  --- Internal: Records one command in this VM's ring.
   function T.log(what, ...)
     local args = {}
     for i = 1, select("#", ...) do
@@ -36,11 +37,12 @@ if VRFW.input_trace == nil then
     if not T.logging or T.n >= T.MAX then
       return
     end
+    --- Internal: count of traced commands.
     T.n = T.n + 1
     pcall(T.raw_cmd, VRFW.commands.VRFW_LOG, "VRFW input", T.vm, "f" .. T.frame, what, sig)
   end
 
-  --- Reads the command owners; logs them when they changed.
+  --- Internal: Reads the command owners; logs them when they changed.
   function T.watch(owners_only)
     local ok, list = pcall(T.raw_cmd, T.DUMP)
     if ok and type(list) == "string" and list ~= T.owners then
@@ -76,17 +78,21 @@ if VRFW.input_trace == nil then
     end
   end
 
-  --- Installs the command trace wrappers once.
+  --- Internal: Installs the command trace wrappers once.
   function T.install()
     if T.installed or type(funcLuaCommand) ~= "function" or type(funcLuaMenuCommand) ~= "function" then
       return
     end
+    --- Internal: true once the trace is installed.
     T.installed = true
     local p = type(VRFW.patch) == "table" and VRFW.patch.script or nil
+    --- Internal: script name of this VM, or "?".
     T.vm = type(p) == "string" and p or "?"
+    --- Internal: menu stem of this VM.
     T.stem = (T.vm:gsub("_%d+%.%d+%.%d+[%.%d]*$", ""))
-    -- the trace's own reads and resets go past every command handler (VRFW.host)
+    -- Internal: the trace's own reads and resets go past every command handler (VRFW.host)
     T.raw_cmd = VRFW.host.real_command
+    --- Internal: original menu command function.
     T.raw_menu = VRFW.host.real_menu_command
     local function IdsOf(map)
       local ids = {}
@@ -119,6 +125,7 @@ if VRFW.input_trace == nil then
       end
       return nxt(...)
     end, "VRFW.input_trace")
+    --- Internal: frames to watch.
     T.watch_frames = T.WATCH
     if T.WD.STEMS[T.stem or ""] ~= nil then
       pcall(T.watchdog_callbacks)                     -- the freeze watchdog counts this VM's input callbacks
@@ -133,12 +140,14 @@ if VRFW.input_trace == nil then
     pcall(T.log, "trace on")
   end
 
-  --- One tick per engine Step call, however many of the mod's wrappers are in its chain.
+  --- Internal: One tick per engine Step call, however many of the mod's wrappers are in its chain.
   function T.wrapped(step, ...)
+    --- Internal: true once the trace Step wrapper ran.
     T.ticking = true
     if T.in_step then
       return step(...)
     end
+    --- Internal: true while a trace step is running.
     T.in_step = true
     pcall(T.tick)
     local r = table.pack(pcall(step, ...))
@@ -149,10 +158,12 @@ if VRFW.input_trace == nil then
     return table.unpack(r, 2, r.n)
   end
 
+  --- Internal: set of menus whose cursor is reset.
   T.CURSOR_RESET = {market_menu = true, soccer_vs_cpu_list_menu = true}
-  --- One frame of the cursor-reset countdown.
+  --- Internal: One frame of the cursor-reset countdown.
   function T.cursor_reset()
     if T.cr == nil then return end
+    --- Internal: frame counter of the cursor reset.
     T.cr = T.cr + 1
     if T.cr == 2 then
       pcall(T.raw_menu, VRFW.commands.SET_ENABLE_FREE_CURSOR_FOR_VIRTUAL_MOUSE, false, false, true)
@@ -164,7 +175,7 @@ if VRFW.input_trace == nil then
     end
   end
 
-  -- FREEZE WATCHDOG (shop freeze, intermittent).
+  -- Internal: FREEZE WATCHDOG (shop freeze, intermittent).
   -- its input switch on, MENU_ACTIVE(menu, true), the list's ctrl focus, the virtual-mouse reset. Log «freeze
   -- watchdog: recovered».
   T.WD = {on = true, PRESSES = 3, SPAN = 120, GAP = 600, MAX = 5, n = 0, last = -100000, cb = 0, cb_name = "none",
@@ -187,7 +198,7 @@ if VRFW.input_trace == nil then
     -- {name, pad bit, Windows key}: Accept and Back
     KEYS = {{"enter", 0x4000, 0x0D}, {"back", 0x2000, 0x1B}}}
 
-  --- Wraps the retail input callbacks for the freeze watchdog.
+  --- Internal: Wraps the retail input callbacks for the freeze watchdog.
   function T.watchdog_callbacks()
     local W = T.WD
     for _, name in ipairs({"OnFunction", "OnDecideFocus", "OnEnter", "OnBack", "OnChangeFocus"}) do
@@ -203,7 +214,7 @@ if VRFW.input_trace == nil then
     end
   end
 
-  --- True when the watched device has key k held.
+  --- Internal: True when the watched device has key k held.
   function T.watchdog_device(k)
     local okp, held = pcall(T.raw_cmd, VRFW.commands.VRFW_INPUT_PAD)
     if okp and type(held) == "number" and held >= 0 and math.floor(held / k[2]) % 2 == 1 then
@@ -213,13 +224,13 @@ if VRFW.input_trace == nil then
     return okk and v == true
   end
 
-  --- True when menu m exists.
+  --- Internal: True when menu m exists.
   function T.watchdog_open(m)
     local ok, e = pcall(T.raw_menu, VRFW.commands.IS_EXIST_MENU_OBJECT, m)
     return ok and e == true
   end
 
-  --- True when the watchdog may act on screen S now.
+  --- Internal: True when the watchdog may act on screen S now.
   function T.watchdog_eligible(S)
     if not T.watchdog_open(S.menu) then
       return false
@@ -237,12 +248,12 @@ if VRFW.input_trace == nil then
     return not (okf and fade == true)
   end
 
-  --- Logs through the freeze-watchdog tag.
+  --- Internal: Logs through the freeze-watchdog tag.
   function T.watchdog_log(...)
     pcall(T.raw_cmd, VRFW.commands.VRFW_LOG, "VRFW freeze watchdog", T.vm, "f" .. T.frame, ...)
   end
 
-  --- Logs the freeze state of screen S and why.
+  --- Internal: Logs the freeze state of screen S and why.
   function T.watchdog_dump(S, why)
     local W = T.WD
     T.watchdog_log("FROZEN", why)
@@ -266,7 +277,7 @@ if VRFW.input_trace == nil then
     end
   end
 
-  --- Gives screen S its input back.
+  --- Internal: Gives screen S its input back.
   function T.watchdog_recover(S)
     pcall(T.raw_menu, 438207617 --[[CMND_CHANGE_MENU_INPUT_CTRL]], 2748927068 --[[MENU_CTRL_WITH_ANALOG_MOVE_FOCUS]])
     local okw, was = pcall(T.raw_cmd, VRFW.commands.VRFW_MENU_INPUT_CTRL_ON)
@@ -279,7 +290,7 @@ if VRFW.input_trace == nil then
     T.watchdog_log("freeze watchdog: recovered", "input switch was " .. tostring(okw and was), "now " .. tostring(okc and ctrl))
   end
 
-  --- One frame of the freeze watchdog.
+  --- Internal: One frame of the freeze watchdog.
   function T.watchdog_tick()
     local W = T.WD
     local S = W.STEMS[T.stem or ""]
@@ -314,9 +325,10 @@ if VRFW.input_trace == nil then
     end
   end
 
+  --- Internal: open-flow watch settings.
   T.FLOW = {OPEN_WATCH = {personal_plate_menu = 1427722143}, LINES = 16, lines = 0}
 
-  --- Installs the open-flow watch of this menu.
+  --- Internal: Installs the open-flow watch of this menu.
   function T.flow_install()
     local own = T.FLOW.OPEN_WATCH[T.stem or ""]
     if own == nil then
@@ -333,8 +345,9 @@ if VRFW.input_trace == nil then
     end, "VRFW.layer_trace", {menu = true})
   end
 
-  --- One frame of the trace: cursor reset, flow and watchdog.
+  --- Internal: One frame of the trace: cursor reset, flow and watchdog.
   function T.tick()
+    --- Internal: frame counter of the trace.
     T.frame = T.frame + 1
     if T.cr ~= nil then
       pcall(T.cursor_reset)

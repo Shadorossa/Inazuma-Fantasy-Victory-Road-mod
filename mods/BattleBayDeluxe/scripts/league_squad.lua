@@ -16,17 +16,17 @@ local ORIGINAL = {}
 -- the formation of a team's record in memory (0 = unreadable)
 function L.formation(team)
   local rec = TeamConfig.find(team)
-  local r = rec and U.struct("LeagueTeamRecord", rec)
-  return U.u32(U.get(r, "formation") or 0)
+  local r = rec and VRFW.memory.struct("LeagueTeamRecord", rec)
+  return VRFW.ids.unsigned(U.get(r, "formation") or 0)
 end
 
 function L.record(team)
   local rec = TeamConfig.find(team)
-  local r = rec and U.struct("LeagueTeamRecord", rec)
-  local out = { kit = U.u32(U.get(r, "kit") or 0), emblem = U.u32(U.get(r, "emblem") or 0), coach = 0 }
+  local r = rec and VRFW.memory.struct("LeagueTeamRecord", rec)
+  local out = { kit = VRFW.ids.unsigned(U.get(r, "kit") or 0), emblem = VRFW.ids.unsigned(U.get(r, "emblem") or 0), coach = 0 }
   for _, m in ipairs(Draft.member_rows(team) or {}) do
     if m.slot == L.COACH_SLOT and (m.param or 0) ~= 0 then
-      out.coach = U.u32(m.param)
+      out.coach = VRFW.ids.unsigned(m.param)
     end
   end
   return out
@@ -34,11 +34,11 @@ end
 
 local function set_formation(team, formation)
   local rec, why = TeamConfig.find(team)
-  local r = rec and U.struct("LeagueTeamRecord", rec)
+  local r = rec and VRFW.memory.struct("LeagueTeamRecord", rec)
   if not r then
     return false, why or "struct off"
   end
-  if U.u32(U.get(r, "formation") or 0) == formation then
+  if VRFW.ids.unsigned(U.get(r, "formation") or 0) == formation then
     return true
   end
   return (pcall(function()
@@ -79,7 +79,7 @@ function L.encode(order)
   local parts = {}
   for slot = 0, L.LAST_SLOT do
     if order[slot] then
-      parts[#parts + 1] = slot .. ":" .. U.u32(order[slot])
+      parts[#parts + 1] = slot .. ":" .. VRFW.ids.unsigned(order[slot])
     end
   end
   return table.concat(parts, ",")
@@ -88,7 +88,7 @@ end
 function L.decode(text)
   local out = {}
   for slot, param in string.gmatch(tostring(text or ""), "(%d+):(%d+)") do
-    out[tonumber(slot)] = U.u32(tonumber(param))
+    out[tonumber(slot)] = VRFW.ids.unsigned(tonumber(param))
   end
   return out
 end
@@ -117,12 +117,12 @@ function L.from_dock(team, placed)
     in_team[r.param] = r.slot
   end
   for _, m in ipairs(type(placed) == "table" and placed or {}) do
-    local position, param = U.int(m[1], -1), U.u32(m[2] or 0)
+    local position, param = U.int(m[1], -1), VRFW.ids.unsigned(m[2] or 0)
     if in_team[param] == nil then
-      return nil, "card " .. U.hex(param) .. " is not a player of the team"
+      return nil, "card " .. VRFW.ids.hex_text(param) .. " is not a player of the team"
     end
     if at[param] then
-      return nil, "card " .. U.hex(param) .. " placed twice"
+      return nil, "card " .. VRFW.ids.hex_text(param) .. " placed twice"
     end
     at[param] = position
   end
@@ -185,7 +185,7 @@ function L.from_dock(team, placed)
     end
   end
   if starters ~= L.STARTERS then
-    warn(string.format("team %s has %d starter slots", U.hex(team), starters))
+    warn(string.format("team %s has %d starter slots", VRFW.ids.hex_text(team), starters))
   end
   return order
 end
@@ -199,7 +199,7 @@ function L.apply(team, order, formation)
   local have, used = {}, {}
   for _, r in ipairs(rows) do
     if have[r.param] then
-      return nil, "two rows hold card " .. U.hex(r.param)
+      return nil, "two rows hold card " .. VRFW.ids.hex_text(r.param)
     end
     have[r.param] = { uid = r.uid, loadout = r.loadout }
   end
@@ -209,7 +209,7 @@ function L.apply(team, order, formation)
       return nil, "slot " .. r.slot .. ": no player of the team"
     end
     if used[param] then
-      return nil, "card " .. U.hex(param) .. " on two slots"
+      return nil, "card " .. VRFW.ids.hex_text(param) .. " on two slots"
     end
     used[param] = true
   end
@@ -217,7 +217,7 @@ function L.apply(team, order, formation)
   for _, r in ipairs(rows) do
     local param = order[r.slot]
     if r.param ~= param then
-      local m = U.struct("MemberRow", r.addr)
+      local m = VRFW.memory.struct("MemberRow", r.addr)
       local src = have[param]
       local ok = m ~= nil and pcall(function()
         m.param = param
@@ -232,24 +232,24 @@ function L.apply(team, order, formation)
       changed = changed + 1
     end
   end
-  if U.u32(formation or 0) ~= 0 then
-    local okf, e = set_formation(team, U.u32(formation))
+  if VRFW.ids.unsigned(formation or 0) ~= 0 then
+    local okf, e = set_formation(team, VRFW.ids.unsigned(formation))
     if not okf then
-      warn(string.format("team %s: formation %s not written (%s)", U.hex(team), U.hex(formation), tostring(e)))
+      warn(string.format("team %s: formation %s not written (%s)", VRFW.ids.hex_text(team), VRFW.ids.hex_text(formation), tostring(e)))
     end
   end
   return changed
 end
 
 function L.ensure(lineup)
-  local team = type(lineup) == "table" and U.u32(lineup.team or 0) or 0
+  local team = type(lineup) == "table" and VRFW.ids.unsigned(lineup.team or 0) or 0
   for t, orig in pairs(ORIGINAL) do
     if t ~= team then
       local n, why = L.apply(t, orig.order, orig.formation)
       if n == nil then
-        warn(string.format("team %s: first order not put back (%s)", U.hex(t), tostring(why)))
+        warn(string.format("team %s: first order not put back (%s)", VRFW.ids.hex_text(t), tostring(why)))
       elseif n > 0 then
-        info(string.format("team %s: first order back (%d rows)", U.hex(t), n))
+        info(string.format("team %s: first order back (%d rows)", VRFW.ids.hex_text(t), n))
       end
       ORIGINAL[t] = nil
     end
@@ -257,14 +257,14 @@ function L.ensure(lineup)
   if team == 0 then
     return true
   end
-  local n, why = L.apply(team, L.decode(lineup.order), U.u32(lineup.formation or 0))
+  local n, why = L.apply(team, L.decode(lineup.order), VRFW.ids.unsigned(lineup.formation or 0))
   if n == nil then
-    warn(string.format("team %s: the league lineup not written (%s)", U.hex(team), tostring(why)))
+    warn(string.format("team %s: the league lineup not written (%s)", VRFW.ids.hex_text(team), tostring(why)))
     return false
   end
   if n > 0 then
-    info(string.format("team %s: league lineup written (%d rows, formation %s)", U.hex(team), n,
-      U.hex(lineup.formation or 0)))
+    info(string.format("team %s: league lineup written (%d rows, formation %s)", VRFW.ids.hex_text(team), n,
+      VRFW.ids.hex_text(lineup.formation or 0)))
   end
   return true
 end

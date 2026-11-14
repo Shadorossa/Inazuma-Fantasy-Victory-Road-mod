@@ -8,8 +8,6 @@ local floor = math.floor
 local TWO32 = 4294967296
 U.TWO32 = TWO32
 
-U.u32 = Id.unsigned
-
 -- an integer argument of a command (nil = default)
 function U.int(v, default)
   if type(v) == "number" then
@@ -24,13 +22,8 @@ function U.int(v, default)
   return default
 end
 
-U.hex = Id.hex_text
-
--- round half away from zero
-U.round = VRFW.value.round
-
 function U.rng(hi, lo)
-  return VRFW.random.splitmix64(U.u32(hi), U.u32(lo))
+  return VRFW.random.splitmix64(Id.unsigned(hi), Id.unsigned(lo))
 end
 
 function U.split64(n)
@@ -39,18 +32,12 @@ function U.split64(n)
 end
 
 function U.entropy(addr, n)
-  local t = U.u32(VRFW.now_ms() * 1000003)
+  local t = Id.unsigned(VRFW.now_ms() * 1000003)
   local ah, al = U.split64(addr or 0)
-  return bxor(ah, U.u32(n * 0x9E3779B9)), bxor(al, t)
+  return bxor(ah, Id.unsigned(n * 0x9E3779B9)), bxor(al, t)
 end
 
-local Memory = VRFW.memory
-U.rd = Memory.read
-U.rdp = Memory.read_pointer
-U.wr = Memory.write
-U.struct = Memory.struct
 function U.get(view, name) return view and view[name] end
-U.global = VRFW.game.global
 
 function U.call(name, ...)
   return pcall(VRFW.call, name, ...)

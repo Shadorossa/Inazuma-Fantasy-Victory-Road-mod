@@ -1,9 +1,10 @@
 id = "HomeStadium"
 name = "Home Stadium"
-version = "0.3.0"
+version = "0.3.1"
 author = "Fantasy Team"
 description = "Each of your teams gets a home stadium. Pick it in Team Dock among the stadiums you own, and that team plays its home friendlies there. Competition, Chronicle and Battle Bay keep their own stadiums."
 priority = 0
+type = "gameplay"
 tags = ["Teams", "Gameplay"]
 updated = "2026-11-09"
 prefix = "HomeStadium"

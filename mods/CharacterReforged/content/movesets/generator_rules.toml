@@ -42,7 +42,7 @@ Random = 0.1
 Seed = "CharacterReforged.movesets"
 
 [CharacterReforged.MovesetRules.StartingGrades]
-From = "research/mods/_aside/InazumaFantasy/characters/move_grades.toml"
+From = "research/mods/CharacterReforged/_tools/data/move_grades.toml"
 
 # the hyper forms the board slots hold beside the 4 moves: slot 9 = keshin or totem; the mix table = miximax or change mode
 [CharacterReforged.MovesetRules.Forms]

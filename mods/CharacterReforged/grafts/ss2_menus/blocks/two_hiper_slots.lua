@@ -21,6 +21,8 @@ PL.HS_ROW = {BASE1 = 970690259 --[[_item_list_base01]], BASE2 = 2583835390 --[[_
   TOTEM_SHORT = 3938180986 --[[crc32(character_reforged_hs_totem_short)]],
   PAD1 = "", PAD2 = "", CUT = 14,
   POS1 = 1307475940 --[[_pos_list01]], TEXT_SHIFT1 = 57, TEXT_SHIFT2 = 38,
+  -- A half's lock: node _pos_lock01 of instance 0 of its plate layer (plate origin 9 right of the row's), its padlock drawn over the half's portrait centre at the technique rows' height (the mix half SHIFT2 further right).
+  BADGE_LOCK = {-50, -6},
   BASE_X = -283, FOCUS_X = -286,
   -- Portrait layout.
   FACE_SIZE = 54, FACE_Y = 27, AURA_FACE_X = -7, MIX_FACE_X = -26,
@@ -49,6 +51,10 @@ PL.HS_ROW = {BASE1 = 970690259 --[[_item_list_base01]], BASE2 = 2583835390 --[[_
 -- Makes one row again (a level-locked Hiper row, never split).
 function PL.hs_unsplit_row()
   local R, L = PL.HS_ROW, L_ROW
+  -- The halves' own locks go off (the whole row shows the row lock).
+  for half = 0, 1 do
+    pcall(PL.hs_lock_badge, half, 0)
+  end
   funcLuaMenuCommand(R.SCALE, L, 0, R.BASE1, R.BASE1_SIZE[1], R.BASE1_SIZE[2])
   funcLuaMenuCommand(R.SCALE, L, 0, R.FOCUS1, R.FOCUS_SIZE[1], R.FOCUS_SIZE[2])
   funcLuaMenuCommand(C.MESH_VISIBLE, L, R.FOCUS1, true, 0)
@@ -119,10 +125,41 @@ function PL.hs_short_name(name)
   return name
 end
 
+-- The learn level each Hiper half still needs (0 aura, 1 mix; 0 = open) and the badge each half waits to draw again.
+PL.hs_half_need = {[0] = 0, [1] = 0}
+PL.hs_lock_wait = {[0] = false, [1] = false}
+
+-- Shows half `half`'s lock with learn level `need` inside (0 = off): the technique rows' own padlock, on instance 0 of that half's plate layer drawn over the list row.
+function PL.hs_lock_badge(half, need)
+  local P, R = PL.RP, PL.HS_ROW
+  local L = half == 1 and P.MIX_LOCK or P.L
+  local want = P.LAYERS[L]
+  need = tonumber(need) or 0
+  PL.hs_half_need[half], PL.hs_lock_wait[half] = need, false
+  if P == nil or not P.ON or type(VRFW.ui_plates) ~= "table" or not funcLuaMenuCommand(@crc:CMND_IS_EXIST_LAYER@, L) then
+    return
+  end
+  if need <= 0 then
+    if want[0] then
+      want[0] = false
+      pcall(PL.row_plate_sync)
+    end
+    return
+  end
+  local fresh = funcLuaMenuCommand(@crc:CMND_IS_OPEN_LAYER@, L, 0) ~= true
+  PL.open(L, 0)
+  local x = R.BADGE_LOCK[1] + (half == 1 and R.SHIFT2 or 0)
+  local ok = VRFW.ui_plates.move_plate.lock_badge(L, 0, need, x, R.BADGE_LOCK[2])
+  -- A plate instance opened or still loading takes its parts again on a later Step.
+  PL.hs_lock_wait[half] = fresh or funcLuaMenuCommand(@crc:CMND_IS_LOADING_LAYER@, L) == true
+  want[0] = ok == true
+  pcall(PL.row_plate_sync)
+end
+
 -- Splits the Hiper row (instance 0).
 function PL.hs_split_row()
   local R, L = PL.HS_ROW, L_ROW
-  local aura, mix = PL.shown_skill_set_slots()
+  local aura, mix, aura_need, mix_need = PL.shown_skill_set_slots()
   local mix_partner = mix ~= 0 and PL.hs_mix_partner(mix) or nil
   local function label(id, half)
     if id == 0 then
@@ -134,6 +171,14 @@ function PL.hs_split_row()
   end
   local tinted = PL.hs_plates_ready()
   PL.hs_plates_wait = not tinted
+  -- A half the player has not reached yet: its name greyed, its portrait under the lock with its learn level (PL.hs_lock_badge).
+  local function locked_label(id, half, need)
+    local t = label(id, half)
+    if need > 0 and t ~= "" then
+      t = PL.LOCK_COLOR .. t .. "[C]"
+    end
+    return t
+  end
   -- Moves the left set (the aura slot).
   funcLuaMenuCommand(R.TRANSLATE, L, 0, R.POS1, 0, -R.TEXT_SHIFT1)
   funcLuaMenuCommand(R.TRANSLATE, L, 0, R.BASE1, 0, R.BASE_X + R.TEXT_SHIFT1)
@@ -149,8 +194,9 @@ function PL.hs_split_row()
   funcLuaMenuCommand(C.MESH_VISIBLE, L, R.FOCUS1, PL.hs_half == 0, 0)
   funcLuaMenuCommand(2333948100 --[[text style]], L, 0, R.TEXT1, R.STYLE)
   funcLuaMenuCommand(R.SCALE, L, 0, R.TEXT1, R.TEXT1_SPLIT_W, R.TEXT1_BOX[2])
-  funcLuaMenuCommand(C.TEXT, L, R.TEXT1, label(aura, 0), 0)
+  funcLuaMenuCommand(C.TEXT, L, R.TEXT1, locked_label(aura, 0, aura_need), 0)
   funcLuaMenuCommand(C.TEXT_ALPHA, L, 0, R.TEXT1, 1)
+  pcall(PL.hs_lock_badge, 0, aura_need)
   PL.hs_face(R.ICON1, R.ICON_SLOT1, R.AURA_FACE_X, aura ~= 0 and function(L1, m, s)
     return PL.aura_portrait(L1, 0, m, s, aura)
   end or nil, string.format("%s:%08X", tostring(n), to_u32(aura)))
@@ -173,8 +219,9 @@ function PL.hs_split_row()
   funcLuaMenuCommand(C.MESH_VISIBLE, L, R.FOCUS2, PL.hs_half == 1, 0)
   funcLuaMenuCommand(2333948100 --[[text style]], L, 0, R.TEXT2, R.STYLE)
   funcLuaMenuCommand(R.SCALE, L, 0, R.TEXT2, R.TEXT2_SPLIT_W, R.TEXT2_BOX[2])
-  funcLuaMenuCommand(C.TEXT, L, R.TEXT2, label(mix, 1), 0)
+  funcLuaMenuCommand(C.TEXT, L, R.TEXT2, locked_label(mix, 1, mix_need), 0)
   funcLuaMenuCommand(C.TEXT_ALPHA, L, 0, R.TEXT2, 1)
+  pcall(PL.hs_lock_badge, 1, mix_need)
   PL.hs_face(R.ICON2, R.ICON_SLOT2, R.MIX_FACE_X, mix ~= 0 and function(L1, m, s)
     if mix_partner == nil then
       return false
@@ -196,34 +243,39 @@ function PL.hs_face(mesh, slot, x, draw, key)
   funcLuaMenuCommand(R.TRANSLATE, L, 0, mesh, 1, R.FACE_Y)
   funcLuaMenuCommand(R.SCALE, L, 0, mesh, R.FACE_SIZE, R.FACE_SIZE)
   if draw ~= nil and key ~= nil and PL.hs_faces and PL.hs_face_key[slot] == key then
-    funcLuaMenuCommand(C.MESH_VISIBLE, L, mesh, true, 0)   -- the row refresh hid the icon mesh: the same portrait again
+    -- The row refresh hid the icon mesh: the same portrait shows again once its texture has loaded.
+    if not VRFW.face_icon.loading(L, 0, mesh) then
+      funcLuaMenuCommand(C.MESH_VISIBLE, L, mesh, true, 0)
+    end
     return
   end
   PL.hs_face_key[slot] = nil
+  VRFW.face_icon.forget(L, 0, mesh)
   funcLuaMenuCommand(R.RESET_FACE, L, 0, slot)
   if draw == nil then
     funcLuaMenuCommand(C.MESH_VISIBLE, L, mesh, false, 0)
     return
   end
   PL.hs_faces = true
+  -- VRFW.face_icon.face keeps the mesh hidden while the new texture loads, so the reset slot's white fill never shows.
   local okd, drawn = pcall(draw, L, mesh, slot)
-  if not (okd and drawn == true) then
-    funcLuaMenuCommand(R.RESET_FACE, L, 0, slot)
+  if not (okd and drawn) then
+    VRFW.face_icon.forget(L, 0, mesh)
     okd, drawn = pcall(PL.owner_face, L, 0, mesh, slot)
   end
-  local shown = okd and drawn == true
-  funcLuaMenuCommand(C.MESH_VISIBLE, L, mesh, shown, 0)
-  if shown then
+  if okd and drawn then
     PL.hs_face_key[slot] = key
+  else
+    funcLuaMenuCommand(C.MESH_VISIBLE, L, mesh, false, 0)
   end
 end
 
--- Draws a character's list face icon (VRFW.face_icon, as the bank and dock lists draw it) on (mesh, slot).
+-- Draws a character's list face icon (VRFW.face_icon, as the bank and dock lists draw it) on (mesh, slot); returns "drawn", "loading" or false.
 function PL.list_face(L, idx, mesh, slot, key)
   if type(key) ~= "number" or key == 0 then
     return false
   end
-  return VRFW.face_icon.request(L, idx, key, mesh, slot)
+  return VRFW.face_icon.face(L, idx, key, mesh, slot)
 end
 
 -- Draws the shown player's own face icon on (mesh, slot).
@@ -234,11 +286,11 @@ function PL.owner_face(L, idx, mesh, slot)
   end
   local param = funcLuaCommand(C.CHARA_GET, n, 4) or 0
   local okk, keeper = pcall(MENU_DEF.IsKeeper, param)
-  return VRFW.face_icon.request(L, idx, {handle = n, kind = 255, chara = key}, mesh, slot,
+  return VRFW.face_icon.face(L, idx, {handle = n, kind = 255, chara = key}, mesh, slot,
     {kit = 0, keeper = okk and keeper == true})
 end
 
--- Draws an aura skill's portrait on (mesh, slot) by the retail aura windows' rule.
+-- Draws an aura skill's portrait on (mesh, slot) by the retail aura windows' rule; returns "drawn", "loading" or false.
 function PL.aura_portrait(L, idx, mesh, slot, skill)
   local ok, cid = funcLuaCommand(C.SKILL_INFO, skill, 17)
   if not ok or type(cid) ~= "number" or cid == 0 then
@@ -252,9 +304,7 @@ function PL.aura_portrait(L, idx, mesh, slot, skill)
   if art == nil then
     return PL.list_face(L, idx, mesh, slot, cid)
   end
-  local okr, r = pcall(funcLuaMenuCommand, 346643487 --[[SwapLayerFaceIconTex]], L, idx, mesh, slot, cid, 0, art, true,
-    true, true, 5)
-  return okr and r ~= false
+  return VRFW.face_icon.face(L, idx, cid, mesh, slot, {art = art})
 end
 
 function PL.hs_mix_partner(mix)
@@ -270,6 +320,11 @@ function PL.hs_mix_partner(mix)
     if okm and m ~= nil and (m.face or 0) ~= 0 then
       return {face = m.face, name = m.name}
     end
+  end
+  -- A fusion or mode change carrier has no partner of its own: the stored record above is its only partner.
+  local okc, _, _, carrier = pcall(funcLuaCommand, PL.HS_CMD.SLOT_OF, mix)
+  if okc and type(carrier) == "number" and carrier ~= 0 then
+    return nil
   end
   local ok, cid = funcLuaCommand(C.SKILL_INFO, mix, 17)
   if ok and type(cid) == "number" and cid ~= 0 then
@@ -323,6 +378,19 @@ function CharacterReforgedSkillTablePickCoroutine(row)
   if not ok then
     error(err, 0)
   end
+end
+
+-- Confirm on a level-locked half of the Hiper row is refused with the retail cannot sound, as on a locked technique row.
+PL.hs_prev_decide = OnDecideFocus
+function OnDecideFocus(a1, a2)
+  if vrfw_co == nil and a1 == L_ROW and a2 == 0 then
+    pcall(PL.hs_pointer_pick)
+    if (PL.hs_half_need[PL.hs_half] or 0) > 0 then
+      funcLuaCommand(C.SE, SE_NG)
+      return
+    end
+  end
+  return PL.hs_prev_decide(a1, a2)
 end
 
 -- Sets the selected half (Left or Right on the Hiper row, R3).
@@ -652,6 +720,12 @@ PL.hs_prev_step = Step
 function Step(...)
   local r = PL.hs_prev_step ~= nil and PL.hs_prev_step(...) or nil
   pcall(PL.hs_poll_r3)
+  for half = 0, 1 do
+    local L = half == 1 and PL.RP.MIX_LOCK or PL.RP.L
+    if PL.hs_lock_wait[half] and funcLuaMenuCommand(@crc:CMND_IS_LOADING_LAYER@, L) ~= true then
+      pcall(PL.hs_lock_badge, half, PL.hs_half_need[half])
+    end
+  end
   if PL.hs_plates_wait and PL.hs_plates_ready() then   -- the tinted plates came in: redraw the split row
     PL.hs_plates_wait = false
     if not CharacterReforged.skill_table_is_locked(0) then

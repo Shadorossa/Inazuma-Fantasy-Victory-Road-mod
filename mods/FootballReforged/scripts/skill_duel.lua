@@ -43,7 +43,7 @@ local function set_rule()
   end
 end
 
-VRFW.on("match_start", function()
+VRFW.on("match:start", function()
   set_rule()
   return nil
 end)

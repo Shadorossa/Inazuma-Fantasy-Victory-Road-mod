@@ -1,0 +1,11 @@
+schema = "VRFW.passive/1"
+
+# Hidetoshi Nakata: True Captain — in the 2nd half, focus duel AT and DF +5 % for the Orfeo players of his team
+[[VRFW.Passive]]
+name = "c02024760_true_captain"
+blocks = ["nakata_half_2", "nakata_duelpower_team_5_orpheus", "nakata_card_c02024760"]
+caps = ["CharacterReforged.own_total"]
+
+[[VRFW.Character]]
+character = "c02024760"
+passive = "c02024760_true_captain"

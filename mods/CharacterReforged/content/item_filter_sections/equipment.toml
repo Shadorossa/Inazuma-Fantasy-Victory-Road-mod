@@ -1,0 +1,69 @@
+schema = "VRFW.item_filter_section/1"
+
+# The equipment picker's and the shop's filter windows: four tabs after the game's attribute tab (rows answered by
+# scripts\equipment.lua); rows that need the list's player are left out in the shop.
+# A row's test: set_completes, set:<set> (the `sets` list), element:<element | player>, position:<position | player>,
+# effect_kind:<kinds>, effect_move:<move kinds>, effect_rest (an effect no other row of the section names), bonus_active.
+
+[[VRFW.ItemFilterSection]]
+name = "sets"
+window = "equipment"
+menus = ["equip_menu", "shop_menu"]
+text = "CharacterReforged.filter_section_sets"
+icon = "icon_list_tab_filter01"
+symbol = "filter_symbol01"
+serve = "CMND_CHARACTERREFORGED_EQUIPMENT_ITEM_FILTER"
+rows = [
+  { name = "completes", text = "CharacterReforged.filter_row_completes_set", test = "set_completes", needs_player = true },
+  { each = "sets" },
+]
+
+[[VRFW.ItemFilterSection]]
+name = "element"
+window = "equipment"
+menus = ["equip_menu", "shop_menu"]
+text = "CharacterReforged.filter_section_element"
+icon = "icon_list_tab_filter03"
+symbol = "filter_symbol03"
+serve = "CMND_CHARACTERREFORGED_EQUIPMENT_ITEM_FILTER"
+rows = [
+  { name = "wind", text = "CharacterReforged.element_wind", test = "element:wind" },
+  { name = "forest", text = "CharacterReforged.element_forest", test = "element:forest" },
+  { name = "fire", text = "CharacterReforged.element_fire", test = "element:fire" },
+  { name = "mountain", text = "CharacterReforged.element_mountain", test = "element:mountain" },
+  { name = "player", text = "CharacterReforged.filter_row_player_affinity", test = "element:player", needs_player = true },
+]
+
+[[VRFW.ItemFilterSection]]
+name = "position"
+window = "equipment"
+menus = ["equip_menu", "shop_menu"]
+text = "CharacterReforged.filter_section_position"
+icon = "icon_list_tab_filter02"
+symbol = "filter_symbol02"
+serve = "CMND_CHARACTERREFORGED_EQUIPMENT_ITEM_FILTER"
+rows = [
+  { name = "forward", text = "CharacterReforged.pos_FW", test = "position:FW" },
+  { name = "midfielder", text = "CharacterReforged.pos_MF", test = "position:MF" },
+  { name = "defender", text = "CharacterReforged.pos_DF", test = "position:DF" },
+  { name = "goalkeeper", text = "CharacterReforged.pos_GK", test = "position:GK" },
+  { name = "player", text = "CharacterReforged.filter_row_player_affinity", test = "position:player", needs_player = true },
+]
+
+[[VRFW.ItemFilterSection]]
+name = "effect"
+window = "equipment"
+menus = ["equip_menu", "shop_menu"]
+text = "CharacterReforged.filter_section_effect"
+icon = "icon_list_tab_filter08"
+symbol = "filter_symbol08"
+serve = "CMND_CHARACTERREFORGED_EQUIPMENT_ITEM_FILTER"
+rows = [
+  { name = "stat", text = "CharacterReforged.filter_row_effect_stat", test = "effect_kind:stat_when" },
+  { name = "shots", text = "CharacterReforged.filter_row_effect_shots", test = "effect_move:shoot,long_shoot,chain_shoot" },
+  { name = "dribbles", text = "CharacterReforged.filter_row_effect_dribbles", test = "effect_move:dribble" },
+  { name = "blocks", text = "CharacterReforged.filter_row_effect_blocks", test = "effect_move:block" },
+  { name = "saves", text = "CharacterReforged.filter_row_effect_saves", test = "effect_move:catch,punch" },
+  { name = "other", text = "CharacterReforged.filter_row_effect_other", test = "effect_rest" },
+  { name = "active", text = "CharacterReforged.filter_row_bonus_active", test = "bonus_active", needs_player = true },
+]

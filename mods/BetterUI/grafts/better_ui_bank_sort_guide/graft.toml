@@ -15,8 +15,6 @@ stem = "chara_bank_menu"
   type = "append_block"
   source = "bank.lua"
   marker = "better_ui bank_sort_guide"
-  crc = "none"
-  generator = "research/mods/BetterUI/_tools/better_ui_generators.py:better_ui_plain"
-  generator_arguments = { part = "better_ui_bank_guide.lua", tag = "bank", name = "bank_sort_guide", scope = "BetterUI" }
-  include = { "@UI_WRAP@" = "../_src/better_ui/better_ui_wrap.lua" }
+  generator = "research/mods/BetterUI/_tools/betterui_generators.py:better_ui_snippet"
+  generator_arguments = { part = "better_ui_bank_guide.lua", name = "bank_sort_guide", scope = "BetterUI" }
   vars = { "@TAG@" = "bank" }

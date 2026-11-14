@@ -4,7 +4,7 @@ schema = "VRFW.behaviour/1"
 
 [[rule]]
 id = "furor_level1_power_user"
-on = "move_power"
+on = "match:move_power"
 [rule.when]
 team = "user"
 flag = "Furor.gauge.user.level1"
@@ -14,7 +14,7 @@ power_mult = 1.03
 
 [[rule]]
 id = "furor_level1_power_rival"
-on = "move_power"
+on = "match:move_power"
 [rule.when]
 team = "rival"
 flag = "Furor.gauge.rival.level1"
@@ -27,7 +27,7 @@ power_mult = 1.03
 # its special moves hit harder
 [[rule]]
 id = "furor_phase_power_user"
-on = "move_power"
+on = "match:move_power"
 [rule.when]
 team = "user"
 flag = "Furor.gauge.user.phase"
@@ -36,7 +36,7 @@ power_mult = 1.15
 
 [[rule]]
 id = "furor_phase_power_rival"
-on = "move_power"
+on = "match:move_power"
 [rule.when]
 team = "rival"
 flag = "Furor.gauge.rival.phase"
@@ -46,7 +46,7 @@ power_mult = 1.15
 # its players run faster (Strikers: a Hero Time player counts as dashing)
 [[rule]]
 id = "furor_phase_speed_user"
-on = "move_speed"
+on = "match:move_speed"
 [rule.when]
 team = "user"
 flag = "Furor.gauge.user.phase"
@@ -55,7 +55,7 @@ speed_mult = 1.08
 
 [[rule]]
 id = "furor_phase_speed_rival"
-on = "move_speed"
+on = "match:move_speed"
 [rule.when]
 team = "rival"
 flag = "Furor.gauge.rival.phase"
@@ -65,7 +65,7 @@ speed_mult = 1.08
 # its keeper faces weaker shots (the shot's power for that save battle)
 [[rule]]
 id = "furor_phase_keeper_user"
-on = "keeper_duel"
+on = "match:keeper_duel"
 [rule.when]
 team = "user"
 flag = "Furor.gauge.user.phase"
@@ -74,7 +74,7 @@ power_mult = 0.9
 
 [[rule]]
 id = "furor_phase_keeper_rival"
-on = "keeper_duel"
+on = "match:keeper_duel"
 [rule.when]
 team = "rival"
 flag = "Furor.gauge.rival.phase"
@@ -84,7 +84,7 @@ power_mult = 0.9
 # the look by side: the rival's team burns orange, the user's team blue (the side the user plays on, home or away)
 [[rule]]
 id = "furor_awakening_look_rival"
-on = "signal:Furor.gauge.phase"
+on = "script:signal:Furor.gauge.phase"
 [rule.when]
 team = "rival"
 [rule.do]
@@ -92,7 +92,7 @@ character_effect = { trigger = "furor_phase_fire", who = "team" }
 
 [[rule]]
 id = "furor_awakening_look_user"
-on = "signal:Furor.gauge.phase"
+on = "script:signal:Furor.gauge.phase"
 [rule.when]
 team = "user"
 [rule.do]
@@ -100,31 +100,31 @@ character_effect = { trigger = "furor_phase_fire_ally", who = "team" }
 
 [[rule]]
 id = "furor_awakening_gk"
-on = "signal:Furor.gauge.phase"
+on = "script:signal:Furor.gauge.phase"
 [rule.do]
 set_stat = { stat = ["agility", "physical"], mult = 1.12, who = "team", position = "gk" }
 
 [[rule]]
 id = "furor_awakening_df"
-on = "signal:Furor.gauge.phase"
+on = "script:signal:Furor.gauge.phase"
 [rule.do]
 set_stat = { stat = ["pressure", "physical"], mult = 1.15, who = "team", position = "df" }
 
 [[rule]]
 id = "furor_awakening_mf"
-on = "signal:Furor.gauge.phase"
+on = "script:signal:Furor.gauge.phase"
 [rule.do]
 set_stat = { stat = ["control", "technique", "agility"], mult = 1.1, who = "team", position = "mf" }
 
 [[rule]]
 id = "furor_awakening_fw"
-on = "signal:Furor.gauge.phase"
+on = "script:signal:Furor.gauge.phase"
 [rule.do]
 set_stat = { stat = ["kick", "agility"], mult = 1.15, who = "team", position = "fw" }
 
 [[rule]]
 id = "furor_awakening_look_join_rival"
-on = "signal:Furor.gauge.phase_join"
+on = "script:signal:Furor.gauge.phase_join"
 [rule.when]
 team = "rival"
 [rule.do]
@@ -132,7 +132,7 @@ character_effect = { trigger = "furor_phase_fire", who = "actor" }
 
 [[rule]]
 id = "furor_awakening_look_join_user"
-on = "signal:Furor.gauge.phase_join"
+on = "script:signal:Furor.gauge.phase_join"
 [rule.when]
 team = "user"
 [rule.do]
@@ -140,45 +140,45 @@ character_effect = { trigger = "furor_phase_fire_ally", who = "actor" }
 
 [[rule]]
 id = "furor_awakening_gk_join"
-on = "signal:Furor.gauge.phase_join"
+on = "script:signal:Furor.gauge.phase_join"
 [rule.do]
 set_stat = { stat = ["agility", "physical"], mult = 1.12, who = "actor", position = "gk" }
 
 [[rule]]
 id = "furor_awakening_df_join"
-on = "signal:Furor.gauge.phase_join"
+on = "script:signal:Furor.gauge.phase_join"
 [rule.do]
 set_stat = { stat = ["pressure", "physical"], mult = 1.15, who = "actor", position = "df" }
 
 [[rule]]
 id = "furor_awakening_mf_join"
-on = "signal:Furor.gauge.phase_join"
+on = "script:signal:Furor.gauge.phase_join"
 [rule.do]
 set_stat = { stat = ["control", "technique", "agility"], mult = 1.1, who = "actor", position = "mf" }
 
 [[rule]]
 id = "furor_awakening_fw_join"
-on = "signal:Furor.gauge.phase_join"
+on = "script:signal:Furor.gauge.phase_join"
 [rule.do]
 set_stat = { stat = ["kick", "agility"], mult = 1.15, who = "actor", position = "fw" }
 
 # the end: the look off on the whole team (a player who changed place keeps none), the stats back
 [[rule]]
 id = "furor_awakening_end"
-on = "signal:Furor.gauge.phase_end"
+on = "script:signal:Furor.gauge.phase_end"
 [rule.do]
 character_effect = { clear = true, trigger = "furor_phase_fire", who = "team" }
 set_stat = { stat = ["kick", "control", "technique", "pressure", "physical", "agility"], restore = true, who = "team" }
 
 [[rule]]
 id = "furor_awakening_end_ally_look"
-on = "signal:Furor.gauge.phase_end"
+on = "script:signal:Furor.gauge.phase_end"
 [rule.do]
 character_effect = { clear = true, trigger = "furor_phase_fire_ally", who = "team" }
 
 [[rule]]
 id = "furor_cpu_start_trailing"
-on = "possession"
+on = "match:possession"
 [rule.when]
 team = "rival"
 flag = "Furor.gauge.rival.full"
@@ -190,7 +190,7 @@ signal = "Furor.gauge.start"
 
 [[rule]]
 id = "furor_cpu_start_level"
-on = "possession"
+on = "match:possession"
 [rule.when]
 team = "rival"
 flag = "Furor.gauge.rival.full"
@@ -202,7 +202,7 @@ signal = "Furor.gauge.start"
 
 [[rule]]
 id = "furor_cpu_start_leading"
-on = "possession"
+on = "match:possession"
 [rule.when]
 team = "rival"
 flag = "Furor.gauge.rival.full"

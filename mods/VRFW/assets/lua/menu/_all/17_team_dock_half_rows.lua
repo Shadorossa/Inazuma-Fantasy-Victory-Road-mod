@@ -75,6 +75,7 @@ if VRFW.team_dock ~= nil and VRFW.team_dock.half_rows == nil then
     SOUND_REFUSED = 2086672038,      -- sy0003
   }
   local HR = { groups = {}, by_id = {}, cells_by_kind = {}, next_kind = nil, hooked = {}, attached = false }
+  --- Advanced: State of the half-height rows of the team dock list.
   VRFW.team_dock.half_rows = HR
   -- The state of the open dock: what is laid on screen and who has the focus.
   local S = { laid = {}, shift = {}, label_widths = {}, pointer = nil, decide = nil, logged = {} }
@@ -121,15 +122,20 @@ if VRFW.team_dock ~= nil and VRFW.team_dock.half_rows == nil then
     return answer
   end
 
-  --- Declares rows of the team dock list; answers the group, or false, why.
+  --- Advanced: Declares rows of the team dock list; answers the group, or false, why.
   -- spec.id is "<Mod>.<name>"; spec.cells is a list of {name = text id, help = text id, label = function(cell) -> text, value = anything}.
   -- spec.place is "head", "end" (default) or {after = retail kind}; spec.pair = true puts its two cells on one row.
   -- spec.remove lists the retail kinds the group takes out; spec.when() says each time the dock opens whether the rows exist.
+  -- A group with no cells and a spec.remove only takes those retail rows out while spec.when() holds.
   -- spec.greyed(cell) draws a cell greyed; spec.busy() blocks the cells' keys and pointer; spec.focused(cell) runs after a step onto a cell.
   -- spec.decide(cell) runs inside the dock's decide coroutine when the cell is accepted; without it the caller hooks OnDecideFocus itself.
   function HR.add(spec)
-    if type(spec) ~= "table" or type(spec.id) ~= "string" or type(spec.cells) ~= "table" or #spec.cells == 0 then
-      return false, "VRFW.team_dock.half_rows.add: an id and at least one cell are required"
+    if type(spec) ~= "table" or type(spec.id) ~= "string" then
+      return false, "VRFW.team_dock.half_rows.add: an id is required"
+    end
+    spec.cells = spec.cells or {}
+    if type(spec.cells) ~= "table" or (#spec.cells == 0 and (type(spec.remove) ~= "table" or #spec.remove == 0)) then
+      return false, "VRFW.team_dock.half_rows.add: " .. spec.id .. ": at least one cell or one removed kind is required"
     end
     if spec.pair == true and #spec.cells ~= 2 then
       return false, "VRFW.team_dock.half_rows.add: " .. spec.id .. ": a pair has exactly two cells"
@@ -154,12 +160,12 @@ if VRFW.team_dock ~= nil and VRFW.team_dock.half_rows == nil then
     return group
   end
 
-  --- The cell of list kind `kind`; nil when the kind is no declared cell.
+  --- Advanced: The cell of list kind `kind`; nil when the kind is no declared cell.
   function HR.cell_of_kind(kind)
     return HR.cells_by_kind[kind]
   end
 
-  --- The cell at list instance `instance` (0-based); nil when that row is no declared cell.
+  --- Internal: The cell at list instance `instance` (0-based); nil when that row is no declared cell.
   function HR.cell_at(instance)
     local L = locals()
     if L == nil or type(instance) ~= "number" or instance < 0 or instance >= (L.n or 0) then
@@ -168,7 +174,7 @@ if VRFW.team_dock ~= nil and VRFW.team_dock.half_rows == nil then
     return HR.cells_by_kind[L.t[instance + 1]]
   end
 
-  --- The text a cell shows.
+  --- Internal: The text a cell shows.
   function HR.cell_text(cell)
     local text = nil
     if type(cell.label) == "function" then
@@ -296,7 +302,7 @@ if VRFW.team_dock ~= nil and VRFW.team_dock.half_rows == nil then
     return next(S.laid) ~= nil
   end
 
-  --- True while a caller's rule or a decide of the pointer keeps the cells from moving.
+  --- Internal: True while a caller's rule or a decide of the pointer keeps the cells from moving.
   function HR.blocked()
     if S.decide ~= nil then
       return true
@@ -309,7 +315,7 @@ if VRFW.team_dock ~= nil and VRFW.team_dock.half_rows == nil then
     return false
   end
 
-  --- True while the pointer's click on a cell runs its decide.
+  --- Advanced: True while the pointer's click on a cell runs its decide.
   function HR.deciding()
     return S.decide ~= nil
   end
@@ -319,6 +325,7 @@ if VRFW.team_dock ~= nil and VRFW.team_dock.half_rows == nil then
     if HR.hooked.cells then
       return
     end
+    --- Internal: true once the cell animation hook is installed.
     HR.hooked.cells = true
     VRFW.host.hook_command(K.PLAY_ANIME, function(nxt, id, layer, index, kind, mode, ...)
       if layer == K.LIST and S.laid[index] ~= nil and kind == K.ACTIVE and mode ~= K.ANIME_OUT then
@@ -333,6 +340,7 @@ if VRFW.team_dock ~= nil and VRFW.team_dock.half_rows == nil then
     if HR.hooked.suspend then
       return
     end
+    --- Internal: true once the suspend and resume hook is installed.
     HR.hooked.suspend = true
     VRFW.host.hook_command({K.SUSPEND_GROUP, K.RESUME_GROUP}, function(nxt, id, group, ...)
       if group == K.DOCK then
@@ -524,7 +532,7 @@ if VRFW.team_dock ~= nil and VRFW.team_dock.half_rows == nil then
     end
   end
 
-  --- Moves the list's focus onto instance `to`, as the engine's own step does; `quiet` leaves the pointer and the sound alone.
+  --- Internal: Moves the list's focus onto instance `to`, as the engine's own step does; `quiet` leaves the pointer and the sound alone.
   function HR.step_to(to, quiet)
     local L = locals()
     local mouse = pointer()
@@ -685,7 +693,7 @@ if VRFW.team_dock ~= nil and VRFW.team_dock.half_rows == nil then
     end
   end
 
-  --- True when the accept press on that list instance belongs to the pointer's own click on a cell.
+  --- Internal: True when the accept press on that list instance belongs to the pointer's own click on a cell.
   function HR.pointer_owns_accept(layer, index)
     if S.pointer_accept or layer ~= K.LIST or S.laid[index] == nil or S.pointer == nil then
       return false
@@ -693,11 +701,12 @@ if VRFW.team_dock ~= nil and VRFW.team_dock.half_rows == nil then
     return S.pointer.owns()
   end
 
-  --- Hooks the team dock; called once from the dock's own Lua folder.
+  --- Internal: Hooks the team dock; called once from the dock's own Lua folder.
   function HR.attach()
     if HR.attached then
       return
     end
+    --- Internal: true once the dock hooks are attached.
     HR.attached = true
     local function on(point, phase, fn, create)
       VRFW.host.on(STEM, point, { id = "VRFW.team_dock_half_rows", phase = phase, fn = fn, create = create })

@@ -2,37 +2,46 @@ schema = "VRFW.text_key/1"
 default_lang = "en"
 
 [en.new]
+saga_name = "Inazuma Eleven Cross"
 mod_name = "IECross"
 mod_description = "Inazuma Eleven Cross in Victory Road: its 11 teams, the Cross cards, 15 special moves, new kits, extra Office characters and eight stadiums, with their own tabs in bot matches, the Battle Bay and the player bank. Authors: LiLKi."
 
 [es.new]
+saga_name = "Inazuma Eleven Cross"
 mod_name = "IECross"
 mod_description = "Inazuma Eleven Cross en Victory Road: sus 11 equipos, las cartas de Cross, 15 supertécnicas, equipaciones nuevas, personajes extra en la Oficina y ocho estadios, con pestañas propias en los partidos contra bots, Bahía Batalla y el banco de jugadores. Autores: LiLKi."
 
 [fr.new]
+saga_name = "Inazuma Eleven Cross"
 mod_name = "IECross"
 mod_description = "Inazuma Eleven Cross dans Victory Road : ses 11 équipes, les cartes Cross, 15 supertechniques, de nouveaux maillots, des personnages en plus au Bureau et huit stades, avec leurs propres onglets dans les matchs contre bots, la Baie Bataille et la banque de joueurs. Auteurs : LiLKi."
 
 [de.new]
+saga_name = "Inazuma Eleven Cross"
 mod_name = "IECross"
 mod_description = "Inazuma Eleven Cross in Victory Road: seine 11 Teams, die Cross-Karten, 15 Spezialtechniken, neue Trikots, zusätzliche Büro-Charaktere und acht Stadien, mit eigenen Reitern in Bot-Spielen, der Kampfbucht und der Spielerbank. Autoren: LiLKi."
 
 [it.new]
+saga_name = "Inazuma Eleven Cross"
 mod_name = "IECross"
 mod_description = "Inazuma Eleven Cross in Victory Road: le sue 11 squadre, le carte Cross, 15 supertecniche, nuove divise, personaggi extra nell'Ufficio e otto stadi, con schede proprie nelle partite contro bot, nella Baia Battaglia e nella banca giocatori. Autori: LiLKi."
 
 [pt.new]
+saga_name = "Inazuma Eleven Cross"
 mod_name = "IECross"
 mod_description = "Inazuma Eleven Cross no Victory Road: as suas 11 equipas, as cartas Cross, 15 supertécnicas, novos equipamentos, personagens extra no Escritório e oito estádios, com separadores próprios nos jogos contra bots, na Baía Batalha e no banco de jogadores. Autores: LiLKi."
 
 [ja.new]
+saga_name = "Inazuma Eleven Cross"
 mod_name = "IECross"
 mod_description = "ヴィクトリーロードにイナズマイレブンCROSSを追加します。11チーム、CROSSのカード、15の必殺技、新しいユニフォーム、オフィスの追加キャラクター、8つのスタジアムが入り、ボット戦、BBスタジアム、選手バンクに専用のタブが加わります。制作：LiLKi。"
 
 [zh_hans.new]
+saga_name = "Inazuma Eleven Cross"
 mod_name = "IECross"
 mod_description = "将《闪电十一人 CROSS》加入胜利之路：11支球队、CROSS卡片、15个必杀技、新球衣、办公室的额外角色和八座球场，并在机器人对战、BB体育场和球员库中加入专属标签页。作者：LiLKi。"
 
 [zh_hant.new]
+saga_name = "Inazuma Eleven Cross"
 mod_name = "IECross"
 mod_description = "將《閃電十一人 CROSS》加入勝利之路：11支球隊、CROSS卡片、15個必殺技、新球衣、辦公室的額外角色和八座球場，並在機器人對戰、BB體育場和球員庫中加入專屬標籤頁。作者：LiLKi。"

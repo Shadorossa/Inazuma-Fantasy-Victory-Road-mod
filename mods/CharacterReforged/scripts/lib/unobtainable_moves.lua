@@ -15,7 +15,7 @@ local function move_id(ref) return Id.parse(ref, { hash_names = true }) or 0 end
 -- the [[VRFW.Unobtainable]] entries of every active mod (load order)
 local function read_rules()
   local rules = {}
-  local ok, declarations = pcall(VRFW.files.declarations, "content/techniques")
+  local ok, declarations = pcall(VRFW.files.declarations, "content/techniques", { "VRFW.Unobtainable", "vrfw.Unobtainable" })
   for _, file in ipairs(ok and type(declarations) == "table" and declarations or {}) do
     local data = type(file) == "table" and file.data or nil
     local framework = type(data) == "table" and (data.VRFW or data.vrfw) or nil

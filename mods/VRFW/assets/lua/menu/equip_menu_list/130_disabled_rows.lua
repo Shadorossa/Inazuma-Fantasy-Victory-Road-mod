@@ -23,11 +23,12 @@ if VRFW.host ~= nil then
     reasons = {},     -- [inventory handle] = the reason's menu_text row, or false for a row the player may equip
     shaded = {},      -- [row instance] = true while its name is drawn grey
   }
+  --- Internal: Namespace: reasons why equipment list rows are disabled.
   VRFW.equip_list_disabled_rows = DR
 
   local Log = VRFW.logger.new("vrfw.EquipListDisabledRows")
 
-  --- The reason (a menu_text row id) the player may not equip inventory row `inv`, or nil; asked once per row.
+  --- Internal: The reason (a menu_text row id) the player may not equip inventory row `inv`, or nil; asked once per row.
   function DR.reason(inv)
     if not DR.on or type(inv) ~= "number" or inv == 0 or DR.character == 0 then return nil end
     local known = DR.reasons[inv]
@@ -39,7 +40,7 @@ if VRFW.host ~= nil then
     return known or nil
   end
 
-  --- Draws the name of row `instance` grey or as the game draws it.
+  --- Internal: Draws the name of row `instance` grey or as the game draws it.
   function DR.shade(layer, instance, on)
     for _, node in ipairs(NAME_NODES) do
       VRFW.host.menu_command(CMD.TEXT_SHADE, layer, instance, node, on and SHADE or 0)

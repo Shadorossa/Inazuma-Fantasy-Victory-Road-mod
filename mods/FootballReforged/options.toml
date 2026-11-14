@@ -1,13 +1,13 @@
 schema = "VRFW.option/2"
 # Football Reforged: its rows on the Mods screen's «Ajustes» and in Options > «Mod options».
 
-# Read by scripts\no_move_cooldown.lua each time a move's recast would start.
+# Read by scripts\no_move_cooldown.lua each time a move's recast would start: off = the recast is skipped.
 [[option]]
-id = "no_move_cooldown"                       # row key FootballReforged.no_move_cooldown
+id = "move_cooldown"                          # row key FootballReforged.move_cooldown
 type = "toggle"
-label = "option_no_move_cooldown"             # text\keys.toml, 9 languages
-help = "option_no_move_cooldown_help"
-default = 0
+label = "option_move_cooldown"                # text\keys.toml, 9 languages
+help = "option_move_cooldown_help"
+default = 1
 order = 200
 restart = false
 
@@ -19,4 +19,14 @@ label = "option_duel_auras"                   # text\keys.toml, 9 languages
 help = "option_duel_auras_help"
 default = 1
 order = 210
+restart = true
+
+# Technical Combo: content\params\technical_combo_off.toml turns the game's own isEnableTechnicalCombo flag off while this row is off.
+[[option]]
+id = "technical_combo"                        # row key FootballReforged.technical_combo
+type = "toggle"
+label = "option_technical_combo"              # text\keys.toml, 9 languages
+help = "option_technical_combo_help"
+default = 0
+order = 220
 restart = true

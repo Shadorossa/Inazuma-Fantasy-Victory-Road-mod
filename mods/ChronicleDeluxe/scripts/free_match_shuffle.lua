@@ -10,7 +10,8 @@ local TeamConfig = VRFW.teams.config
 local u32, hex = Id.unsigned, Id.hex_text
 
 local function row_words() return math.floor(VRFW.game.field("MemberRow") / 4) end
-local SLOT_AT = 0x47
+local function slot_at() return VRFW.game.field("MemberRow.Slot") end
+local function param_at() return VRFW.game.field("MemberRow.Param") end
 local RATES = 8           -- stat rates at +0x00 (8 floats)
 local STARTER_SLOTS = 11
 local PREFIX = "chronicle_deluxe_fms_"
@@ -32,7 +33,7 @@ local read_memory, write_memory = Memory.read, Memory.write
 local TEAMS_UNREADABLE_WARNED = false
 local function teams()
   if TEAMS then return TEAMS end
-  local rows, why = Catalogue.pool({ key_prefix = PREFIX })
+  local rows, why = Catalogue.pool({ key_prefix = PREFIX, columns = { "id", "key", "formation" } })
   if not rows then
     if not TEAMS_UNREADABLE_WARNED then
       TEAMS_UNREADABLE_WARNED = true
@@ -145,7 +146,7 @@ local function deal_team(t)
   local own, cls, src_rows = {}, {}, {}
   for s = 0, starters - 1 do
     cls[s] = form[s] or POS_MF
-    local card = u32(read_memory("u32", srcs[POS_GK][s] + 0x20))
+    local card = u32(read_memory("u32", srcs[POS_GK][s] + param_at()))
     local c = card ~= 0 and VRFW.character.card(card) or nil
     own[s] = (c and c.position and c.position >= 1 and c.position <= 4) and c.position or cls[s]
   end
@@ -179,9 +180,9 @@ local function deal_team(t)
         return nil, "rate write of place " .. j .. " failed (the team may be half written)"
       end
     end
-    if not write_memory("u8", a + SLOT_AT, j) then return nil, "slot write of place " .. j .. " failed" end
+    if not write_memory("u8", a + slot_at(), j) then return nil, "slot write of place " .. j .. " failed" end
     if cls[j] ~= own[i] then moved = moved + 1 end
-    parts[j + 1] = string.format("%d<-%d:%s %s->%s", j, i, hex(src_rows[i][9]), POS_NAME[own[i]] or "?", POS_NAME[cls[j]] or "?")
+    parts[j + 1] = string.format("%d<-%d:%s %s->%s", j, i, hex(src_rows[i][math.floor(param_at() / 4) + 1]), POS_NAME[own[i]] or "?", POS_NAME[cls[j]] or "?")
   end
   return true, string.format("%d starter(s) moved, %d of them to another position: [%s]", starters, moved, table.concat(parts, " "))
 end
@@ -211,19 +212,22 @@ function FmShuffle.Deal()
   return n
 end
 
-VRFW.on("slot_load", function()
-  for _, t in ipairs(teams()) do
-    VRFW.formation.classes(t.formation)
-  end
-  return nil
-end)
+-- The teams' formation classes come from the game tables only, so they are read at script load (the boot thread), not in the save's load.
+do
+  local ok, e = pcall(function()
+    for _, t in ipairs(teams()) do
+      VRFW.formation.classes(t.formation)
+    end
+  end)
+  if not ok then warn("formation classes not read at script load: " .. tostring(e)) end
+end
 
-VRFW.on("match_end", function()
+VRFW.on("match:end", function()
   DIRTY, TRIES = true, 0
   return nil
 end)
 
-VRFW.on("game_reset", function()
+VRFW.on("game:reset", function()
   DIRTY, TRIES = true, 0
   return nil
 end)

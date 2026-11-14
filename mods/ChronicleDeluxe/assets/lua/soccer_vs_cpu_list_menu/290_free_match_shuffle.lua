@@ -1,6 +1,6 @@
 if VRFW.host ~= nil then
-  local SHUFFLE = 4142888348
-  local ITEM = 1074924810           -- mainmenu90_19_vs_cpu_list_item
+  local SHUFFLE = VRFW.commands.ChronicleDeluxe_FreeMatchShuffle
+  local ITEM = VRFW.ids.crc32("mainmenu90_19_vs_cpu_list_item")
 
   local function deal()
     pcall(funcLuaCommand, SHUFFLE)

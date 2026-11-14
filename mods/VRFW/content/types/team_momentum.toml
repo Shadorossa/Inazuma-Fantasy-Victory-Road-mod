@@ -2,6 +2,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.team_momentum/1"
 folder = "content/team_momentum"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Match.TeamMomentum"
+v2_kind_folder = "Match/TeamMomentum"
+v2_version = 1
 label = "Team momentum"
 label_es = "Impulso de equipo"
 doc = "A team gauge driven by time and match events, with levels and phases."

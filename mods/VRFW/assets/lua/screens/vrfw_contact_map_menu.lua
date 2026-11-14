@@ -294,7 +294,9 @@ local function StartCo(fn, arg)
   end
 end
 
+--- Advanced: Namespace: mouse pointer tracker for menus; holds new().
 VRFW.pointer = VRFW.pointer or {}
+--- Advanced: Creates a mouse pointer tracker; answers a table with zone setters (rect, box, inst), position, at, poll and reset.
 VRFW.pointer.new = VRFW.pointer.new or function()
   local P = {zones = {}, on = false, x = nil, y = nil, hot = nil, prev = {}, edge_t = 0, REPEAT = 10}
   local MOVED, POS, GPOS, CHECK, CTRL = 3272825600, 558229292, 4002164178, 4265778440, 1332654303
@@ -447,6 +449,7 @@ VRFW.pointer.new = VRFW.pointer.new or function()
   return P
 end
 
+--- Advanced: Constants: command hashes of the menu keys, plus held(cmd, ctrl) and new_press().
 VRFW.keys = VRFW.keys or (function()
   local K = {
     UP = 1197218715, DOWN = 3259546669, LEFT = 2765147006, RIGHT = 2075023265,   -- CMD_UP / DOWN / LEFT / RIGHT
@@ -500,7 +503,9 @@ VRFW.keys = VRFW.keys or (function()
 end)()
 local Kit, Ptr                  -- set in OnInit
 
+--- Advanced: Namespace: 3D character model preview helper for menus; holds new().
 VRFW.chara_model = VRFW.chara_model or {}
+--- Advanced: Creates a character model preview (layer, opts); answers a table with show(pid), hide, release, ok and step.
 VRFW.chara_model.new = VRFW.chara_model.new or function(layer, opts)
   opts = opts or {}
   local M = {pid = nil, chara = nil, pend = nil, build = nil, hide_build = false, logs = 0, failed = false,
@@ -818,20 +823,20 @@ local function DrawBust(layer, idx, card, x, y, size)
     BUST.key[layer][idx] = card
     BUST.chara[tk] = chara
   end
-  -- the face mesh stays hidden while the face loads (VRFW.face_icon.settle in Step)
+  -- the face mesh stays hidden while the face loads (VRFW.face_icon settles it after Step)
   VRFW.face_icon.face(layer, idx, BUST.chara[layer .. ":" .. idx], BUST.MESH, BUST.TEX,
     {kit = 0, keeper = false, use_args = true})
   Kit.show(layer, idx)
 end
 
--- Steps the busts that are still loading.
+-- Notes when the busts that were loading have all come in (VRFW.face_icon settles them after Step).
+local bust_loading = false
 local function BustStep()
-  if VRFW.face_icon.pending() then
-    VRFW.face_icon.settle()
-    if not VRFW.face_icon.pending() then
-      OtNote("face in")
-    end
+  local loading = VRFW.face_icon.pending()
+  if bust_loading and not loading then
+    OtNote("face in")
   end
+  bust_loading = loading
 end
 
 local function DrawFace(layer, idx, face, x, y, size)

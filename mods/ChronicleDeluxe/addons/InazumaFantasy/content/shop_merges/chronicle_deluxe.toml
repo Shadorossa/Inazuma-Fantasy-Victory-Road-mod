@@ -1,0 +1,19 @@
+schema = "VRFW.shop_merge/1"
+
+# Chronicle Deluxe's items in Inazuma Fantasy's shops (InazumaFantasy.shops): the merge prices them by its own rule and
+# sorts them into its General Store by team; the items this mod gives as battle rewards are not sold there.
+
+[[VRFW.ShopMergeAdd]]
+name = "chronicle_deluxe"
+merge = "InazumaFantasy.shops"
+extra_items = ["ChronicleDeluxe.kit_mary_times_v", "ChronicleDeluxe.kit_pirates_cove_v",
+               "ChronicleDeluxe.kit_inazuma_japan_v", "ChronicleDeluxe.kit_silica_eleven_alt",
+               "ChronicleDeluxe.kit_naiadi_eleven_alt",
+               "ChronicleDeluxe.crest_world_selection", "ChronicleDeluxe.crest_womens_team"]
+# This mod's outfits with a price are rows of the General Store (content/items/story_outfits.toml).
+mod_outfits = true
+
+[[VRFW.ShopMergeAdd.rewarded_by]]
+prize_tables = "content/base_tables/gamedata/soccer/soccer_prize_config.toml"
+kinds = ["FASHION", "EMBLEM"]
+chains = ["content/teams/70_route_nodes/chain_*.toml"]

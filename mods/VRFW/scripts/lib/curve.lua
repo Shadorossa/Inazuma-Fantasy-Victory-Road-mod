@@ -1,6 +1,7 @@
+--- Advanced: Library: piecewise curve values from point lists.
 local M = {}
 
---- The value of the curve `points` at `x` (`empty` when the curve has no points).
+--- Advanced: The value of the curve `points` at `x` (`empty` when the curve has no points).
 function M.value_at(points, x, empty)
   if type(points) ~= "table" or #points == 0 then
     return empty
@@ -20,7 +21,7 @@ function M.value_at(points, x, empty)
   return points[#points][2]
 end
 
---- The curve points of configuration value `v` (`default` when it has none).
+--- Advanced: The curve points of configuration value `v` (`default` when it has none).
 function M.read_points(v, default)
   local out = {}
   for _, p in ipairs(type(v) == "table" and v or {}) do

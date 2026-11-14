@@ -1,3 +1,4 @@
+--- Advanced: Namespace: starts a friendly match from the menu with a spec (friendly, on_failed...).
 VRFW.match_start = VRFW.match_start or {}
 do
   local M = VRFW.match_start
@@ -31,6 +32,7 @@ do
   local ROOT_WAIT = 120               -- frames the root waits for each step of its close
   local SCENE_END_SECONDS = 1.5
   local script = type(VRFW.patch) == "table" and VRFW.patch.script or "?"
+  --- Internal: patch script name without its version, used as the log stem.
   M.stem = type(script) == "string" and (script:gsub("_%d+%.%d+%.%d+[%.%d]*$", "")) or "?"
   M.co, M.frames, M.wrapped, M.black = nil, 0, false, false
   M.watch, M.root_co, M.is_root, M.self_menu = nil, nil, false, nil
@@ -40,6 +42,7 @@ do
     logger = logger or VRFW.logger.new("VRFW match_start")
     logger(tostring(M.stem), ...)
   end
+  --- Internal: logger function of the match start.
   M.log = log
 
   local function unsigned(v) return VRFW.ids.unsigned_or(v, v) end
@@ -64,6 +67,7 @@ do
       return false
     end
     param_set(PARAM_HAND_OVER, unsigned(menu))
+    --- Internal: pending hand-over watch (frames, menu, root, spec, mode), or nil.
     M.watch = {frames = 0, menu = menu, root = root, spec = spec, mode = mode}
     log("hand-over: the scene root", root, "closes this menu and itself")
     return true
@@ -80,6 +84,7 @@ do
     if type(w.spec.play_mode) == "number" and type(w.mode) == "number" and w.mode >= 0 then
       pcall(funcLuaCommand, C.PLAY_MODE, w.mode)
     end
+    --- Internal: true while the black fade of the match start is up.
     M.black = false
     pcall(funcLuaCommand, C.FADE, 0, 0.3)
     pcall(funcLuaCommand, C.SE, C.SE_NO)
@@ -143,17 +148,19 @@ do
     end
     log("start", tostring(friendly), "game", tostring(spec.game), "set", tostring(set), "from play mode", tostring(mode),
       "frame", M.frames)
+    -- Only a recorded scene root is a way back target: a scene without one comes back by the game's own route.
     local back_to = root
-    if back_to == nil and type(menu) == "number" and menu ~= 0 then
-      back_to = unsigned(menu)
-    end
     param_set(PARAM_WAY_BACK_MENU, back_to)
     param_set(PARAM_WAY_BACK_FRIENDLY, back_to ~= nil and type(friendly) == "string" and VRFW.crc32(friendly) or nil)
     log("way back target", tostring(back_to))
-    local resume = back_to ~= nil and type(spec.resume) == "number" and spec.resume or nil
-    param_set(PARAM_RESUME_MENU, resume ~= nil and back_to or nil)
+    local resume_menu = root
+    if resume_menu == nil and type(menu) == "number" and menu ~= 0 then
+      resume_menu = unsigned(menu)
+    end
+    local resume = resume_menu ~= nil and type(spec.resume) == "number" and spec.resume or nil
+    param_set(PARAM_RESUME_MENU, resume ~= nil and resume_menu or nil)
     param_set(PARAM_RESUME_VALUE, resume)
-    if resume ~= nil then log("resume value", resume, "for", back_to) end
+    if resume ~= nil then log("resume value", resume, "for", resume_menu) end
     local ok, why = P.start(friendly, {
       game = spec.game, difficulty = spec.difficulty, stadium = spec.stadium, set = set, rival = spec.rival,
       tag = spec.tag, sub = spec.sub, objective = spec.objective,
@@ -207,6 +214,7 @@ do
     if M.black then
       pcall(funcLuaCommand, C.FADE, 1, 0)
     end
+    --- Internal: frames elapsed since the match start was requested.
     M.frames = M.frames + 1
     local ok, err = coroutine.resume(M.co)
     if not ok then log("error", tostring(err)) end
@@ -215,6 +223,7 @@ do
 
   local function wrap_step()
     if M.wrapped or type(Step) ~= "function" then return end
+    --- Internal: true once the Step function was wrapped to tick the start.
     M.wrapped = true
     local step = Step
     Step = function(...)
@@ -245,7 +254,7 @@ do
     wrap_step()
   end
 
-  --- The team set a friendly is launched with: the pachanga dock, -1, or the VS team and the current friendly.
+  --- Advanced: The team set a friendly is launched with: the pachanga dock, -1, or the VS team and the current friendly.
   function M.pachanga_team(current_friendly)
     local P = VRFW.friendly_match
     local set = type(P) == "table" and type(P.pachanga_set) == "function" and P.pachanga_set() or nil
@@ -268,7 +277,7 @@ do
     return -1
   end
 
-  --- The resume value stored for this menu, consumed; nil when there is none.
+  --- Advanced: The resume value stored for this menu, consumed; nil when there is none.
   function M.take_resume()
     local menu = param_get(PARAM_RESUME_MENU)
     if menu == nil or M.stem == "?" or menu ~= VRFW.crc32(M.stem) then return nil end
@@ -279,7 +288,7 @@ do
     return v
   end
 
-  --- True when this menu is reached from the title flow and is not the scene root.
+  --- Internal: True when this menu is reached from the title flow and is not the scene root.
   function M.title_bound()
     local okm, mode = pcall(funcLuaCommand, C.GET_PLAY_MODE)
     if not okm or mode ~= TITLE_PLAY_MODE then return false end
@@ -287,7 +296,7 @@ do
     return not (okr and root == true)
   end
 
-  --- The launch from this menu (see the header); answers true, or false, why.
+  --- Advanced: The launch from this menu (see the header); answers true, or false, why.
   function M.start(spec)
     if type(spec) ~= "table" or type(spec.friendly) ~= "string" then return false, "no friendly" end
     local P = VRFW.friendly_match
@@ -307,13 +316,14 @@ do
     local black = spec.black ~= false
     if black then pcall(funcLuaCommand, C.FADE, 1, 0) end
     M.frames, M.black = 0, black
+    --- Internal: coroutine that runs the match launch.
     M.co = coroutine.create(function() launch(spec) end)
     wrap_step()
     log("requested", spec.friendly)
     return true
   end
 
-  --- Pauses the game and leaves the match after `ms` milliseconds; answers ok, why.
+  --- Advanced: Pauses the game and leaves the match after `ms` milliseconds; answers ok, why.
   function M.exit(ms)
     local okp, pok, paused = pcall(funcLuaCommand, C.PAUSE, 1)
     log("exit: game paused", tostring(okp and pok), tostring(paused))

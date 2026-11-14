@@ -396,8 +396,8 @@ element_substitute_max = 2
 [team]
 # the AI level its strategies and player tactics read (1..9; the game's 1-4): it plays every strategy up to it; default 9
 strategy_level = 9
-# tension points it gains every second of play (0..50); default 1.0
-tension_per_second = 1.0
+# tension points it gains every second of play (0..50); default 0.4
+tension_per_second = 0.4
 # tension kept for its keeper (0..300; the game keeps 20); default 30
 keeper_tension_reserve = 30
 
@@ -494,12 +494,12 @@ defaultWaitTimeMax = 0.0
 fCharaTacticsUpdateIntervalTime = 0.1
 # players near the ball that re-plan twice as often (0..11); default 11
 fCharaTacticsUpdateMoreNumMax = 11
-charaTacticsDelayTime = 0.0
-# random extra reaction delay (seconds) (0..5); default 0.0
-charaTacticsDelayFluctuationTime = 0.0
+charaTacticsDelayTime = 0.1
+# random extra reaction delay (seconds) (0..5); default 0.0; tester feedback: 0 made the AI stutter in the zone, now 0.1/0.2
+charaTacticsDelayFluctuationTime = 0.2
 # seconds a player re-plans at once after a state change (0..5); default 0.5
 fCharaTacticsStateChangeUpdateTime = 0.5
-fCharaTacticsResetIntervalTime = 0.5
+fCharaTacticsResetIntervalTime = 5.0
 # seconds between two strategy choices of the team (0..10); default 0.1
 teamStrategyUpdateInterval = 0.1
 # seconds between two team tactic choices (0..30); default 0.25
@@ -566,7 +566,7 @@ passNearEnemyNumSuccessRateRatio = 0.6
 # weight of back passes (0..1000); default 5
 passWeightBackPasss = 5
 # pitch depth beyond which back passes stop (-1..1); default 0.0
-passDisableBackPassPosRateZ = 0.0
+passDisableBackPassPosRateZ = 0.75
 # pass target value away from rivals (0..100000); default 1500
 passPotentialFromOpp = 1500
 # pass target value toward the goal (0..100000); default 12000
@@ -700,7 +700,7 @@ passPotentialFromOpp = 1500
 # weight of back passes (0..1000); default 5
 passWeightBackPasss = 5
 # pitch depth beyond which back passes stop (-1..1); default 0.0
-passDisableBackPassPosRateZ = 0.0
+passDisableBackPassPosRateZ = 0.75
 # dribble choice: weight of the phase value (0..1000); default 60
 tacticsDribbleEvaluationPhaseEvaluationWeight = 60
 # seconds between dash decisions of the ball carrier (shortest) (0..10); default 0.1
@@ -753,11 +753,171 @@ uNoStopPressCharaNumMax = 0
 # tension it keeps after a move (a move that would drop below is skipped) (0..300); default 0.0
 keepTention = 0.0
 
+# ------------------------------------------------------------------------------------------------ Leyenda only (difficulty.team_from = 6)
+[loose_ball]
+# players sent to the landing point of a clearance or loose kick, and to a rebound's meeting point (players, 0..4); default 1
+players = 2
+# only players within this of that point run (m); default 40
+range_m = 60
+# the run speed its meeting points are estimated with (m/s); default 7
+run_speed_mps = 7.5
+# they keep the point this long after the ball gets there (s); default 0.3
+hold_s = 0.3
+# they sprint (1 = on, 0 = off); default 1
+sprint = 1
+# kicks shorter than this are left to the game (s); default 0.3
+min_flight_s = 0.2
+# a loose ball no kick explains (a rebound) is chased above this speed (m/s; 0 = off); default 3
+rebound_mps = 2
+# the rebound runners' points are refreshed this often (s); default 0.1
+rebound_every_s = 0.1
+
+[pass_predict]
+# your likely receivers whose lanes are cut before you pass (players, 0..4); default 2
+receivers = 3
+# the cutter stands this far along the lane from your carrier (0..1); default 0.5
+at = 0.45
+# the read is made again this often (s); default 0.15
+every_s = 0.1
+# each cut lasts this long unless read again (s); default 0.5
+seconds = 0.4
+# only your teammates within this of the carrier, and cutters within this of the lane point (m); default 30
+range_m = 35
+# weight of your carrier's heading in the read; default 1
+facing_weight = 1.2
+# weight of an open lane in the read; default 1
+open_weight = 1.0
+# weight of the distance (farther = less likely); default 0.5
+distance_weight = 0.5
+# below this run speed your carrier has no heading (m/s); default 0.5
+min_speed_mps = 0.5
+
+[stick_read]
+# (Leyenda) your stick is seen this late (s); default 0.2
+react_s = 0.18
+# chance a read of your stick is missed (0..1); default 0.15
+error = 0.12
+# the read's aim error, up to (degrees); default 10
+noise_deg = 10
+# a new read (miss / aim error) is made this often (s); default 0.35
+decide_s = 0.35
+# your stick counts as pushed from this far off centre (0..1); default 0.5
+min_stick = 0.5
+# weight of your stick over your carrier's run when it guesses your pass (0..1); default 0.7
+pass_weight = 0.7
+# in a duel your stick counts as going to a side from this far sideways (0..1); default 0.35
+duel_min = 0.35
+# its duel defender's straight move shifts this far to the side your stick goes to (m, 0..5); default 0.8
+duel_shift_m = 0.8
+# its duel defender covers the side your stick goes to (0 / 1); default 1
+duel_cover = 1
+# its duel attacker reads the side your defender's stick goes to (0 / 1); default 1
+attack_read = 1
+# your carrier's run teaches it how your stick turns into the pitch from this speed (m/s); default 3
+learn_speed_mps = 3.0
+# run frames before it trusts the stick turn it learned (a catalogue seed, if set, plays before); default 8
+learn_samples = 8
+# share of those samples that must agree (0..1); default 0.8
+learn_agreement = 0.8
+
+[human_habits]
+# (Leyenda) a habit of yours halves its weight in this time, so a change of style shows fast (s); default 40
+half_life_s = 40
+# actions of a kind before it trusts that habit; default 3
+min_weight = 3
+# after it presses you, keeping the ball this long counts as escaping (s); default 2
+press_window_s = 2.0
+# weight of your habitual pass side / depth when it guesses your pass; default 0.6
+pass_weight = 0.6
+# a duel side lean (0..1) it follows when your stick gives no clear side; default 0.3
+duel_min = 0.3
+# its zone walls lean this far toward your habitual shot side (m); default 0.6
+shot_shift_m = 0.6
+
+[stick_press]
+# (Leyenda) your carrier's stick toward his own goal at least this much (0..1) makes it press at once; default 0.5
+back_dot = 0.5
+# players that press you then; default 2
+players = 2
+# more pressers when you usually escape its press; default 1
+escape_extra = 1
+# only its players within this of your carrier (m); default 20
+range_m = 20
+# the press lasts (s); default 1.2
+press_s = 1.2
+# no new press for (s); default 3
+cooldown_s = 3.0
+
+[weak_side_attack]
+# (Leyenda) support runners to the side far from the player you control; default 1
+runners = 1
+# that spot is this far sideways from its carrier (m); default 15
+width_m = 15
+# and this far ahead of him (m); default 8
+ahead_m = 8
+# each next runner this much further back (m); default 6
+gap_m = 6
+# each run order lasts (s); default 1
+run_s = 1.0
+# the weak side is read again this often (s); default 0.5
+every_s = 0.5
+
+[pass_away_from_stick]
+# (Leyenda) your stick running along its pass lane this much (-1..1) makes it change the pass; default 0.5
+lane_dot = 0.5
+# the new receiver's direction against your stick, at most (-1..1); default 0
+away_dot = 0.0
+# the new receiver at least this far from the kicker (m); default 6
+min_m = 6
+# and at most this far (m); default 30
+max_m = 30
+# nobody of yours within this of the new lane (m); default 3
+open_m = 3
+
+[run_behind_defender]
+# (Leyenda) its forward runs to this far behind the player you control (m); default 8
+behind_m = 8
+# and this far to the side your stick leaves open (m); default 3
+side_m = 3
+# only while its carrier is within this of your player (m); default 30
+carrier_range_m = 30
+# only a forward within this of the spot (m); default 20
+runner_range_m = 20
+# the run lasts (s); default 1.5
+run_s = 1.5
+# no new run for (s); default 4
+cooldown_s = 4.0
+
+[duel_probe]
+# (Leyenda) log each CPU duel choice with your commit state (diagnostic); default true
+on = true
+
+[zone_wall_track]
+# the walls stand this far from your shooter on his line to goal (m); default 3
+from_m = 3
+# the two walls stand this far apart across that line (m); default 1.2
+gap_m = 1.2
+
+[pass_safety]
+# your players' reaction before they run to a pass lane (s); default 0.1
+reaction_s = 0.0
+# their run speed in that read (m/s); default 7
+run_speed_mps = 7.5
+# a lob over a cut lane passes this high over the cut point (m); default 2.5
+clear_m = 2.5
+# longest lob it makes instead (s); default 2
+lob_max_s = 1.8
+# passes shorter than this are left as they are (s); default 0.3
+min_flight_s = 0.3
+# a pass already rising faster than this is a lob and is left as it is (m/s); default 1
+lob_vertical_mps = 1.0
+
 [difficulty]
 # one factor per level, low to high: value = start + factor x (top value - start), integers rounded; 1.0 = the value above
-factors = [0.2, 0.4, 0.6, 0.8, 1.0]
+# the sixth level (Leyenda) keeps factor 1.0: it differs from Hell only by the sixth entry of each values list
+factors = [0.2, 0.4, 0.6, 0.8, 1.0, 1.0]
 # the names in the log line at match start, by level
-names = ["novice", "amateur", "professional", "world_class", "hell"]
+names = ["novice", "amateur", "professional", "world_class", "hell", "legend"]
 
 # the level (1 = lowest) from which a per-team behaviour plays; below it the key is left out, so the game's own AI acts
 [difficulty.team_from]
@@ -778,6 +938,17 @@ Shape = 3
 SubstituteAtStamina = 3
 ThroughBallCover = 3
 ZoneWallGuards = 3
+LooseBallRead = 6
+PassPredict = 6
+StickRead = 6
+HumanHabits = 6
+StickPress = 6
+WeakSideAttack = 6
+PassAwayFromStick = 6
+RunBehindDefender = 6
+DuelCommitProbe = 6
+PassSafety = 6
+ZoneWallTrack = 6
 ZoneWallHold = 3
 AuraElementCounter = 4
 LearnUserMoves = 4
@@ -819,7 +990,7 @@ offside_trap_miss = 0.5
 [difficulty.from.focus_duel]
 hurry_scale = 1.0
 hurry_force_at = 1.0
-attack_read_react_s = { values = [0.21, 0.17, 0.13, 0.09, 0.0] }
+attack_read_react_s = { values = [0.21, 0.17, 0.13, 0.09, 0.0, 0.0] }
 attack_read_feint = 0.0
 
 # the same chance at every level: it multiplies attackDashEnableRate, which rises with the level
@@ -827,40 +998,40 @@ attack_read_feint = 0.0
 chance_per_opponent = 0.5
 
 [difficulty.from.press]
-lane_cut_receivers = 1
-range_m = 20
-max = { values = [1, 2, 2, 3, 4] }
-speed_mult = 1.0
-lead_s = { values = [0.0, 0.0, 0.0, 0.0, 0.35] }
-cover = { values = [0, 0, 0, 0, 1] }
+lane_cut_receivers = { values = [1, 2, 2, 3, 3, 4] }
+range_m = { values = [25, 30, 35, 40, 45, 55] }
+max = { values = [1, 2, 2, 3, 4, 5] }
+speed_mult = { values = [1.03, 1.06, 1.09, 1.12, 1.15, 1.25] }
+lead_s = { values = [0.0, 0.0, 0.0, 0.0, 0.35, 0.5] }
+cover = { values = [0, 0, 0, 0, 1, 1] }
 
 [difficulty.from.offside_trap]
-reaction_s = { values = [0.86, 0.72, 0.58, 0.44, 0.1] }
-cooldown_s = { values = [2.5, 2.5, 2.5, 2.5, 1.5] }
+reaction_s = { values = [0.86, 0.72, 0.58, 0.44, 0.1, 0.05] }
+cooldown_s = { values = [2.5, 2.5, 2.5, 2.5, 1.5, 1.0] }
 
 [difficulty.from.low_block]
-after_lost_s = { values = [5, 4, 4, 3, 3] }
-press = { values = [0, 1, 1, 2, 3] }
-recover_mult = 1.0
+after_lost_s = { values = [5, 4, 4, 3, 3, 2] }
+press = { values = [0, 1, 1, 2, 3, 4] }
+recover_mult = { values = [1.05, 1.1, 1.15, 1.2, 1.25, 1.4] }
 
 [difficulty.from.shot_chain_read]
-blockers = { values = [1, 1, 2, 2, 3] }
+blockers = { values = [1, 1, 2, 2, 3, 4] }
 
 [difficulty.from.pass_read]
-players = { values = [1, 1, 2, 2, 3] }
+players = { values = [1, 1, 2, 2, 3, 4] }
 reaction_s = 0.5
-forwards = { values = [0, 0, 0, 0, 1] }
-range_m = { values = [30, 30, 30, 30, 35] }
+forwards = { values = [0, 0, 0, 0, 1, 1] }
+range_m = { values = [30, 30, 30, 30, 35, 40] }
 
 [difficulty.from.through_ball_cover]
-chasers = { values = [1, 1, 2, 2, 3] }
+chasers = { values = [1, 1, 2, 2, 3, 4] }
 
 [difficulty.from.counter]
-window_s = { values = [3, 4, 4, 5, 7] }
-runners = { values = [1, 2, 2, 3, 4] }
+window_s = { values = [3, 4, 4, 5, 7, 9] }
+runners = { values = [1, 2, 2, 3, 4, 5] }
 
 [difficulty.from.passing]
-pass_speed = 1.0
+pass_speed = { values = [1.0272, 1.0544, 1.0816, 1.1088, 1.136, 1.2] }
 
 [difficulty.from.moves]
 best_move_chance = 0.0
@@ -869,16 +1040,19 @@ best_move_chance = 0.0
 [difficulty.from.stamina]
 sprint_rate = 0.85
 sprint_attack_rate = 0.5
+sprint_above = { values = [0.35, 0.35, 0.35, 0.35, 0.35, 0.3] }
+substitute_at_stamina = { values = [0.15, 0.15, 0.15, 0.15, 0.15, 0.25] }
 
 [difficulty.from.team]
-strategy_level = { values = [8, 8, 8, 8, 9] }
-tension_per_second = 0.0
-keeper_tension_reserve = 20
+strategy_level = { values = [8, 8, 8, 8, 9, 9] }
+tension_per_second = { values = [0.1, 0.15, 0.2, 0.3, 0.4, 0.6] }
+keeper_tension_reserve = { values = [22, 24, 26, 28, 30, 40] }
 
 [difficulty.from.auras]
-keeper_priority = 0.0
-carrier_free_slot_chance = 0.0
-decide_s = { values = [0.5, 0.5, 0.5, 0.5, 0.25] }
+keeper_priority = { values = [0.17, 0.34, 0.51, 0.68, 0.85, 0.95] }
+carrier_free_slot_chance = { values = [0.08, 0.16, 0.24, 0.32, 0.4, 0.6] }
+decide_s = { values = [0.5, 0.5, 0.5, 0.5, 0.25, 0.15] }
+keeper_threat_m = { values = [35, 35, 35, 35, 35, 45] }
 
 [difficulty.from.retail_ai.class_rates]
 passEnableRate = 0.6
@@ -895,9 +1069,9 @@ focusAtkOpponentSkillRate = 0.9
 focusDefOpponentSkillRate = 0.9
 focusAtkImmediateSkillRate = 0.8
 focusDefImmediateSkillRate = 0.8
-focusActionIntervalA = { values = [0.18, 0.16, 0.14, 0.12, 0.05] }
-focusActionIntervalB = 0.1
-focusActionIntervalC = 0.1
+focusActionIntervalA = { values = [0.18, 0.16, 0.14, 0.12, 0.05, 0.03] }
+focusActionIntervalB = { values = [0.09, 0.08, 0.07, 0.06, 0.05, 0.03] }
+focusActionIntervalC = { values = [0.09, 0.08, 0.07, 0.06, 0.05, 0.03] }
 focusBreakThroughDisableTime = 0.15
 focusBreakThroughEscapeRate = 1.0
 focusPassEnableRate = 1.0
@@ -927,23 +1101,23 @@ fCharaTacticsUpdateMoreNumMax = "retail"
 charaTacticsDelayTime = "retail"
 charaTacticsDelayFluctuationTime = "retail"
 fCharaTacticsStateChangeUpdateTime = "retail"
-fCharaTacticsResetIntervalTime = { values = [4.2, 3.4, 2.6, 1.8, 0.5] }
-teamStrategyUpdateInterval = { values = [1.64, 1.28, 0.92, 0.56, 0.1] }
-teamTacticsUpdateInterval = { values = [4.1, 3.2, 2.3, 1.4, 0.25] }
+fCharaTacticsResetIntervalTime = { values = [4.2, 3.4, 2.6, 1.8, 5.0, 5.0] }
+teamStrategyUpdateInterval = { values = [1.64, 1.28, 0.92, 0.56, 0.1, 0.05] }
+teamTacticsUpdateInterval = { values = [4.1, 3.2, 2.3, 1.4, 0.25, 0.15] }
 passLotteryIntervalMin = "retail"
-passLotteryIntervalMax = { values = [2.42, 1.84, 1.26, 0.68, 0.06] }
+passLotteryIntervalMax = { values = [2.42, 1.84, 1.26, 0.68, 0.06, 0.04] }
 fAutoPassIntervalTime = "retail"
-gkAutoPassTime = { values = [3.36, 2.72, 2.08, 1.44, 0.4] }
+gkAutoPassTime = { values = [3.36, 2.72, 2.08, 1.44, 0.4, 0.3] }
 dashLineDashLotteryIntervalMin = "retail"
-dashLineDashLotteryIntervalMax = { values = [1.72, 1.44, 1.16, 0.88, 0.4] }
-slidingLotteryIntervalMin = { values = [0.9, 0.8, 0.7, 0.6, 0.3] }
-slidingLotteryIntervalMax = { values = [2.7, 2.4, 2.1, 1.8, 0.8] }
-spTacticsAutoUseIntervalMin = { values = [4.2, 3.4, 2.6, 1.8, 0.5] }
-spTacticsAutoUseIntervalMax = { values = [8.4, 6.8, 5.2, 3.6, 1.0] }
-suTacticsAutoUseIntervalMin = { values = [4.2, 3.4, 2.6, 1.8, 0.5] }
-suTacticsAutoUseIntervalMax = { values = [8.4, 6.8, 5.2, 3.6, 1.0] }
-auraSkillAutoUseIntervalMin = { values = [2.5, 2.0, 1.5, 1.0, 0.25] }
-auraSkillAutoUseIntervalMax = { values = [4.2, 3.4, 2.6, 1.8, 0.5] }
+dashLineDashLotteryIntervalMax = { values = [1.72, 1.44, 1.16, 0.88, 0.4, 0.3] }
+slidingLotteryIntervalMin = { values = [0.9, 0.8, 0.7, 0.6, 0.3, 0.2] }
+slidingLotteryIntervalMax = { values = [2.7, 2.4, 2.1, 1.8, 0.8, 0.6] }
+spTacticsAutoUseIntervalMin = { values = [4.2, 3.4, 2.6, 1.8, 0.5, 0.35] }
+spTacticsAutoUseIntervalMax = { values = [8.4, 6.8, 5.2, 3.6, 1.0, 0.7] }
+suTacticsAutoUseIntervalMin = { values = [4.2, 3.4, 2.6, 1.8, 0.5, 0.35] }
+suTacticsAutoUseIntervalMax = { values = [8.4, 6.8, 5.2, 3.6, 1.0, 0.7] }
+auraSkillAutoUseIntervalMin = { values = [2.5, 2.0, 1.5, 1.0, 0.25, 0.15] }
+auraSkillAutoUseIntervalMax = { values = [4.2, 3.4, 2.6, 1.8, 0.5, 0.35] }
 autoRunFocusBtlProbabilityMax = "retail"
 autoRunFocusBtlIntervalMin = "retail"
 autoRunFocusBtlIntervalMax = "retail"
@@ -956,28 +1130,28 @@ autoRunShootProbabilityMin = "retail"
 autoRunShootProbabilityMax = "retail"
 autoRunShootIntervalMin = "retail"
 autoRunShootIntervalMax = "retail"
-uPressCharaNumMax = { values = [4, 4, 5, 5, 7] }
-uNoStopPressCharaNumMax = { values = [2, 2, 3, 3, 5] }
-tacticsPassEvaluationSuccessRateWeight = "retail"
+uPressCharaNumMax = { values = [4, 4, 5, 5, 7, 8] }
+uNoStopPressCharaNumMax = { values = [2, 2, 3, 3, 5, 6] }
+tacticsPassEvaluationSuccessRateWeight = { values = [56, 62, 68, 74, 80, 100] }
 tacticsPassEvaluationPhaseEvaluationWeight = "retail"
 tacticsDribbleEvaluationSuccessRateWeight = "retail"
 tacticsDribbleEvaluationPhaseEvaluationWeight = "retail"
-passNearEnemyNumSuccessRateRatio = "retail"
+passNearEnemyNumSuccessRateRatio = { values = [0.36, 0.42, 0.48, 0.54, 0.6, 0.8] }
 passWeightBackPasss = "retail"
 passDisableBackPassPosRateZ = "retail"
 passPotentialFromOpp = "retail"
 passPotentialToGoal = "retail"
 charaSpeedStrengthMin = "retail"
-focusOpponentSkillDelayMinTimeRate = { values = [0.33, 0.26, 0.19, 0.12, 0.0] }
-focusOpponentSkillDelayAddTimeRate = { values = [0.41, 0.32, 0.23, 0.14, 0.0] }
+focusOpponentSkillDelayMinTimeRate = { values = [0.33, 0.26, 0.19, 0.12, 0.0, 0.0] }
+focusOpponentSkillDelayAddTimeRate = { values = [0.41, 0.32, 0.23, 0.14, 0.0, 0.0] }
 markCheckNearDist = "retail"
-pressCheckNearLen = { values = [12, 14, 16, 18, 26] }
+pressCheckNearLen = { values = [12, 14, 16, 18, 26, 30] }
 eventMoveSpeedStrength_Mark = "retail"
 eventMoveSpeedStrength_PressBall = "retail"
 eventMoveSpeedStrength_PressChara = "retail"
 eventMoveSpeedStrength_LineMove = "retail"
-pressTimeLimit = { values = [7, 8, 10, 11, 15] }
-changePossessionContinueTime = { values = [1.14, 0.98, 0.82, 0.66, 0.2] }
+pressTimeLimit = { values = [7, 8, 10, 11, 15, 18] }
+changePossessionContinueTime = { values = [1.14, 0.98, 0.82, 0.66, 0.2, 0.12] }
 passFarDistBase = "retail"
 passFarDistMax = "retail"
 passExpectetdFarDistMax = "retail"
@@ -987,7 +1161,7 @@ throuthPassTargetLengthAdjustRate = "retail"
 [difficulty.from.situations.opponent_received_pass_within]
 uPressCharaNumMax = "retail"
 uNoStopPressCharaNumMax = "retail"
-value = { values = [2.0, 2.0, 2.0, 2.0, 3.0] }
+value = { values = [2.0, 2.0, 2.0, 2.0, 3.0, 4.0] }
 
 [difficulty.from.situations.opponent_ball_owner_stamina_below]
 uPressCharaNumMax = "retail"
@@ -1012,9 +1186,9 @@ focusPowerBlockUseRate = 0.85
 focusDefImmediateSkillRate = 0.8
 
 [difficulty.from.situations.own_lost_ball_within]
-uPressCharaNumMax = { values = [4, 5, 6, 7, 10] }
-uNoStopPressCharaNumMax = { values = [2, 3, 4, 5, 8] }
-value = { values = [2.0, 2.0, 2.0, 2.0, 3.0] }
+uPressCharaNumMax = { values = [4, 5, 6, 7, 10, 10] }
+uNoStopPressCharaNumMax = { values = [2, 3, 4, 5, 8, 9] }
+value = { values = [2.0, 2.0, 2.0, 2.0, 3.0, 4.0] }
 
 [difficulty.from.situations.own_lost_ball_over]
 posOffsetRateFW = 0.0
@@ -1032,7 +1206,7 @@ throuthPassTargetLengthAdjustRate = "retail"
 positioningOffenseDirPosOffsetDist = "retail"
 offensePosOffsetDistRateOffense = "retail"
 dashLineDashLotteryIntervalMin = "retail"
-dashLineDashLotteryIntervalMax = { values = [1.72, 1.44, 1.16, 0.88, 0.4] }
+dashLineDashLotteryIntervalMax = { values = [1.72, 1.44, 1.16, 0.88, 0.4, 0.3] }
 
 [difficulty.from.situations.own_possession_over]
 passPotentialToGoal = "retail"
@@ -1041,7 +1215,7 @@ passWeightBackPasss = "retail"
 passDisableBackPassPosRateZ = "retail"
 tacticsDribbleEvaluationPhaseEvaluationWeight = "retail"
 dashLineDashLotteryIntervalMin = "retail"
-dashLineDashLotteryIntervalMax = { values = [1.72, 1.44, 1.16, 0.88, 0.4] }
+dashLineDashLotteryIntervalMax = { values = [1.72, 1.44, 1.16, 0.88, 0.4, 0.3] }
 posOffsetRateFW = 0.0
 posOffsetRateDF = 0.0
 
@@ -1067,7 +1241,7 @@ attackDashEnableRate = 0.5
 keepTention = 0.0
 
 [difficulty.from.behind_line]
-enter_s = { values = [0.15, 0.15, 0.15, 0.15, 0.1] }
+enter_s = { values = [0.15, 0.15, 0.15, 0.15, 0.1, 0.05] }
 
 [difficulty.from.shape]
-hold_s = { values = [0.5, 0.5, 0.5, 0.5, 0.35] }
+hold_s = { values = [0.5, 0.5, 0.5, 0.5, 0.35, 0.25] }

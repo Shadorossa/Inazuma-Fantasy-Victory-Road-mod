@@ -1,6 +1,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.kit_variant/1"
 folder = "content/kit_variants"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Team.KitVariant"
+v2_kind_folder = "Teams/KitVariants"
+v2_version = 1
 label = "Kit variants"
 label_es = "Variantes de equipación"
 doc = "Pairs of team kits the kit picker switches with X (a kit and the same kit without sponsor, for example). The team wears the one chosen; the choice is kept per kit in the save."

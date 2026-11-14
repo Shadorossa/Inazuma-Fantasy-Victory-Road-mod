@@ -1,8 +1,12 @@
 
+--- Advanced: Namespace of the archetype menu parts (team, match and info passive lists).
 VRFW.archetype = VRFW.archetype or {}
 local A = VRFW.archetype
+--- Internal: command hash of the archetype team list.
 A.CMD_TEAM = A.CMD_TEAM or VRFW.commands.VRFW_ARCHETYPE_TEAM
+--- Internal: command hash of the archetype match list.
 A.CMD_MATCH = A.CMD_MATCH or VRFW.commands.VRFW_ARCHETYPE_MATCH
+--- Internal: command hash of the archetype info panel.
 A.CMD_INFO = A.CMD_INFO or VRFW.commands.VRFW_ARCHETYPE_INFO
 
 local LIST_BASE = 862546245     -- soccer11_21_formation_team_passive_list_base
@@ -24,6 +28,7 @@ local function current_build()
   return nil
 end
 
+--- Internal: wrapper table of the soccer parameter menu callbacks (OnSetupLayer).
 A.parameter = A.parameter or {}
 local W = A.parameter
 
@@ -31,7 +36,8 @@ if type(OnSetupLayer) == "function" and OnSetupLayer ~= W.OnSetupLayer then
   local orig = OnSetupLayer
   W.OnSetupLayer = function(a1, a2, ...)
     local r = orig(a1, a2, ...)
-    if a1 == LIST_BASE then
+    local pages = VRFW.team_bonus_pages   -- every page frame: the game's three and the ones mods add
+    if a1 == LIST_BASE or (pages ~= nil and pages.is_frame(a1)) then
       local b = current_build()
       if b then
         local has, name, _, _, large = VRFW.host.command(A.CMD_INFO, b)

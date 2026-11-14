@@ -4,7 +4,7 @@ schema = "VRFW.changelog/1"
 icon = "general"
 notes = [
     "Crónica ampliada con más rivales",
-    "Partidas libres con niveles y botín",
+    "Partido libre con niveles, botín y pachangas",
     "Cadenas de rivales sin repetir",
     "Sello del Maestro",
     "Universo de jugadores temático",
@@ -13,7 +13,7 @@ notes = [
 [release.en]
 notes = [
     "Expanded Chronicle with more rivals",
-    "Free matches with levels and loot",
+    "Free matches with levels, loot and kickabouts",
     "Rival chains without repeats",
     "Master's Seal",
     "Players Universe by theme",
@@ -22,7 +22,7 @@ notes = [
 [release.fr]
 notes = [
     "Chronique élargie, plus de rivaux",
-    "Matchs libres avec niveaux et butin",
+    "Matchs libres avec niveaux, butin et petits matchs",
     "Chaînes de rivaux sans répétition",
     "Sceau du Maître",
     "Univers des joueurs par thème",
@@ -31,7 +31,7 @@ notes = [
 [release.de]
 notes = [
     "Erweiterte Chronik mit mehr Gegnern",
-    "Freie Spiele mit Level und Beute",
+    "Freie Spiele mit Level, Beute und Bolzen",
     "Gegnerketten ohne Wiederholung",
     "Siegel des Meisters",
     "Spieler-Universum nach Themen",
@@ -40,7 +40,7 @@ notes = [
 [release.it]
 notes = [
     "Cronaca ampliata con più rivali",
-    "Partite libere con livelli e bottino",
+    "Partite libere con livelli, bottino e partitelle",
     "Catene di rivali senza ripetizioni",
     "Sigillo del Maestro",
     "Universo dei giocatori a tema",
@@ -49,7 +49,7 @@ notes = [
 [release.pt]
 notes = [
     "Crónica ampliada com mais rivais",
-    "Jogos livres com níveis e saque",
+    "Jogos livres com níveis, saque e peladinhas",
     "Cadeias de rivais sem repetição",
     "Selo do Mestre",
     "Universo dos jogadores por tema",
@@ -58,7 +58,7 @@ notes = [
 [release.ja]
 notes = [
     "対戦相手が増えた年代記",
-    "レベルと戦利品付きの自由戦",
+    "レベル・戦利品・ミニゲーム付きの自由戦",
     "重複しないライバル連戦",
     "マスターの印",
     "テーマ別のプレイヤーズユニバース",
@@ -67,7 +67,7 @@ notes = [
 [release.zh_hans]
 notes = [
     "扩充的编年史与更多对手",
-    "带等级与战利品的自由赛",
+    "带等级、战利品与街头赛的自由赛",
     "不重复的对手链",
     "大师印记",
     "按主题的球员宇宙",
@@ -76,7 +76,7 @@ notes = [
 [release.zh_hant]
 notes = [
     "擴充的編年史與更多對手",
-    "帶等級與戰利品的自由賽",
+    "帶等級、戰利品與街頭賽的自由賽",
     "不重複的對手鏈",
     "大師印記",
     "按主題的球員宇宙",

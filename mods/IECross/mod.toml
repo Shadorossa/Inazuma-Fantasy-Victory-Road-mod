@@ -1,17 +1,22 @@
 id = "IECross"
 name = "IECross"
-version = "0.3.0"
+version = "0.3.1"
 author = "LiLKi"
 description = "Inazuma Eleven Cross in Victory Road: its 11 teams, the Cross cards, 15 special moves, new kits, extra Office characters and eight stadiums, with their own tabs in bot matches, the Battle Bay and the player bank. Authors: LiLKi."
 priority = 0
+type = "content"
 tags = ["Teams", "Characters", "Techniques"]
 updated = "2026-11-09"
 prefix = "IECross"
 folder = "IECross"
 # The «Inazuma Eleven Cross» content (teams, characters, techniques, kits, stadiums, celebrations).
 requires = ["VRFW>=0.3.0"]
-optional = ["BattleBayDeluxe", "BetterQoL", "CharacterReforged", "InazumaFantasy"]
+optional = ["BattleBayDeluxe", "BetterQoL", "CharacterReforged", "HissatsuReforged", "InazumaFantasy"]
 conflicts = []
+
+# The saga row of this mod's moves in the move filter's series tab.
+[saga]
+text = "IECross.saga_name"
 
 [exports]
 functions = []

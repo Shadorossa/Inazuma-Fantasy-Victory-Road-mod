@@ -19,7 +19,7 @@ order = 200
   # album only: not on any team, so Luke's belong team is cleared
   team_1 = 0
   team_2 = 0
-  team_3 = 0
+  team_3 = 0x5595D5FA  # crc32("evt_belong_team_fantasy"): the bank's Fantasy tab
 
   [character.new_model]
   id = 0x8A7890BC  # crc32("c90620000_model")
@@ -97,8 +97,8 @@ order = 200
   growth = "normal"
   stats = { kick = 328, control = 230, technique = 269, pressure = 172, physical = 232, intelligence = 193, agility = 163, luck = 151, freedom = 0 }
   moves = [
-    { move = 0x518BCA26, level = 1 },                     # Fire Tornado (shot, fire, 360)
-    { move = 0x427719AC, level = 20 },                    # Gale Dash (dribble, fire, 440)
-    { move = 0x5F1FEB23, level = 38 },                    # Meteoric Fire Tornado (shot, fire, 540)
-    { move = 0x99250542, level = 60 },                    # Volcanic Lightning (shot, fire, 640)
+    { move = "whs00030", level = 1 },                     # Fire Tornado (shot, fire, 360)
+    { move = "who00270", level = 20 },                    # Gale Dash (dribble, fire, 440)
+    { move = "whs10110", level = 38 },                    # Meteoric Fire Tornado (shot, fire, 540)
+    { move = "whs02570", level = 60 },                    # Volcanic Lightning (shot, fire, 640)
   ]

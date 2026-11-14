@@ -5,7 +5,10 @@ local Draft = require "draft"
 local Tourn = require "tournament"
 local Active = require "active_team"
 local Net = require "net_match"
-require "kit_diag"
+-- The kit diagnostic log runs only when config.toml [debug] kit_log is true.
+if U.config("debug.kit_log", false) == true then
+  require "kit_diag"
+end
 require "campaign_fields"
 -- the "Daily challenge" (its commands, its blob, its match handlers)
 require "daily_challenge"
@@ -14,16 +17,16 @@ local Trophy = require "lib/trophy_celebration"
 
 local CAMPAIGN_LAST = nil
 
-VRFW.on("match_start", function()
+VRFW.on("match:start", function()
   CAMPAIGN_LAST = nil
   local b = Block.read()
   if b and (b.rivals[1] or 0) ~= 0 and b.index == Block.RIVALS - 1 then
-    CAMPAIGN_LAST = { rival = U.u32(b.rivals[Block.RIVALS] or 0) }
+    CAMPAIGN_LAST = { rival = VRFW.ids.unsigned(b.rivals[Block.RIVALS] or 0) }
   end
   return nil
 end)
 
-VRFW.on("signal:vrfw.match_result", function()
+VRFW.on("script:signal:vrfw.match_result", function()
   local c = CAMPAIGN_LAST
   CAMPAIGN_LAST = nil
   if not c then
@@ -32,7 +35,7 @@ VRFW.on("signal:vrfw.match_result", function()
   local rival = Trophy.rival_team()
   if rival == 0 or rival ~= c.rival then
     VRFW.log(string.format("campaign: match with the block at its last match, rival %s, not the block's last rival %s: " ..
-      "not the Campaña's match", U.hex(rival), U.hex(c.rival)))
+      "not the Campaña's match", VRFW.ids.hex_text(rival), VRFW.ids.hex_text(c.rival)))
     return nil
   end
   Trophy.play("campaign", Trophy.last_result())
@@ -55,69 +58,15 @@ end
 
 local floor = math.floor
 
-local RATING_KEY = "data/common/gamedata/team/battlebaydeluxe_team_rating.cfg.bin"
-local RATING_VERSION = 1
-
 local CFG = {
-  progression = U.config("campaign.progression", true) ~= false,
   seed = tonumber(U.config("campaign.seed", 0)) or 0,
 }
 
 local info, warn, err = VRFW.logger("campaign")
 
-info(string.format("rivals from the whole enjoy table (progression %s, seed %s)", tostring(CFG.progression),
-  tostring(CFG.seed)))
+info(string.format("rivals from the whole enjoy table (seed %s)", tostring(CFG.seed)))
 if not VRFW.is_on("EvalCondition") then
   warn("unlock-condition evaluator not resolved: conditioned rows off the grid are never campaign rivals")
-end
-
-local RATINGS = nil
-
-local function ratings()
-  if RATINGS then
-    return RATINGS
-  end
-  RATINGS = {}
-  local okk, keys = pcall(VRFW.table.keys, RATING_KEY)
-  if not okk or type(keys) ~= "table" or #keys == 0 then
-    info("no rating table (" .. RATING_KEY .. " in no mod): rivals drawn without progression")
-    return RATINGS
-  end
-  local ok, res = pcall(function()
-    local head = VRFW.table.raw(RATING_KEY, "BATTLEBAYDELUXE_TEAM_RATING_HEADER")
-    if #head == 0 then
-      error("no BATTLEBAYDELUXE_TEAM_RATING_HEADER row", 0)
-    end
-    for _, h in ipairs(head) do
-      local ver = type(h[1]) == "number" and h[1] or 0
-      if ver < 1 or ver > RATING_VERSION then
-        error(string.format("file version %d (this mod reads 1..%d)", ver, RATING_VERSION), 0)
-      end
-    end
-    local out, n = {}, 0
-    for _, r in ipairs(VRFW.table.raw(RATING_KEY, "BATTLEBAYDELUXE_TEAM_RATING")) do
-      local team = type(r[1]) == "number" and U.u32(r[1]) or 0
-      local v = type(r[2]) == "number" and floor(r[2]) or 0
-      if team ~= 0 and v > 0 then
-        if out[team] == nil then
-          n = n + 1
-        end
-        out[team] = v
-      end
-    end
-    return { map = out, n = n }
-  end)
-  if ok then
-    RATINGS = res.map
-    info(res.n .. " team ratings from " .. RATING_KEY)
-  else
-    warn(RATING_KEY .. " unreadable (" .. tostring(res) .. "): rivals drawn without progression")
-  end
-  return RATINGS
-end
-
-function BattleBayDeluxe.Ratings()
-  return ratings()
 end
 
 local function candidates(rows, grid, player)
@@ -145,7 +94,7 @@ local function candidates(rows, grid, player)
   return out, locked
 end
 
-local function draw(cands, n, progression, rng)
+local function draw(cands, n, rng)
   local m = #cands
   if m == 0 or n == 0 then
     return {}
@@ -155,33 +104,9 @@ local function draw(cands, n, progression, rng)
     v[i] = c
   end
   rng:shuffle(v)
-  local known = {}
-  for _, c in ipairs(v) do
-    if c.rating then
-      known[#known + 1] = c.rating
-    end
-  end
   local out = {}
-  if progression and #known > 0 then
-    table.sort(known)
-    local med = known[floor(#known / 2) + 1]
-    VRFW.lists.stable_sort(v, function(c)
-      return c.rating or med
-    end)
-    if m >= n then
-      for k = 0, n - 1 do
-        local lo, hi = floor(k * m / n), floor((k + 1) * m / n)
-        out[#out + 1] = v[lo + rng:below(hi - lo) + 1].team
-      end
-    else
-      for k = 0, n - 1 do
-        out[#out + 1] = v[floor(k * m / n) + 1].team
-      end
-    end
-    return out
-  end
   for k = 0, n - 1 do
-    out[#out + 1] = v[k % m + 1].team
+    out[#out + 1] = v[k % m + 1]
   end
   return out
 end
@@ -190,7 +115,7 @@ local CAMPAIGNS = 0
 local PREP = nil
 
 local function slot_struct(menu, i)
-  return U.struct("GridSlot", G.slot_addr(menu, i))
+  return VRFW.memory.struct("GridSlot", G.slot_addr(menu, i))
 end
 
 local DRAFT_MODES = {}
@@ -219,10 +144,10 @@ end
 
 local function draft_gate(menu, btn, idx)
   local team = Draft.team()
-  if team == 0 or idx >= G.SLOTS or U.rd("u32", btn) ~= G.GRID_LAYER then
+  if team == 0 or idx >= G.SLOTS or VRFW.memory.read("u32", btn) ~= G.GRID_LAYER then
     return nil
   end
-  if U.get(U.struct("GridMenu", menu), "campaign") ~= 0 or U.get(slot_struct(menu, idx), "team") ~= team then
+  if U.get(VRFW.memory.struct("GridMenu", menu), "campaign") ~= 0 or U.get(slot_struct(menu, idx), "team") ~= team then
     return nil
   end
   local why = nil
@@ -248,13 +173,13 @@ local function draft_gate(menu, btn, idx)
 end
 
 local function active_gate(menu, btn, idx)
-  if idx >= G.SLOTS or U.rd("u32", btn) ~= G.GRID_LAYER then
+  if idx >= G.SLOTS or VRFW.memory.read("u32", btn) ~= G.GRID_LAYER then
     return nil
   end
   if not Active.is_tile(U.get(slot_struct(menu, idx), "team") or 0) then
     return nil
   end
-  local m = U.struct("GridMenu", menu)
+  local m = VRFW.memory.struct("GridMenu", menu)
   local campaign = (U.get(m, "campaign") or 0) ~= 0
   local player_one_decided = (U.get(m, "player_one_decided") or 0) ~= 0
   local why = Active.refusal(campaign, player_one_decided, network_session())
@@ -270,7 +195,7 @@ local function free_back(why)
   FREE = nil
   if f then
     local ok = pcall(function()
-      U.struct("GridMenu", f.menu).campaign = f.was
+      VRFW.memory.struct("GridMenu", f.menu).campaign = f.was
     end)
     if not ok then
       warn("free match: the grid's campaign flag NOT put back (" .. why .. ")")
@@ -292,14 +217,14 @@ function BattleBayDeluxe.DraftDecide(slot)
     warn("free match: the draft is not complete: nothing decided")
     return false
   end
-  local m = U.struct("GridMenu", menu)
+  local m = VRFW.memory.struct("GridMenu", menu)
   if not m or U.get(m, "campaign") ~= 0 or U.get(slot_struct(menu, f.slot), "team") ~= team then
     warn("free match: the grid changed (slot " .. f.slot .. " no longer the Draft tile): nothing decided")
     return false
   end
   local lb = VRFW.memory.buffer("bbd_layer_decide", 4)
   local okb = lb ~= nil
-  if not okb or not U.wr("u32", lb, G.GRID_LAYER) then
+  if not okb or not VRFW.memory.write("u32", lb, G.GRID_LAYER) then
     return false
   end
   local ok, e = U.call("GameDecide", menu, lb, f.slot)
@@ -324,17 +249,17 @@ local function restore_grid(p)
 end
 
 local function prepare(menu, btn)
-  if U.rd("u32", btn) ~= G.BTN_CAMPAIGN_START then
+  if VRFW.memory.read("u32", btn) ~= G.BTN_CAMPAIGN_START then
     return nil
   end
-  local m = U.struct("GridMenu", menu)
+  local m = VRFW.memory.struct("GridMenu", menu)
   local camp = U.get(m, "campaign")
   if not camp or camp == 0 then
     return nil
   end
   local lb = VRFW.memory.buffer("bbd_layer", 4)
   local okb = lb ~= nil
-  if not okb or not U.wr("u32", lb, G.GRID_LAYER) then
+  if not okb or not VRFW.memory.write("u32", lb, G.GRID_LAYER) then
     warn("layer buffer not writable: game campaign draw (visible page only)")
     return nil
   end
@@ -343,7 +268,7 @@ local function prepare(menu, btn)
     warn("grid layer not found: game campaign draw (visible page only)")
     return nil
   end
-  local cursor = U.get(U.struct("GridChild", child), "cursor")
+  local cursor = U.get(VRFW.memory.struct("GridChild", child), "cursor")
   if not cursor then
     warn("cursor slot not readable: game campaign draw (visible page only)")
     return nil
@@ -493,13 +418,8 @@ local function prepare(menu, btn)
     h, l = U.entropy(menu, n)
     l = bit32.bxor(l, player)
   end
-  local rt = ratings()
-  local cands = {}
-  for i, t in ipairs(pool) do
-    cands[i] = { team = t, rating = rt[t] }
-  end
   if Tourn.armed() then
-    local trun, why = Tourn.begin(pool, player, rt, h, l)
+    local trun, why = Tourn.begin(pool, player, h, l)
     if not trun then
       warn("tournament not started (" .. tostring(why) .. "): the start refused")
       Tourn.fail(why)
@@ -508,14 +428,14 @@ local function prepare(menu, btn)
     end
     return { tournament_pending = true, menu = menu }
   end
-  local rivals = draw(cands, G.RIVALS, CFG.progression, U.rng(h, l))
+  local rivals = draw(pool, G.RIVALS, U.rng(h, l))
   if #rivals ~= G.RIVALS then
     return nil
   end
   if #pool < G.RIVALS then
     warn("only " .. #pool .. " candidate(s): the 7 matches repeat rivals")
   end
-  local p = { menu = menu, grid = grid, rivals = rivals, player = player, seed = U.hex(h) .. ":" .. U.hex(l),
+  local p = { menu = menu, grid = grid, rivals = rivals, player = player, seed = VRFW.ids.hex_text(h) .. ":" .. VRFW.ids.hex_text(l),
     pool = #pool }
   local carrier = cursor == 0 and 1 or 0
   for i = 0, G.SLOTS - 1 do
@@ -535,7 +455,7 @@ local function prepare(menu, btn)
   end
   info(string.format("start, player %s (slot %d), pool %d teams from every page (%d enjoy rows; the visible page alone "
     .. "gives %d; %d version(s) of the player's team left out; %d locked; rows without condition %d (%d of the unlock "
-    .. "rule: CPU rivals), conditioned unlocked %d / locked %d), seed %s", U.hex(player), cursor, #pool, #rows,
+    .. "rule: CPU rivals), conditioned unlocked %d / locked %d), seed %s", VRFW.ids.hex_text(player), cursor, #pool, #rows,
     page_pool, variants, locked, free_rows, nrule, cond_open, cond_shut, p.seed))
   return p
 end
@@ -558,7 +478,7 @@ local function check_team(team)
   if not row then
     return nil, "enjoy row: none of the " .. #rows .. " enjoy_mode_team_config rows names it"
   end
-  local er = U.struct("EnjoyRow", row)
+  local er = VRFW.memory.struct("EnjoyRow", row)
   local leader = U.get(er, "leader") or 0
   local stadium = U.get(er, "stadium") or 0
   local bgm = U.get(er, "bgm") or 0
@@ -579,17 +499,17 @@ local function check_team(team)
     return nil, string.format("team_config record: %d players (slots 0-18) of %d rows, 11 needed", players, #members)
   end
   if leader == 0 or not member then
-    return nil, string.format("enjoy row %d: leader %s is not one of its %d member rows", idx, U.hex(leader), #members)
+    return nil, string.format("enjoy row %d: leader %s is not one of its %d member rows", idx, VRFW.ids.hex_text(leader), #members)
   end
   if stadium == 0 then
     return nil, string.format("enjoy row %d: no stadium (col 4)", idx)
   end
-  return string.format("row %d, %d members, leader %s member, stadium %s, bgm %s", idx, #members, U.hex(leader),
-    U.hex(stadium), U.hex(bgm))
+  return string.format("row %d, %d members, leader %s member, stadium %s, bgm %s", idx, #members, VRFW.ids.hex_text(leader),
+    VRFW.ids.hex_text(stadium), VRFW.ids.hex_text(bgm))
 end
 
 local function check_match(sess, player, rival)
-  local s = U.struct("Session", sess)
+  local s = VRFW.memory.struct("Session", sess)
   local game = U.get(s, "game") or 0
   local diff = U.get(s, "difficulty") or 0
   local idx = U.get(s, "match") or 0xFF
@@ -597,33 +517,33 @@ local function check_match(sess, player, rival)
   for _, e in ipairs({ { "player", player }, { "rival 1", rival } }) do
     local d, why = check_team(e[2])
     if d then
-      parts[#parts + 1] = e[1] .. " " .. U.hex(e[2]) .. " [" .. d .. "]"
+      parts[#parts + 1] = e[1] .. " " .. VRFW.ids.hex_text(e[2]) .. " [" .. d .. "]"
     else
-      err(string.format("match %d check FAILED: %s team %s: %s", idx + 1, e[1], U.hex(e[2]), tostring(why)))
+      err(string.format("match %d check FAILED: %s team %s: %s", idx + 1, e[1], VRFW.ids.hex_text(e[2]), tostring(why)))
       bad[#bad + 1] = e[1]
-      parts[#parts + 1] = e[1] .. " " .. U.hex(e[2]) .. " [FAILED]"
+      parts[#parts + 1] = e[1] .. " " .. VRFW.ids.hex_text(e[2]) .. " [FAILED]"
     end
   end
-  info(string.format("match %d request: game %s, difficulty %d, map = rival stadium; %s%s", idx + 1, U.hex(game), diff,
+  info(string.format("match %d request: game %s, difficulty %d, map = rival stadium; %s%s", idx + 1, VRFW.ids.hex_text(game), diff,
     table.concat(parts, " vs "), #bad == 0 and "" or " (" .. table.concat(bad, " + ") .. " failed: the load may never finish)"))
 end
 
 local function finish(p)
   restore_grid(p)
-  local sess = U.global("session")
+  local sess = VRFW.game.global("session")
   if not sess then
     warn("session block not readable: rivals 2-7 left as the game wrote them")
     return
   end
   local got = {}
   for k = 0, G.RIVALS - 1 do
-    local v = U.rd("u32", sess + G.S_RIVALS + 4 * k)
+    local v = VRFW.memory.read("u32", sess + G.S_RIVALS + 4 * k)
     if v == nil then
       return
     end
     got[k + 1] = v
   end
-  local player = U.get(U.struct("Session", sess), "player")
+  local player = U.get(VRFW.memory.struct("Session", sess), "player")
   if player == nil then
     return
   end
@@ -638,22 +558,21 @@ local function finish(p)
     for k, v in ipairs(got) do
       shown[k] = string.format("%08X", v)
     end
-    info(string.format("not started by this decide (block player %s, rivals [%s]): nothing written", U.hex(player),
+    info(string.format("not started by this decide (block player %s, rivals [%s]): nothing written", VRFW.ids.hex_text(player),
       table.concat(shown, ", ")))
     return
   end
   for k = 2, G.RIVALS do
-    U.wr("u32", sess + G.S_RIVALS + 4 * (k - 1), p.rivals[k])
+    VRFW.memory.write("u32", sess + G.S_RIVALS + 4 * (k - 1), p.rivals[k])
   end
   if p.player == Draft.team() then
     Draft.campaign_started()
-    VRFW.log(string.format("draft: match 1 requested (player %s vs %s): the campaign scene loads next", U.hex(p.player),
-      U.hex(p.rivals[1])))
+    VRFW.log(string.format("draft: match 1 requested (player %s vs %s): the campaign scene loads next", VRFW.ids.hex_text(p.player),
+      VRFW.ids.hex_text(p.rivals[1])))
   end
-  local rt = ratings()
   local desc = {}
   for k, t in ipairs(p.rivals) do
-    desc[k] = rt[t] and (U.hex(t) .. " (Nv." .. rt[t] .. ")") or U.hex(t)
+    desc[k] = VRFW.ids.hex_text(t)
   end
   info(string.format("rivals (seed %s, %d candidates): %s", p.seed, p.pool, table.concat(desc, ", ")))
   check_match(sess, p.player, p.rivals[1])
@@ -669,7 +588,7 @@ local function decide_pre(menu, btn, idx)
     return net
   end
   pcall(function()
-    if U.rd("u32", btn) == G.GRID_LAYER and (U.get(U.struct("GridMenu", menu), "campaign") or 0) ~= 0 then
+    if VRFW.memory.read("u32", btn) == G.GRID_LAYER and (U.get(VRFW.memory.struct("GridMenu", menu), "campaign") or 0) ~= 0 then
       CAMPAIGN_GRID = menu
     end
   end)
@@ -694,7 +613,7 @@ local function decide_pre(menu, btn, idx)
   elseif gate == "refuse" then
     return { skip = true, ret = 0 }
   elseif gate == "open" then
-    local m = U.struct("GridMenu", menu)
+    local m = VRFW.memory.struct("GridMenu", menu)
     local was = U.get(m, "campaign")
     if was ~= nil and pcall(function()
       m.campaign = 1
@@ -811,13 +730,13 @@ local function start_without_difficulty()
   end
   local menu = CAMPAIGN_GRID
   CAMPAIGN_GRID = nil
-  if not menu or (U.get(U.struct("GridMenu", menu), "campaign") or 0) == 0 then
+  if not menu or (U.get(VRFW.memory.struct("GridMenu", menu), "campaign") or 0) == 0 then
     warn("difficulty start: no Campaña grid decided: nothing started")
     return false
   end
   local lb = VRFW.memory.buffer("bbd_layer_start", 4)
   local okb = lb ~= nil
-  if not okb or not U.wr("u32", lb, G.BTN_CAMPAIGN_START) then
+  if not okb or not VRFW.memory.write("u32", lb, G.BTN_CAMPAIGN_START) then
     warn("difficulty start: layer buffer not writable: nothing started")
     return false
   end
@@ -847,7 +766,7 @@ function BattleBayDeluxe.StartWithoutDifficulty()
 end
 
 -- the slot document that keeps the template each picked Personal Teams tile plays ("team:template,...")
-local RUN_DOC = "BattleBayDeluxe.personal_run"
+local RUN_DOC = "campaign.personal_run"
 
 -- The document as team -> template.
 local function tile_templates(slot)
@@ -879,9 +798,16 @@ function BattleBayDeluxe.TileRun()
   local map, n = tile_templates(slot)
   local template = map[team]
   -- only the saved run's tile stays in the document: the other picks were single matches
-  if n > (template and 1 or 0) then
-    VRFW.save.doc.write_text(RUN_DOC, template and string.format("%.0f:%d", team, template) or "", slot)
-    info("personal run: " .. (n - (template and 1 or 0)) .. " tile template(s) no saved run plays dropped")
+  -- no saved run plays a tile: the document is set aside, an empty one would lose data
+  if template == nil and n > 0 then
+    local ok, why = VRFW.save.doc.set_aside(RUN_DOC, slot)
+    if not ok then
+      warn("personal run: tile templates no saved run plays not set aside (" .. tostring(why) .. ")")
+    end
+    info("personal run: " .. n .. " tile template(s) no saved run plays dropped")
+  elseif template ~= nil and n > 1 then
+    VRFW.save.doc.write_text(RUN_DOC, string.format("%.0f:%d", team, template), slot)
+    info("personal run: " .. (n - 1) .. " tile template(s) no saved run plays dropped")
   end
   if template == nil then
     return nil
@@ -891,12 +817,12 @@ end
 
 -- CMND_BATTLEBAYDELUXE_TILE_PLAYS (team, team set, template) -> true: the tile's matches play that team set
 function BattleBayDeluxe.TilePlays(team, set, template)
-  team, set, template = U.u32(tonumber(team) or 0) or 0, U.int(set, -1), U.int(template, 0)
+  team, set, template = VRFW.ids.unsigned(tonumber(team) or 0) or 0, U.int(set, -1), U.int(template, 0)
   if not Active.is_tile(team) or team == Active.team() or set < 0 or template < 1 then
     return false
   end
   if not pcall(VRFW.native.table_set, "BattleBayDeluxe.ActiveSet", team, set) then
-    warn("personal tile " .. U.hex(team) .. ": team set " .. set .. " not written to the hook's table")
+    warn("personal tile " .. VRFW.ids.hex_text(team) .. ": team set " .. set .. " not written to the hook's table")
     return false
   end
   local slot = VRFW.save.doc.slot()
@@ -908,9 +834,9 @@ function BattleBayDeluxe.TilePlays(team, set, template)
   table.sort(parts)
   local ok, why = VRFW.save.doc.write_text(RUN_DOC, table.concat(parts, ","), slot)
   if not ok then
-    warn("personal tile " .. U.hex(team) .. ": template " .. template .. " not kept for the run (" .. tostring(why) .. ")")
+    warn("personal tile " .. VRFW.ids.hex_text(team) .. ": template " .. template .. " not kept for the run (" .. tostring(why) .. ")")
   end
-  info(string.format("personal tile %s plays template %d in team set %d", U.hex(team), template, set))
+  info(string.format("personal tile %s plays template %d in team set %d", VRFW.ids.hex_text(team), template, set))
   return true
 end
 
@@ -922,18 +848,18 @@ function BattleBayDeluxe.CampaignSync()
     if rows and not G.enjoy_row(b.player) then
       if Block.clear() then
         info(string.format("top menu sync: the saved Campaña of team %s ended (no Battle Bay team has that id)",
-          U.hex(b.player)))
+          VRFW.ids.hex_text(b.player)))
         campaign = false
       else
-        warn("top menu sync: the saved Campaña of an unknown team " .. U.hex(b.player) .. " could not be ended")
+        warn("top menu sync: the saved Campaña of an unknown team " .. VRFW.ids.hex_text(b.player) .. " could not be ended")
       end
     end
     if campaign and Active.dock_ready(b.player) == false then
       if Block.clear() then
-        info("top menu sync: the saved Campaña of team " .. U.hex(b.player) .. " ended (its dock has no 11 starters now)")
+        info("top menu sync: the saved Campaña of team " .. VRFW.ids.hex_text(b.player) .. " ended (its dock has no 11 starters now)")
         campaign = false
       else
-        warn("top menu sync: the saved Campaña of the emptied dock team " .. U.hex(b.player) .. " could not be ended")
+        warn("top menu sync: the saved Campaña of the emptied dock team " .. VRFW.ids.hex_text(b.player) .. " could not be ended")
       end
     end
   end

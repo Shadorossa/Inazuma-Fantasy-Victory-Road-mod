@@ -1,3 +1,4 @@
+--- Advanced: Library: training match rules.
 
 local ME = VRFW.match.equipment
 local MatchRules = VRFW.match.rules
@@ -46,7 +47,7 @@ local function load()
   return RULES
 end
 
---- The training rule answer of `side` for match info `info`.
+--- Advanced: The training rule answer of `side` for match info `info`.
 function M.for_match_info(info, side)
   return MatchRules.answer(load(), info, side, TRAINING_FIELDS)
 end

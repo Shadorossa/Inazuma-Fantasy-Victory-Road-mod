@@ -1,3 +1,4 @@
+-- Advanced: menu_scene (VRFW, docs/framework/menu-scene.md "Scene actors"): a scene's people as scene characters.
 
 VRFW.menu_scene = VRFW.menu_scene or {}
 local MS = {
@@ -113,11 +114,14 @@ local ms = { phase = "off", frames = 0, asks = 0, key = nil, timeout = 600, hide
 
 local MS_Log = VRFW.logger.new("menu_scene, title_menu_2")
 
+--- Advanced: Tells whether the menu scene is up; answers true or false.
 function VRFW.menu_scene.is_up() return ms.phase == "up" end
+--- Advanced: Tells whether the menu scene is up on the home shot; answers true or false.
 function VRFW.menu_scene.is_home() return ms.phase == "up" and ms.home == true end
 
 VRFW.menu_scene = VRFW.menu_scene or {}
 local ms_listeners = { mode_focused = {}, home_changed = {} }
+--- Advanced: Registers listener fn under id for event (mode_focused or home_changed); answers true, or false for bad arguments.
 function VRFW.menu_scene.on(event, id, fn)
   local list = ms_listeners[event]
   if list == nil or type(id) ~= "string" or type(fn) ~= "function" then return false end
@@ -365,7 +369,7 @@ local function MS_ModeStep(dir)
   MS_ModeFocused(home == true and -1 or to)
 end
 
--- A scene-reload host restores the mode through the same home/focus state used by navigation.
+-- Advanced: A scene-reload host restores the mode through the same home/focus state used by navigation.
 function VRFW.menu_scene.focus_mode(index)
   if ms.phase ~= "up" then return false end
   index = tonumber(index)
@@ -714,6 +718,7 @@ local function MS_HotFrame()
   h.drawn = true
 end
 
+--- Advanced: Reads the hotspot state; answers shot, selected index, selected name, count ("", 0, "", 0 when none).
 function VRFW.menu_scene.hotspot()
   local h = ms.hot
   if not h or not h.shot or (h.n or 0) == 0 then return "", 0, "", 0 end
@@ -935,6 +940,7 @@ local function MS_HotEnter()
   return true, true
 end
 
+--- Internal: gate of the scene reveal for key; answers true unless another module overrides it.
 function VRFW.menu_scene.can_reveal(key) return true end
 
 local function MS_GoUp(key)

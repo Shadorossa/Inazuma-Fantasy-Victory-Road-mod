@@ -1,6 +1,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.protected_attribute/1"
 folder = "content/protected_attributes"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Character.ProtectedAttribute"
+v2_kind_folder = "Characters/ProtectedAttributes"
+v2_version = 1
 label = "Protected attributes"
 label_es = "Atributos protegidos"
 doc = "A bit of a saved player's attribute word that framework services never change."

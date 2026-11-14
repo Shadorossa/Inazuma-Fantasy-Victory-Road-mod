@@ -1,22 +1,21 @@
 id = "ChronicleDeluxe"
 name = "Chronicle Deluxe"
 icon = "#/menu/200_icon/16_icon_list_tab/icon_list_tab.g4tx:icon_list_tab_history01"
-version = "0.3.0"
+version = "0.3.1"
 author = "Fantasy Team"
 description = "More Chronicle mode: new matches on the IE1 board and three chains from the original IE1 and IE2 with their rivals, chests and ranks, plus a Chronicle battle and a Heroica battle up to Lv 200 for every team. Matches drop move manuals, boots, auras and the rival's kit, and the free match offers Lv 50, 99 and 200. Players Universe gives each character his own star, with daily advanced cards and new constellations on the map."
 priority = 0
+type = "content"
 tags = ["Teams", "Gameplay"]
 updated = "2026-11-09"
 prefix = "ChronicleDeluxe"
 folder = "ChronicleDeluxe"
 # Mostly data (content\, text\); a few hook scripts of the VRFW board scripts live in assets\lua\ and scripts\.
 requires = ["VRFW>=0.3.0"]
-optional = ["BetterMenu", "BetterQoL", "BetterUI", "CareerMode", "CharacterReforged", "ClassicCards", "ClassicRecruitment", "Equipment", "HissatsuReforged", "InaRogue", "InazumaFantasy", "PassivesSynergies"]
+optional = ["BetterMenu", "BetterQoL", "BetterUI", "CareerMode", "CharacterReforged", "ClassicCards", "ClassicRecruitment", "HissatsuReforged", "InaRogue", "InazumaFantasy"]
 # Native declarations of the free-match shuffle (content/game/free_match_shuffle.toml) need these.
 permissions = ["call", "memory", "command"]
 loader_modules = ["lua_bridge"]
-conflicts = []
 
 [exports]
-functions = []
 keys = ["kizuna_coin_gacha", "UniversePrize"]

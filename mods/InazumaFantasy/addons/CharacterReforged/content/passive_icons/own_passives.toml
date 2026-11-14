@@ -1,0 +1,41 @@
+schema = "CharacterReforged.passive_icon/1"
+
+# Jibanyan: Paws of Fury
+[[CharacterReforged.PassiveIcon]]
+passive = "c90620000_paws_of_fury"
+icon = "own_passives_icon_shoot_self_event"
+
+# Komasan: Shrine Guardian
+[[CharacterReforged.PassiveIcon]]
+passive = "c90640000_shrine_guardian"
+icon = "own_passives_icon_block_self_zone"
+
+# Komajiro: Lightning Brother
+[[CharacterReforged.PassiveIcon]]
+passive = "c90690000_lightning_brother"
+icon = "own_passives_icon_block_self_zone"
+
+# Yami Enma: Power of Darkness
+[[CharacterReforged.PassiveIcon]]
+passive = "c90650000_power_of_darkness"
+icon = "own_passives_icon_shoot_self_trailing"
+
+# Yasha Enma: Yasha's Wrath
+[[CharacterReforged.PassiveIcon]]
+passive = "c90660000_yasha_s_wrath"
+icon = "own_passives_icon_fire_self_clock"
+
+# Lord Enma: King of the Yo-kai
+[[CharacterReforged.PassiveIcon]]
+passive = "c90670000_king_of_the_yo_kai"
+icon = "own_passives_icon_kick_team_clock"
+
+# Enma Awoken: The King Awakens
+[[CharacterReforged.PassiveIcon]]
+passive = "c90680000_the_king_awakens"
+icon = "own_passives_icon_technique_self_event"
+
+# Tezcat Mixi Max Arion: Two Souls, One Wind
+[[CharacterReforged.PassiveIcon]]
+passive = "c90370081_two_souls_one_wind"
+icon = "own_passives_icon_shoot_self_zone"

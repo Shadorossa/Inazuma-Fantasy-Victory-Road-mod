@@ -191,7 +191,7 @@ VRFW.on("hook:PrematchSecondEntrance", function(ev)
   return { skip = true }
 end)
 
-VRFW.on("game_reset", function()
+VRFW.on("game:reset", function()
   VRFW.native.table_clear(COVER_TABLE)
   jump_on = false
 end)

@@ -142,7 +142,9 @@ if BetterQoL.album_hyper == nil and VRFW.host ~= nil and type(VRFW.host.on) == "
     LEARNSET = VRFW.commands.VRFW_CHARACTER_LEARNSET,   -- (charaStHdl) -> answered, {9 moves}, {9 levels}
     SKILL_INFO = VRFW.commands.GET_SOCCER_SKILL_INFO,   -- (move, 9) -> ok, category; (move, 13) -> ok, aura type
     CATEGORY_AURA = 8,
-    MIX_TYPES = {[2] = true, [6] = true},          -- aura types of the mix slot: Mix-Max, Switch Mode
+    HALF = VRFW.commands.VRFW_EXTRA_SLOT_HALF,      -- (move) -> 0 aura slot, 1 mix slot, -1 neither (the extra slot's [source])
+    AURA_HALF = 0,
+    MIX_HALF = 1,
     PLATE_CARD = 2716223290,
     sets = {},                                     -- "hdl:card" -> {aura, mix} / false, per opening of the plate
   }
@@ -167,10 +169,10 @@ if BetterQoL.album_hyper == nil and VRFW.host ~= nil and type(VRFW.host.on) == "
         local m = VRFW.ids.unsigned(moves[k])
         local known, category = VRFW.host.command(H.SKILL_INFO, m, 9)
         if m ~= 0 and known and category == H.CATEGORY_AURA then
-          local kt, kind = VRFW.host.command(H.SKILL_INFO, m, 13)
-          if kt and H.MIX_TYPES[kind] then
+          local half = VRFW.host.command(H.HALF, m)
+          if half == H.MIX_HALF then
             if set.mix == 0 then set.mix = m end
-          elseif set.aura == 0 then
+          elseif half == H.AURA_HALF and set.aura == 0 then
             set.aura = m
           end
         end

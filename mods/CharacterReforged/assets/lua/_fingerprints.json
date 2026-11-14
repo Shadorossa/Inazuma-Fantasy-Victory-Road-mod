@@ -291,6 +291,15 @@
   "forbid": [],
   "ambiguous": []
  },
+ "equip_six_sense_menu": {
+  "script": "equip_six_sense_menu",
+  "require": [
+   "UpdateItemEquipLine",
+   "PostStep"
+  ],
+  "forbid": [],
+  "ambiguous": []
+ },
  "event_menu": {
   "script": "event_menu_6.00.28.00",
   "require": [

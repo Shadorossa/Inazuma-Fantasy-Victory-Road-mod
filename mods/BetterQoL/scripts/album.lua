@@ -214,6 +214,39 @@ local function is_album_player(r)
   return int(r.kind) == PLAYER_KIND and (int(r.serial_no) or 0) > 0 and u32(r.name_text) ~= 0
 end
 
+-- chara_body.body_group -> the filter's build value (the game's own grouping, nie.exe 0x1123250)
+local BODY_BUILD = { [0] = 1, 1, 2, 6, 4, 5, 3, 5, 5, 3, 2, 6, 3, 3, 4, 5, 5, 5 }
+local GENDER_OTHER = 3
+
+-- sets e.filter = { position, element, gender, build } on every row from the served tables (mods' characters included)
+local function set_filter_fields(lists)
+  -- only the columns read below: whole rows of these four tables do not fit the script's memory together
+  local function by_id(table_id, columns)
+    local out = {}
+    local ok, rows = pcall(VRFW.table.rows, table_id, columns)
+    if ok and type(rows) == "table" then
+      for _, r in ipairs(rows) do out[u32(r.id)] = r end
+    else
+      warn("table not read for the filter: " .. table_id .. ": " .. tostring(rows))
+    end
+    return out
+  end
+  local params, chara_bases = by_id("character/chara_param", { "id", "main_position", "element" }),
+    by_id("character/chara_base", { "id", "model", "gender" })
+  local models, bodies = by_id("character/chara_model", { "id", "body" }), by_id("character/chara_body", { "id", "body_group" })
+  for _, list in ipairs(lists) do
+    for _, e in ipairs(list) do
+      local param, base = params[u32(e.param or 0)], chara_bases[u32(e.base or 0)]
+      local model = base and models[u32(base.model)] or nil
+      local body = model and bodies[u32(model.body)] or nil
+      local gender = base and int(base.gender) or 0
+      e.filter = { position = param and int(param.main_position) or 0, element = param and int(param.element) or 0,
+                   gender = (gender == 1 or gender == 2) and gender or GENDER_OTHER,
+                   build = body and BODY_BUILD[int(body.body_group) or -1] or 0 }
+    end
+  end
+end
+
 local function build()
   local params, base_of, excluded = {}, {}, {}
   local edecls = album_declarations()
@@ -421,6 +454,13 @@ local function build()
       g.list[#g.list + 1] = e
     end
   end
+  -- the crest that merges a team's pages and the emblem its page shows, kept with the roster
+  for _, g in ipairs(teams) do
+    local era = Catalogue.era_of_type(g.ty)
+    local row = g.team ~= 0 and Catalogue.team(g.team) or nil
+    g.crest = (row and era and u32(row.emblems[era] or 0)) or 0
+    g.emblem = g.team ~= 0 and Cat.team_emblem(cat, g.team, g.ty) or 0
+  end
   for _, category in ipairs(categories) do
     local list = {}
     for _, e in ipairs(entries) do
@@ -467,6 +507,8 @@ local function build()
     end
     return a.param < b.param
   end)
+  rows = nil
+  set_filter_fields({ entries, specials })
   roster = { entries = entries, by_base = by_base, of_param = of_param, series = series, teams = teams, cat = cat,
              specials = specials, special_of_param = special_of_param, special_players = special_players,
              hidden_signature = hidden_signature }
@@ -606,6 +648,67 @@ local function shown_chara_rows(lang, ids)
   return rows
 end
 
+-- The roster's texts in one language by roster position (no roster tables inside, so the derived store can keep them).
+local function language_texts(lang)
+  local ids = roster_text_ids()
+  local crows = shown_chara_rows(lang, ids.chara)
+  local D = { base = {}, name_text = {}, name = {}, key = {}, reading = {}, reading_order = {}, special_name = {}, sorted = {},
+              team_rows = text_rows(lang, T.TEAM, ids.other), series_rows = text_rows(lang, T.SERIES_TEXT, ids.other) }
+  local team_text_ids = {}
+  for _, text_id in pairs(roster.cat.team_names or {}) do
+    if u32(text_id) ~= 0 then team_text_ids[#team_text_ids + 1] = u32(text_id) end
+  end
+  local okt, shown = pcall(GameText.shown_team_names, team_text_ids, lang)
+  D.team_names = okt and type(shown) == "table" and shown or {}
+  for i, e in ipairs(roster.entries) do
+    D.base[i], D.name_text[i] = e.base, e.name_text
+    local n = text_of(crows, e.name_text) or ""
+    local key = fold(n)
+    D.name[i], D.key[i] = n, key
+    local raw = raw_text_of(crows, e.name_text)
+    -- A name without furigana is its own reading, so its folded key is reused.
+    D.reading[i] = raw and (raw == n and key or fold(T.furigana_reading(raw))) or key
+  end
+  for i, e in ipairs(roster.special_players) do
+    D.special_name[i] = text_of(crows, e.name_text) or ""
+  end
+  -- name, season, base as one plain string key: sorts without a Lua comparator
+  local sort_keys, of_sort_key = {}, {}
+  for i, e in ipairs(roster.entries) do
+    if D.name[i] ~= "" then
+      local tie_break = string.format("%03d%010d", e.si or 999, e.base)
+      local k = D.key[i] .. "\0" .. tie_break
+      D.reading_order[i] = D.reading[i] .. "\0" .. tie_break
+      sort_keys[#sort_keys + 1] = k
+      of_sort_key[k] = i
+    end
+  end
+  table.sort(sort_keys)
+  for i, k in ipairs(sort_keys) do
+    D.sorted[i] = of_sort_key[k]
+  end
+  return D
+end
+
+-- The roster's texts in one language kept between starts for these shown text tables and this roster.
+local function language_texts_kept(lang, tables)
+  local ok, D = pcall(VRFW.derived, "album_names_" .. lang, { lang, tables, roster.hidden_signature,
+    #roster.entries, #roster.special_players }, function() return language_texts(lang) end)
+  if ok and type(D) == "table" then return D end
+  warn("names of " .. lang .. " not read from the start cache (" .. tostring(D) .. ")")
+  return nil
+end
+
+-- True when kept texts `D` were built from this roster, position by position.
+local function language_texts_fit(D)
+  if type(D) ~= "table" or type(D.base) ~= "table" or #D.base ~= #roster.entries then return false end
+  if type(D.special_name) ~= "table" or #D.special_name ~= #roster.special_players then return false end
+  for i, e in ipairs(roster.entries) do
+    if D.base[i] ~= e.base or D.name_text[i] ~= e.name_text then return false end
+  end
+  return true
+end
+
 -- the roster's names in one language as the game shows them; rebuilt when the shown text tables change
 local function language_base(lang)
   local tables = T.shown_chara_key(lang) .. "|" .. (GameText.shown_key(lang, T.TEAM) or "")
@@ -613,41 +716,19 @@ local function language_base(lang)
   if B and B.tables == tables then
     return B
   end
-  local ids = roster_text_ids()
-  local crows = shown_chara_rows(lang, ids.chara)
-  B = { tables = tables, name = {}, key = {}, reading = {}, reading_order = {}, team_rows = text_rows(lang, T.TEAM, ids.other),
-        series_rows = text_rows(lang, T.SERIES_TEXT, ids.other) }
-  local team_text_ids = {}
-  for _, text_id in pairs(roster.cat.team_names or {}) do
-    if u32(text_id) ~= 0 then team_text_ids[#team_text_ids + 1] = u32(text_id) end
+  local D = language_texts_kept(lang, tables)
+  if not language_texts_fit(D) then D = language_texts(lang) end
+  B = { tables = tables, name = {}, key = {}, reading = {}, reading_order = {}, team_rows = D.team_rows,
+        series_rows = D.series_rows, team_names = D.team_names, sorted = {} }
+  for i, e in ipairs(roster.entries) do
+    B.name[e], B.key[e], B.reading[e] = D.name[i], D.key[i], D.reading[i]
+    B.reading_order[e] = D.reading_order[i]
   end
-  local okt, shown = pcall(GameText.shown_team_names, team_text_ids, lang)
-  B.team_names = okt and type(shown) == "table" and shown or {}
-  for _, e in ipairs(roster.entries) do
-    local n = text_of(crows, e.name_text) or ""
-    B.name[e] = n
-    B.key[e] = fold(n)
-    local raw = raw_text_of(crows, e.name_text)
-    B.reading[e] = raw and fold(T.furigana_reading(raw)) or B.key[e]
+  for i, e in ipairs(roster.special_players) do
+    B.name[e] = D.special_name[i]
   end
-  for _, e in ipairs(roster.special_players) do
-    B.name[e] = text_of(crows, e.name_text) or ""
-  end
-  -- name, season, base as one plain string key: sorts without a Lua comparator
-  local sort_keys, of_sort_key = {}, {}
-  for _, e in ipairs(roster.entries) do
-    if B.name[e] ~= "" then
-      local tie_break = string.format("%03d%010d", e.si or 999, e.base)
-      local k = B.key[e] .. "\0" .. tie_break
-      B.reading_order[e] = B.reading[e] .. "\0" .. tie_break
-      sort_keys[#sort_keys + 1] = k
-      of_sort_key[k] = e
-    end
-  end
-  table.sort(sort_keys)
-  B.sorted = {}
-  for i, k in ipairs(sort_keys) do
-    B.sorted[i] = of_sort_key[k]
+  for i, n in ipairs(D.sorted) do
+    B.sorted[i] = roster.entries[n]
   end
   bases[lang] = B
   return B
@@ -796,11 +877,7 @@ local function language(code, spec, other_label, special_label, other_teams_labe
         flush()
         raw_si = t.si
       end
-      local era = Catalogue.era_of_type(t.ty)
-      local row = t.team ~= 0 and Catalogue.team(t.team) or nil
-      raw[#raw + 1] = { label = team_name(B, t.team), list = list, si = t.si,
-                        crest = (row and era and u32(row.emblems[era] or 0)) or 0,
-                        emblem = t.team ~= 0 and Cat.team_emblem(roster.cat, t.team, t.ty) or 0 }
+      raw[#raw + 1] = { label = team_name(B, t.team), list = list, si = t.si, crest = t.crest, emblem = t.emblem }
     end
   end
   flush()
@@ -930,46 +1007,6 @@ end
 
 -- the filter window's data ------------------------------------------------------------------------------------------
 
--- chara_body.body_group -> the filter's build value (the game's own grouping, nie.exe 0x1123250)
-local BODY_BUILD = { [0] = 1, 1, 2, 6, 4, 5, 3, 5, 5, 3, 2, 6, 3, 3, 4, 5, 5, 5 }
-local GENDER_OTHER = 3
-
-local filter_attributes, filter_attributes_roster = nil, nil
-
--- [entry] = { position, element, gender, build }, read once per roster from the served tables (mods' characters included)
-local function attributes()
-  if filter_attributes ~= nil and filter_attributes_roster == roster then
-    return filter_attributes
-  end
-  -- only the columns read below: whole rows of these four tables do not fit the script's memory together
-  local function by_id(table_id, columns)
-    local out = {}
-    local ok, rows = pcall(VRFW.table.rows, table_id, columns)
-    if ok and type(rows) == "table" then
-      for _, r in ipairs(rows) do out[u32(r.id)] = r end
-    else
-      warn("table not read for the filter: " .. table_id .. ": " .. tostring(rows))
-    end
-    return out
-  end
-  local params, chara_bases = by_id("character/chara_param", { "id", "main_position", "element" }),
-    by_id("character/chara_base", { "id", "model", "gender" })
-  local models, bodies = by_id("character/chara_model", { "id", "body" }), by_id("character/chara_body", { "id", "body_group" })
-  local out = {}
-  local function add(e)
-    local param, base = params[u32(e.param or 0)], chara_bases[u32(e.base or 0)]
-    local model = base and models[u32(base.model)] or nil
-    local body = model and bodies[u32(model.body)] or nil
-    local gender = base and int(base.gender) or 0
-    out[e] = { position = param and int(param.main_position) or 0, element = param and int(param.element) or 0,
-               gender = (gender == 1 or gender == 2) and gender or GENDER_OTHER,
-               build = body and BODY_BUILD[int(body.body_group) or -1] or 0 }
-  end
-  for _, e in ipairs(roster.entries) do add(e) end
-  for _, e in ipairs(roster.specials) do add(e) end
-  filter_attributes, filter_attributes_roster = out, roster
-  return out
-end
 
 -- the language state's sagas: the "Game" groups, each with its row's teams in row order; [entry] = saga index
 local function filter_sagas(L)
@@ -1017,9 +1054,8 @@ local function parse_filter(spec)
   return any and filter or nil
 end
 
-local function passes_filter(e, filter, attrs, saga_of)
-  local a = attrs[e]
-  if a == nil then return false end
+local function passes_filter(e, filter, saga_of)
+  local a = e.filter
   for field, set in pairs(filter.fields) do
     if not set[a[field]] then return false end
   end
@@ -1033,7 +1069,6 @@ end
 
 -- the same groups with only the rows that pass; a group left empty is gone, the bar pages renumbered
 local function filtered_groups(L, filter)
-  local attrs = attributes()
   local _, saga_of = filter_sagas(L)
   local out = {}
   for kind, gl in ipairs(L.groups) do
@@ -1041,7 +1076,7 @@ local function filtered_groups(L, filter)
     for _, g in ipairs(gl) do
       local list = {}
       for _, e in ipairs(g.list) do
-        if passes_filter(e, filter, attrs, saga_of) then list[#list + 1] = e end
+        if passes_filter(e, filter, saga_of) then list[#list + 1] = e end
       end
       if #list > 0 then
         local page = g.page
@@ -1074,11 +1109,10 @@ function BetterQoL.Album.FilterCount(spec)
   local L = view
   if L == nil or roster == nil then return 0 end
   local filter = parse_filter(spec)
-  local attrs = attributes()
   local _, saga_of = filter_sagas(L)
   local shown = 0
   for _, e in ipairs(roster.entries) do
-    if L.name[e] ~= "" and (filter == nil or passes_filter(e, filter, attrs, saga_of)) then shown = shown + 1 end
+    if L.name[e] ~= "" and (filter == nil or passes_filter(e, filter, saga_of)) then shown = shown + 1 end
   end
   return shown
 end
@@ -1096,13 +1130,21 @@ end
 
 ensure_roster()
 
--- a save load (behind the loading screen) builds the game language's names, so the first opening only groups them
-VRFW.on("slot_load", function()
-  local ok, lang = pcall(VRFW.files.game_language)
-  if ok and type(lang) == "string" and lang ~= "" and roster ~= nil then
-    local okb, e = pcall(language_base, lang)
-    if not okb then
-      warn("names of " .. lang .. " not built at the save load (" .. tostring(e) .. ")")
-    end
+-- builds the names of the game language `lang` once (the start cache keeps them); `when` names the moment in a warning
+local function build_language_names(lang, when)
+  if type(lang) ~= "string" or lang == "" or roster == nil then return end
+  local ok, e = pcall(language_base, lang)
+  if not ok then
+    warn("names of " .. lang .. " not built at " .. when .. " (" .. tostring(e) .. ")")
   end
+end
+
+-- the script load (off the game thread) builds the names of the language the game already shows
+local ok_lang, load_lang = pcall(VRFW.files.game_language)
+if ok_lang then build_language_names(load_lang, "the script load") end
+
+-- a save load builds the game language's names when the script load saw another one, so the first opening only groups them
+VRFW.on("save:slot_load", function()
+  local ok, lang = pcall(VRFW.files.game_language)
+  if ok then build_language_names(lang, "the save load") end
 end)

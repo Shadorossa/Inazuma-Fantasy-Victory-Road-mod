@@ -117,8 +117,8 @@ function PL.mx_clear()
   funcLuaCommand(C.SE, SE_REMOVE)
 end
 
-PL.MX_CREATE = 2771212752              -- "Crear miximax" (Character Reforged's create item, never equipped)
-PL.MX_FUSION = 2450842569                     -- the fusion aura (the Hiper slot holds it)
+PL.MX_CREATE = @crc:wmm_character_reforged_create@  -- "Crear miximax" (Character Reforged's create item, never equipped)
+PL.MX_FUSION = @crc:wmm_evt@                         -- the fusion aura (the Hiper slot holds it)
 PL.MX_KEY_DEL = 99760714            -- pick block: Eliminar on a list entry
 PL.MX_KEY_PRIME = 2900901523          -- pick block: "Crear miximax" greyed (Prime base)
 PL.MX_KEY_BASE = 1847499704            -- pick block: the base player's handle

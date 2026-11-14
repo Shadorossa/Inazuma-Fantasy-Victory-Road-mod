@@ -10,9 +10,10 @@ if VRFW.skill_board_lock == nil then
     GREY = 0.5,                               -- the retail "not available" row factor
   }
   local Lock = { is_locked = false, text = 0 }
+  --- Advanced: Lock state of the skill board with its message text.
   VRFW.skill_board_lock = Lock
 
-  --- Reads the skill-board lock; answers locked, text.
+  --- Advanced: Reads the skill-board lock; answers locked, text.
   function Lock.read()
     local ok, locked, text, dock_only = pcall(funcLuaCommand, K.LOCK)
     locked = ok and locked == true
@@ -28,12 +29,12 @@ if VRFW.skill_board_lock == nil then
     return Lock.is_locked, Lock.text
   end
 
-  --- The last read lock: locked, text.
+  --- Internal: The last read lock: locked, text.
   function Lock.locked()
     return Lock.is_locked, Lock.text
   end
 
-  --- Plays the refused sound.
+  --- Internal: Plays the refused sound.
   function Lock.refuse()
     pcall(funcLuaCommand, K.SOUND, K.SE_NO)
   end
@@ -51,7 +52,7 @@ if VRFW.skill_board_lock == nil then
     end
   end
 
-  --- Guards a list's actions while the skill board is locked.
+  --- Advanced: Guards a list's actions while the skill board is locked.
   function Lock.guard_list(spec)
     spec = type(spec) == "table" and spec or {}
     local mine = {}

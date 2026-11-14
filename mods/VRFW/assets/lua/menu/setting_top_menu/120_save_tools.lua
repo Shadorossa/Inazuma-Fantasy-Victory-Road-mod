@@ -1,18 +1,28 @@
--- VRFW > save adjust (docs/framework/save-adjust.md).
+-- Internal: VRFW > save adjust (docs/framework/save-adjust.md) adds the save adjust row to Options and takes the menu input (through
 -- CMND_CHANGE_MENU_INPUT_CTRL / MENU_ACTIVE). No engine call at load time. Log: «VRFW save_adjust …» lines (CMND_VRFW_LOG).
 
 VRFW.save_tools = VRFW.save_tools or {}
 local S = VRFW.save_tools
 
+--- Internal: row type index used for the save tools row in the options list.
 S.ROW_TYPE = 40                       -- t2[40]: an index no other entry uses (retail 0-4, mods 5-8)
+--- Internal: row type index of the licenses entry.
 S.LICENSES_TYPE = 3                   -- t2[3] "Licencias"
+--- Internal: hash of the small list item layer.
 S.SMALL_LIST = 530619243              -- mainmenu90_12_list_item_small
+--- Internal: prefix of each listed line.
 S.LINE_PREFIX = "· "
+--- Internal: spacing text between list columns.
 S.COLUMN_GAP = "      "
+--- Internal: number of lines of the confirmation window.
 S.WINDOW_LINES = 7
+--- Internal: number of list lines of the confirmation window.
 S.LIST_LINES = S.WINDOW_LINES - 2     -- the confirmation's header and footer lines take the rest
+--- Internal: param key hash of the confirmation window.
 S.WINDOW_PARAM = 401310444
+--- Internal: frames to wait for the auto-save job, at most.
 S.SAVE_WAIT_FRAMES = 600              -- the auto-save's job: 10 s at most
+--- Internal: command hashes of the save tools (count, get, text and so on).
 S.C = {
   COUNT = VRFW.commands.VRFW_SAVE_TOOLS_COUNT,                 -- CMND_VRFW_SAVE_TOOLS_COUNT () -> n
   GET = VRFW.commands.VRFW_SAVE_TOOLS_GET,
@@ -28,8 +38,11 @@ S.C = {
   SAVE_WORKING = 1979970074,          -- a save / load job is running
   SE = VRFW.commands.SND_PLAY_SE,
 }
+--- Internal: hash of the confirm sound effect.
 S.SE_DECIDE = 3848881948              -- sy0000
+--- Internal: hash of the error sound effect.
 S.SE_ERROR = 2086672038               -- sy0003
+--- Internal: text ids of the save tools rows and messages.
 S.T = {
   ROW = 3361226603,                   -- vrfw_save_tools_row "Ajustar save"
   ROW_HELP = 1921294418,              -- vrfw_save_tools_row_help
@@ -46,6 +59,7 @@ S.T = {
   RESERVED = 1277745355,              -- vrfw_save_tools_reserved
   BUSY = 79131335,                    -- vrfw_save_tools_busy
 }
+--- Internal: fallback English text per text id.
 S.FALLBACK = {
   [S.T.CONFIRM_ALL] = "This will be applied to your current save:",
   [S.T.CONFIRM] = "%s\nA backup is made first, then you return to the title. Apply?",
@@ -60,11 +74,13 @@ S.FALLBACK = {
   [S.T.RESERVED] = "This save belongs to a mod's mode and cannot be adjusted here.",
   [S.T.BUSY] = "The save cannot be adjusted right now. Try again in a few seconds.",
 }
--- CMND_VRFW_SAVE_TOOLS_REQUEST's refusals -> the message
+-- Internal: CMND_VRFW_SAVE_TOOLS_REQUEST's refusals -> the message
 S.REFUSAL_TEXT = {locked = S.T.LOCKED, reserved = S.T.RESERVED, unavailable = S.T.UNAVAILABLE}
 
+--- Internal: logger of the save tools.
 S.log = VRFW.logger.new("VRFW save_adjust")
 
+--- Internal: text of a text id, or its fallback; answers a string.
 function S.text(id)
   local s = VRFW.host.command(S.C.TEXT_GET, id)
   if type(s) == "string" and s ~= "" then
@@ -73,6 +89,7 @@ function S.text(id)
   return S.FALLBACK[id] or ""
 end
 
+--- Internal: reads the save adjustment actions from the host; answers a list.
 function S.actions()
   local n = VRFW.host.command(S.C.COUNT)
   local out = {}
@@ -85,7 +102,7 @@ function S.actions()
   return out
 end
 
--- one result line per action that changed something (its own result text, %d = its count)
+-- Internal: one result line per action that changed something (its own result text, %d = its count)
 function S.summary_lines(items)
   local lines = {}
   for i = 1, (type(items) == "number" and items or 0) do
@@ -100,6 +117,7 @@ function S.summary_lines(items)
   return lines
 end
 
+--- Internal: builds the confirmation question text for a list of actions.
 function S.question(actions)
   local labels = {}
   for _, a in ipairs(actions) do
@@ -122,14 +140,14 @@ function S.question(actions)
   return ok and text or table.concat(lines, "\n")
 end
 
--- the general window's left-aligned look off (only while the question is up)
+-- Internal: the general window's left-aligned look off (only while the question is up)
 function S.window_look_off()
   if VRFW.param.has(S.WINDOW_PARAM) then
     VRFW.param.clear(S.WINDOW_PARAM)
   end
 end
 
--- every available action, after one confirmation
+-- Internal: every available action, after one confirmation
 function S.run(actions)
   VRFW.param.set(S.WINDOW_PARAM, 1)
   local asked, yes = pcall(VRFW.question.ask, S.question(actions))
@@ -196,6 +214,7 @@ function S.run(actions)
   end
 end
 
+--- Internal: runs one save adjustment session over the available actions.
 function S.session()
   local available = {}
   for _, a in ipairs(S.actions()) do
@@ -262,6 +281,70 @@ if VRFW.host ~= nil then
         return S.session()
       end
       return nxt(a1, a2, ...)
+    end,
+  })
+
+  -- Internal: Diagnostics: row list, list layer setup / open once per open, retail errors, and when Step gives the input.
+  S.DIAG_LAYERS = {
+    [716364754] = "middle list", [530619243] = "small list", [3214232292] = "PC list locator",
+    [168421631] = "console list locator", [1630405233] = "background",
+  }
+  S.diag_seen, S.diag_input = {}, false
+
+  local function diag_locals()
+    local host = VRFW.host.hosts.setting_top_menu
+    return host and host.L or {}
+  end
+
+  local function diag_rows(t)
+    local out = {}
+    for i, v in ipairs(type(t) == "table" and t or {}) do
+      out[i] = tostring(v)
+    end
+    return table.concat(out, " ")
+  end
+
+  local function diag_hook(point)
+    return function(nxt, a1, a2, ...)
+      local name = S.DIAG_LAYERS[a1]
+      if name == nil then
+        return nxt(a1, a2, ...)
+      end
+      local r = table.pack(pcall(nxt, a1, a2, ...))
+      if not r[1] then
+        S.log("diag:", point, name, "item", a2, "retail error:", tostring(r[2]))
+        error(r[2], 0)
+      end
+      local key = point .. ":" .. tostring(a1) .. ":" .. tostring(a2)
+      if not S.diag_seen[key] then
+        S.diag_seen[key] = true
+        local L = diag_locals()
+        S.log("diag:", point, name, "item", a2, "n", L.n, "n2", L.n2, "flag", L.flag, "answer", tostring(r[2]))
+      end
+      return table.unpack(r, 2, r.n)
+    end
+  end
+
+  VRFW.host.on("setting_top_menu", "OnInit", {
+    id = "VRFW.save_adjust.diag_init",
+    phase = "after",
+    fn = function()
+      S.diag_seen, S.diag_input = {}, false
+      local L = diag_locals()
+      S.log("diag: OnInit done, PC list", L.flag4, "rows", diag_rows(L.t))
+    end,
+  })
+  for _, point in ipairs({"OnSetupLayer", "OnOpenLayer", "OnOpenEndLayer"}) do
+    VRFW.host.on("setting_top_menu", point, {id = "VRFW.save_adjust.diag_" .. point, fn = diag_hook(point)})
+  end
+  VRFW.host.on("setting_top_menu", "Step", {
+    id = "VRFW.save_adjust.diag_step",
+    phase = "after",
+    fn = function()
+      if not S.diag_input and diag_locals().flag3 == true then
+        S.diag_input = true
+        S.log("diag: the retail Step gave Options its input")
+      end
     end,
   })
 end

@@ -2,6 +2,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.skill_board_lock/1"
 folder = "content/skill_board_lock"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.SkillBoardLock"
+v2_kind_folder = "SkillBoardLock"
+v2_version = 1
 label = "Skill board lock"
 label_es = "Bloqueo del tablero de habilidades"
 doc = "While a game state is on, the skill board screens are view only."

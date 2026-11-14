@@ -19,8 +19,7 @@
 # docs/game/mods/chronicle-deluxe.md §8.9 (the orb bars and panels).
 # Which difficulties exist is the mod's data (content\defaults\match_difficulty.toml, the framework's
 # VRFW.match_difficulty); levels, rewards and the heroic player rules are team-type data
-# (content\teams\90_rules\heroic.toml). With Inazuma Fantasy's Chronicle redesign active (the same rules, its graft
-# chronicle_redesign) these hooks step aside: one owner of the clear flow, never two story triggers for one win.
+# (content\teams\90_rules\heroic.toml).
 name = "chronicle_deluxe_board"
 mod = "ChronicleDeluxe"
 order = 155

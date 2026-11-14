@@ -1,6 +1,10 @@
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.equip_list/1"
 folder = "content/equip_lists"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Menu.EquipList"
+v2_kind_folder = "Menus/EquipLists"
+v2_version = 1
 label = "Equipment list rows"
 label_es = "Filas de las listas de equipamiento"
 doc = "An equipment list keeps the items of a kind although the player fails their equip test, and shows them disabled."

@@ -2,10 +2,11 @@ id = "CharacterReforged"
 # name / description: English fallback of the text keys mod_name / mod_description (text\keys.toml)
 name = "Character Reforged"
 icon = "#/menu/200_icon/16_icon_list_tab/icon_list_tab.g4tx:icon_list_tab_datafile05"
-version = "0.3.0"
+version = "0.3.1"
 author = "Fantasy Team"
-description = "The base of the character mods. Every character gets his own stats and moveset, the level cap rises to 200, and the skill board becomes an expanded table with 6 special moves, an aura slot and a mix slot. It also adds a paged player page with a 3D model and stat gauges, stat training with free points, a miximax between any two players and every keshin with its armour, and options for item transformations, keshin and totems on points instead of time and a stamina bar for every player."
+description = "The base of the character mods. Every character gets his own stats and moveset, the level cap rises to 200, and the skill board becomes an expanded table with 6 special moves, an aura slot and a mix slot. It also adds a paged player page with a 3D model and stat gauges, stat training with free points, a miximax between any two players and every keshin with its armour, and options for item transformations, keshin and totems on points instead of time and a stamina bar for every player. Each player also has an own passive, team synergies ask for a team or a group, and every equipment item has the same total power, with position and element affinity, 71 sets and 167 classic items from GO, Chrono Stone and Galaxy."
 priority = 0
+type = "gameplay"
 tags = ["Gameplay", "Characters"]
 updated = "2026-11-09"
 prefix = "CharacterReforged"
@@ -13,24 +14,26 @@ folder = "CharacterReforged"
 # BetterQoL owns the .vrmod share files the player sets are exported to and imported from.
 requires = ["VRFW>=0.3.0", "BetterQoL>=0.3.0"]
 # the battery-out kneel clip of the stamina points (MissingContent.aura_end_kneel)
-optional = ["FootballReforged", "InazumaFantasy", "MissingContent"]
+# HissatsuReforged: the technique families of the passive blocks and equipment; IECross: its characters' own passives
+optional = ["FootballReforged", "HissatsuReforged", "IECross", "InazumaFantasy", "MissingContent"]
 conflicts = []
 permissions = ["memory", "call", "command", "hook", "patch", "state"]
 loader_modules = ["lua_bridge"]
 loader_min = "1.7.0"
 lua_early = true
 # File map and extension points: docs/game/mods/character-reforged.md
+# Generators: _tools/own_passives_from_doc.py, _tools/own_passive_icons.py (own passives), _tools/equipment_classic.py then _tools/equipment.py (equipment)
 
 [exports]
-functions = ["PairRules", "PartnerInTeamTexts", "PairCheck", "PairValidity", "Card", "BoardItems", "BoardSlotOf", "BoardPlace", "CanPlace", "AddPlaceRule", "RemovePlaceRule", "SkillSetRules", "MixGet", "MixSet", "SlotOf", "StatsReady", "HasStats", "StatCard", "StatAt", "Libertad", "DerivedLuck", "CharaStat", "LevelCap", "StatCurve", "LevelFactor", "StatTotalMax", "Moveset", "DuplicatePolicy", "EraKitOf", "MixAddsStats", "PartnerLockSet", "BoardRoleState", "BoardRoleSetWithoutMatches", "BoardRoleCodes", "SetRoleMedalThresholds", "TrainingLuckDelta", "MixFusions", "MixStoreBlob", "ChangeOn", "ChangeItems", "ChangeAdd", "ChangeList", "ChangeItem", "ChangeEquip", "ChangeDelete", "ChangeGet", "ChangeReservation", "ChangePartnerOk", "ChangeCandidateRows", "ChangeReservedBy", "ChangeIsBase", "ChangePairs", "ChangeCarrier"]
+functions = ["PairRules", "PartnerInTeamTexts", "PairCheck", "PairValidity", "Card", "BoardItems", "BoardSlotOf", "BoardPlace", "CanPlace", "AddPlaceRule", "RemovePlaceRule", "SkillSetRules", "MixGet", "MixSet", "SlotOf", "StatsReady", "HasStats", "StatCard", "StatAt", "Libertad", "DerivedLuck", "CharaStat", "LevelCap", "StatCurve", "LevelFactor", "StatTotalMax", "Moveset", "MovesetMixes", "DuplicatePolicy", "EraKitOf", "MixAddsStats", "PartnerLockSet", "PartnerPairOf", "PartnerHeld", "BoardRoleState", "BoardRoleSetWithoutMatches", "BoardRoleCodes", "SetRoleMedalThresholds", "TrainingLuckDelta", "MixFusions", "MixStoreBlob", "ChangeOn", "ChangeItems", "ChangeAdd", "ChangeList", "ChangeItem", "ChangeEquip", "ChangeDelete", "ChangeGet", "ChangeReservation", "ChangePartnerOk", "ChangeCandidateRows", "ChangeReservedBy", "ChangeIsBase", "ChangePairs", "ChangeCarrier", "OwnPassiveOfCard"]
 # [CharacterReforged.<key>] tables other mods declare in their content (schemas in docs/game/mods/character-reforged.md)
 keys = ["PairRules", "Create", "DuplicateRules", "SkillBoard", "EraKit", "PartnerLock", "PlaceRule", "Totem", "Skill"]
-tables = ["CharacterReforged.SoulsPlayer", "CharacterReforged.StatRow", "CharacterReforged.EraKit", "Passive.RarityTier", "CharacterReforged.PointsAura", "CharacterReforged.PointsPlayer", "CharacterReforged.PointsPair", "CharacterReforged.PointsTeam", "CharacterReforged.PointsStaminaAura", "CharacterReforged.PointsStaminaPlayer", "CharacterReforged.PointsStaminaTeam", "Resource.OffPitch"]
-game_lua = ["CharacterReforged.one_card_per_player", "CharacterReforged.raised_copy_rarity", "CharacterReforged.header", "CharacterReforged.skill_table", "CharacterReforged.page", "CharacterReforged.parts", "CharacterReforged.training_mode", "CharacterReforged.training_skill_table_button", "CharacterReforged_PointsHud", "CharacterReforged_PointsStamina"]
+tables = ["CharacterReforged.SoulsPlayer", "CharacterReforged.StatRow", "CharacterReforged.EraKit", "Passive.RarityTier", "CharacterReforged.PointsAura", "CharacterReforged.PointsPlayer", "CharacterReforged.PointsPair", "CharacterReforged.PointsTeam", "CharacterReforged.PointsStaminaAura", "CharacterReforged.PointsStaminaPlayer", "CharacterReforged.PointsStaminaTeam", "Resource.OffPitch", "CharacterReforged.StatAdd", "ItemFilter.Rejected"]
+game_lua = ["CharacterReforged.one_card_per_player", "CharacterReforged.copy_rarity", "CharacterReforged.holds_copy", "CharacterReforged.header", "CharacterReforged.skill_table", "CharacterReforged.page", "CharacterReforged.parts", "CharacterReforged.training_mode", "CharacterReforged.training_skill_table_button", "CharacterReforged_PointsHud", "CharacterReforged_PointsStamina", "CharacterReforged.HeroStyle", "CharacterReforged.hero_style_window", "CharacterReforged.hero_style_button", "CharacterReforged_HeroStyleClose", "CharacterReforged_HeroStyleFocus"]
 
 [content.languages]
 telops = ["es", "en", "fr", "de", "it", "pt", "zh_hans", "zh_hant"]
 
 # content folders read only by its scripts
 [layout]
-script_folders = ["pairing", "skill_set", "movesets", "stat_transfer", "passive_blocks", "special_passives"]
+script_folders = ["pairing", "skill_set", "movesets", "stat_transfer", "passive_blocks", "special_passives", "passive_config"]

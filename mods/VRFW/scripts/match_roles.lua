@@ -132,5 +132,5 @@ local function assign_all(why)
   info(string.format("%s: roles given: team 0 %d, team 1 %d", why, n0, n1))
 end
 
-VRFW.on("signal:VRFW.match_roles.assign", function() assign_all("players on the pitch") end)
+VRFW.on("script:signal:VRFW.match_roles.assign", function() assign_all("players on the pitch") end)
 VRFW.on("match:substitution:post", function() assign_all("substitution") end)

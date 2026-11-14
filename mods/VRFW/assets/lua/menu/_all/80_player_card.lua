@@ -1,3 +1,4 @@
+-- Advanced: Layers that mods add so that their cards count as formation cards.
 if VRFW.player_card == nil then
   local P = {
     FILL = 2339877830,
@@ -65,6 +66,7 @@ if VRFW.player_card == nil then
     filled = {},                -- "layer:idx" -> the key of the fill shown (card and rules)
     told = {},                  -- the failures already logged
   }
+  --- Advanced: Namespace of the player card helpers: which layers count as formation cards and card lookups.
   VRFW.player_card = P
 
   -- Layers that mods add so that their cards count as formation cards.
@@ -132,12 +134,12 @@ if VRFW.player_card == nil then
     end
   end
 
-  --- Answers whether `layer` holds formation cards: a card layer of the game or one in `VRFW.formation_card_extra`.
+  --- Advanced: Answers whether `layer` holds formation cards: a card layer of the game or one in `VRFW.formation_card_extra`.
   function P.is_formation_card_layer(layer)
     return P.CARD_LAYERS[layer] == true or VRFW.formation_card_extra[layer] == true
   end
 
-  --- Draws a player card; answers true, or false for no card.
+  --- Advanced: Draws a player card; answers true, or false for no card.
   function P.draw(layer, idx, card, x, y, size, opts)
     opts = opts or {}
     local k = layer .. ":" .. idx
@@ -178,7 +180,7 @@ if VRFW.player_card == nil then
     return true
   end
 
-  --- Sets the card name of (layer, idx); answers true, or false.
+  --- Internal: Sets the card name of (layer, idx); answers true, or false.
   function P.name(layer, idx)
     if type(layer) ~= "number" or type(idx) ~= "number" then
       return false
@@ -186,7 +188,7 @@ if VRFW.player_card == nil then
     return name_card(layer, idx, layer .. ":" .. idx)
   end
 
-  --- Forgets the card state of (layer, idx), or of `layer`.
+  --- Advanced: Forgets the card state of (layer, idx), or of `layer`.
   function P.forget(layer, idx)
     if idx ~= nil then
       P.filled[layer .. ":" .. idx] = nil

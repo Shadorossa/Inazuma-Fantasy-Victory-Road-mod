@@ -7,13 +7,15 @@ local G = {}
 G.GRID_LAYER = 0x065471F6
 G.BTN_CAMPAIGN_START = 0x140980D9
 G.SLOTS = 28
-G.SLOT_STRIDE = 0x38
+G.SLOT_STRIDE = VRFW.game.field("GridSlot")
 G.RIVALS = 7
-G.S_RIVALS = 0x2CA6F0
+G.S_RIVALS = VRFW.game.field("Session.Rival1")
 
 -- Match.StartRequest request fields (+0x88 = match info +0x20, the stadium)
 G.REQUEST_EXPLICIT, G.REQUEST_PLAYER, G.REQUEST_RIVAL = 0xA0, 0xA4, 0xA8
 G.REQUEST_STADIUM = 0x88
+-- The size of one enjoy-mode team row.
+G.ENJOY_ROW_SIZE = VRFW.game.field("EnjoyRow")
 
 local slot_base
 function G.slot_base()
@@ -35,11 +37,11 @@ function G.slot_addr(menu, i)
 end
 
 function G.enjoy_rows()
-  local tblp = U.global("enjoy")
+  local tblp = VRFW.game.global("enjoy")
   if not tblp then
     return nil, "enjoy table not readable"
   end
-  local tbl = U.struct("EnjoyTable", tblp)
+  local tbl = VRFW.memory.struct("EnjoyTable", tblp)
   local rows, n = U.get(tbl, "rows"), U.get(tbl, "count")
   if not rows or rows < 0x10000 then
     return nil, "enjoy rows not readable"
@@ -49,8 +51,8 @@ function G.enjoy_rows()
   end
   local out = {}
   for i = 0, n - 1 do
-    local a = rows + i * 0x40
-    local r = U.struct("EnjoyRow", a)
+    local a = rows + i * G.ENJOY_ROW_SIZE
+    local r = VRFW.memory.struct("EnjoyRow", a)
     local team, cond = U.get(r, "team"), U.get(r, "cond")
     if team == nil or cond == nil then
       return nil, "enjoy row " .. i .. " not readable"

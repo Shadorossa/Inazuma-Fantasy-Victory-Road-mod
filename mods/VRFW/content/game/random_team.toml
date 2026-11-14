@@ -65,6 +65,12 @@ name = "CMND_VRFW_TEAM_LEVEL"
 handler = "TeamLineup.Level"
 needs = ["Team.FindConfig", "RandomTeamRecord", "RandomTeamMember"]
 
+# (team id, 0 = every team) -> true, rows: the level offsets CMND_VRFW_TEAM_LEVEL wrote back to the data's
+[[VRFW.Command]]
+name = "CMND_VRFW_TEAM_LEVEL_RESTORE"
+handler = "TeamLineup.LevelRestore"
+needs = ["RandomTeamMember"]
+
 [[VRFW.Command]]
 name = "CMND_VRFW_TEAM_ROSTER"
 handler = "TeamLineup.Roster"

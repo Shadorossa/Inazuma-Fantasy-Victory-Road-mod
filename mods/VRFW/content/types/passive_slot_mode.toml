@@ -1,7 +1,11 @@
-# Schema of the passive slot modes: a game state in which every player keeps only his signature passive.
+# Schema of the passive slot modes: a game state in which every player keeps only his own passive.
 schema = "VRFW.decl_schema/1"
 kind = "VRFW.passive_slots/1"
 folder = "content/passive_slots"
+# v2 words, read beside the v1 ones until the switch: the type, its kind folder and its format version.
+v2_type = "VRFW.Passive.Slot"
+v2_kind_folder = "Passives/Slots"
+v2_version = 1
 label = "Passive slot modes"
 label_es = "Modos de ranuras de pasivas"
 doc = "While a game state is on, the plates show no passives in the five slots (only the signature one, or none)."

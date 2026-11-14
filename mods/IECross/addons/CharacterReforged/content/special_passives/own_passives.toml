@@ -1,0 +1,101 @@
+schema = "VRFW.passive/1"
+
+# Axel Blaze (Cross): Crossed Flame — his shot power +4 % per Fire-element teammate on the pitch (max 3)
+[[VRFW.Passive]]
+name = "c90000170_crossed_flame"
+blocks = ["iecross_count_fire_team_max3", "iecross_techniquepower_self_shoot_4", "iecross_card_c90000170"]
+caps = ["CharacterReforged.own_total"]
+
+[[VRFW.Character]]
+character = "IECross.axel_blaze_cross"
+passive = "c90000170_crossed_flame"
+
+# David Samford (Pumpkin Devil): Trick or Treat — each duel he wins: rival team tension -2 (max 3 per half)
+[[VRFW.Passive]]
+name = "c90000180_trick_or_treat"
+blocks = ["iecross_when_duel_won_by_self", "iecross_stack_max3_per_half", "iecross_tension_minus2_carrier_opponent", "iecross_card_c90000180"]
+caps = ["CharacterReforged.own_total"]
+
+[[VRFW.Character]]
+character = "IECross.david_samford_halloween"
+passive = "c90000180_trick_or_treat"
+
+# Nathan Swift (Pumpkin Devil): Midnight Shadow — in the last third of each half: his move speed +6 %
+[[VRFW.Passive]]
+name = "c90000190_midnight_shadow"
+blocks = ["iecross_clock_last_third", "iecross_movespeed_self_6", "iecross_card_c90000190"]
+caps = ["CharacterReforged.own_total"]
+
+[[VRFW.Character]]
+character = "IECross.nathan_swift_halloween"
+passive = "c90000190_midnight_shadow"
+
+# Celia Hills: Live Report — each block a teammate wins: his team's tension +2 (max 3 per half)
+[[VRFW.Passive]]
+name = "c90000071_live_report"
+blocks = ["iecross_when_block_won_by_teammate", "iecross_stack_max3_per_half", "iecross_tension_2_carrier", "iecross_card_c90000071"]
+caps = ["CharacterReforged.own_total"]
+
+[[VRFW.Character]]
+character = "IECross.celia_hills_2"
+passive = "c90000071_live_report"
+
+# Axel Blaze (Royal Academy): Inferno Penguin — Penguin technique power +6 % for every Royal Academy player of his team
+[[VRFW.Passive]]
+name = "c90000130_inferno_penguin"
+blocks = ["iecross_family_penguin", "iecross_techniquepower_team_6_royal_academy", "iecross_card_c90000130"]
+caps = ["CharacterReforged.own_total"]
+
+[[VRFW.Character]]
+character = "IECross.axel_blaze_3"
+passive = "c90000130_inferno_penguin"
+
+# Byron Love (Zeus): Heaven's Time — in the 2nd half: the rival team's move speed -3 %
+[[VRFW.Passive]]
+name = "c90000120_heavens_time"
+blocks = ["iecross_half_2", "iecross_movespeed_opponents_minus3", "iecross_card_c90000120"]
+caps = ["CharacterReforged.own_total"]
+
+[[VRFW.Character]]
+character = "IECross.byron_love"
+passive = "c90000120_heavens_time"
+
+# Gazelle: Fire Blizzard — his shot power +6 % while a Prominence teammate is on the pitch
+[[VRFW.Passive]]
+name = "c91022030_fire_blizzard"
+blocks = ["iecross_present_alius_prominence_team", "iecross_techniquepower_self_shoot_6", "iecross_card_c91022030"]
+caps = ["CharacterReforged.own_total"]
+
+[[VRFW.Character]]
+character = "IECross.gazelle"
+passive = "c91022030_fire_blizzard"
+
+# Torch: Frozen Flame — his tension cost -6 % while a Diamond Dust teammate is on the pitch
+[[VRFW.Passive]]
+name = "c91022031_frozen_flame"
+blocks = ["iecross_present_alius_diamond_dust_team", "iecross_tensioncost_self_minus6", "iecross_card_c91022031"]
+caps = ["CharacterReforged.own_total"]
+
+[[VRFW.Character]]
+character = "IECross.torch"
+passive = "c91022031_frozen_flame"
+
+# Shawn Froste (Pirates' Cove): Attacking Aurora — in the opponent's half: his dribble power +6 %
+[[VRFW.Passive]]
+name = "c90000050_attacking_aurora"
+blocks = ["iecross_zone_opponent_half", "iecross_techniquepower_self_dribble_6", "iecross_card_c90000050"]
+caps = ["CharacterReforged.own_total"]
+
+[[VRFW.Character]]
+character = "IECross.shawn_froste"
+passive = "c90000050_attacking_aurora"
+
+# Xavier Foster (Pirates' Cove): The Dawn — in the first third of each half: the whole team's tension earned +3 %
+[[VRFW.Passive]]
+name = "c90000040_the_dawn"
+blocks = ["iecross_clock_first_third", "iecross_tensiongain_team_3", "iecross_card_c90000040"]
+caps = ["CharacterReforged.own_total"]
+
+[[VRFW.Character]]
+character = "IECross.xavier_foster"
+passive = "c90000040_the_dawn"

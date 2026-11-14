@@ -1,4 +1,4 @@
--- VRFW gacha service, game Lua side (every menu VM; script side scripts\gacha.lua; docs/framework/gacha.md).
+-- Internal: VRFW gacha service, game Lua side (every menu VM; script side scripts\gacha.lua; docs/framework/gacha.md).
 if VRFW.gacha == nil then
   local G = {
     C = {
@@ -35,16 +35,17 @@ if VRFW.gacha == nil then
     RESULT_FRAME_NORMAL = 0,         -- cpr_pack_rarity_type_<i>: the normal frame and effect
     pools = {},                      -- pool index -> its answer (cached)
   }
+  --- Internal: Namespace: the gacha menu helpers of the menu VM.
   VRFW.gacha = G
 
-  --- Logs through the gacha tag.
+  --- Internal: Logs through the gacha tag.
   function G.log(...)
     if PRINT ~= nil then
       pcall(PRINT, "VRFW.gacha", ...)
     end
   end
 
-  --- Pool i as a table (cached); nil when there is none.
+  --- Internal: Pool i as a table (cached); nil when there is none.
   function G.pool(i)
     if G.pools[i] == nil then
       local key, cost_item, cost_count, level, n, free = VRFW.host.command(G.C.POOL, i)
@@ -63,7 +64,7 @@ if VRFW.gacha == nil then
     return G.pools[i]
   end
 
-  --- Board piece index -> pool index (0 = none): the piece's save slot -> its route node (route_nodes' VRFW.route_nodes.load).
+  --- Internal: Board piece index -> pool index (0 = none): the piece's save slot -> its route node (route_nodes' VRFW.route_nodes.load).
   function G.of_piece_index(idx)
     if idx == nil or idx < 0 or (VRFW.route_nodes == nil or VRFW.route_nodes.load == nil) then
       return 0
@@ -85,12 +86,12 @@ if VRFW.gacha == nil then
     return G.pieces[sfi] or 0
   end
 
-  --- True when board piece idx opens a gacha pool.
+  --- Internal: True when board piece idx opens a gacha pool.
   function G.is_piece(idx)
     return G.of_piece_index(idx) > 0
   end
 
-  --- The pool of a save slot (the command menu knows the piece's slot: VRFW.route_board_commands.L.n2), 0 = none.
+  --- Internal: The pool of a save slot (the command menu knows the piece's slot: VRFW.route_board_commands.L.n2), 0 = none.
   function G.of_slot(slot)
     if G.pieces == nil then
       G.of_piece_index(-1)
@@ -107,7 +108,7 @@ if VRFW.gacha == nil then
     return (G.pieces or {})[slot] or 0
   end
 
-  --- The free gacha: the pool's cost item topped up to its free stock (the bag's room permitting; at least one draw's cost).
+  --- Internal: The free gacha: the pool's cost item topped up to its free stock (the bag's room permitting; at least one draw's cost).
   function G.refill(pool)
     if pool == nil or (pool.free or 0) <= 0 or pool.cost_item == 0 or VRFW.recruit == nil then
       return
@@ -122,7 +123,7 @@ if VRFW.gacha == nil then
     G.log("free gacha: pool", pool.key, "cost item", have, "->", VRFW.recruit.items(pool.cost_item))
   end
 
-  --- The node menu of a piece's slot; nil when there is no pool.
+  --- Internal: The node menu of a piece's slot; nil when there is no pool.
   function G.node_menu(slot)
     local p = G.of_slot(slot)
     local pool = p > 0 and G.pool(p) or nil
@@ -161,7 +162,7 @@ if VRFW.gacha == nil then
     return type(s) == "string" and s or ""
   end
 
-  --- The game's OK window with a text (a text id or a string); waits until it is closed.
+  --- Internal: The game's OK window with a text (a text id or a string); waits until it is closed.
   function G.window(id)
     VRFW.host.command(G.C.WIN_TEXT, type(id) == "string" and id or text(id), 0, 0, 0, 0, 0, false)
     VRFW.host.command(G.C.WIN_BUTTONS, 1, 0)
@@ -171,7 +172,7 @@ if VRFW.gacha == nil then
     end
   end
 
-  --- The candidate cards of `pool`.
+  --- Internal: The candidate cards of `pool`.
   function G.candidates(pool)
     local got = table.pack(VRFW.host.command(G.C.CANDIDATES, pool.index))
     local out = {}
@@ -184,7 +185,7 @@ if VRFW.gacha == nil then
     return out
   end
 
-  --- "You obtained <name>!" in the game's OK window.
+  --- Internal: "You obtained <name>!" in the game's OK window.
   function G.obtained(card)
     local name = VRFW.host.command(G.CHARA_NAME, VRFW.host.command(G.CHARA_OF_CARD, card) or 0)
     local s = text(G.TEXT_OBTAINED)
@@ -192,7 +193,7 @@ if VRFW.gacha == nil then
     G.window(ok and msg or s)
   end
 
-  --- Up to k cards of `list` at random, no two of one character: a walk of the list, at most one lookup per card.
+  --- Internal: Up to k cards of `list` at random, no two of one character: a walk of the list, at most one lookup per card.
   function G.pick_some(list, k)
     local rest, out, seen = {table.unpack(list)}, {}, {}
     for i = 1, #rest do
@@ -212,7 +213,7 @@ if VRFW.gacha == nil then
     return out
   end
 
-  --- Shows the card screen for `cards`; answers true when it opened.
+  --- Internal: Shows the card screen for `cards`; answers true when it opened.
   function G.result_screen(cards)
     local rarities = {}
     for i, card in ipairs(cards) do
@@ -244,7 +245,7 @@ if VRFW.gacha == nil then
     return opened
   end
 
-  --- Who a draw obtained: the card screen, or one OK window per player if that screen did not open.
+  --- Internal: Who a draw obtained: the card screen, or one OK window per player if that screen did not open.
   function G.show_obtained(cards)
     if G.result_screen(cards) then
       return
@@ -254,7 +255,7 @@ if VRFW.gacha == nil then
     end
   end
 
-  --- Signs the picks of a draw; answers the signed list, or nil, why.
+  --- Internal: Signs the picks of a draw; answers the signed list, or nil, why.
   function G.sign_picks(pool, picks, draws)
     local each = pool.cost_count > 0 and {item = pool.cost_item, count = pool.cost_count} or nil
     local signed, why = VRFW.recruit.recruit_list({params = picks, level = pool.level, price_each = each})
@@ -272,7 +273,7 @@ if VRFW.gacha == nil then
     return signed
   end
 
-  --- Runs `draws` draws of a pool; answers the signed card(s), or nil, why.
+  --- Internal: Runs `draws` draws of a pool; answers the signed card(s), or nil, why.
   function G.run(pool, draws)
     draws = draws or 1
     G.refill(pool)

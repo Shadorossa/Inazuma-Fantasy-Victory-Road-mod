@@ -1,9 +1,10 @@
 -- lua_patch.scope: used
 if VRFW.bank_commands == nil then
   local B = { skill_tables = {}, registered = {} }
+  --- Advanced: Namespace: registers the bank command answers (skill tables) of mods; fields skill_tables, registered.
   VRFW.bank_commands = B
 
-  --- Sets the skill-table answer of `owner`, replacing its previous one.
+  --- Advanced: Sets the skill-table answer of `owner`, replacing its previous one.
   function B.set_skill_table(owner, spec)
     for _, e in ipairs(B.skill_tables) do
       if e.owner == owner then
@@ -22,7 +23,7 @@ if VRFW.bank_commands == nil then
     return type(spec) == "table" and spec or nil
   end
 
-  --- The first skill table an owner answers; nil when there is none.
+  --- Advanced: The first skill table an owner answers; nil when there is none.
   function B.skill_table()
     for _, e in ipairs(B.skill_tables) do
       local s = answer(e.spec)
@@ -33,12 +34,12 @@ if VRFW.bank_commands == nil then
     return nil
   end
 
-  --- Registers a bank rule under `name`.
+  --- Advanced: Registers a bank rule under `name`.
   function B.add_rule(name, rule)
     B.registered[name] = rule
   end
 
-  --- A copy of the registered bank rules, by name.
+  --- Advanced: A copy of the registered bank rules, by name.
   function B.rules()
     local all = {}
     for name, rule in pairs(B.registered) do
